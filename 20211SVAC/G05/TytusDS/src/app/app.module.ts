@@ -1,27 +1,20 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MenuComponent } from './components/menu/menu.component';
-import { ConfigComponent } from './components/config/config.component';
-import { EstructurasService } from './services/estructuras.service';
-import { FormsModule } from '@angular/forms';
+import { OpcionesComponent } from './Componentes/opciones/opciones.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MenuComponent,
-    ConfigComponent
+    OpcionesComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    FormsModule
+    AppRoutingModule
   ],
-  providers: [
-    EstructurasService
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
