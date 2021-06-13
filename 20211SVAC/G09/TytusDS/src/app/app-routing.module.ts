@@ -1,7 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
+import { EstructurasLinealesComponent} from './componentes/estructuraslineales/estructuras-lineales.component';
+const routes: Routes = [
+  {
+    path: "EstructurasLineales",
+    component: EstructurasLinealesComponent
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
