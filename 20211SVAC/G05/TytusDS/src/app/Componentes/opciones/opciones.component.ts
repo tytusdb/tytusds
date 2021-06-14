@@ -19,5 +19,6 @@ export class OpcionesComponent implements OnInit {
     let Opciones=document.getElementById("OpPrin");
     Opciones!.setAttribute("class","oscure");
   }
+  
 
 }
