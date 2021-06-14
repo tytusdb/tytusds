@@ -3,23 +3,16 @@ import { RouterModule, Routes } from '@angular/router';
 
 //Importando los componentes a usar
 import { EstructurasLinealesComponent} from './componentes/estructuraslineales/estructuras-lineales.component';
-<<<<<<< HEAD
 import { ListaSimpleComponent} from "./componentes/lista-simple/lista-simple.component";
-=======
-import {InicioComponent} from './componentes/inicio/inicio.component';
-import { OrdenamientosComponent } from './componentes/ordenamientos/ordenamientos.component';
-import { ArbolesComponent } from './componentes/arboles/arboles.component';
->>>>>>> 2264190e758e61d750ad1ad1448f55d7dcc0473c
 const routes: Routes = [
   {
     path: "EstructurasLineales",
     component: EstructurasLinealesComponent
   },
   {
-<<<<<<< HEAD
     path: "ListaSimple",
-    component: ListaSimpleComponent
-=======
+    component: ListaSimpleComponent,
+  }
     path: "Inicio",
     component: InicioComponent
   },
@@ -30,7 +23,6 @@ const routes: Routes = [
   {
     path: "Arboles",
     component: ArbolesComponent
->>>>>>> 2264190e758e61d750ad1ad1448f55d7dcc0473c
   }
 
 ];

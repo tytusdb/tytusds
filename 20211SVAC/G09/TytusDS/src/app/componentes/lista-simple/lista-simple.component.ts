@@ -17,7 +17,7 @@ export class ListaSimpleComponent implements OnInit {
   ngOnInit(): void {
   }
   onClick1(){
-    //print()
+    print()
     //Lista.print()
     //Lista.add("574");
     //document.write("Imprime");
