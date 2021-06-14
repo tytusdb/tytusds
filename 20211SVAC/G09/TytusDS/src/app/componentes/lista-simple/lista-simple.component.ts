@@ -17,11 +17,14 @@ export class ListaSimpleComponent implements OnInit {
   ngOnInit(): void {
   }
   onClick1(){
+    //print()
+    //Lista.print()
+    //Lista.add("574");
+    //document.write("Imprime");
     f1();
-    add("5");
-    add("si");
-    add("no");
-    document.write(print());
+    
+    //document.write(Lista.print());
+    
   }
 
 }

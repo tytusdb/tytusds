@@ -29,6 +29,9 @@ class Lista {
     }
 
     print() {
+        //this.add("3")
+        //this.add("4")
+        console.log("Entro al print")
         var valores = []
         let aux = this.primero;
         while (aux != null) {
@@ -36,13 +39,13 @@ class Lista {
             console.log("Dato:", aux.dato);
             aux = aux.siguiente;
         }
-
+        console.log("Paso por el while")
         return valores;
     }
 
 }
 function f1(){
-    document.write("Algo por favor funciona we");
+    console.log("Algo por favor funciona we");
 }
 
 module.exports = Lista;
