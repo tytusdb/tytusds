@@ -7,8 +7,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ObjToArrayPipe } from './objToArray.pipe';
 
-import { EstructurasLinealesComponent } from './componentes/estructuraslineales/estructuras-lineales.component';
 import { InicioComponent } from './componentes/inicio/inicio.component';
+import { EstructurasLinealesComponent } from './componentes/estructuraslineales/estructuras-lineales.component';
 import { OrdenamientosComponent } from './componentes/ordenamientos/ordenamientos.component';
 import { ArbolesComponent } from './componentes/arboles/arboles.component';
 
@@ -17,8 +17,8 @@ import { ArbolesComponent } from './componentes/arboles/arboles.component';
     AppComponent,
     //InicioComponent,
     ObjToArrayPipe,
-    EstructurasLinealesComponent,
     InicioComponent,
+    EstructurasLinealesComponent,
     OrdenamientosComponent,
     ArbolesComponent
   ],
