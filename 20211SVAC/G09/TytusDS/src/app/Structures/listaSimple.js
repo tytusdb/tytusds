@@ -29,8 +29,6 @@ class Lista {
     }
 
     print() {
-        //this.add("3")
-        //this.add("4")
         console.log("Entro al print")
         var valores = []
         let aux = this.primero;

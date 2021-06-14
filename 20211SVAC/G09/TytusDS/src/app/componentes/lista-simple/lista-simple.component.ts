@@ -5,6 +5,7 @@ declare var Lista:any;
 declare var f1:any;
 declare var add:any;
 declare var print:any;
+const arbolB = require('../../Structures/')
 @Component({
   selector: 'app-lista-simple',
   templateUrl: './lista-simple.component.html',
@@ -17,14 +18,9 @@ export class ListaSimpleComponent implements OnInit {
   ngOnInit(): void {
   }
   onClick1(){
-    print()
-    //Lista.print()
-    //Lista.add("574");
-    //document.write("Imprime");
+
+    print();
     f1();
-    
-    //document.write(Lista.print());
-    
   }
 
 }
