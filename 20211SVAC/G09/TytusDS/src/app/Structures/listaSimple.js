@@ -46,7 +46,10 @@ class Lista {
 }
 function f1(){
     console.log("Algo por favor funciona we");
+    console.log("Prueba no.2");
+
 }
 
 module.exports = Lista;
+module.exports = Nodo;
 
