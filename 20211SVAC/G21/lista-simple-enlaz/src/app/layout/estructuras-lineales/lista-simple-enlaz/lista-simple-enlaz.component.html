@@ -1,0 +1,65 @@
+<!--<p>lista-simple-enlaz works!</p>
+<h1>abc</h1>
+<li *ngFor="let peli of listaStr">
+    <p>Titulo: {{peli}}</p>
+</li> -->
+<div [@routerTransition]>
+    <h4>Lista simplemente enlazada</h4>
+    <div class="row">
+        <div class="col-xl-4 text-xs-center">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <input class="form-control" placeholder="Ingresar valor" [(ngModel)]="valorNodoInsertar" />
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 text-xs-center">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <button class="btn btn-secondary" type="button" (click)="clickAgregarNodo()">Agregar</button>
+                    <button class="btn btn-secondary" type="button" (click)="clickBorrarNodo()">Borrar</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 text-xs-center">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <label>Operar al: </label>
+                    <mat-radio-group aria-label="Select an option" class="example-radio-group"
+                    [(ngModel)]="opcionOperar">
+                        <mat-radio-button value="Inicio">Inicio</mat-radio-button>
+                        <mat-radio-button value="Final">Final</mat-radio-button>
+                    </mat-radio-group>
+                    <div>Seleccion: {{opcionOperar}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-6 text-xs-center">
+            <fieldset class="form-group">
+                <label>JSON a cargar</label>
+                <textarea class="form-control" rows="3"></textarea>
+                <button class="btn btn-secondary" type="submit">Cargar a lista dinamica</button>
+            </fieldset>
+        </div>
+        <div class="col-xl-6 text-xs-center">
+            <fieldset class="form-group">
+                <label>JSON salida</label>
+                <textarea class="form-control" rows="3">{{listaEnlJSon}}</textarea>
+                <button class="btn btn-secondary" type="submit">Guardar</button>
+            </fieldset>
+        </div>
+    </div>   
+    <div class="row">
+        <div class="col-xl-12 text-xs-center">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <!--<textarea class="form-control" rows="3"></textarea>-->
+                    <canvas #canvas width="1000" height="500"></canvas>
+                    <button (click)="play()">Play</button>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
