@@ -1,8 +1,8 @@
 export class NodoDoble{
-    valor = null;
-    siguiente = null;
-    anterior = null;
-    constructor(valor: number) {
+    valor: any;
+    siguiente: any;
+    anterior: any;
+    constructor(valor: any) {
         this.valor = valor;
         this.siguiente = null;
         this.anterior = null;
