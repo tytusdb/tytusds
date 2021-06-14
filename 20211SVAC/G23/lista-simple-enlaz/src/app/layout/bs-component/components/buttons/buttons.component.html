@@ -1,0 +1,51 @@
+<div class="row mb-3">
+    <div class="col col-sm-6">
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-secondary active">
+              <input type="radio" name="options" id="option1" autocomplete="off" checked> Active
+            </label>
+            <label class="btn btn-secondary">
+              <input type="radio" name="options" id="option2" autocomplete="off"> Radio
+            </label>
+            <label class="btn btn-secondary">
+              <input type="radio" name="options" id="option3" autocomplete="off"> Radio
+            </label>
+        </div>
+    </div>
+    <div class="col col-sm-6">
+        <div class="card">
+            <div class="card-header">Radio Button group (<strong>Ractive Forms</strong>)</div>
+            <div class="card-body">
+                <form [formGroup]="radioGroupForm" class="mb-3">
+                    <div class="btn-group btn-group-toggle" formControlName="model" name="radioBasic" ngbRadioGroup>
+                        <label class="btn-primary" ngbButtonLabel>
+                            <input [value]="1" ngbButton type="radio" /> Left (pre-checked)
+                        </label>
+                        <label class="btn-primary" ngbButtonLabel>
+                            <input ngbButton type="radio" value="middle" /> Middle
+                        </label>
+                        <label class="btn-primary" ngbButtonLabel>
+                            <input [value]="false" ngbButton type="radio" /> Right
+                        </label>
+                    </div>
+                </form>
+                <div class="alert alert-info mb-0">
+                    <strong>Selected Value: </strong>{{ radioGroupForm.value.model }}
+                </div>
+                <!-- <form [formGroup]="radioGroupForm">
+                    <div ngbRadioGroup name="radioBasic" formControlName="model">
+                        <label class="btn btn-primary">
+                            <input type="radio" [value]="1"> Left (pre-checked)
+                        </label>
+                        <label class="btn btn-primary">
+                            <input type="radio" value="middle"> Middle
+                        </label>
+                        <label class="btn btn-primary">
+                            <input type="radio" [value]="false"> Right
+                        </label>
+                    </div>
+                </form> -->
+            </div>
+        </div>
+    </div>
+</div>
