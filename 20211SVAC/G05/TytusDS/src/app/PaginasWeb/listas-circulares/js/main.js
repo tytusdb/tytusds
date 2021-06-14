@@ -9,3 +9,5 @@ l.appendI(4);
 l.repeat=true;
 l.appendI(4);
 l.imprimir();
+l.Lnodos();
+l.Ledges();
