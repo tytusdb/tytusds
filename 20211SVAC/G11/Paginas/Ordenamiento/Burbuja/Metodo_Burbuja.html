@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista_Simplemente_enlazada</title>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <!--
+    <p>Metodo de Burbuja</p>
+    <p>Ingrese un dato</p>
+    <input type="text" id="valor">
+    <button class="btn-Ingresar" id="Ingresar">Ingresar</button>
+    <button class="btn-Ordenar">Ordenar</button>
+    <button class="btn-limpiar">Limpiar</button>
+    -->
+    <script type="text/javascript"  language="JavaScript" src="/Paginas/Ordenamiento/Burbuja/burbuja.js" ></script>
+
+    <div class = "container">
+        <div class = "row mt-3">
+            <div class = "col-8">
+                <h2>Metodo Ordenamiento Burbuja</h2>
+                <!--Caja de texto-->
+                <div class= "input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Ingrese Numeros" aria-label="Ingresar Numeros" aria-describedby= "button-addon2" id="numeros"> 
+                
+                    <!--button Agregar-->
+                    <div class = "input-group-append">
+                        <button class = "btn btn-outline-secondary mx-2" type="button" id="btnAgregar">Agregar</button>
+                    </div>
+
+                    <!--button Ordenar-->
+                    <div class = "input-group-append">
+                        <button class = "btn btn-outline-secondary mx-2" type="button" id="btnOrdenar">Ordenar</button>
+                    </div>
+
+                    <!--button Limpiar-->
+                    <div class = "input-group-append">
+                        <button class = "btn btn-outline-secondary mx-2" type="button" id="btnLimpiar">Limpiar</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-6">
+                <ul class="list-group" id="listaAgregar">
+                    <!--<li class="list-group-item">1</li>-->
+                </ul>
+            </div>
+            
+            <div class="col-6">
+                <ul class="list-group" id="listaOrdenar">
+                    <li class="list-group-item">8</li>
+                    <li class="list-group-item">2</li>
+                    <li class="list-group-item">5</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
