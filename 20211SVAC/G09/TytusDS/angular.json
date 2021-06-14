@@ -33,7 +33,7 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": ["src/app/Structures/listaSimple.js"]
           },
           "configurations": {
             "production": {
@@ -96,7 +96,7 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": ["src/app/Structures/listaSimple.js"]
           }
         },
         "lint": {

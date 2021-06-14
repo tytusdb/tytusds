@@ -15,7 +15,7 @@ export class EstructurasLinealesComponent implements OnInit {
   }
 
   Ir() {
-    //this.Router.navigate(["<ListaSimple>"]);    //alert('hola!'); 
+    //this.router.navigate(["<ListaSimple>"]);    //alert('hola!'); 
   }
 
 }

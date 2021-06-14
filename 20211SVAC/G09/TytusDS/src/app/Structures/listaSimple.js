@@ -41,7 +41,9 @@ class Lista {
     }
 
 }
-
+function f1(){
+    document.write("Algo por favor funciona we");
+}
 
 module.exports = Lista;
 
