@@ -83,10 +83,9 @@
 			}
 			
 			document.getElementById('dBtn').onclick = function(){
-				var r = cy.elements('node[id>'+ String(ls.size - 2) +']');
-				console.log(r);
+				var r = cy.filter('#'+ String(ls.size - 1));
 				ls.del(ls.size-1);
-				console.log(ls.size);
+				cy.remove(r);
 				var options={name:'grid',animate:'end',animationDuration: 1000};
 				cy.layout(options).run();
 			}
