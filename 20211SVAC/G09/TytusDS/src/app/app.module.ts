@@ -11,6 +11,7 @@ import { EstructurasLinealesComponent } from './componentes/estructuraslineales/
 import { InicioComponent } from './componentes/inicio/inicio.component';
 import { OrdenamientosComponent } from './componentes/ordenamientos/ordenamientos.component';
 import { ArbolesComponent } from './componentes/arboles/arboles.component';
+import { ListaSimpleComponent } from './componentes/lista-simple/lista-simple.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ArbolesComponent } from './componentes/arboles/arboles.component';
     EstructurasLinealesComponent,
     InicioComponent,
     OrdenamientosComponent,
-    ArbolesComponent
+    ArbolesComponent,
+    ListaSimpleComponent
   ],
   imports: [
     BrowserModule,
