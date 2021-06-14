@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GraficasService } from "../../services/graficas/graficas.service";
+//import { GraficasService } from "../../services/graficas/graficas.service";
 import { HttpClient } from "@angular/common/http";
 @Component({
   selector: 'app-estructuras-lineales',
@@ -8,7 +8,7 @@ import { HttpClient } from "@angular/common/http";
 })
 export class EstructurasLinealesComponent implements OnInit {
 
-  constructor(private graficaService: GraficasService) { }
+  constructor() { }
 
   ngOnInit(): void {
   }

@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from "@angular/core";
-import { Tienda } from "./models/tienda/tienda";
+//import { Tienda } from "./models/tienda/tienda";
 
 
 @Pipe({
