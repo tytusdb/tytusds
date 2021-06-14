@@ -11,11 +11,5 @@ export class EstructurasLinealesComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    alert('como te va!');
   }
-
-  Ir() {
-    //this.router.navigate(["<ListaSimple>"]);    //alert('hola!'); 
-  }
-
 }

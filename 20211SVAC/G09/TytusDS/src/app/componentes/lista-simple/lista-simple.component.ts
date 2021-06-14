@@ -5,7 +5,7 @@ declare var Lista:any;
 declare var f1:any;
 declare var add:any;
 declare var print:any;
-const arbolB = require('../../Structures/')
+//const arbolB = require('../../Structures/')
 @Component({
   selector: 'app-lista-simple',
   templateUrl: './lista-simple.component.html',

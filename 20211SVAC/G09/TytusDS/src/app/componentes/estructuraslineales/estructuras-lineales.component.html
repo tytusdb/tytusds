@@ -1,38 +1,35 @@
 <header class="rounded shadow-lg o-hidden border-0 my-5 text-center text-white masthead" style="background:url('assets/Imagenes/Fondo2.jpg')no-repeat center center;background-size:cover;">
 <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-sm-6">
-                <button class="btn btn-primary btn-block text-white" (click)="Ir()">
-                <i class="fas fa-list"></i>
-                   Lista Simplemente Enlazada
-                    
-                </button>
-                <button  class="btn btn-primary btn-block text-white btn-user" type="submit">
-                <i class="fas fa-list"></i>
-                    Lista Doblemente Enlazada
-                </button>
-
-                   <button  class="btn btn-primary btn-block text-white btn-user" type="submit">
-                   <i class="fas fa-list"></i>
-                    Lista Circular Simplemente Enlazada
-                     
-                   </button>
-                   <button  class="btn btn-primary btn-block text-white btn-user" type="submit">
-                   <i class="fas fa-list"></i>
-                     Lista Circular Doblemente Enlazada
-                   </button>
-                   <button  class="btn btn-primary btn-block text-white btn-user" type="submit">
-                   <i class="fas fa-list"></i>
-                    Pila
-                   </button>
-                   <button  class="btn btn-primary btn-block text-white btn-user" type="submit">
-                   <i class="fas fa-list"></i>
-                    Cola
-                   </button>
-                   <button  class="btn btn-primary btn-block text-white btn-user" type="submit">
-                   <i class="fas fa-list"></i>
-                    Cola Prioridad
-                   </button>
-            </div>
-        </div> 
+    <div class="row justify-content-center">
+        <div class="col-sm-6">
+            <button class="btn btn-primary btn-block text-white" [routerLink]="['listaSimple']">
+            <em class="fas fa-list"></em>
+            Lista Simplemente Enlazada 
+            </button>
+            <button  class="btn btn-primary btn-block text-white btn-user" type="submit">
+            <em class="fas fa-list"></em>
+            Lista Doblemente Enlazada
+            </button>
+            <button  class="btn btn-primary btn-block text-white btn-user" type="submit">
+            <em class="fas fa-list"></em>
+            Lista Circular Simplemente Enlazada 
+            </button>
+            <button  class="btn btn-primary btn-block text-white btn-user" type="submit">
+            <em class="fas fa-list"></em>
+            Lista Circular Doblemente Enlazada
+            </button>
+            <button  class="btn btn-primary btn-block text-white btn-user" type="submit">
+            <em class="fas fa-list"></em>
+            Pila
+            </button>
+            <button  class="btn btn-primary btn-block text-white btn-user" type="submit">
+            <em class="fas fa-list"></em>
+            Cola
+            </button>
+            <button  class="btn btn-primary btn-block text-white btn-user" type="submit">
+            <em class="fas fa-list"></em>
+            Cola Prioridad
+            </button>
+        </div>
+    </div> 
 </div>        
