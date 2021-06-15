@@ -129,7 +129,6 @@ class ListaCircular{
           LEdges.push(edge)
         }
       }
-      console.log(LEdges);
       return LEdges;
     }
 

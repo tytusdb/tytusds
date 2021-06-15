@@ -1,5 +1,5 @@
 input{
-  padding:5px 10px;
+  padding:5px 5px;
 }
 .estructuras{
   height: 400px;
@@ -31,5 +31,5 @@ input{
 .animacion{
   height: 400px;
   background-color: white;
-  border-style:double;
+
 }

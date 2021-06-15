@@ -9,6 +9,7 @@ import { ListaSimpleComponent } from './PaginasWeb/lista-simple/lista-simple.com
 import { ListaDobleComponent } from './PaginasWeb/lista-doble/lista-doble.component';
 import { MenuComponent } from './PaginasWeb/menu/menu.component';
 import { FormsModule } from '@angular/forms';
+import { ListasCicularesDEComponent } from './PaginasWeb/listas-ciculares-de/listas-ciculares-de.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { FormsModule } from '@angular/forms';
     ListasCircularesComponent,
     ListaSimpleComponent,
     ListaDobleComponent,
-    MenuComponent
+    MenuComponent,
+    ListasCicularesDEComponent
   ],
   imports: [
     BrowserModule,
