@@ -74,12 +74,22 @@ class ListaCircular{
             }else{
                 nodoanterior.next=nodoanterior.next.next;
             }
+          this.size-=1;
+            return 1;
+        }else{
+          return null;
         }
-        this.size-=1;
+
     }
     actualizar(valor,new_valor){
-        let nodo=this.buscar(valor).next;
-        nodo.valor=new_valor;
+        let nodo=this.buscar(valor);
+        if(nodo!=null){
+          nodo=nodo.next;
+          nodo.valor=new_valor;
+          return 1;
+        }else{
+          return null;
+        }
     }
 
     imprimir(){
@@ -119,7 +129,6 @@ class ListaCircular{
           LEdges.push(edge)
         }
       }
-      console.log(LEdges);
       return LEdges;
     }
 

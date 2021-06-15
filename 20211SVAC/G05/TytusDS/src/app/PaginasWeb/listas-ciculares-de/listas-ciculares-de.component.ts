@@ -1,18 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 declare var require: any;
-let Lista=require('./js/ListaCircular');
+let Lista=require('./js/ListaCircularDE');
 let vis=require('../../../../vis-4.21.0/dist/vis');
 
 @Component({
-  selector: 'app-listas-circulares',
-  templateUrl: './listas-circulares.component.html',
-  styleUrls: ['./listas-circulares.component.css','../../../../vis-4.21.0/dist/vis.css']
+  selector: 'app-listas-ciculares-de',
+  templateUrl: './listas-ciculares-de.component.html',
+  styleUrls: ['./listas-ciculares-de.component.css']
 })
-export class ListasCircularesComponent implements OnInit {
+export class ListasCicularesDEComponent implements OnInit {
   lista=Lista;
-
   constructor() {
-  this.lista=new Lista();
+    this.lista= new Lista();
   }
 
   ngOnInit(): void {
@@ -70,5 +69,4 @@ export class ListasCircularesComponent implements OnInit {
     //------------------------------------------------------------------------
     let grafo= new vis.Network(contenedor,datos,opciones);
   }
-
 }
