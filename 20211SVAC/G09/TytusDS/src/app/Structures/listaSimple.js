@@ -1,52 +1,46 @@
-class Nodo {
-    constructor(dato) {
-        this.dato = dato;
-        this.siguiente = null;
-        this.anterior = null;
+class Noda{
+    constructor(data, next){
+      this.data = data;
+      this.next = next;
     }
-}
-
-class Lista {
-    constructor() {
-        this.primero = null;
-        this.ultimo = null;
-        this.size = 0;
+  }
+  
+  class LinkedList {
+    constructor(){
+      this.head = null;
+      this.size = 0;
     }
-
-    add(dato) {
-        let nuevo = new Nodo(dato)
-        if (this.primero == null) {
-            this.primero = nuevo;
-            this.ultimo = this.primero;
-            this.size++;
-        } else {
-            this.ultimo.siguiente = nuevo;
-            nuevo.anterior = this.ultimo;
-            this.ultimo = nuevo;
-            this.size++;
+  
+    add(data){
+      const newNodo = new Noda(data, null);
+      if(!this.head){
+        this.head = newNodo
+      }else{
+        let current = this.head;
+        while(current.next){
+          current = current.next;
         }
-
+        current.next = newNodo;
+      }
+      this.size++
     }
-
-    print() {
-        var valores = []
+    print(){
+      var valores = []
         let aux = this.primero;
         while (aux != null) {
             valores.push(aux.dato);
-            console.log("Dato:", aux.dato);
             aux = aux.siguiente;
         }
-        console.log("Paso por el while")
         return valores;
     }
-
+  }
+  
+const linkedList = new LinkedList();
+  
+function lsimpleAdd(variable){
+    
+    linkedList.add(variable);
+    console.log(linkedList) 
 }
-function f1(){
-    console.log("Algo por favor funciona we");
-    console.log("Prueba no.2");
 
-}
-
-module.exports = Lista;
-module.exports = Nodo;
-
+function lsimplePrint(){ print()}
