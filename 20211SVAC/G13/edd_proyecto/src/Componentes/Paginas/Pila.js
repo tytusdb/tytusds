@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import AnimacionPila from './Animaciones/AnimacionPila';
 
 export default function Pila(){
 	const [valor,setValor] = useState("");
@@ -50,6 +51,9 @@ export default function Pila(){
 					<h5>Velocidad: x{rango}</h5>
 				</div>
 			</div>
+			<div className="row">
+			</div>
+				<AnimacionPila />
 		</>
 	);
 }

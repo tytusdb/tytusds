@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import AnimacionColaPrioridad from './Animaciones/AnimacionColaPrioridad';
 
 export default function ColaPrioridad(){
 	const [valor,setValor] = useState("");
@@ -50,6 +51,10 @@ export default function ColaPrioridad(){
 					<h5>Velocidad: x{rango}</h5>
 				</div>
 			</div>
+			<div className="row">
+
+			</div>
+				<AnimacionColaPrioridad />
 		</>
 	);
 }

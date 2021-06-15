@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import AnimacionBurbuja from './Animaciones/AnimacionBurbuja';
 
 export default function Burbuja(){
 	const [valor,setValor] = useState("");
@@ -40,6 +41,10 @@ export default function Burbuja(){
 					<h5>Velocidad: x{rango}</h5>
 				</div>
 			</div>
+			<div className="row">
+
+			</div>
+				<AnimacionBurbuja />
 		</>
 	);
 }

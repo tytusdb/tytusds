@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import AnimacionArbolBPlus from './Animaciones/AnimacionArbolBPlus';
 
 export default function ArbolBPlus(){
 	const [valor,setValor] = useState("");
@@ -50,6 +51,10 @@ export default function ArbolBPlus(){
 					<h5>Velocidad: x{rango}</h5>
 				</div>
 			</div>
+			<div className="row">
+
+			</div>
+				<AnimacionArbolBPlus />
 		</>
 	);
 }

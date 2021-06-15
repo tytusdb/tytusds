@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import AnimacionInsercion from './Animaciones/AnimacionInsercion';
 
 export default function Insercion(){
 	const [valor,setValor] = useState("");
@@ -40,6 +41,10 @@ export default function Insercion(){
 					<h5>Velocidad: x{rango}</h5>
 				</div>
 			</div>
+			<div className="row">
+
+			</div>
+				<AnimacionInsercion />
 		</>
 	);
 }

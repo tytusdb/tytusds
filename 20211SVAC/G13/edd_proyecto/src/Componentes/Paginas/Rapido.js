@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import AnimacionRapido from './Animaciones/AnimacionRapido';
 
 export default function Rapido(){
 	const [valor,setValor] = useState("");
@@ -40,6 +41,9 @@ export default function Rapido(){
 					<h5>Velocidad: x{rango}</h5>
 				</div>
 			</div>
+			<div className="row">
+			</div>
+				<AnimacionRapido />
 		</>
 	);
 }

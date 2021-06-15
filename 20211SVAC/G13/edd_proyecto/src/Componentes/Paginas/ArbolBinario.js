@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import AnimacionArbolBinario from './Animaciones/AnimacionArbolBinario';
 
 export default function ArbolBinario(){
 	const [valor,setValor] = useState("");
@@ -50,6 +51,10 @@ export default function ArbolBinario(){
 					<h5>Velocidad: x{rango}</h5>
 				</div>
 			</div>
+			<div className="row">
+
+			</div>
+				<AnimacionArbolBinario />
 		</>
 	);
 }

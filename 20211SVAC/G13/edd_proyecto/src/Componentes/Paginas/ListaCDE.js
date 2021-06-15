@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import AnimacionListaCDE from './Animaciones/AnimacionListaCDE';
 
 export default function ListaCDE(){
 	const [valor,setValor] = useState("");
@@ -50,6 +51,10 @@ export default function ListaCDE(){
 					<h5>Velocidad: x{rango}</h5>
 				</div>
 			</div>
+			<div className="row">
+
+			</div>
+				<AnimacionListaCDE />
 		</>
 	);
 }

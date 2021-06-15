@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import AnimacionSeleccion from './Animaciones/AnimacionSeleccion';
 
 export default function Seleccion(){
 	const [valor,setValor] = useState("");
@@ -40,6 +41,9 @@ export default function Seleccion(){
 					<h5>Velocidad: x{rango}</h5>
 				</div>
 			</div>
+			<div className="row">
+			</div>
+				<AnimacionSeleccion />
 		</>
 	);
 }

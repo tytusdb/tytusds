@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import AnimacionListaCSE from './Animaciones/AnimacionListaCSE';
 
 export default function ListaCSE(){
 	const [valor,setValor] = useState("");
@@ -50,6 +51,9 @@ export default function ListaCSE(){
 					<h5>Velocidad: x{rango}</h5>
 				</div>
 			</div>
+			<div className="row">
+			</div>
+				<AnimacionListaCSE />
 		</>
 	);
 }

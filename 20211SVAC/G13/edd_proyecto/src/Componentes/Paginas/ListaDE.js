@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import AnimacionListaDE from './Animaciones/AnimacionListaDE';
+
 
 export default function ListaDE(){
 	const [valor,setValor] = useState("");
@@ -50,6 +52,9 @@ export default function ListaDE(){
 					<h5>Velocidad: x{rango}</h5>
 				</div>
 			</div>
+			<div className="row">
+			</div>
+				<AnimacionListaDE />
 		</>
 	);
 }

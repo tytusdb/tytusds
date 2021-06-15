@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import AnimacionCola from './Animaciones/AnimacionCola';
+
 
 export default function Cola(){
 
@@ -51,6 +53,10 @@ export default function Cola(){
 					<h5>Velocidad: x{rango}</h5>
 				</div>
 			</div>
+			<div className="row">
+
+			</div>
+				<AnimacionCola />
 		</>
 	);
 }
