@@ -13,6 +13,18 @@ export class ListaSimple {
         return this.cuenta === 0;
     }
 
+    verRepetido(valor: any): boolean {
+        let aux = this.primero;
+        let repetido = false;
+        for (let i = 0; i < this.cuenta; i++) {
+            if (aux.valor === valor) {
+                repetido = true;
+            }
+            aux = aux.siguiente
+        }
+        return repetido;
+    }
+
     insertarFinal(valor: any): void {
         if (this.vacio()) {
             this.primero = this.ultimo = new NodoSimple(valor);
@@ -97,7 +109,7 @@ export class ListaSimple {
         for (let i = 0; i < this.cuenta; i++) {
             const nodo = {
                 id: i,
-                label: aux.valor
+                label: `${aux.valor}`
             };
             nodos.push(nodo);
             aux = aux.siguiente;

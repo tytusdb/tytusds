@@ -1,4 +1,4 @@
-<app-opciones></app-opciones>
+<app-opciones (opcionesEvento)="getOpciones($event)"></app-opciones>
 <div class="container mt-3">
     <h1 class="fw-light">Lista Simplemente Enlazada</h1>
     <hr>
@@ -31,10 +31,20 @@
             <button class="btn btn-primary" (click)="buscar()">Buscar</button>
         </div>
     </div>
+    <div class="row my-3">
+        <div class="col-md-6">
+            <input class="form-control" type="file" id="formFile" (change)="getDocumento($event.target)">
+        </div>
+    </div>
     <div class="bg-light animacion mt-5" id="contenedor">
     </div>
     <div class="row">
-        <div class="col-md-10">
+        <div class="col-md-2">
+            <div class="d-grid gap-2 mt-3">
+                <button class="btn btn-success" (click)="guardar()">Guardar</button>
+            </div>
+        </div>
+        <div class="col-md-8">
         </div>
         <div class="col-md-2">
             <div class="d-grid gap-2 mt-3">

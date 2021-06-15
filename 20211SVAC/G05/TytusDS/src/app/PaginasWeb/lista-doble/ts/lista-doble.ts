@@ -14,6 +14,18 @@ export class ListaDoble{
         return this.cuenta === 0;
     }
 
+    verRepetido(valor: any): boolean {
+        let aux = this.primero;
+        let repetido = false;
+        for (let i = 0; i < this.cuenta; i++) {
+            if (aux.valor === valor) {
+                repetido = true;
+            }
+            aux = aux.siguiente
+        }
+        return repetido;
+    }
+
     agregarFinal(valor: any): void {
         if (this.vacia()){
             this.primero = this.ultimo = new NodoDoble(valor);

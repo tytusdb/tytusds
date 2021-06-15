@@ -18,15 +18,41 @@ export class ListaDobleComponent implements OnInit {
   valorActualizar = '';
   valorBuscar = '';
 
+  opciones = {
+    ingreso: 'final',
+    velocidadLineales: 1000,
+    repeticionLineales: true,
+    velocidadOrdenamientos: 1000,
+    velocidadArboles: 1000,
+    grado: 3,
+    repeticionArboles: true,
+  };
+
   constructor() { 
     this.lista = new ListaDoble();
+  }
+
+  getOpciones(opciones: any): void {
+    console.log(opciones);
+    this.opciones = opciones;
   }
 
   ngOnInit(): void {}
 
   agregar(): void {
     if (this.valorAgregar.length > 0) {
-      this.lista.agregarFinal(this.valorAgregar);
+      if (this.opciones['repeticionLineales'] === false) {
+        if (this.lista.verRepetido(this.valorAgregar) === true) {
+          this.valorAgregar = '';
+          return;
+        }
+      }
+
+      if (this.opciones['ingreso'] === 'final'){
+        this.lista.agregarFinal(this.valorAgregar);
+      }else if (this.opciones['ingreso'] === 'inicio') {
+        this.lista.agregarInicio(this.valorAgregar);
+      }
       this.lista.recorrer();
       this.graficar();
       this.valorAgregar = '';

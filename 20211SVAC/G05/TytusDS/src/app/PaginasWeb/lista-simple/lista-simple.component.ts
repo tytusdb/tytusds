@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ListaSimple } from './ts/lista-simple';
+import { saveAs } from 'file-saver';
 
 declare var require: any;
 let vis=require('../../../../vis-4.21.0/dist/vis');
@@ -11,13 +12,27 @@ let vis=require('../../../../vis-4.21.0/dist/vis');
 })
 export class ListaSimpleComponent implements OnInit {
 
-  lista: ListaSimple;
+  lista: ListaSimple;  //  Variable para manejar la lista simple
 
+  //  Las variables para manejar las operaciones de la lista 
   valorAgregar = '';
   valorEliminar = '';
   nodoActualizar = '';
   valorActualizar = '';
   valorBuscar = '';
+
+  //  Las opciones de la confuguracion para las operaciones
+  opciones = {
+    ingreso: 'final',
+    velocidadLineales: 1000,
+    repeticionLineales: true,
+    velocidadOrdenamientos: 1000,
+    velocidadArboles: 1000,
+    grado: 3,
+    repeticionArboles: true,
+  };
+
+  documento: any;  //  Si el usuario ingresa un usuario para hacer su estructura
 
   constructor() {
     this.lista = new ListaSimple();
@@ -25,15 +40,55 @@ export class ListaSimpleComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  //  Si el usuario cambia alguna opcion se recibe la nueva configuracion y se cambia por la anterior
+  getOpciones(opciones: any): void {
+    console.log(opciones);
+    this.opciones = opciones;
+  }
+
+  //  Si el usuario decide cargar un archivo
+  getDocumento(documento: any): void {
+    let fileReader = new FileReader();
+    fileReader.onload = (e) => {
+      let contenido = fileReader.result?.toString();
+      if (contenido !== undefined){
+        let doc = JSON.parse(contenido);
+        this.documento = doc;
+        console.log(doc);
+        this.crearListaPorJson();
+      }
+    }
+    fileReader.readAsText(documento.files[0]);
+  }
+
+  crearListaPorJson(): void {
+    this.documento['valores'].forEach(valor => {
+      this.lista.insertarFinal(valor);
+    });
+    this.graficar();
+  }
+
+  //  Agregar un nuevo elemento en la lista
   agregar(): void {
     if (this.valorAgregar.length > 0) {
-      this.lista.insertarFinal(this.valorAgregar);
-      this.lista.recorrer();
+      if (this.opciones['repeticionLineales'] === false) {
+        if (this.lista.verRepetido(this.valorAgregar) === true) {
+          this.valorAgregar = '';
+          return;
+        }
+      }
+      if (this.opciones['ingreso'] === 'final') {
+        this.lista.insertarFinal(this.valorAgregar);
+      } else if (this.opciones['ingreso'] === 'inicio') {
+        this.lista.insertarInicio(this.valorAgregar);
+      }
+      console.log(this.lista.primero.valor);
       this.graficar();
       this.valorAgregar = '';
     }
   }
 
+  //  Eliminar un elemento de la lista
   eliminar(): void {
     if (this.valorEliminar.toString().length > 0){
       this.lista.eliminar(+this.valorEliminar);
@@ -42,6 +97,7 @@ export class ListaSimpleComponent implements OnInit {
     }
   }
 
+  //  Actualizar un elemento de la lista
   actualizar(): void {
     if (this.nodoActualizar.length === 0 || this.valorActualizar.length === 0) {
       console.log('no se puede');
@@ -83,6 +139,21 @@ export class ListaSimpleComponent implements OnInit {
     };
     //------------------------------------------------------------------------
     let grafo= new vis.Network(contenedor,datos,opciones);
+  }
+
+  guardar(): void {
+    const contenido: any = {
+      categoria: "Estructura Lineal",
+      nombre: "Lista Simplemente Enlazada",
+      valores: []
+    };
+    let aux = this.lista.primero;
+    for (let i = 0; i < this.lista.cuenta; i++) {
+      contenido.valores.push(aux.valor);
+      aux = aux.siguiente;
+    }
+    let blob = new Blob([JSON.stringify(contenido)], {type: 'application/json;charset=utf-8'});
+    saveAs(blob, 'descarga.json');
   }
 
 }
