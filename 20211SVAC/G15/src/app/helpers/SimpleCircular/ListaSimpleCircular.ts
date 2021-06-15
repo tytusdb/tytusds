@@ -1,9 +1,9 @@
-import { NodoDobleCircular } from './NodoDobleCircular'
+import { NodoSimpleCircular } from './NodoSimpleCircular'
 
 import {Draw} from '../Draw/Draw'
-export class ListaDobleCircular {
-    private primero: NodoDobleCircular
-    private ultimo: NodoDobleCircular
+export class ListaSimpleCircular {
+    private primero: NodoSimpleCircular
+    private ultimo: NodoSimpleCircular
     private draw: Draw
     private id: number;
 
@@ -15,7 +15,7 @@ export class ListaDobleCircular {
     }
 
     async add(numero: number, svg, dibujo, duracion) {
-        let temp: NodoDobleCircular = new NodoDobleCircular(numero, this.id)
+        let temp: NodoSimpleCircular = new NodoSimpleCircular(numero, this.id)
         if (this.primero == null) {
             this.primero = temp
             this.ultimo = temp
@@ -33,8 +33,6 @@ export class ListaDobleCircular {
 
         if (this.primero.getSiguiente() !== this.ultimo && this.primero.getSiguiente() !== null) {
             this.draw.removerElemento("arrowprimero-ultimo")
-            this.draw.removerElemento("arrowultimo-primero")
-
         }
 
         let div: any = this.draw.crearNodo(numero, temp.getId())
@@ -44,20 +42,12 @@ export class ListaDobleCircular {
         let div2 = document.getElementById("nodo" + this.ultimo.getId())
         let posiciones = this.draw.posicionesLeft(div, div2)
         posiciones.color = 'black'
-
-
-
         this.draw.crearPath(this.ultimo.getId() + "-" + temp.getId(), svg, posiciones)
-        posiciones = this.draw.posicionesRight(div, div2)
-        posiciones.color = 'black'
-        this.draw.crearPath(temp.getId() + "-" + this.ultimo.getId(), svg, posiciones)
-
+       
 
         let tempUltimo = this.ultimo
         tempUltimo.setSiguiente(temp)
-        temp.setAnterior(tempUltimo)
         temp.setSiguiente(this.primero)
-        this.primero.setAnterior(temp)
         this.ultimo = temp
 
 
@@ -68,7 +58,7 @@ export class ListaDobleCircular {
 
 
     async addAlInicio(numero: number, svg, dibujo, duracion) {
-        let temp: NodoDobleCircular = new NodoDobleCircular(numero, this.id)
+        let temp: NodoSimpleCircular = new NodoSimpleCircular(numero, this.id)
         if (this.primero == null) {
             this.primero = temp
             this.ultimo = temp
@@ -85,9 +75,7 @@ export class ListaDobleCircular {
         this.id++
 
         if (this.primero.getSiguiente() !== this.ultimo && this.primero.getSiguiente() !== null) {
-            this.draw.removerElemento("arrowprimero-ultimo")
             this.draw.removerElemento("arrowultimo-primero")
-
         }
 
         let div: any = this.draw.crearNodo(numero, temp.getId())
@@ -97,9 +85,7 @@ export class ListaDobleCircular {
 
         let tempPrimero = this.primero
         temp.setSiguiente(tempPrimero)
-        tempPrimero.setAnterior(temp)
         this.ultimo.setSiguiente(temp)
-        temp.setAnterior(this.ultimo)
         this.primero = temp
         this.corregirPaths(svg, this.primero)
 
@@ -110,7 +96,7 @@ export class ListaDobleCircular {
 
         // Ingresar si esta vacia
         if (this.primero == null) {
-            let temp: NodoDobleCircular = new NodoDobleCircular(numero, this.id)
+            let temp: NodoSimpleCircular = new NodoSimpleCircular(numero, this.id)
             this.primero = temp
             this.ultimo = temp
 
@@ -124,8 +110,6 @@ export class ListaDobleCircular {
 
         if (this.primero.getSiguiente() !== this.ultimo && this.primero.getSiguiente() !== null) {
             this.draw.removerElemento("arrowprimero-ultimo")
-            this.draw.removerElemento("arrowultimo-primero")
-
         }
 
         //Ingresar si solo hay uno
@@ -145,7 +129,7 @@ export class ListaDobleCircular {
 
         // Si es mayor al primero pero menor al siguiente
         if (numero >= this.primero.getNumero() && numero < this.primero.getSiguiente().getNumero()) {
-            let temp: NodoDobleCircular = new NodoDobleCircular(numero, this.id)
+            let temp: NodoSimpleCircular = new NodoSimpleCircular(numero, this.id)
             temp.setId(this.id)
             this.id++
 
@@ -154,13 +138,10 @@ export class ListaDobleCircular {
 
             let tempPrimero = this.primero
 
-            temp.setAnterior(tempPrimero)
             temp.setSiguiente(tempPrimero.getSiguiente())
             tempPrimero.setSiguiente(temp)
-            tempPrimero.getSiguiente().setAnterior(temp)
 
             this.draw.removerElemento("arrow" + id1 + "-" + id2)
-            this.draw.removerElemento("arrow" + id2 + "-" + id1)
 
             let div: any = this.draw.crearNodo(numero, temp.getId())
             dibujo.insertBefore(div, dibujo.children[1]);
@@ -177,7 +158,7 @@ export class ListaDobleCircular {
 
             let siguiente = tempPrimero.getSiguiente()
             if (numero >= tempPrimero.getNumero() && numero < siguiente.getNumero()) {
-                let temp: NodoDobleCircular = new NodoDobleCircular(numero, this.id)
+                let temp: NodoSimpleCircular = new NodoSimpleCircular(numero, this.id)
                 temp.setId(this.id)
                 this.id++
 
@@ -185,13 +166,10 @@ export class ListaDobleCircular {
                 let id2 = this.primero.getSiguiente().getId()
 
 
-                temp.setAnterior(tempPrimero)
                 temp.setSiguiente(tempPrimero.getSiguiente())
                 tempPrimero.setSiguiente(temp)
-                tempPrimero.getSiguiente().setAnterior(temp)
 
                 this.draw.removerElemento("arrow" + id1 + "-" + id2)
-                this.draw.removerElemento("arrow" + id2 + "-" + id1)
 
                 let div: any = this.draw.crearNodo(numero, temp.getId())
                 dibujo.insertBefore(div, dibujo.children[index + 1]);
@@ -259,14 +237,11 @@ export class ListaDobleCircular {
             }
 
             this.ultimo.setSiguiente(temp.getSiguiente())
-            temp.getSiguiente().setAnterior(this.ultimo)
 
             let id1 = this.primero.getId();
             let id2 = this.primero.getSiguiente().getId()
 
             this.draw.removerElemento("arrow" + id1 + "-" + id2)
-            this.draw.removerElemento("arrow" + id2 + "-" + id1)
-
 
             this.primero = temp.getSiguiente()
             this.corregirPaths(svg, this.primero)
@@ -279,7 +254,7 @@ export class ListaDobleCircular {
             await this.draw.animateNode("nodo" + id1, 'zoomOut', duracion)
             this.draw.removerElemento("nodo" + id1)
             //Solo hay 2
-            if (this.ultimo.getAnterior() === this.primero) {
+            if (this.primero.getSiguiente() === this.ultimo) {
                 this.primero.setSiguiente(null)
                 this.ultimo = this.primero
                 let id2 = this.primero.getId()
@@ -288,11 +263,14 @@ export class ListaDobleCircular {
                 this.corregirPaths(svg, this.primero)
                 return 1
             }
-            console.log("HGola")
-            this.ultimo.getAnterior().setSiguiente(this.primero)
-            this.primero.setAnterior(this.ultimo.getAnterior())
-            let id2 = this.ultimo.getAnterior().getId()
-            this.ultimo = this.ultimo.getAnterior()
+            let antesUltimo = this.primero 
+            do{
+                antesUltimo = antesUltimo.getSiguiente()
+            }while(antesUltimo.getSiguiente() !== this.ultimo)
+
+            antesUltimo.setSiguiente(this.primero)
+            let id2 = antesUltimo.getId()
+            this.ultimo = antesUltimo
 
 
             this.draw.removerElemento("arrow" + id1 + "-" + id2)
@@ -309,25 +287,25 @@ export class ListaDobleCircular {
         do {
 
             if (temp.getNumero() === numero) {
-                let anterior = temp.getAnterior()
+                let antesDe = this.primero
+                do{
+                    antesDe = antesDe.getSiguiente()
+                }while(antesDe.getSiguiente() !== temp)
+
                 let siguiente = temp.getSiguiente()
                 let id1 = temp.getId();
-                let id2 = anterior.getId();
+                let id2 = antesDe.getId();
                 let id3 = siguiente.getId()
 
 
                 await this.draw.animateNode("nodo" + id1, 'zoomOut', duracion)
                 this.draw.removerElemento("nodo" + id1)
 
-                anterior.setSiguiente(temp.getSiguiente())
-                temp.getSiguiente().setAnterior(anterior)
-
-                this.draw.removerElemento("arrow" + id1 + "-" + id2)
-                this.draw.removerElemento("arrow" + id2 + "-" + id1)
+                antesDe.setSiguiente(temp.getSiguiente())
 
                 this.draw.removerElemento("arrow" + id1 + "-" + id3)
-                this.draw.removerElemento("arrow" + id3 + "-" + id1)
-                this.corregirPaths(svg, anterior)
+                this.draw.removerElemento("arrow" + id2 + "-" + id1)
+                this.corregirPaths(svg, antesDe)
 
 
                 return 1
@@ -344,13 +322,6 @@ export class ListaDobleCircular {
 
     }
 
-
-
-
-
-
-
-  
 
     getPrimero() {
         return this.primero
@@ -378,24 +349,16 @@ export class ListaDobleCircular {
         posiciones.x1 -= 10
         posiciones.x2 += 50
 
-        this.draw.crearPath("primero-ultimo", svg, posiciones)
-
-        posiciones = this.draw.posicionesRight(div, div2)
-        posiciones.y1 += 30;
-        posiciones.y2 += 30
-        posiciones.x1 -= 20
-        posiciones.x2 -= 30
-
         this.draw.crearPath("ultimo-primero", svg, posiciones)
+
     }
 
 
     
 
     corregirPaths(svg, nodo) {
-        this.draw.removerElemento("arrowprimero-ultimo")
         this.draw.removerElemento("arrowultimo-primero")
-
+        this.draw.removerElemento("arrowprimero-ultimo")
 
         let temp = nodo
 
@@ -405,21 +368,17 @@ export class ListaDobleCircular {
                 let id1 = temp.getId()
                 let id2 = siguiente.getId()
 
-                this.draw.removerElemento("arrow" + id1 + "-" + id2)
                 this.draw.removerElemento("arrow" + id2 + "-" + id1)
+                this.draw.removerElemento("arrow" + id1 + "-" + id2)
                 let div1 = document.getElementById("nodo" + id1)
                 let div2 = document.getElementById("nodo" + id2)
 
-                let pos = this.draw.posicionesLeft(div1, div2)
+                let pos = this.draw.posicionesRight(div1, div2)
                 pos.color = 'black'
                 pos.x1 -= 20
-                pos.x2 += 55
+                pos.x2 -= 55
                 this.draw.crearPath(id1 + "-" + id2, svg, pos)
 
-                pos = this.draw.posicionesRight(div1, div2)
-                pos.color = 'black'
-                pos.x2 -= 55
-                this.draw.crearPath(id2 + "-" + id1, svg, pos)
             }
             temp = temp.getSiguiente();
             if (temp === null) break;
