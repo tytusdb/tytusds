@@ -23,7 +23,6 @@ class linkedList{
 			}
 			curr.next = nd;
 		}
-		console.log(elem)
 		this.size++;
 	
 	}
@@ -47,8 +46,16 @@ class linkedList{
 		this.size--;
 		
 	}
-	update(pos){
-		//pass
+	update(pos,data){
+		if (pos==0){
+			this.head.data=data;
+			return;
+		}
+		var cur=this.head;
+		for(var i=0; i<pos-1; i++){
+			cur=cur.next;
+		}
+		cur.next.data=data;
 	}
 
 	search(elem){
@@ -65,5 +72,13 @@ class linkedList{
 		return;
 	}
 
+	print(){
+		console.log('---');
+		var curr=this.head;
+		while (curr!=null){
+			console.log(curr.data);
+			curr=curr.next;
+		}
+	}
 
 }
