@@ -100,7 +100,7 @@ export class ListaDoble{
         for (let i = 0; i < this.cuenta; i++) {
             const nodo = {
                 id: i,
-                label: aux.valor
+                label: `${aux.valor}`
             };
             nodos.push(nodo);
             aux = aux.siguiente;

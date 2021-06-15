@@ -142,7 +142,7 @@ export class ListaSimpleComponent implements OnInit {
       contenido.valores.push(aux.valor);
       aux = aux.siguiente;
     }
-    let blob = new Blob([JSON.stringify(contenido)], {type: 'application/json;charset=utf-8'});
+    let blob = new Blob([JSON.stringify(contenido)], {type: 'json;charset=utf-8'});
     saveAs(blob, 'descarga.json');
   }
 
