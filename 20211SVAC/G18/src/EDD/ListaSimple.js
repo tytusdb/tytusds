@@ -92,15 +92,5 @@ class ListaSimple {
 }
 
 
-let lista = new ListaSimple();
-lista.add_f();
-lista.add_f();
-lista.add_f();
-lista.add_f();
-lista.add_f();
-lista.imprimir();
-console.log("");
-lista.update(2,10);
-lista.delete(5);
-lista.imprimir();
-lista.seek(8);
+
+export default ListaSimple;
