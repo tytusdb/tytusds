@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ServicioIntento1Service } from "../../Servicios/servicio-intento1.service";
 
 declare var Nodo:any; 
 declare var Lista:any;
@@ -13,14 +14,18 @@ declare var print:any;
 })
 export class ListaSimpleComponent implements OnInit {
 
-  //constructor() { }
+  elementos: any=[]
+
+  constructor(private servicio: ServicioIntento1Service ) { }
 
   ngOnInit(): void {
+    this.add();
   }
-  onClick1(){
-
-    print();
-    f1();
+  add(){
+    this.servicio.getElementos().subscribe(
+      res => {this.elementos = res;},
+      err => console.error(err);
+    )
   }
 
 }
