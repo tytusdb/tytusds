@@ -1,0 +1,24 @@
+.burbuja{
+   position: relative;
+}
+
+.burbuja__botones{
+    display: flex;
+
+    justify-content: center;
+    align-content: space-between;
+}
+
+
+.burbuja_text{
+    border-radius: 50;
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.burbuja_text__box{
+    border-radius: 10px;
+    border: 0;
+    outline: none;
+}

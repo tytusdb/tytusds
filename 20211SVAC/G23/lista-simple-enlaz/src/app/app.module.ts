@@ -8,7 +8,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
 import { LanguageTranslationModule } from './shared/modules/language-translation/language-translation.module';
-import { BusquedaComponent } from './layout/busqueda/busqueda.component';
 
 @NgModule({
     imports: [
@@ -19,7 +18,7 @@ import { BusquedaComponent } from './layout/busqueda/busqueda.component';
         LanguageTranslationModule,
         AppRoutingModule
     ],
-    declarations: [AppComponent, BusquedaComponent],
+    declarations: [AppComponent],
     providers: [AuthGuard],
     bootstrap: [AppComponent]
 })
