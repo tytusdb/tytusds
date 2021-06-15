@@ -3,6 +3,9 @@ var arrayNodes = []
 var edges = []
 var contador = 1
 var seReordena = false
+var clickedNode
+var clickedNodoValue
+var network = null
 class Nodo{
     constructor(dato, id){
         this.id = id
@@ -39,7 +42,6 @@ class arbolAVL{
     agregar(dato){
         contador++
         this.raiz = this._agregar(dato, this.raiz)
-        this.graficar()
     }
 
     //Método recursivo para agregar valores al arbol
@@ -103,6 +105,18 @@ class arbolAVL{
         return this.rotacionDerecha(temp)
     }
 
+    buscarNodo(valueNodo, temp){
+        if(temp != null){
+            if(valueNodo == temp.dato){
+                return temp.id
+            }else if(valueNodo < temp.dato){
+                return this.buscarNodo(valueNodo, temp.izq)
+            }else{
+                return this.buscarNodo(valueNodo, temp.der)
+            }
+        }
+    }
+
     //Método de busqueda de valores dentro del arbol
     buscar(dato, temp){
         if(temp != null){
@@ -118,10 +132,9 @@ class arbolAVL{
     }
 
     //Método de sobrecarga para la eliminación
-    eliminar(dato){
+    eliminar(id ,dato){
         if(this.buscar(dato, this.raiz)){
-            this.raiz = this._eliminar(dato, this.raiz)
-            this.graficar()
+            this.raiz = this._eliminar(id, dato, this.raiz)
         }else{
             alert("El dato no existe dentro del arbol")
         }
@@ -129,9 +142,9 @@ class arbolAVL{
     }
 
     //Método de recursivo para la eliminación
-    _eliminar(dato, temp){
+    _eliminar(id,dato, temp){
         if(temp != null){
-            if(dato == temp.dato){
+            if(dato == temp.dato && id == temp.id){
                 if(temp.izq == null && temp.der == null){
                     return temp = null
                 }else if(temp.izq != null){
@@ -143,13 +156,13 @@ class arbolAVL{
                 }
             }else if(dato < temp.dato){
                 console.log("Entro" + dato)
-                temp.izq = this._eliminar(dato, temp.izq)
+                temp.izq = this._eliminar(id,dato, temp.izq)
                 console.log(this.altura(temp.izq) - this.altura(temp.der))
                 if (this.altura(temp.izq) - this.altura(temp.der) == -2){
                     temp = this.rotacionIzquierda(temp)
                 }
             }else{
-                temp.der = this._eliminar(dato, temp.der)
+                temp.der = this._eliminar(id,dato, temp.der)
                 if(this.altura(temp.der)-this.altura(temp.izq) == -2){
                     temp = this.rotacionDerecha(temp)  
                 }
@@ -188,19 +201,17 @@ class arbolAVL{
     }
 
     //Método de sobrecarga para la actualización
-    actualizar(dato, datoNuevo){
+    actualizar(id,dato, datoNuevo){
         if(this.buscar(dato, this.raiz)){
             if(this.buscar(datoNuevo) && !this.repetidos){
                 alert("No se aceptan valores repetidos")
                 return
             }
-            this.raiz = this._actualizar(dato, datoNuevo, this.raiz)
+            this.raiz = this._actualizar(id,dato, datoNuevo, this.raiz)
             if(seReordena){
-                this.eliminar(dato)
+                this.eliminar(id, dato)
                 this.agregar(datoNuevo)
                 seReordena = false
-            }else{
-                this.graficar()
             }
         }else{
             alert("El dato a actualizar no existe dentro del arbol")
@@ -208,13 +219,13 @@ class arbolAVL{
     }
 
     //Método recursivo para la actualización
-    _actualizar(dato, datoNuevo, temp){
+    _actualizar(id ,dato, datoNuevo, temp){
         if(temp != null){
-            if(dato == temp.dato){
+            if(dato == temp.dato && id == temp.id){
                 var izquierda =this.buscarIzquierdaActualizar(temp.izq)
                 var derecha
                 if(this.buscarDerechaActualizar(temp.der) == -1){
-                    derecha = temp.dato
+                    derecha = datoNuevo+1
                 }else{
                     derecha = this.buscarDerechaActualizar(temp.der)
                 }
@@ -224,9 +235,17 @@ class arbolAVL{
                     seReordena = true
                 }
             }else if(dato< temp.dato){
-                temp.izq = this._actualizar(dato, datoNuevo, temp.izq)
+                if(datoNuevo < temp.dato){
+                    temp.izq = this._actualizar(id ,dato, datoNuevo, temp.izq)
+                }else{
+                    seReordena = true
+                }
             }else{
-                temp.der = this._actualizar(dato, datoNuevo, temp.der)
+                if(datoNuevo >= temp.dato){
+                    temp.der = this._actualizar(id, dato, datoNuevo, temp.der)
+                }else{
+                    seReordena = true
+                }
             }
             return temp
         }
@@ -293,68 +312,111 @@ class arbolAVL{
             this.recorrerGraficar(temp.der)
         }
     }
-
-    //Método para graficar
-    graficar(){
-        this.recorrerGraficar(this.raiz)
-        var nodes = new vis.DataSet(arrayNodes);
-        var container = document.getElementById("mynetwork");
-        var data = {
-            nodes: nodes,
-            edges: edges,
-        };
-        var options = { 
-            physics: false,
-            layout: {
-                hierarchical: {
-                    direction: 'UD',
-                    nodeSpacing: 150,
-                    sortMethod : 'directed' //hubsize, directed.
-                  }
-            } 
-        };
-        var network = new vis.Network(container, data, options);
-        arrayNodes = []
-        edges = []  
-    }
 }
 
 
 let arbolbb = new arbolAVL()
 
+function actualizarTablero(){
+    arbolbb.recorrerGraficar(arbolbb.raiz);
+    var nodes = new vis.DataSet(arrayNodes);
+    var container = document.getElementById("mynetwork");
+    var data = {
+        nodes: nodes,
+        edges: edges,
+    };
+    var options = { 
+        physics: false,
+        layout: {
+            hierarchical: {
+                direction: 'UD',
+                nodeSpacing: 150,
+                sortMethod : 'directed'
+              }
+        } 
+    };
+    network = new vis.Network(container, data, options);
+    network.on('click', function (properties) {
+        var nodeID = properties.nodes[0];
+        if (nodeID) {
+            clickedNode = this.body.nodes[nodeID];
+            clickedNode = clickedNode.options.id
+            console.log('clicked node:', clickedNode);
+            clickedNodoValue =  this.body.nodes[nodeID]
+            clickedNodoValue = clickedNodoValue.options.label
+            document.getElementById("valueNodo").value = clickedNodoValue;
+        }
+    });
+    arrayNodes = []
+    edges = []  
+}
+
 function insertarNodo(){
-    var valor = parseInt(document.getElementById("valorNodo").value, 10); 
-    document.getElementById("valorNodo").value = ""
-    document.getElementById("valorActualizar").value = ""
-    if(!arbolbb.repetidos && arbolbb.buscar(valor, arbolbb.raiz)){
-        alert("El valor ya se encuentra dentro del arbol, por favor habilite la opción de repetidos")
+    var valor = parseInt(document.getElementById("valueNodo").value, 10);
+    if(arbolbb.buscar(valor, arbolbb.raiz) && !arbolbb.repetidos){
+        alert("No se aceptan valores repetidos")
     }else{
         arbolbb.agregar(valor)
     }
+    actualizarTablero()
+    document.getElementById("valueNodo").value = ""
 }
 
 function eliminarNodo(){
-    var valor = parseInt(document.getElementById("valorNodo").value, 10); 
-    document.getElementById("valorNodo").value = ""
-    document.getElementById("valorActualizar").value = ""
-    arbolbb.eliminar(valor)
+    if(clickedNodoValue != undefined){
+        arbolbb.eliminar(clickedNode, clickedNodoValue)
+        actualizarTablero()
+    }else{
+        alert("Seleccione un nodo")
+    }
+    document.getElementById("valueNodo").value = ""
 }
 
 function actualizarNodo(){
-    var valor = parseInt(document.getElementById("valorNodo").value, 10); 
-    var valor2 = parseInt(document.getElementById("valorActualizar").value , 10);
-    document.getElementById("valorNodo").value = ""
-    document.getElementById("valorActualizar").value = ""
-    arbolbb.actualizar(valor2, valor)
+    var valor = parseInt(document.getElementById("valueNodo").value, 10);
+    document.getElementById("valueNodo").value = ""
+    if(clickedNodoValue != undefined){
+        arbolbb.actualizar(clickedNode, clickedNodoValue, valor)
+        }else{
+            alert("Seleccione un nodo")
+        }
+    actualizarTablero()
 }
 
-function buscarNodo(){
-    var valor = parseInt(document.getElementById("valorNodo").value, 10); 
-    document.getElementById("valorNodo").value = ""
-    document.getElementById("valorActualizar").value = ""
+function searchNode(){
+    var valor = parseInt(document.getElementById("valueNodo").value, 10);
     if(arbolbb.buscar(valor, arbolbb.raiz)){
-        alert("Se encontro el valor")
+        focus()
+        setTimeout(zoomExtended, 2000)
     }else{
-        alert("No se encontro el valor")
+        alert("El dato no se encuentra dentro del arbol")
     }
+    document.getElementById("valueNodo").value = ""
+}
+
+
+function focus() {
+    var valueNodo = parseInt(document.getElementById("valueNodo").value, 10);
+    let nodeId = arbolbb.buscarNodo(valueNodo, arbolbb.raiz)
+    document.getElementById("valueNodo").value = ""
+    var options = {
+        scale: 3.0,
+        offset: {x:0,y:0},
+        animation: {
+            duration: 2500,
+            easingFunction: "easeOutQuint"
+        }
+    }
+    network.focus(nodeId, options);
+}
+
+function zoomExtended(){
+    var options = {
+        scale: 1.0,
+        duration: 4500,
+        offset: {x:0,y:0},
+        easingFunction: "easeOutCubic"
+    }
+
+    network.moveTo(options);
 }
