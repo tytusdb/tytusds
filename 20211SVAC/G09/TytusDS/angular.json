@@ -33,7 +33,9 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": ["src/app/Structures/listaSimple.js"]
+            "scripts": [
+                "src/app/componentes/estructuraslineales/validaciones.js"
+              ]
           },
           "configurations": {
             "production": {
@@ -96,7 +98,9 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": ["src/app/Structures/listaSimple.js"]
+            "scripts": [
+              "src/app/componentes/estructuraslineales/validaciones.js"
+            ]
           }
         },
         "lint": {
