@@ -7,6 +7,7 @@ import { OpcionesComponent } from './Componentes/opciones/opciones.component';
 import { ListasCircularesComponent } from './PaginasWeb/listas-circulares/listas-circulares.component';
 import { ListaSimpleComponent } from './PaginasWeb/lista-simple/lista-simple.component';
 import { ListaDobleComponent } from './PaginasWeb/lista-doble/lista-doble.component';
+import { PilaComponent } from './PaginasWeb/pila/pila.component';
 import { MenuComponent } from './PaginasWeb/menu/menu.component';
 import { FormsModule } from '@angular/forms';
 
@@ -17,6 +18,7 @@ import { FormsModule } from '@angular/forms';
     ListasCircularesComponent,
     ListaSimpleComponent,
     ListaDobleComponent,
+    PilaComponent,
     MenuComponent
   ],
   imports: [
