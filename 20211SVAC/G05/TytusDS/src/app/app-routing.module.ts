@@ -12,7 +12,6 @@ const routes: Routes = [
   {path:'ListasCirculares', component: ListasCircularesComponent},
   {path:'ListasCircularesDE', component:ListasCicularesDEComponent},
   {path:'ListaSimple', component: ListaSimpleComponent},
-  {path:'ListaDoble', component: PilaComponent},
   {path:'ListaDoble', component: ListaDobleComponent},
   {path:'**', redirectTo: 'menu'},
 ];

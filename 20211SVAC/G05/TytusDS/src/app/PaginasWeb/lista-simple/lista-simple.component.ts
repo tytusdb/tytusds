@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ListaSimple } from './ts/lista-simple';
 import { saveAs } from 'file-saver';
+import { DocumentoService } from '../../services/documento.service';
 
 declare var require: any;
 let vis=require('../../../../vis-4.21.0/dist/vis');
@@ -34,7 +35,7 @@ export class ListaSimpleComponent implements OnInit {
 
   documento: any;  //  Si el usuario ingresa un usuario para hacer su estructura
 
-  constructor() {
+  constructor(private documentoService: DocumentoService) {
     this.lista = new ListaSimple();
   }
 
@@ -47,25 +48,14 @@ export class ListaSimpleComponent implements OnInit {
   }
 
   //  Si el usuario decide cargar un archivo
-  getDocumento(documento: any): void {
-    let fileReader = new FileReader();
-    fileReader.onload = (e) => {
-      let contenido = fileReader.result?.toString();
-      if (contenido !== undefined){
-        let doc = JSON.parse(contenido);
-        this.documento = doc;
-        console.log(doc);
-        this.crearListaPorJson();
-      }
-    }
-    fileReader.readAsText(documento.files[0]);
-  }
-
-  crearListaPorJson(): void {
-    this.documento['valores'].forEach(valor => {
-      this.lista.insertarFinal(valor);
+  getDocumento(documento: any): void{
+    this.documentoService.getDocumento(documento).then( contenido => {
+      console.log(contenido);
+      contenido['valores'].forEach(valor => {
+        this.lista.insertarFinal(valor);
+      });
+      this.graficar();
     });
-    this.graficar();
   }
 
   //  Agregar un nuevo elemento en la lista
