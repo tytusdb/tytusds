@@ -126,7 +126,13 @@ export class ListaDobleCircular {
 
         //Ingresar si solo hay uno
         if (this.primero.getSiguiente() === null) {
-            await this.add(numero, svg, dibujo, duracion)
+            if(numero <= this.primero.getNumero()) await this.addAlInicio(numero,svg,dibujo,duracion)
+            else  await this.add(numero, svg, dibujo, duracion)
+            return 1
+        }
+        //Ingresar al inicio si es menor
+        if(this.primero.getNumero() > numero){
+            await this.addAlInicio(numero,svg,dibujo,duracion)
             return 1
         }
 
@@ -480,5 +486,24 @@ export class ListaDobleCircular {
         } while (temp !== this.ultimo)
 
         this.crearUltimos(svg)
+    }
+
+
+    generarJSON(){
+        let data = {
+            categoria: "Estructura Lineal",
+            nombre : "Lista circular doblemente Enlazada",
+            valores: []
+        }
+
+        let temp = this.primero
+
+        do{
+            data.valores.push(temp.getNumero())
+            temp = temp.getSiguiente()
+            if(temp === null) break;
+        }while(temp != this.primero)
+
+        return JSON.stringify(data)
     }
 }
