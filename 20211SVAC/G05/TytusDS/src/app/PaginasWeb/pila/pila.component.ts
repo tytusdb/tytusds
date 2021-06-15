@@ -6,7 +6,7 @@ let vis=require('../../../../vis-4.21.0/dist/vis');
 @Component({
   selector: 'app-pila',
   templateUrl: './pila.component.html',
-  styleUrls: ['./pila.component.css','../../../../css/bootstrap.min.css','../../../../vis-4.21.0/dist/vis.css']
+  styleUrls: ['./pila.component.css','../../../../vis-4.21.0/dist/vis.css']
 })
 export class PilaComponent implements OnInit {
   lista=Lista;
