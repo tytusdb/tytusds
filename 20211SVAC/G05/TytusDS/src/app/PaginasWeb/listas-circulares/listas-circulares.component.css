@@ -31,3 +31,7 @@ input{
   box-shadow: 0 5px black;
   transform: translateY(4px);
 }
+.animacion{
+  height: 400px;
+  background-color: blue;
+}

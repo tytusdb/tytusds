@@ -89,6 +89,39 @@ class ListaCircular{
             current=current.next
         }
     }
+    Lnodos(){
+      let Lnodo=[]
+      let current=this.head;
+      //Nodo estructura
+      function NodoE(id,label){
+        this.id= id;
+        this.label= label;
+      }
+
+      for(let i=0; i<this.size;i++){
+        let nodo=new NodoE(i,current.valor);
+        Lnodo.push(nodo);
+        current=current.next
+      }
+      return Lnodo;
+    }
+    Ledges(){
+      function Edge(from,to){
+        this.from=from
+        this.to=to;
+      }
+      let LEdges=[];
+      for(let i=0;i<this.size-1;i++){
+        let edge=new Edge(i,i+1);
+        LEdges.push(edge);
+        if ((i+1)==this.size-1){
+          edge=new Edge(i+1,0);
+          LEdges.push(edge)
+        }
+      }
+      console.log(LEdges);
+      return LEdges;
+    }
 
 }
 

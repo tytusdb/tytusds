@@ -1,40 +1,50 @@
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Navbar from './Componentes/Navbar';
+import Home from './Componentes/Paginas/Home';
+import ListaSE from './Componentes/Paginas/ListaSE';
+import ListaDE from './Componentes/Paginas/ListaDE';
+import ListaCSE from './Componentes/Paginas/ListaCSE';
+import ListaCDE from './Componentes/Paginas/ListaCDE';
+import Pila from './Componentes/Paginas/Pila';
+import Cola from './Componentes/Paginas/Cola';
+import ColaPrioridad from './Componentes/Paginas/ColaPrioridad';
+import Burbuja from './Componentes/Paginas/Burbuja';
+import Seleccion from './Componentes/Paginas/Seleccion';
+import Insercion from './Componentes/Paginas/Insercion';
+import Rapido from './Componentes/Paginas/Rapido';
+import ArbolBinario from './Componentes/Paginas/ArbolBinario';
+import AVL from './Componentes/Paginas/AVL';
+import ArbolB from './Componentes/Paginas/Arbolb';
+import ArbolBPlus from './Componentes/Paginas/Arbolbplus';
+import ArbolMerkle from './Componentes/Paginas/Arbolmerkle';
+
+
 
 function App() {
   return (
-    <div>
-      <div></div>
-      <div>
-        <h1 align="center">Indice de Estructura de Datos</h1>
-        <ul>
-          <li>Estuctura Lineales</li>
-          <ul>
-            <li><a href="./">Lista simplemente enlazada</a></li>
-            <li><a href="./">Lista doblemente enlazada</a></li>
-            <li><a href="./">Lista circular simplemente enlazada</a></li>
-            <li><a href="./">Lista circular doblemente enlazada</a></li>
-            <li><a href="./">Pila</a></li>
-            <li><a href="./">Cola</a></li>
-            <li><a href="./">Cola de prioridad</a></li>  
-          </ul>
-          <li>Ordenamientos</li>
-          <ul>
-            <li><a href="./">Burbuja</a></li>
-            <li><a href="./">Selección</a></li>
-            <li><a href="./">Inserción</a></li>
-            <li><a href="./">Rápido</a></li>  
-          </ul>
-          <li>Estructuras Árboreas</li>
-          <ul>
-            <li><a href="./">Árbol binario de búsqueda</a></li>
-            <li><a href="./">AVL</a></li>
-            <li><a href="./">Árbol B</a></li>
-            <li><a href="./">Árbol B+</a></li>
-            <li><a href="./">Árbol de Merkle</a></li>  
-          </ul>
-        </ul>
-      </div>
-    </div>
+    <Router>
+      <Navbar />
+      <Switch>
+        <Route path='/' exact component={Home} />
+        <Route path='/Listasimplementeenlazada' component={ListaSE} />
+        <Route path='/Listadoblementeenlazada' component={ListaDE} />
+        <Route path='/Listacircularsimplementeenlazada' component={ListaCSE} />
+        <Route path='/Listacirculardoblementeenlazada' component={ListaCDE} />
+        <Route path='/Pila' component={Pila} />
+        <Route path='/Cola' component={Cola} />
+        <Route path='/Colaprioridad' component={ColaPrioridad} />
+        <Route path='/Burbuja' component={Burbuja} />
+        <Route path='/Seleccion' component={Seleccion} />
+        <Route path='/Insercion' component={Insercion} />
+        <Route path='/Rapido' component={Rapido} />
+        <Route path='/ArbolBinario' component={ArbolBinario} />
+        <Route path='/AVL' component={AVL} />
+        <Route path='/Arbolb' component={ArbolB} />
+        <Route path='/Arbolbplus' component={ArbolBPlus} />
+        <Route path='/Arbolmerkle' component={ArbolMerkle} />
+      </Switch>
+    </Router>
   );
 }
 
