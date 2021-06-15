@@ -1,6 +1,6 @@
 import { NodoSimpleCircular } from './NodoSimpleCircular'
 
-import {Draw} from '../Draw/Draw'
+import { Draw } from '../Draw/Draw'
 export class ListaSimpleCircular {
     private primero: NodoSimpleCircular
     private ultimo: NodoSimpleCircular
@@ -43,7 +43,7 @@ export class ListaSimpleCircular {
         let posiciones = this.draw.posicionesLeft(div, div2)
         posiciones.color = 'black'
         this.draw.crearPath(this.ultimo.getId() + "-" + temp.getId(), svg, posiciones)
-       
+
 
         let tempUltimo = this.ultimo
         tempUltimo.setSiguiente(temp)
@@ -114,18 +114,18 @@ export class ListaSimpleCircular {
 
         //Ingresar si solo hay uno
         if (this.primero.getSiguiente() === null) {
-            if(numero <= this.primero.getNumero()) await this.addAlInicio(numero,svg,dibujo,duracion)
-            else  await this.add(numero, svg, dibujo, duracion)
+            if (numero <= this.primero.getNumero()) await this.addAlInicio(numero, svg, dibujo, duracion)
+            else await this.add(numero, svg, dibujo, duracion)
             return 1
         }
         //Ingresar al inicio si es menor
-        if(this.primero.getNumero() > numero){
-            await this.addAlInicio(numero,svg,dibujo,duracion)
+        if (this.primero.getNumero() > numero) {
+            await this.addAlInicio(numero, svg, dibujo, duracion)
             return 1
         }
 
 
-       
+
 
         // Si es mayor al primero pero menor al siguiente
         if (numero >= this.primero.getNumero() && numero < this.primero.getSiguiente().getNumero()) {
@@ -190,7 +190,7 @@ export class ListaSimpleCircular {
 
 
         // Ingresar siempre de ultimo
-        await this.add(numero,svg,dibujo,duracion)
+        await this.add(numero, svg, dibujo, duracion)
         return 1
     }
 
@@ -223,6 +223,7 @@ export class ListaSimpleCircular {
 
 
     async eliminar(numero: number, duracion, svg) {
+        this.draw.removerElemento("arrowultimo-primero")
         let temp = this.primero
         if (temp === null) return -1
         //Eliminar Primero
@@ -244,6 +245,7 @@ export class ListaSimpleCircular {
             this.draw.removerElemento("arrow" + id1 + "-" + id2)
 
             this.primero = temp.getSiguiente()
+            this.draw.removerElemento("arrowultimo-primero")
             this.corregirPaths(svg, this.primero)
 
             return 1;
@@ -263,10 +265,10 @@ export class ListaSimpleCircular {
                 this.corregirPaths(svg, this.primero)
                 return 1
             }
-            let antesUltimo = this.primero 
-            do{
+            let antesUltimo = this.primero
+            do {
                 antesUltimo = antesUltimo.getSiguiente()
-            }while(antesUltimo.getSiguiente() !== this.ultimo)
+            } while (antesUltimo.getSiguiente() !== this.ultimo)
 
             antesUltimo.setSiguiente(this.primero)
             let id2 = antesUltimo.getId()
@@ -275,6 +277,7 @@ export class ListaSimpleCircular {
 
             this.draw.removerElemento("arrow" + id1 + "-" + id2)
             this.draw.removerElemento("arrow" + id2 + "-" + id1)
+            this.draw.removerElemento("arrowultimo-primero")
             this.corregirPaths(svg, this.ultimo)
 
 
@@ -288,9 +291,9 @@ export class ListaSimpleCircular {
 
             if (temp.getNumero() === numero) {
                 let antesDe = this.primero
-                do{
+                do {
                     antesDe = antesDe.getSiguiente()
-                }while(antesDe.getSiguiente() !== temp)
+                } while (antesDe.getSiguiente() !== temp)
 
                 let siguiente = temp.getSiguiente()
                 let id1 = temp.getId();
@@ -354,55 +357,58 @@ export class ListaSimpleCircular {
     }
 
 
-    
+
 
     corregirPaths(svg, nodo) {
         this.draw.removerElemento("arrowultimo-primero")
         this.draw.removerElemento("arrowprimero-ultimo")
 
         let temp = nodo
+        if (nodo !== this.ultimo) {
+            do {
 
-        do {
-            let siguiente = temp.getSiguiente()
-            if (siguiente !== null) {
-                let id1 = temp.getId()
-                let id2 = siguiente.getId()
+                let siguiente = temp.getSiguiente()
+                if (siguiente !== null) {
+                    let id1 = temp.getId()
+                    let id2 = siguiente.getId()
 
-                this.draw.removerElemento("arrow" + id2 + "-" + id1)
-                this.draw.removerElemento("arrow" + id1 + "-" + id2)
-                let div1 = document.getElementById("nodo" + id1)
-                let div2 = document.getElementById("nodo" + id2)
+                    this.draw.removerElemento("arrow" + id2 + "-" + id1)
+                    this.draw.removerElemento("arrow" + id1 + "-" + id2)
+                    let div1 = document.getElementById("nodo" + id1)
+                    let div2 = document.getElementById("nodo" + id2)
 
-                let pos = this.draw.posicionesRight(div1, div2)
-                pos.color = 'black'
-                pos.x1 -= 20
-                pos.x2 -= 55
-                this.draw.crearPath(id1 + "-" + id2, svg, pos)
+                    let pos = this.draw.posicionesRight(div1, div2)
+                    pos.color = 'black'
+                    pos.x1 -= 20
+                    pos.x2 -= 55
+                    this.draw.crearPath(id1 + "-" + id2, svg, pos)
 
-            }
-            temp = temp.getSiguiente();
-            if (temp === null) break;
-            if (temp === this.ultimo) break;
-        } while (temp !== this.ultimo)
+                }
+                temp = temp.getSiguiente();
+                if (temp === null) break;
+                if (temp === this.ultimo) break;
+            } while (temp !== this.ultimo)
+        }
+
 
         this.crearUltimos(svg)
     }
 
 
-    generarJSON(){
+    generarJSON() {
         let data = {
             categoria: "Estructura Lineal",
-            nombre : "Lista circular doblemente Enlazada",
+            nombre: "Lista circular doblemente Enlazada",
             valores: []
         }
 
         let temp = this.primero
 
-        do{
+        do {
             data.valores.push(temp.getNumero())
             temp = temp.getSiguiente()
-            if(temp === null) break;
-        }while(temp != this.primero)
+            if (temp === null) break;
+        } while (temp != this.primero)
 
         return JSON.stringify(data)
     }
