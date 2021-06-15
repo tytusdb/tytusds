@@ -4,15 +4,15 @@
             <i class="fa fa-fw fa-dashboard"></i>&nbsp;
             <span>{{ 'Dashboard' | translate }}</span>
         </a>
-        <a [routerLinkActive]="['router-link-active']" [routerLink]="['/charts']" class="list-group-item">
+        <!--<a [routerLinkActive]="['router-link-active']" [routerLink]="['/charts']" class="list-group-item">
             <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;
             <span>{{ 'Charts' | translate }}</span>
         </a>
-        <!--
+        
         <a [routerLinkActive]="['router-link-active']" [routerLink]="['/tables']" class="list-group-item">
             <i class="fa fa-fw fa-table"></i>&nbsp;
             <span>{{ 'Tables' | translate }}</span>
-        </a>-->
+        </a>
         <a [routerLinkActive]="['router-link-active']" [routerLink]="['/forms']" class="list-group-item">
             <i class="fa fa-fw fa-edit"></i>&nbsp;
             <span>{{ 'Forms' | translate }}</span>
@@ -29,7 +29,7 @@
         <a [routerLinkActive]="['router-link-active']" [routerLink]="['/components']" class="list-group-item">
             <i class="fa fa-th-list"></i>&nbsp;
             <span>{{ 'Component' | translate }}</span>
-        </a> 
+        </a> -->
         <div class="nested-menu">
             <a (click)="addExpandClass('estructurasLineales')" class="list-group-item">
                 <i class="fa fa-plus"></i>&nbsp;
@@ -38,37 +38,37 @@
             <li [class.expand]="showMenu === 'estructurasLineales'" class="nested">
                 <ul class="submenu">
                     <li>
-                        <a [routerLinkActive]="['router-link-active']" [routerLink]="['/lista-simple-enlaz']" >
+                        <a [routerLinkActive]="['router-link-active']" [routerLink]="['/listas-edd',1]" >
                             <i class="fa fa-monument"></i>&nbsp;
                             <span>{{ 'Lista simple enlazada' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLinkActive]="['router-link-active']" [routerLink]="['/blank-page']" >
+                        <a [routerLinkActive]="['router-link-active']" [routerLink]="['/listas-edd',2]" >
                             <i class="fa fa-monument"></i>&nbsp;
                             <span>{{ 'Lista doble enlazada' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLinkActive]="['router-link-active']" [routerLink]="['/blank-page']" >
+                        <a [routerLinkActive]="['router-link-active']" [routerLink]="['/listas-edd',3]" >
                             <i class="fa fa-monument"></i>&nbsp;
                             <span>{{ 'Lista circular simple enlazada' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLinkActive]="['router-link-active']" [routerLink]="['/blank-page']" >
+                        <a [routerLinkActive]="['router-link-active']" [routerLink]="['/listas-edd',4]" >
                             <i class="fa fa-monument"></i>&nbsp;
                             <span>{{ 'Lista circular doble enlazada' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLinkActive]="['router-link-active']" [routerLink]="['/blank-page']" >
+                        <a [routerLinkActive]="['router-link-active']" [routerLink]="['/listas-edd',5]" >
                             <i class="fa fa-monument"></i>&nbsp;
                             <span>{{ 'Pila' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLinkActive]="['router-link-active']" [routerLink]="['/blank-page']" >
+                        <a [routerLinkActive]="['router-link-active']" [routerLink]="['/listas-edd',6]" >
                             <i class="fa fa-monument"></i>&nbsp;
                             <span>{{ 'Cola' | translate }}</span>
                         </a>
