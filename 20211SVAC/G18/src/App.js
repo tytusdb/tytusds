@@ -9,20 +9,20 @@ import Particles from 'react-particles-js';
 import Burbuja from './OrdenamientoComponentes/Burbuja'
 
 function App() {
-    return (   
-     
+    return (
+
      <BrowserRouter>
         <Switch>
-            
+
             <Route path="/index" component={Cards} />
             <Route path="/stack" component={StackComponent} />
             <Route path="/queue" component={QueueComponent}/>
             <Route path="/burbuja" component={Burbuja}/>
             <Route path="/" component={Principal}/>
-           
-           
+
+
         </Switch>
-     
+
      </BrowserRouter>
     )
 }

@@ -15,7 +15,7 @@ function Nav() {
 
                 </ul>
             </nav>
-            <a href="/index" className="btn_nav"><button>Inicio</button></a>
+            <a href="/index" className="btn_nav"><button>Estructuras</button></a>
     </div>
     )
 }
