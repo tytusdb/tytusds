@@ -55,7 +55,7 @@ export class ListasCircularesComponent implements OnInit {
           }
         },
         color:{
-          color:"red"
+          color:"#013ADF"
         }
       },
       nodes:{

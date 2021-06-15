@@ -5,7 +5,7 @@
   animation: movimiento 17s infinite linear alternate;
 }
 .Logo-usac{
-  position: fixed;
+  position: absolute;
   height: 170px;
   width: 170px;
   top: 10px;
