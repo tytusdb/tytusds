@@ -19,13 +19,13 @@ export class ListaSimpleComponent implements OnInit {
   constructor(private servicio: ServicioIntento1Service ) { }
 
   ngOnInit(): void {
-    this.add();
+    //this.add();
   }
-  add(){
+  /*add(){
     this.servicio.getElementos().subscribe(
       res => {this.elementos = res;},
       err => console.error(err);
     )
-  }
+  }*/
 
 }
