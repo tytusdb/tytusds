@@ -10,7 +10,7 @@ const EstructurasLineales = [
         id: 1,
         title: 'Lista simple enlazada',
         image: image1,
-        url: '/index'
+        url: '/ListaSimpleEnlazada'
     },
 
     {

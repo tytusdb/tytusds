@@ -5,13 +5,13 @@ import Logo from '../assets/diseno-de-logo.png'
 function Nav() {
     return (
         <div className='header'>
-            <img src={Logo} alt="no cargada" className="logo"/>
+            <a href="/"><img src={Logo} alt="no cargada" className="logo"/></a>
             <nav>
                 <ul className="nav__links">
                     
-                    <li><a href="#lineales">Estcructuras Lineales</a></li>
-                    <li><a href="#Ordenamientos">Ordenamientos</a></li>
-                    <li><a href="#arboreas ">Estructuras arbóreas</a></li>
+                    <li><a href="/index#lineales">Estructuras Lineales</a></li>
+                    <li><a href="/index#Ordenamientos">Ordenamientos</a></li>
+                    <li><a href="/index#arboreas ">Estructuras arbóreas</a></li>
                     
                 </ul>
             </nav>

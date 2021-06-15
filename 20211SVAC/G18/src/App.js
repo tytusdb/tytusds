@@ -7,6 +7,7 @@ import QueueComponent from './EDDC/Cola'
 import Principal from './components/Principal'
 import Particles from 'react-particles-js';
 import Burbuja from './OrdenamientoComponentes/Burbuja'
+import ListaSimpleEnlazada from './components/EstructurasLineales/ListaSimpleEnlazada/ListaSimpleEnlazada';
 
 function App() {
     return (   
@@ -18,8 +19,8 @@ function App() {
             <Route path="/stack" component={StackComponent} />
             <Route path="/queue" component={QueueComponent}/>
             <Route path="/burbuja" component={Burbuja}/>
-            <Route path="/" component={Principal}/>
-           
+            <Route path="/" exact component={Principal}/>
+            <Route path="/ListaSimpleEnlazada" component={ListaSimpleEnlazada} />
            
         </Switch>
      
