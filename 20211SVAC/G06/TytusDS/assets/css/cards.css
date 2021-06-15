@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;900&display=swap');
+
+.card{
+	font-family: 'Merriweather', serif;
+	border-radius: 20px;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+.flap {
+  width: 100%;
+  height: 100%;
+}
+
+.flap::before {
+  position: absolute;
+  content: "";
+  height: 100%;
+  width: 50%;
+  background: url("https://pbs.twimg.com/profile_images/1347260174176710658/2GfSZ1i__400x400.jpg") black;
+  background-position: 100px;
+  background-repeat: no-repeat;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  transition: 1s;
+}
+
+.flap::after {
+  position: absolute;
+  content: "";
+  height: 100%;
+  width: 50%;
+  right: 0;
+  background: url("https://pbs.twimg.com/profile_images/1347260174176710658/2GfSZ1i__400x400.jpg") gray;
+  background-position: -200px;
+  background-repeat: no-repeat;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  transition: 1s;
+}
+
+.cont:hover .flap::after {
+  z-index: 1000;
+  transform: translatex(100%);
+}
+
+.cont:hover .flap::before{
+	z-index: 1000;
+  transform: translatex(-100%);
+}
