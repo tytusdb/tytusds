@@ -29,7 +29,6 @@ class Lista {
     }
 
     print() {
-        console.log("Entro al print")
         var valores = []
         let aux = this.primero;
         while (aux != null) {

@@ -14,6 +14,8 @@ export class EstructurasLinealesComponent implements OnInit {
   onClick1(){
     funcion1("hola")
     funcion1("assaas")
+    funcion1("5")
+    print()
     
   }
   constructor() { }
