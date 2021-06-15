@@ -1,8 +1,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Lista Circular Doble</title>
+    <title>Ordenamiento Rapido</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/templates.css">
 </head>
 <body>
@@ -10,7 +11,7 @@
         <a class="navbar-toggler" href="#" style="border: 1px solid rgb(34, 40, 49);">
             <span class="navbar-toggler-icon"></span>
         </a>
-        <h1>Lista Circular Doble</h1>
+        <h1>Ordenamiento Rápido</h1>
     </nav>
 
     <div class="row">
@@ -20,32 +21,13 @@
                 <form action="#" method="POST" class="form" id="form">
                     <div class="row">
                         <div class="col-1 col_label"><label for="dato" class="form_label">&plus;</label></div>
-                        <div class="col-8 col_input"><input type="text" name="" id="dato" placeholder="Dato"></div>
+                        <div class="col-8 col_input"><input type="text" name="" id="dato" placeholder="1, 2, 3, ..."></div>
                     </div>
                 </form>
-                <div id="oculto">
-                    <form action="#" method="POST" class="form" id="form">
-                        <div class="row">
-                            <div class="col-1 col_label"><label for="dato" class="form_label labe">&lrhar;</label></div>
-                            <div class="col-8 col_input"><input type="text" name="" id="dato2" placeholder="Nuevo dato"></div>
-                        </div>
-                    </form>
-                    <div class="row">
-                        <div class="row justify-content-end"><button class="boton" id="cambiar">Cambiar</button></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row tablero">
-                <div class="col-6"><button class="boton" id="agregar">Agregar</button></div>
-                <div class="col-6 align-self-end"><button class="boton" id="buscar" >Buscar</button></div>
-                
-            </div>
-            <div class="row">
-                <div class="col-6"><button class="boton" id="actualizar" >Actualizar</button></div>
-                <div class="col-6 align-self-end"><button class="boton" id="eliminar" >Eliminar</button></div>
             </div>
             
+            <div class="col-12"><button class="boton" id="agregar">Agregar</button></div> 
+            <div class="col-12"><button class="boton" id="ordenar">ordenar</button></div> 
             <div class="row archivo">
                 <div class="row formulario">
                     <form action="#" method="POST" class="form" id="form">
@@ -72,6 +54,6 @@
             </div>
         </div>
     </div>
-    <script src="javascript/circularDoble.js"></script>
+    <script src="scripts/rapido.js"></script>
 </body>
 </html>
