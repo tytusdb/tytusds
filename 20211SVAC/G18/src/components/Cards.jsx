@@ -1,56 +1,69 @@
 import React from 'react'
 import Card from './Card'
-import image1 from '../assets/image1.jpg'
-import image2 from '../assets/image2.jpg'
-import image3 from '../assets/image3.jpg'
+import ListaEnlazadaED from '../assets/ListaEnlazadaED.png'
+import circularDoble from '../assets/circularDoble.jpg'
+import dobleEnlazada from '../assets/dobleEnlazada.jpg'
+import circularSimple from '../assets/circularSimple.jpg'
+import cola from '../assets/cola.png'
+import pila from '../assets/pila.png'
+import colaPriori from '../assets/colaPriori.png'
+import burbuja from '../assets/burbuja.png'
+import rapido from '../assets/rapido.jpg'
+import seleccion from '../assets/seleccion.jpg'
+import insercion from '../assets/insercion.jpg'
+import abb from '../assets/abb.png'
+import avl from '../assets/avl.png'
+import bmas from '../assets/bmas.JPG'
+import merkle from '../assets/merkle.png'
+
 
 
 const EstructurasLineales = [
     {
         id: 1,
         title: 'Lista simple enlazada',
-        image: image1,
-        url: '/index'
+        image: ListaEnlazadaED,
+        url: '/ListaSimpleEnlazada'
     },
 
     {
         id: 2,
-        title: 'Lista doblemente enlazda',
-        image: image1,
+        title: 'Lista doblemente enlazada',
+        image: dobleEnlazada,
         url: "/",
         text: 'Sebas gay'
     },
     {
         id: 4,
-        title: 'Lista Circular siple enlazada',
-        image: image1,
+        title: 'Lista circular simple enlazada',
+        image: circularSimple,
         url: "/",
     },
     {
         id: 5,
-        title: 'Lista circular Doblemente enlazada',
-        image: image1,
+        title: 'Lista circular doblemente enlazada',
+        image: circularDoble,
         url: "/",
     },
 
     {
         id: 6,
-        title: 'pila',
-        image: image1,
+        title: 'Pila',
+        image: pila,
         url: "/stack",
     },
 
     {
         id: 6,
-        title: 'cola',
-        image: image1,
+        title: 'Cola',
+        image: cola,
         url: "/queue",
     },
 
     {
         id: 6,
-        title: 'Cola de proriedad',
-        image: image1,
+        title: 'Cola de prioridad',
+        image: colaPriori,
         url: "/",
     },
 
@@ -65,27 +78,27 @@ const Ordenamientos = [
     {
         id: 7,
         title: 'Burbuja',
-        image: image2,
+        image: burbuja,
         url: '/burbuja'
     },
 
     {
         id: 8,
         title: 'Seleccion',
-        image: image2,
+        image: seleccion,
         url: "/",
         text: 'Sebas gay'
     },
     {
         id: 9,
         title: 'Insercion',
-        image: image2,
+        image: insercion,
         url: "/",
     },
     {
         id: 10,
         title: 'Rapido',
-        image: image2,
+        image: rapido,
         url: "/",
     },
 
@@ -95,28 +108,28 @@ const Ordenamientos = [
 const arboles = [
     {
         id: 11,
-        title: 'Arbol binario de Busqueda',
-        image: image3,
+        title: 'Arbol binario de busqueda',
+        image: abb,
         url: '/'
     },
 
     {
         id: 12,
         title: 'AVL',
-        image: image3,
+        image: avl,
         url: "/",
         text: 'Árbol B'
     },
     {
         id: 13,
         title: 'Árbol B+',
-        image: image3,
+        image: bmas,
         url: "/",
     },
     {
         id: 14,
         title: 'Árbol de Merkle',
-        image: image3,
+        image: merkle,
         url: "/",
     },
 
@@ -134,13 +147,13 @@ function Cards() {
         <div className="container d-flex justify-content-center align-items-center h-100 ">
             <div className="row">
 
-            <h2 className="text-white" >Estcructuras Lineales</h2 >
-                
+            <h2 className="text-white" >Estructuras Lineales</h2>
+
                 {
                     EstructurasLineales.map(card => (
-                        
+
                         <div className="col-md-3 " key={card.id} id="lineales">
-                            
+
                             <Card title={card.title} imageSource={card.image} url={card.url} text={card.text} />
                         </div>
                     ))

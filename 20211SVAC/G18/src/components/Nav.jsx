@@ -9,13 +9,16 @@ function Nav() {
             <nav>
                 <ul className="nav__links">
 
-                    <li><a href="index#lineales">Estructuras Lineales</a></li>
-                    <li><a href="index#Ordenamientos">Ordenamientos</a></li>
-                    <li><a href="index#arboreas ">Estructuras arbóreas</a></li>
+
+                    <li><a href="/index#lineales">Estructuras Lineales</a></li>
+                    <li><a href="/index#Ordenamientos">Ordenamientos</a></li>
+                    <li><a href="/index#arboreas ">Estructuras arbóreas</a></li>
+
+
 
                 </ul>
             </nav>
-            <a href="/index" className="btn_nav"><button>Inicio</button></a>
+            <a href="/index" className="btn_nav"><button>Estructuras</button></a>
     </div>
     )
 }

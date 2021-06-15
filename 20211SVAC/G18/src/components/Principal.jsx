@@ -6,18 +6,21 @@ function Principal() {
     return (
 
         <div className="principal">
-             
+
             <section className="Bienvenida ">
-      
+
                     <div className="contenedor_bienvenida">
-                        
+
                         <div className="contenedor_bienvenida__hero">
-                            <h1 className="hero animate__animated animate__fadeInDown">Bienvenido...</h1>
+                            <h1 className="hero animate__animated animate__fadeInDown">¡Bienvenido!</h1>
                         </div>
 
-
-                        <p className="contenedor_bienvenida__texto ">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos fugiat officia pariatur impedit distinctio harum consequuntur minima qui blanditiis perferendis aspernatur, tenetur placeat delectus? Perspiciatis commodi vitae quos dolorem fuga?</p>
-                        <a href="/index" className="btn_nav"><button>Inicio</button></a>
+                        <div  className="contenedor_bienvenida__texto">
+                        <p>¿Sabias qué?... Una estructura de datos es una colección de valores, la relación que existe entre estos valores y las operaciones que podemos hacer sobre ellos; en pocas palabras se refiere a cómo los datos están organizados y cómo se pueden administrar.
+                        </p>
+                        <p>Desarrollamos este sitio web para que logres observar de manera grafica el funcionamiento de cada estructura. Por parte del grupo de desarrollo, esperamos te sea de mucha ayuda.</p>
+                        </div>
+                        <a href="/index" className="btn_nav"><button>¡Vamos!</button></a>
                         <img
                             src="https://joshsol.carrd.co/assets/images/image01.gif?v83885887198851"
                             alt=""
@@ -82,7 +85,7 @@ function Principal() {
                   "move": {
                     "enable": true,
                     "speed": 14,
-                    "direction": "top",
+                    "direction": "bottom",
                     "random": false,
                     "straight": true,
                     "out_mode": "out",
@@ -134,11 +137,11 @@ function Principal() {
                   }
                 },
                 "retina_detect": true
-              }}    
+              }}
         />
-                   
+
             </section>
-            
+
             <section>
 
             </section>
