@@ -123,10 +123,6 @@
               "devServerTarget": "TytusDS:serve:production"
             }
           }
-        },
-        "deploy": {
-          "builder": "angular-cli-main:deploy",
-          "options": {}
         }
       }
     }
