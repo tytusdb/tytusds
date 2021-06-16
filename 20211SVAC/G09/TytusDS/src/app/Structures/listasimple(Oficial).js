@@ -62,7 +62,14 @@ search(data){
     }return false
     }
 
-cargar(){}
+cargar(data){/*
+    fetch(data).then(resp => resp.json)
+    .then(elements =>{
+        elements.array.forEach(element => {
+            //console.log(element) 
+        });
+    })*/
+}
 
 guardar(){}
 
@@ -79,26 +86,24 @@ print(){
 
 const listSimple = new ListaSimple();
 
-
-
-function lsimpleAdd(date){
-listSimple.add(date);
+function lsimpleAdd(data){
+listSimple.add(data);
 return listSimple.print()
 }
 
-function lsimpleDelete(date){
-listSimple.delete(date);
+function lsimpleDelete(data){
+listSimple.delete(data);
 }
-function lsimpleRefresh(date1,date2){
-listSimple.refresh(date1,date2); 
+function lsimpleRefresh(data1,data2){
+listSimple.refresh(data1,data2); 
 }
-function lsimpleSearch(date){
-return listSimple.search(date); 
+function lsimpleSearch(data){
+return listSimple.search(data); 
 }
-function lsimpleCargar(date){
-listSimple.cargar();
+function lsimpleCargar(data){
+listSimple.cargar(data);
 }
-function lsimpleGuardar(date){
+function lsimpleGuardar(data){
 listSimple.guardar();
 }
 function lsimplePrint(){return print()}
