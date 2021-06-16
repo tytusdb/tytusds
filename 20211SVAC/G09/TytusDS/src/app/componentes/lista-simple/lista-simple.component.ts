@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ServicioIntento1Service } from "../../Servicios/servicio-intento1.service";
 
 declare var lsimpleAdd:any;
-declare var funcion1:any;
+declare var lsimplePrint:any;
 declare var funcion2:any;
 @Component({
   selector: 'app-lista-simple',
@@ -14,12 +14,9 @@ export class ListaSimpleComponent implements OnInit {
 
   getValue(val:string){
     console.warn(val)
-    funcion1(1)
-    funcion1(2)
-    funcion1(5)
-    var hola = funcion2()
-    console.warn(hola)
-    this.displayVal=hola
+    lsimpleAdd(val)
+    //var hola = lsimplePrint()
+    //this.displayVal=hola
   }
 
  

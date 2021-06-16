@@ -34,6 +34,7 @@
               "src/styles.css"
             ],
             "scripts": [
+              "src/app/Structures/listasimple(Oficial).js"
               ]
           },
           "configurations": {
@@ -98,7 +99,7 @@
               "src/styles.css"
             ],
             "scripts": [
-              "src/app/Structures/listaSimple.js"
+              "src/app/Structures/listasimple(Oficial).js"
             ]
           }
         },
