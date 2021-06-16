@@ -12,6 +12,10 @@ import { EstructurasLinealesComponent } from './componentes/estructuraslineales/
 import { OrdenamientosComponent } from './componentes/ordenamientos/ordenamientos.component';
 import { ArbolesComponent } from './componentes/arboles/arboles.component';
 import { ListaSimpleComponent } from './componentes/lista-simple/lista-simple.component';
+import { ListaDobleEnlazadaComponent } from './componentes/lista-doble-enlazada/lista-doble-enlazada.component';
+import { PilaComponent } from './componentes/pila/pila.component';
+import { ColaComponent } from './componentes/cola/cola.component';
+import { ColaPrioridadComponent } from './componentes/cola-prioridad/cola-prioridad.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +25,11 @@ import { ListaSimpleComponent } from './componentes/lista-simple/lista-simple.co
     EstructurasLinealesComponent,
     OrdenamientosComponent,
     ArbolesComponent,
-    ListaSimpleComponent
+    ListaSimpleComponent,
+    ListaDobleEnlazadaComponent,
+    PilaComponent,
+    ColaComponent,
+    ColaPrioridadComponent
   ],
   imports: [
     BrowserModule,
