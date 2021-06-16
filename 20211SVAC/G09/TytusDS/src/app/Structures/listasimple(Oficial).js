@@ -79,33 +79,18 @@ print(){
 
 const listSimple = new listaSimple();
 
-listSimple.add("1")
-listSimple.add("2")
-listSimple.add("3")
-listSimple.add("4")
-listSimple.add("5")
 
-console.log(listSimple.print())
-
-listSimple.delete("1")
-listSimple.refresh(2,6)
-
-console.log(listSimple.search("7"))
-console.log(listSimple.print())
 
 function lsimpleAdd(date){
 listSimple.add(date);
 return listSimple.print()
-//console.log(hola)
 }
 
 function lsimpleDelete(date){
 listSimple.delete(date);
-console.log(linkedList) 
 }
 function lsimpleRefresh(date1,date2){
-listSimple.refresh(date1,date2);
-console.log(linkedList) 
+listSimple.refresh(date1,date2); 
 }
 function lsimpleSearch(date){
 return listSimple.search(date); 
