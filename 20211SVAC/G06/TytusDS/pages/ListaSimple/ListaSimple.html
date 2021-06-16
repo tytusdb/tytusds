@@ -95,7 +95,7 @@
       <li><a href="https://github.com/tytusdb/tytusds"><i class="uil-github-alt "></i> Contact</a></li>
       <li><a href="https://www.instagram.com/angelarteaga_/"><i class="uil-instagram"></i> Follow me</a></li>
       </ul>
-  </nav>
+    </nav>
         <!-- /#sidebar-wrapper -->
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="height: 70px;">
@@ -119,17 +119,13 @@
             </ul>
           </li>
         </ul>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-          <label class="form-check-label text-light" for="inlineRadio1">Repetir</label>
+        <div class="form-check form-switch">
+          <label class="form-check-label text-light" for="flexSwitchCheckDefault" style="text-align: left;">Repetir</label>
+          <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
         </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" checked="true">
-          <label class="form-check-label text-light" for="inlineRadio2">No Repetir</label>
-        </div>
-                <form class="d-flex">
+        <form class="d-flex">
           <div class="form-group" style="margin-right:150px; margin-left: 20px;">
-            <label for="formControlRange" class="text-light" style="margin-right:10px;">Velocidad de Animación</label>
+            <label for="formControlRange" class="text-light" style="margin-right:10px;">Animación</label>
             <input type="range" class="form-control-range" id="formControlRange">
           </div>
         </form>
@@ -138,14 +134,14 @@
               <input class="form-control me-2" type="search" placeholder="Nuevo Valor" aria-label="Search">
             </form>
         <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Ingresar Valor" aria-label="Search">
+          <input class="form-control me-2" type="search" placeholder="Ingresar Valor" aria-label="Search" id="valor">
           <a class="btn btn-outline-success" id="add">Añadir</a>
         </form>
         <form class="d-flex" style="padding-left: 5px;">
           <a class="btn btn-outline-info" id="search">Buscar</a>
         </form>
         <form class="d-flex" style="padding-left: 5px;">
-          <a class="btn btn-outline-danger">Eliminar</a>
+          <a class="btn btn-outline-danger" id="delete">Eliminar</a>
         </form>
       </div>
     </div>
@@ -159,64 +155,68 @@
         <span class="hamb-bottom"></span>
     </button>
 
+
+
         <!--AQUI VA EL CONTENIDO DE LAS ESTRUCTURAS-->
         <div class="container">
           <h1 style="font-family: 'Merriweather', serif;">Lista Simplemente Enlazada</h1>
-          <!--button class="btn btn-outline-info" type="submit" id="hola">Buscar</button-->
-          <div id="mynetwork" class="col-12" style="height:600px;"></div>          
+          <!--button class="btn btn-outline-info" type="submit" id="hola">Buscar</button-->       
         </div>
+        <div id="mynetwork" class="col-12" style="height:600px;"></div>   
         <!-- /#TERMINA CONTENIDO DE LAS ESTRUCTURAS-->
+
+
     <br>
     <br>
     <br>
     <footer class="bg-dark text-center text-white">
-  <!-- Grid container -->
-  <div class="container p-4 pb-0">
-    <!-- Section: Social media -->
-    <section class="mb-4">
-      <!-- Facebook -->
-      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-        ><i class="fab fa-facebook-f"></i
-      ></a>
+      <!-- Grid container -->
+      <div class="container p-4 pb-0">
+        <!-- Section: Social media -->
+        <section class="mb-4">
+          <!-- Facebook -->
+          <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+            ><i class="fab fa-facebook-f"></i
+          ></a>
 
-      <!-- Twitter -->
-      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-        ><i class="fab fa-twitter"></i
-      ></a>
+          <!-- Twitter -->
+          <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+            ><i class="fab fa-twitter"></i
+          ></a>
 
-      <!-- Google -->
-      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-        ><i class="fab fa-google"></i
-      ></a>
+          <!-- Google -->
+          <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+            ><i class="fab fa-google"></i
+          ></a>
 
-      <!-- Instagram -->
-      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-        ><i class="fab fa-instagram"></i
-      ></a>
+          <!-- Instagram -->
+          <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+            ><i class="fab fa-instagram"></i
+          ></a>
 
-      <!-- Linkedin -->
-      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-        ><i class="fab fa-linkedin-in"></i
-      ></a>
+          <!-- Linkedin -->
+          <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+            ><i class="fab fa-linkedin-in"></i
+          ></a>
 
-      <!-- Github -->
-      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-        ><i class="fab fa-github"></i
-      ></a>
-    </section>
-    <!-- Section: Social media -->
-  </div>
-  <!-- Grid container -->
+          <!-- Github -->
+          <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+            ><i class="fab fa-github"></i
+          ></a>
+        </section>
+        <!-- Section: Social media -->
+      </div>
+      <!-- Grid container -->
 
-  <!-- Copyright -->
-  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-    <p>
-      <script> document.write(new Date().toLocaleDateString()); </script>
-       - TytusDS - Copyright
-    </p>
-  </div>
-  <!-- Copyright -->
-</footer>
+      <!-- Copyright -->
+      <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        <p>
+          <script> document.write(new Date().toLocaleDateString()); </script>
+           - TytusDS - Copyright
+        </p>
+      </div>
+      <!-- Copyright -->
+    </footer>
 
 </div>
 <!-- /#wrapper -->
