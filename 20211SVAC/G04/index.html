@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<title>Visualización de Estructuras de Datos</title>
+		<meta name="description" content="Open source visualization of data structures and algorithms in JavaScript"/>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<link href="public/styles/index.css" rel="stylesheet" />
+		<link href="public/styles/global.css" rel="stylesheet" />
+		<link href="public/icons/style.css" rel="stylesheet" />
+		<link href="public/styles/normalize.css" rel="stylesheet" />
+	</head>
+	<body>
+		<div id="main-container">
+			<nav>
+				<div id="logo">
+					<img src="public/images/fiusac.png" alt="Fiusac" />
+				</div>
+				<ul>
+					<li class="active-path">
+						<i class="icon-code"></i><span>Estructuras</span>
+					</li>
+					<li><i class="icon-info"></i><span>Información</span></li>
+					<li><i class="icon-book"></i><span>Documentación</span></li>
+				</ul>
+				<div id="git-info">
+					<svg
+						width="85"
+						height="99"
+						viewBox="0 0 85 99"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<g clip-path="url(#clip0)">
+							<path
+								d="M0 95.8889V45.1568C0 43.0314 1.74295 41.3065 3.89052 41.3065H63.2754V76.9452L0 95.8889Z"
+								fill="#4865C8"
+							/>
+							<path
+								d="M4.60638 18.2044V79.7175H67.4771V27.7533H58.2021C55.8678 27.7533 54.0004 25.8743 54.0004 23.5949V15.2166H7.62543C5.94472 15.2166 4.60638 16.5719 4.60638 18.2044Z"
+								fill="#E8EDFF"
+							/>
+							<path
+								d="M3.82824 99H68.9399C70.6206 99 72.1146 97.8911 72.6126 96.3202L84.8132 56.2458C85.5602 53.8124 83.7239 51.379 81.1406 51.379H48.7715C47.2464 51.379 45.8769 52.2722 45.2545 53.6584L43.5115 57.6011C42.889 58.9872 41.4884 59.9113 39.9634 59.8805C30.9996 59.7881 22.0359 59.6957 13.041 59.6033C11.3292 59.5725 9.80408 60.7122 9.33721 62.3447C6.25593 72.9409 3.20576 83.5678 0.124472 94.164C-0.560259 96.5974 1.27606 99 3.82824 99Z"
+								fill="#5E81F4"
+							/>
+							<path
+								d="M54.0004 15.2166V24.7038C54.0004 26.3671 55.3698 27.7225 57.0505 27.7225H67.4771L54.0004 15.2166Z"
+								fill="#BFC9ED"
+							/>
+							<path
+								d="M58.918 34.0678H13.3211C12.9165 34.0678 12.6053 33.7598 12.6053 33.3594C12.6053 32.9589 12.9165 32.6509 13.3211 32.6509H58.918C59.3226 32.6509 59.6338 32.9589 59.6338 33.3594C59.665 33.7598 59.3226 34.0678 58.918 34.0678Z"
+								fill="#BFC9ED"
+							/>
+							<path
+								d="M58.918 41.3065H13.3211C12.9165 41.3065 12.6053 40.9984 12.6053 40.598C12.6053 40.1976 12.9165 39.8895 13.3211 39.8895H58.918C59.3226 39.8895 59.6338 40.1976 59.6338 40.598C59.665 40.9984 59.3226 41.3065 58.918 41.3065Z"
+								fill="#BFC9ED"
+							/>
+							<path
+								d="M42.5778 48.1755H13.1966C12.8854 48.1755 12.6053 47.9291 12.6053 47.5902V47.313C12.6053 47.005 12.8543 46.7278 13.1966 46.7278H42.5778C42.8891 46.7278 43.1692 46.9742 43.1692 47.313V47.5902C43.1692 47.9291 42.8891 48.1755 42.5778 48.1755Z"
+								fill="#BFC9ED"
+							/>
+							<rect x="63" y="1" width="2" height="14" rx="1" fill="#BFC9ED" />
+							<rect
+								x="78.6729"
+								y="4"
+								width="2"
+								height="14"
+								rx="1"
+								transform="rotate(43.703 78.6729 4)"
+								fill="#BFC9ED"
+							/>
+							<rect
+								x="83"
+								y="20"
+								width="2"
+								height="14"
+								rx="1"
+								transform="rotate(90 83 20)"
+								fill="#BFC9ED"
+							/>
+						</g>
+						<defs>
+							<clipPath id="clip0">
+								<rect width="85" height="99" fill="white" />
+							</clipPath>
+						</defs>
+					</svg>
+					<p>Este proyecto es OpenSource.</p>
+					<button type="button">Ver Github</button>
+				</div>
+			</nav>
+			<main>
+				<div id="topbar">
+					<div class="input">
+						<label for="search" aria-label="Search Icon"
+							><i class="icon-search"></i
+						></label>
+						<input
+							placeholder="Buscar estructuras"
+							type="search"
+							id="search"
+							name="search"
+						/>
+					</div>
+					<button type="button" aria-label="Dark mode" onclick="toggleDarkBtn()" id="darkmode-btn">
+						<i class="icon-moon"></i>
+					</button>
+				</div>
+				<div id="topbar-tabs">
+					<h1>Estructuras de datos</h1>
+					<ul>
+						<li><button class="active-tab" type="button">Completos</button></li>
+						<li><button type="button">Desarrollo</button></li>
+					</ul>
+				</div>
+				<div id="cards">
+					<div class="flip-card">
+						<div class="flip-card-inner">
+							<div class="card-list">
+								<div>
+									<h2>Ordenamientos</h2>
+									<p>
+										Ponen elementos de una lista en una secuencia con relación
+										de orden.
+									</p>
+									<ul>
+										<li><a href="public/pages/bubblesort" title="Bubble Sort">Burbuja</a></li>
+										<li><a href="public/pages/selectionsort" title="Selection Sort">Selección</a></li>
+										<li><a href="public/pages/insertionsort" title="Insertion Sort">Inserción</a></li>
+										<li><a href="public/pages/quicksort" title="Fast Sort">Rápido</a></li>
+									</ul>
+								</div>
+							</div>
+							<div class="card-content">
+								<img src="public/images/pages/basics.png" alt="Sorting Banner" />
+								<div>
+									<h2>Ordenamientos</h2>
+									<p>4 estructuras</p>
+								</div>
+								<button aria-label="Play Ordering" type="button" class="card-play">
+									<i class="icon-play"></i>
+								</button>
+								<span>
+									<i class="icon-bar-chart-2"></i>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="flip-card">
+						<div class="flip-card-inner">
+							<div class="card-list">
+								<div>
+									<h2>Arbóreas</h2>
+									<p>
+										Grafos no dirigidos con las nociones de raíz y de
+										descendencia.
+									</p>
+									<ul>
+										<li>
+											<a href="/" title="Tree search">Árbol de búsqueda</a>
+										</li>
+										<li><a href="/" title="AVL Tree">AVL</a></li>
+										<li><a href="/" title="B Tree">Árbol B</a></li>
+										<li><a href="/" title="B+ Tree">Árbol B+</a></li>
+										<li><a href="/" title="Merkle Tree">Árbol de Merkle</a></li>
+									</ul>
+								</div>
+							</div>
+							<div class="card-content">
+								<img
+									src="public/images/pages/recursion.png"
+									alt="Recursion Banner"
+								/>
+								<div>
+									<h2>Arbóreas</h2>
+									<p>5 estructuras</p>
+								</div>
+								<button  aria-label="Play Trees" type="button" class="card-play">
+									<i class="icon-play"></i>
+								</button>
+								<span>
+									<i class="icon-git-branch"></i>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="flip-card">
+						<div class="flip-card-inner">
+							<div class="card-list">
+								<div>
+									<h2>Lineales</h2>
+									<p>
+										Grafos no dirigidos con las nociones de raíz y de
+										descendencia.
+									</p>
+									<ul>
+										<li><a href="public/pages/simplelist" title="Simple List">Lista simple</a></li>
+										<li><a href="public/pages/doublelist" title="Double List">Lista doble</a></li>
+										<li><a href="public/pages/circularsimplelist" title="Circular List">Lista circular</a></li>
+										<li>
+											<a href="public/pages/circulardoublelist" title="Double Circular List">Lista circular doble</a>
+										</li>
+										<li><a href="public/pages/stack" title="Stack">Pila</a></li>
+										<li><a href="public/pages/queue" title="Queue">Cola</a></li>
+										<li>
+											<a href="/" title="Priority Queue">Cola de prioridad</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="card-content">
+								<img src="public/images/pages/indexing.png" alt="Indexing Banner" />
+								<div>
+									<h2>Lineales</h2>
+									<p>5 estructuras</p>
+								</div>
+								<button aria-label="Play Linear"  type="button" class="card-play">
+									<i class="icon-play"></i>
+								</button>
+								<span>
+									<i class="icon-git-commit"></i>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="flip-card">
+						<div class="flip-card-inner">
+							<div class="card-list">
+							</div>
+							<div class="card-content">
+								<img src="public/images/pages/sorting.png" alt="Sorting Banner" />
+							</div>
+						</div>
+					</div>
+					<div class="flip-card">
+						<div class="flip-card-inner">
+							<div class="card-list">
+							</div>
+							<div class="card-content">
+								<img src="public/images/pages/nolineal.png" alt="Sorting Banner" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</main>
+			<aside>
+				<div id="user">
+					<img src="public/images/assets/hand.png" alt="Aside banner" />
+					<h2><span>Librería de EDD</span><span>Visualizador v1.0.0</span></h2>
+				</div>
+				<h3>Completos</h3>
+				<ul>
+					<li>
+						<i class="icon-bar-chart-2"></i>
+						<label for="sorting-progress">
+							<span>Ordenar</span>
+							<span>4 de 4 edd</span>
+						</label>
+						<progress id="sorting-progress" value="4" max="4"></progress>
+					</li>
+					<li>
+						<i class="icon-git-commit"></i>
+						<label for="sorting-progress">
+							<span>Lineal</span>
+							<span>4 de 7 edd</span>
+						</label>
+						<progress id="lineal-progress" value="4" max="7"></progress>
+					</li>
+					<li>
+						<i class="icon-git-branch"></i>
+						<label for="sorting-progress">
+							<span>Arboles</span>
+							<span>1 de 5 edd</span>
+						</label>
+						<progress id="tree-progress" value="1" max="5"></progress>
+					</li>
+				</ul>
+			</aside>
+		</div>
+		<script src="scripts/utils/colors.js"></script>
+		<script src="scripts/pages/index/index.js"></script>
+	</body>
+</html>
