@@ -34,7 +34,7 @@
               "src/styles.css"
             ],
             "scripts": [
-                "src/app/componentes/estructuraslineales/validaciones.js"
+                "src/app/Structures/listaSimple.js"
               ]
           },
           "configurations": {
@@ -99,7 +99,6 @@
               "src/styles.css"
             ],
             "scripts": [
-              "src/app/componentes/estructuraslineales/validaciones.js",
               "src/app/Structures/listaSimple.js"
             ]
           }
