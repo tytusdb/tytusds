@@ -8,15 +8,12 @@ declare var lsimpleAdd:any;
   styleUrls: ['./lista-simple.component.css']
 })
 export class ListaSimpleComponent implements OnInit {
-<<<<<<< HEAD
   displayVal='';
   getValue(val:string){
     console.warn(val)
     this.displayVal=val
   }
 
-=======
->>>>>>> 6a464cd90a9f8c91775401daa836ce43bb4202fe
  
   elementos: any=[]
 
