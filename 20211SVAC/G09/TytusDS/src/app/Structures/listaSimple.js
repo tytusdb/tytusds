@@ -1,4 +1,3 @@
-  
 class Noda{
   constructor(data, next){
     this.data = data;
@@ -56,3 +55,4 @@ function funcion1(variable){
 }
 
 
+  

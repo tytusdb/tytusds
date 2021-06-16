@@ -19,7 +19,7 @@ export class ListaSimpleComponent implements OnInit {
     funcion1(5)
     var hola = funcion2()
     console.warn(hola)
-    this.displayVal=val
+    this.displayVal=hola
   }
 
  
