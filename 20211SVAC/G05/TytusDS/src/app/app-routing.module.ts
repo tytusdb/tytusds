@@ -5,6 +5,7 @@ import {ListasCicularesDEComponent} from './PaginasWeb/listas-ciculares-de/lista
 import { ListaSimpleComponent } from './PaginasWeb/lista-simple/lista-simple.component';
 import { ListaDobleComponent } from './PaginasWeb/lista-doble/lista-doble.component';
 import { PilaComponent } from './PaginasWeb/pila/pila.component';
+import { ColaComponent } from './PaginasWeb/cola/cola.component';
 import { MenuComponent } from './PaginasWeb/menu/menu.component';
 
 const routes: Routes = [
@@ -12,7 +13,8 @@ const routes: Routes = [
   {path:'ListasCirculares', component: ListasCircularesComponent},
   {path:'ListasCircularesDE', component:ListasCicularesDEComponent},
   {path:'ListaSimple', component: ListaSimpleComponent},
-  {path:'ListaDoble', component: PilaComponent},
+  {path:'Pila', component: PilaComponent},
+  {path:'Cola', component: ColaComponent},
   {path:'ListaDoble', component: ListaDobleComponent},
   {path:'**', redirectTo: 'menu'},
 ];
