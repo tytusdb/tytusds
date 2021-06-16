@@ -6,23 +6,16 @@ import { EstructurasLinealesComponent} from './componentes/estructuraslineales/e
 import {InicioComponent} from './componentes/inicio/inicio.component';
 import { OrdenamientosComponent } from './componentes/ordenamientos/ordenamientos.component';
 import { ArbolesComponent } from './componentes/arboles/arboles.component';
+
+//Importando los subcomponentes de Cada componente
+import { ListaSimpleComponent } from "./componentes/lista-simple/lista-simple.component";
 const routes: Routes = [
-  {
-    path: "EstructurasLineales",
-    component: EstructurasLinealesComponent
-  },
-  {
-    path: "Inicio",
-    component: InicioComponent
-  },
-  {
-    path: "Ordenamientos",
-    component: OrdenamientosComponent
-  },
-  {
-    path: "Arboles",
-    component: ArbolesComponent
-  }
+  {path: "EstructurasLineales",    component: EstructurasLinealesComponent},
+  {path: "Inicio",    component: InicioComponent},
+  {path: "Ordenamientos",    component: OrdenamientosComponent},
+  {path: "Arboles",    component: ArbolesComponent},
+  //Subcomponentes
+  {path:"listaSimple",  component: ListaSimpleComponent}
 
 ];
 

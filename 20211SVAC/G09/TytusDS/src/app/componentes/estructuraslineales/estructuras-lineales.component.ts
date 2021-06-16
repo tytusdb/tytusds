@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ɵɵpureFunction1 } from '@angular/core';
 import {Router} from '@angular/router';
 import { HttpClient } from "@angular/common/http";
+declare var funcion1:any;
+declare var noda:any;
+
 @Component({
   selector: 'app-estructuras-lineales',
   templateUrl: './estructuras-lineales.component.html',
@@ -8,14 +11,15 @@ import { HttpClient } from "@angular/common/http";
 })
 export class EstructurasLinealesComponent implements OnInit {
 
+  onClick1(){
+    funcion1("hola")
+    funcion1("assaas")
+    funcion1("5")
+    print()
+    
+  }
   constructor() { }
 
   ngOnInit(): void {
-    alert('como te va!');
   }
-
-  Ir() {
-    //this.router.navigate(["<ListaSimple>"]);    //alert('hola!'); 
-  }
-
 }
