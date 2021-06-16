@@ -16,6 +16,8 @@ import { ListaDobleEnlazadaComponent } from './componentes/lista-doble-enlazada/
 import { PilaComponent } from './componentes/pila/pila.component';
 import { ColaComponent } from './componentes/cola/cola.component';
 import { ColaPrioridadComponent } from './componentes/cola-prioridad/cola-prioridad.component';
+import { ListaCircularComponent } from './componentes/lista-circular/lista-circular.component';
+import { ListaDobleCircularComponent } from './componentes/lista-doble-circular/lista-doble-circular.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +31,9 @@ import { ColaPrioridadComponent } from './componentes/cola-prioridad/cola-priori
     ListaDobleEnlazadaComponent,
     PilaComponent,
     ColaComponent,
-    ColaPrioridadComponent
+    ColaPrioridadComponent,
+    ListaCircularComponent,
+    ListaDobleCircularComponent
   ],
   imports: [
     BrowserModule,
