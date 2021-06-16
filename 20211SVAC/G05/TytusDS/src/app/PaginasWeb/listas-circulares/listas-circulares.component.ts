@@ -6,7 +6,7 @@ let vis=require('../../../../vis-4.21.0/dist/vis');
 @Component({
   selector: 'app-listas-circulares',
   templateUrl: './listas-circulares.component.html',
-  styleUrls: ['./listas-circulares.component.css','../../../../css/bootstrap.min.css','../../../../vis-4.21.0/dist/vis.css']
+  styleUrls: ['./listas-circulares.component.css','../../../../vis-4.21.0/dist/vis.css']
 })
 export class ListasCircularesComponent implements OnInit {
   lista=Lista;
@@ -22,8 +22,21 @@ export class ListasCircularesComponent implements OnInit {
     this.graficar();
   }
   delete(valor){
-    this.lista.eliminar(valor);
-    this.graficar();
+    let eliminar=this.lista.eliminar(valor);
+    if (eliminar!=null){
+      this.graficar();
+    }else{
+      alert("Dicho nodo no ha sido ingresado")
+    }
+
+  }
+  update(valor,new_valor){
+    let act=this.lista.actualizar(valor,new_valor)
+    if(act!=null){
+      this.graficar();
+    }else{
+      alert("Dicho nodo no ha sido ingresado")
+    }
   }
   //OPCIONES PARA GRAFICAR------------------------
   graficar():void{
@@ -42,12 +55,15 @@ export class ListasCircularesComponent implements OnInit {
           }
         },
         color:{
-          color:"red"
+          color:"#013ADF"
         }
       },
       nodes:{
         color:{
           border:"white",background:"red"
+        },
+        font:{
+          color:"white"
         }
       }
     };
