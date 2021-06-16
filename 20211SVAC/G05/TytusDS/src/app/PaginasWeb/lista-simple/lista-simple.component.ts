@@ -15,7 +15,7 @@ export class ListaSimpleComponent implements OnInit {
 
   lista: ListaSimple;  //  Variable para manejar la lista simple
 
-  //  Las variables para manejar las operaciones de la lista 
+  //  Las variables para manejar las operaciones de la lista
   valorAgregar = '';
   valorEliminar = '';
   nodoActualizar = '';
