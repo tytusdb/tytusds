@@ -19,13 +19,10 @@ export class PilaComponent implements OnInit {
   }
   Add(valor){
     this.lista.guardar(valor);
-    
-  
     //this.graficar();
   }
   delete(){
-    this.lista.desapila();
-    
+    this.lista.imprimir();
     //this.graficar();
   }
   //OPCIONES PARA GRAFICAR------------------------

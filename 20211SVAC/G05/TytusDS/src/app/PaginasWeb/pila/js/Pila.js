@@ -1,5 +1,4 @@
 
-        
 class Nodo{
     constructor(valor){
         this.dato=valor;
@@ -7,50 +6,13 @@ class Nodo{
     }
 }
 
-class Pila {
+class pila {
      constructor() {
       this.tamaño = 0;
       this.uno=null;
-      
     }
   
-    
-
     guardar(valor) {
-        
-        //var b=document.getElementById("Agregar");
-      //var element=document.createElement("p");
-      //var Agregar=document.getElementById("Agregar");
-        var element=document.createElement("button");
-        var myDiv=document.getElementById("myDiv1");
-          var content=document.createTextNode(valor);
-          element.appendChild(content);
-          //myDiv.appendChild(element);
-          element.style.backgroundColor='rgb(25, 25, 112)'; 
-          element.style.color='rgb(255,255,255)';
-          element.style.fontSize='60px'; 
-          //myDiv.style.backgroundImage="url('http://pa1.narvii.com/6380/43a7f3d1b464182adc4de846f391d52803f1a583_00.gif')";
-          //element.style.border="none";
-          element.style.borderRadius="5px";
-          element.style.boxShadow="0 9px black";
-
-          myDiv.insertBefore(element, myDiv.firstElementChild);
-          var pos = 0;
-    var id = setInterval(frame, 1);
-    function frame() {
-        if (pos == 50) {
-            clearInterval(id);
-        } else {
-            pos++;
-            myDiv.style.top = pos + 'px';
-            myDiv.style.left = pos + 'px';
-        }
-    }
-          
-         
-
-        
-
     let nodo = new Nodo(valor)
     nodo.dato=valor;
     if (this.uno==null){
@@ -68,15 +30,6 @@ class Pila {
             console.log("pila sin datos")
         }
         else{
-           
-            var puntero=document.getElementById("myDiv1");
-            if (puntero.childNodes.length>0) {
-                puntero.removeChild(puntero.childNodes[0]); 
-            }
-
-            //var puntero=document.getElementById("myDiv");
-           // if (puntero.childNodes.length>0) 
-             // puntero.removeChild(puntero.childNodes[puntero.childNodes.length-1]); 
             this.uno= this.uno.post;
             this.tamaño--;
         }
@@ -145,7 +98,33 @@ else{
 
   }
 
-  module.exports = Pila;
+  const stack = new pila();
+  stack.guardar("john");
+  stack.guardar("jo1");
+  stack.guardar("jo2");
+  stack.guardar("jo3");
+  stack.guardar("jo4");
+  stack.desapila();
+  stack.buscar("e");
+  stack.buscar("john");
+  stack.buscar("jo2");
+  stack.desapila();
+  stack.desapila();
+  stack.desapila();
+  stack.desapila();
+  stack.desapila();
+  stack.desapila();
+  stack.modificar("jo3","zz")
+  stack.imprimir();
+  stack.guardar("john");
+  stack.guardar("jo3");
+  stack.guardar("jo4");
+  stack.imprimir();
+  stack.modificar("jo3","zz")
+  stack.modificar("john","zzz")
+  stack.modificar("jo4","z")
+  stack.imprimir();
   
+
 
   
