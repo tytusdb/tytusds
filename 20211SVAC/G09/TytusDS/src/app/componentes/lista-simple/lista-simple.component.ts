@@ -14,9 +14,9 @@ export class ListaSimpleComponent implements OnInit {
 
   getValue(val:string){
     console.warn(val)
-    lsimpleAdd(val)
-    //var hola = lsimplePrint()
-    //this.displayVal=hola
+    var hola = lsimpleAdd(val)
+    
+    this.displayVal=hola
   }
 
  
