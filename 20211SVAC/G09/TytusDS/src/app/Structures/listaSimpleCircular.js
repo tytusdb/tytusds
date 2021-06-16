@@ -1,10 +1,10 @@
 class Nodo{
-    constructor(data, next){
+    constructor(data, sig){
       this.data = data;
-      this.next = next;
+      this.sig = sig;
     }
   }
-  class listaSimple{
+  class listaDobleEnlazada{
     constructor(){
       this.head = null;
       this.size = 0;
@@ -12,54 +12,55 @@ class Nodo{
     
   
   add(data){
-    const newNodo = new Nodo(data, null);
+    const newNodo = new Nodo(data, this.head);
     if(this.head){        
-      let current = this.head;
-      while(current.next){
-        current = current.next;
+      let aux = this.head
+      while(aux.sig != this.head){
+        aux = aux.sig;
       }
-      current.next = newNodo;
+      aux.sig = newNodo;
     }else{
-      this.head = newNodo
+    this.head = newNodo
+    this.head.sig=this.head
     }
     this.size++
     }
   delete(data){
     let aux = this.head
     let aux2
-    if(data==aux.data){this.head=aux.next 
+    if(data==aux.data){this.head=aux.sig
       return}
-    while(aux != null){
-      aux2=aux.next;
+    while(aux.sig != this.head){
+      aux2=aux.sig;
       console.log(aux.data+"  "+aux2.data)
       if(aux2.data==data){  
-        aux2=aux2.next
-        aux.next=aux2
+        aux2=aux2.sig
+        aux.sig=aux2
         this.size--
         break
       }
     else{
-      aux=aux.next}
+      aux=aux.sig}
     }
    }
   refresh(dataActual,dataFinal){
     let aux = this.head
-    while (aux.next != null) {
+    while (aux.sig != this.head) {
       if (aux.data==dataActual) {
         aux.data=dataFinal
         return
       }
-      aux=aux.next
+      aux=aux.sig
     }
     }
 
   search(data){
     let aux = this.head
-    while (aux.next != null) {
+    while (aux.sig != this.head) {
       if (aux.data==data) {
         return true
       }
-      aux=aux.next
+      aux=aux.sig
     }return false
     }
 
@@ -70,50 +71,50 @@ class Nodo{
   print(){
     var valores = []
       let aux = this.head;
-      while (aux != null) {
+      while (aux.sig != this.head) {
           valores.push(aux.data);
-          aux = aux.next;
+          aux = aux.sig;
       }
       return valores;
     }
 }
   
-const listSimple = new listaSimple();
+const lSCircular = new listaDobleEnlazada();
 
-listSimple.add("1")
-listSimple.add("2")
-listSimple.add("3")
-listSimple.add("4")
-listSimple.add("5")
+lSCircular.add("1")
+lSCircular.add("2")
+lSCircular.add("3")
+lSCircular.add("4")
+lSCircular.add("5")
 
-console.log(listSimple.print())
+console.log(lSCircular.print())
 
-listSimple.delete("1")
-listSimple.refresh(2,6)
+lSCircular.delete("1")
+lSCircular.refresh(2,6)
 
-console.log(listSimple.search("7"))
-console.log(listSimple.print())
+console.log(lSCircular.search("7"))
+console.log(lSCircular.print())
 
 function lsimpleAdd(date){
-  listSimple.add(date);
+  lSCircular.add(date);
   console.log(linkedList) 
 }
 
 function lsimpleDelete(date){
-  listSimple.delete(date);
+  lSCircular.delete(date);
   console.log(linkedList) 
 }
 function lsimpleRefresh(date1,date2){
-  listSimple.refresh(date1,date2);
+  lSCircular.refresh(date1,date2);
   console.log(linkedList) 
 }
 function lsimpleSearch(date){
-  return listSimple.search(date); 
+  return lSCircular.search(date); 
 }
 function lsimpleCargar(date){
-  listSimple.cargar();
+  lSCircular.cargar();
 }
 function lsimpleGuardar(date){
-  listSimple.guardar();
+  lSCircular.guardar();
 }
 function lsimplePrint(){return print()}
