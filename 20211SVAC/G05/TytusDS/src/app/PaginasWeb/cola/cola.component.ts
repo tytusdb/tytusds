@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 declare var require: any;
-let Lista=require('./js/Pila');
+let Lista=require('./js/Cola');
 let vis=require('../../../../vis-4.21.0/dist/vis');
 
 @Component({
-  selector: 'app-pila',
-  templateUrl: './pila.component.html',
-  styleUrls: ['./pila.component.css','../../../../css/bootstrap.min.css','../../../../vis-4.21.0/dist/vis.css']
+  selector: 'app-cola',
+  templateUrl: './cola.component.html',
+  styleUrls: ['./cola.component.css','../../../../css/bootstrap.min.css','../../../../vis-4.21.0/dist/vis.css']
 })
-export class PilaComponent implements OnInit {
+export class ColaComponent implements OnInit {
   lista=Lista;
 
   constructor() {
@@ -18,13 +18,13 @@ export class PilaComponent implements OnInit {
   ngOnInit(): void {
   }
   Add(valor){
-    this.lista.guardar(valor);
+    this.lista.insertar(valor);
     
   
     //this.graficar();
   }
   delete(){
-    this.lista.desapila();
+    this.lista.eliminar();
     
     //this.graficar();
   }
