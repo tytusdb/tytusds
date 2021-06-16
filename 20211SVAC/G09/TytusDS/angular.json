@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "docs",
+            "outputPath": "TytusDS",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -34,7 +34,6 @@
               "src/styles.css"
             ],
             "scripts": [
-                "src/app/Structures/listaSimple.js"
               ]
           },
           "configurations": {
