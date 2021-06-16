@@ -95,7 +95,8 @@ console.log(listSimple.print())
 
 function lsimpleAdd(date){
 listSimple.add(date);
-console.log(linkedList) 
+hola = listSimple.print()
+console.log(hola)
 }
 
 function lsimpleDelete(date){
