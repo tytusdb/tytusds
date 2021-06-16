@@ -23,19 +23,29 @@ var network = new vis.Network(container, data, options);
 
 var cont = 1
 
+let listita = new ListaSimple()
 
 /*EVENTOS*/
 $('#add').on('click', () => agregar())
 $('#search').on('click', () => search())
+$('#delete').on('click', () => prueba())
+
+function prueba(){
+  console.log(listita.print())
+}
 
 function agregar(){
   // create an array with nodes
+  let inputValue = document.getElementById("valor").value; 
   var updatedIds = nodes.add([{
     id: cont,
-    label:'new',
+    label:listita.add(inputValue),
   }]);
   updatedIds = edges.add([
   {from: (cont-1), to: cont, arrows:'to'}
+  ])
+    updatedIds = edges.add([
+  {from: (cont), to: cont-1, arrows:'to'}
   ])
   cont++
   network.selectNodes([updatedIds[0]]);
@@ -57,8 +67,9 @@ async function view(){
       easingFunction: "linear"
     }
   }
+  network.selectNodes([cont2])
   network.focus(cont2, animation)
-  //await new Promise(resolve => setTimeout(resolve, 150)); // 3 sec
+  //await new Promise(resolve => setTimeout(resolve, 1100)); // 3 sec
   cont2++
 }
 

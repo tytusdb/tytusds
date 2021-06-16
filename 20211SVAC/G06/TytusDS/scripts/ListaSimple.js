@@ -23,6 +23,7 @@ class ListaSimple {
 			this.ultimo = nuevo;
 			this.len++;
 		}
+		return dato
 	}
 
 	delete(valor){
@@ -92,7 +93,7 @@ class ListaSimple {
 	}
 }
 
-function main(){
+/*function main(){
 	let listita = new ListaSimple()
 	listita.add(12)
 	listita.add(10)
@@ -101,4 +102,4 @@ function main(){
 	console.log(listita.print())
 }
 
-main();
+main();*/
