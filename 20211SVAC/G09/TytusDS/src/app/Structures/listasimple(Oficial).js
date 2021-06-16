@@ -79,19 +79,7 @@ print(){
 
 const listSimple = new listaSimple();
 
-listSimple.add("1")
-listSimple.add("2")
-listSimple.add("3")
-listSimple.add("4")
-listSimple.add("5")
 
-console.log(listSimple.print())
-
-listSimple.delete("1")
-listSimple.refresh(2,6)
-
-console.log(listSimple.search("7"))
-console.log(listSimple.print())
 
 function lsimpleAdd(date){
 listSimple.add(date);
