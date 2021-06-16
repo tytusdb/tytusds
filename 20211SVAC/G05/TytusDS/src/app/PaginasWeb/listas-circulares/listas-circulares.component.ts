@@ -126,7 +126,61 @@ export class ListasCircularesComponent implements OnInit {
     };
     //------------------------------------------------------------------------
     let grafo= new vis.Network(contenedor,datos,opciones);
+    //OPCIONES ANIMACION:
+    /*
+    let OpA={
+      scale:3,
+      locked: false,
+        animation: { // -------------------> can be a boolean too!
+        duration: 1000,
+          easingFunction: "easeInOutQuint"
+      }
+    }*/
+    var k = 0, tick = 10, totalTime = 1000;
+
+    // toy example start x, y coordinates nodes
+    var x_start = 0, y_start = 0
+
+    // nr of steps, given tick time and total animation time
+    var nrOfSteps = Math.floor( totalTime / tick);
+    let positions=grafo.getPositions();
+    let timer = setInterval(function(){
+
+      // iteration counter
+      k++;
+
+      // lambda (for convex combination)
+      var l = k / nrOfSteps;
+
+      for (let i = 0; i < Nodos.length; i++) {
+
+        // get target positions
+        var x_target = positions[i].x;
+        var y_target = positions[i].y;
+        console.log(x_target)
+
+        // compute the convex combination of x_start and x_target to find intermediate x and move node to it, same for y
+        var xt = x_start * (1 - l) + x_target * l;
+        var yt = y_start * (1 - l) + y_target * l;
+
+        // move node
+        grafo.moveNode(i,xt,yt);
+      }
+
+      // stop if we have reached nr of steps
+      if(k == nrOfSteps){
+        clearInterval(timer)
+      }
+    },tick);
+    /*grafo.focus(2,OpA);*/
   }
+
+
+
+
+
+
+
   //GUARDAR
   guardar(): void {
     const contenido: any = {
