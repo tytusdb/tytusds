@@ -84,16 +84,13 @@ const listSimple = new listaSimple();
 function lsimpleAdd(date){
 listSimple.add(date);
 return listSimple.print()
-//console.log(hola)
 }
 
 function lsimpleDelete(date){
 listSimple.delete(date);
-console.log(linkedList) 
 }
 function lsimpleRefresh(date1,date2){
-listSimple.refresh(date1,date2);
-console.log(linkedList) 
+listSimple.refresh(date1,date2); 
 }
 function lsimpleSearch(date){
 return listSimple.search(date); 
