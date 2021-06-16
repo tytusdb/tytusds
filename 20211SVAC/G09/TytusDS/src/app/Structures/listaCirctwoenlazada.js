@@ -5,23 +5,25 @@ class Nodo{
       this.ant = ant
     }
   }
-  class ListaDobleEnlazada{
+  class ListaCircularDoblEnlazada{
     constructor(){
       this.head = null;
       this.size = 0;
     }
-  
+
   add(data){
-    const newNodo = new Nodo(data, null, null)
+    const newNodo = new Nodo(data, null, this.head)
     if(this.head){        
-      let current = this.head
-      while(current.sig){
-        current = current.sig
+      let aux = this.head
+      while(aux.sig){
+        aux = aux.sig
       }
-      current.sig = newNodo
-      newNodo.ant = current
+      aux.sig = newNodo
+      newNodo.ant = aux
+      this.head.ant = newNodo
     }else{
       this.head = newNodo
+      this.head.ant=newNodo
     }
     this.size++
     }
@@ -76,25 +78,28 @@ class Nodo{
     }
 }
   
-const lDEnlazada = new ListaDobleEnlazada();
+const lCircularDEnlazada = new ListaCircularDoblEnlazada();
 
 function ldobleAdd(date){
-  lDEnlazada.add(date);
+  lCircularDEnlazada.add(date);
+  console.log(linkedList) 
 }
 
 function ldobleDelete(date){
-  lDEnlazada.delete(date) 
+  lCircularDEnlazada.delete(date);
+  console.log(linkedList) 
 }
 function ldobleRefresh(date1,date2){
-  lDEnlazada.refresh(date1,date2)
+  lCircularDEnlazada.refresh(date1,date2);
+  console.log(linkedList) 
 }
 function ldobleSearch(date){
-  return lDEnlazada.search(date) 
+  return lCircularDEnlazada.search(date); 
 }
 function ldobleCargar(date){
-  lDEnlazada.cargar()
+  lCircularDEnlazada.cargar();
 }
 function ldobleGuardar(date){
-  lDEnlazada.guardar()
+  lCircularDEnlazada.guardar();
 }
 function ldoblePrint(){return print()}
