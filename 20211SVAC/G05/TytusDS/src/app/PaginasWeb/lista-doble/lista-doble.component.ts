@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ListaDoble } from './ts/lista-doble';
+import { DocumentoService } from '../../services/documento.service';
+import { saveAs } from 'file-saver';
+
 declare var require: any;
 let vis=require('../../../../vis-4.21.0/dist/vis');
 
@@ -28,7 +31,7 @@ export class ListaDobleComponent implements OnInit {
     repeticionArboles: true,
   };
 
-  constructor() { 
+  constructor(private documentoService: DocumentoService) { 
     this.lista = new ListaDoble();
   }
 
@@ -38,6 +41,19 @@ export class ListaDobleComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  getDocumento(documento: any): void {
+    this.documentoService.getDocumento(documento).then( contenido => {
+      contenido['valores'].forEach(valor => {
+        if (this.opciones.ingreso === 'final') {
+          this.lista.agregarFinal(valor);
+        } else if (this.opciones.ingreso === 'inicio') {
+          this.lista.agregarInicio(valor);
+        }
+      });
+      this.graficar();
+    });
+  }
 
   agregar(): void {
     if (this.valorAgregar.length > 0) {
@@ -113,5 +129,19 @@ export class ListaDobleComponent implements OnInit {
     let grafo= new vis.Network(contenedor,datos,opciones);
   }
 
+  guardar(): void {
+    const contenido: any = {
+      categoria: "Estructura Lineal",
+      nombre: "Lista Simplemente Enlazada",
+      valores: []
+    };
+    let aux = this.lista.primero;
+    for (let i = 0; i < this.lista.cuenta; i++) {
+      contenido.valores.push(aux.valor);
+      aux = aux.siguiente;
+    }
+    let blob = new Blob([JSON.stringify(contenido)], {type: 'json;charset=utf-8'});
+    saveAs(blob, 'descarga.json');
+  }
 
 }

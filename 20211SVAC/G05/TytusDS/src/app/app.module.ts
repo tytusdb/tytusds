@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { OpcionesComponent } from './Componentes/opciones/opciones.component';
@@ -11,6 +10,7 @@ import { ListaDobleComponent } from './PaginasWeb/lista-doble/lista-doble.compon
 import { PilaComponent } from './PaginasWeb/pila/pila.component';
 import { MenuComponent } from './PaginasWeb/menu/menu.component';
 import { FormsModule } from '@angular/forms';
+import { DocumentoService } from './services/documento.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +29,9 @@ import { FormsModule } from '@angular/forms';
     AppRoutingModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    DocumentoService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
