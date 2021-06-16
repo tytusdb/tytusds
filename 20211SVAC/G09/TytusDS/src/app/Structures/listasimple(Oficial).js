@@ -4,7 +4,7 @@ class Nodo{
         this.next = next;
     }
 }
-class listaSimple{
+class ListaSimple{
     constructor(){
         this.head = null;
         this.size = 0;
@@ -77,7 +77,7 @@ print(){
     }
 }
 
-const listSimple = new listaSimple();
+const listSimple = new ListaSimple();
 
 
 
