@@ -1,0 +1,66 @@
+input{
+  padding:5px 10px;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+.estructuras{
+  height: 400px;
+  background-color: #0a58ca;
+}
+.button{
+  margin-right: 10px;
+  padding: 5px 10px;
+  text-align: center;
+  background-color: #0d6efd;
+  border: none;
+  color:white;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 10px;
+  box-shadow: 0 9px black;
+  padding-right:5px;
+  padding-left: 5px;
+}
+
+.button:hover {
+  background-color: #08555b;
+}
+.button:active {
+  background-color: #08555b;
+  box-shadow: 0 5px black;
+  transform: translateY(4px);
+}
+.oscure{
+  background:rgba(0,0,0,0.35);
+  position: fixed;
+  top:0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow:scroll;
+  overflow-y:scroll;
+  visibility: hidden;
+}
+.oscure.activo{
+  visibility: visible;
+}
+.oscure .opciones{
+  position: absolute;
+  width: 300px;
+  background-color: white;
+  left: 10px;
+}
+.opciones .xopciones{
+  position: relative;
+  right: -250px;
+  padding: 5px 10px;
+  margin-top: 10px;
+}
+
+
+.Cajabotones{
+  position: absolute;
+  top:10px;
+  right: 10px;
+}
