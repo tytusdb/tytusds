@@ -36,6 +36,7 @@ export class ListaSimpleComponent implements OnInit {
     this.selectedFile = event.target.files[0]
     
   }
+  
   onUpload(){
     console.log(this.selectedFile)
     lsimpleCargar(this.selectedFile)
@@ -46,10 +47,9 @@ export class ListaSimpleComponent implements OnInit {
     console.log('a = ' + hola)
     console.log('Item: ' + JSON.stringify(this.selectedFile));
     JSON.parse(JSON.stringify(this.selectedFile))
+
+
     
-    
-    //this.http.post("")
   }
 
-  
 }
