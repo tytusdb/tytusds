@@ -1,8 +1,8 @@
 {
   "name": "pruebareact",
   "version": "0.1.0",
+  "homepage": ".",
   "private": true,
-  "homepage": "https://tytusdb.github.io/tytusds/20211SVAC/G17/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.13.0",
     "@testing-library/react": "^11.2.7",

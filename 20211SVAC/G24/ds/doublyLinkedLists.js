@@ -42,7 +42,6 @@ class doublyLinkedList{
 	}
 	
 	update(pos,data){
-		this.print();
 		if (pos==0){
 			this.head.data=data;
 			return;
