@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 
 declare var lsimpleAdd:any;
-declare var lsimplePrint:any;
+declare var convertToText:any;
 declare var lsimpleCargar:any;
 @Component({
   selector: 'app-lista-simple',
@@ -12,11 +12,13 @@ declare var lsimpleCargar:any;
 export class ListaSimpleComponent implements OnInit {
   displayVal='';
 
+
+
   getValue(val:string){
     console.warn(val)
     var hola = lsimpleAdd(val)
-    
     this.displayVal=hola
+    
   }
 
 
@@ -37,7 +39,17 @@ export class ListaSimpleComponent implements OnInit {
   onUpload(){
     console.log(this.selectedFile)
     lsimpleCargar(this.selectedFile)
+    //let fileReader = new FileReader();
+    console.log(String(this.selectedFile))
+    console.log(JSON.stringify(this.selectedFile))
+    var hola = convertToText(this.selectedFile)
+    console.log('a = ' + hola)
+    console.log('Item: ' + JSON.stringify(this.selectedFile));
+    JSON.parse(JSON.stringify(this.selectedFile))
+    
+    
     //this.http.post("")
   }
 
+  
 }
