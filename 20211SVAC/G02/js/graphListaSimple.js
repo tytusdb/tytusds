@@ -4,6 +4,8 @@ var clickedNode
 var clickedNodoValue
 var network = null
 
+
+var switchToggle = document.getElementById("flexSwitchCheckDefault")
 class Nodo{
     constructor(id, dato){
         this.id = id
@@ -21,36 +23,48 @@ class ListaSimple{
     }
 
     insertaFinal(dato){
-        var nuevo = new Nodo(this.id, dato)
-        nuevo.siguiente = null
-
-        if(this.primero == null){
-            this.primero = nuevo
-            this.ultimo = this.primero
+        if(dato == ""){
+            alert("No se pueden agregar elementos vacios.")
         }else{
-            this.ultimo.siguiente = nuevo
-            this.ultimo = nuevo
+            if((this.buscar(dato) && (switchToggle.checked == false))){
+                alert("Este dato ya existe, por favor habilite los datos repetidos")
+            }else{
+                var nuevo = new Nodo(this.id, dato)
+                nuevo.siguiente = null
+        
+                if(this.primero == null){
+                    this.primero = nuevo
+                    this.ultimo = this.primero
+                }else{
+                    this.ultimo.siguiente = nuevo
+                    this.ultimo = nuevo
+                }
+                this.tamanio++
+                this.id++
+            }   
         }
-
-        this.tamanio++
-        this.id++
     }
 
-    insertarAlInicio(dato){
-        if(!this.repetidos && this.buscar(dato)){
-            alert("Este dato ya existe, por favor habilite los datos repetidos")
-        }else{
-            var nuevo = new Nodo(dato)
-            nuevo.siguiente = null
-            if(this.primero == null){
-                this.primero = nuevo
-                this.ultimo = this.primero
-            }else{
 
-                nuevo.siguiente = this.primero
-                this.primero = nuevo
+    insertarAlInicio(dato){
+        if(dato == ""){
+            alert("No se pueden agregar elementos vacios.")
+        }else{
+            if((this.buscar(dato) && (switchToggle.checked == false))){
+                alert("Este dato ya existe, por favor habilite los datos repetidos")
+            }else{
+                var nuevo = new Nodo(this.id, dato)
+                nuevo.siguiente = null
+                if(this.primero == null){
+                    this.primero = nuevo
+                    this.ultimo = this.primero
+                }else{
+                    nuevo.siguiente = this.primero
+                    this.primero = nuevo
+                }
+                this.tamanio++
+                this.id++
             }
-            this.tamanio++
         }
     }
 
@@ -98,29 +112,22 @@ class ListaSimple{
 
     //Metodo de sobrecarga para actualizar datos
     actualizar(datoActual, datoNuevo){
-        if(this.buscar(datoActual)){
-            if(this.buscar(datoNuevo) && !this.repetidos){
-                alert("No se aceptan valores repetidos")
-                return
-            }
-            if(datoActual == this.primero.dato && this.tamanio == 1){
-                this.primero.dato = datoNuevo
-                this.ultimo.dato = datoNuevo
-            }else if(datoActual == this.primero.dato){
-                this.primero.dato = datoNuevo
-            }else if(datoActual == this.ultimo.dato){
-                this.ultimo.dato = datoNuevo
-            }else{
-                this.primero = this._actualizar(datoActual, datoNuevo, this.primero)
-            }
+        if(datoActual == this.primero.id && this.tamanio == 1){
+            this.primero.dato = datoNuevo
+            this.ultimo.dato = datoNuevo
+        }else if(datoActual == this.primero.id){
+            this.primero.dato = datoNuevo
+        }else if(datoActual == this.ultimo.id){
+            this.ultimo.dato = datoNuevo
         }else{
-            alert("El valor no existe dentro de la lista")
+            this.primero = this._actualizar(datoActual, datoNuevo, this.primero)
         }
+
     }
 
     //Metodo recursivo para la actualizacion de datos
     _actualizar(datoActual, datoNuevo, temp){
-        if(datoActual == temp.dato){
+        if(datoActual == temp.id){
             temp.dato = datoNuevo
         }else{
             temp.siguiente =  this._actualizar(datoActual, datoNuevo, temp.siguiente)
@@ -151,14 +158,75 @@ class ListaSimple{
         return false
     }
 
+    // BUSCA UN NODO POR MEDIO DE SU DATO Y RETORNA SU ID.
+    buscarNodo(dato){
+        if (this.tamanio == 0){
+            console.log("No hay elementos en la lista.")
+        } else{
+            let isEncontrado = false
+            let aux = this.primero
+            while(aux != null){
+                if (aux.dato == dato){
+                    isEncontrado = true
+                    return aux.id   
+                }
+                aux = aux.siguiente
+            }
 
-
+            if (isEncontrado == false){
+                console.log("El elemento no se encuentra")
+                alert("El dato no se encuentra en la lista.")
+            }
+        }
+    }
 }
 
 
-let listSimple = new ListaSimple()
+var listSimple = new ListaSimple()
+
+
+function read(){
+    var fileInput = document.querySelector('input[type="file"]');
+
+    var file = fileInput.files.item(0);
+    var reader = new FileReader();
+
+    reader.readAsText(file);
+    
+    reader.onload = function() {
+        var obj = JSON.parse(reader.result)
+        let val = obj.valores
+        repetido = obj.repeticion
+  
+        switch(repetido){
+            case true:
+                switchToggle.checked = true
+                for(let i=0; i<val.length; i++){
+                    listSimple.insertaFinal(val[i].toString())
+                }
+                break;
+            case false:
+                switchToggle.checked = false
+                for(let i=0; i<val.length; i++){
+                    listSimple.insertaFinal(val[i].toString())
+                }
+                break
+            default:
+                console.log("No hay indicador de repitencia.")
+                alert("No hay indicador de repitencia.")
+                break
+        }
+
+        actualizarTablero()
+    }
+    
+    
+}
+
+
 
 function actualizarTablero(){
+    
     listSimple.recorrer()
     var nodes = new vis.DataSet(arrayNodes);
     var container = document.getElementById("mynetwork");
@@ -200,6 +268,14 @@ function crearNodo(){
     document.getElementById("valueNodo").value = "";
 }
 
+function crearNodoInicio(){
+    var valueNodo = document.getElementById('valueNodo').value
+    listSimple.insertarAlInicio(valueNodo) 
+    actualizarTablero()
+    console.log("")
+    document.getElementById("valueNodo").value = "";
+}
+
 function eliminarNodo(){
     // let valueNodo = document.getElementById("valueNodo").value; 
     listSimple.eliminar(clickedNode)
@@ -213,6 +289,41 @@ function modificarNodo(){
     listSimple.actualizar(clickedNode, valueNodo)
     actualizarTablero()
     document.getElementById("valueNodo").value = ""
+}
+
+function searchNode(){
+    focus()
+    setTimeout(zoomExtended, 2000)
+    document.getElementById("valueNodo").value = ""
+}
+
+
+function focus() {
+    var valueNodo = document.getElementById('valueNodo').value
+    let nodeId = listSimple.buscarNodo(valueNodo)
+    // console.log(nodeId)
+    var options = {
+        // position: {x:positionx,y:positiony}, // this is not relevant when focusing on nodes
+        scale: 3.0,
+        offset: {x:0,y:0},
+        animation: {
+            duration: 2500,
+            easingFunction: "easeOutQuint"
+        }
+    }
+    network.focus(nodeId, options);
+}
+
+function zoomExtended(){
+    // var duration = parseInt(document.getElementById("duration").value);
+    var options = {
+        scale: 1.0,
+        duration: 4500,
+        offset: {x:0,y:0},
+        easingFunction: "easeOutCubic"
+    }
+
+    network.moveTo(options);
 }
 
 

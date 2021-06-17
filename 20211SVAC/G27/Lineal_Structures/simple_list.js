@@ -56,6 +56,8 @@ class simple_list{
         return actualNode;
     }
 }
+//Esto es una modificacion de prueba 
+
 
 var lista = new simple_list;
 
@@ -123,7 +125,7 @@ function graficar(){
     });
 
     // create a network
-    var container = document.getElementById("mynetwork");
+    var container = document.getElementById("miRed");
     var data = {
       nodes: nodes,
       edges: edges,
