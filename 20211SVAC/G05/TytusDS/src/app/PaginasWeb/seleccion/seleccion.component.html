@@ -1,0 +1,10 @@
+<app-opciones (opcionesEvento)="getOpciones($event)"></app-opciones>
+<div class="container mt-3">
+    <h1 class="fw-light">Ordenamiento de Selección</h1>
+    <hr>
+    <div class="row my-3">
+        <div class="col-md-6">
+            <input class="form-control" type="file" id="formFile" (change)="getDocumento($event.target)">
+        </div>
+    </div>
+</div>

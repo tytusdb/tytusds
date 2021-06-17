@@ -11,6 +11,7 @@ import { PilaComponent } from './PaginasWeb/pila/pila.component';
 import { MenuComponent } from './PaginasWeb/menu/menu.component';
 import { FormsModule } from '@angular/forms';
 import { DocumentoService } from './services/documento.service';
+import { SeleccionComponent } from './PaginasWeb/seleccion/seleccion.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { DocumentoService } from './services/documento.service';
     MenuComponent,
     ListasCicularesDEComponent,
     PilaComponent,
-    MenuComponent
+    MenuComponent,
+    SeleccionComponent
   ],
   imports: [
     BrowserModule,
