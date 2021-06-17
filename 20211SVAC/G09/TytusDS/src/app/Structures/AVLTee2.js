@@ -1,88 +1,88 @@
 class Nodo {
-    constructor(valor) {
-        this.valor = valor;
+    constructor(dato) {
+        this.dato = dato;
         this.izquierdo = null;
         this.derecho = null;
         this.altura = 0;
     }
 }
 
-class AVL {
+class AVLTree {
     constructor() {
         this.raiz = null;
     }
 
-    MAXIMO(valor1, valor2) {
-        if (valor1 > valor2) return valor1;
-        return valor2;
+    MAX(primerValor, SegundoValor) {
+        if (primerValor > SegundoValor) return primerValor;
+        return SegundoValor;
     }
 
-    altura(nodo) {
-        if (nodo == null) return -1;
-        return nodo.altura;
+    altura(nodoTree) {
+        if (nodoTree == null) return -1;
+        return nodoTree.altura;
     }
 
-    insertar(valor) {
-        this.raiz = this.add(valor, this.raiz);
+    insertar(dato) {
+        this.raiz = this.add(dato, this.raiz);
     }
 
-    add(valor, nodo) {
-        if (nodo == null) return new Nodo(valor);
+    add(dato, nodoTree) {
+        if (nodoTree == null) return new Nodo(dato);
         else {
-            if (valor < nodo.valor) {
-                nodo.izquierdo = this.add(valor, nodo.izquierdo)
-                if (this.altura(nodo.derecho) - this.altura(nodo.izquierdo) == -2) {
-                    if (valor < nodo.izquierdo.valor) {
-                        nodo = this.RotacionIzquierda(nodo);
+            if (dato < nodoTree.dato) {
+                nodoTree.izquierdo = this.add(dato, nodoTree.izquierdo)
+                if (this.altura(nodoTree.derecho) - this.altura(nodoTree.izquierdo) == -2) {
+                    if (dato < nodoTree.izquierdo.dato) {
+                        nodoTree = this.LeftRotation(nodoTree);
                     } else {
-                        nodo = this.RotacionDobleIzquierda(nodo);
+                        nodoTree = this.DoubleRotationLeft(nodoTree);
                     }
                 }
-            } else if (valor > nodo.valor) {
-                nodo.derecho = this.add(valor, nodo.derecho);
-                if (this.altura(nodo.derecho) - this.altura(nodo.izquierdo) == 2) {
-                    if (valor > nodo.derecho.valor) {
-                        nodo = this.RotacionDerecha(nodo);
+            } else if (dato > nodoTree.dato) {
+                nodoTree.derecho = this.add(dato, nodoTree.derecho);
+                if (this.altura(nodoTree.derecho) - this.altura(nodoTree.izquierdo) == 2) {
+                    if (dato > nodoTree.derecho.dato) {
+                        nodoTree = this.RightRotation(nodoTree);
                     } else {
-                        nodo = this.RotacionDobleDerecha(nodo);
+                        nodoTree = this.DoubleRotationRight(nodoTree);
                     }
                 }
             } else {
-                nodo.valor = valor;
+                nodoTree.dato = dato;
             }
         }
-        nodo.altura = this.MAXIMO(this.altura(nodo.izquierdo), this.altura(nodo.derecho)) + 1
-        return nodo;
+        nodoTree.altura = this.MAX(this.altura(nodoTree.izquierdo), this.altura(nodoTree.derecho)) + 1
+        return nodoTree;
     }
 
     _
 
-    RotacionIzquierda(nodo) {
-        let aux = nodo.izquierdo;
-        nodo.izquierdo = aux.derecho;
-        aux.derecho = nodo;
-        nodo.altura = this.MAXIMO(this.altura(nodo.derecho), this.altura(nodo.izquierdo)) + 1;
-        aux.altura = this.MAXIMO(this.altura(nodo.izquierdo), nodo.altura) + 1;
+    LeftRotation(nodoTree) {
+        let aux = nodoTree.izquierdo;
+        nodoTree.izquierdo = aux.derecho;
+        aux.derecho = nodoTree;
+        nodoTree.altura = this.MAX(this.altura(nodoTree.derecho), this.altura(nodoTree.izquierdo)) + 1;
+        aux.altura = this.MAX(this.altura(nodoTree.izquierdo), nodoTree.altura) + 1;
         return aux;
     }
 
-    RotacionDobleIzquierda(nodo) {
-        nodo.izquierdo = this.RotacionDerecha(nodo.izquierdo);
-        return this.RotacionIzquierda(nodo);
+    DoubleRotationLeft(nodoTree) {
+        nodoTree.izquierdo = this.RightRotation(nodoTree.izquierdo);
+        return this.LeftRotation(nodoTree);
     }
 
-    RotacionDerecha(nodo) {
-        var aux = nodo.derecho;
-        nodo.derecho = aux.izquierdo;
-        aux.izquierdo = nodo;
-        nodo.altura = this.MAXIMO(this.altura(nodo.derecho), this.altura(nodo.izquierdo)) + 1;
-        aux.altura = this.MAXIMO(this.altura(nodo.derecho), nodo.altura) + 1;
+    RightRotation(nodoTree) {
+        var aux = nodoTree.derecho;
+        nodoTree.derecho = aux.izquierdo;
+        aux.izquierdo = nodoTree;
+        nodoTree.altura = this.MAX(this.altura(nodoTree.derecho), this.altura(nodoTree.izquierdo)) + 1;
+        aux.altura = this.MAX(this.altura(nodoTree.derecho), nodoTree.altura) + 1;
         return aux;
     }
 
-    RotacionDobleDerecha(nodo) {
-        nodo.derecho = this.RotacionIzquierda(nodo.derecho);
-        return this.RotacionDerecha(nodo);
+    DoubleRotationRight(nodoTree) {
+        nodoTree.derecho = this.LeftRotation(nodoTree.derecho);
+        return this.RightRotation(nodoTree);
     }
 
 
@@ -90,11 +90,11 @@ class AVL {
         this.pre_orden(this.raiz);
     }
 
-    pre_orden(nodo) {
-        if (nodo != null) {
-            console.log("Valor:", nodo.valor);
-            this.pre_orden(nodo.izquierdo);
-            this.pre_orden(nodo.derecho);
+    pre_orden(nodoTree) {
+        if (nodoTree != null) {
+            console.log("Valor:", nodoTree.dato);
+            this.pre_orden(nodoTree.izquierdo);
+            this.pre_orden(nodoTree.derecho);
         }
     }
 
@@ -102,11 +102,11 @@ class AVL {
         this.in_orden(this.raiz);
     }
 
-    in_orden(nodo) {
-        if (nodo != null) {
-            this.in_orden(nodo.izquierdo);
-            console.log("Valor:", nodo.valor);
-            this.in_orden(nodo.derecho);
+    in_orden(nodoTree) {
+        if (nodoTree != null) {
+            this.in_orden(nodoTree.izquierdo);
+            console.log("Valor:", nodoTree.dato);
+            this.in_orden(nodoTree.derecho);
         }
     }
 
@@ -114,16 +114,16 @@ class AVL {
         this.post_orden(this.raiz);
     }
 
-    post_orden(nodo) {
-        if (nodo != null) {
-            this.post_orden(nodo.izquierdo);
-            this.post_orden(nodo.derecho);
-            console.log("Valor:", nodo.valor);
+    post_orden(nodoTree) {
+        if (nodoTree != null) {
+            this.post_orden(nodoTree.izquierdo);
+            this.post_orden(nodoTree.derecho);
+            console.log("Valor:", nodoTree.dato);
         }
     }
 }
 
-var avl = new AVL();
+var avl = new AVLTree();
 avl.insertar(1)
 avl.insertar(2)
 avl.insertar(3)
@@ -133,7 +133,7 @@ avl.insertar(6)
 avl.insertar(7)
 avl.insertar(8)
 avl.insertar(9)
-avl.postOrden()
+avl.inOrden()
 
 //
 // preorden = 4,2,1,3,8,6,5,7,10,9,11
