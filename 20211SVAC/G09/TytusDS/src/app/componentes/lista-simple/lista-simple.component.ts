@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 
 declare var lsimpleAdd:any;
-declare var lsimplePrint:any;
+declare var convertToText:any;
 declare var lsimpleCargar:any;
 declare var anima:any;
 @Component({
@@ -13,11 +13,13 @@ declare var anima:any;
 export class ListaSimpleComponent implements OnInit {
   displayVal='';
 
+
+
   getValue(val:string){
     console.warn(val)
     var hola = lsimpleAdd(val)
-    
     this.displayVal=hola
+    
   }
 
 
@@ -35,10 +37,20 @@ export class ListaSimpleComponent implements OnInit {
     this.selectedFile = event.target.files[0]
     
   }
+  
   onUpload(){
     console.log(this.selectedFile)
     lsimpleCargar(this.selectedFile)
-    //this.http.post("")
+    //let fileReader = new FileReader();
+    console.log(String(this.selectedFile))
+    console.log(JSON.stringify(this.selectedFile))
+    var hola = convertToText(this.selectedFile)
+    console.log('a = ' + hola)
+    console.log('Item: ' + JSON.stringify(this.selectedFile));
+    JSON.parse(JSON.stringify(this.selectedFile))
+
+
+    
   }
   animar(){
     anima()
