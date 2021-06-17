@@ -7,18 +7,6 @@
 <button class="animate bounce" (click)="getValue(box.value)" >Push</button>
 <p>La lista es: {{displayVal}}</p>
 
-<div>
-
-    <label for="datosListaSimple">
-      Datos:
-    </label>
-    <input type="text" #box placeholder="Ingrese Datos" name="datosLS" >
-  </div>
-  <button class="btn btn-primary btn-block text-white" type="submit" onclick="add(box.value)">Enviar</button>
-
-  <input type="file" (change)="onFileSelected($event)">
-  <button type="button" (click)="onUpload()"></button> 
-
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.ui.min.js"></script>
   <script src="../../Structures/structuresLinealesAbs.js"></script>

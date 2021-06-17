@@ -41,7 +41,6 @@ export class ListaSimpleComponent implements OnInit {
   onUpload(){
     console.log(this.selectedFile)
     lsimpleCargar(this.selectedFile)
-    //let fileReader = new FileReader();
     console.log(String(this.selectedFile))
     
   }
