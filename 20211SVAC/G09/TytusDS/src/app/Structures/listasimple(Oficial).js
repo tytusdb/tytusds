@@ -11,6 +11,23 @@ class ListaSimple{
     }
     
     add(data){
+
+        var objeto=document.createElement("button");
+        var divInsert=document.getElementById("divInsert");
+        var texto=document.createTextNode(data);
+        objeto.appendChild(texto);
+        objeto.style.backgroundColor='rgb(25, 25, 112)'
+        objeto.style.color='rgb(255,255,255)'
+        objeto.style.fontSize='60px'
+        objeto.style.borderRadius="5px"
+        objeto.style.boxShadow="0 9px black"
+        objeto.id("btn1")
+        //objeto.classList.add("animate__backInLeft")
+        divInsert.appendChild(objeto)
+        
+        var objet= document.getElementById("btn1")
+        objet.classList.add("animate__backInLeft")
+
     const newNodo = new Nodo(data, null);
     if(this.head){        
         let current = this.head;
@@ -64,9 +81,9 @@ search(data){
 
 cargar(data){/*
     fetch(data).then(resp => resp.json)
-    .then(elements =>{
-        elements.array.forEach(element => {
-            //console.log(element) 
+    .then(objetos =>{
+        objetos.array.forEach(objeto => {
+            //console.log(objeto) 
         });
     })*/
 }

@@ -4,6 +4,7 @@ import { HttpClient } from "@angular/common/http";
 declare var lsimpleAdd:any;
 declare var lsimplePrint:any;
 declare var lsimpleCargar:any;
+declare var anima:any;
 @Component({
   selector: 'app-lista-simple',
   templateUrl: './lista-simple.component.html',
@@ -38,6 +39,9 @@ export class ListaSimpleComponent implements OnInit {
     console.log(this.selectedFile)
     lsimpleCargar(this.selectedFile)
     //this.http.post("")
+  }
+  animar(){
+    anima()
   }
 
 }
