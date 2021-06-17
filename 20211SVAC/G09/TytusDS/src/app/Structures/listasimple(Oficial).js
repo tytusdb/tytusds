@@ -161,3 +161,18 @@ function convertToText(obj) {
 
     return string.join("")
 }
+
+function onChange(event) {
+    var file = event.target.files[0];
+    var reader = new FileReader();
+    reader.onload = function(event) {
+      // El texto del archivo se mostrará por consola aquí
+      console.log(event.target.result)
+      let doc = JSON.parse(event.target.result);
+      console.log(doc)
+    };
+  
+    reader.readAsText(file);
+    //let doc = JSON.parse(file);
+    //console.log(doc)
+  }

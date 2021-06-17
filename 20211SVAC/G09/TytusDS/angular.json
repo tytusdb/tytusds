@@ -34,8 +34,7 @@
               "src/styles.css"
             ],
             "scripts": [
-              "src/app/Structures/listasimple(Oficial).js",
-              "src/app/componentes/lista-simple/hola.js"
+              "src/app/Structures/listasimple(Oficial).js"
               ]
           },
           "configurations": {
@@ -102,11 +101,7 @@
             ],
             "scripts": [
               "src/app/Structures/listasimple(Oficial).js",
-<<<<<<< HEAD
-              "src/app/componentes/lista-simple/hola.js"
-=======
               "src/app/Structures/structuresLinealesAbs.js"
->>>>>>> 921df5eb0959555c2870818e3c3d463c40488212
             ]
           }
         },

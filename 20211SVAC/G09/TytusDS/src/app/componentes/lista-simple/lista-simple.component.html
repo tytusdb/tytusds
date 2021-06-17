@@ -19,16 +19,12 @@
   <input type="file" (change)="onFileSelected($event)">
   <button type="button" (click)="onUpload()"></button> 
 
-  <input type="file" id="file-input" />
-<h3>Contents of the file:</h3>
-<pre id="file-content"></pre>
-
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.ui.min.js"></script>
   <script src="../../Structures/structuresLinealesAbs.js"></script>
   <div id="divInsert">
-    
   </div>
+  <input type="file" onchange="onChange(event)">
   <!--<button class="btn btn-primary btn-block text-white" type="submit" (click)="calladd(box.value)">Enviar</button>-->
 
 

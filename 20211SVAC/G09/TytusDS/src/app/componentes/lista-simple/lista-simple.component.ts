@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 
 declare var lsimpleAdd:any;
-declare var readSingleFile:any;
 declare var lsimpleCargar:any;
 declare var anima:any;
 @Component({
@@ -49,6 +48,7 @@ export class ListaSimpleComponent implements OnInit {
   animar(){
     anima()
   }
+
 
   }
 
