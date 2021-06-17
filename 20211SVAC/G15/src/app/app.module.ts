@@ -7,13 +7,15 @@ import { HomeComponent } from './components/home/home.component';
 import { ListaDobleCircularComponent } from './components/listadobleCircular/listadobleCircular.component';
 import { FormsModule } from '@angular/forms';
 
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { ListaCircularSimpleComponent } from './components/lista-circular-simple/lista-circular-simple.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     ListaDobleCircularComponent,
+    ListaCircularSimpleComponent,
   ],
   imports: [
     BrowserModule,
