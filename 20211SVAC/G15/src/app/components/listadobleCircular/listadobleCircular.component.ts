@@ -22,6 +22,8 @@ export class ListaDobleCircularComponent implements OnInit {
   alinicio: boolean = false
   ordenado: boolean = false
 
+  fileName = '';
+
 
   @ViewChild('cuerpoDraw') cuerpoDraw: ElementRef;
 
@@ -39,33 +41,39 @@ export class ListaDobleCircularComponent implements OnInit {
 
   }
 
-  addLast() {
+  async addLast() {
+    let result = await this.addData(this.numero)
+    if (result === -1) return
+    this.numero = 0
+  }
+
+  async addData(numero) {
     if (!this.repetidos) {
-      let temp = this.ListaDobleCircular.search(this.numero)
+      let temp = this.ListaDobleCircular.search(numero)
       if (temp !== null) {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: `El numero ${this.numero} ya existe en la lista`
+          text: `El numero ${numero} ya existe en la lista`
         })
-        return;
+        return -1;
       }
     }
     if (this.alfinal) {
       let dibujo = document.getElementById("cuerpoDraw")
-      this.ListaDobleCircular.add(this.numero, this.svg1, dibujo, `${this.velocidad}s`)
+      await this.ListaDobleCircular.add(numero, this.svg1, dibujo, `${this.velocidad}s`)
     }
 
     if (this.alinicio) {
       let dibujo = document.getElementById("cuerpoDraw")
-      this.ListaDobleCircular.addAlInicio(this.numero, this.svg1, dibujo, `${this.velocidad}s`)
+      await this.ListaDobleCircular.addAlInicio(numero, this.svg1, dibujo, `${this.velocidad}s`)
     }
 
     if (this.ordenado) {
       let dibujo = document.getElementById("cuerpoDraw")
-      this.ListaDobleCircular.addOrdenado(this.numero, this.svg1, dibujo, `${this.velocidad}s`)
+      await this.ListaDobleCircular.addOrdenado(numero, this.svg1, dibujo, `${this.velocidad}s`)
     }
-    this.numero = 0
+    return 1
   }
 
 
@@ -144,4 +152,46 @@ export class ListaDobleCircularComponent implements OnInit {
 
   }
 
+
+  async onFileSelected(event) {
+    const file = event.target.files[0];
+    if (file) {
+
+      this.fileName = file.name;
+      let data:any = await this.processFile(file)
+      data = JSON.parse(data)
+      data = data.valores
+      for(let i = 0; i < data.length; i++){
+        await this.addData(data[i])
+      }
+      
+
+    }
+  }
+
+  async processFile(file) {
+    return new Promise((resolve, reject) => {
+      let reader = new FileReader()
+      reader.onload = (event) => {
+        resolve(event.target.result.toString())
+      }
+      reader.onerror = reject;
+
+      reader.readAsText(file);
+    })
+  }
+
+
+  generarJSON(){
+    let data = this.ListaDobleCircular.generarJSON()
+    var link = document.createElement("a");
+    link.download = "data.json";
+    var info = "text/json;charset=utf-8," + encodeURIComponent(data);
+    link.href = "data:" + info;
+    link.click();
+    link.remove()
+  }
+
 }
+
+
