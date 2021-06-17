@@ -4,6 +4,7 @@ import { HttpClient } from "@angular/common/http";
 declare var lsimpleAdd:any;
 declare var readSingleFile:any;
 declare var lsimpleCargar:any;
+declare var anima:any;
 @Component({
   selector: 'app-lista-simple',
   templateUrl: './lista-simple.component.html',
@@ -45,8 +46,14 @@ export class ListaSimpleComponent implements OnInit {
     console.log(String(this.selectedFile))
     
   }
+<<<<<<< HEAD
   readSingleFile(e:any){
     readSingleFile(e);
+=======
+  animar(){
+    anima()
+  }
+>>>>>>> 921df5eb0959555c2870818e3c3d463c40488212
 
   }
 }

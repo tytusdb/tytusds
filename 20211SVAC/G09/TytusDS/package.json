@@ -19,8 +19,10 @@
     "@angular/platform-browser": "~11.2.6",
     "@angular/platform-browser-dynamic": "~11.2.6",
     "@angular/router": "~11.2.6",
+    "animate.css": "^4.1.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
+    "velocity-animate": "^1.5.2",
     "zone.js": "~0.11.3"
   },
   "devDependencies": {
