@@ -10,61 +10,44 @@ class Nodo{
 class Pila {
      constructor() {
       this.tamaño = 0;
-      this.uno=null;
-      
-    }
+      this.uno=null;}
   
     
 
     guardar(valor) {
-        
-        //var b=document.getElementById("Agregar");
-      //var element=document.createElement("p");
-      //var Agregar=document.getElementById("Agregar");
+    let nodo = new Nodo(valor)
+    nodo.dato=valor;
+    if (this.uno==null){
+        this.uno=nodo;}
+    else{nodo.post=this.uno;
+        this.uno=nodo;}
+    this.tamaño++; 
+
         var element=document.createElement("button");
         var myDiv=document.getElementById("myDiv1");
           var content=document.createTextNode(valor);
           element.appendChild(content);
-          //myDiv.appendChild(element);
           element.style.backgroundColor='rgb(25, 25, 112)'; 
           element.style.color='rgb(255,255,255)';
-          element.style.fontSize='60px'; 
-          //myDiv.style.backgroundImage="url('http://pa1.narvii.com/6380/43a7f3d1b464182adc4de846f391d52803f1a583_00.gif')";
-          //element.style.border="none";
+          element.style.fontSize='30px'; 
           element.style.borderRadius="5px";
           element.style.boxShadow="0 9px black";
-
           myDiv.insertBefore(element, myDiv.firstElementChild);
           var pos = 0;
-    var id = setInterval(frame, 10);
+          var id = setInterval(frame, 10);
     function frame() {
-        if (pos == 50) {
-            clearInterval(id);
-        } else {
+        if (pos == 50) { clearInterval(id);} 
+        else {
             pos++;
             myDiv.style.top = pos + 'px';
-            myDiv.style.left = pos + 'px';
-        }
-    }
-          
-         
-
-        
-
-    let nodo = new Nodo(valor)
-    nodo.dato=valor;
-    if (this.uno==null){
-        this.uno=nodo;
-    }
-    else{
-        nodo.post=this.uno;
-        this.uno=nodo;
-    }
-    this.tamaño++;
-    }
+            myDiv.style.left = pos + 'px';}
+    } }
   
+
+    
     desapila(){
         if (this.uno==null){
+            alert("Sin datos");
             console.log("pila sin datos")
         }
         else{
@@ -79,23 +62,57 @@ class Pila {
              // puntero.removeChild(puntero.childNodes[puntero.childNodes.length-1]); 
             this.uno= this.uno.post;
             this.tamaño--;
+            alert("pop");
         }
     }
 
     buscar(valor){
+        var ele= document.getElementById("myDiv1");
+    while (ele.firstChild) {
+        ele.removeChild(ele.firstChild);}   
+   var contador=0;
     let aux = this.uno;
     var bandera=true;
     var contador=this.tamaño-1;
     if (this.uno!=null){
-
-        do{
-            if (valor==aux.dato){
-                console.log("encontrado en posicion: "+contador);
-                bandera=false;
-            }
-        aux=aux.post;
-        contador--;
-        }while(aux!=null);
+        //while(aux!=null){
+        
+        var fun=function(){
+                if (valor==aux.dato){
+                    console.log("encontrado en posicion: "+contador);
+                    bandera=false;
+                    var element=document.createElement("button");
+                    var myDiv=document.getElementById("myDiv1");
+                    var content =document.createTextNode(aux.dato);
+                    element.appendChild(content);
+                    element.style.backgroundColor='rgb(255,255,255)'; 
+                    element.style.color='rgb(0, 191, 255)';
+                    element.style.fontSize='30px'; 
+                    element.style.borderRadius="5px";
+                    element.style.boxShadow="0 9px black";
+                    myDiv.appendChild(element);
+                }
+                else{
+                    var element=document.createElement("button");
+                    var myDiv=document.getElementById("myDiv1");
+                    var content =document.createTextNode(aux.dato);
+                    element.appendChild(content);
+                    element.style.backgroundColor='rgb(25, 25, 112)'; 
+                    element.style.color='rgb(255,255,255)';
+                    element.style.fontSize='30px'; 
+                    element.style.borderRadius="5px";
+                    element.style.boxShadow="0 9px black";
+                    myDiv.appendChild(element);}
+                    var pos = 0;
+                    var id = setInterval(frame, 10);
+    function frame() { if (pos == 50) { clearInterval(id);} 
+        else { pos++; myDiv.style.top = pos + 'px'; myDiv.style.left = pos + 'px';}}
+              aux=aux.post;
+              contador--;
+              if (aux==null){clearInterval(intervalo);}
+            };
+        
+        var intervalo = setInterval(fun,1000);
     }
 
     if (bandera==true){
@@ -105,22 +122,38 @@ class Pila {
     }
 
     modificar(bus,valor){
+    var ele= document.getElementById("myDiv1");
+    while (ele.firstChild) {ele.removeChild(ele.firstChild);}  
+   
     let aux = this.uno;
     var bandera=true;
     var contador=this.tamaño-1;
     if (this.uno!=null){
-        do{
+        
+          var a=function(){
+            var element=document.createElement("button");
+            var myDiv=document.getElementById("myDiv1");
+            var content =document.createTextNode(aux.dato);
+            element.appendChild(content);
+            element.style.backgroundColor='rgb(25, 25, 112)'; 
+            element.style.color='rgb(0, 191, 255)';
+            element.style.fontSize='30px'; 
+            element.style.borderRadius="5px";
+            element.style.boxShadow="0 9px black";
+            myDiv.appendChild(element);
             if (bus==aux.dato){
                 console.log("mofificado: ");
+                alert("modificado");
                 aux.dato=valor;
                 bandera=false;
             }
         aux=aux.post;
-        contador--;
-        }while(aux!=null);
+        contador--; if (aux==null){clearInterval(intervalo);} };
+        var intervalo = setInterval(a,1000);
     }
 
     if (bandera==true){
+        alert("no encontrado");
         console.log("no encontrado");
     }
 

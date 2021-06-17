@@ -142,6 +142,7 @@ export class ListasCircularesComponent implements OnInit {
       //entre mayor sea el porcentaje en cada iteración mas pronto volvera al origen
       let por_est = n / NEst;
       for (let i = 0; i < Nodos.length; i++) {
+        //en lugar de i podria ir un string, como se realizaria en un diccionario
         let posx = pos[i].x, posy=pos[i].y;
        //para mover de posicion yinicio * (1 - l) llegara un punto donde l sera 0 y se volver a la posicion
         //de origen.
@@ -158,13 +159,6 @@ export class ListasCircularesComponent implements OnInit {
     },10);
 
   }
-
-
-
-
-
-
-
   //GUARDAR
   guardar(): void {
     const contenido: any = {

@@ -6,6 +6,10 @@ class ListaCircularDE{
         this.size=0
         this.repeat=repeat;
     }
+    //cambiar el repeat
+    set setRepeat(repeat){
+      this.repeat=repeat;
+    }
     appendF(valor) {
         if(this.repeat==true){
             this.append_f(valor);
@@ -146,7 +150,8 @@ class ListaCircularDE{
     }
 
     for(let i=0; i<this.size;i++){
-      let nodo=new NodoE(i,current.valor);
+      let vnodo=current.valor.toString();
+      let nodo=new NodoE(i,vnodo);
       Lnodo.push(nodo);
       current=current.next
     }
@@ -178,6 +183,15 @@ class ListaCircularDE{
       LEdges.push(edge);
     }
     return LEdges;
+  }
+  Rdatos(){
+    let ldatos=[];
+    let current=this.head;
+    for(let i=0; i<this.size; i++){
+      ldatos.push(current.valor);
+      current=current.next;
+    }
+    return ldatos;
   }
 
 }

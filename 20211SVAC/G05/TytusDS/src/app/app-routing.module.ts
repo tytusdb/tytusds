@@ -9,6 +9,8 @@ import { ColaComponent } from './PaginasWeb/Cola/cola.component';
 import { MenuComponent } from './PaginasWeb/menu/menu.component';
 import { SeleccionComponent } from './PaginasWeb/seleccion/seleccion.component';
 
+import {OrdBurbujaComponent} from './PaginasWeb/ord-burbuja/ord-burbuja.component';
+
 const routes: Routes = [
   {path:'menu', component: MenuComponent},
   {path:'ListasCirculares', component: ListasCircularesComponent},
@@ -18,7 +20,9 @@ const routes: Routes = [
   {path:'Cola', component: ColaComponent},
   {path:'ListaDoble', component: ListaDobleComponent},
   {path:'Seleccion', component: SeleccionComponent},
+  {path:'OBurbuja', component: OrdBurbujaComponent},
   {path:'**', redirectTo: 'menu'},
+
 ];
 
 @NgModule({

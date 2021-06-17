@@ -13,6 +13,7 @@ import { MenuComponent } from './PaginasWeb/menu/menu.component';
 import { FormsModule } from '@angular/forms';
 import { DocumentoService } from './services/documento.service';
 import { SeleccionComponent } from './PaginasWeb/seleccion/seleccion.component';
+import { OrdBurbujaComponent } from './PaginasWeb/ord-burbuja/ord-burbuja.component';
 
 @NgModule({
   declarations: [
@@ -24,9 +25,9 @@ import { SeleccionComponent } from './PaginasWeb/seleccion/seleccion.component';
     MenuComponent,
     ListasCicularesDEComponent,
     PilaComponent,
-    MenuComponent,
     SeleccionComponent,
     ColaComponent,
+    OrdBurbujaComponent
   ],
   imports: [
     BrowserModule,
