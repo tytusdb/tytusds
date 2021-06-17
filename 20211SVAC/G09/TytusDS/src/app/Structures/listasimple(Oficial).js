@@ -21,12 +21,12 @@ class ListaSimple{
         objeto.style.fontSize='60px'
         objeto.style.borderRadius="5px"
         objeto.style.boxShadow="0 9px black"
-        objeto.id("btn1")
+        //objeto.id("btn1")
         //objeto.classList.add("animate__backInLeft")
         divInsert.appendChild(objeto)
-        
+        /*
         var objet= document.getElementById("btn1")
-        objet.classList.add("animate__backInLeft")
+        objet.classList.add("animate__backInLeft")*/
 
     const newNodo = new Nodo(data, null);
     if(this.head){        
