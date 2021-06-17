@@ -16,11 +16,12 @@
   </div>
   <button class="btn btn-primary btn-block text-white" type="submit" onclick="add(box.value)">Enviar</button>
 
+  <input type="file" (change)="onFileSelected($event)">
+  <button type="button" (click)="onUpload()"></button> 
 
-
-
-      
-  
+  <input type="file" id="file-input" />
+<h3>Contents of the file:</h3>
+<pre id="file-content"></pre>
 
   <!--<button class="btn btn-primary btn-block text-white" type="submit" (click)="calladd(box.value)">Enviar</button>-->
 

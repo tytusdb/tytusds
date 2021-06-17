@@ -34,7 +34,8 @@
               "src/styles.css"
             ],
             "scripts": [
-              "src/app/Structures/listasimple(Oficial).js"
+              "src/app/Structures/listasimple(Oficial).js",
+              "src/app/componentes/lista-simple/hola.js"
               ]
           },
           "configurations": {
@@ -99,7 +100,8 @@
               "src/styles.css"
             ],
             "scripts": [
-              "src/app/Structures/listasimple(Oficial).js"
+              "src/app/Structures/listasimple(Oficial).js",
+              "src/app/componentes/lista-simple/hola.js"
             ]
           }
         },
