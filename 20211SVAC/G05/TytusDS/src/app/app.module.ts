@@ -12,6 +12,7 @@ import { ColaComponent } from './PaginasWeb/cola/cola.component';
 import { MenuComponent } from './PaginasWeb/menu/menu.component';
 import { FormsModule } from '@angular/forms';
 import { DocumentoService } from './services/documento.service';
+import { OrdBurbujaComponent } from './PaginasWeb/ord-burbuja/ord-burbuja.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { DocumentoService } from './services/documento.service';
     ListasCicularesDEComponent,
     PilaComponent,
     ColaComponent,
-    MenuComponent
+    MenuComponent,
+    OrdBurbujaComponent
   ],
   imports: [
     BrowserModule,

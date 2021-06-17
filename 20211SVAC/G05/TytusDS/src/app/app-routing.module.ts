@@ -8,6 +8,8 @@ import { PilaComponent } from './PaginasWeb/pila/pila.component';
 import { ColaComponent } from './PaginasWeb/cola/cola.component';
 import { MenuComponent } from './PaginasWeb/menu/menu.component';
 
+import {OrdBurbujaComponent} from './PaginasWeb/ord-burbuja/ord-burbuja.component';
+
 const routes: Routes = [
   {path:'menu', component: MenuComponent},
   {path:'ListasCirculares', component: ListasCircularesComponent},
@@ -16,7 +18,9 @@ const routes: Routes = [
   {path:'Pila', component: PilaComponent},
   {path:'Cola', component: ColaComponent},
   {path:'ListaDoble', component: ListaDobleComponent},
+  {path:'OBurbuja', component:OrdBurbujaComponent},
   {path:'**', redirectTo: 'menu'},
+
 ];
 
 @NgModule({
