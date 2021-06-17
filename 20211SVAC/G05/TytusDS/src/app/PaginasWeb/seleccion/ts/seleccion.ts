@@ -4,7 +4,7 @@ export class OrdenamientoSeleccion {
 
     public ordenar(arreglo: number[], cuenta: number): number[] {
         let iteraciones: any = [];
-        iteraciones.push(arreglo);
+        iteraciones.push(arreglo.toString());
         for (let i = 0; i < cuenta - 1; i++) {
             let primero = i;
             for (let j = i + 1; j < cuenta; j++) {
@@ -15,8 +15,7 @@ export class OrdenamientoSeleccion {
             let aux = arreglo[i];
             arreglo[i] = arreglo[primero];
             arreglo[primero] = aux;
-            console.log('afuera ' + arreglo);
-            iteraciones.push(arreglo);
+            iteraciones.push(arreglo.toString());
         }
         return iteraciones;
     }

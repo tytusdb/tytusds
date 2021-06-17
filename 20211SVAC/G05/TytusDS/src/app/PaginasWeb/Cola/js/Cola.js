@@ -14,6 +14,32 @@ class cola{
         this.tamaño=0;
     }
 insertar(valor){
+        var element=document.createElement("button");
+        var myDiv=document.getElementById("myDiv1");
+        var content=document.createTextNode(valor);
+          element.appendChild(content);
+          //myDiv.appendChild(element);
+          element.style.backgroundColor='rgb(25, 25, 112)'; 
+          element.style.color='rgb(255,255,255)';
+          element.style.fontSize='60px'; 
+          //myDiv.style.backgroundImage="url('http://pa1.narvii.com/6380/43a7f3d1b464182adc4de846f391d52803f1a583_00.gif')";
+          //element.style.border="none";
+          element.style.borderRadius="5px";
+          element.style.boxShadow="0 9px black";
+
+          myDiv.insertBefore(element, myDiv.firstElementChild);
+          var pos = 0;
+        var id = setInterval(frame, 10);
+        function frame() {
+            if (pos == 50) {
+                clearInterval(id);
+            } else {
+                pos++;
+                myDiv.style.top = pos + 'px';
+                myDiv.style.left = pos + 'px';
+            }
+        }
+
     let nodo = new Nodo(valor)
     nodo.dato=valor;
     if(this.uno==null){
@@ -25,9 +51,14 @@ insertar(valor){
         
         }
     this.tamaño++;
+
+
+
+
 }
 
 eliminar(){
+
     let actual = this.uno;
     let anterior = null;
     if (this.uno!=null){
@@ -42,6 +73,11 @@ eliminar(){
             anterior=actual;
             actual=actual.post;
             }while(actual!=null);
+            var puntero=document.getElementById("myDiv1");
+           if (puntero.childNodes.length>0){
+            puntero.removeChild(puntero.childNodes[puntero.childNodes.length-1]); 
+           }
+             
     }
     else{
         console.log("sin datos");
@@ -106,17 +142,7 @@ imprimir(){
      }
     }
 
+    module.exports = cola;
 
 
-const stack = new cola();
-  stack.insertar("john");
-  stack.insertar("john1");
-  stack.insertar("john2");
-  stack.insertar("jo1");
-  stack.insertar("jo2");
-  stack.insertar("jo3");
-  stack.insertar("jo4");
-  stack.eliminar();
 
-  stack.imprimir();
- 

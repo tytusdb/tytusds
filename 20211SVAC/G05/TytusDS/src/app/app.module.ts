@@ -8,6 +8,7 @@ import { ListasCicularesDEComponent } from './PaginasWeb/listas-ciculares-de/lis
 import { ListaSimpleComponent } from './PaginasWeb/lista-simple/lista-simple.component';
 import { ListaDobleComponent } from './PaginasWeb/lista-doble/lista-doble.component';
 import { PilaComponent } from './PaginasWeb/pila/pila.component';
+import { ColaComponent } from './PaginasWeb/Cola/cola.component';
 import { MenuComponent } from './PaginasWeb/menu/menu.component';
 import { FormsModule } from '@angular/forms';
 import { DocumentoService } from './services/documento.service';
@@ -24,7 +25,8 @@ import { SeleccionComponent } from './PaginasWeb/seleccion/seleccion.component';
     ListasCicularesDEComponent,
     PilaComponent,
     MenuComponent,
-    SeleccionComponent
+    SeleccionComponent,
+    ColaComponent,
   ],
   imports: [
     BrowserModule,

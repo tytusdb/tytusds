@@ -1,10 +1,19 @@
 <app-opciones (opcionesEvento)="getOpciones($event)"></app-opciones>
-<div class="container mt-3">
+<div class="container mt-3" id="contenedor">
     <h1 class="fw-light">Ordenamiento de Selección</h1>
     <hr>
     <div class="row my-3">
         <div class="col-md-6">
             <input class="form-control" type="file" id="formFile" (change)="getDocumento($event.target)">
         </div>
+        <div class="col-md-5"></div>
+        <div class="col-md-1">
+            <div class="d-grid gap-2">
+                <button class="btn btn-success" (click)="guardar()" [disabled]="iteraciones.length === 0">Guardar</button>
+            </div>
+        </div>
+    </div>
+    <div id="divChart" class="container" style="display: block;">
+        <canvas class="bg-light mt-3" id="myChart" style="width: 100%; height: 500px;"></canvas>
     </div>
 </div>
