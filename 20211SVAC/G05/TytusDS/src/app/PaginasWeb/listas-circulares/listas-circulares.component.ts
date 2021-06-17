@@ -127,52 +127,36 @@ export class ListasCircularesComponent implements OnInit {
     //------------------------------------------------------------------------
     let grafo= new vis.Network(contenedor,datos,opciones);
     //OPCIONES ANIMACION:
-    /*
-    let OpA={
-      scale:3,
-      locked: false,
-        animation: { // -------------------> can be a boolean too!
-        duration: 1000,
-          easingFunction: "easeInOutQuint"
-      }
-    }*/
-    var k = 0, tick = 10, totalTime = 1000;
-
-    // toy example start x, y coordinates nodes
-    var x_start = 0, y_start = 0
-
-    // nr of steps, given tick time and total animation time
-    var nrOfSteps = Math.floor( totalTime / tick);
-    let positions=grafo.getPositions();
+    //n:contador velE:velocidad de estiramiento dur:duración
+    let n = 0, velE = 100, dur = 5000;
+    // xinicio,yinicio: Distancia desde el centro, x y y positivo mandan hacia la derecha y abajo respectivamente
+    //x y y negativos mandan a la izquierda y arriba respectivamente
+    let xinicio =0, yinicio=0
+    //NEst=numero de estiramientos que tendran los nodos Math.floor redondea al valor entero hacia la izquierda
+    var NEst = Math.floor( dur / velE);
+    //Obtencion de las posicionesa actuales de los nodos
+    let pos=grafo.getPositions();
     let timer = setInterval(function(){
-
-      // iteration counter
-      k++;
-
-      // lambda (for convex combination)
-      var l = k / nrOfSteps;
-
+      n++;
+      //Por_est: porcentaje para estirarse, si NEst es muy grande se estirara mas
+      //entre mayor sea el porcentaje en cada iteración mas pronto volvera al origen
+      let por_est = n / NEst;
       for (let i = 0; i < Nodos.length; i++) {
-
-        // get target positions
-        var x_target = positions[i].x;
-        var y_target = positions[i].y;
-        console.log(x_target)
-
-        // compute the convex combination of x_start and x_target to find intermediate x and move node to it, same for y
-        var xt = x_start * (1 - l) + x_target * l;
-        var yt = y_start * (1 - l) + y_target * l;
-
-        // move node
+        let posx = pos[i].x, posy=pos[i].y;
+       //para mover de posicion yinicio * (1 - l) llegara un punto donde l sera 0 y se volver a la posicion
+        //de origen.
+        let xt =  posx* por_est;
+        let yt =  posy * por_est;
+        //Mover cada nodo, luego del move los nodos vuelven a su posicion normal
         grafo.moveNode(i,xt,yt);
       }
-
-      // stop if we have reached nr of steps
-      if(k == nrOfSteps){
+      //PARA LUEGO DE
+      if(n== NEst){
         clearInterval(timer)
       }
-    },tick);
-    /*grafo.focus(2,OpA);*/
+    //tiempo de repeticion de cada nodo
+    },10);
+
   }
 
 
