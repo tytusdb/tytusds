@@ -46,14 +46,9 @@ export class ListaSimpleComponent implements OnInit {
     console.log(String(this.selectedFile))
     
   }
-<<<<<<< HEAD
-  readSingleFile(e:any){
-    readSingleFile(e);
-=======
   animar(){
     anima()
   }
->>>>>>> 921df5eb0959555c2870818e3c3d463c40488212
 
   }
-}
+
