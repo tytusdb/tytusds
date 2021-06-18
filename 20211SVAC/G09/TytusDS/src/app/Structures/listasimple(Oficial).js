@@ -278,7 +278,7 @@ function download(filename, text) {
     let doc = JSON.stringify({ "categoria": categoria, 'nombre': nombre, 'repeticion':repeticion, 'animacion':animacion, 'valores': lista });
     
     //console.log(listSimple.print())
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + doc);
+    element.setAttribute('href', 'data:json,' + doc);
     element.setAttribute('download', filename);
 
     element.style.display = 'none';
