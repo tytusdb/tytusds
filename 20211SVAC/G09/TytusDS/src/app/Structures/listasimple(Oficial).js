@@ -1,42 +1,90 @@
 class Nodo{
-    constructor(data, next){
+    constructor(data, next, id, x,disBtn){
         this.data = data;
         this.next = next;
+        this.id = id
+        this.x = x
+        this.disBtn = disBtn
     }
 }
+/*class ItemList{
+    constructor(data, id, x, y){
+        this.data = data;
+        this.id = id;
+        this.x = x;
+        this.y = y;
+    }
+}*/
 class ListaSimple{
     constructor(){
         this.head = null;
         this.size = 0;
+        this.contId = 0
     }
     
     add(data){
+        const caja = document.createElement("div")//Creando el div donde se añaden los botones
+        caja.id="div"+(this.contId).toString()
+        this.contId++
+        const divInsert=document.getElementById("divInsert1");
+        divInsert.appendChild(caja)//Insertando el div en el Div principal
+        const objeto=document.createElement("button"); //Creacion del botón
+        //Añadir la imagen al div
+        /*const img=document.createElement("img");
+        //img.src="img/flecha_izquierda.png"
+        //img.src="img/Foto-Tipo-DPI.jpeg"
+        img.src="src/app/Structures/img/Foto-Tipo-DPI.jpeg"*/
 
-        var objeto=document.createElement("button");
-        var divInsert=document.getElementById("divInsert");
-        var texto=document.createTextNode(data);
+        const texto=document.createTextNode(data);
         objeto.appendChild(texto);
+        
+        //Empieza diseño de Botón Juli
         objeto.style.backgroundColor='rgb(25, 25, 112)'
         objeto.style.color='rgb(255,255,255)'
         objeto.style.fontSize='60px'
         objeto.style.borderRadius="5px"
-        objeto.style.boxShadow="0 9px black"
-        //objeto.id("btn1")
-        //objeto.classList.add("animate__backInLeft")
-        divInsert.appendChild(objeto)
-        /*
-        var objet= document.getElementById("btn1")
-        objet.classList.add("animate__backInLeft")*/
+        //Termina el área de diseño del botón
 
-    const newNodo = new Nodo(data, null);
+        objeto.classList='animated bounce'
+
+        //divInsert.insertBefore(objeto, divInsert.firstElementChild)
+
+        const posicion=document.getElementById(caja.id)
+        posicion.style.position="absolute"
+        posicion.appendChild(objeto)
+/*
+        var pos = 0;
+        var id = setInterval(frame, 10);
+        function frame() {
+            if (pos == 50) {
+                clearInterval(id);
+            } else {
+                pos++;
+                //objeto.style.top = pos + 'px';
+                //divInsert.style.left = pos + 'px';
+            }
+        }*/
+        //objeto.id="btn1"
+    const newNodo = new Nodo(data, null, caja.id, null, objeto.offsetWidth);
     if(this.head){        
         let current = this.head;
         while(current.next){
         current = current.next;
         }
+        this.contId++
+        newNodo.x= current.x + 10 + current.disBtn
         current.next = newNodo;
+        console.log(current.x)
+        posicion.style.left = (newNodo.x).toString()+"px"
+        posicion.style.top ="20px"
     }else{
         this.head = newNodo
+        this.contId++
+        this.head.x=10
+        posicion.style.left =(this.head.x).toString()+"px"
+        posicion.style.top ="20px"
+        console.log(posicion.style.left)
+        console.log(this.head.x)
     }
     this.size++
     }

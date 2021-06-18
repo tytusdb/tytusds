@@ -2,9 +2,9 @@
 <div class="text-center">
     <h4 class="text-dark mb-4">Ingrese los valores</h4>
 </div>
-<button class="btn btn-primary btn-block text-white" type="submit" onclick="add()">Enviar</button>
+<button id="b1" class="btn btn-primary btn-block text-white" type="submit" onclick="add()">Enviar</button>
 <input class="animated bounce" type="text" #box placeholder="enter algo" name="username"/> 
-<button class="animate bounce" (click)="getValue(box.value)" >Push</button>
+<button class="animated bounce" (click)="getValue(box.value)" >Push</button>
 <p>La lista es: {{displayVal}}</p>
 
 <div>
@@ -25,8 +25,8 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.ui.min.js"></script>
   <script src="../../Structures/structuresLinealesAbs.js"></script>
-  <div id="divInsert">
-    
+  <div id="divInsert" style="position: absolute;">
+    <div id="divInsert1" style="position: absolute; top: 0px; left: 0px;"></div>
   </div>
   <!--<button class="btn btn-primary btn-block text-white" type="submit" (click)="calladd(box.value)">Enviar</button>-->
 

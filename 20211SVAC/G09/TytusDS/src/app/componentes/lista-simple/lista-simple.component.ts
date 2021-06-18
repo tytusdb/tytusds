@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-
 declare var lsimpleAdd:any;
 declare var convertToText:any;
 declare var lsimpleCargar:any;
-declare var anima:any;
 @Component({
   selector: 'app-lista-simple',
   templateUrl: './lista-simple.component.html',
@@ -17,6 +15,7 @@ export class ListaSimpleComponent implements OnInit {
 
   getValue(val:string){
     console.warn(val)
+    
     var hola = lsimpleAdd(val)
     this.displayVal=hola
     
@@ -52,8 +51,4 @@ export class ListaSimpleComponent implements OnInit {
 
     
   }
-  animar(){
-    anima()
-  }
-
 }
