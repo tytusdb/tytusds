@@ -25,12 +25,14 @@ var cont = 0
 
 let listita = new ListaDoble()
 let array = []
+let array2 = []
 
 /*EVENTOS*/
 $('#add').on('click', () => agregar())
 $('#search').on('click', () => search())
 $('#update').on('click', () => actualizar())
 $('#delete').on('click', () => deleteEdgeMode(document.getElementById("valor").value))
+$('#cargar').on('click', () => cargarJson())
 
 function prueba() {
     console.log(listita.mostrar())
@@ -40,12 +42,18 @@ function prueba() {
 function agregar() {
     // create an array with nodes
     let inputValue = document.getElementById("valor").value;
+    var valor = {
+        id: cont,
+        label: inputValue,
+    }
     var updatedIds = nodes.add([{
         id: cont,
         label: listita.agregar(inputValue),
     }]);
-    array.push(inputValue)
-    console.log("ingresar " + array)
+    array.push(valor)
+    array2.push(valor.label)
+        //console.log("ingresar " + array)
+        //console.log("ingresar " + array2)
     updatedIds = edges.add([
         { from: cont - 1, to: cont, arrows: 'to' }
     ])
@@ -62,22 +70,28 @@ function agregar() {
 var cont2 = 1
 
 function search() {
-    cont2 = 1
+    cont2 = 0
     view()
 }
 
 function actualizar() {
     let inputValue = document.getElementById("valor").value;
     let inputValue2 = document.getElementById("cambio").value;
-    // var idValue = listita.mostrar().indexOf(inputValue)
-    var idVal = array.indexOf(inputValue)
-    array[idVal] = inputValue2
-    view2(idVal)
-    listita.actualizar(inputValue2)
-    nodes.update({ id: idVal, label: inputValue2 })
+    console.log(inputValue)
+    var idVal = array2.indexOf(inputValue)
+    console.log(idVal)
+    array[idVal].label = inputValue2
+    array2[idVal] = inputValue2
+    view2(array[idVal].id)
+    listita.actualizar(inputValue, inputValue2)
+    nodes.update({ id: array[idVal].id, label: inputValue2 })
+    console.log(array)
+    console.log(array2)
 }
 
 async function view() {
+    let inputValue = document.getElementById("valor").value;
+    var idVal = array2.indexOf(inputValue)
     var animation = {
         scale: 4,
         animation: {
@@ -85,9 +99,12 @@ async function view() {
             easingFunction: "linear"
         }
     }
-    network.selectNodes([cont2])
-    network.focus(cont2, animation)
-        //await new Promise(resolve => setTimeout(resolve, 1100)); // 3 sec
+    while (cont2 <= array[idVal].id) {
+        network.selectNodes([cont2])
+        network.focus(cont2, animation)
+        await new Promise(resolve => setTimeout(resolve, 1100)); // 3 sec
+        cont2++
+    }
     cont2++
 }
 
@@ -106,29 +123,61 @@ async function view2(nodo) {
 }
 
 function deleteEdgeMode(nodeId) {
-    //var valor = listita.mostrar().indexOf(nodeId)
-    var valor = array.indexOf(nodeId)
-    var valor2 = valor
-    console.log("valor a borrar " + valor)
-        //array.splice(valor, 1)
+    var valor = array2.indexOf(nodeId)
+    console.log("pos a borrar " + valor)
+    network.selectNodes([array[valor].id]);
+    array.splice(valor, 1)
+    array2.splice(valor, 1)
+    console.log("arreglo " + array2)
     console.log("arreglo " + array)
+    console.log(array[valor - 1].id)
+    console.log(array[valor].id)
     var num = listita.eliminar(nodeId)
     if (num == "op4" || num == "op3") {
         edges.add([
-            { from: valor2 - 1, to: valor2 + 1, arrows: 'to' }
+            { from: array[valor - 1].id, to: array[valor].id, arrows: 'to' }
         ])
         edges.add([
-            { from: valor2 + 1, to: valor2 - 1, arrows: 'to' }
+            { from: array[valor].id, to: array[valor - 1].id, arrows: 'to' }
         ])
     } else if (num == "op2") {
         console.log("ultimo")
         cont-- //por ser el ultimo dato 
     }
-    console.log(nodeId)
-    console.log(valor)
-    network.selectNodes([valor]);
     network.deleteSelected();
 
+}
+
+function cargarJson() {
+    var file = document.getElementById('formFileSm').files[0];
+    let reader = new FileReader();
+    reader.readAsText(file);
+    reader.onload = function() {
+        const obj = JSON.parse(reader.result)
+        var updatedIds
+        for (let i = 0; i < obj.valores.length; i++) {
+            var valor = {
+                id: i,
+                label: obj.valores[i].toString(),
+            }
+            updatedIds = nodes.add([{
+                shape: 'box',
+                id: i,
+                label: listita.agregar(obj.valores[i].toString()),
+            }]);
+            array.push(valor)
+            array2.push(valor.label)
+            updatedIds = edges.add([
+                { from: i - 1, to: i, arrows: 'to' }
+            ])
+            updatedIds = edges.add([
+                { from: i, to: i - 1, arrows: 'to' }
+            ])
+            cont++
+        }
+        network.selectNodes([updatedIds[0]]);
+        network.editNode();
+    };
 }
 
 network.on("animationFinished", function(ctx) {

@@ -119,9 +119,12 @@
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Archivo
             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Cargar Json</a></li>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="width:300px;">
                                 <li><a class="dropdown-item" href="#">Guardar Json</a></li>
+                                <li><a class="dropdown-item" href="#" id="cargar">Cargar Json</a></li>
+                                <li>
+                                    <input class="form-control form-control-sm" id="formFileSm" type="file" />
+                                </li>
                             </ul>
                         </li>
                     </ul>
@@ -140,7 +143,7 @@
                         <input class="form-control me-2" type="search" placeholder="Nuevo Valor" aria-label="Search" id="cambio">
                     </form>
                     <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Ingresar Valor" aria-label="Search" id="valor">
+                        <input class="form-control me-2" type="search" placeholder="Ingresar Valor" aria-label="Search" autocomplete="off" id="valor">
                         <a class="btn btn-outline-success" id="add">Añadir</a>
                     </form>
                     <form class="d-flex" style="padding-left: 5px;">
