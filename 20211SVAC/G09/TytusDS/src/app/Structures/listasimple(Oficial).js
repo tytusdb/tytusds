@@ -209,3 +209,29 @@ function convertToText(obj) {
 
     return string.join("")
 }
+//leer un documento
+function onChange(event) {
+    var file = event.target.files[0];
+    var reader = new FileReader();
+    reader.onload = function(event) {
+      // El texto del archivo se mostrará por consola aquí
+     // console.log(event.target.result)
+      let doc = JSON.parse(event.target.result);
+      //console.log(doc)
+
+      for (var key in doc) {
+        //console.log('name=' + key + ' value=' + doc[key]);
+        if(key=='valores'){
+            //console.log(doc[key].length)
+            for (var k in doc[key]){
+                listSimple.add(doc[key][k])
+            }
+        }
+     }
+     
+
+    };
+
+    reader.readAsText(file);
+
+  }
