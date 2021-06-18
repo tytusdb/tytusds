@@ -1,0 +1,22 @@
+export const MenuItemsOrdenamientos = [
+	{
+		title:'Burbuja',
+		path:'/Burbuja',
+		cName:'dropdown-item'
+	},
+	{
+		title:'Seleccion',
+		path:'/Seleccion',
+		cName:'dropdown-item'
+	},
+	{
+		title:'Insercion',
+		path:'/Insercion',
+		cName:'dropdown-item'
+	},
+	{
+		title:'Rapido',
+		path:'/Rapido',
+		cName:'dropdown-item'
+	}
+]
