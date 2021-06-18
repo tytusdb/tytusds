@@ -255,11 +255,14 @@ function onChange(event) {
     reader.readAsText(file);
 }//guardar archivo
 function download(filename, text) {
+    
+    lista = listSimple.print()
+  
     var element = document.createElement('a');
-    let doc = JSON.stringify({ 'categoria': categoria, y: 6 });
+    let doc = JSON.stringify({ "categoria": categoria, 'nombre': nombre, 'repeticion':repeticion, 'animacion':animacion, 'valores': lista });
     
     //console.log(listSimple.print())
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(doc));
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + doc);
     element.setAttribute('download', filename);
 
     element.style.display = 'none';
