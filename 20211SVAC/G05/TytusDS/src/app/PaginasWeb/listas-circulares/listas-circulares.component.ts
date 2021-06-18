@@ -136,7 +136,7 @@ export class ListasCircularesComponent implements OnInit {
     var NEst = Math.floor( dur / velE);
     //Obtencion de las posicionesa actuales de los nodos
     let pos=grafo.getPositions();
-    let timer = setInterval(function(){
+    let AnimLista = setInterval(function(){
       n++;
       //Por_est: porcentaje para estirarse, si NEst es muy grande se estirara mas
       //entre mayor sea el porcentaje en cada iteración mas pronto volvera al origen
@@ -153,7 +153,7 @@ export class ListasCircularesComponent implements OnInit {
       }
       //PARA LUEGO DE
       if(n== NEst){
-        clearInterval(timer)
+        clearInterval(AnimLista);
       }
     //tiempo de repeticion de cada nodo
     },10);

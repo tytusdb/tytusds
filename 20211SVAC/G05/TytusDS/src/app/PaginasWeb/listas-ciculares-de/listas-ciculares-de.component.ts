@@ -138,4 +138,5 @@ export class ListasCicularesDEComponent implements OnInit {
     let blob = new Blob([JSON.stringify(contenido)], {type: 'json;charset=utf-8'});
     saveAs(blob, 'descarga.json');
   }
+
 }
