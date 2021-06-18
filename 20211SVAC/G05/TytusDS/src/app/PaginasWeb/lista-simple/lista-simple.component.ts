@@ -33,8 +33,6 @@ export class ListaSimpleComponent implements OnInit {
     repeticionArboles: true,
   };
 
-  documento: any;  //  Si el usuario ingresa un usuario para hacer su estructura
-
   constructor(private documentoService: DocumentoService) {
     this.lista = new ListaSimple();
   }
