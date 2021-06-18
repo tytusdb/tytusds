@@ -31,7 +31,9 @@ import { ABinarioComponent } from './PaginasWeb/a-binario/a-binario.component';
     SeleccionComponent,
     ColaComponent,
     OrdBurbujaComponent,
-    AvlComponent
+    AvlComponent,
+    OrdQuicksortComponent,
+    ABinarioComponent
   ],
   imports: [
     BrowserModule,
