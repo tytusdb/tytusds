@@ -23,7 +23,7 @@ class Nodo{
 
     eliminar(valor){
         var arreglo = []
-        for(i = 0; i< this.claves.length; i++){
+        for(var i = 0; i< this.claves.length; i++){
             if(valor != this.claves[i]){
                 arreglo.push(this.claves[i])
             }
@@ -32,8 +32,7 @@ class Nodo{
     }
 
     buscar(valor){
-        var i = 0
-        for(i = 0; i<this.claves.length; i++){
+        for(var i = 0; i<this.claves.length; i++){
             if(this.claves[i] == valor){
                 return i
             }
@@ -65,7 +64,7 @@ class ArbolB{
             temp.agregar(valor)
         }else{
             var encontrar = false
-            for(i = 0; i<temp.claves.length; i++){
+            for(var i = 0; i<temp.claves.length; i++){
                 if(valor < temp.claves[i]){
                     encontrar = true
                     temp.hijos[i] = this._agregar(valor, temp.hijos[i])
@@ -86,12 +85,12 @@ class ArbolB{
                 temp.hijos.push(new Nodo(temp, contador))
                 contador++
                 temp.hijos.push(new Nodo(temp, contador))
-                for(i = 0; i<this.enmedio; i++){
+                for(var i = 0; i<this.enmedio; i++){
                     temp.hijos[0].agregar(c.claves[i])
                     temp.hijos[1].agregar(c.claves[i+this.enmedio+1])
                 }
                 if(c.hijos.length > 0){
-                    for(i = 0; i<this.enmedio+1; i++){
+                    for(var i = 0; i<this.enmedio+1; i++){
                         temp.hijos[0].hijos[i] = c.hijos[i]
                         temp.hijos[0].hijos[i].padre = temp.hijos[0]
                         temp.hijos[1].hijos[i] = c.hijos[i+this.enmedio+1]
@@ -115,7 +114,7 @@ class ArbolB{
                     }
                 }
 
-                for(i = temp.padre.claves.length; i>index+1; i--){
+                for(var i = temp.padre.claves.length; i>index+1; i--){
                     temp.padre.hijos[i] = temp.padre.hijos[i-1]
                 }
 
@@ -126,7 +125,7 @@ class ArbolB{
 
                 contador ++
                 temp.padre.hijos[index+1] = new Nodo(temp.padre, contador)
-                for(i = 0; i<this.enmedio; i++){
+                for(var i = 0; i<this.enmedio; i++){
                     console.log(aux.claves[i])
                     temp.padre.hijos[index].agregar(aux.claves[i])
                     temp.padre.hijos[index+1].agregar(aux.claves[i+this.enmedio+1])
@@ -134,11 +133,11 @@ class ArbolB{
                 temp = temp.padre.hijos[index]
 
                 if(tieneHijos){
-                    for(i = 0; i<this.enmedio+1; i++){
+                    for(var i = 0; i<this.enmedio+1; i++){
                         temp.padre.hijos[index].hijos[i] = aux.hijos[i]
                         temp.padre.hijos[index].hijos[i].padre = temp.padre.hijos[index]
                     }
-                    for(i = this.enmedio+1; i<this.grado+1; i++){
+                    for(var i = this.enmedio+1; i<this.grado+1; i++){
                         temp.padre.hijos[index+1].hijos[i-this.enmedio-1] = aux.hijos[i]
                         temp.padre.hijos[index+1].hijos[i-this.enmedio-1].padre = temp.padre.hijos[index+1]
                     }
@@ -198,7 +197,7 @@ class ArbolB{
     //Método de busqueda retorna un booleano
     buscar(valor, temp){
         if(temp != null){
-            for(i = 0; i< temp.claves.length; i++){
+            for(var i = 0; i< temp.claves.length; i++){
                 if(temp.claves[i] == valor){
                     return true
                 }
@@ -218,7 +217,7 @@ class ArbolB{
 
     buscarNodo(valor, temp){
         if(temp != null){
-            for(i = 0; i< temp.claves.length; i++){
+            for(var i = 0; i< temp.claves.length; i++){
                 if(temp.claves[i] == valor){
                     return temp.id
                 }
@@ -261,8 +260,8 @@ class ArbolB{
 //Metodo de ordenamiento burbuja
 function sort(arreglo){
     var aux = 0;
-    for(i=0; i< arreglo.length-1; i++){
-        for(j=i+1; j<arreglo.length; j++){
+    for(var i=0; i< arreglo.length-1; i++){
+        for(var j=i+1; j<arreglo.length; j++){
             if(arreglo[i] > arreglo[j]){
                 aux = arreglo[i];
                 arreglo[i] = arreglo[j];
