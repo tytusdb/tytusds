@@ -316,7 +316,6 @@ class arbolAVL{
 
 
 let arbolbb = new arbolAVL()
-
 function actualizarTablero(){
     arbolbb.recorrerGraficar(arbolbb.raiz);
     var nodes = new vis.DataSet(arrayNodes);
