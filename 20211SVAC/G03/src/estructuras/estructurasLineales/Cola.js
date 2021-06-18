@@ -81,6 +81,22 @@ class Cola {
             nodoActual = nodoActual.siguiente
         }
     }
+	
+	buscar (dato){
+        let datoEncontrado = null
+        let nodoActual = this.primero
+
+        while(nodoActual != null){
+            if(nodoActual.dato == dato){
+                datoEncontrado = "El dato se encontró: "+ nodoActual.dato
+                return datoEncontrado
+            }
+
+            nodoActual = nodoActual.siguiente
+        }
+        datoEncontrado = "no se encontro el dato"
+        return  datoEncontrado
+    }
 
 }
 
