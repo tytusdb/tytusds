@@ -165,3 +165,19 @@ class ARBOLB {
 }
 
 module.exports = ARBOLB;
+
+let b = new ARBOLB(5);
+let c = new Rama();
+
+b.insertar(10);
+b.insertar(11);
+b.insertar(12);
+b.insertar(13);
+b.insertar(14);
+b.insertar(15);
+b.insertar(16);
+b.insertar(17)
+
+c.print();
+console.log("hola");
+
