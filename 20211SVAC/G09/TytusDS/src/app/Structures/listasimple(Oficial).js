@@ -166,6 +166,10 @@ print(){
 }
 
 const listSimple = new ListaSimple();
+var categoria;
+var nombre;
+var repeticion;
+var animacion;
 
 function lsimpleAdd(data){
 listSimple.add(data);
@@ -225,7 +229,7 @@ function convertToText(obj) {
 
     return string.join("")
 }
-//leer un documento
+//abrir un documento
 function onChange(event) {
     var file = event.target.files[0];
     var reader = new FileReader();
@@ -237,6 +241,22 @@ function onChange(event) {
 
       for (var key in doc) {
         //console.log('name=' + key + ' value=' + doc[key]);
+        if(key=='categoria'){
+            categoria = doc[key]
+            console.log(categoria)
+        }
+        if(key=='nombre'){
+            nombre = doc[key]
+            console.log(nombre)
+        }
+        if(key=='repeticion'){
+            repeticion = doc[key]
+            console.log(repeticion)
+        }
+        if(key=='animacion'){
+            animacion = doc[key]
+            console.log(animacion)
+        }
         if(key=='valores'){
             //console.log(doc[key].length)
             for (var k in doc[key]){
@@ -249,5 +269,22 @@ function onChange(event) {
     };
 
     reader.readAsText(file);
+}//guardar archivo
+function download(filename, text) {
+    
+    lista = listSimple.print()
+  
+    var element = document.createElement('a');
+    let doc = JSON.stringify({ "categoria": categoria, 'nombre': nombre, 'repeticion':repeticion, 'animacion':animacion, 'valores': lista });
+    
+    //console.log(listSimple.print())
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + doc);
+    element.setAttribute('download', filename);
 
-  }
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+}
