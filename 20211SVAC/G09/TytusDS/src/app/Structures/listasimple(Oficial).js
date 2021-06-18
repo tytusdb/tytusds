@@ -34,11 +34,11 @@ class ListaSimple{
         const texto=document.createTextNode(data);
         objeto.appendChild(texto);
 
-        //Para reiniciar animación
-        const b1=document.getElementById("b1");
+        //Para reiniciar animación No borrar
+        /*const b1=document.getElementById("b1");
         b1.classList='animated bounce'
         const b2 = b1.cloneNode(true)
-        b1.parentNode.replaceChild(b2, b1)
+        b1.parentNode.replaceChild(b2, b1)*/
 
         //Empieza diseño de Botón Juli
         objeto.style.backgroundColor='rgb(25, 25, 112)'
