@@ -209,7 +209,7 @@ function convertToText(obj) {
 
     return string.join("")
 }
-//leer un documento
+//abrir un documento
 function onChange(event) {
     var file = event.target.files[0];
     var reader = new FileReader();
@@ -233,5 +233,24 @@ function onChange(event) {
     };
 
     reader.readAsText(file);
+}//guardar archivo
+function download(filename, text) {
+    var element = document.createElement('a');
+    let doc = JSON.stringify({ x: 5, y: 6 });
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(doc));
+    element.setAttribute('download', filename);
 
-  }
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+}
+document.getElementById("dwn-btn").addEventListener("click", function(){
+    // Generate download of hello.txt file with some content
+    var text = document.getElementById("text-val").value;
+    var filename = "hello.txt";
+    
+    download(filename, text);
+}, false);
