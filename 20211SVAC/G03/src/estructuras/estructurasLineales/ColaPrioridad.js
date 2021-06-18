@@ -119,6 +119,39 @@ class ColaPrioridad {
         datoEncontrado = "no se encontro el dato"
         return  datoEncontrado
     }
+	
+	eliminar(dato){
+       let nodoActual = this.primero
+        let nodoanterior = null
+
+        if(nodoActual != null && nodoActual.dato == dato){
+            this.primero = nodoActual.siguiente
+            return
+        }
+
+        while(nodoActual != null && nodoActual.dato != dato){
+            nodoanterior = nodoActual
+            nodoActual = nodoActual.siguiente
+        }
+
+        if (nodoActual == null){
+            return
+        }
+
+        nodoanterior.siguiente = nodoActual.siguiente;
+    }
+    
+    cargar(arr){
+        arr.map(e => {
+            this.Agregar(e.valor,e.prioridad)
+        })
+    }
+
+    guardar(arr){
+        var archivoJSON = JSON.stringify(arr)
+
+        fs.writeFile("Cola.json", archivoJSON)
+    }
 }
 
 
