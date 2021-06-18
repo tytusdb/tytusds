@@ -26,4 +26,12 @@ class Pila{
         }
 
     }
-}
+
+
+    eliminar(){
+        inicio = this.cabeza;
+        this.cabeza = this.cabeza.siguiente
+        return inicio;
+    }
+   	
+ }
