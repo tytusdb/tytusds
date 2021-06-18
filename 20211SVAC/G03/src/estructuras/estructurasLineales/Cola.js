@@ -118,6 +118,18 @@ class Cola {
 
         nodoanterior.siguiente = nodoActual.siguiente;
     }
+	
+	cargar(arr){
+        arr.map(e => {
+            this.Agregar(e)
+        })
+    }
+
+    guardar(arr){
+        var archivoJSON = JSON.stringify(arr)
+
+        fs.writeFile("Cola.json", archivoJSON)
+    }
 
 }
 
