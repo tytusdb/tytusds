@@ -12,6 +12,50 @@ class ColaPrioridad {
         this.ultimo = null
         this.longitud = 0 
     }
+	
+	estaVacia() {
+        if (this.primero == null){
+            return true
+        }
+
+        return false
+    }
+
+    Agregar(dato,prioridad){
+        let nuevoNodo = new Nodo(dato,prioridad)
+
+        if(this.estaVacia()){
+            this.primero = nuevoNodo
+            this.ultimo = nuevoNodo
+        }else{
+
+            nuevoNodo.siguiente = this.primero
+            this.primero = nuevoNodo
+            // Ordenando cola segun la prioridad
+            let temp,nodoActual,temp1
+            nodoActual = this.primero
+            let siguiente = nodoActual.siguiente
+            while(nodoActual.siguiente != null){
+            
+                if(nodoActual.prioridad > siguiente.prioridad){
+                    temp = nodoActual.dato
+                    temp1 = nodoActual.prioridad
+                    nodoActual.dato = siguiente.dato
+                    nodoActual.prioridad = siguiente.prioridad
+                    siguiente.dato = temp
+                    siguiente.prioridad = temp1
+        
+                    nodoActual = nodoActual.siguiente
+                    siguiente = siguiente.siguiente
+                }else{
+                    nodoActual = nodoActual.siguiente
+                    siguiente = siguiente.siguiente
+                }
+            }
+        }
+
+        this.longitud++
+    }
 }
 
 
