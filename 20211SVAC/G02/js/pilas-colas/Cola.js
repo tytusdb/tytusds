@@ -155,7 +155,7 @@ function actualizarT() {
         physics: false,
         layout: {
             hierarchical: {
-                direction: 'UD',
+                direction: 'DU',
                 levelSeparation: 25
 
             }
