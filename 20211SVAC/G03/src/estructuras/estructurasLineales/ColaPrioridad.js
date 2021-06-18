@@ -73,6 +73,52 @@ class ColaPrioridad {
         }
         this.longitud--
     }
+	
+	 Imprimir(){
+        let text = ""
+        let nodoActual = this.primero
+
+        while (nodoActual != null){
+            text += nodoActual.dato + "->"
+            if(nodoActual.siguiente != null){
+                nodoActual = nodoActual.siguiente
+            }else{
+                nodoActual = null
+            }
+            
+        }
+        text += "null"
+
+        console.log(text)
+    }
+
+    actualizar(datoAnterior, datoNuevo){
+        let nodoActual = this.primero
+
+        while(nodoActual != null){
+            if(nodoActual.dato == datoAnterior){
+                nodoActual.dato = datoNuevo
+            }
+
+            nodoActual = nodoActual.siguiente
+        }
+    }
+
+    buscar (dato){
+        let datoEncontrado = null
+        let nodoActual = this.primero
+
+        while(nodoActual != null){
+            if(nodoActual.dato == dato){
+                datoEncontrado = "El dato se encontró: "+ nodoActual.dato
+                return datoEncontrado
+            }
+
+            nodoActual = nodoActual.siguiente
+        }
+        datoEncontrado = "no se encontro el dato"
+        return  datoEncontrado
+    }
 }
 
 
