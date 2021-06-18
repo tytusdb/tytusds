@@ -5,7 +5,7 @@ class Nodo {
 	}
 }
 
-class ListaSimple {
+class Cola {
 	constructor(){
 		this.primero = null;
 		this.ultimo = null;
@@ -57,6 +57,21 @@ class ListaSimple {
 			}
 		}
 		return eliminado
+	}
+
+	remove(){
+		let tmp = this.primero
+		if(this.primero != null){
+			if(this.primero.siguiente != null){
+				this.primero = this.primero.siguiente
+				this.len--
+			} else {
+				this.primero = null
+				this.ultimo = null
+				this.len--
+			}
+		}
+		return tmp
 	}
 
 	update(valor, nuevoValor){

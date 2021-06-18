@@ -119,12 +119,9 @@
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Archivo
             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="width:300px;">
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Cargar Json</a></li>
                                 <li><a class="dropdown-item" href="#">Guardar Json</a></li>
-                                <li><a class="dropdown-item" href="#" id="cargar">Cargar Json</a></li>
-                                <li>
-                                    <input class="form-control form-control-sm" id="formFileSm" type="file" />
-                                </li>
                             </ul>
                         </li>
                     </ul>
@@ -143,7 +140,7 @@
                         <input class="form-control me-2" type="search" placeholder="Nuevo Valor" aria-label="Search" id="cambio">
                     </form>
                     <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Ingresar Valor" aria-label="Search" autocomplete="off" id="valor">
+                        <input class="form-control me-2" type="search" placeholder="Ingresar Valor" aria-label="Search" id="valor">
                         <a class="btn btn-outline-success" id="add">Añadir</a>
                     </form>
                     <form class="d-flex" style="padding-left: 5px;">
@@ -168,7 +165,7 @@
 
             <!--AQUI VA EL CONTENIDO DE LAS ESTRUCTURAS-->
             <div class="container">
-                <h1 style="font-family: 'Merriweather', serif;">Lista Doblemente Enlazada</h1>
+                <h1 style="font-family: 'Merriweather', serif;">Lista Circular Simplemente Enlazada</h1>
                 <!--button class="btn btn-outline-info" type="submit" id="hola">Buscar</button-->
             </div>
             <div id="mynetwork" class="col-12" style="height:600px;"></div>
@@ -235,7 +232,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.4/js/tether.min.js"></script>
 
         <!-- Scripts de las estructuras -->
-        <script type="text/javascript" src="../../scripts/listaDoble.js"></script>
+        <script type="text/javascript" src="../../scripts/circularSimple.js"></script>
 
         <!-- Scripts para los eventos -->
         <script type="text/javascript" src="../../index.js"></script>

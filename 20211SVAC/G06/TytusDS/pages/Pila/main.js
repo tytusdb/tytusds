@@ -1,7 +1,5 @@
 // create an array with nodes
-var nodes = new vis.DataSet([
-
-]);
+var nodes = new vis.DataSet([]);
 
 // create an array with edges
 var edges = new vis.DataSet([
@@ -23,15 +21,15 @@ var network = new vis.Network(container, data, options);
 
 var cont = 0
 
-let listita = new ListaDoble()
+let listita = new Pila()
 let array = []
 let array2 = []
 
 /*EVENTOS*/
-$('#add').on('click', () => agregar())
+$('#add').on('click', () => agregar(document.getElementById("valor").value))
 $('#search').on('click', () => search())
 $('#update').on('click', () => actualizar())
-$('#delete').on('click', () => deleteEdgeMode(document.getElementById("valor").value))
+$('#delete').on('click', () => deleteEdgeMode())
 $('#cargar').on('click', () => cargarJson())
 
 function prueba() {
@@ -39,31 +37,28 @@ function prueba() {
     console.log("jola")
 }
 
-function agregar() {
-    // create an array with nodes
-    let inputValue = document.getElementById("valor").value;
+function agregar(inputValue) {
     var valor = {
         id: cont,
         label: inputValue,
     }
     var updatedIds = nodes.add([{
+        shape: 'box',
         id: cont,
         label: listita.agregar(inputValue),
     }]);
     array.push(valor)
     array2.push(valor.label)
-        //console.log("ingresar " + array)
-        //console.log("ingresar " + array2)
     updatedIds = edges.add([
         { from: cont - 1, to: cont, arrows: 'to' }
     ])
-    updatedIds = edges.add([
-        { from: cont, to: cont - 1, arrows: 'to' }
-    ])
+    console.log(array)
     cont++
     network.selectNodes([updatedIds[0]]);
     network.editNode();
 }
+
+
 
 
 
@@ -75,8 +70,8 @@ function search() {
 }
 
 function actualizar() {
-    let inputValue = document.getElementById("valor").value;
-    let inputValue2 = document.getElementById("cambio").value;
+    let inputValue = document.getElementById("valor").value; //valor 
+    let inputValue2 = document.getElementById("cambio").value; //nuevo
     console.log(inputValue)
     var idVal = array2.indexOf(inputValue)
     console.log(idVal)
@@ -109,6 +104,7 @@ async function view() {
 }
 
 async function view2(nodo) {
+
     var animation = {
         scale: 4,
         animation: {
@@ -118,33 +114,15 @@ async function view2(nodo) {
     }
     network.selectNodes([nodo])
     network.focus(nodo, animation)
-        //await new Promise(resolve => setTimeout(resolve, 1100)); // 3 sec
-
 }
 
-function deleteEdgeMode(nodeId) {
-    var valor = array2.indexOf(nodeId)
-    console.log("pos a borrar " + valor)
-    network.selectNodes([array[valor].id]);
-    array.splice(valor, 1)
-    array2.splice(valor, 1)
-    console.log("arreglo " + array2)
-    console.log("arreglo " + array)
-    console.log(array[valor - 1].id)
-    console.log(array[valor].id)
-    var num = listita.eliminar(nodeId)
-    if (num == "op4" || num == "op3") {
-        edges.add([
-            { from: array[valor - 1].id, to: array[valor].id, arrows: 'to' }
-        ])
-        edges.add([
-            { from: array[valor].id, to: array[valor - 1].id, arrows: 'to' }
-        ])
-    } else if (num == "op2") {
-        console.log("ultimo")
-        cont-- //por ser el ultimo dato 
-    }
+function deleteEdgeMode() {
+    network.selectNodes([array[cont - 1].id]);
+    array.splice(cont - 1, 1)
+    array2.splice(cont - 1, 1)
+    listita.eliminar()
     network.deleteSelected();
+    cont--
 
 }
 
@@ -169,16 +147,14 @@ function cargarJson() {
             array2.push(valor.label)
             updatedIds = edges.add([
                 { from: i - 1, to: i, arrows: 'to' }
-            ])
-            updatedIds = edges.add([
-                { from: i, to: i - 1, arrows: 'to' }
-            ])
+            ]);
             cont++
         }
         network.selectNodes([updatedIds[0]]);
         network.editNode();
     };
 }
+
 
 network.on("animationFinished", function(ctx) {
     if (cont2 >= cont) {

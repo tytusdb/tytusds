@@ -4,7 +4,7 @@ var clickedNode
 var clickedNodoValue
 var network = null
 
-
+var slider = document.getElementById("customRange2")
 var switchToggle = document.getElementById("flexSwitchCheckDefault")
 class Nodo{
     constructor(id, dato){
@@ -27,7 +27,7 @@ class ListaSimple{
             alert("No se pueden agregar elementos vacios.")
         }else{
             if((this.buscar(dato) && (switchToggle.checked == false))){
-                alert("Este dato ya existe, por favor habilite los datos repetidos")
+                console.log("Este dato ya existe, por favor habilite los datos repetidos")
             }else{
                 var nuevo = new Nodo(this.id, dato)
                 nuevo.siguiente = null
@@ -43,6 +43,7 @@ class ListaSimple{
                 this.id++
             }   
         }
+        
     }
 
 
@@ -51,7 +52,7 @@ class ListaSimple{
             alert("No se pueden agregar elementos vacios.")
         }else{
             if((this.buscar(dato) && (switchToggle.checked == false))){
-                alert("Este dato ya existe, por favor habilite los datos repetidos")
+                alert("Este dato ya existe.")
             }else{
                 var nuevo = new Nodo(this.id, dato)
                 nuevo.siguiente = null
@@ -84,6 +85,8 @@ class ListaSimple{
             console.log("No hay datos que mostrar")
             alert("La lista ha quedado vacia")
         }
+
+        
     }
 
     eliminar(dato){
@@ -197,18 +200,26 @@ function read(){
         var obj = JSON.parse(reader.result)
         let val = obj.valores
         repetido = obj.repeticion
-  
+        slider.value = obj.animacion
         switch(repetido){
             case true:
                 switchToggle.checked = true
+                
                 for(let i=0; i<val.length; i++){
-                    listSimple.insertaFinal(val[i].toString())
+                    setTimeout(function (params) {
+                        listSimple.insertaFinal(val[i].toString())
+                        actualizarTablero()
+                    },(1000)*slider.value)
+                    
                 }
                 break;
             case false:
                 switchToggle.checked = false
                 for(let i=0; i<val.length; i++){
-                    listSimple.insertaFinal(val[i].toString())
+                    setTimeout(function (params) {
+                        listSimple.insertaFinal(val[i].toString())
+                        actualizarTablero()
+                    },(1000)*slider.value)
                 }
                 break
             default:
@@ -217,7 +228,7 @@ function read(){
                 break
         }
 
-        actualizarTablero()
+        
     }
     
     
@@ -293,7 +304,7 @@ function modificarNodo(){
 
 function searchNode(){
     focus()
-    setTimeout(zoomExtended, 2000)
+    setTimeout(zoomExtended, (1000)*(slider.value))
     document.getElementById("valueNodo").value = ""
 }
 
@@ -307,7 +318,7 @@ function focus() {
         scale: 3.0,
         offset: {x:0,y:0},
         animation: {
-            duration: 2500,
+            duration: (1000)*(slider.value),
             easingFunction: "easeOutQuint"
         }
     }
