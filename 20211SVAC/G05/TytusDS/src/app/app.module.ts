@@ -15,6 +15,8 @@ import { DocumentoService } from './services/documento.service';
 import { SeleccionComponent } from './PaginasWeb/seleccion/seleccion.component';
 import { OrdBurbujaComponent } from './PaginasWeb/ord-burbuja/ord-burbuja.component';
 import { AvlComponent } from './PaginasWeb/avl/avl.component';
+import { OrdQuicksortComponent } from './PaginasWeb/ord-quicksort/ord-quicksort.component';
+import { ABinarioComponent } from './PaginasWeb/a-binario/a-binario.component';
 
 @NgModule({
   declarations: [
