@@ -11,12 +11,15 @@ let Orden= require('./js/OBurbuja');
   styleUrls: ['./ord-burbuja.component.css']
 })
 export class OrdBurbujaComponent implements OnInit {
+  grafo;
+  EAnim;
   lista=Array();
+  lOrdenada=Array();
   opciones = {
     ingreso: 'final',
     velocidadLineales: 1000,
     repeticionLineales: true,
-    velocidadOrdenamientos: 1000,
+    velocidadOrdenamientos: 500,
     velocidadArboles: 1000,
     grado: 3,
     repeticionArboles: true,
@@ -32,23 +35,60 @@ export class OrdBurbujaComponent implements OnInit {
   //LEER ARCHIVOS DE ENTRADA--------------------------------
   getDocumento(documento: any): void {
     this.documentoService.getDocumento(documento).then(contenido => {
+
       contenido['valores'].forEach(valor => {
         this.lista.push(valor);
-
       });
+      this.graficar();
     });
-    this.graficar();
+
   }
   graficar(){
     let EAnim=(<HTMLCanvasElement>document.getElementById('Oanimacion'))?.getContext('2d');
+    let ordenB= new Orden(this.lista);
+    let recorridos=ordenB.Ordenar();
+    this.lOrdenada=recorridos[recorridos.length-1];
+    let velocidad=(this.opciones['velocidadOrdenamientos']);
+    let k=0;
+    const animBurbuja=setInterval(()=>{
+      let recorrido=recorridos[k];
+      let data=Array();
+      let labels=Array();
+      let colores=Array();
+      for(let i=0; i<recorrido.length;i++){
+        if(typeof recorrido[i]== "string"){
+          labels.push(recorrido[i]);
+          data.push(recorrido[i].charCodeAt());
+          colores.push("#b47cd8");
+        }else{
+          labels.push(recorrido[i]);
+          data.push(recorrido[i]);
+          colores.push("#b47cd8");
+        }
+      }
+      k+=1;
+      this._graficar(labels,data,colores,EAnim);
+      if(k==recorridos.length-1){
+        clearInterval(animBurbuja);
+      }
+    },velocidad);
+
+
+
+
+  }
+  _graficar(labels,data,colores,EAnim){
     let opciones1={
       type: 'bar',
       data: {
-        labels:["1","dos","3"],
+        //ARRAY
+        labels:labels,//ARRAY
         datasets:[{
-          label:"Prueba",
-          data:[1,2,3],
-          backgroundColor:["red","yellow","blue"],
+          label:"Ordenamiento Burbuja",
+          //ARRAY
+          data:data,
+          //ARRAY DE STRING
+          backgroundColor:colores,
           borderWith:2,
         }]
       },
@@ -63,11 +103,24 @@ export class OrdBurbujaComponent implements OnInit {
         }
       }
     }
-    var grafo= new Chart(EAnim,opciones1);
-
+    if (this.grafo) {
+      this.grafo.destroy();
+    }
+    this.grafo= new Chart(EAnim,opciones1);
   }
-
-
+  //GUARDAR
+  guardar(): void {
+    const contenido: any = {
+      categoria: "Estructura Lineal",
+      nombre: "Ordenamiento Burbuja",
+      repeticion:true,
+      animacion:10,
+      valores: []
+    };
+    contenido.valores=contenido.valores.concat(this.lOrdenada);
+    let blob = new Blob([JSON.stringify(contenido)], {type: 'json;charset=utf-8'});
+    saveAs(blob, 'descarga.json');
+  }
 
 }
 
