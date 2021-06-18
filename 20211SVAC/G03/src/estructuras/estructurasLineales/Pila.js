@@ -33,5 +33,22 @@ class Pila{
         this.cabeza = this.cabeza.siguiente
         return inicio;
     }
+
+    actualizar(id, valor){
+        let temporal = this.cabeza;
+        if (this.cabeza == null){
+            console.log("No hay nada en la lista")
+            
+        }else{
+            while(temporal != null){
+                if (temporal.id == id){
+                    temporal.valor = valor;
+                }
+                temporal = temporal.siguiente;                
+
+            }
+        }
+    }
+	
    	
  }
