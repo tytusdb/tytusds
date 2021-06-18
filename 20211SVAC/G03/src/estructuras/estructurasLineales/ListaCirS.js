@@ -57,4 +57,24 @@ class ListaCS{ //Clase Lista Circular Simple
             console.log(aux.dato);
         }
     }
+
+    //Metodo buscar
+    buscar(dato){
+        let aux = this.cabeza;
+        let contador = 1;
+        let tmp = aux.siguiente
+        while(tmp.dato != dato && contador != this.size){
+            aux= aux.siguiente;
+            tmp= tmp.siguiente;
+            contador++;
+        }
+        if(tmp.dato == dato){
+            //Dato encontrado
+            console.log(tmp.dato + " fue hayado con exito");
+        }
+        if (contador == this.size){
+            //Dato no encontrado
+            console.log("No se encontro el dato buscado");
+        }
+    }
 }
