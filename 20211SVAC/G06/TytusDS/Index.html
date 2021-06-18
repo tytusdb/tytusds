@@ -26,10 +26,10 @@
         <ul class="dropdown-menu animated fadeInLeft" role="menu">
           <div class="dropdown-header">／人◕ ‿‿ ◕人＼</div>
           <li><a href="pages/ListaSimple/ListaSimple.html"> Lista Simplemente Enlazada</a></li>
-          <li><a href="#"> Lista Doblemente Enlazada</a></li>
-          <li><a href="#"> Lista Circular Simplemente Enlazada</a></li>
-          <li><a href="#"> Lista Circular Doblemente Enlazada</a></li>
-          <li><a href="#"> Pila</a></li>
+          <li><a href="pages/ListaDoble/ListaDoble.html"> Lista Doblemente Enlazada</a></li>
+          <li><a href="pages/ListaCircularSimple/ListaCircularSimple.html"> Lista Circular Simplemente Enlazada</a></li>
+          <li><a href="pages/ListaCircularDoble/ListaCircularDoble.html"> Lista Circular Doblemente Enlazada</a></li>
+          <li><a href="pages/Pila/Pila.html"> Pila</a></li>
           <li><a href="pages/Cola/Cola.html"> Cola</a></li>
           <li><a href="pages/ColaPrioridad/ColaPrioridad.html"> Cola de Prioridad</a></li>
         </ul>
@@ -131,23 +131,27 @@
               style="height:220px; width: 220px;">
               <hr>
               <div class="btn-group btn-group-sm dropup" role="group" aria-label="Basic example">
-                <button id="lineal" type="button" class="btn pri text-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Lineal
-                </button>
-                <div class="dropdown-menu" aria-labelledby="lineal">
-                  <a class="dropdown-item" href="pages/ListaSimple/ListaSimple.html">Simple</a>
-                  <a class="dropdown-item" href="#">Doble</a>
+                <div class="btn-group btn-group-sm dropup" role="group">
+                  <button id="lineal" type="button" class="btn pri text-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Lineal
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="lineal">
+                    <a class="dropdown-item" href="pages/ListaSimple/ListaSimple.html">Simple</a>
+                    <a class="dropdown-item" href="pages/ListaDoble/ListaDoble.html">Doble</a>
+                  </div>
                 </div>
-                <button id="circular" type="button" class="btn pri text-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Circular
-                </button>
-                <div class="dropdown-menu" aria-labelledby="circular">
-                  <a class="dropdown-item" href="#">Cola</a>
-                  <a class="dropdown-item" href="#">Pila</a>
+                <div class="btn-group btn-group-sm dropup" role="group">
+                  <button id="circular" type="button" class="btn pri text-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Circular
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="circular">
+                    <a class="dropdown-item" href="pages/ListaCircularSimple/ListaCircularSimple.html">Simple</a>
+                    <a class="dropdown-item" href="pages/ListaCircularDoble/ListaCircularDoble.html">Doble</a>
+                  </div>
                 </div>
                 <a type="button" class="btn pri text-light" href="pages/ColaPrioridad/ColaPrioridad.html">Cola Prioridad</a>
                 <a type="button" class="btn pri text-light" href="pages/Cola/Cola.html">Cola</a>
-                <a type="button" class="btn pri text-light">Pila</a>
+                <a type="button" class="btn pri text-light" href="pages/Pila/Pila.html">Pila</a>
               </div>
             </div>
           </div>
@@ -208,16 +212,20 @@
                 <button id="btnGroupDrop1" type="button" class="btn cua text-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Tabla Hash
                 </button>
-                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                  <a class="dropdown-item" href="#">Abierta</a>
-                  <a class="dropdown-item" href="#">Cerrada</a>
+                <div class="btn-group btn-group-sm dropup" role="group">
+                  <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                    <a class="dropdown-item" href="#">Abierta</a>
+                    <a class="dropdown-item" href="#">Cerrada</a>
+                  </div>
                 </div>
-                <button id="btnGroupDrop1" type="button" class="btn cua text-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Grafos
-                </button>
-                <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
-                  <a class="dropdown-item" href="#">awd</a>
-                  <a class="dropdown-item" href="#">adwea</a>
+                <div class="btn-group btn-group-sm dropup" role="group">
+                  <button id="btnGroupDrop1" type="button" class="btn cua text-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Grafos
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+                    <a class="dropdown-item" href="#">Anchura</a>
+                    <a class="dropdown-item" href="#">Profundidad</a>
+                  </div>
                 </div>
                 <a type="button" class="btn cua text-light">Costo</a>
                 <a type="button" class="btn cua text-light">Recubrimiento</a>
