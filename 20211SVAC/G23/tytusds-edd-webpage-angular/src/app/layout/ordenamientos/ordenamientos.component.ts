@@ -24,7 +24,13 @@ export class OrdenamientosComponent implements OnInit {
       this.idOrdenamiento = +params['idOrdenamiento'];
       switch(this.idOrdenamiento){
         case 1:this.tituloOrdenamiento="Burbuja"; 
-                break; 
+          break; 
+        case 2:this.tituloOrdenamiento="Seleccion"
+        break;
+        case 3:this.tituloOrdenamiento="Insercion"
+        break;
+        case 4:this.tituloOrdenamiento="Rapido"
+        break;
       }
     });
     
@@ -36,10 +42,10 @@ export class OrdenamientosComponent implements OnInit {
   };
 
   public barChartLabels: string[] = ['1',
-  '2',
-  '3',
-  '4',
-  '5'];
+                                      '2',
+                                      '3',
+                                      '4',
+                                      '5'];
   public barChartType: string;
   public barChartLegend: boolean;
 
@@ -62,7 +68,13 @@ export class OrdenamientosComponent implements OnInit {
         data[i]=datosOrdenados[i];
       }
       this.barChartData[0].data = data;
-    } 
+    }else if(this.idOrdenamiento==2){
+
+    }else if(this.idOrdenamiento==3){
+
+    }else{
+      
+    }
     //this.barChartData[0].data = data;
   }
   public randomize(): void {

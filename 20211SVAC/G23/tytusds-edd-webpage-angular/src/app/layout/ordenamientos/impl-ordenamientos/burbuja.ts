@@ -1,4 +1,3 @@
-   
 export default class BurbujaImpl{
     datosIniciales:any[];
     datosOrdenados:any[];
@@ -24,5 +23,4 @@ export default class BurbujaImpl{
             }
         }
     }
-
 }

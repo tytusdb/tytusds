@@ -21,6 +21,26 @@ const routes: Routes = [
                 path: 'ordenamientos/:idOrdenamiento',
                 loadChildren: () => import('./ordenamientos/ordenamientos.module').then((m) => m.OrdenamientosModule)
             }
+            ,
+            {
+                path: 'Abb',
+                loadChildren: () => import('./estructuras-arboreas/abb/abb.module').then((m) => m.AbbModule)
+            }
+            ,
+            {
+                path: 'Avl',
+                loadChildren: () => import('./estructuras-arboreas/avl/avl.module').then((m) => m.AvlModule)
+            }
+            ,
+            {
+                path: 'B',
+                loadChildren: () => import('./estructuras-arboreas/b/b.module').then((m) => m.BModule)
+            }
+            ,
+            {
+                path: 'BPlus',
+                loadChildren: () => import('./estructuras-arboreas/bplus/bplus.module').then((m) => m.BplusModule)
+            }
         ]
     }
 ];

@@ -124,31 +124,31 @@
             <li [class.expand]="showMenu === 'arboreas'" class="nested">
                 <ul class="submenu">
                     <li>
-                        <a href="javascript:void(0)">
+                        <a [routerLinkActive]="['router-link-active']" [routerLink]="['/Abb']">
                             <i class="fa fa-monument"></i>&nbsp;
                             <span>{{ 'Arbol binario' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a href="javascript:void(0)">
+                        <a [routerLinkActive]="['router-link-active']" [routerLink]="['/Avl']">
                             <i class="fa fa-monument"></i>&nbsp;
                             <span>{{ 'AVL' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a href="javascript:void(0)">
+                        <a [routerLinkActive]="['router-link-active']" [routerLink]="['/B']">
                             <i class="fa fa-monument"></i>&nbsp;
                             <span>{{ 'Árbol B' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a href="javascript:void(0)">
+                        <a [routerLinkActive]="['router-link-active']" [routerLink]="['/BPlus']">
                             <i class="fa fa-monument"></i>&nbsp;
                             <span>{{ 'Árbol B+' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a href="javascript:void(0)">
+                        <a [routerLinkActive]="['router-link-active']" [routerLink]="['/Merkle',2]">
                             <i class="fa fa-monument"></i>&nbsp;
                             <span>{{ 'Árbol de Merkle' | translate }}</span>
                         </a>
