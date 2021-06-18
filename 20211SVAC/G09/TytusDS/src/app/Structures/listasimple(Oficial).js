@@ -150,6 +150,10 @@ print(){
 }
 
 const listSimple = new ListaSimple();
+var categoria;
+var nombre;
+var repeticion;
+var animacion;
 
 function lsimpleAdd(data){
 listSimple.add(data);
@@ -221,6 +225,22 @@ function onChange(event) {
 
       for (var key in doc) {
         //console.log('name=' + key + ' value=' + doc[key]);
+        if(key=='categoria'){
+            categoria = doc[key]
+            console.log(categoria)
+        }
+        if(key=='nombre'){
+            nombre = doc[key]
+            console.log(nombre)
+        }
+        if(key=='repeticion'){
+            repeticion = doc[key]
+            console.log(repeticion)
+        }
+        if(key=='animacion'){
+            animacion = doc[key]
+            console.log(animacion)
+        }
         if(key=='valores'){
             //console.log(doc[key].length)
             for (var k in doc[key]){
@@ -236,7 +256,9 @@ function onChange(event) {
 }//guardar archivo
 function download(filename, text) {
     var element = document.createElement('a');
-    let doc = JSON.stringify({ x: 5, y: 6 });
+    let doc = JSON.stringify({ 'categoria': categoria, y: 6 });
+    
+    //console.log(listSimple.print())
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(doc));
     element.setAttribute('download', filename);
 
@@ -247,10 +269,3 @@ function download(filename, text) {
 
     document.body.removeChild(element);
 }
-document.getElementById("dwn-btn").addEventListener("click", function(){
-    // Generate download of hello.txt file with some content
-    var text = document.getElementById("text-val").value;
-    var filename = "hello.txt";
-    
-    download(filename, text);
-}, false);
