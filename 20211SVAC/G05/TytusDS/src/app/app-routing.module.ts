@@ -10,6 +10,7 @@ import { MenuComponent } from './PaginasWeb/menu/menu.component';
 import { SeleccionComponent } from './PaginasWeb/seleccion/seleccion.component';
 
 import {OrdBurbujaComponent} from './PaginasWeb/ord-burbuja/ord-burbuja.component';
+import { AvlComponent } from './PaginasWeb/avl/avl.component';
 
 const routes: Routes = [
   {path:'menu', component: MenuComponent},
@@ -21,6 +22,7 @@ const routes: Routes = [
   {path:'ListaDoble', component: ListaDobleComponent},
   {path:'Seleccion', component: SeleccionComponent},
   {path:'OBurbuja', component: OrdBurbujaComponent},
+  {path:'avl', component: AvlComponent},
   {path:'**', redirectTo: 'menu'},
 
 ];

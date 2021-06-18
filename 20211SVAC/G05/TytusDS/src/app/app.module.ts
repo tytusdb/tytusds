@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { DocumentoService } from './services/documento.service';
 import { SeleccionComponent } from './PaginasWeb/seleccion/seleccion.component';
 import { OrdBurbujaComponent } from './PaginasWeb/ord-burbuja/ord-burbuja.component';
+import { AvlComponent } from './PaginasWeb/avl/avl.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { OrdBurbujaComponent } from './PaginasWeb/ord-burbuja/ord-burbuja.compon
     PilaComponent,
     SeleccionComponent,
     ColaComponent,
-    OrdBurbujaComponent
+    OrdBurbujaComponent,
+    AvlComponent
   ],
   imports: [
     BrowserModule,
