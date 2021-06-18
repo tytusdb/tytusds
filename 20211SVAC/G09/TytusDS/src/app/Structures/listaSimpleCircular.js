@@ -4,7 +4,7 @@ class Nodo{
       this.sig = sig;
     }
   }
-  class listaDobleEnlazada{
+  class ListaDobleEnlazada{
     constructor(){
       this.head = null;
       this.size = 0;
@@ -42,7 +42,7 @@ class Nodo{
     else{
       aux=aux.sig}
     }
-   }
+  }
   refresh(dataActual,dataFinal){
     let aux = this.head
     while (aux.sig != this.head) {
@@ -79,21 +79,7 @@ class Nodo{
     }
 }
   
-const lSCircular = new listaDobleEnlazada();
-
-lSCircular.add("1")
-lSCircular.add("2")
-lSCircular.add("3")
-lSCircular.add("4")
-lSCircular.add("5")
-
-console.log(lSCircular.print())
-
-lSCircular.delete("1")
-lSCircular.refresh(2,6)
-
-console.log(lSCircular.search("7"))
-console.log(lSCircular.print())
+const lSCircular = new ListaDobleEnlazada();
 
 function lsimpleAdd(date){
   lSCircular.add(date);
