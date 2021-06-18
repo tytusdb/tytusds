@@ -23,12 +23,13 @@ var network = new vis.Network(container, data, options);
 
 var cont = 0
 
-let listita = new ListaSimple()
+let colita = new Cola()
 
 /*EVENTOS*/
 $('#add').on('click', () => agregar())
 $('#search').on('click', () => search())
 $('#delete').on('click', () => remove())
+$('#pop').on('click', () => pop())
 $('#update').on('click', () => update())
 $('#pruebita').on('click', () => prueba())
 $('#cargar').on('click', () => cargarJson())
@@ -36,7 +37,7 @@ $('#guardar').on('click', () => guardarJson())
 
 async function cargarJson(){
   network = new vis.Network(container, data, options);
-  listita = new ListaSimple()
+  colita = new Cola()
   var objeto = null
   //Obtenemos el archivo 
   let upload = document.getElementById('formFileSm');
@@ -57,12 +58,12 @@ async function cargarJson(){
     for(let i = 0; i < objeto.valores.length; i++){
         //VERIFICAMOS SI VIENEN REPETIDOS
         if(objeto.repeticion == false){
-          let encontrado = listita.search(objeto.valores[i])
+          let encontrado = colita.search(objeto.valores[i])
           if(encontrado != null){
             continue
           }
         }
-      let array = listita.toArray()
+      let array = colita.toArray()
       var beforeId
       if (array.length < 1){
         beforeId = -1
@@ -75,9 +76,9 @@ async function cargarJson(){
       }
       updatedIds = nodes.add([{
         id: cont,
-        label:(listita.add(valor)).value,
-        shape: "star",
-        color:"#72EDC0"
+        label:(colita.add(valor)).value,
+        shape: "hexagon",
+        color:"#797EE3"
       }]);
       updatedIds = edges.add([
         {from: beforeId, to: cont, arrows:'to', color:"#17202A"}
@@ -92,10 +93,10 @@ async function cargarJson(){
 
 function guardarJson(){
   var categoria = "Estructura Lineal"
-  var nombre = "Lista Simplemente Enlazada"
+  var nombre = "Cola"
   var repetir = document.getElementById("flexSwitchCheckDefault").checked;
   var speed = document.getElementById("formControlRange").value;
-  let array = listita.toArray()
+  let array = colita.toArray()
   let valores = []
   for(let i = 0; i < array.length; i++){
     valores.push(array[i].value)
@@ -109,7 +110,7 @@ function guardarJson(){
   }
   var JsonString = JSON.stringify(objeto);
   console.log(JsonString)
-  download("ListaSimple.json",JsonString);
+  download("Cola.json",JsonString);
 }
 
 function download(filename, text) {
@@ -127,7 +128,7 @@ function download(filename, text) {
 
 
 function prueba(){
-  console.log(listita.print())
+  console.log(colita.print())
 }
 
 function convertir(porcentaje){
@@ -142,13 +143,13 @@ function agregar(){
   let inputValue = document.getElementById("valor").value;
   var repetir = document.getElementById("flexSwitchCheckDefault").checked;
   if(repetir == false){
-    let existe = listita.search(inputValue)
+    let existe = colita.search(inputValue)
     if(existe != null){
       alert("Ese valor ya existe :c")
       return
     }
   }
-  let array = listita.toArray()
+  let array = colita.toArray()
   var beforeId
   if (array.length < 1){
     beforeId = -1
@@ -161,9 +162,9 @@ function agregar(){
   }
   var updatedIds = nodes.add([{
     id: cont,
-    label:(listita.add(valor)).value,
-    shape: "star",
-    color:"#72EDC0"
+    label:(colita.add(valor)).value,
+    shape: "hexagon",
+    color:"#797EE3"
   }]);
   updatedIds = edges.add([
   {from: beforeId, to: cont, arrows:'to', color:"#17202A"}
@@ -184,8 +185,8 @@ async function search(){
     }
   }
   let input = document.getElementById("valor").value;
-  let nodo = listita.search(input)
-  let array = listita.toArray()
+  let nodo = colita.search(input)
+  let array = colita.toArray()
   if(nodo != null){
     for(let i = 0; i < array.length; i++){
       let currentId = array[i].id
@@ -222,8 +223,8 @@ async function update(){
   }
   let input = document.getElementById("valor").value;
   let inputUpdate = document.getElementById("nuevoValor").value;
-  let nodo = listita.update(input, inputUpdate)
-  let array = listita.toArray()
+  let nodo = colita.update(input, inputUpdate)
+  let array = colita.toArray()
   if(nodo != null){
     for(let i = 0; i < nodes.length; i++){
       let currentId = array[i].id
@@ -261,8 +262,8 @@ async function remove(){
     }
   }
   let input = document.getElementById("valor").value;
-  let array = listita.toArray()
-  let nodo = listita.delete(input)
+  let array = colita.toArray()
+  let nodo = colita.delete(input)
   if(nodo != null){
     for(let i = 0; i < array.length; i++){
       let currentId = array[i].id
@@ -293,5 +294,51 @@ async function remove(){
     network.selectEdges([])
     network.fit()
     alert("No se ha encontrado el valor!");
+  }
+}
+
+async function pop(){
+  var speed = document.getElementById("formControlRange").value;
+  speed = convertir(speed)
+  var animation = {
+    scale: 4,
+    animation: {
+      duration:speed,
+      easingFunction: "linear"
+    }
+  }
+  let input = document.getElementById("valor").value;
+  let array = colita.toArray()
+  let nodo = colita.remove()
+  if(nodo != null){
+    for(let i = 0; i < array.length; i++){
+      let currentId = array[i].id
+      /*Esto es lo de la animacion*/
+      network.selectNodes([currentId])
+      network.focus(currentId, animation)
+      await new Promise(resolve => setTimeout(resolve, speed+10)); // 3 sec
+      /*Termina lo de la animacion*/
+      if(currentId == nodo.valor.id){
+        network.fit()
+        await new Promise(resolve => setTimeout(resolve, speed/2)); // 3 sec
+        network.deleteSelected();
+        var updatedIds = edges.add([
+          {from: array[i-1].id, to: array[i+1].id, arrows:'to', color:"#17202A"}
+        ])
+        network.selectNodes([updatedIds[0]]);
+        network.editNode();
+        break
+      }
+    }
+    network.fit()
+  } else {
+    for(let i = 0; i < array.length; i++){
+      network.selectNodes([array[i].id])
+      network.focus(array[i].id, animation)
+      await new Promise(resolve => setTimeout(resolve, speed+10)); // 3 sec
+    }
+    network.selectEdges([])
+    network.fit()
+    alert("Ya no hay mas datos en la cola!");
   }
 }
