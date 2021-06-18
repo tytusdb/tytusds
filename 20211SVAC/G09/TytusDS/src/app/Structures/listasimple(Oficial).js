@@ -49,7 +49,7 @@ class ListaSimple{
         objeto.style.textAlign="center"
         //Termina el área de diseño del botón
 
-        objeto.classList='animated bounce'
+        objeto.classList='animate__animated animate__bounce'
         
         //divInsert.insertBefore(objeto, divInsert.firstElementChild)
 
