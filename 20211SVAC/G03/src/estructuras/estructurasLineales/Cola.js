@@ -51,6 +51,24 @@ class Cola {
         }
         this.longitud--
     }
+	
+	Imprimir(){
+        let text = ""
+        let nodoActual = this.primero
+
+        while (nodoActual != null){
+            text += nodoActual.dato + "->"
+            if(nodoActual.siguiente != null){
+                nodoActual = nodoActual.siguiente
+            }else{
+                nodoActual = null
+            }
+            
+        }
+        text += "null"
+
+        return text
+    }
 
 }
 
