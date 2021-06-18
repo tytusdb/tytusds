@@ -43,7 +43,7 @@ class ListaSimple{
         //Empieza diseño de Botón Juli
         objeto.style.backgroundColor='rgb(25, 25, 112)'
         objeto.style.color='rgb(255,255,255)'
-        objeto.style.fontSize='30px'
+        objeto.style.fontSize='25px'
         objeto.style.borderRadius="5px"
         objeto.style.height="50px"
         objeto.style.textAlign="center"

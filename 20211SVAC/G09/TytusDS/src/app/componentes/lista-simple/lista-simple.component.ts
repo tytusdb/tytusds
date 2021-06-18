@@ -43,9 +43,5 @@ export class ListaSimpleComponent implements OnInit {
     console.log(String(this.selectedFile))
     
   }
-  //guardar archivo
-  guardarArchivo(){
-    
-  }
 }
 
