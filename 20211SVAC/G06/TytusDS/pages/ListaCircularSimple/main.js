@@ -23,7 +23,7 @@ var network = new vis.Network(container, data, options);
 
 var cont = 0
 
-let listita = new ListaDoble()
+let listita = new ListaCircularSimple()
 let array = []
 let array2 = []
 
@@ -32,7 +32,6 @@ $('#add').on('click', () => agregar())
 $('#search').on('click', () => search())
 $('#update').on('click', () => actualizar())
 $('#delete').on('click', () => deleteEdgeMode(document.getElementById("valor").value))
-$('#cargar').on('click', () => cargarJson())
 
 function prueba() {
     console.log(listita.mostrar())
@@ -40,7 +39,7 @@ function prueba() {
 }
 
 function agregar() {
-    // create an array with nodes
+
     let inputValue = document.getElementById("valor").value;
     var valor = {
         id: cont,
@@ -48,18 +47,18 @@ function agregar() {
     }
     var updatedIds = nodes.add([{
         id: cont,
-        label: listita.agregar(inputValue),
+        label: listita.agregar(inputValue).dato,
     }]);
     array.push(valor)
     array2.push(valor.label)
-        //console.log("ingresar " + array)
-        //console.log("ingresar " + array2)
-    updatedIds = edges.add([
-        { from: cont - 1, to: cont, arrows: 'to' }
-    ])
-    updatedIds = edges.add([
-        { from: cont, to: cont - 1, arrows: 'to' }
-    ])
+    if (listita.agregar(inputValue).pos == true) {
+        updatedIds = edges.add([
+            { from: cont - 1, to: cont, arrows: 'to' }
+        ])
+        updatedIds = edges.add([
+            { from: cont, to: 0, arrows: 'to' }
+        ])
+    }
     cont++
     network.selectNodes([updatedIds[0]]);
     network.editNode();
@@ -70,7 +69,7 @@ function agregar() {
 var cont2 = 1
 
 function search() {
-    cont2 = 0
+    cont2 = 1
     view()
 }
 
@@ -80,18 +79,17 @@ function actualizar() {
     console.log(inputValue)
     var idVal = array2.indexOf(inputValue)
     console.log(idVal)
+        //var idValue = array2.indexOf(inputValue)
     array[idVal].label = inputValue2
     array2[idVal] = inputValue2
-    view2(array[idVal].id)
-    listita.actualizar(inputValue, inputValue2)
-    nodes.update({ id: array[idVal].id, label: inputValue2 })
+    view2(idVal)
+    listita.actualizar(inputValue2)
+    nodes.update({ id: idVal, label: inputValue2 })
     console.log(array)
     console.log(array2)
 }
 
 async function view() {
-    let inputValue = document.getElementById("valor").value;
-    var idVal = array2.indexOf(inputValue)
     var animation = {
         scale: 4,
         animation: {
@@ -99,12 +97,9 @@ async function view() {
             easingFunction: "linear"
         }
     }
-    while (cont2 <= array[idVal].id) {
-        network.selectNodes([cont2])
-        network.focus(cont2, animation)
-        await new Promise(resolve => setTimeout(resolve, 1100)); // 3 sec
-        cont2++
-    }
+    network.selectNodes([cont2])
+    network.focus(cont2, animation)
+        //await new Promise(resolve => setTimeout(resolve, 1100)); // 3 sec
     cont2++
 }
 
@@ -146,38 +141,6 @@ function deleteEdgeMode(nodeId) {
     }
     network.deleteSelected();
 
-}
-
-function cargarJson() {
-    var file = document.getElementById('formFileSm').files[0];
-    let reader = new FileReader();
-    reader.readAsText(file);
-    reader.onload = function() {
-        const obj = JSON.parse(reader.result)
-        var updatedIds
-        for (let i = 0; i < obj.valores.length; i++) {
-            var valor = {
-                id: i,
-                label: obj.valores[i].toString(),
-            }
-            updatedIds = nodes.add([{
-                shape: 'box',
-                id: i,
-                label: listita.agregar(obj.valores[i].toString()),
-            }]);
-            array.push(valor)
-            array2.push(valor.label)
-            updatedIds = edges.add([
-                { from: i - 1, to: i, arrows: 'to' }
-            ])
-            updatedIds = edges.add([
-                { from: i, to: i - 1, arrows: 'to' }
-            ])
-            cont++
-        }
-        network.selectNodes([updatedIds[0]]);
-        network.editNode();
-    };
 }
 
 network.on("animationFinished", function(ctx) {
