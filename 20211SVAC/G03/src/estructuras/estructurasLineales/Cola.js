@@ -69,6 +69,18 @@ class Cola {
 
         return text
     }
+	
+	actualizar(datoAnterior, datoNuevo){
+        let nodoActual = this.primero
+
+        while(nodoActual != null){
+            if(nodoActual.dato == datoAnterior){
+                nodoActual.dato = datoNuevo
+            }
+
+            nodoActual = nodoActual.siguiente
+        }
+    }
 
 }
 
