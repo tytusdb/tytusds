@@ -99,4 +99,10 @@ class ListaCS{ //Clase Lista Circular Simple
             console.log("No se encontro el dato a eliminar");
         }
     }
+
+    //Metodo Actualizar
+    actualizar(datoelim, datoinse){
+        this.eliminar(datoelim)
+        this.insert(datoinse)
+    }
 }
