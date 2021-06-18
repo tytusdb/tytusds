@@ -1,9 +1,9 @@
-
-<div class="text-center">
-    <h4 class="text-dark mb-4">Ingrese los valores</h4>
-</div>
-<button id="b1" class="btn btn-primary btn-block text-white" type="submit" onclick="add()">Enviar</button>
-<input class="animated bounce" type="text" #box placeholder="enter algo" name="username"/> 
+<body class="rounded shadow-lg o-hidden border-0 my-5 text-white masthead" style="background:url('assets/Imagenes/fondo3.jpg'); background-size:cover;">
+<button id="b1" class="btn btn-primary btn-block text-white" type="submit" onclick="add()">
+<em class="fas fa-list"></em>
+Lista Simplemente Enlazada
+</button>
+<input class="animated bounce" type="text" #box placeholder="Ingrese Datos" name="username"/> 
 <button class="animated bounce" (click)="getValue(box.value)" >Push</button>
 <p>La lista es: {{displayVal}}</p>
 
@@ -15,6 +15,9 @@
   <div id="divInsert">
   </div>
   <input type="file" onchange="onChange(event)">
+
+  
+  
   <!--<button class="btn btn-primary btn-block text-white" type="submit" (click)="calladd(box.value)">Enviar</button>-->
 
 
