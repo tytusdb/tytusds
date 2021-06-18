@@ -34,6 +34,23 @@ class Cola {
 
         this.longitud++
     }
+	
+	Pop(){
+        let eliminado = this.ultimo
+        if (this.primero == this.ultimo){
+            this.primero = null
+            this.ultimo = null
+        }else{
+            let nodoActual = this.primero
+            while (nodoActual.siguiente != eliminado){
+                nodoActual = nodoActual.siguiente
+            }
+
+            this.ultimo = nodoActual
+            this.ultimo.siguiente = null
+        }
+        this.longitud--
+    }
 
 }
 
