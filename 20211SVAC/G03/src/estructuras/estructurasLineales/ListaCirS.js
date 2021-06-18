@@ -105,4 +105,11 @@ class ListaCS{ //Clase Lista Circular Simple
         this.eliminar(datoelim)
         this.insert(datoinse)
     }
+
+    //Metodo Cargar
+    cargar(arreglo) {
+        arreglo.array.forEach(elemento => {
+            this.insert(elemento)
+        })
+    }
 }
