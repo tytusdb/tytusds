@@ -77,4 +77,26 @@ class ListaCS{ //Clase Lista Circular Simple
             console.log("No se encontro el dato buscado");
         }
     }
+
+    //Metodo Eliminar
+    eliminar(dato){
+        let aux = this.cabeza;
+        let contador = 1;
+        let tmp = aux.siguiente
+        while(tmp.dato != dato && contador != this.size){
+            aux= aux.siguiente;
+            tmp= tmp.siguiente;
+            contador++;
+        }
+        if(tmp.dato == dato){
+            //Dato Eliminado
+            aux.siguiente = tmp.siguiente;
+            tmp.siguiente = null;
+            console.log(tmp.dato + " fue eliminado con exito");
+        }
+        if (contador == this.size){
+            //Dato no encontrado
+            console.log("No se encontro el dato a eliminar");
+        }
+    }
 }
