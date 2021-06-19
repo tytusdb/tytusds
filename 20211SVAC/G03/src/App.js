@@ -13,7 +13,7 @@ function App() {
   return (
     <div className="App" style={sectionStyle}>
       <Router>
-      <Route exact path="/" render={() =>{
+      <Route exact path="" render={() =>{
         return <div> 
           <Navbar/>
           <Divisiones/> 
