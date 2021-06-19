@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;900&display=swap');
+
+.card{
+	font-family: 'Merriweather', serif;
+	border-radius: 20px;
+	overflow: hidden;
+	/*cursor: pointer;*/
+  background: #f2f2f2;
+}
+
+.flap {
+  width: 100%;
+  height: 100%;
+}
+
+.flap::before {
+  position: absolute;
+  content: "";
+  height: 100%;
+  width: 50%;
+  background-position: 100px;
+  background-repeat: no-repeat;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  transition: 1s;
+  z-index: 10000;
+}
+
+.flap::after {
+  position: absolute;
+  content: "";
+  height: 100%;
+  width: 50%;
+  right: 0;
+  background-position: -200px;
+  background-repeat: no-repeat;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  transition: 1s;
+  z-index: 10000;
+}
+
+/*AQUI SON LOS COLORES DE LOS CARDS*/
+
+.primero::before{
+  background: #79aefe;
+}
+
+.pri{
+  background: #788FB3;
+}
+.pri:hover{
+  background: #79aefe;
+}
+
+.primero::after{
+  background: #79aefe;
+}
+
+.segundo::before{
+  background: #314190;
+}
+
+.seg{
+  background: #52597B;
+}
+.seg:hover{
+  background: #314190;
+}
+
+.segundo::after{
+  background: #314190;
+}
+
+.tercero::before{
+  background: #279636;
+}
+
+.ter{
+  background: #7A9C7F;
+}
+.ter:hover{
+  background: #279636;
+}
+
+
+.tercero::after{
+  background: #279636;
+}
+
+.cuarto::before{
+  background: #7d5d81;
+}
+
+.cua{
+  background: #533C56;
+}
+.cua:hover{
+  background: #7d5d81;
+}
+
+.cuarto::after{
+  background: #7d5d81;
+}
+
+.quinto::before{
+  background: #ec1b5a;
+}
+
+.qui{
+  background: #B38694;
+}
+.qui:hover{
+  background: #ec1b5a
+}
+
+.quinto::after{
+  background: #ec1b5a;
+}
+
+.sexto::before{
+  background: #FFC300;
+}
+
+.sep{
+  background: #AD9E6F;
+}
+.sep:hover{
+  background: #FFC300
+}
+
+.sexto::after{
+  background: #FFC300;
+}
+
+/*AQUI TERMINAN LOS COLORES DE LOS CARDS*/
+
+.cont:hover .flap::after {
+  z-index: 10000;
+  transform: translatex(100%);
+}
+
+.cont:hover .flap::before{
+	z-index: 10000;
+  transform: translatex(-100%);
+}

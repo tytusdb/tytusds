@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<title>Selection Sort</title>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<link href="../../styles/pages.css" rel="stylesheet" />
+		<link href="../../styles/global.css" rel="stylesheet" />
+		<link href="../../icons/style.css" rel="stylesheet" />
+		<link href="../../styles/normalize.css" rel="stylesheet" />
+	</head>
+	<body>
+		<main>
+			<nav>
+				<div>
+					<h1>
+						<a
+							title="Home"
+							href="../../../index.html"
+							class="btn"
+							type="button"
+							aria-label="Home"
+							><i class="icon-home"></i></a
+						>Ordenamiento por Selección
+					</h1>
+					<ul>
+						<li>
+							<label for="array-json" class="btn">
+								<i class="icon-upload-cloud"></i>Cargar</label
+							>
+							<input
+								type="file"
+								onchange="onChangeUploadInput(event)"
+								id="array-json"
+								style="display: none"
+							/>
+						</li>
+						<li>
+							<button type="button"><i class="icon-save"></i>Guardar</button>
+						</li>
+						<li>
+							<input type="checkbox" style="display: none" id="show-velocity" />
+							<label class="btn" for="show-velocity" type="button">
+								<i class="icon-fast-forward"></i>Velocidad
+								<i class="icon-chevron-down"></i>
+							</label>
+							<div class="range-container">
+								<input
+									type="range"
+									min="50"
+									max="800"
+									id="velocity"
+									onchange="onChangeSortVelocity(event)"
+								/>
+							</div>
+						</li>
+						<li class="test-code-btn">
+								<input
+									type="checkbox"
+									style="display: none"
+									id="show-code-menu"
+									checked='true'
+								/>
+								<label class="btn" for="show-code-menu" type="button">
+									<i class="icon-code"></i>Muestra de código
+									<i class="icon-chevron-down"></i>
+								</label>
+								<div class="editor">
+									<pre><code><strong style="color:var(--monoConstIce)">const</strong> data:<strong style="color:var(--monoNumberIce)">number</strong>[] <i style='color:var(--graySoda)'>=</i> [<strong style="color:var(--lightPurple)" id='code-data-array'>4, 1, 13, 2, 15, 3, 8, 9, 5, 11, 14, 6, 18, 12, 7</strong>]
+						<strong style="color: var(--monoFuncGreen)">selectionSort</strong>(data)</code></pre>
+									<ul>
+										<li>
+											<button
+												class="reset"
+												onclick="restartSortedData()"
+												type="button"
+											>
+												<i class="icon-repeat"></i>
+											</button>
+										</li>
+										<li>
+											<label
+											class="btn"
+											for='show-code-menu'
+												id="start-btn"
+												type="button"
+												onclick="startSorting()"
+											>
+												<i class="icon-play"></i>Iniciar
+											</label>
+										</li>
+									</ul>
+								</div>
+								<div class="sort-banner">
+									<img
+										id="sort-banner"
+										src="../../images/pages/sort.png"
+										alt="Bot"
+									/>
+								</div>
+							</li>
+					</ul>
+				</div>
+			</nav>
+
+			<div class="grid">
+				<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+					<defs>
+						<pattern
+							id="smallGrid"
+							width="40"
+							height="40"
+							patternUnits="userSpaceOnUse"
+						>
+							<path
+								d="M 40 0 L 0 0 0 40"
+								fill="none"
+								stroke="gray"
+								stroke-width="0.5"
+							/>
+						</pattern>
+						<pattern
+							id="grid"
+							width="400"
+							height="400"
+							patternUnits="userSpaceOnUse"
+						>
+							<rect width="400" height="400" fill="url(#smallGrid)" />
+							<path
+								d="M 400 0 L 0 0 0 400"
+								fill="none"
+								stroke="gray"
+								stroke-width="1"
+							/>
+						</pattern>
+					</defs>
+
+					<rect width="100%" height="100%" fill="url(#grid)" />
+				</svg>
+			</div>
+
+			<canvas id="canvas"></canvas>
+			<footer>
+				<span>Visualizador de Estructuras de Datos v1.0.0</span>
+				<span>
+					<i class="icon-clock"></i>Ejecución:
+					<strong id="sort-runtime">0ms</strong>
+				</span>
+				<span>
+					<i class="icon-grid"></i>Elementos:
+					<strong id="sort-length">15</strong>
+				</span>
+				<span>
+					<i class="icon-skip-forward"></i>Iteraciones:
+					<strong id="sort-step-text">120</strong>
+				</span>
+				<span>
+					<i class="icon-check-circle"></i>Eficiencia:
+					<strong id="sort-performance">12.50%</strong>
+				</span>
+			</footer>
+		</main>
+		<script src="../../../scripts/utils/colors.js"></script>
+		<script src="../../../scripts/utils/canvas.js"></script>
+		<script src="../../../scripts/visualizer/index.js"></script>
+		<script src="../../../scripts/visualizer/sort.js"></script>
+		<script src="../../../scripts/structures/selectionsort/index.js"></script>
+		<script src="../../../scripts/pages/selectionsort/index.js"></script>
+	</body>
+</html>

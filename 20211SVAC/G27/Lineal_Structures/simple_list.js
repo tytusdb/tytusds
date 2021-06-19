@@ -125,7 +125,7 @@ function graficar(){
     });
 
     // create a network
-    var container = document.getElementById("mynetwork");
+    var container = document.getElementById("miRed");
     var data = {
       nodes: nodes,
       edges: edges,

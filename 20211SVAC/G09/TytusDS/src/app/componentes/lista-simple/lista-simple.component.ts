@@ -1,30 +1,47 @@
 import { Component, OnInit } from '@angular/core';
-
-declare var Nodo:any; 
-declare var Lista:any;
-declare var f1:any;
-declare var add:any;
-declare var print:any;
+import { HttpClient } from "@angular/common/http";
+declare var lsimpleAdd:any;
+declare var lsimpleCargar:any;
 @Component({
   selector: 'app-lista-simple',
   templateUrl: './lista-simple.component.html',
   styleUrls: ['./lista-simple.component.css']
 })
 export class ListaSimpleComponent implements OnInit {
+  displayVal='';
 
-  //constructor() { }
 
-  ngOnInit(): void {
-  }
-  onClick1(){
-    print()
-    //Lista.print()
-    //Lista.add("574");
-    //document.write("Imprime");
-    f1();
+  getValue(val:string){
+    console.warn(val)
     
-    //document.write(Lista.print());
+    var hola = lsimpleAdd(val)
+    this.displayVal=hola
     
   }
 
+  elementos: any=[]
+
+  constructor(private http: HttpClient) { }
+
+  ngOnInit(): void {}
+  add(dato:any){ lsimpleAdd(dato) }
+  
+  selectedFile = null;
+  onFileSelected(event:any){
+    console.log(event)
+    
+    this.selectedFile = event.target.files[0]
+    let fileReader = new FileReader();
+    fileReader.onload = function(event){
+
+    }
+  }
+  
+  onUpload(){
+    console.log(this.selectedFile)
+    lsimpleCargar(this.selectedFile)
+    console.log(String(this.selectedFile))
+    
+  }
 }
+
