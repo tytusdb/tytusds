@@ -129,4 +129,20 @@ class ListaCD{  //Clase Lista Circular doble
             this.insert(elemento)
         })
     }
+
+    //Metodo Guardar
+    guardar() {
+        let archivojs = [];
+        let temporal = this.cabeza;
+        archivojs.push(temporal.dato)
+        temporal = temporal.siguiente
+        while (temporal != this.cabeza && temporal != null){
+            archivojs.push(temporal.dato)
+            temporal = temporal.siguiente
+        }
+        let json = JSON.stringify(archivojs)
+        let nombre = "ListaCircularDoble"
+        fs.writeFile(nombre, json)  
+    }
 }
+

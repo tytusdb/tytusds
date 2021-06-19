@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
 
+
+import React from 'react'
+import './App.css';
+import {BrowserRouter as Router, Route} from 'react-router-dom'
+import Navbar from './components/Navbar';
+import Divisiones from './components/Divisiones';
+/* import NavbarInter from './components/NavbarInter';  */
+var sectionStyle = {
+  backgroundImage: "url( https://res.cloudinary.com/practicaldev/image/fetch/s--AILWL9dz--/c_imagga_scale,f_auto,fl_progressive,h_500,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/i/6vnsxy7g486k12yp4bhd.jpg )"
+};
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App" style={sectionStyle}>
+      <Router>
+      <Route exact path="/" render={() =>{
+        return <div> 
+          <Navbar/>
+          <Divisiones/> 
+        </div>
+      }}>
+        </Route>
+
+        {/* <Route exact path="/gitPagueReac/estructura" component={NavbarInter}/> */}
+      </Router>
     </div>
   );
 }
+
+
 
 export default App;
