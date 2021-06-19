@@ -41,7 +41,7 @@ var MyChart = new Chart(ctx, {
 });
 
 /*EVENTOS*/
-$('#ordenar').on('click', () => Seleccion())
+$('#ordenar').on('click', () => Insercion())
 $('#cargar').on('click', () => cargarJson())
 $('#guardar').on('click', () => guardarJson())
 
@@ -84,7 +84,7 @@ function guardarJson(){
   }
   var JsonString = JSON.stringify(objeto);
   console.log(JsonString)
-  download("Seleccion.json",JsonString);
+  download("Insercion.json",JsonString);
 }
 
 async function cargarJson(){
@@ -124,79 +124,84 @@ async function cargarJson(){
   }
 }
 
-async function Seleccion(){
+async function Insercion(){
   if(type == "number"){
-    SeleccionNumbers()
+    InsercionNumbers()
   } else {
-    SeleccionLabels()
+    InsercionLabels()
   }
 }
 
-async function SeleccionLabels(){
+async function InsercionLabels(){
   var speed = document.getElementById("formControlRange").value;
   speed = convertir(speed)
-  for(let i = 0; i < MyChart.data.datasets[0].data.length; i++){
+  for(let i = 1; i < MyChart.data.datasets[0].data.length; i++){
+    /*Animacion*/
     MyChart.data.datasets[0].backgroundColor[i] = '#030106'
     MyChart.update()
     await new Promise(resolve => setTimeout(resolve, speed)); // 3 sec
-    for(let j = i+1; j < MyChart.data.datasets[0].data.length; j++){
-      if(MyChart.data.labels[i] > MyChart.data.labels[j]){
-        let tmp = MyChart.data.datasets[0].data[j]
-        MyChart.data.datasets[0].data[j] = MyChart.data.datasets[0].data[i]
-        MyChart.data.datasets[0].data[i] = tmp
-        //ahora lo mismo pero con string
-        let tmp2 = MyChart.data.labels[j]
-        MyChart.data.labels[j] = MyChart.data.labels[i]
-        MyChart.data.labels[i] = tmp2
-      }
+    /*Animacion*/
+    let key = MyChart.data.datasets[0].data[i]
+    let keyLabel = MyChart.data.labels[i]
+    let j = i-1
+    while(j>=0 && MyChart.data.labels[j] > keyLabel){
+      MyChart.data.datasets[0].data[j+1] = MyChart.data.datasets[0].data[j]
+      MyChart.data.labels[j+1] = MyChart.data.labels[j]
+      j = j-1
+      /*Animacion*/
       MyChart.data.datasets[0].backgroundColor[j] = '#030106'
       MyChart.update()
       await new Promise(resolve => setTimeout(resolve, speed)); // 3 sec
       MyChart.data.datasets[0].backgroundColor[j] = 'rgba(47, 3, 124 , 0.6)'
+      /*Animacion*/
     }
+    MyChart.data.datasets[0].data[j+1] = key
+    MyChart.data.labels[j+1] = keyLabel
     MyChart.data.datasets[0].backgroundColor[i] = 'rgba(47, 3, 124 , 0.6)'
   }
   MyChart.update()
 }
 
-async function SeleccionNumbers(){
+async function InsercionNumbers(){
   var speed = document.getElementById("formControlRange").value;
   speed = convertir(speed)
-  for(let i = 0; i < MyChart.data.datasets[0].data.length; i++){
+  for(let i = 1; i < MyChart.data.datasets[0].data.length; i++){
+    /*Animacion*/
     MyChart.data.datasets[0].backgroundColor[i] = '#030106'
     MyChart.update()
     await new Promise(resolve => setTimeout(resolve, speed)); // 3 sec
-    for(let j = i+1; j < MyChart.data.datasets[0].data.length; j++){
-      if(MyChart.data.datasets[0].data[i] > MyChart.data.datasets[0].data[j]){
-        let tmp = MyChart.data.datasets[0].data[j]
-        MyChart.data.datasets[0].data[j] = MyChart.data.datasets[0].data[i]
-        MyChart.data.datasets[0].data[i] = tmp
-        //ahora lo mismo pero con string
-        let tmp2 = MyChart.data.labels[j]
-        MyChart.data.labels[j] = MyChart.data.labels[i]
-        MyChart.data.labels[i] = tmp2
-      }
+    /*Animacion*/
+    let key = MyChart.data.datasets[0].data[i]
+    let keyLabel = MyChart.data.labels[i]
+    let j = i-1
+    while(j>=0 && MyChart.data.datasets[0].data[j] > key){
+      MyChart.data.datasets[0].data[j+1] = MyChart.data.datasets[0].data[j]
+      MyChart.data.labels[j+1] = MyChart.data.labels[j]
+      j = j-1
+      /*Animacion*/
       MyChart.data.datasets[0].backgroundColor[j] = '#030106'
       MyChart.update()
       await new Promise(resolve => setTimeout(resolve, speed)); // 3 sec
       MyChart.data.datasets[0].backgroundColor[j] = 'rgba(47, 3, 124 , 0.6)'
+      /*Animacion*/
     }
+    MyChart.data.datasets[0].data[j+1] = key
+    MyChart.data.labels[j+1] = keyLabel
     MyChart.data.datasets[0].backgroundColor[i] = 'rgba(47, 3, 124 , 0.6)'
   }
   MyChart.update()
 }
 
 function OrdenamientoLimpio(array){
-  for(let i = 0; i < array.length; i++){
-    for(let j = i+1; j < array.length; j++){
-      if(array[i] > array[j]){
-        let tmp = array[j]
-        array[j] = array[i]
-        array[i] = tmp
-      }
+  for(let i = 1; i < array.length; i++){
+    let key = array[i]
+    let j = i-1
+    while(j>=0 && array[j] > key){
+      array[j+1] = array[j]
+      j = j-1
     }
+    array[j+1] = key
   }
-  return array
 }
 
 function convertir(porcentaje){
@@ -206,3 +211,10 @@ function convertir(porcentaje){
   }
   return result
 }
+
+function khe(){
+ console.log("angel" < "antonio")
+ console.log(parseInt("angel"))
+}
+
+khe()
