@@ -1,0 +1,248 @@
+*{
+    margin: 0px;
+    
+    padding: 0px;
+}
+@font-face {
+    font-family: 'miFuente';
+    src: url(../fuentes/Uniflex_PersonalUseOnly.ttf);
+}
+
+html{
+    height: 100%;
+}
+body{
+    background-image: linear-gradient(to top, #d5d4d0 0%, #d5d4d0 1%, #eeeeec 31%, #efeeec 75%, #e9e9e7 100%);
+    /*
+    Este era el que estaba
+    background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+    
+    
+    background: #ECE9E6;  
+    background: -webkit-linear-gradient(to right, #FFFFFF, #ECE9E6);  
+    background: linear-gradient(to right, #FFFFFF, #ECE9E6); 
+    */
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    
+}
+
+header{
+    background-color: blueviolet;
+    /*
+    width: 100%;
+    height: 600px;
+    background-image: linear-gradient(to top, rgba(48, 208, 208, 0.5) 0%, rgba(51, 8, 103, 0.5) 100%), url(../img/fondo.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    */
+}
+
+
+nav{
+    width: 100%;
+    position: fixed;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.5);
+    
+}
+
+.nav1{
+    /*background: transparent;*/
+    height: 80px;
+    color: white;
+    background-image: linear-gradient(to top, rgba(48, 208, 208, 0.5) 0%, rgba(51, 8, 103, 0.5) 100%);
+}
+
+.nav2{
+    background: #f2f2f2;
+    height: 100px;
+    color: #000;
+}
+
+.barra-navegacion{
+    display: flex;
+    margin: auto;
+    width: 90%;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1000px;
+    height: inherit;
+    overflow: hidden;
+}
+
+nav .secciones a{
+    display: inline-block;
+    padding: 5px 0;
+    margin-right: 17px;
+    font-size: 17px;
+    text-decoration: none;
+    border-bottom: 10px solid transparent;
+    color: inherit;
+}
+
+nav .secciones a:hover{
+    border-bottom: 5px solid #346aa7;
+    transition: 0.6s;
+}
+.namE{
+   
+    text-align: center;
+    padding: 2px;
+    font-family: miFuente;
+    font-size: 25px;
+
+}
+.cuadroDatos{
+    background-color: #DCD9D4;
+    background-image: linear-gradient(to bottom, rgba(255,255,255,0.50) 0%, rgba(0,0,0,0.50) 100%), radial-gradient(at 50% 0%, rgba(255,255,255,0.10) 0%, rgba(0,0,0,0.50) 50%);
+    background-blend-mode: soft-light,screen;
+    
+    
+    width: 220px;
+    float: left;
+
+    margin-top: 5px;    
+    margin-left: 25px;
+    margin-top: 25px;
+    
+    padding: 30px;
+    border: 0.5px solid gray ;
+    box-shadow: 0px 3px 0px  gray;
+    /*border-bottom-left-radius: 5%;
+    border-bottom-right-radius: 5%;*/
+    border-radius: 5%;
+    
+      
+    
+}
+.cuadroAnim{
+    /*background-image: linear-gradient(to top, #d5d4d0 0%, #d5d4d0 1%, #eeeeec 31%, #efeeec 75%, #e9e9e7 100%);
+    */
+    background-color: transparent;
+    
+    width: 1000px;
+    height: 500px;
+    margin-top: 25px;
+    padding-left: 15px;
+    /*border: 0.1px solid black;*/
+
+
+    border: 5px solid black;
+    
+    padding: 5px;
+    
+    
+    
+
+}
+
+.button{
+    background:gray;
+    color: #fff;
+    margin-right: 10px;
+    padding: 10px;
+    display: inline-block;
+    text-decoration: none;
+    text-align:center;
+    width: 40px;
+    height: 20px;
+    box-shadow: 0px 3px 0px black;
+    border-radius: 10%;
+    
+}
+
+
+.dato1{
+    padding: 5px;
+    height: 29px;
+    width: 195px;
+    border: 2px solid #aaa;
+    border-radius: 4px;
+    outline: none;
+   
+    transition: .3s;
+    
+}
+.dato1:focus, .dato2:focus{
+    border-color: dodgerblue;
+    box-shadow: 0 0 8px 0 dodgerblue;
+}
+.dato2{
+    padding: 5px;
+    height: 29px;
+    width: 120px;
+    margin-right: 10px; 
+    border: 2px solid #aaa;
+    border-radius: 4px;
+    outline: none;
+    transition: .3s;
+    vertical-align: top;
+    
+}
+.button.large{
+    
+    /*margin-left: 40px; */
+  
+    width: 78px;
+    
+
+}
+.button.clear{
+    margin-left: 30px;
+    background: #E10909;
+}
+.check.ing{
+    margin-right: 8px;
+}
+.titulo{
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    
+   
+    
+}
+
+.button.cloro{
+    background: #E10909;
+}
+.button.cloros{
+    background: #E10909;
+    margin-left: 75px;
+
+}
+input[type="file"]{
+    display: none;
+}
+.but-file{
+    background:gray;
+    color: #fff;
+    margin-right: 10px;
+    padding: 10px;
+    display: inline-block;
+    text-decoration: none;
+    text-align:center;
+    width: 40px;
+    height: 20px;
+    box-shadow: 0px 3px 0px black;
+    border-radius: 10%;
+
+}
+.dato2.velo{
+    width: 195px;
+}
+.but-file.large{
+    width: 78px;
+
+}
+.button:hover{
+    box-shadow: 0px 2px 0px black;
+    
+}
+
+
+
+
