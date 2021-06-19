@@ -122,4 +122,11 @@ class ListaCD{  //Clase Lista Circular doble
         //Insercion de nuevo dato
         this.insert(datoins)
     }
+
+    //Metodo Carga
+    cargar(arreglo) {
+        arreglo.array.forEach(elemento => {
+            this.insert(elemento)
+        })
+    }
 }
