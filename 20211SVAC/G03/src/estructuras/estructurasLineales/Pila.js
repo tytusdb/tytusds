@@ -67,6 +67,13 @@ class Pila{
         }
 
     }
+
+    cargar(arreglo) {
+        
+        arreglo.array.forEach(elemento => {
+            this.agregar(elemento);
+        });
+    }
 	
    	
  }
