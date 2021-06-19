@@ -10,6 +10,7 @@ class ListaCircular{
     set setRepeat(repeat){
       this.repeat=repeat;
     }
+
     //AGREGAR AL INICIO
     appendI(valor){
       if(this.repeat==true){

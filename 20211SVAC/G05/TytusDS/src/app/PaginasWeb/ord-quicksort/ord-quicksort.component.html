@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="ord-quicksort.component.css">
 <app-opciones (opcionesEvento)="getOpciones($event)"></app-opciones>
 <div class="container">
   <h1>Ordenamiento Quicksort</h1>
@@ -10,6 +9,6 @@
 </div>
 <div class="container">
   <div class="row pt-2">
-    <div class="col-3" ><button class="btn btn-success button1" >Guardar</button></div>
+    <div class="col-3" ><button class="btn btn-success button1" (click)="guardar()" >Guardar</button></div>
   </div>
 </div>

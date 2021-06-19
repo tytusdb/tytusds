@@ -34,6 +34,7 @@ export class OrdBurbujaComponent implements OnInit {
   }
   //LEER ARCHIVOS DE ENTRADA--------------------------------
   getDocumento(documento: any): void {
+    try{
     this.documentoService.getDocumento(documento).then(contenido => {
 
       contenido['valores'].forEach(valor => {
@@ -41,7 +42,9 @@ export class OrdBurbujaComponent implements OnInit {
       });
       this.graficar();
     });
-
+    }catch (e){
+      alert("Escoger un archivo")
+    }
   }
   graficar(){
     let EAnim=(<HTMLCanvasElement>document.getElementById('Oanimacion'))?.getContext('2d');
@@ -51,15 +54,19 @@ export class OrdBurbujaComponent implements OnInit {
     let velocidad=(this.opciones['velocidadOrdenamientos']);
     let k=0;
     const animBurbuja=setInterval(()=>{
+      //recorrido es cada uno de los recorridos que se hizo antes de llegar al ordenamiento.
       let recorrido=recorridos[k];
+      //datos que seran enviados para graficar
       let data=Array();
       let labels=Array();
       let colores=Array();
       for(let i=0; i<recorrido.length;i++){
+        //si el recorrido es un string
         if(typeof recorrido[i]== "string"){
           labels.push(recorrido[i]);
           data.push(recorrido[i].charCodeAt());
           colores.push("#b47cd8");
+          //si el recorrido es un numero
         }else{
           labels.push(recorrido[i]);
           data.push(recorrido[i]);
@@ -68,15 +75,13 @@ export class OrdBurbujaComponent implements OnInit {
       }
       k+=1;
       this._graficar(labels,data,colores,EAnim);
+      //cuando k llegue al numero de recorridos hechos
       if(k==recorridos.length-1){
         clearInterval(animBurbuja);
       }
     },velocidad);
-
-
-
-
   }
+
   _graficar(labels,data,colores,EAnim){
     let opciones1={
       type: 'bar',
@@ -103,15 +108,17 @@ export class OrdBurbujaComponent implements OnInit {
         }
       }
     }
+    //resetear la variable grafo si existe
     if (this.grafo) {
       this.grafo.destroy();
     }
+    //graficado
     this.grafo= new Chart(EAnim,opciones1);
   }
   //GUARDAR
   guardar(): void {
     const contenido: any = {
-      categoria: "Estructura Lineal",
+      categoria: "Ordenamientos",
       nombre: "Ordenamiento Burbuja",
       repeticion:true,
       animacion:10,

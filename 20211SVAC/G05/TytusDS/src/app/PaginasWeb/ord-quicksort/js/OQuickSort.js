@@ -1,10 +1,13 @@
 class OQuickSort{
     constructor(lista) {
         this.lista=lista;
+        this.recorridos=Array();
     }
-    ordenar(){
+    Ordenar(){
+        this.recorridos.push(this.lista.slice());
         let lista=this.QuickSort(this.lista);
-        return lista
+        this.recorridos.push(lista.slice());
+        return this.recorridos;
     }
     QuickSort(lista){
         if (lista.length<1){

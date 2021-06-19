@@ -12,6 +12,7 @@ import { SeleccionComponent } from './PaginasWeb/seleccion/seleccion.component';
 import {OrdQuicksortComponent} from './PaginasWeb/ord-quicksort/ord-quicksort.component';
 import {OrdBurbujaComponent} from './PaginasWeb/ord-burbuja/ord-burbuja.component';
 import { AvlComponent } from './PaginasWeb/avl/avl.component';
+import {ABinarioComponent} from './PaginasWeb/a-binario/a-binario.component';
 
 const routes: Routes = [
   {path:'menu', component: MenuComponent},
@@ -26,6 +27,7 @@ const routes: Routes = [
   {path:'OBurbuja', component: OrdBurbujaComponent},
   {path:'avl', component: AvlComponent},
   {path:'OQuicksort', component:OrdQuicksortComponent},
+  {path:'Abinario', component:ABinarioComponent},
   {path:'**', redirectTo: 'menu'},
 
 
