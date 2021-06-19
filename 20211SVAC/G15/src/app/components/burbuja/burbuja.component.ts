@@ -12,6 +12,7 @@ import { Burbuja } from 'src/app/helpers/Burbuja/Burbuja';
 export class BurbujaComponent implements OnInit {
   fileName = '';
   burbuja:Burbuja
+  datos: []
   public barChartOptions: ChartOptions = {
     responsive: true,
     // We use these empty structures as placeholders for dynamic theming.
@@ -36,6 +37,9 @@ export class BurbujaComponent implements OnInit {
   ngOnInit(): void {
     this.burbuja = new Burbuja()
   }
+  mostrarBarras(){
+    
+  }
   async onFileSelected(event) {
     const file = event.target.files[0];
     if (file) {
@@ -44,10 +48,15 @@ export class BurbujaComponent implements OnInit {
       let data:any = await this.processFile(file)
       data = JSON.parse(data)
       data = data.valores
+      let datos2 = [];
       for(let i = 0; i < data.length; i++){
         //await this.addData(data[i])
-        console.log(data[i])
+        datos2.push(data[i])
+       
       }
+      console.log(datos2)
+      this.barChartLabels = data;
+      this.barChartData[0].data=data
       
 
     }
