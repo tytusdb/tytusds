@@ -3,7 +3,7 @@ import { saveAs } from 'file-saver';
 import { DocumentoService } from '../../services/documento.service';
 import {Chart} from 'chart.js/dist/chart.js';
 declare var require: any;
-let Orden= require('./js/Inserccion');
+let Orden= require('./js/Insercion');
 
 @Component({
   selector: 'app-inserccion',
