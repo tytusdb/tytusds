@@ -1,11 +1,13 @@
 <body>
     <div class="container mt-5">
-        <input type="number" value="" id="numero"
-        name="numero" [(ngModel)]="numero">
+        <input type="number" value="" id="numero" name="numero" [(ngModel)]="numero">
         <button type="button" (click)="add()"> Agregar</button>
     </div>
 
+    <div class="container mt-5 contenedorTree" id="contenedorTree">
+        <div id="tree" class="tree"></div>
+    </div>
 
-    <div id="tree" class="tree" ></div>
+
 
 </body>

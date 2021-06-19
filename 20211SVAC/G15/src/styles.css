@@ -13,16 +13,12 @@
   font: 20px Arial, sans-serif;
 }
 
-#tree {
-  height: 100vh;
-  margin-top: 20px;
-  overflow: auto auto;
-}
+
 
 #tree .node-container .nodo {
   border: 1px solid black;
-  width: 50px;
-  height: 50px;
+  width: 48px;
+  height: 48px;
   display: flex;
   align-items: center;
   border-radius: 50%;

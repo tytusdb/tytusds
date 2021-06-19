@@ -2,12 +2,11 @@ body {
   min-height: 100vh;
 }
 
-
-
 #tree {
   min-height: 100vh;
   margin-top: 20px;
-  overflow: auto auto;
- 
+  max-width: 100%;
+  overflow: auto;
+  direction: rtl;
+  background-color: red;
 }
-

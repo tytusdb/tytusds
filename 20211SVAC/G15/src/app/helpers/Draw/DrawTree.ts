@@ -38,9 +38,9 @@ export class DrawTree {
         let divContainer = document.createElement('div');
         let div = document.createElement('div');
         let p = document.createElement('p');
-        divContainer.className = 'node-container';
+        divContainer.className = 'animate__animated  node-container';
         divContainer.id = 'node-container-' + node.getId();
-        div.className = 'animate__animated nodo';
+        div.className = ' nodo';
         div.id = 'node-' + node.getId();
         p.append(node.getNumero());
         div.appendChild(p);
@@ -59,9 +59,11 @@ export class DrawTree {
      */
     async addNode(node, position, previousId, contenedor, duracion, raiz) {
         this.createNode(node, contenedor);
+        let padre = document.getElementById('contenedorTree').getBoundingClientRect()
         if (node.getId() === 0) {
+            
             let position: any = document.getElementById('node-' + node.getId()).getBoundingClientRect();
-            document.getElementById('node-0').style.left = (window.screen.width / 2) - (position.width / 2) + 'px';
+            document.getElementById('node-0').style.left = (padre.width / 2) - (position.width / 2) + 'px';
         }
         else {
             let previous = document.getElementById('node-' + previousId).getBoundingClientRect()
@@ -70,13 +72,14 @@ export class DrawTree {
 
             if (position === "right") temp.style.left = (previous.x + 112) + 'px'
             else if (position === "left") temp.style.left = (previous.x - 112) + 'px'
+
             this.ajustarNodos(raiz)
             this.crearLinea('node-' + node.getId(), 'node-' + previousId, contenedor)
 
 
         }
 
-        await this.animateNode("node-" + node.getId(), "zoomIn", duracion)
+        await this.animateNode("node-container-" + node.getId(), "zoomIn", duracion)
 
 
 
@@ -134,7 +137,6 @@ export class DrawTree {
         let toElement = document.getElementById(to)
 
         let coordenadas = this.obtenerDistanciaMin(fromElement, toElement)
-        console.log(coordenadas)
         let angulo = this.obtenerAngulo(coordenadas)
 
         let linea = document.getElementById('linea-' + flecha.id)
@@ -250,6 +252,9 @@ export class DrawTree {
 
         let total1 = (fromWidth * 2) + (fromHeight * 2)
         let total2 = (toWidth * 2) + (toHeight * 2)
+
+
+       
 
         let x1 = fromElement.left
         let y1 = fromElement.top
