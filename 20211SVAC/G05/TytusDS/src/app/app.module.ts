@@ -8,10 +8,15 @@ import { ListasCicularesDEComponent } from './PaginasWeb/listas-ciculares-de/lis
 import { ListaSimpleComponent } from './PaginasWeb/lista-simple/lista-simple.component';
 import { ListaDobleComponent } from './PaginasWeb/lista-doble/lista-doble.component';
 import { PilaComponent } from './PaginasWeb/pila/pila.component';
-import { ColaComponent } from './PaginasWeb/cola/cola.component';
+import { ColaComponent } from './PaginasWeb/Cola/cola.component';
 import { MenuComponent } from './PaginasWeb/menu/menu.component';
 import { FormsModule } from '@angular/forms';
 import { DocumentoService } from './services/documento.service';
+import { SeleccionComponent } from './PaginasWeb/seleccion/seleccion.component';
+import { OrdBurbujaComponent } from './PaginasWeb/ord-burbuja/ord-burbuja.component';
+import { AvlComponent } from './PaginasWeb/avl/avl.component';
+import { OrdQuicksortComponent } from './PaginasWeb/ord-quicksort/ord-quicksort.component';
+import { ABinarioComponent } from './PaginasWeb/a-binario/a-binario.component';
 
 @NgModule({
   declarations: [
@@ -23,8 +28,12 @@ import { DocumentoService } from './services/documento.service';
     MenuComponent,
     ListasCicularesDEComponent,
     PilaComponent,
+    SeleccionComponent,
     ColaComponent,
-    MenuComponent
+    OrdBurbujaComponent,
+    AvlComponent,
+    OrdQuicksortComponent,
+    ABinarioComponent
   ],
   imports: [
     BrowserModule,

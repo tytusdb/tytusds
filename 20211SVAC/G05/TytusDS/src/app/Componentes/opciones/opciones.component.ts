@@ -36,8 +36,8 @@ export class OpcionesComponent implements OnInit {
       velocidadLineales: this.velocidadLineales,
       repeticionLineales: this.repeticionLineales,
       velocidadOrdenamientos: this.velocidadOrdenamientos,
-      velocidadArboles: this.velocidadArboles,
-      grado: this.grado,
+      velocidadArboles: +this.velocidadArboles,
+      grado: +this.grado,
       repeticionArboles: this.repeticionArboles
     };
     this.opcionesEvento.emit(opciones);

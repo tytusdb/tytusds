@@ -8,11 +8,20 @@
 
         </div>
         <div class="Logo-usac">
-
         </div>
     </section>
-    <div class="container my-5">
-        <h1 class="fw-light">Estructuras Lineales</h1>
+    <div class="container">
+      <!--Botones de movimiento en el menu-->
+      <div class="btn-group d-flex justify-content-end py-2" align="center" id="movMenu">
+        <div class=""><a class="button1 btn btn-dark" href="#E_lineales">Estructuras Lineales</a></div>
+        <div class=""><a class="button1 btn btn-outline-secondary" href="#Ordenamientos1">Ordenamientos</a></div>
+        <div class=""><a class="button1 btn btn-dark" href="#E_Arboreas">Estructuras Arboreas</a></div>
+      </div>
+      <!---->
+    </div>
+
+    <div class="container my-4">
+        <h1 id="E_lineales" class="fw-light">Estructuras Lineales</h1>
         <hr>
         <div class="row align-items-md-stretch my-3">
             <div class="col-md-6">
@@ -52,7 +61,7 @@
             <div class="col-md-6">
                 <div class="h-100 p-5 bg-light border rounded-3">
                     <h2>Cola</h2>
-                    <button class="btn btn-outline-secondary" type="button">Ver Cola</button>
+                    <button class="btn btn-outline-secondary" type="button" routerLink="/Cola">Ver Cola</button>
                 </div>
             </div>
         </div>
@@ -64,19 +73,19 @@
                 </div>
             </div>
         </div>
-        <h1 class="fw-light">Ordenamientos</h1>
+        <h1 id="Ordenamientos1" class="fw-light">Ordenamientos</h1>
         <hr>
         <div class="row align-items-md-stretch my-3">
             <div class="col-md-6">
                 <div class="h-100 p-5 text-white bg-dark rounded-3">
                     <h2>Burbuja</h2>
-                    <button class="btn btn-outline-light" type="button">Ver Burbuja</button>
+                    <button class="btn btn-outline-light" type="button" routerLink="/OBurbuja">Ver Metodo Burbuja</button>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="h-100 p-5 bg-light border rounded-3">
                     <h2>Selección</h2>
-                    <button class="btn btn-outline-secondary" type="button">Ver Selección</button>
+                    <button class="btn btn-outline-secondary" type="button" routerLink="/Seleccion">Ver Selección</button>
                 </div>
             </div>
         </div>
@@ -90,11 +99,11 @@
             <div class="col-md-6">
                 <div class="h-100 p-5 text-white bg-dark rounded-3">
                     <h2>Rápido</h2>
-                    <button class="btn btn-outline-light" type="button">Ver Rápido</button>
+                    <button class="btn btn-outline-light" type="button" routerLink="/OQuicksort">Ver Rápido</button>
                 </div>
             </div>
         </div>
-        <h1 class="fw-light">Estructuras Arbóreas</h1>
+        <h1 id="E_Arboreas" class="fw-light">Estructuras Arbóreas</h1>
         <hr>
         <div class="row align-items-md-stretch my-3">
             <div class="col-md-6">
@@ -106,7 +115,7 @@
             <div class="col-md-6">
                 <div class="h-100 p-5 bg-light border rounded-3">
                     <h2>AVL</h2>
-                    <button class="btn btn-outline-secondary" type="button">Ver Árbol AVL</button>
+                    <button class="btn btn-outline-secondary" type="button" routerLink="/avl">Ver Árbol AVL</button>
                 </div>
             </div>
         </div>
