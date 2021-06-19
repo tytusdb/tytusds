@@ -37,7 +37,10 @@ export class BurbujaComponent implements OnInit {
   ngOnInit(): void {
     this.burbuja = new Burbuja()
   }
-  mostrarBarras(){
+  async mostrarBarras(){
+    //console.log(this.datos)
+      this.barChartLabels = this.datos;
+      this.barChartData[0].data=this.datos
     
   }
   async onFileSelected(event) {
@@ -54,7 +57,11 @@ export class BurbujaComponent implements OnInit {
         datos2.push(data[i])
        
       }
-      console.log(datos2)
+     // console.log(datos2)
+      this.burbuja.ordenamiento_burbuja(datos2);
+      this.datos=this.burbuja.ordenamiento_burbuja(datos2);
+      console.log(this.datos)
+      //this.mostrarBarras(this.datos)
       this.barChartLabels = data;
       this.barChartData[0].data=data
       

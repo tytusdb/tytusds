@@ -15,7 +15,7 @@ export class Burbuja{
            }
        }
        
-       
+       console.log(arregloBurbuja)
        return arregloBurbuja;
    }
    
