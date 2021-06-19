@@ -43,12 +43,14 @@ export class ListasEddComponent implements OnInit {
   private anchoNodoHead=100;
   private altoNodo=30;
   private anchoFlecha=2;
-  private colorFlecha='black';
+  private colorFlecha='cyan';
   tituloLista:string;
   lblBtnAgregar:string;
   lblBtnBorrar:string;
   strCarga:string;
   colorFondoCanvas='black';
+  opcionRepeticiones: string;
+  flechas: any[];
 
   //constructor(private ngZone: NgZone) { }
   constructor(private route: ActivatedRoute) {}
@@ -91,10 +93,12 @@ export class ListasEddComponent implements OnInit {
     this.listaEnlJSon="";
     this.radioData = 1;
     this.opcionOperar='Inicio';
+    this.opcionRepeticiones='Si';
   }
   cambiarPagina(){
     this.borrarCanvas();
     this.rectangulosNodos=[];
+    this.flechas=[];
     this.listaEnlJSon='';
     this.valorIndiceActualizar='';
     this.valorNodoActualizar='';
@@ -102,6 +106,7 @@ export class ListasEddComponent implements OnInit {
   borrarCanvas(){
     this.ctx.fillStyle = this.colorFondoCanvas;
     this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+    this.drawBorder()
     this.ctx.beginPath();
   }
   actualizarListaStr(){
@@ -164,6 +169,8 @@ export class ListasEddComponent implements OnInit {
       this.listaEnlazada.desencolar();
     }
     this.actualizarListaStr();
+    this.rectangulosNodos=[];
+    this.flechas=[];
     this.pintarNodos();
   }
 
@@ -188,6 +195,7 @@ export class ListasEddComponent implements OnInit {
     let x=0,y=1,i=1;
     let nuevoNodo,tempNodo, primerNodo;
     let animar=true;
+    this.flechas=[];
     console.log('lenght:'+this.rectangulosNodos.length)
     if(this.rectangulosNodos.length>0) animar=false;
     nuevoNodo= new RectanguloNodo(this.ctx, 'Inicio',x,y,this.anchoNodoHead,this.altoNodo,false,animar);
@@ -203,20 +211,18 @@ export class ListasEddComponent implements OnInit {
       if(i==1) primerNodo=nuevoNodo;
       if(tempNodo!=null&&nuevoNodo!=null){
         let flecha1= new Flecha(this.ctx,  tempNodo.xCola, tempNodo.yCola, nuevoNodo.xHead,
-           nuevoNodo.yCola,this.anchoFlecha, this.colorFlecha);
-        if((this.idTipoLista==2||this.idTipoLista==4)&&(tempNodo.getTexto()!='Inicio')){
-          let flecha2= new FlechaCompuesta(this.ctx, nuevoNodo.xCola-15, nuevoNodo.yCola, tempNodo.xHead+20,
-            tempNodo.yCola,this.anchoFlecha, this.colorFlecha,posFlech);
-            if(posFlech=='arriba') posFlech='abajo';
-            else posFlech='arriba';
-        }
-        if((this.idTipoLista==2||this.idTipoLista==4)&&i==this.listaEnlArray.length&&i>1){
+           nuevoNodo.yCola,this.anchoFlecha, this.colorFlecha,this.idTipoLista==2||this.idTipoLista==4);
+        this.flechas = this.flechas.concat( flecha1 );
+        //flecha desde el último nodo hacia primer nodo
+        if((this.idTipoLista==4)&&i==this.listaEnlArray.length&&i>1){
           if(y==3){
-            let flecha3= new FlechaCompuesta(this.ctx, nuevoNodo.xCola-15, nuevoNodo.yCola, primerNodo.xHead+20,
+            let flecha3= new FlechaCompuesta(this.ctx, nuevoNodo.xCola, nuevoNodo.yCola, primerNodo.xHead+20,
             primerNodo.yCola,this.anchoFlecha, this.colorFlecha,posFlech);
+            this.flechas = this.flechas.concat( flecha3 );
           }else{
-            let flecha3= new Flecha(this.ctx, nuevoNodo.xCola-15, nuevoNodo.yCola, primerNodo.xHead+20,
-              primerNodo.yCola,this.anchoFlecha, this.colorFlecha);
+            let flecha3= new Flecha(this.ctx, nuevoNodo.xCola, nuevoNodo.yCola, primerNodo.xHead+20,
+              primerNodo.yCola,this.anchoFlecha, this.colorFlecha,false);
+              this.flechas = this.flechas.concat( flecha3 );
           }
         }
         tempNodo.drawText(); nuevoNodo.drawText();
@@ -239,9 +245,15 @@ export class ListasEddComponent implements OnInit {
     this.rectangulosNodos.forEach((square: RectanguloNodo) => {
       square.animar();
     });
+    for(let i=0;i<this.flechas.length;i++){
+      if(i==this.flechas.length-1) {
+        this.flechas[i].animar();
+      } else{
+        this.flechas[i].soloPintar();
+      }
+    }
     this.requestId = requestAnimationFrame(() => this.tick);
   }
-
   drawBorder() {
     this.ctx.beginPath();
     this.ctx.moveTo(0, 0);
@@ -249,7 +261,9 @@ export class ListasEddComponent implements OnInit {
     this.ctx.lineTo(this.ctx.canvas.width, this.ctx.canvas.height);
     this.ctx.lineTo(0, this.ctx.canvas.height);
     this.ctx.lineTo(0, 0);
+    this.ctx.strokeStyle= this.colorFlecha;
     this.ctx.stroke();
+  
   }
 
   ngOnDestroy() {

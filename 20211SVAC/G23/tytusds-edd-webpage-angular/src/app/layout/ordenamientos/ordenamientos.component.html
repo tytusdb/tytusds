@@ -10,13 +10,16 @@
         <div class="col-xl-6 text-xs-center">
             <fieldset class="form-group">
                 <label>JSON salida</label>
-                <textarea class="form-control" rows="2">{{listaEnlJSon}}</textarea>
-                <button class="btn btn-secondary" type="submit">Guardar</button>
+                <textarea class="form-control" rows="2">{{strOrdenamientoJson}}</textarea>
+                <button class="btn btn-secondary" type="submit" (click)="clickGuardar()">Guardar</button>
             </fieldset>
         </div>
     </div>   
     <div class="row">
         <div class="col-xl-10">
+            <div class="card-header">
+                <button (click)="clickOrdenar()" class="btn btn-info btn-sm">Ordenar por método {{tituloOrdenamiento}}</button>
+            </div>
                     <canvas 
                         [chartType]="barChartType"
                         [datasets]="barChartData"
@@ -26,9 +29,7 @@
                         baseChart
                     >
                     </canvas>
-                <div class="card-footer">
-                    <button (click)="clickOrdenar()" class="btn btn-info btn-sm">Ordenar por método {{tituloOrdenamiento}}</button>
-                </div>
+                
             </div>
     </div>
 </div>
