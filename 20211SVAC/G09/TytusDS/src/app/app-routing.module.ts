@@ -9,13 +9,20 @@ import { ArbolesComponent } from './componentes/arboles/arboles.component';
 
 //Importando los subcomponentes de Cada componente
 import { ListaSimpleComponent } from "./componentes/lista-simple/lista-simple.component";
+import { ListaDobleEnlazadaComponent } from './componentes/lista-doble-enlazada/lista-doble-enlazada.component';
+import { ListaCircularComponent } from './componentes/lista-circular/lista-circular.component';
+import { ListaDobleCircularComponent } from './componentes/lista-doble-circular/lista-doble-circular.component';
 const routes: Routes = [
   {path: "EstructurasLineales",    component: EstructurasLinealesComponent},
   {path: "Inicio",    component: InicioComponent},
   {path: "Ordenamientos",    component: OrdenamientosComponent},
   {path: "Arboles",    component: ArbolesComponent},
   //Subcomponentes
-  {path:"listaSimple",  component: ListaSimpleComponent}
+  {path:"listaSimple",  component: ListaSimpleComponent},
+  {path:"ListaDobleEnlazada", component:ListaDobleEnlazadaComponent},
+  {path:"ListaCircular", component:ListaCircularComponent },
+  {path:"ListaDobleCircular", component:ListaDobleCircularComponent}
+
 
 ];
 
