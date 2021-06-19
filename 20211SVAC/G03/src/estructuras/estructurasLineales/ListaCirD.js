@@ -83,4 +83,35 @@ class ListaCD{  //Clase Lista Circular doble
             console.log("No se encontro el dato buscado");
         }
     }
+
+    //Metodo Eliminar
+    eliminar(dato){
+        let aux = this.cabeza;
+        let contador = 1;
+        while(aux.dato != dato && contador != this.size){
+            aux= aux.siguiente;
+            contador++;
+        }
+        if(aux.dato == dato && aux != this.cabeza){
+            //Dato eliminado en Nodo no cabeza
+            aux.anterior.siguiente = aux.siguiente;
+            aux.siguiente.anterior = aux.anterior;
+            aux.siguiente = null;
+            aux.anterior = null;
+            console.log(aux.dato + " fue eliminado con exito");
+        }else if(aux.dato == dato && aux == this.cabeza){
+            //Dato eliminado en Nodo Cabeza
+            let tmp = aux.siguiente
+            aux.anterior.siguiente = aux.siguiente;
+            aux.siguiente.anterior = aux.anterior;
+            aux.siguiente = null;
+            aux.anterior = null;
+            this.cabeza = tmp
+            console.log(aux.dato + " fue eliminado con exito");
+        }
+        if (contador == this.size){
+            //Dato no encontrado
+            console.log("No se encontro el dato a eliminar");
+        }
+    }
 }
