@@ -30,11 +30,11 @@ export default class Divisiones extends Component {
                     <Division title="Cola de prioridad" descripcion="this a description" color='blue' imagen="https://s6.gifyu.com/images/Cola-de-Prioridad.gif"/>
 
 
-                    <Division title="Arbol ABB" descripcion="this a description" color='yellow'/>
-                    <Division title="Arbol AVL" descripcion="this a description"/>
-                    <Division title="Arbol B" descripcion="this a description"/>
-                    <Division title="Arbol B+" descripcion="this a description"/>
-                    <Division title="Arbol Merkel" descripcion="this a description"/>
+                    <Division title="Arbol ABB" descripcion="this a description" color='yellow' imagen="https://s6.gifyu.com/images/Arbol-ABB.gif"/>
+                    <Division title="Arbol AVL" descripcion="this a description" color = 'green' imagen="https://s6.gifyu.com/images/Arbol-AVL.gif"/>
+                    <Division title="Arbol B" descripcion="this a description"color='blue' imagen="https://s6.gifyu.com/images/Arbol-B.gif"/>
+                    <Division title="Arbol B+" descripcion="this a description" color='violet' imagen="https://s6.gifyu.com/images/Arbol-B03b18e464b7dd774.gif"/>
+                    <Division title="Arbol Merkle" descripcion="this a description" color="green" imagen="https://s6.gifyu.com/images/Arbol-Merkle.gif"/>
             </Card.Group>
             </div>
         )
