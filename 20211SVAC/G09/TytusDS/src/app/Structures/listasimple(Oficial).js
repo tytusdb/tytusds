@@ -21,6 +21,7 @@ class ListaSimple{
         this.head = null;
         this.size = 0;
         this.contId = 0
+        this.hMax = 0
     }
     
     add(data){
@@ -49,7 +50,6 @@ class ListaSimple{
         const posicion=document.getElementById(objeto.id)
         posicion.style.position="absolute"
         const boton=document.getElementById("b1")
-        console.log(boton.offsetWidth)
 /*
         var pos = 0;
         var id = setInterval(frame, 10);
@@ -74,13 +74,16 @@ class ListaSimple{
         divFlecha.id="flecha"+(this.contId).toString()
         const selecFlecha = document.getElementById(divFlecha.id);
         newNodo.x= current.x + current.disBtn + 60
+        if(this.hMax<objeto.offsetHeight){ this.hMax=objeto.offsetHeight}
+        console.log(this.hMax)
         if(boton.offsetWidth-100>newNodo.x){
             newNodo.y=current.y
         }//Definiendo el valor de y
         else{
-            console.log(newNodo.x)
-            newNodo.y=current.y + 80
-            newNodo.x=this.head.x +45}
+            newNodo.y=current.y + this.hMax +20
+            newNodo.x=this.head.x +45
+            this.hMax=0
+        }
         current.next = newNodo;
         posicion.style.left = (newNodo.x).toString()+"px" //El + 50 es para incluir a la misma flecha
         posicion.style.top =(newNodo.y).toString()+"px"
@@ -97,6 +100,7 @@ class ListaSimple{
         posicion.style.left =(this.head.x).toString()+"px"
         posicion.style.top =(this.head.y).toString()+"px"
         this.contId++
+        this.hMax=objeto.offsetHeight
     }
     this.size++
     }
@@ -120,13 +124,42 @@ delete(data){
 }
 refresh(dataActual,dataFinal){
     let aux = this.head
-    while (aux.next != null) {
+    var f = setInterval(whiles,500)
+    function whiles(){
+        if (aux != null) {
+            const selecBtn = document.getElementById(aux.id)
+            //selecBtn.innerText="Espere"
+            if (aux.data==dataActual) {
+                aux.data=dataFinal
+                selecBtn.innerText=dataFinal
+                selecBtn.classList="animate__animated animate__rotateIn"
+                const sClone = selecBtn.cloneNode(true)
+                selecBtn.parentNode.replaceChild(sClone, selecBtn)
+                clearInterval(f)
+                }
+            else{
+            selecBtn.classList="animate__animated animate__bounceIn"
+            const sClone = selecBtn.cloneNode(true)
+            selecBtn.parentNode.replaceChild(sClone, selecBtn)
+            aux=aux.next
+            }
+        }
+        else{
+            clearInterval(f)
+        }
+    }
+    /*while (aux.next != null) {
         if (aux.data==dataActual) {
         aux.data=dataFinal
         return
         }
+        const selecBtn = document.getElementById(aux.id)
+        setTimeout(function(){selecBtn.classList="animate__animated animate__bounceIn animate__delay-1s"
+        load()
+        selecBtn.innerText="Espere"
+        console.log("Esperando")},3000)
         aux=aux.next
-    }
+    }*/
     }
 
 search(data){
