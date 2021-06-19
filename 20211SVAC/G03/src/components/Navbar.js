@@ -10,7 +10,7 @@ export default class Navbar extends Component {
             <div >
                 <Menu className="ui tpo inverted attached menu">
                     <Menu.Item>
-                        <Link to="/gitPagueReac/estructura">TytusDS</Link>
+                        <Link to="/">TytusDS</Link>
                     </Menu.Item>
                 </Menu>
             </div>
