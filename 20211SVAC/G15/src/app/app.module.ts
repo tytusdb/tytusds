@@ -8,7 +8,9 @@ import { ListaDobleCircularComponent } from './components/listadobleCircular/lis
 import { FormsModule } from '@angular/forms';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { ListaCircularSimpleComponent } from './components/lista-circular-simple/lista-circular-simple.component'
+import { ListaCircularSimpleComponent } from './components/lista-circular-simple/lista-circular-simple.component';
+import { OrdenamientosComponent } from './components/ordenamientos/ordenamientos.component';
+import { EstructuraslinealesComponent } from './components/estructuraslineales/estructuraslineales.component'
 
 @NgModule({
   declarations: [
@@ -16,6 +18,8 @@ import { ListaCircularSimpleComponent } from './components/lista-circular-simple
     HomeComponent,
     ListaDobleCircularComponent,
     ListaCircularSimpleComponent,
+    OrdenamientosComponent,
+    EstructuraslinealesComponent,
   ],
   imports: [
     BrowserModule,
