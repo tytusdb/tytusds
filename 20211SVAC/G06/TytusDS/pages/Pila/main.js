@@ -31,6 +31,7 @@ $('#search').on('click', () => search())
 $('#update').on('click', () => actualizar())
 $('#delete').on('click', () => deleteEdgeMode())
 $('#cargar').on('click', () => cargarJson())
+$('#guardar').on('click', () => guardarJson())
 
 function prueba() {
     console.log(listita.mostrar())
@@ -38,6 +39,14 @@ function prueba() {
 }
 
 function agregar(inputValue) {
+    var repetir = document.getElementById("flexSwitchCheckDefault").checked;
+    if (repetir == false) {
+        let encontrado = listita.buscar(inputValue)
+        if (encontrado) {
+            alert("¡¡ERROR!! Valor ya existente")
+            return
+        }
+    }
     var valor = {
         id: cont,
         label: inputValue,
@@ -58,16 +67,14 @@ function agregar(inputValue) {
     network.editNode();
 }
 
-
-
-
-
 var cont2 = 1
 
 function search() {
     cont2 = 0
     view()
 }
+
+let bandera = false
 
 function actualizar() {
     let inputValue = document.getElementById("valor").value; //valor 
@@ -78,19 +85,21 @@ function actualizar() {
     array[idVal].label = inputValue2
     array2[idVal] = inputValue2
     view2(array[idVal].id)
-    listita.actualizar(inputValue, inputValue2)
+    bandera = listita.actualizar(inputValue, inputValue2)
     nodes.update({ id: array[idVal].id, label: inputValue2 })
+    bandera = false
     console.log(array)
     console.log(array2)
 }
 
 async function view() {
+    let animacion = document.getElementById("formControlRange").value;
     let inputValue = document.getElementById("valor").value;
     var idVal = array2.indexOf(inputValue)
     var animation = {
         scale: 4,
         animation: {
-            duration: 500,
+            duration: convertir(animacion),
             easingFunction: "linear"
         }
     }
@@ -104,11 +113,11 @@ async function view() {
 }
 
 async function view2(nodo) {
-
+    let animacion = document.getElementById("formControlRange").value;
     var animation = {
         scale: 4,
         animation: {
-            duration: 500,
+            duration: convertir(animacion),
             easingFunction: "linear"
         }
     }
@@ -133,7 +142,19 @@ function cargarJson() {
     reader.onload = function() {
         const obj = JSON.parse(reader.result)
         var updatedIds
+        var repetir = obj.repeticion
+        if (repetir == true) {
+            document.getElementById("flexSwitchCheckDefault").checked = true;
+        } else {
+            document.getElementById("flexSwitchCheckDefault").checked = false;
+        }
         for (let i = 0; i < obj.valores.length; i++) {
+            if (repetir == false) {
+                let encontrado = listita.buscar(obj.valores[i].toString())
+                if (encontrado) {
+                    continue
+                }
+            }
             var valor = {
                 id: i,
                 label: obj.valores[i].toString(),
@@ -155,11 +176,49 @@ function cargarJson() {
     };
 }
 
+function guardarJson() {
+    var animacion = document.getElementById("formControlRange").value
+    var obj = {
+        categoria: "Estructura Lineal",
+        nombre: "Pila",
+        repeticion: document.getElementById("flexSwitchCheckDefault").checked,
+        animacion: animacion / 10,
+        valores: array2
+    }
+    var texto = JSON.stringify(obj);
+    console.log(obj)
+    download("Pila" + archivo + ".json", texto);
+    archivo++
+}
+
+function convertir(porcentaje) {
+    let result = (100 - porcentaje) * 10
+    if (result == 0) {
+        result = 50
+    }
+    return result
+}
+
+function download(filename, textInput) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8, ' + encodeURIComponent(textInput));
+    element.setAttribute('download', filename);
+    document.body.appendChild(element);
+    element.click();
+}
 
 network.on("animationFinished", function(ctx) {
     if (cont2 >= cont) {
         network.fit()
     } else {
         view()
+    }
+});
+
+network.on("animationFinished", function(ctx) {
+    if (!bandera) {
+        network.fit()
+    } else {
+        view2(document.getElementById("valor").value, document.getElementById("cambio").value)
     }
 });
