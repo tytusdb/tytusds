@@ -368,4 +368,23 @@ class ABB{
             }
         }
     }
+
+    //Metodo de obtencion para minimo valor a la Derecha
+    minDer(nodo){
+        if (nodo.izquierda != null){
+            let tmp = nodo.izquierda
+            if(tmp.izquierda !=null){
+                this.minDer(tmp)
+            }else{
+                var mandardato = tmp.dato
+                if(tmp.derecha != null){
+                    nodo.izquierda = tmp.derecha
+                    tmp.derecha = null
+                }else{
+                    nodo.izquierda = null
+                }
+                return mandardato
+            }
+        }
+    }
 }
