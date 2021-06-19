@@ -5,7 +5,8 @@ import {ListasCicularesDEComponent} from './PaginasWeb/listas-ciculares-de/lista
 import { ListaSimpleComponent } from './PaginasWeb/lista-simple/lista-simple.component';
 import { ListaDobleComponent } from './PaginasWeb/lista-doble/lista-doble.component';
 import { PilaComponent } from './PaginasWeb/pila/pila.component';
-import { ColaComponent } from './PaginasWeb/Cola/cola.component';
+import { CpComponent } from './PaginasWeb/cola-prioridad/cp.component';
+import { ColaComponent } from './PaginasWeb/cola/cola.component';
 import { MenuComponent } from './PaginasWeb/menu/menu.component';
 import { SeleccionComponent } from './PaginasWeb/seleccion/seleccion.component';
 import {OrdQuicksortComponent} from './PaginasWeb/ord-quicksort/ord-quicksort.component';
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path:'ListasCircularesDE', component:ListasCicularesDEComponent},
   {path:'ListaSimple', component: ListaSimpleComponent},
   {path:'Pila', component: PilaComponent},
+  {path:'Cp', component: CpComponent},
   {path:'Cola', component: ColaComponent},
   {path:'ListaDoble', component: ListaDobleComponent},
   {path:'Seleccion', component: SeleccionComponent},
