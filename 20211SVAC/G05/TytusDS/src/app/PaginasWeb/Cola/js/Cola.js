@@ -14,31 +14,7 @@ class cola{
         this.tamaño=0;
     }
 insertar(valor){
-        var element=document.createElement("button");
-        var myDiv=document.getElementById("myDiv1");
-        var content=document.createTextNode(valor);
-          element.appendChild(content);
-          //myDiv.appendChild(element);
-          element.style.backgroundColor='rgb(25, 25, 112)'; 
-          element.style.color='rgb(255,255,255)';
-          element.style.fontSize='60px'; 
-          //myDiv.style.backgroundImage="url('http://pa1.narvii.com/6380/43a7f3d1b464182adc4de846f391d52803f1a583_00.gif')";
-          //element.style.border="none";
-          element.style.borderRadius="5px";
-          element.style.boxShadow="0 9px black";
-
-          myDiv.insertBefore(element, myDiv.firstElementChild);
-          var pos = 0;
-        var id = setInterval(frame, 10);
-        function frame() {
-            if (pos == 50) {
-                clearInterval(id);
-            } else {
-                pos++;
-                myDiv.style.top = pos + 'px';
-                myDiv.style.left = pos + 'px';
-            }
-        }
+        
 
     let nodo = new Nodo(valor)
     nodo.dato=valor;
@@ -51,14 +27,72 @@ insertar(valor){
         
         }
     this.tamaño++;
+    var element=document.createElement("button");
+        var myDiv=document.getElementById("myDiv1");
+          var content=document.createTextNode(valor);
+          element.appendChild(content);
+          element.style.backgroundColor='rgb(25, 25, 112)'; 
+          element.style.color='rgb(255,255,255)';
+          element.style.fontSize='15px'; 
+          element.style.borderRadius="5px";
+          element.style.boxShadow="0 9px black";
+          element.style.width="125px";
+          element.style.height="40px";
+          myDiv.insertBefore(element, myDiv.firstElementChild);
+          
+          
+          var pos = -30;
+          var id = setInterval(frame, 4);
+    function frame() {
+        if (pos == 30) { clearInterval(id);} 
+        else {
+            pos++;
+            myDiv.style.top = pos + 'px';
+            myDiv.style.left =55 + 'px';
+        }
+    }
+    var element1=document.createElement("button");
+    var myDiv1=document.getElementById("myDiv1");
+    var content1=document.createTextNode("Encolar");
+    element1.appendChild(content1);
+    element1.style.backgroundColor='rgb(53,204,0)'; 
+    element1.style.color='rgb(255,255,255)';
+    element1.style.width="120px";
+    element1.style.height="30px";
+    myDiv1.insertBefore(element1, myDiv1.firstElementChild);
+    var eli=function(){
+        var puntero=document.getElementById("myDiv1");
+        puntero.removeChild(puntero.childNodes[0]); 
+        };
+        setTimeout(eli,600);
 
 
 
 
 }
 
-eliminar(){
+insertar2(valor){
+let nodo = new Nodo(valor)
+nodo.dato=valor;
+if(this.uno==null){
+    this.uno=nodo;
+    this.fin=nodo
+    }else{
+        nodo.post=this.uno;
+    this.uno=nodo;
+    
+    }
+this.tamaño++;
 
+
+
+
+}
+
+
+
+
+eliminar(){
     let actual = this.uno;
     let anterior = null;
     if (this.uno!=null){
@@ -74,13 +108,27 @@ eliminar(){
             actual=actual.post;
             }while(actual!=null);
             var puntero=document.getElementById("myDiv1");
-           if (puntero.childNodes.length>0){
-            puntero.removeChild(puntero.childNodes[puntero.childNodes.length-1]); 
-           }
+        if (puntero.childNodes.length>0) 
+            puntero.removeChild(puntero.childNodes[puntero.childNodes.length-1]);  
+            var element1=document.createElement("button");
+            var myDiv1=document.getElementById("myDiv1");
+            var content1=document.createTextNode("Desencolar");
+            element1.appendChild(content1);
+            element1.style.backgroundColor='rgb(213,0,36)'; 
+            element1.style.color='rgb(255,255,255)';
+            element1.style.width="120px";
+            element1.style.height="30px";
+            myDiv1.insertBefore(element1, myDiv1.firstElementChild);
+            var eli=function(){
+                puntero.removeChild(puntero.childNodes[0]); 
+             };
+             setTimeout(eli,500);     
              
+
+
     }
     else{
-        console.log("sin datos");
+        alert("Cola sin datos");
     }
      }
 
@@ -125,6 +173,51 @@ modificar(bus,valor){
     }
 
 }
+
+leer(){
+    let ldatos=[];
+    let aux = this.uno;
+    if (this.uno!=null){
+        do{
+            ldatos.push(aux.dato);
+            aux=aux.post;
+            }while(aux!=null);}
+    else{console.log("sin datos"); }
+    
+    return ldatos;
+  }
+
+
+  pintar(){
+    var ele= document.getElementById("myDiv1");
+    while (ele.firstChild) {ele.removeChild(ele.firstChild);}   
+    let aux = this.uno;
+if (this.uno!=null){ do{
+    var element=document.createElement("button");
+    var myDiv=document.getElementById("myDiv1");
+    var content =document.createTextNode(aux.dato);
+    element.appendChild(content);
+    element.style.backgroundColor='rgb(25, 25, 112)'; 
+    element.style.color='rgb(255,255,255)';
+    element.style.fontSize='15px'; 
+    element.style.borderRadius="5px";
+    element.style.boxShadow="0 9px black";
+    element.style.width="125px";
+    element.style.height="40px";
+    //myDiv.insertBefore(element, myDiv.firstElementChild);
+    myDiv.appendChild(element);
+
+    
+    aux=aux.post; }while(aux!=null);}
+else{
+    alert("Pila vacia"); 
+}
+   }
+
+
+
+
+
 
 
 

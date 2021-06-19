@@ -5,12 +5,11 @@ class Nodo{
       this.ant = ant
     }
   }
-  class listaDobleEnlazada{
+  class ListaDobleEnlazada{
     constructor(){
       this.head = null;
       this.size = 0;
     }
-    
   
   add(data){
     const newNodo = new Nodo(data, null, null)
@@ -28,7 +27,6 @@ class Nodo{
     }
   delete(data){
     let aux = this.head
-    //let aux2
     if(data==aux.data){this.head=aux.sig 
       return}
     while(aux.sig != null){
@@ -78,42 +76,25 @@ class Nodo{
     }
 }
   
-const lDEnlazada = new listaDobleEnlazada();
-
-lDEnlazada.add("1")
-lDEnlazada.add("2")
-lDEnlazada.add("3")
-lDEnlazada.add("4")
-lDEnlazada.add("5")
-
-console.log(lDEnlazada.print())
-
-lDEnlazada.delete("1")
-lDEnlazada.refresh(2,6)
-
-console.log(lDEnlazada.search("7"))
-console.log(lDEnlazada.print())
+const lDEnlazada = new ListaDobleEnlazada();
 
 function ldobleAdd(date){
   lDEnlazada.add(date);
-  console.log(linkedList) 
 }
 
 function ldobleDelete(date){
-  lDEnlazada.delete(date);
-  console.log(linkedList) 
+  lDEnlazada.delete(date) 
 }
 function ldobleRefresh(date1,date2){
-  lDEnlazada.refresh(date1,date2);
-  console.log(linkedList) 
+  lDEnlazada.refresh(date1,date2)
 }
 function ldobleSearch(date){
-  return lDEnlazada.search(date); 
+  return lDEnlazada.search(date) 
 }
 function ldobleCargar(date){
-  lDEnlazada.cargar();
+  lDEnlazada.cargar()
 }
 function ldobleGuardar(date){
-  lDEnlazada.guardar();
+  lDEnlazada.guardar()
 }
 function ldoblePrint(){return print()}
