@@ -1,4 +1,4 @@
-class Nodo{
+class NodoListaSimple{
     constructor(data, next, id, x, y,disBtn){
         this.data = data;
         this.next = next;
@@ -62,7 +62,7 @@ class ListaSimple{
                 //divInsert.style.left = pos + 'px';
             }
         }*/
-    const newNodo = new Nodo(data, null, objeto.id, null, null, objeto.offsetWidth);
+    const newNodo = new NodoListaSimple(data, null, objeto.id, null, null, objeto.offsetWidth);
     if(this.head){        
         let current = this.head;
         while(current.next){
