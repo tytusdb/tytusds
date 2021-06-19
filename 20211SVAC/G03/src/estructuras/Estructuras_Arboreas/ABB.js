@@ -58,4 +58,22 @@ class ABB{
         let nodo = this.raiz
         this.buscar(dato, nodo)
     }
+
+    //Metodo Imprimir
+    imprimir(nodo){
+        if(nodo != null){
+            console.log(nodo.dato)
+            this.imprimir(nodo.izquierda)
+            this.imprimir(nodo.derecha)
+        }
+    }
+
+    //Sub Metodo Imprimir
+    imprimiendo(){
+        if(this.raiz ==null){
+            console.log("No existe arbol")
+            return
+        }
+        this.imprimir(this.raiz)
+    }
 }
