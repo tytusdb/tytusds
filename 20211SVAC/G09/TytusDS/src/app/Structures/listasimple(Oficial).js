@@ -1,11 +1,11 @@
 class Nodo{
-    constructor(data, next, id, x,disBtn, idFlecha){
+    constructor(data, next, id, x, y,disBtn){
         this.data = data;
         this.next = next;
         this.id = id
         this.x = x
         this.disBtn = disBtn
-        this.idFlecha = idFlecha
+        this.y = y
     }
 }
 /*class ItemList{
@@ -24,16 +24,10 @@ class ListaSimple{
     }
     
     add(data){
-
-        const caja = document.createElement("div")//Creando el div donde se añaden los botones
-        //caja.id="div"+(this.contId).toString()
-        this.contId++
         const divInsert=document.getElementById("divInsert1");
-        //divInsert.appendChild(caja)//Insertando el div en el Div principal
         const objeto=document.createElement("button"); //Creacion del botón
         const texto=document.createTextNode(data);
         objeto.appendChild(texto);
-
         //Para reiniciar animación No borrar
         /*const b1=document.getElementById("b1");
         b1.classList='animated bounce'
@@ -43,26 +37,19 @@ class ListaSimple{
         //Empieza diseño de Botón Juli
         objeto.style.backgroundColor='rgb(25, 25, 112)'
         objeto.style.color='rgb(255,255,255)'
-        objeto.style.fontSize='25px'
+        objeto.style.fontSize='15px'
         objeto.style.borderRadius="5px"
-        objeto.style.height="50px"
+        //objeto.style.height="50px"
         objeto.style.textAlign="center"
         //Termina el área de diseño del botón
-        objeto.id="div"+(this.contId).toString()
+        objeto.id="btn"+(this.contId).toString()
         objeto.classList='animate__animated animate__rubberBand animate__slow'
-        
         //divInsert.insertBefore(objeto, divInsert.firstElementChild)
-
-        /*const posicion=document.getElementById(caja.id)
-        posicion.style.position="absolute"
-        posicion.appendChild(objeto)*/
-
         divInsert.appendChild(objeto)//Insertando el div en el Div principal
         const posicion=document.getElementById(objeto.id)
         posicion.style.position="absolute"
-        //posicion.insertBefore(objeto, divInsert.firstElementChild)
-        //posicion.appendChild(img)
-        
+        const boton=document.getElementById("b1")
+        console.log(boton.offsetWidth)
 /*
         var pos = 0;
         var id = setInterval(frame, 10);
@@ -75,36 +62,41 @@ class ListaSimple{
                 //divInsert.style.left = pos + 'px';
             }
         }*/
-        //objeto.id="btn1"
-    const newNodo = new Nodo(data, null, caja.id, null, objeto.offsetWidth, null);
+    const newNodo = new Nodo(data, null, objeto.id, null, null, objeto.offsetWidth);
     if(this.head){        
         let current = this.head;
         while(current.next){
         current = current.next;
         }
-        this.contId++
-        newNodo.x= current.x + current.disBtn + 50
-        current.next = newNodo;
-        posicion.style.left = (newNodo.x).toString()+"px" //El + 50 es para incluir a la misma flecha
-        posicion.style.top ="20px"
-
         const divFlecha = document.createElement("div")//Creando el div donde se añaden los botones
         divInsert.appendChild(divFlecha)
-        divFlecha.innerHTML='<img src="assets/img/flecha_izquierda.png" width="45px"/>'
+        divFlecha.innerHTML='<img src="assets/img/flecha_izquierda.png" height="'+objeto.offsetHeight+ '" />'
         divFlecha.id="flecha"+(this.contId).toString()
         const selecFlecha = document.getElementById(divFlecha.id);
+        newNodo.x= current.x + current.disBtn + 60
+        if(boton.offsetWidth-100>newNodo.x){
+            newNodo.y=current.y
+        }//Definiendo el valor de y
+        else{
+            console.log(newNodo.x)
+            newNodo.y=current.y + 80
+            newNodo.x=this.head.x +45}
+        current.next = newNodo;
+        posicion.style.left = (newNodo.x).toString()+"px" //El + 50 es para incluir a la misma flecha
+        posicion.style.top =(newNodo.y).toString()+"px"
+
         selecFlecha.style.position="absolute"
         selecFlecha.classList='animate__animated animate__backInLeft animate__fast'
         selecFlecha.style.left = (newNodo.x-45).toString()+"px"
-        selecFlecha.style.top = "22px"
+        selecFlecha.style.top = (newNodo.y+5).toString()+"px"
+        this.contId++//Al final ya que el contId debe ser el mismo para la caja de la flecha y el botón
     }else{
         this.head = newNodo
-        this.contId++
         this.head.x=10
+        this.head.y=20
         posicion.style.left =(this.head.x).toString()+"px"
-        posicion.style.top ="20px"
-        console.log(posicion.style.left)
-        console.log(this.head.x)
+        posicion.style.top =(this.head.y).toString()+"px"
+        this.contId++
     }
     this.size++
     }
