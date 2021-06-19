@@ -114,4 +114,12 @@ class ListaCD{  //Clase Lista Circular doble
             console.log("No se encontro el dato a eliminar");
         }
     }
+
+    //Metodo Actualizar
+    actualizar(datoelim, datoins){
+        //Eliminacion de Dato 
+        this.eliminar(datoelim)
+        //Insercion de nuevo dato
+        this.insert(datoins)
+    }
 }
