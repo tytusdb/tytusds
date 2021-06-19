@@ -7,6 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListaDobleCircularComponent implements OnInit {
 
+  getValue(val:string){
+    console.warn(val)
+    
+    
+  }
+
   constructor() { }
 
   ngOnInit(): void {

@@ -7,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListaDobleEnlazadaComponent implements OnInit {
 
+  getValue(val:string){
+    console.warn(val)
+    
+  }
   constructor() { }
 
   ngOnInit(): void {
