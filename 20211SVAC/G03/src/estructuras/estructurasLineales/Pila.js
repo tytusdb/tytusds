@@ -49,6 +49,24 @@ class Pila{
             }
         }
     }
+    
+
+    buscar(valor){
+        let temporal = this.cabeza;
+        if (this.cabeza == null){
+            console.log("No hay nada en la lista")
+            
+        }else{
+            while(temporal != null){
+                if (temporal.valor == valor){
+                    return temporal;
+                }
+                temporal = temporal.siguiente;                
+
+            }
+        }
+
+    }
 	
    	
  }
