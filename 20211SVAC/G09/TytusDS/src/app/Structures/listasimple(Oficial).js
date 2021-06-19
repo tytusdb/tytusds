@@ -26,10 +26,10 @@ class ListaSimple{
     add(data){
 
         const caja = document.createElement("div")//Creando el div donde se añaden los botones
-        caja.id="div"+(this.contId).toString()
+        //caja.id="div"+(this.contId).toString()
         this.contId++
         const divInsert=document.getElementById("divInsert1");
-        divInsert.appendChild(caja)//Insertando el div en el Div principal
+        //divInsert.appendChild(caja)//Insertando el div en el Div principal
         const objeto=document.createElement("button"); //Creacion del botón
         const texto=document.createTextNode(data);
         objeto.appendChild(texto);
@@ -48,14 +48,18 @@ class ListaSimple{
         objeto.style.height="50px"
         objeto.style.textAlign="center"
         //Termina el área de diseño del botón
-
-        objeto.classList='animate__animated animate__bounce'
+        objeto.id="div"+(this.contId).toString()
+        objeto.classList='animate__animated animate__rubberBand animate__slow'
         
         //divInsert.insertBefore(objeto, divInsert.firstElementChild)
 
-        const posicion=document.getElementById(caja.id)
+        /*const posicion=document.getElementById(caja.id)
         posicion.style.position="absolute"
-        posicion.appendChild(objeto)
+        posicion.appendChild(objeto)*/
+
+        divInsert.appendChild(objeto)//Insertando el div en el Div principal
+        const posicion=document.getElementById(objeto.id)
+        posicion.style.position="absolute"
         //posicion.insertBefore(objeto, divInsert.firstElementChild)
         //posicion.appendChild(img)
         
@@ -90,7 +94,7 @@ class ListaSimple{
         divFlecha.id="flecha"+(this.contId).toString()
         const selecFlecha = document.getElementById(divFlecha.id);
         selecFlecha.style.position="absolute"
-        selecFlecha.classList='animate__animated animate__backInLeft'
+        selecFlecha.classList='animate__animated animate__backInLeft animate__fast'
         selecFlecha.style.left = (newNodo.x-45).toString()+"px"
         selecFlecha.style.top = "22px"
     }else{
