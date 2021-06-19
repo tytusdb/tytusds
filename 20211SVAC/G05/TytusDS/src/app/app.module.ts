@@ -18,6 +18,7 @@ import { OrdBurbujaComponent } from './PaginasWeb/ord-burbuja/ord-burbuja.compon
 import { AvlComponent } from './PaginasWeb/avl/avl.component';
 import { OrdQuicksortComponent } from './PaginasWeb/ord-quicksort/ord-quicksort.component';
 import { ABinarioComponent } from './PaginasWeb/a-binario/a-binario.component';
+import { InserccionComponent} from './PaginasWeb/inserccion/inserccion.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { ABinarioComponent } from './PaginasWeb/a-binario/a-binario.component';
     OrdBurbujaComponent,
     AvlComponent,
     OrdQuicksortComponent,
-    ABinarioComponent
+    ABinarioComponent,
+    InserccionComponent
   ],
   imports: [
     BrowserModule,
