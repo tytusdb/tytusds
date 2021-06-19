@@ -387,4 +387,14 @@ class ABB{
             }
         }
     }
+
+    //Metodo Actualizar
+    actualizar(datoborr, datoin){
+        if(this.raiz==null){
+            console.log("no existe ningun arbol")
+        }
+        this.eliminando(datoborr)
+        this.insertar(datoin)
+        console.log("Actualizado")
+    }
 }
