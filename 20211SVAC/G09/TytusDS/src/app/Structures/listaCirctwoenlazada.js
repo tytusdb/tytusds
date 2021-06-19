@@ -1,4 +1,4 @@
-class Nodo{
+class NodoListaCircularDoble{
     constructor(data, sig, ant){
       this.data = data
       this.sig = sig
@@ -12,7 +12,7 @@ class Nodo{
     }
 
   add(data){
-    const newNodo = new Nodo(data, null, this.head)
+    const newNodo = new NodoListaCircularDoble(data, null, this.head)
     if(this.head){        
       let aux = this.head
       while(aux.sig){
@@ -103,3 +103,45 @@ function ldobleGuardar(date){
   lCircularDEnlazada.guardar();
 }
 function ldoblePrint(){return print()}
+
+function AbrirListaDobleCircular(event) {
+  var file = event.target.files[0];
+  var reader = new FileReader();
+  reader.onload = function(event) {
+    // El texto del archivo se mostrará por consola aquí
+   // console.log(event.target.result)
+    let doc = JSON.parse(event.target.result);
+    //console.log(doc)
+
+    for (var key in doc) {
+      //console.log('name=' + key + ' value=' + doc[key]);
+      if(key=='categoria'){
+          categoria = doc[key]
+          console.log(categoria)
+      }
+      if(key=='nombre'){
+          nombre = doc[key]
+          console.log(nombre)
+      }
+      if(key=='repeticion'){
+          repeticion = doc[key]
+          console.log(repeticion)
+      }
+      if(key=='animacion'){
+          animacion = doc[key]
+          console.log(animacion)
+      }
+      if(key=='valores'){
+          //console.log(doc[key].length)
+          for (var k in doc[key]){
+            lCircularDEnlazada.add(doc[key][k])
+          }
+      }
+   }
+   console.log(lCircularDEnlazada.print())
+
+  };
+  
+  reader.readAsText(file);
+  
+}//guardar archivo
