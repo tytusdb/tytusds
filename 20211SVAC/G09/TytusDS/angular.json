@@ -36,7 +36,8 @@
             ],
             "scripts": [
               "src/app/Structures/listatwoenlazada.js",
-              "src/app/Structures/listasimple(Oficial).js"
+              "src/app/Structures/listasimple(Oficial).js",
+              "src/app/Structures/listaSimpleCircular.js"
               
               ]
           },
@@ -104,7 +105,8 @@
             ],
             "scripts": [
               "src/app/Structures/listatwoenlazada.js",
-              "src/app/Structures/listasimple(Oficial).js"
+              "src/app/Structures/listasimple(Oficial).js",
+              "src/app/Structures/listaSimpleCircular.js"
             ]
           }
         },
