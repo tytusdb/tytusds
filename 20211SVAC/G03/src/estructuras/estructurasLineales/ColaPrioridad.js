@@ -152,6 +152,31 @@ class ColaPrioridad {
 
         fs.writeFile("Cola.json", archivoJSON)
     }
+	
+	Recorrido(datoBuscar){
+        let arreglo = []
+        let nodoActual = this.primero
+        let contador = 0
+
+        while (nodoActual != null){
+            let dato = {id: contador, label: nodoActual.dato.toString(),}
+            arreglo[contador] = dato
+
+            if(nodoActual.dato == datoBuscar){
+                let dato = {id: contador, label: nodoActual.dato.toString(),  color: "lime"}
+                arreglo[contador] = dato
+            }
+
+            if(nodoActual.siguiente != null){
+                nodoActual = nodoActual.siguiente
+            }else{
+                nodoActual = null
+            }
+            contador++
+        }
+
+        return arreglo
+    }
 }
 
 
