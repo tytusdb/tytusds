@@ -349,4 +349,23 @@ class ABB{
             this.eliminar(dato, nodo.derecha)
        }
     }
+
+    //Metodo de obtencion para maximo valor a la Izquierda
+    maxIzq(nodo){
+        if (nodo.derecha != null){
+            let tmp = nodo.derecha
+            if(tmp.derecha !=null){
+                this.maxIzq(tmp)
+            }else{
+                var mandardato = tmp.dato
+                if(tmp.izquierda != null){
+                    nodo.derecha = tmp.izquierda
+                    tmp.izquierda = null
+                }else{
+                    nodo.derecha = null
+                }
+                return mandardato
+            }
+        }
+    }
 }
