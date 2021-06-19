@@ -1,22 +1,26 @@
 class insercion{
+    constructor(lista) {
+        this.recorridos=[]
+        this.ele=lista
+    }
 
-
-inser(ele) {
-    for (let i=1; i<ele.length; i++){
+inser() {
+    this.recorridos.push(this.ele.slice());
+    for (let i=1; i<this.ele.length; i++){
         let x=i-1;
         let y=i;
-        let datos=ele[i];
-        while(x>=0 && ele[x]>datos){
-            ele[y] = ele[x];
+        let datos=this.ele[i];
+        while(x>=0 && this.ele[x]>datos){
+            this.ele[y] = this.ele[x];
             x--;
             y--;
         }
-        ele[y]=datos;
+        this.ele[y]=datos;
+        this.recorridos.push(this.ele.slice());
     }
+    this.recorridos.push(this.ele.slice());
+        return this.recorridos;
 }
 
 }
-const stack = new insercion();
-const arreglo=[5,4,8,5,2];
-stack.inser(arreglo)
-console.log(arreglo);
+module.exports = insercion

@@ -3,7 +3,7 @@ import { saveAs } from 'file-saver';
 import { DocumentoService } from '../../services/documento.service';
 import {Chart} from 'chart.js/dist/chart.js';
 declare var require: any;
-let Orden= require('./js/Inserccion');
+let Orden= require('./js/Insercion');
 
 @Component({
   selector: 'app-inserccion',
@@ -49,7 +49,7 @@ export class InserccionComponent implements OnInit {
   graficar(){
     let EAnim=(<HTMLCanvasElement>document.getElementById('Oanimacion'))?.getContext('2d');
     let ordenB= new Orden(this.lista);
-    let recorridos=ordenB.Ordenar();
+    let recorridos=ordenB.inser();
     this.lOrdenada=recorridos[recorridos.length-1];
     let velocidad=(this.opciones['velocidadOrdenamientos']);
     let k=0;
@@ -119,14 +119,14 @@ export class InserccionComponent implements OnInit {
   guardar(): void {
     const contenido: any = {
       categoria: "Ordenamientos",
-      nombre: "Ordenamiento Burbuja",
+      nombre: "Ordenamiento Inserccion",
       repeticion:true,
       animacion:10,
       valores: []
     };
     contenido.valores=contenido.valores.concat(this.lOrdenada);
     let blob = new Blob([JSON.stringify(contenido)], {type: 'json;charset=utf-8'});
-    saveAs(blob, 'descarga.json');
+    saveAs(blob, 'inserccion.json');
   }
 
 }
