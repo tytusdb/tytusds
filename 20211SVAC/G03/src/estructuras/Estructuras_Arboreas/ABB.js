@@ -1,20 +1,25 @@
+//Clase Nodo
 class Nodo{
-    constructor(dato){
+    constructor(dato){  //Constructor
         this.dato = dato
         this.izquierda = null
         this.derecha = null
     }
 }
+//Clase Arbol Binario de Busqueda
 class ABB{
+    //Constructor
     constructor(){
         this.raiz = null
     }
 
+    //Metodo Insertar
     insertar(dato){
         this.raiz = this.add(dato, this.raiz)
         console.log("Inserto un nodo" )
     }
 
+    //Sub Metodo Insertar
     add(dato, nodo){
         if(nodo == null){
             return new Nodo(dato)
@@ -28,6 +33,29 @@ class ABB{
         return nodo
     }
 
-    
-}
+    //Metodo Buscar
+    buscar(dato, nodo){
+        if(nodo!= null){
+            if(dato == nodo.dato){
+                console.log(nodo.dato + " fue encontrado")
+                return 
+            }
+            this.buscar(dato, nodo.izquierda)
+            this.buscar(dato, nodo.derecha)
+        }
+    }
 
+    //SubMetodo Buscar
+    buscando(dato){
+        if(this.raiz ==null){
+            console.log("No existe arbol")
+            return
+        }
+        if(dato == this.raiz.dato){
+            console.log(this.raiz.dato)
+            return
+        }
+        let nodo = this.raiz
+        this.buscar(dato, nodo)
+    }
+}
