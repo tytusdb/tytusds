@@ -144,4 +144,23 @@ function AbrirArchivoListaDobleEnlazada(event) {
   
 }/////////////////////
 
+function downloadListaDobleEnlazada(filename, text) {
+    
+  lista = lDEnlazada.print()
+
+  var element = document.createElement('a');
+  let doc = JSON.stringify({ "categoria": categoria, 'nombre': nombre, 'repeticion':repeticion, 'animacion':animacion, 'valores': lista });
+  
+  //console.log(listSimple.print())
+  element.setAttribute('href', 'data:json,' + doc);
+  element.setAttribute('download', filename);
+
+  element.style.display = 'none';
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
+}
+
 
