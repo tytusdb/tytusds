@@ -19,11 +19,12 @@ bst.append(16);
 bst.append(15)
 bst.append(1);
 bst.append(6);
-bst.preorden()
-bst.eliminar(10);
-console.log("xD");
 bst.preorden();
-bst.eliminar(14)
+bst.eliminar(15);
+bst.eliminar(10);
+bst.eliminar(14);
+bst.eliminar(16);
+bst.eliminar(15);
 console.log("xD");
 bst.preorden();
 

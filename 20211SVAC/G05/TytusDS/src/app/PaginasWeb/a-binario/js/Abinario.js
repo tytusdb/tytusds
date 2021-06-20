@@ -5,6 +5,7 @@ class Abinario{
     //LISTAS CON TODOS LOS VALORES QUE CONTENDRA EL ARBOL
     this.listaaux=new listaaux();
     this.raiz=null;
+    this.json=[];
     this.dot="";
     this.L_nodos=[]
     this.L_edges=[]
@@ -16,6 +17,7 @@ class Abinario{
     this.L_nodos=[]
     this.Dotgen();
     let ldata=[]
+    this.preorden();
     ldata.push(this.L_nodos);
     ldata.push(this.L_edges);
     return ldata
@@ -78,21 +80,20 @@ class Abinario{
   }
 
   _eliminar(nodo){
-    if (nodo!=null){
       //caso 1:
       if(nodo.right==null && nodo.left==null){
-        this.E_hijo(nodo,null);
+        this.E_NcH(nodo,null);
         this.E_Nodo(nodo);
         this.nNulls-=2;
       }
       //caso 2
-      else if(nodo.left!=null && nodo.right==null){
-        this.E_hijo(nodo,nodo.left);
+      else if(nodo.left!==null && nodo.right===null){
+        this.E_NcH(nodo,nodo.left);
         this.E_Nodo(nodo);
         this.nNulls-=1;
         //caso 3
-      }else if(nodo.right!=null && nodo.left==null){
-        this.E_hijo(nodo,nodo.right);
+      }else if(nodo.right!==null && nodo.left===null){
+        this.E_NcH(nodo,nodo.right);
         this.E_Nodo(nodo);
         this.nNulls-=1;
       }
@@ -102,7 +103,7 @@ class Abinario{
         nodo.valor=nodoMin.valor;
         this._eliminar(nodoMin);
       }
-    }
+
   }
   //eliminar nodo
   E_Nodo(nodo){
@@ -112,17 +113,27 @@ class Abinario{
   }
 
   //Eliminar nodo con un hijo
-  E_hijo(nodo,nodo_hijo){
+  E_NcH(nodo,nodo_hijo){
+    if(nodo==this.raiz){
+      this.raiz=nodo_hijo;
+    }
     if(nodo.padre!=null){
       //si el nodo a eliminar se encuentra de lado izquierdo para que esto se cumpla se debe de cumplir la igualacion
-      if(nodo.valor==nodo.padre.left.valor){
-        nodo.padre.left=nodo_hijo;
-        //si el nodo a eliminar se encuentra de lado derecho
-      }else if(nodo.valor==nodo.padre.right.valor){
-        nodo.padre.right=nodo_hijo;
+      if(nodo.padre.left!=null) {
+        if (nodo.valor == nodo.padre.left.valor) {
+          nodo.padre.left = nodo_hijo;
+          //si el nodo a eliminar se encuentra de lado derecho
+        }
+      }else if(nodo.padre.right!=null) {
+        if (nodo.valor == nodo.padre.right.valor) {
+          nodo.padre.right = nodo_hijo;
+        }
       }
+
+
+
     }
-    if(nodo_hijo){
+    if(nodo_hijo!=null){
       nodo_hijo.padre=nodo.padre
     }
   }
@@ -145,7 +156,7 @@ class Abinario{
   }
   pre_orden(nodo){
     if(nodo!=null){
-      console.log(nodo.valor);
+      console.log(`${nodo.valor} padre: ${nodo.padre}`);
       this.pre_orden(nodo.left);
       this.pre_orden(nodo.right);
     }
@@ -157,7 +168,6 @@ class Abinario{
   in_orden(nodo){
     if (nodo!=null){
       this.in_orden(nodo.left);
-      console.log(nodo.valor);
       this.in_orden(nodo.right);
     }
 
@@ -170,7 +180,6 @@ class Abinario{
       if(nodo!=null){
         this.post_orden(nodo.left);
         this.post_orden(nodo.right);
-        console.log(nodo.valor);
       }
   }
   Dotgen(){
@@ -237,6 +246,7 @@ class Abinario{
       this.listaaux.buscar(nodo.valor).apostrofe+=1;
     }
   }
+  //LISTA DE NODOS
   Lnodos(id,label){
     //Nodo estructura
     function NodoE(id,label){
@@ -247,6 +257,7 @@ class Abinario{
     if(this.CompararNodos(vnodo)==false){
     this.L_nodos.push(vnodo);}
   }
+  //LISTA DE EDGES
   Ledges(from,to){
     function Edge(from,to){
       this.from=from
@@ -271,9 +282,6 @@ class Abinario{
   ///PARA EVITAR CREAR OBJETOS REPETIDOS EN LA LISTA DE EDGES PARA GRAFICAR EL ARBOL
   CompararEdges(edge){
     for(let i in this.L_edges){
-      console.log(JSON.stringify(this.L_edges[i]))
-      console.log(JSON.stringify(edge))
-      console.log(JSON.stringify(this.L_edges[i])===JSON.stringify(edge))
       if(JSON.stringify(this.L_edges[i])===JSON.stringify(edge)){
         return true;
       }
@@ -281,7 +289,19 @@ class Abinario{
     return false;
   }
   /////////----------------------------------------------------
-
+  //Retornar Json
+  Rjson(){
+    this.json=[]
+    this._Rjson(this.raiz);
+    return this.json;
+  }
+  _Rjson(nodo){
+    if(nodo!=null){
+      this.json.push(nodo.valor);
+      this._Rjson(nodo.left);
+      this._Rjson(nodo.right);
+    }
+  }
 
 }
 

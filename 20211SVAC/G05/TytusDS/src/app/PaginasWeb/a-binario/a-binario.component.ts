@@ -47,7 +47,7 @@ export class ABinarioComponent implements OnInit {
     }
   }
   delete(valor){
-      this.bst.eliminar(valor);
+      this.bst.eliminar(parseInt(valor));
       this.graficar();
   }
   update(valor,nuevo_valor){
@@ -100,23 +100,22 @@ export class ABinarioComponent implements OnInit {
     this.documentoService.getDocumento(documento).then( contenido => {
       console.log(contenido);
       contenido['valores'].forEach(valor => {
-
+          this.bst.append(valor);
       });
-
+      this.graficar();
     });
-
   }
   //GUARDAR
   guardar(): void {
     const contenido: any = {
-      categoria: "Estructura Lineal",
-      nombre: "Lista Circular Simplemente Enlazada",
+      categoria: "Estructuras Arboreas",
+      nombre: "Arbol Binario de Busqueda",
       repeticion:true,
       animacion:10,
       valores: []
     };
     //adentro de concat deberia de ir una lista
-    contenido.valores=contenido.valores.concat();
+    contenido.valores=contenido.valores.concat(this.bst.Rjson());
     let blob = new Blob([JSON.stringify(contenido)], {type: 'json;charset=utf-8'});
     saveAs(blob, 'descarga.json');
   }
