@@ -11,7 +11,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ListaCircularSimpleComponent } from './components/lista-circular-simple/lista-circular-simple.component';
 import { OrdenamientosComponent } from './components/ordenamientos/ordenamientos.component';
 import { EstructuraslinealesComponent } from './components/estructuraslineales/estructuraslineales.component';
-import { BurbujaComponent } from './components/burbuja/burbuja.component'
+import { BurbujaComponent } from './components/burbuja/burbuja.component';
+import { PilaComponent } from './components/pila/pila.component'
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { BurbujaComponent } from './components/burbuja/burbuja.component'
     OrdenamientosComponent,
     EstructuraslinealesComponent,
     BurbujaComponent,
+    PilaComponent,
   ],
   imports: [
     BrowserModule,
