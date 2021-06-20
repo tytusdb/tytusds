@@ -8,7 +8,7 @@
 </head>
 <body>
     <nav class="navbar navbar-light" style="background-color: rgb(48, 71, 94)">
-        <a class="navbar-toggler" href="https://diego1399.github.io/ProyectoBeta/" style="border: 1px solid rgb(34, 40, 49);">
+        <a class="navbar-toggler" href="#" style="border: 1px solid rgb(34, 40, 49);">
             <span class="navbar-toggler-icon"></span>
         </a>
         <h1>AVL</h1>
@@ -67,13 +67,21 @@
 
         <div class="col-9 columna2">
             <div class="row">
-                <div class="col-12 panel"></div>
+                <div class="panel"><canvas id='lienzo' width="1000" height="500"></canvas></div>
             </div>
             <div class="row">
-                <div class="col-12 controles">verde</div>
+                <div class="controles">
+                    <div class="row">
+                        <div class="col-1">
+                            <label for="velocidad" class="velocidad_lb">Velocidad</label>
+                        </div>
+                    </div>
+                    <input type="range" id="velocidad" name="velocidad" min="0" max="5">
+                    <label for="velocidad" id="numero" class="velocidad_lb">3</label>
+                </div>
             </div>
         </div>
     </div>
-    <script src="JavaScript/avl.js"></script>
+    <script src="script/avl.js"></script>
 </body>
 </html>

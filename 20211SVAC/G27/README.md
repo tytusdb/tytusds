@@ -3,6 +3,8 @@
 ##  ESTRUCTURAS LINEALES
 ### [Lista Simplemente Enlazada](https://tytusdb.github.io/tytusds/20211SVAC/G27/Lineal_Structures/simple_list.html)
 ### [Lista Doblemente Enlazada](https://tytusdb.github.io/tytusds/20211SVAC/G27/Lineal_Structures/double_list.html)
+### [Pila](https://tytusdb.github.io/tytusds/20211SVAC/G27/Lineal_Structures/Pila.html)
+### [Cola](https://tytusdb.github.io/tytusds/20211SVAC/G27/Lineal_Structures/Cola.html)
 
 ## ORDENAMIENTOS
 ### [Ordenamiento Burbuja](https://tytusdb.github.io/tytusds/20211SVAC/G27/ordenamientos/bubleSort.html)
