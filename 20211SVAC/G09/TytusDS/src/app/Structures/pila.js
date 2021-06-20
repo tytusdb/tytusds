@@ -143,12 +143,12 @@ var animacion = "0";
 function addValuePila(data){
   stack.push(data);
   console.log("-------------Nueva Pila----------------");
-  console.log(stack.print());
+  console.log(stack.buscar());
 }
 function getValuePilaDelet(data){
   stack.pop();
   console.log("-------------Nueva Pila----------------");
-  console.log(stack.print());//
+  console.log(stack.buscar());//
 }
 
 //console.log("Ingresando valores");
@@ -196,7 +196,7 @@ function AbrirArchivoPila(event) {
     }
 
     console.log("--------nueva pila-------------")
-    console.log(stack.print());
+    console.log(stack.buscar());
   
 
   };
@@ -205,7 +205,7 @@ function AbrirArchivoPila(event) {
 }//guardar archivo
 function downloadPila(filename, text) {
   
-  lista = stack.print()
+  lista = stack.buscar()
 
   var element = document.createElement('a');
   let doc = JSON.stringify({ "categoria": categoria, 'nombre': nombre, 'repeticion':repeticion, 'animacion':animacion, 'valores': lista });
