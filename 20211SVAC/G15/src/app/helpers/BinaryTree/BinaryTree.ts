@@ -22,10 +22,12 @@ export class BinaryTree {
 
 
     public async update(numero: number, nuevo: number, duracion) {
-        let result: any = await this.search(numero, duracion)
-        if (result === null) return null
-        result.setNumero(nuevo)
-        return 1
+        let result = await this.delete(numero,duracion)
+        if(result !== undefined){
+            result = await this.addNode(nuevo,document.getElementById('tree'),duracion)
+            return 1
+        }
+        return 0
     }
 
     public addNode(numero: number, contenedor, duracion) {
@@ -71,15 +73,16 @@ export class BinaryTree {
 
 
     public async delete(numero: number, duracion) {
-        await this.removeNode(this.raiz, numero, null, duracion)
+        let result = await this.removeNode(this.raiz, numero, null, duracion)
         await this.drawTree.ajustarNodos(this.raiz)
-        return 1
+        return result
     }
 
     private async removeNode(node: NodeBinary, numero: number, padre: NodeBinary, duracion): Promise<NodeBinary> {
-        if (node === null) return null
+        if (node === null) return undefined
 
         if (numero < node.getNumero()) {
+            
             let subTree: NodeBinary = await this.removeNode(node.getLeft(), numero, node, duracion)
             node.setLeft(subTree)
             return node
@@ -94,11 +97,11 @@ export class BinaryTree {
                 await this.eliminarNodoHoja(node, duracion)
                 if (node === this.raiz) this.raiz = null
                 else node = null
-                return node;
+                return null;
             }
 
             if (node.getLeft() === null) {
-                await this.mover(node.getRight(), node, padre, "right", duracion)
+                await this.recalcularNodos(node.getRight(), node, padre, "right", duracion, true)
                 if (node === this.raiz) this.raiz = this.raiz.getRight()
                 else node = node.getRight()
 
@@ -106,12 +109,36 @@ export class BinaryTree {
             }
 
             if (node.getRight() === null) {
-                await this.mover(node.getLeft(), node, padre, "left", duracion)
+                await this.recalcularNodos(node.getLeft(), node, padre, "left", duracion, true)
                 if (node === this.raiz) this.raiz = this.raiz.getLeft()
                 else node = node.getLeft()
 
                 return node
             }
+
+
+
+            let aux: NodeBinary = await this.findMinNode(node.getRight())
+            node.setNumero(aux.getNumero())
+
+            let div = document.getElementById('node-' + node.getId())
+            div.innerHTML = '';
+            let p = document.createElement('p');
+            p.append('' + node.getNumero());
+            div.appendChild(p);
+            let result = await this.removeNode(node.getRight(),aux.getNumero(),null,duracion)
+
+            if(result !== null){
+                document.getElementById('tree').removeChild(document.getElementById('arrow-node-' + node.getRight().getId()))
+                await this.drawTree.crearLinea('node-' + result.getId(), 'node-' + node.getId(), document.getElementById('tree'))
+            }
+           
+            if(node === this.raiz) this.raiz.setRight(result)
+            else node.setRight(result)
+            
+
+            return node
+
         }
     }
 
@@ -130,16 +157,16 @@ export class BinaryTree {
         return 1
     }
 
-    async recalcularNodos(node, anterior, padre, posicion, duracion) {
+    async recalcularNodos(node, anterior, padre, posicion, duracion, eliminar) {
         if (node === null) return null
 
-        await this.mover(node, anterior, padre, posicion, duracion)
-        await this.recalcularNodos(node.getLeft(), null, node, "left", duracion)
-        await this.recalcularNodos(node.getRight(), null, node, "right", duracion)
+        await this.mover(node, anterior, padre, posicion, duracion, eliminar)
+        await this.recalcularNodos(node.getLeft(), node, null, "left", duracion, false)
+        await this.recalcularNodos(node.getRight(), node, null, "right", duracion, false)
     }
 
 
-    private async mover(nodo, anterior, padre, posicion, duracion) {
+    private async mover(nodo, anterior, padre, posicion, duracion, eliminar) {
         if (anterior === null) return
         let anteriorId = 'node-' + anterior.getId()
         let anteriorCoordenadas = document.getElementById(anteriorId).getBoundingClientRect()
@@ -162,10 +189,10 @@ export class BinaryTree {
 
 
         } catch (e) { }
-        if (padre !== null) {
+        if (padre !== null) await this.drawTree.crearLinea('node-' + nodo.getId(), 'node-' + padre.getId(), document.getElementById('tree'))
+        if (eliminar) {
             await this.drawTree.animateNode('node-container-' + anterior.getId(), 'zoomOut', duracion)
             document.getElementById('tree').removeChild(document.getElementById('node-container-' + anterior.getId()))
-            await this.drawTree.crearLinea('node-' + nodo.getId(), 'node-' + padre.getId(), document.getElementById('tree'))
         }
         else await this.drawTree.crearLinea('node-' + nodo.getId(), 'node-' + anterior.getId(), document.getElementById('tree'))
 
@@ -175,7 +202,11 @@ export class BinaryTree {
     }
 
 
+    private async findMinNode(nodo: NodeBinary): Promise<NodeBinary> {
+        if(nodo.getLeft() === null) return nodo 
+        return await this.findMinNode(nodo.getLeft())
 
+    }
 
 
 

@@ -134,7 +134,6 @@ export class DrawTree {
     dibujarPath(from, to, flecha, color) {
         let fromElement = document.getElementById(from)
         let toElement = document.getElementById(to)
-
         let coordenadas = this.obtenerDistanciaMin(fromElement, toElement)
         let angulo = this.obtenerAngulo(coordenadas)
 
