@@ -6,9 +6,12 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { ListaDobleCircularComponent } from './components/listadobleCircular/listadobleCircular.component';
 import { FormsModule } from '@angular/forms';
-
+import { ChartsModule } from 'ng2-charts';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { ListaCircularSimpleComponent } from './components/lista-circular-simple/lista-circular-simple.component'
+import { ListaCircularSimpleComponent } from './components/lista-circular-simple/lista-circular-simple.component';
+import { OrdenamientosComponent } from './components/ordenamientos/ordenamientos.component';
+import { EstructuraslinealesComponent } from './components/estructuraslineales/estructuraslineales.component';
+import { BurbujaComponent } from './components/burbuja/burbuja.component'
 
 @NgModule({
   declarations: [
@@ -16,12 +19,16 @@ import { ListaCircularSimpleComponent } from './components/lista-circular-simple
     HomeComponent,
     ListaDobleCircularComponent,
     ListaCircularSimpleComponent,
+    OrdenamientosComponent,
+    EstructuraslinealesComponent,
+    BurbujaComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
