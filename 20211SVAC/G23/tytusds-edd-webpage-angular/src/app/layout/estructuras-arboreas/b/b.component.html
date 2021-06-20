@@ -1,1 +1,77 @@
-<p>b works!</p>
+<!--<h1>Hola soy {{nombre}} {{appellido}}</h1>
+<h2>Hola y yo soy el alumno {{alumno.nombre}} {{alumno.appellido}}</h2>
+<h3>Hola soy {{nombre}} {{alumno.appellido}}</h3>-->
+<!--
+<h1></h1>
+<input  placeholder="Ingrese un nuevo valor" [(ngModel)]="inputNuevo">
+<input type="text" [(ngModel)]="inputNuevo">
+<p>{{inputNuevo}}</p>
+<label>Correo
+    <input type="text" [(ngModel)]="correo">
+</label>
+<label>Password
+    <input type="password" [(ngModel)]="password">
+</label>
+<button (click)="Iniciar()"> Iniciar </button>
+<label> Valor:    
+    <input type="text" [(ngModel)]="x">
+</label>
+<button type="submit" (click)="Insertar()"> Insertar </button>
+<h2>{{x}}</h2>
+-->
+<!--                                    -->
+
+<div >
+    <h4>Árbol B</h4>
+    <div class="row">
+        <div class="col-xs-2 text-xs-center">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <input class="form-control" placeholder="Ingresar nuevo valor" [(ngModel)]="x">
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-2 text-xs-center">
+            <div class="card mb-3 text-center my-auto">
+                <div class="card-body align-items-center" >
+                    <button class="btn btn-secondary mr-3" type="button" (click)="Insertar()">Agregar</button>
+                    <button class="btn btn-secondary mr-3" type="button" (click)="Eliminar()">Eliminar</button>
+                    <button class="btn btn-secondary mr-3" type="button" (click)="Actualizar()">Actualizar</button>
+                </div>
+            </div>
+        </div>      
+        <div class="col-xs-2">
+            <div class="card mb-3 text-center my-auto">
+                <small><label for="customRange2" class="form-label">Velocidad animacion: {{velocidadAnimacion}}</label></small>
+                <input type="range" class="form-range" min="0" max="10" id="customRange2" [(ngModel)]="velocidadAnimacion">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-6 text-xs-center">
+            <fieldset class="form-group">
+                <small><label>JSON a cargar &#123;"categoria":"ABB ","nombre":"{{tituloLista}}","animacion":"5","valores":["n1","n2",..]&#125;</label></small>
+                <textarea class="form-control" rows="2" [(ngModel)]="strCarga"></textarea>
+                <button class="btn btn-secondary" type="submit" (click)="clickCargar()">Cargar a lista dinamica</button>
+            </fieldset>
+        </div>
+        <div class="col-xl-6 text-xs-center">
+            <fieldset class="form-group">
+                <label>JSON salida</label>
+                <textarea class="form-control" rows="2">{{listaEnlJSon}}</textarea>
+                <button class="btn btn-secondary" type="submit">Guardar</button>
+            </fieldset>
+        </div>
+    </div>   
+    <div class="row">
+        <div class="col-xl-12 text-xs-center">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <!--<textarea class="form-control" rows="3"></textarea>-->
+                    <canvas #canvas width="1000" height="500"></canvas>
+                    <!--<button (click)="play()">Play</button>-->
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
