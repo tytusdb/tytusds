@@ -37,6 +37,7 @@ export class AvlComponent implements OnInit {
     this.arbol.agregar(30);
     this.arbol.agregar(35);
     this.arbol.agregar(50);
+    this.arbol.preorden();
     console.log(this.arbol.raiz);
   }
 
