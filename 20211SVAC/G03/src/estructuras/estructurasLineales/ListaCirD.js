@@ -146,3 +146,5 @@ class ListaCD{  //Clase Lista Circular doble
     }
 }
 
+export default ListaCD;
+
