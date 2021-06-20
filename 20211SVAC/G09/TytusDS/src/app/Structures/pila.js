@@ -35,7 +35,6 @@ class Pila{
       let mostrarNodo = this.primero;
       var lista = []
       var encontrar = false;
-
       while (mostrarNodo) {
         if(mostrarNodo.dato === dato){
           encontrar = true;
