@@ -10,6 +10,9 @@ class ListaCircular{
     set setRepeat(repeat){
       this.repeat=repeat;
     }
+    Size(){
+      return this.size;
+    }
 
     //AGREGAR AL INICIO
     appendI(valor){
@@ -103,6 +106,18 @@ class ListaCircular{
             current = current.next;
         }
         return null;
+    }
+    indexBusqueda(valor){
+      let current=this.head;
+      let k=0
+      for (let i = 0; i < this.size; i++) {
+        if(current.valor==valor){
+          break;
+        }
+        k+=1;
+        current=current.next;
+      }
+      return k
     }
     //ELIMINAR
     eliminar(valor){

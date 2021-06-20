@@ -62,7 +62,7 @@ export class ListasCircularesComponent implements OnInit {
       this.lista.repeat=false;
     }
     this._Add(valor)
-    this.graficar();
+    this.graficarI();
   }
   _Add(valor){
     //Ingresar al final
@@ -128,7 +128,7 @@ export class ListasCircularesComponent implements OnInit {
     let grafo= new vis.Network(contenedor,datos,opciones);
     //OPCIONES ANIMACION:
     //n:contador velE:velocidad de estiramiento dur:duración
-    let n = 0, velE = 100, dur = 5000;
+    let n = 0, velE = 100, dur =this.opciones['velocidadLineales'];
     // xinicio,yinicio: Distancia desde el centro, x y y positivo mandan hacia la derecha y abajo respectivamente
     //x y y negativos mandan a la izquierda y arriba respectivamente
     let xinicio =0, yinicio=0
@@ -159,8 +159,18 @@ export class ListasCircularesComponent implements OnInit {
     },10);
 
   }
-  //graficar ingreso
-  graficarI(){
+  //------------------------------------------------------------------------------------------------------
+  busqueda(valor){
+    let indexDB=this.lista.indexBusqueda(valor);
+    console.log(indexDB);
+    if(indexDB==this.lista.Size()){
+      this.graficarB(this.lista.Size()-1);
+    }else{
+      this.graficarB(indexDB);
+    }
+  }
+  //graficar busqueda
+  graficarB(k){
     //Retorno de la lista con los objetos de nodos y edges
     let Nodos=this.lista.Lnodos();
     let Edges=this.lista.Ledges();
@@ -192,12 +202,69 @@ export class ListasCircularesComponent implements OnInit {
     let grafo= new vis.Network(contenedor,datos,opciones);
     //OPCIONES ANIMACION:
     //n:contador velE:velocidad de estiramiento dur:duración
-    let n = 0, velE = 100, dur = 5000;
-    // xinicio,yinicio: Distancia desde el centro, x y y positivo mandan hacia la derecha y abajo respectivamente
-    //x y y negativos mandan a la izquierda y arriba respectivamente
-    let xinicio =0, yinicio=0
+    let n = 0, velE = 100, dur =this.opciones['velocidadLineales'];
     //NEst=numero de estiramientos que tendran los nodos Math.floor redondea al valor entero hacia la izquierda
     var NEst = Math.floor( dur / velE);
+    //Obtencion de las posicionesa actuales de los nodos
+    let pos=grafo.getPositions();
+
+    let AnimLista = setInterval(function(){
+
+      //Por_est: porcentaje para estirarse, si NEst es muy grande se estirara mas
+      //entre mayor sea el porcentaje en cada iteración mas pronto volvera al origen
+      let por_est = n / NEst;
+        //en lugar de i podria ir un string, como se realizaria en un diccionario
+        let posx = pos[n].x, posy=pos[n].y;
+        let xt =  posx* por_est;
+        let yt =  posy * por_est;
+        //Mover cada nodo, luego del move los nodos vuelven a su posicion normal
+        grafo.moveNode(n,xt,yt);
+
+      //PARA LUEGO DE
+      if(n==k){
+        clearInterval(AnimLista);
+      }
+      n+=1;
+      //tiempo de repeticion de cada nodo
+    },dur);
+  }
+  //graficar ingreso
+  graficarI(){
+    //Retorno de la lista con los objetos de nodos y edges
+    let Nodos=this.lista.Lnodos();
+    let Edges=this.lista.Ledges();
+    //se escoge el div a utilizar como contenedor
+    let contenedor= document.getElementById("contenedor");
+    let datos={nodes:Nodos,edges:Edges};
+    let duracion=this.opciones['velocidadLineales'];
+    //OPCIONES PARA LOS NODOS----------------------------------------------------------
+    let opciones={
+      edges:{
+        arrows:{
+          to:{
+            enabled:true
+          }
+        },
+        color:{
+          color:"#013ADF"
+        }
+      },
+      nodes:{
+        color:{
+          border:"white",background:"red"
+        },
+        font:{
+          color:"white"
+        }
+      }
+    };
+    //------------------------------------------------------------------------
+    let grafo= new vis.Network(contenedor,datos,opciones);
+    //OPCIONES ANIMACION:
+    //n:contador velE:velocidad de estiramiento
+    let n = 0, velE = 100;
+    //NEst=numero de estiramientos que tendran los nodos Math.floor redondea al valor entero hacia la izquierda
+    var NEst = Math.floor( duracion / velE);
     //Obtencion de las posicionesa actuales de los nodos
     let pos=grafo.getPositions();
     let AnimLista = setInterval(function(){
@@ -205,22 +272,19 @@ export class ListasCircularesComponent implements OnInit {
       //Por_est: porcentaje para estirarse, si NEst es muy grande se estirara mas
       //entre mayor sea el porcentaje en cada iteración mas pronto volvera al origen
       let por_est = n / NEst;
-      for (let i = 0; i < Nodos.length; i++) {
+        let posx=pos[Nodos.length-1].x,posy=pos[Nodos.length-1].y;
         //en lugar de i podria ir un string, como se realizaria en un diccionario
-        let posx = pos[i].x, posy=pos[i].y;
-        //para mover de posicion yinicio * (1 - l) llegara un punto donde l sera 0 y se volver a la posicion
-        //de origen.
         let xt =  posx* por_est;
         let yt =  posy * por_est;
         //Mover cada nodo, luego del move los nodos vuelven a su posicion normal
-        grafo.moveNode(i,xt,yt);
-      }
+        grafo.moveNode(Nodos.length-1,xt,yt);
+
       //PARA LUEGO DE
       if(n== NEst){
         clearInterval(AnimLista);
       }
       //tiempo de repeticion de cada nodo
-    },10);
+    },duracion/10);
   }
   //GUARDAR
   guardar(): void {
