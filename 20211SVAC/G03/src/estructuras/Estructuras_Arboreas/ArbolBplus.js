@@ -108,6 +108,112 @@ class ArbolBplus {
     }  
 
 
+    dividirRama(ramaAux) {
+        let valorMedio = parseInt(this.orden / 2) + 1
+        let rama_derAux = new Rama();
+        let rama_izAux = new Rama();        
+        let medio = null;
+        let temp = ramaAux.indice;
+        let hoja = false;
+        let nuevaRaiz = null;
+
+        if (ramaAux.ramaPadre == null) {
+            nuevaRaiz = new Rama()
+        }    
+        if(temp.rama_Der != null || temp.rama_Izq != null){
+            ramaAux.hoja = false
+        }
+        if (ramaAux.hoja) {
+            hoja = true;          
+        }
+
+        if(ramaAux.ramaPadre != null){
+            if(ramaAux.ramaPadre.indice.rama_Izq.hoja == true){
+                let tempContinua = ramaAux.ramaPadre.indice;
+                while(tempContinua != null){
+                    if(tempContinua.siguiente == null){
+                        tempContinua.rama_Izq.ramaContinua = rama_izAux;
+                        }
+                        tempContinua = tempContinua.siguiente;
+                    }           
+        }
+        }
+
+        for (let i = 1; i <= this.orden; i++, temp = temp.siguiente) {
+            let nodo = new Nodo(temp.valor);
+            nodo.rama_Izq = temp.rama_Izq;
+            nodo.rama_Der = temp.rama_Der;            
+/* Si el nodo tiene hijos, aparte de ingresar los datos, 
+reacomodo sus hijos en los espacios de las divisiones*/
+            if (i < valorMedio) {
+                if(nodo.rama_Izq != null){
+                    nodo.rama_Izq.ramaPadre = rama_izAux;
+                }
+                if(nodo.rama_Der != null){
+                    nodo.rama_Der.ramaPadre = rama_izAux;
+                }
+                rama_izAux.agregarNodo(nodo);               
+
+            } else if (i > valorMedio) {
+                if(nodo.rama_Izq != null){
+                    nodo.rama_Izq.ramaPadre = rama_derAux;
+                }
+                if(nodo.rama_Der != null){
+                    nodo.rama_Der.ramaPadre = rama_derAux;
+                }
+                rama_derAux.agregarNodo(nodo);
+
+            } else if (i = valorMedio) {
+                if (hoja) {
+                    if(nodo.rama_Izq != null){
+                        nodo.rama_Izq.ramaPadre = rama_derAux;
+                    }
+                    if(nodo.rama_Der != null){
+                        nodo.rama_Der.ramaPadre = rama_derAux;
+                    }
+                    rama_derAux.agregarNodo(nodo);
+                    medio = new Nodo(temp.valor);
+                    medio.rama_Izq = rama_izAux;
+                    medio.rama_Der = rama_derAux;
+                } else if (hoja == false) {
+                    medio = new Nodo(temp.valor);
+                    medio.rama_Izq = rama_izAux;
+                    medio.rama_Der = rama_derAux;
+                }
+            }
+        }
+
+        if(rama_derAux.indice.rama_Izq != null || rama_derAux.indice.rama_Der != null){
+            rama_derAux.hoja = false;
+        }
+        if(rama_izAux.indice.rama_Izq != null || rama_izAux.indice.rama_Der != null){
+            rama_izAux.hoja = false;
+        }
+
+        if (nuevaRaiz != null) {       
+            rama_derAux.ramaPadre = nuevaRaiz;
+            rama_izAux.ramaPadre = nuevaRaiz;                
+            nuevaRaiz.agregarNodo(medio);           
+            //nuevaRaiz.indice.rama_Izq = rama_izAux;
+            //nuevaRaiz.indice.rama_Der = rama_derAux;
+            if (hoja) {
+                nuevaRaiz.indice.rama_Izq.ramaContinua = nuevaRaiz.indice.rama_Der;
+            }
+            nuevaRaiz.hoja = false;
+            this.raiz = nuevaRaiz;
+        } else {
+            medio.rama_Izq.ramaPadre = ramaAux.ramaPadre;
+            medio.rama_Der.ramaPadre = ramaAux.ramaPadre;
+            ramaAux.ramaPadre.agregarNodo(medio);
+            if (hoja) {
+                medio.rama_Izq.ramaContinua = medio.rama_Der;
+            }
+            if (ramaAux.ramaPadre.contador == this.orden) {
+                this.dividirRama(ramaAux.ramaPadre)
+            }
+        }
+    }
+
 
 }
 module.exports.ArbolBplus = ArbolBplus;
