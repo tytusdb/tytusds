@@ -159,6 +159,69 @@ export class ListasCircularesComponent implements OnInit {
     },10);
 
   }
+  //graficar ingreso
+  graficarI(){
+    //Retorno de la lista con los objetos de nodos y edges
+    let Nodos=this.lista.Lnodos();
+    let Edges=this.lista.Ledges();
+    //se escoge el div a utilizar como contenedor
+    let contenedor= document.getElementById("contenedor");
+    let datos={nodes:Nodos,edges:Edges};
+    //OPCIONES PARA LOS NODOS----------------------------------------------------------
+    let opciones={
+      edges:{
+        arrows:{
+          to:{
+            enabled:true
+          }
+        },
+        color:{
+          color:"#013ADF"
+        }
+      },
+      nodes:{
+        color:{
+          border:"white",background:"red"
+        },
+        font:{
+          color:"white"
+        }
+      }
+    };
+    //------------------------------------------------------------------------
+    let grafo= new vis.Network(contenedor,datos,opciones);
+    //OPCIONES ANIMACION:
+    //n:contador velE:velocidad de estiramiento dur:duración
+    let n = 0, velE = 100, dur = 5000;
+    // xinicio,yinicio: Distancia desde el centro, x y y positivo mandan hacia la derecha y abajo respectivamente
+    //x y y negativos mandan a la izquierda y arriba respectivamente
+    let xinicio =0, yinicio=0
+    //NEst=numero de estiramientos que tendran los nodos Math.floor redondea al valor entero hacia la izquierda
+    var NEst = Math.floor( dur / velE);
+    //Obtencion de las posicionesa actuales de los nodos
+    let pos=grafo.getPositions();
+    let AnimLista = setInterval(function(){
+      n++;
+      //Por_est: porcentaje para estirarse, si NEst es muy grande se estirara mas
+      //entre mayor sea el porcentaje en cada iteración mas pronto volvera al origen
+      let por_est = n / NEst;
+      for (let i = 0; i < Nodos.length; i++) {
+        //en lugar de i podria ir un string, como se realizaria en un diccionario
+        let posx = pos[i].x, posy=pos[i].y;
+        //para mover de posicion yinicio * (1 - l) llegara un punto donde l sera 0 y se volver a la posicion
+        //de origen.
+        let xt =  posx* por_est;
+        let yt =  posy * por_est;
+        //Mover cada nodo, luego del move los nodos vuelven a su posicion normal
+        grafo.moveNode(i,xt,yt);
+      }
+      //PARA LUEGO DE
+      if(n== NEst){
+        clearInterval(AnimLista);
+      }
+      //tiempo de repeticion de cada nodo
+    },10);
+  }
   //GUARDAR
   guardar(): void {
     const contenido: any = {

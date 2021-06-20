@@ -1,8 +1,24 @@
 let Nodo= require('./Nodo');
+let listaaux=require('./listaaux');
 class Abinario{
   constructor() {
+    //LISTAS CON TODOS LOS VALORES QUE CONTENDRA EL ARBOL
+    this.listaaux=new listaaux();
     this.raiz=null;
-    this.size=0
+    this.dot="";
+    this.L_nodos=[]
+    this.L_edges=[]
+    this.nNulls=0;
+  }
+
+  Dot(){
+    this.L_edges=[]
+    this.L_nodos=[]
+    this.Dotgen();
+    let ldata=[]
+    ldata.push(this.L_nodos);
+    ldata.push(this.L_edges);
+    return ldata
   }
   append(valor){
     this.raiz=this._append(valor,this.raiz,null);
@@ -11,16 +27,19 @@ class Abinario{
     //si se repite mandar a la derecha
     if(nodo==null){
       let new_nodo=new Nodo(valor,padre);
+      if(this.listaaux.buscar(valor)==null) this.listaaux.append(valor);
       return new_nodo;
     }
     //si el valor es mayor al nodo actual irse por el lado derecho
     if(valor>nodo.valor){
       nodo.right=this._append(valor,nodo.right,nodo);
-    }else{
+    }else if(valor==nodo.valor){
+      nodo.right=this._append(valor,nodo.right,nodo);
+    }
+    else{
       //si el valor es menor al nod actual irse por el lado izquierdo
       nodo.left=this._append(valor,nodo.left,nodo);
     }
-    this.size+=1;
     return nodo;
   }
   //una funcion que no retorna nada hara que las variables iguales a esta sean indefinidas.
@@ -151,6 +170,117 @@ class Abinario{
         console.log(nodo.valor);
       }
   }
+  Dotgen(){
+    //se resetea la lista;
+    this.listaaux.Reset();
+    //se recorre la lista de nuevo en caso se elimine o  actualice un valor
+    this.Recorrer(this.raiz);
+    //se recorre todo el arbol y se llena con todos los valores de la lista
+    this.dotgen(this.raiz);
+    //reset de la lista:
+
+  }
+  Recorrer(nodo){
+    if(nodo!=null){
+      if(this.listaaux.buscar(nodo.valor)==null){
+        this.listaaux.append(nodo.valor);
+      }
+      this.Recorrer(nodo.left);
+      this.Recorrer(nodo.right);
+    }
+  }
+  //METODOS PARA DEVOLVER OBJETOS DE NODOS Y APUNTADORES
+  dotgen(nodo){
+    if(nodo!=null){
+      //los apostrofes son el numero que acompañara a cada elemento del arbol
+      //su funcion principal es que no ocurran errores a la hora de repetir valores
+      //se implemento una lista auxiliar que se encargaria de contar las repeticiones de haberlas
+      //en caso se elimine un valor la lista se resetearia y se volveria a colocar los elementos del nuevo arbol
+      //Restar siempre -1 para que los nodos esten conectaos si no se crearian nodos en posiciones aleatorias
+      let apostrofe=this.listaaux.buscar(nodo.valor).apostrofe-1;
+      //la raiz es la unica posicion donde no se debe de restar ese valor, como se realizo se le coloco 0
+      if (apostrofe==-1){
+        apostrofe=0
+      }
+      let nodoraiz=nodo.valor+`(${apostrofe})`;
+      //INGRESO DE OBJETOS NODO
+      this.Lnodos(nodoraiz,nodo.valor);
+      //si tiene un nodo izquierdo
+      if(nodo.left!=null) {
+        let nodoizq = nodo.left.valor + `(${this.listaaux.buscar(nodo.left.valor).apostrofe})`;
+        this.Lnodos(nodoizq,nodo.left.valor);
+        this.Ledges(nodoraiz,nodoizq);
+        //se le suma +1 para que luego ya no surgan errores a la hora de graficar repetidos
+        this.listaaux.buscar(nodo.left.valor).apostrofe+=1;
+      }else{
+        //agregacion de nodos
+        this.Lnodos(`null(${this.nNulls})`,"null")
+        this.Ledges(nodoraiz,`null(${this.nNulls})`)
+        this.nNulls+=1;
+      }
+      //si tiene un nodo derecho
+      if(nodo.right!=null){
+        let nododer = nodo.right.valor + `(${this.listaaux.buscar(nodo.right.valor).apostrofe})`;
+        this.dot+=`${nodoraiz}--${nododer};`;
+        this.Lnodos(nododer,nodo.right.valor)
+        this.Ledges(nodoraiz,nododer);
+        this.listaaux.buscar(nodo.right.valor).apostrofe+=1;
+      } else{
+        this.Lnodos(`null(${this.nNulls})`,"null")
+        this.Ledges(nodoraiz,`null(${this.nNulls})`)
+        this.nNulls+=1;
+      }
+      this.dotgen(nodo.left);
+      this.dotgen(nodo.right);
+      this.listaaux.buscar(nodo.valor).apostrofe+=1;
+    }
+  }
+  Lnodos(id,label){
+    //Nodo estructura
+    function NodoE(id,label){
+      this.id= id;
+      this.label= label.toString();
+    }
+    let vnodo= new NodoE(id,label);
+    if(this.CompararNodos(vnodo)==false){
+    this.L_nodos.push(vnodo);}
+  }
+  Ledges(from,to){
+    function Edge(from,to){
+      this.from=from
+      this.to=to;
+    }
+    let edge=new Edge(from,to);
+    if(this.CompararEdges(edge)==false){
+    this.L_edges.push(edge);}
+  }
+  Rdot(){
+    return this.dot;
+  }
+  ///PARA EVITAR CREAR OBJETOS REPETIDOS EN LA LISTA DE NODOS PARA GRAFICAR EL ARBOL
+  CompararNodos(Nodo){
+    for(let i in this.L_nodos){
+      if(JSON.stringify(this.L_nodos[i])===JSON.stringify(Nodo)){
+        return true;
+      }
+    }
+    return false;
+  }
+  ///PARA EVITAR CREAR OBJETOS REPETIDOS EN LA LISTA DE EDGES PARA GRAFICAR EL ARBOL
+  CompararEdges(edge){
+    for(let i in this.L_edges){
+      console.log(JSON.stringify(this.L_edges[i]))
+      console.log(JSON.stringify(edge))
+      console.log(JSON.stringify(this.L_edges[i])===JSON.stringify(edge))
+      if(JSON.stringify(this.L_edges[i])===JSON.stringify(edge)){
+
+        return true;
+      }
+    }
+    return false;
+  }
+  /////////----------------------------------------------------
+
 
 }
 

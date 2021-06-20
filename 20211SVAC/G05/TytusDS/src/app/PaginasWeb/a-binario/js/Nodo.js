@@ -4,6 +4,7 @@ class Nodo{
     this.left=null;
     this.rigth=null;
     this.padre=padre;
+
   }
 }
 module.exports = Nodo;
