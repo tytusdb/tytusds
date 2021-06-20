@@ -213,6 +213,17 @@ reacomodo sus hijos en los espacios de las divisiones*/
             }
         }
     }
+/*-----------------------------------------------
+---------------Fin bloque Agregar ---------------
+-----------------------------------------------*/
+
+    cargar(arreglo) {
+        let arreglo1 = arreglo;
+        arreglo1.forEach(elemento => {
+            this.agregar(elemento);
+        });
+}
+
 
 
 }
