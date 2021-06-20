@@ -98,3 +98,69 @@ function ldobleGuardar(date){
   lDEnlazada.guardar()
 }
 function ldoblePrint(){return print()}
+
+//FUncion Guardar Archivo
+function AbrirArchivoListaDobleEnlazada(event) {
+  var file = event.target.files[0];
+  var reader = new FileReader();
+  reader.onload = function(event) {
+    // El texto del archivo se mostrará por consola aquí
+   // console.log(event.target.result)
+    let doc = JSON.parse(event.target.result);
+    //console.log(doc)
+
+    for (var key in doc) {
+      //console.log('name=' + key + ' value=' + doc[key]);
+      if(key=='categoria'){
+          categoria = doc[key]
+          console.log(categoria)
+      }
+      if(key=='nombre'){
+          nombre = doc[key]
+          console.log(nombre)
+      }
+      if(key=='repeticion'){
+          repeticion = doc[key]
+          console.log(repeticion)
+      }
+      if(key=='animacion'){
+          animacion = doc[key]
+          console.log(animacion)
+      }
+      if(key=='valores'){
+          //console.log(doc[key].length)
+          for (var k in doc[key]){
+            lDEnlazada.add(doc[key][k])
+            
+          }
+      }
+    
+   }
+   console.log(lDEnlazada.print())
+
+  };
+
+  reader.readAsText(file);
+  
+}/////////////////////
+
+function downloadListaDobleEnlazada(filename, text) {
+    
+  lista = lDEnlazada.print()
+
+  var element = document.createElement('a');
+  let doc = JSON.stringify({ "categoria": categoria, 'nombre': nombre, 'repeticion':repeticion, 'animacion':animacion, 'valores': lista });
+  
+  //console.log(listSimple.print())
+  element.setAttribute('href', 'data:json,' + doc);
+  element.setAttribute('download', filename);
+
+  element.style.display = 'none';
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
+}
+
+
