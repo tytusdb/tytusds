@@ -1,3 +1,4 @@
+var fs = require('fs')
 class Nodo {
     constructor(valor) {
         this.id = null;
@@ -51,10 +52,10 @@ class ListaDoble {
                 else {
                     if (temporal.siguiente != null) {
                         if (temporal.siguiente.valor == elemento) {
-                            siguienteT = temporal.siguiente;
+                            let siguienteT = temporal.siguiente;
                             temporal.siguiente = siguienteT.siguiente;
                             temporal.siguiente.anterior = temporal;
-                            siguiente.siguiente = null;
+                            siguienteT.siguiente = null;
                             return;
 
                         }
@@ -104,6 +105,7 @@ class ListaDoble {
     }
 
     guardar(){
+        let contadorListas
         contadorListas ++;
         let archivojs;
         let temporal = this.primero;
@@ -121,5 +123,4 @@ class ListaDoble {
 
 }
 
-module.exports.ListaDoble = ListaDoble;
-module.exports.Nodo = Nodo;
+export default ListaDoble;
