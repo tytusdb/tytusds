@@ -71,10 +71,13 @@ class NodoListaSimpleCirular{
   print(){
     var valores = []
       let aux = this.head;
-      while (aux.sig != this.head) {
+
+      do {
           valores.push(aux.data);
           aux = aux.sig;
-      }
+      }while (aux.sig != this.head);
+      if(this.size!=1){
+      valores.push(aux.data);}
       return valores;
     }
 }

@@ -54,9 +54,9 @@ class ListaSimple{
         divFlecha.id="flecha"+(this.contId).toString()
         const selecFlecha = document.getElementById(divFlecha.id)
         newNodo.x= current.x + current.disBtn + (objeto.offsetHeight*0.93) + 20
-        if(this.hMax<objeto.offsetHeight){ this.hMax=objeto.offsetHeight}
+        if(this.hMax<objeto.offsetHeight){ this.hMax=objeto.offsetHeight}//Validando la altura máxima de un botón, para guardarlo para la siguiente fila
         
-        if(boton.offsetWidth-100>newNodo.x){
+        if(boton.offsetWidth-100>newNodo.x){//Validando que el ancho del área no se sobrepase, de lo contrario crea una nueva fila
             newNodo.y=current.y
         }//Definiendo el valor de y
         else{

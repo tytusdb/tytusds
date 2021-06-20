@@ -36,8 +36,4 @@ export class ListaDobleEnlazadaComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  getDelete(val:string){}
-  getSearch(val:string){}
-  getRefresh(val:string){}
 }
