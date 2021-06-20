@@ -4,6 +4,8 @@ import { Button, Header, Icon, Modal,Menu,Input } from 'semantic-ui-react'
 import Cola from '../estructuras/EstructurasLineales/Cola'
 import ColaPrioridad from '../estructuras/EstructurasLineales/ColaPrioridad'
 import ABB from '../estructuras/Estructuras_Arboreas/ABB'
+import Pila from '../estructuras/EstructurasLineales/Pila'
+import ListaCirD from '../estructuras/EstructurasLineales/ListaCirD'
 
 let propsG
 function onChange(e){
@@ -22,7 +24,7 @@ function structW(nombre,datos,edd){ // FUNCION PARA SABER QUE TIPO DE ESTRUCTURA
     switch(nombre){
         case "Pila" :
             if(edd == null){
-                edd = new Cola();
+                edd = new Pila();
             }
             edd.cargar(datos)
             break
@@ -31,6 +33,7 @@ function structW(nombre,datos,edd){ // FUNCION PARA SABER QUE TIPO DE ESTRUCTURA
                 edd = new Cola();
             }
             edd.cargar(datos)
+            edd.Imprimir()
             break
         case "Cola de prioridad":
             if(edd == null){
@@ -52,14 +55,18 @@ function structW(nombre,datos,edd){ // FUNCION PARA SABER QUE TIPO DE ESTRUCTURA
 
         case "Lista circular simplemente enlazada":
 
-            /* edd = new Cola();
+            /* if(edd == null){
+                edd = new ListaCirD();
+            }
             edd.cargar(datos) */
             break
 
         case "Lista circular doblemente enlazada":
 
-            edd = new Cola();
-            edd.cargar(datos) 
+            if(edd == null){
+                edd = new ListaCirD();
+            }
+            edd.cargar(datos)
             break
         case "Ordenamiento Selección":
 
