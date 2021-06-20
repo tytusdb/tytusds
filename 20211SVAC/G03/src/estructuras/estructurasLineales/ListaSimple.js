@@ -95,5 +95,29 @@ class ListaSimple{
     }
  
   
+    cargar(arreglo) {
+        
+        arreglo.array.forEach(elemento => {
+            this.agregar(elemento);
+        });
+        
+
+    }
+    guardar() {
+        
+        contadorListas ++;
+        let archivojs;
+        let temporal = this.primero;
+        while (temporal != null){
+            archivojs[temporal.id] = temporal.valor;
+            temporal = temporal.siguiente;
+            
+        }
+        let json = JSON.stringify(archivojs)
+        let nombre = "ListaSimple" + contadorListas;
+        fs.writeFile(nombre, json)
+        
+    }
+  
 }
 module.export = ListaSimple;
