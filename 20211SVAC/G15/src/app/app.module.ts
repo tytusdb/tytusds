@@ -12,7 +12,8 @@ import { ListaCircularSimpleComponent } from './components/lista-circular-simple
 import { OrdenamientosComponent } from './components/ordenamientos/ordenamientos.component';
 import { EstructuraslinealesComponent } from './components/estructuraslineales/estructuraslineales.component';
 import { BurbujaComponent } from './components/burbuja/burbuja.component';
-import { PilaComponent } from './components/pila/pila.component'
+import { PilaComponent } from './components/pila/pila.component';
+import { ListasimpleComponent } from './components/listasimple/listasimple.component'
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { PilaComponent } from './components/pila/pila.component'
     EstructuraslinealesComponent,
     BurbujaComponent,
     PilaComponent,
+    ListasimpleComponent,
   ],
   imports: [
     BrowserModule,
