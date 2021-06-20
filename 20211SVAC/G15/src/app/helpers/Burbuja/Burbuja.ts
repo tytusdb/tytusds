@@ -1,23 +1,41 @@
 export class Burbuja{
-
+     
+    private arregloBurbuja:any
     ordenamiento_burbuja(arregloEnviado) {
        
-       var arregloBurbuja = arregloEnviado.slice();
+       this.arregloBurbuja = arregloEnviado.slice();
    
-       for (var i = (arregloBurbuja.length - 1); i >= 0; i--) {
+       for (var i = (this.arregloBurbuja.length - 1); i >= 0; i--) {
            for (var j = 0; j < i; j++) {
-               if(arregloBurbuja[j]> arregloBurbuja[j+1]){
-                   var aux = arregloBurbuja[j];
-                   arregloBurbuja[j] = arregloBurbuja[j+1]
-                   arregloBurbuja[j+1] = aux;
+               if(this.arregloBurbuja[j]> this.arregloBurbuja[j+1]){
+                   var aux = this.arregloBurbuja[j];
+                   this.arregloBurbuja[j] = this.arregloBurbuja[j+1]
+                   this.arregloBurbuja[j+1] = aux;
                    
                }
            }
        }
        
-       console.log(arregloBurbuja)
-       return arregloBurbuja;
+       console.log(this.arregloBurbuja)
+       return this.arregloBurbuja;
    }
+
+   generarJSON() {
+    let data = {
+        categoria: "Estructura Lineal",
+        nombre: "ordenamiento",
+        valores: []
+    }
+    
+    for (let index = 0; index < this.arregloBurbuja.length; index++) {
+        data.valores.push(this.arregloBurbuja[index])
+        
+    }
+
+
+
+    return JSON.stringify(data)
+}
    
    
 }

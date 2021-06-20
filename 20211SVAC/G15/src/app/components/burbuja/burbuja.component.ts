@@ -83,6 +83,13 @@ export class BurbujaComponent implements OnInit {
 
 
   generarJSON(){
+    let data = this.burbuja.generarJSON()
+    var link = document.createElement("a");
+    link.download = "data.json";
+    var info = "text/json;charset=utf-8," + encodeURIComponent(data);
+    link.href = "data:" + info;
+    link.click();
+    link.remove()
   
   }
 
