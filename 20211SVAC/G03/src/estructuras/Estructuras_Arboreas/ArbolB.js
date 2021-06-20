@@ -362,4 +362,10 @@ class ArbolB{
             aux = aux.siguiente
         }
     }
+
+    //Metodo modificar
+    modificar(datelim, datins){
+        this.eliminar(datelim)
+        this.insertar(datins)
+    }
 }
