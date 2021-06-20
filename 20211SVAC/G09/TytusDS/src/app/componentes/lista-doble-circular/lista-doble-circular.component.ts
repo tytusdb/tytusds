@@ -8,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 export class ListaDobleCircularComponent implements OnInit {
 
   displayVal='';
-  getValue(val:string){
-    console.warn(val)
+  getValue(val:string,val2:string){
+    console.warn(val, val2)
     
+    
+  }
+
+  getValor(val:string){
+    console.warn(val)
     
   }
 
