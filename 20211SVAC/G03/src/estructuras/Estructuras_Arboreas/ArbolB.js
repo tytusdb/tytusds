@@ -202,4 +202,43 @@ class ArbolB{
         }
     }
 
+    //Metodo de busqueda
+    buscarArbol(dato){
+        if (this.raiz == null){
+            console.log("no existe arbol")
+            return 
+        }
+        this.buscando(this.raiz, dato) 
+    }
+
+    //Sub metodo de busqueda
+    buscando(rama, dato){
+        if (rama.raiz == null){
+            console.log("no hay nodos")
+            return 
+        }
+        let aux = rama.raiz
+        if(aux.izquierdo != null){
+            this.buscando(aux.izquierdo, dato)
+        }
+        if(aux.derecho!=null){
+            this.buscando(aux.derecho, dato)
+        }
+        if(aux.siguiente == null){
+            if(aux.dato == dato){
+                console.log("Dato encontrado" + dato)
+                return
+            }
+        }
+        while(aux!= null){
+            if(aux.dato == dato){
+                console.log("Dato encontrado" + dato)
+                return
+            }
+            aux = aux.siguiente
+            if(aux != null && aux.derecho!=null){
+                this.buscando(aux.derecho, dato)
+            }
+        }
+    }
 }
