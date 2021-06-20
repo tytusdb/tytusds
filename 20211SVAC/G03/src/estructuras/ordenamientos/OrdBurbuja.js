@@ -1,3 +1,4 @@
+var fs = require('fs')
 class Ordenamiento{
     constructor(){
         this.arreglo = null;
@@ -15,16 +16,18 @@ class Ordenamiento{
             }
         }
         this.arreglo = datos;
+        return datos
     }
 
     cargar(archivo){
-        let datos = json.parse[datos];
+        let datos = JSON.parse[datos];
         let arreglo = datos["valores"];
         this.ordenar(arreglo)
 
     }
 
     guardar(){
+        let contadorListas
         contadorListas ++;
         let archivojs;
         archivojs["Datos"] = this.arreglo;        
@@ -36,4 +39,4 @@ class Ordenamiento{
     }
 }
 
-module.exports.Ordenamiento = Ordenamiento;	
+export default Ordenamiento;

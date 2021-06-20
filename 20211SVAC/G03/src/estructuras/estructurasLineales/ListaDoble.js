@@ -73,7 +73,7 @@ class ListaDoble {
         else {
             let temporal = this.primero;
             while (temporal != null) {
-                if (temporal.id == id) {
+                if (temporal.valor == id) {
                     temporal.valor = valor;
                 }
                 temporal = temporal.siguiente;
@@ -135,6 +135,8 @@ class ListaDoble {
             temporal = temporal.siguiente;
             contador++;
         }
+
+        return arreglo
 
     }
 

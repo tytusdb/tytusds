@@ -65,7 +65,7 @@ class ListaSimple{
         else {
             let temporal = this.primero;
             while (temporal != null) {
-                if (temporal.id == id) {
+                if (temporal.valor == id) {
                     temporal.valor = valor;
                 }
                 temporal = temporal.siguiente;

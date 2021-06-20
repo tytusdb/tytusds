@@ -26,26 +26,22 @@ export default class Actualizar extends Component {
                 break
             case "Lista simplemente enlazada":
 
-                /* edd = new Cola();
-                edd.cargar(datos) */
+                edd.actualizar(datoAnterior,datoNuevo)
                 break
 
             case "Lista doblemente enlazada":
 
-                /* edd = new Cola();
-                edd.cargar(dato)  */
+                edd.actualizar(datoAnterior,datoNuevo)
                 break
 
             case "Lista circular simplemente enlazada":
 
-                /* edd = new Cola();
-                edd.cargar(datos) */
+                edd.actualizar(datoAnterior,datoNuevo)
                 break
 
             case "Lista circular doblemente enlazada":
 
-               /*  edd = new Cola();
-                edd.cargar(dato)  */
+                edd.actualizar(datoAnterior,datoNuevo)
                 break
             case "Arbol ABB":
                 edd.actualizar(datoAnterior,datoNuevo)

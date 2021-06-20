@@ -12,6 +12,9 @@ import ListaCirD from '../estructuras/EstructurasLineales/ListaCirD'
 import ListaCS from '../estructuras/EstructurasLineales/ListaCirS'
 
 
+import ListaSimple from '../estructuras/EstructurasLineales/ListaSimple'
+import ListaDoble from '../estructuras/EstructurasLineales/ListaDoble'
+
 export default class Agregar extends Component {
 
     state={
@@ -47,14 +50,18 @@ export default class Agregar extends Component {
                 break
             case "Lista simplemente enlazada":
     
-                /* edd = new Cola();
-                edd.cargar(datos) */
+                if(edd == null){
+                    edd = new ListaSimple();
+                }
+                edd.agregar(dato)
                 break
     
             case "Lista doblemente enlazada":
     
-                 /* edd = new Cola();
-                edd.cargar(dato)  */
+                if(edd == null){
+                    edd = new ListaDoble();
+                }
+                edd.agregar(dato)
                 break
     
             case "Lista circular simplemente enlazada":
