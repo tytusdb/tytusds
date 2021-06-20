@@ -37,6 +37,34 @@ class ListaSimple{
         }
 
     }
+
+    eliminar(elemento) {
+        if (this.primero == null) {
+            console.log("No hay nada en las lista")
+        }
+        else {
+            let temporal = this.primero;
+            while (temporal != null) {
+                if (temporal.valor == elemento) {
+                    temporal = temporal.siguiente;
+                }
+                else {
+                    if (temporal.siguiente != null) {
+                        if (temporal.siguiente.valor == elemento) {
+                            siguienteT = temporal.siguiente;
+                            temporal.siguiente = siguienteT      .siguiente;
+                            siguiente.siguiente = null;
+                            return;
+                        }
+                    }
+                }
+                temporal = temporal.siguiente;
+            }
+        }
+    }
+
+
+
  
   
 }
