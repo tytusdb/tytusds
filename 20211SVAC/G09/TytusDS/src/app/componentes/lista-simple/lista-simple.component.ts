@@ -5,7 +5,7 @@ declare var lsimpleCargar:any;
 declare var lsimpleRefresh:any;
 @Component({
   selector: 'app-lista-simple',
-  templateUrl: './lista-simple.component.html',
+  templateUrl:'./lista-simple.component.html',
   styleUrls: ['./lista-simple.component.css']
 })
 export class ListaSimpleComponent implements OnInit {
