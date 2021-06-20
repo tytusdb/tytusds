@@ -368,4 +368,16 @@ class ArbolB{
         this.eliminar(datelim)
         this.insertar(datins)
     }
+
+    //Metodo Cargar
+    cargar(arreglo) {
+        arreglo.array.forEach(elemento => {
+            this.insertar(elemento);
+        })
+    }
+    
 }
+
+
+
+
