@@ -404,4 +404,30 @@ class ABB{
             this.insertar(elemento);
         })
     }
+
+    //Metodo Guardar
+    guardando(){
+        if(this.raiz==null){
+            console.log("no existe arbol")
+            return
+        }
+        let temporal = this.raiz;
+        this.guardar(temporal)
+    }
+
+    guardar(nodo) {
+        let archivojs = [];
+        archivojs.push(nodo.dato);
+        if(nodo.izquierda!=null){
+            this.guardar(nodo.izquierda)
+        }
+        if(nodo.derecha!=null){
+            this.guardar(nodo.derecha)
+        }
+        let json = JSON.stringify(archivojs)
+        let nombre = "ArbolBinarioBusqueda";
+        fs.writeFile(nombre, json) 
+    }
 }
+
+
