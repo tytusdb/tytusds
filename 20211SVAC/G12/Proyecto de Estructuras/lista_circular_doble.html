@@ -9,15 +9,15 @@
 </head>
 <body>
     <header class="header">
-        <center><h1>Cola</h1></center>
+        <center><h1>Lista Circular Doble Enlazada</h1></center>
         <input type="file" id="Archivo">
         Repetidos<input type="checkbox" id="checkbox"/>
     </header>
     <form><center>
         <input type="text" id="dato_pag" placeholder="Dato" required/>
-        <input type="button" onClick="insertar_nodo()" value="Add" />
-        <input type="button" onClick="eliminar_nodo()" value="Remove" />
+        <input type="button" onClick="insertar_nodo()" value="Insertar" />
         <input type="button" onClick="buscar()" value="Buscar" />
+        <input type="button" onClick="eliminar_nodo()" value="Eliminar" />
         <input type="button" onClick="actualizar_nodo()" value="Actualizar" />
         <input type="text" id="dato_viejo" placeholder="Dato Antiguo" required/>
         <input type="text" id="dato_nuevo" placeholder="Dato Nuevo" required/>
@@ -26,7 +26,7 @@
     </center>
     <br>
     </form>
-    <section class = "lista" id="lista"></section>
-    <script type="text/javascript" src="cola.js"></script>   
+    <section class = "lista_circular" id="lista_circular"></section>
+    <script type="text/javascript" src="lista_circular_doble.js"></script>
 </body>
 </html>
