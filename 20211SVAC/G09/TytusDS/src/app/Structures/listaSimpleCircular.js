@@ -84,7 +84,7 @@ class NodoListaSimpleCirular{
   
 const lSCircular = new ListaSimpleCirular();
 
-function lsimplecircleAdd(date){
+function lsimpleCircleAdd(date){
   lSCircular.add(date);
   console.log(lSCircular.print()) 
 }
@@ -98,6 +98,7 @@ function lsimpleCircleRefresh(date1,date2){
   //console.log(linkedList) 
 }
 function lsimpleCircleSearch(date){
+  console.log(lSCircular.search(date))
   return lSCircular.search(date); 
 }
 function lsimpleCrircleCargar(date){
