@@ -22,8 +22,8 @@ import { ListaDobleCircularComponent } from './componentes/lista-doble-circular/
   declarations: [
     AppComponent,
     //InicioComponent,
-    ObjToArrayPipe,
     InicioComponent,
+    ObjToArrayPipe,
     EstructurasLinealesComponent,
     OrdenamientosComponent,
     ArbolesComponent,
