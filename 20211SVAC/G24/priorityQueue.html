@@ -60,22 +60,18 @@
 								'text-halign':'center',
 								'shape':'rectangle',
 								'border-width':'1',
+								'width':'label'
 							}
 						},
 						{
 							selector: 'edge',
 							style: {
 								'width': 3,
-								'target-arrow-shape': 'triangle',
 								'curve-style': 'bezier'
 							}	
 						}
 					]
 				});
-			
-			const canvas = document.createElement('canvas');
-			const ctx = canvas.getContext('2d');
-			ctx.font= '20px serif';
 				
 			document.getElementById('nBtn').onclick = function(){
 				var input =parseInt(document.getElementById('nText').value);
@@ -86,11 +82,11 @@
 				var nd = ls.front;
 				while (nd!=null){
 					if (nd.pos==0){
-						cy.add({data:{id:nd.pos,name:nd.data+'|'+nd.priority}}).style({width:ctx.measureText(nd.data+'|'+nd.priority).width});
+						cy.add({data:{id:nd.pos,name:nd.data+'|'+nd.priority}})
 					}else{
 						var n1=nd.pos-1;
 						var n2=nd.pos;
-						cy.add({data:{id:n2,name:nd.data+'|'+nd.priority}}).style({width:ctx.measureText(nd.data+'|'+nd.priority).width});
+						cy.add({data:{id:n2,name:nd.data+'|'+nd.priority}});
 						cy.add({data:{source:n1,target:n2}});
 					}
 					nd=nd.prev;
@@ -132,8 +128,8 @@
 			document.getElementById('uBtn').onclick=function(){
 				var input = document.getElementById('nText').value;
 				var pos=cy.$(':selected').data('id');
-				var nd = ls.update(pos,input);
-				cy.$(':selected').data('name',input + '|' + nd.priority ).style({width:ctx.measureText(input + '|' + nd.priority).width});
+				ls.update(pos,input);
+				cy.$(':selected').data('name',input);
 			}
 
 			const timer = ms => new Promise(res => setTimeout(res, ms));

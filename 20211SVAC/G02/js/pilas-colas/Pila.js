@@ -6,164 +6,90 @@ var network = null;
 var clickedNode;
 var clickedNodoValue;
 var fileInput = document.querySelector('input[type="file"]');
-var switchToggle = document.getElementById("flexSwitchCheckDefault")
 
-class Nodo {
-    constructor(dato) {
-        this.dato = dato;
-        this.siguiente = null;
-    }
-}
 
 class Pila {
+    elementos = [];
     constructor() {
-        this.primero = null;
         this.tamanio = 0;
     }
 
     Apilar(dato) {
-        const nodo = new Nodo(dato);
-        if (switchToggle.checked === false) {
-            if (!this.IsVacia()) {
-                if (!this.buscarrepetido(dato))
-                {
-                    nodo.siguiente = this.primero;
-                    this.primero = nodo;
-                    this.tamanio++;
-                }
-            } else {
-                this.primero = nodo;
-                this.tamanio++;
-            }
-        }else {
-            if (!this.IsVacia()) {
-                nodo.siguiente = this.primero;
-                this.primero = nodo;
-                this.tamanio++;
-            } else {
-                this.primero = nodo;
-                this.tamanio++;
-            }
-        }
-    }
-
-    ApilarJson(dato) {
-        const nodo = new Nodo(dato);
-        if (!this.IsVacia()) {
-            nodo.siguiente = this.primero;
-            this.primero = nodo;
+        if (this.tamanio > 0 )
+        {
+            this.elementos.push(dato);
             this.tamanio++;
-        } else {
-            this.primero = nodo;
+        }else{
+            this.elementos.push(dato);
             this.tamanio++;
         }
     }
 
     //recorrido y llenado de nodos
     mostrar(){
-        let i = 0;
-        if (!this.IsVacia())
+        if (this.elementos.length > 0 )
         {
-            var actual = this.primero;
-            while (actual) {
+            for (let i = 0; i < this.elementos.length; i++) {
                 if (i != 0)
                 {
-                    arrayNodes.push({id: i, label: actual.dato, shape: "box"});
+                    arrayNodes.push({id: i, label: this.elementos[i], shape: "box"});
                     edges.push({from: i - 1, to: i})
-                    i++;
                 }else{
-                    arrayNodes.push({id:i, label: actual.dato, shape: "box"});
-                    i++;
+                    arrayNodes.push({id:i, label: this.elementos[i], shape: "box"});
                 }
-                actual = actual.siguiente;
             }
+        }else{
+            console.log('No hay datos en pila')
         }
     }
 
     Desapilar() {
-        if(!this.IsVacia())
-        {
-            var actual = this.primero.dato;
-            this.primero = this.primero.siguiente;
-            this.tamanio--;
-        }else{
-            alert('No hay datos para eliminar');
-        }
+        return this.elementos.pop()
     }
 
     buscar(dato){
-        var actual = this.primero;
-        var encontrado = false;
-        if (!this.IsVacia())
+        if (this.elementos.length > 0)
         {
-            while (actual) {
-                if (actual.dato === dato) {
-                    encontrado = true;
-                    return true
-                }
-                actual = actual.siguiente;
-            }
-            if (encontrado === false){
-                alert('No se encontro el dato buscado');
-            }
-        }else{
-            alert("No hay datos en la Pila");
-        }
-    }
-
-    buscarrepetido(dato){
-        var actual = this.primero;
-        var encontrado = false;
-        if (!this.IsVacia())
-        {
-            while (actual) {
-                if (actual.dato === dato) {
-                    encontrado = true;
-                    return true
-                }
-                actual = actual.siguiente;
-            }
-            if (encontrado === false){
+            if (this.elementos[this.buscarNodoId(dato)] === dato)
+            {
+                return true
+            }else
+            {
+                alert('Dato no se encuentra en Pila');
                 return false;
             }
         }else{
-            alert("No hay datos en la Pila");
+            alert("No hay datos en la Pila")
         }
     }
 
     buscarNodoId(dato) {
-        var i = 0;
         var encontrado = false;
-        var actual = this.primero;
-        if (!this.IsVacia()) {
-            while (actual) {
-                if (dato == actual.dato) {
+        if (this.elementos.length > 0) {
+            for (let i = 0; i < this.elementos.length; i++) {
+                if (this.elementos[i] === dato) {
                     encontrado = true;
                     return i;
                 }
-                i++;
-                actual = actual.siguiente;
             }
             if (encontrado === false) {
                 alert('No se encontro el Nodo');
                 return false;
             }
         } else {
-            alert("No hay datos en la Pila");
+            alert("No hay datos en la Pila")
 
         }
     }
 
     remplazar(datoV, datoN){
-        var actual = this.primero;
-        while (actual)
+        for (let i = 0; i < this.elementos.length; i++)
         {
-            if (actual.dato === datoV)
+            if (datoV === this.elementos[i])
             {
-                actual.dato = datoN;
+                this.elementos[i] = datoN;
                 break;
             }
-            actual = actual.siguiente;
         }
     }
 
@@ -175,7 +101,11 @@ class Pila {
     }
 
     IsVacia() {
-        return this.primero == null;
+        return this.elementos.length === 0;
+    }
+
+    vacia() {
+        return this.elementos = [];
     }
 }
 
@@ -194,7 +124,7 @@ function actualizarT() {
         physics: false,
         layout: {
             hierarchical: {
-                direction: 'UD',
+                direction: 'DU',
                 levelSeparation: 25
 
             }
@@ -273,7 +203,7 @@ function BuscarNodo() {
 function insertarNodos(array) {
     let temp = array;
     for (let i = 0; i < temp.length; i++) {
-        pila.ApilarJson(temp[i].toString());
+        pila.Apilar(temp[i]);
     }
     actualizarT();
 }
@@ -283,7 +213,7 @@ function readFile(callback) {
     arrayNodes = [];
     edges = [];
     carga = [];
-    pila = new Pila();
+    pila.vacia();
 
     var file = fileInput.files.item(0);
     var reader = new FileReader();
@@ -300,11 +230,10 @@ function readFile(callback) {
                 {
                     if (carga.includes(val[i]) === false)
                     {
-                        carga.push(val[i]);
+                        carga.push(val[i].toString());
                     }
                 }
                 insertarNodos(carga);
-                console.log('No tiene que entrar repetidos', carga.length);
                 break;
 
             case true:
@@ -313,7 +242,6 @@ function readFile(callback) {
                     carga.push(val[i].toString());
                 }
                 insertarNodos(carga);
-                console.log('tiene que entrar repetidos', carga.length);
                 break;
             default:
                 console.log('Falta indicador de repitencia')

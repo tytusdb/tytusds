@@ -38,12 +38,10 @@ class ListaCircularSimple {
                     console.log(aux.dato)
                     console.log("ENCONTRADO")
                     aux = aux.siguiente;
-                    return true
                 } else {
                     aux = aux.siguiente;
                 }
             } while (aux != this.ultimo.siguiente)
-            return false
         }
     }
 
@@ -56,7 +54,6 @@ class ListaCircularSimple {
                 if (aux.dato == datoB) {
                     aux.dato = valor;
                     console.log("DATO ACTUALIZADO")
-                    return true
                 } else {
                     aux = aux.siguiente;
                 }
@@ -80,29 +77,29 @@ class ListaCircularSimple {
                     this.primero = aux
                     this.ultimo = aux
                     this.ultimo.siguiente = this.primero
-                    return "op1"
+                    return
                 } else { //si hay mas de 2
                     aux = aux.siguiente
                     this.primero = aux
                     this.ultimo.siguiente = aux
-                    return "op2"
+                    return
                 }
             }
             do {
                 if (aux != this.ultimo) {
                     if (aux.siguiente.dato == datoB && aux.siguiente.siguiente == this.ultimo) { //penultimo dato
                         aux.siguiente = this.ultimo
-                        return "op5"
+                        return;
                     } else if (aux.siguiente == this.ultimo) { //ultimo dato
                         if (aux.siguiente.dato == datoB) {
                             aux.siguiente = this.primero
                             this.ultimo = aux
-                            return "op3"
+                            return
                         }
                     } else if (aux.siguiente.dato == datoB) { //en medio
                         //console.log("entre")
                         aux.siguiente = aux.siguiente.siguiente
-                        return "op4"
+                        return
                     }
                 }
                 aux = aux.siguiente
@@ -126,3 +123,16 @@ class ListaCircularSimple {
         return res
     }
 }
+
+
+function lol() {
+    var no = new ListaCircularSimple();
+    const text = '{"tipo":"burbuja", "valore":[6,8,9]}';
+    const obj = JSON.parse(text)
+    for (let i = 0; i < obj.valores.length; i++) {
+        no.agregar(obj.valores[i]);
+    }
+    no.mostrar();
+}
+
+lol();

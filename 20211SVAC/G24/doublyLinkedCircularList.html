@@ -55,31 +55,27 @@
 							css:{
 								'content':'data(name)',
 								'text-valign':'center',
-								'text-halign':'center',
-								'shape':'rectangle',
-								'border-width':'1',
+								'text-halign':'center'
 							}
 						},
 						{
 							selector: 'edge',
 							style: {
 								'width': 3,
+								'line-color': '#ccc',
+								'target-arrow-color': '#ccc',
 								'target-arrow-shape': 'triangle',
 								'curve-style': 'bezier'
 							}	
 						}
 					]
 				});
-			
-			const canvas = document.createElement('canvas');
-			const ctx = canvas.getContext('2d');
-			ctx.font= '20px serif';
 				
 			document.getElementById('nBtn').onclick = function(){
 				var input = document.getElementById('nText').value;
 				var spd = document.getElementById('speed').value;
 				if (ls.head==null){
-					cy.add([{data:{id:ls.size,name:input}}]).style({width:ctx.measureText(input).width});
+					cy.add([{data:{id:ls.size,name:input}}]);
 					cy.add({data:{source:0,target:0,id:'loop'}});
 					cy.add({data:{source:0,target:0,id:'loop2'}});
 				}else{
@@ -89,7 +85,7 @@
 					var r2=cy.filter('#loop2')
 					cy.remove(r);
 					cy.remove(r2);
-					cy.add({data:{id:ls.size,name:input}}).style({width:ctx.measureText(input).width});
+					cy.add({data:{id:ls.size,name:input}});
 					cy.add({data:{source:n1,target:n2}});
 					cy.add({data:{source:n2,target:n1}});
 					cy.add({data:{source:n2,target:0,id:'loop'}});

@@ -73,20 +73,16 @@
 						}
 					]
 				});
-
-			const canvas = document.createElement('canvas');
-			const ctx = canvas.getContext('2d');
-			ctx.font= '20px serif';
 				
 			document.getElementById('nBtn').onclick = function(){
 				var input = document.getElementById('nText').value;
 				var spd = document.getElementById('speed').value;
 				if (ls.top==null){
-					cy.add([{data:{id:ls.size,name:input}}]).style({width:ctx.measureText(input).width});;
+					cy.add([{data:{id:ls.size,name:input}}]);
 				}else{
 					var n1=ls.size - 1;
 					var n2=ls.size;
-					cy.add({data:{id:ls.size,name:input}}).style({width:ctx.measureText(input).width});;
+					cy.add({data:{id:ls.size,name:input}});
 					cy.add({data:{source:n2,target:n1}});
 				}
 				ls.push(input)
@@ -139,7 +135,7 @@
 				var input = document.getElementById('nText').value;
 				var pos=cy.$(':selected').data('id');
 				ls.update(pos,input);
-				cy.$(':selected').data('name',input).style({width:ctx.measureText(input).width});;
+				cy.$(':selected').data('name',input);
 			}
 
 		</script>

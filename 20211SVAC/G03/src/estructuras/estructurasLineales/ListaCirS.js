@@ -1,7 +1,7 @@
 //Forma de insercion: Desordenada
 //Eliminacion Unica de primer dato encontrado
 //Busqueda de primer metodo encontrado
-export default ListaCS;
+
 class Nodo{ //Clase Nodo
     //Constructor
     constructor(dato){
@@ -112,20 +112,4 @@ class ListaCS{ //Clase Lista Circular Simple
             this.insert(elemento)
         })
     }
-
-    //Metodo Guardar
-    guardar() {
-        let archivojs = [];
-        let temporal = this.cabeza;
-        archivojs.push(temporal.dato)
-        temporal = temporal.siguiente
-        while (temporal != this.cabeza && temporal != null){
-            archivojs.push(temporal.dato)
-            temporal = temporal.siguiente
-        }
-        let json = JSON.stringify(archivojs)
-        let nombre = "ListaCircularSimple"
-        fs.writeFile(nombre, json)  
-    }
 }
-

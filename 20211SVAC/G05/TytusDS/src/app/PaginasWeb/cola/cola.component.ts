@@ -12,10 +12,6 @@ let vis=require('../../../../vis-4.21.0/dist/vis');
 })
 export class ColaComponent implements OnInit {
   lista=Lista;
-  ag = '';
-  ag1 = '';
-  ag2 = '';
-  ag3 = '';
   opciones = {
     ingreso: 'final',
     velocidadLineales: 1000,
@@ -28,7 +24,6 @@ export class ColaComponent implements OnInit {
 
   constructor(private documentoService: DocumentoService)  {
   this.lista=new Lista();
-  
   }
 
   ngOnInit(): void {
@@ -61,14 +56,14 @@ export class ColaComponent implements OnInit {
   guardar(): void {
     const contenido: any = {
       categoria: "Estructura Lineal",
-      nombre: "Cola",
+      nombre: "Pila",
       repeticion:true,
       animacion:10,
       valores: []
     };
     contenido.valores=contenido.valores.concat(this.lista.leer());
     let blob = new Blob([JSON.stringify(contenido)], {type: 'json;charset=utf-8'});
-    saveAs(blob, 'Cola.json');
+    saveAs(blob, 'pila.json');
   }
 
 
@@ -76,14 +71,10 @@ export class ColaComponent implements OnInit {
     if(this.opciones['repeticionLineales']===true){
       //this.lista.repeat=true;
       this.lista.insertar(valor);
-      this.ag = '';
-      return;
     }
     else{
       //this.lista.repeat=false;
       this.lista.insertar(valor);
-      this.ag = '';
-      return;
       console.log("gg");
     }
     
@@ -100,9 +91,11 @@ export class ColaComponent implements OnInit {
   //
 
   bus(valor){
-     this.lista.buscar(valor);
-    this.ag3 = '';
-      return;
+    let bus= this.lista.buscar(valor);
+    if (bus!==null){
+    }else{
+      alert("Dicho nodo no ha sido ingresado")
+    }
 
   }
 
@@ -110,19 +103,12 @@ export class ColaComponent implements OnInit {
     if(this.opciones['repeticionLineales']===true){
       //this.lista.repeat=true;
       this.lista.modificar(valor,valor1);
-      this.lista.pintar();
-      this.ag1 = '';
-      this.ag2 = '';
-      return;
-      
+      //this.lista.pintar();
     }
     else{
       //this.lista.repeat=false;
       this.lista.modificar2(valor,valor1);
-      this.lista.pintar();
-      this.ag1 = '';
-      this.ag2 = '';
-      return;
+      //this.lista.pintar();
     }
 
   }
@@ -130,4 +116,7 @@ export class ColaComponent implements OnInit {
   actualizar(){
     this.lista.pintar();
   }
+
+
+
 }
