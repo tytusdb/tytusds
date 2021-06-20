@@ -95,7 +95,7 @@ function lsimpleCircleDelete(date){
 }
 function lsimpleCircleRefresh(date1,date2){
   lSCircular.refresh(date1,date2);
-  //console.log(linkedList) 
+  console.log(lSCircular.print()) 
 }
 function lsimpleCircleSearch(date){
   console.log(lSCircular.search(date))

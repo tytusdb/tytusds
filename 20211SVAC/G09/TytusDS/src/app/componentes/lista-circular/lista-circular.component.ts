@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 declare var lsimpleCircleAdd:any;
 declare var lsimpleCircleDelete:any;
 declare var lsimpleCircleSearch:any;
+declare var lsimpleCircleRefresh:any;
 
 @Component({
   selector: 'app-lista-circular',
@@ -23,6 +24,9 @@ export class ListaCircularComponent implements OnInit {
   }
   getValueSearch(val:string){
     lsimpleCircleSearch(val)
+  }
+  getValueActualizarCirCularSimple(val1:string,val2:string){
+    lsimpleCircleRefresh(val1,val2)
   }
   constructor() { }
 
