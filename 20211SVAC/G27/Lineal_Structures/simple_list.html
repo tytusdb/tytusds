@@ -28,17 +28,29 @@
                 Estructuras Lineales
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="simple_list.html" id="Lista_Simple">Lista Simple Enlazada<span class="sr-only">(current)</span></a>
-                <a class="dropdown-item" href="double_list.html" id="Lista_Doble">Lista Doble Enlazada<span class="sr-only">(current)</span></a>
+                <a class="dropdown-item" href="../Lineal_Structures/simple_list.html" id="Lista_Simple">Lista Simple Enlazada<span class="sr-only">(current)</span></a>
+                <a class="dropdown-item" href="../Lineal_Structures/double_list.html" id="Lista_Doble">Lista Doble Enlazada<span class="sr-only">(current)</span></a>
               </div>
             </li>                                           
-            <li class="nav-item">
+            <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Estructuras No Lineales
-                  </a>
+                  Estructuras No Lineales
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="#">Action</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </div>
             </li>
-
-
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Ordenamientos
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="../ordenamientos/bubleSort.html" id="Lista_Simple">Ordenamiento Burbuja<span class="sr-only">(current)</span></a>
+                  <a class="dropdown-item" href="../ordenamientos/insertionSort.html" id="Lista_Doble">Ordenamiento Insercion<span class="sr-only">(current)</span></a>
+                </div>
+            </li>
           </ul>
         </div>
       </nav>
@@ -51,9 +63,9 @@
             </div>
             <body>
                 <div id="contenidoventanas">
-					<button onclick="sacarInicio();" title="sacar" id="btn4" class="btn btn-primary">Sacar Inicio</button>
 					<button onclick="agregarValor();" title="insertar" id="btn4" class="btn btn-primary">Agregar</button>
 					<button onclick="eliminarValor();" title="eliminar" id="btn4" class="btn btn-primary">Eliminar</button>
+          <button onclick="encontrar();" title="sacar" id="btn4" class="btn btn-primary">Buscar</button>
 					<input id="fileInput" title="Abrir" type="file" size="50" onchange="AbrirArchivo(this.files)" class="btnp">
 				</div>
 				<div>

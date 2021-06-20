@@ -34,10 +34,12 @@ class ListaDoble {
                     console.log(aux.dato)
                     console.log("ENCONTRADO")
                     aux = aux.siguiente;
+                    return true
                 } else {
                     aux = aux.siguiente;
                 }
             }
+            return false
         }
     }
 
@@ -50,6 +52,7 @@ class ListaDoble {
                 if (aux.dato == datoB) {
                     aux.dato = valor;
                     console.log("DATO ACTUALIZADO")
+                    return true
                 } else {
                     aux = aux.siguiente;
                 }

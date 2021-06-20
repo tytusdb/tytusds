@@ -102,6 +102,16 @@ const cambiar = document.getElementById('cambiar')
 const buscar = document.getElementById('buscar')
 const ver = document.getElementById('mostrar')
 
+const guardar = document.getElementById('guardar')
+const cargar = document.getElementById('cargar')
+
+const velocidad = document.getElementById("velocidad")
+let num_velocidad;
+
+velocidad.oninput = () => {
+    document.getElementById('numero').innerHTML = velocidad.value
+    num_velocidad = velocidad.value
+}
 
 const salida ={
     operasion: 'Lista enlazada simple',
@@ -148,9 +158,43 @@ cambiar.addEventListener("click", (e) => {
     document.getElementById('oculto').style.display = 'none'
 })
 
+let archivo = document.getElementById('file')
+let entrada;
 
-ver.addEventListener("click", (e) => {
-    e.preventDefault()
-    lista.mostrar()
-    console.log(salida)
+archivo.addEventListener('change', () => {
+    let leer = new FileReader()
+    leer.readAsText(archivo.files[0])
+    leer.onload = function() {
+    entrada = JSON.parse(leer.result)
+    }
+    document.getElementById('mensaje').innerText = 'Se cargo el archivo con exito'
 })
+
+cargar.addEventListener("click", (e) => {
+    e.preventDefault()
+    let valores = entrada["valores"]
+    salida.lista = valores
+    console.log(valores)
+    for (let i = 0; i < valores.length; i++) {
+        lista.agregar(valores[i])
+    }
+    document.getElementById('mensaje').innerText = ''
+    archivo.setAttribute('disabled', '')
+})
+
+guardar.addEventListener("click", (e) => {
+    e.preventDefault()
+})
+
+function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+  
+    element.style.display = 'none';
+    document.body.appendChild(element);
+  
+    element.click();
+  
+    document.body.removeChild(element);
+  }

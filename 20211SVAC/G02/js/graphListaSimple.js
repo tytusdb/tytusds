@@ -201,25 +201,28 @@ function read(){
         let val = obj.valores
         repetido = obj.repeticion
         slider.value = obj.animacion
+        let contador =0
         switch(repetido){
             case true:
                 switchToggle.checked = true
-                
                 for(let i=0; i<val.length; i++){
+                    contador = contador + 0.5
                     setTimeout(function (params) {
                         listSimple.insertaFinal(val[i].toString())
                         actualizarTablero()
-                    },(1000)*slider.value)
+                    },(1000)*Math.round(parseInt(slider.value)/2)*contador)
                     
                 }
                 break;
             case false:
                 switchToggle.checked = false
+                
                 for(let i=0; i<val.length; i++){
+                    contador = contador + 0.5
                     setTimeout(function (params) {
                         listSimple.insertaFinal(val[i].toString())
                         actualizarTablero()
-                    },(1000)*slider.value)
+                    },(1000)*Math.round(parseInt(slider.value)/2)*contador)
                 }
                 break
             default:
