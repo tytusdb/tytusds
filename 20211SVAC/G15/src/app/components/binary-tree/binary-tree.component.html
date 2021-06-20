@@ -1,7 +1,55 @@
 <body>
     <div class="container mt-5">
-        <input type="number" value="" id="numero" name="numero" [(ngModel)]="numero">
-        <button type="button" (click)="add()"> Agregar</button>
+        <div class="row opciones p-2">
+
+            <div class="col-lg-3 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <input type="number" class="form-control" value="" id="numero" name="numero" [(ngModel)]="numero"
+                        placeholder="Ingresa un Numero">
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary " type="button" (click)="add()">Guardar</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-3 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <input type="number" class="form-control" value="" id="numero" name="numero" [(ngModel)]="numeroBuscar"
+                        placeholder="Ingresa un Numero">
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary " type="button" (click)="search()">Buscar</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-3 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <input type="number" class="form-control" id="numero" name="numero" [(ngModel)]="numeroViejo"
+                        placeholder="Antiguo">
+                    <input type="number" class="form-control" id="numero" name="numero" [(ngModel)]="numeroNuevo"
+                        placeholder="Nuevo">
+                    <div class="input-group-append">
+                        <button class="btn btn-warning" type="button" (click)="update()">Actualizar</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-3 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <input type="number" class="form-control" value="" id="numero" name="numero" [(ngModel)]="numeroEliminar"
+                        placeholder="Ingresa un Numero">
+                    <div class="input-group-append">
+                        <button class="btn btn-warning " type="button" (click)="delete()">Eliminar</button>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
     </div>
 
     <div class="container mt-5 contenedorTree" id="contenedorTree">

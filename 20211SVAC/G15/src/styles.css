@@ -17,8 +17,8 @@
 
 #tree .node-container .nodo {
   border: 1px solid black;
-  width: 48px;
-  height: 48px;
+  width: 50px;
+  height: 50px;
   display: flex;
   align-items: center;
   border-radius: 50%;

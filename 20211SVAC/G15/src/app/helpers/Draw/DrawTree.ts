@@ -59,19 +59,18 @@ export class DrawTree {
      */
     async addNode(node, position, previousId, contenedor, duracion, raiz) {
         this.createNode(node, contenedor);
-        let padre = document.getElementById('contenedorTree').getBoundingClientRect()
-        if (node.getId() === 0) {
+        if (node === raiz) {
             
             let position: any = document.getElementById('node-' + node.getId()).getBoundingClientRect();
-            document.getElementById('node-0').style.left = (padre.width / 2) - (position.width / 2) + 'px';
+            document.getElementById('node-' + node.getId()).style.left = (window.screen.width / 2) - (position.width / 2) + 'px';
         }
         else {
             let previous = document.getElementById('node-' + previousId).getBoundingClientRect()
             let temp = document.getElementById('node-' + node.getId())
-            temp.style.top = (previous.y + 112) + 'px';
+            temp.style.top = (previous.y + 25) + 'px';
 
-            if (position === "right") temp.style.left = (previous.x + 112) + 'px'
-            else if (position === "left") temp.style.left = (previous.x - 112) + 'px'
+            if (position === "right") temp.style.left = (previous.x + 25) + 'px'
+            else if (position === "left") temp.style.left = (previous.x - 25) + 'px'
 
             this.ajustarNodos(raiz)
             this.crearLinea('node-' + node.getId(), 'node-' + previousId, contenedor)
