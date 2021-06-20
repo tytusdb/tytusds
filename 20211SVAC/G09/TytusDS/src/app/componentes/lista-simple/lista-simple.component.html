@@ -19,22 +19,6 @@
   color: #fff !important;
 }
 
-
-.boton-personalizado2 {
-text-decoration:none;
-font-weight: 600;
-font-size: 15px;
-color:#333333;
-padding-top:8px;
-padding-bottom:8px;
-padding-left:20px;
-padding-right:20px;
-background-color:#f2595e;
-border-color: #F69DA1;
-border-width: 3px;
-border-style: solid;
-border-radius:35px;
-}
 </style>
 </head>
 
@@ -43,17 +27,24 @@ border-radius:35px;
 <em class="fas fa-list"></em>
 Lista Simplemente Enlazada
 </button>
-<input type="text" #box placeholder="Ingrese Datos" name="username"/> 
-<button class="boton" (click)="getValue(box.value)" >Push</button> &nbsp; &nbsp;
+<br>
+<input type="text" #box placeholder="Ingrese Datos" name="Ingrese Datos"/> 
+<button class="boton" (click)="getValue(box.value)" type="submit" >Push</button> &nbsp; &nbsp;
 
 <input type="text" #box1 placeholder="Eliminar Datos" name="username"/> 
-<button (click)="getDelete(box1.value)" >Eliminar</button>&nbsp; &nbsp;
-<input type="text" #box2 placeholder="Nuevo Dato" name="username"/> 
-<input type="text" #box21 placeholder="Dato a Reemplazar" name="username"/> 
-<button (click)="getRefresh(box21.value,box2.value)" >Actualizar</button>
-<!--<p>La lista es: {{displayVal}}</p>!-->
+<button class="boton" (click)="getDelete(box1.value)" >Eliminar</button>&nbsp; &nbsp;&nbsp;
 <input type="text" #box3 placeholder="Buscar Datos" name="username"/> 
-<button (click)="getSearch(box3.value)" >Buscar</button>&nbsp; &nbsp;
+<button class="boton" (click)="getSearch(box3.value)" >Buscar</button>&nbsp; &nbsp;
+<br>
+<br>
+&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="text" #box2 placeholder="Nuevo Dato" name="username"/> &nbsp;
+<input type="text" #box21 placeholder="Dato a Reemplazar" name="username"/> 
+<button class="boton" (click)="getRefresh(box21.value,box2.value)" >Actualizar</button>&nbsp;&nbsp;&nbsp;
+<!--<p>La lista es: {{displayVal}}</p>!-->
+
 <br>
 <br>
 <button class="btn btn-primary btn-block text-white" type="submit" onclick="download('ListaSimple.js','hola')">Guardar Arreglo</button>
