@@ -61,6 +61,9 @@ export class PilaComponent implements OnInit {
       data = data.valores
       for (let i = 0; i < data.length; i++) {
         await this.push(data[i])
+        if (!isNaN(data[i])) {
+          console.log("es numero")
+        }
       }
 
 
@@ -77,6 +80,29 @@ export class PilaComponent implements OnInit {
 
       reader.readAsText(file);
     })
+  }
+
+  async buscar() {
+    let busqueda = await this.pila.searchAnimation(this.datoBuscar, `${this.velocidad}s`)
+    if (busqueda === null) {
+      Swal.fire({
+        target: document.getElementById('form-modal'),
+        icon: 'error',
+        title: 'Oops...',
+        text: `El dato ${this.datoBuscar} no existe en la pila`
+      })
+      this.datoBuscar = ""
+      return;
+    }
+    Swal.fire({
+      target: document.getElementById('form-modal'),
+      icon: 'success',
+      title: ':)',
+      text: `Se econtro el dato ${this.datoBuscar} en la posicion ${busqueda.index}`
+    })
+    this.datoBuscar = ""
+    return;
+
   }
 
 }

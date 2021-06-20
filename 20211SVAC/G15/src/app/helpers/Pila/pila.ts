@@ -18,7 +18,7 @@ export class pila {
         if (this.primero == null) {
             this.primero = temp
            // this.ultimo = temp
-
+            
             let div: any = this.draw.crearNodo(dato, this.id)
             dibujo.appendChild(div)
             this.id++
@@ -56,14 +56,24 @@ export class pila {
     }
 
     async searchAnimation(dato, duration) {
+        console.log(this.primero)
         let temp = this.primero
         let i = 0
         if (temp === null) return null
         do {
             await this.draw.animateNode("nodo" + temp.getId(), 'bounceIn', duration);
-            if (temp.getDato() === dato) return { nodo: temp, index: i };
-            temp = temp.getSiguiente()
-            i++;
+            console.log(temp.getDato())
+            if (!isNaN(dato)) {
+                if (Number(temp.getDato()) === Number(dato)) return { nodo: temp, index: i };
+                temp = temp.getSiguiente()
+                i++;
+            }else{
+                if (temp.getDato() === dato) return { nodo: temp, index: i };
+                temp = temp.getSiguiente()
+                i++;
+            }
+
+            
             if (temp === null) break;
         } while (temp != this.primero)
 
