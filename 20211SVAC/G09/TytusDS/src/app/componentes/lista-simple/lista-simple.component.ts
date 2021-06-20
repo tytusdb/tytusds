@@ -3,6 +3,8 @@ import { HttpClient } from "@angular/common/http";
 declare var lsimpleAdd:any;
 declare var lsimpleCargar:any;
 declare var lsimpleRefresh:any;
+declare var lsimpleSearch:any;
+declare var lsimpleDelete:any;
 @Component({
   selector: 'app-lista-simple',
   templateUrl: './lista-simple.component.html',
@@ -40,6 +42,12 @@ export class ListaSimpleComponent implements OnInit {
   }
   getRefresh(valactual:string,valreplace:string){
     lsimpleRefresh(valactual,valreplace)
+  }
+  getSearch(val:string){
+    lsimpleSearch(val)
+  }
+  getDelete(val:string){
+    lsimpleDelete(val)
   }
 }
 
