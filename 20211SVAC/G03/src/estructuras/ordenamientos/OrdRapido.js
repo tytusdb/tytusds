@@ -1,7 +1,7 @@
 //Funcion de Ordenamiento rapido
 function ordRapido(arreglo){
     //Posible Arreglo de un solo dato
-    if (arreglo.length ===1){
+    if (arreglo.length === 1){
         return arreglo;
     }
     const pivote = arreglo[arreglo.length - 1]
@@ -12,11 +12,11 @@ function ordRapido(arreglo){
         el<pivote ? partIzq.push(el) : partDer.push(el)
     }
     //Construccion de salida
-    if(partIzq.length>0 && partDer > 0){
-        return [...ordRapido(partIzq),pivote,...ordRapido(partDer)]
+    if(partIzq.length>0 && partDer.length > 0){
+        return [ ...ordRapido(partIzq) , pivote , ...ordRapido(partDer)]
     } else if(partIzq.length> 0){
-        return [...ordRapido(partIzq),pivote]
+        return [...ordRapido(partIzq) , pivote]
     } else{
-        return [pivote,...ordRapido(partDer)]
+        return [pivote , ...ordRapido(partDer)]
     }
 }
