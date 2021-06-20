@@ -45,7 +45,7 @@ function addValuePila(data){
   console.log("-------------Nueva Pila----------------");
   stack.print();
 }
-function getValuePilaDelet(data){
+function getValuePilaDelet(){
   stack.pop();
   console.log("-------------Nueva Pila----------------");
   stack.print();//
