@@ -82,7 +82,7 @@ const lCircularDEnlazada = new ListaCircularDoblEnlazada();
 
 function ldobleCircleAdd(date){
   lCircularDEnlazada.add(date);
-  console.log(linkedList) 
+  console.log("hola"+lCircularDEnlazada.print()) 
 }
 
 function ldobleCircleDelete(date){

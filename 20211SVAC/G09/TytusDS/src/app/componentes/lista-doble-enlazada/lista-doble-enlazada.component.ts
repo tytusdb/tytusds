@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-declare var ldobleAdd:any;
+declare var ldobleCircleAdd:any;
 declare var ldobleDelete:any;
 declare var ldobleRefresh:any;
 declare var ldobleSearch:any;
-
 
 
 @Component({
@@ -16,7 +15,7 @@ export class ListaDobleEnlazadaComponent implements OnInit {
   displayVal='';
   getValueDobleEnlazada(val:string){
     console.warn(val)
-    var hola = ldobleAdd(val)
+    var hola = ldobleCircleAdd(val)
     this.displayVal=hola
     
   }
