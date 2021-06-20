@@ -58,10 +58,19 @@ export default function GraficaListas(props) {
       const options = {
         physics: false,
         edges: {
-          color: "#21701a"
-        },
-        nodes:{
-            shape:"box"
+            color: "white",
+            width: 2,
+            shadow: true
+          },
+          nodes:{
+            shape:"box",
+            color: "red",
+            font: {
+              size: 32,
+              color: "#ffffff",
+            },
+            borderWidth: 2,
+            shadow: true
         },
         interaction: {
           navigationButtons: true,
