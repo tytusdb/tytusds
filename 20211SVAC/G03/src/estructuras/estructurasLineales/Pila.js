@@ -74,7 +74,20 @@ class Pila{
             this.agregar(elemento);
         });
     }
-	
+
+    guardar(){
+        contadorPilas ++;
+        let archivojs;
+        let temporal = this.primero;
+        while (temporal != null){
+            archivojs[temporal.id] = temporal.valor;
+            temporal = temporal.siguiente;
+            
+        }
+        let json = JSON.stringify(archivojs)
+        let nombre = "Pila" + contadorPilas;
+        fs.writeFile(nombre, json)
+    }	
    	
  }
 

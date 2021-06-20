@@ -1,4 +1,5 @@
 //Clase Nodo
+var fs = require('fs')
 class Nodo{
     constructor(dato){  //Constructor
         this.dato = dato
@@ -397,12 +398,38 @@ class ABB{
         this.insertar(datoin)
         console.log("Actualizado")
     }
-
+    //Metodo Cargar
     cargar(arreglo) {
         arreglo.map(e => {
             this.insertar(e)
         })
     }
+    
+
+    //Metodo Guardar
+    guardando(){
+        if(this.raiz==null){
+            console.log("no existe arbol")
+            return
+        }
+        let temporal = this.raiz;
+        this.guardar(temporal)
+    }
+
+    guardar(nodo) {
+        let archivojs = [];
+        archivojs.push(nodo.dato);
+        if(nodo.izquierda!=null){
+            this.guardar(nodo.izquierda)
+        }
+        if(nodo.derecha!=null){
+            this.guardar(nodo.derecha)
+        }
+        let json = JSON.stringify(archivojs)
+        let nombre = "ArbolBinarioBusqueda";
+        fs.writeFile(nombre, json) 
+    }
+
     
     graficarNodos(nodo,vector,datoBuscar){
 
@@ -468,3 +495,4 @@ class ABB{
 }
 
 export default ABB;
+
