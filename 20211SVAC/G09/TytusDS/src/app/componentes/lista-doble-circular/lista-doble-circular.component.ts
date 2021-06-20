@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+declare var ldobleCircleAdd:any;
 
 @Component({
   selector: 'app-lista-doble-circular',
@@ -8,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 export class ListaDobleCircularComponent implements OnInit {
 
   displayVal='';
-  getValue(val:string){
-    console.warn(val)
+  getValue(val:string,val2:string){
+    console.warn(val, val2)
     
+  }
+  getValorCircularDoble(val:string){
+    ldobleCircleAdd(val)
+  }
+
+  getValor(val:string){
     
   }
 

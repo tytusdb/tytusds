@@ -7,6 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PilaComponent implements OnInit {
 
+  displayVal='';
+  getValue1(val:string){
+    console.warn(val)
+    
+  }
+  getValuelsimpleCircleDelete(val:string){
+    //lsimpleCircleDelete(val)
+  }
+  getValueCircular(val:string){
+    //lsimplecircleAdd(val)
+  }
+
   constructor() { }
 
   ngOnInit(): void {

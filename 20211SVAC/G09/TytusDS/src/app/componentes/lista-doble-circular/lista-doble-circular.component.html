@@ -1,17 +1,48 @@
+<head>
+<style type="text/css">
+ .boton {
+  color: #318aac !important;
+  font-size: 15px;
+  font-weight: 500;
+  padding-top:6px;
+  padding-bottom:6px;
+  padding-left:20px;
+  padding-right:20px;
+  background: rgba(0,0,0,0);
+  border: 3px solid;
+  border-color: #318aac;
+  transition: all 1s ease;
+  position: relative;
+}
+.boton:hover {
+  background: #318aac;
+  color: #fff !important;
+}
+</style>
+</head>
+
 <body class="rounded shadow-lg o-hidden border-0 my-5 text-white masthead" style="background:url('assets/Imagenes/fondo3.jpg'); background-size:cover;">
 <button class="btn btn-primary btn-block text-white" type="submit" onclick="add()">
 <em class="fas fa-list"></em>
 Lista Circular Doblemente Enlazada
 </button>
+<br>
 <input type="text" #box placeholder="Ingrese Datos" name="username"/> 
-<button  (click)="getValue(box.value)" >Push</button> &nbsp; &nbsp;
+<button  class="boton" (click)="getValorCircularDoble(box.value)" >Push</button> &nbsp; &nbsp;
 <input type="text" #box1 placeholder="Eliminar Datos" name="username"/> 
-<button (click)="getValue(box1.value)" >Eliminar</button>&nbsp; &nbsp;
-<input type="text" #box2 placeholder="Actualizar Datos" name="username"/> 
-<button (click)="getValue(box2.value)" >Actualizar</button>
-<p>La lista es: {{displayVal}}</p>
+<button class="boton" (click)="getValor(box1.value)" >Eliminar</button>&nbsp; &nbsp;
 <input type="text" #box3 placeholder="Buscar Datos" name="username"/> 
-<button (click)="getValue(box3.value)" >Buscar</button>&nbsp; &nbsp;
+<button class="boton" (click)="getValor(box3.value)" >Buscar</button>&nbsp; &nbsp;
+<br>
+<br>
+&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="text" #box2 placeholder="Nuevo Dato" name="username"/>  &nbsp;
+<input type="text" #box4 placeholder="Dato a Reemplazar" name="username1"/> 
+<button class="boton" (click)="getValue(box2.value,box4.value)" >Actualizar</button>&nbsp; &nbsp;
+<!--<p>La lista es: {{displayVal}}</p>-->
+
 <br>
 <br>
 <button class="btn btn-primary btn-block text-white" type="submit" onclick="downloadListaDobleCircular('ListaDobleCircular.js','hola')">Guardar Arreglo</button>

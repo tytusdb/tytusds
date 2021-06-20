@@ -6,7 +6,7 @@ declare var lsimpleSearch:any;
 declare var lsimpleDelete:any;
 @Component({
   selector: 'app-lista-simple',
-  templateUrl: './lista-simple.component.html',
+  templateUrl:'./lista-simple.component.html',
   styleUrls: ['./lista-simple.component.css']
 })
 export class ListaSimpleComponent implements OnInit {
