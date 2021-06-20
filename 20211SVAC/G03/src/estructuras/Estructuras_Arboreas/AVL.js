@@ -118,6 +118,12 @@ class ArbolAVL {
     }
     
 
+    cargar(arreglo) {
+        
+        arreglo.map(e => {
+            this.agregar(e)
+        })
+    }
     
 }
 module.exports.ArbolAVL = ArbolAVL;
