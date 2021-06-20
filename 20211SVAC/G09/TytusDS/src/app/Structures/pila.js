@@ -113,6 +113,19 @@ class Pila{
       }
     }
     //Mostrar valores de la pila
+    print(dato) {
+      let mostrarNodo = this.primero;
+      var lista = []
+      var encontrar = false;
+      while (mostrarNodo) {
+       
+        //console.log(mostrarNodo.dato);
+        lista.push(mostrarNodo.dato)
+        mostrarNodo = mostrarNodo.siguiente;
+      }return lista
+    } 
+
+    //Buscar Pila
     buscar(dato) {
       let mostrarNodo = this.primero;
       var lista = []
@@ -143,12 +156,12 @@ var animacion = "0";
 function addValuePila(data){
   stack.push(data);
   console.log("-------------Nueva Pila----------------");
-  console.log(stack.buscar());
+  console.log(stack.print());
 }
 function getValuePilaDelet(data){
   stack.pop();
   console.log("-------------Nueva Pila----------------");
-  console.log(stack.buscar());//
+  console.log(stack.print());//
 }
 
 //console.log("Ingresando valores");
