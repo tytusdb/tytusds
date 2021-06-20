@@ -64,7 +64,9 @@ class ListaSimple{
             newNodo.x=this.head.x +45
             this.hMax=0
         }
+
         current.next = newNodo;
+        
         posicion.style.left = (newNodo.x).toString()+"px" //El + 50 es para incluir a la misma flecha
         posicion.style.top =(newNodo.y).toString()+"px"
 

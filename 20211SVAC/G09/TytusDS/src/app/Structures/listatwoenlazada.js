@@ -24,9 +24,8 @@ class Animation{
     }
   
   add(data){
-    const divInsert=document.getElementById("divInsert12");
+    const divInsert=document.getElementById("divInsert1");
     const objeto=document.createElement("button"); //Creacion del botón
-    console.log("este es el dato"+data)
     const texto=document.createTextNode(data);
     objeto.appendChild(texto);
     //Diseño del botón
@@ -69,7 +68,6 @@ class Animation{
 
       current.sig = newNodo
       newNodo.ant = current
-      console.log("Esta es la posición del nuevo nodo "+newNodo.animate.x)
       posicion.style.left = (newNodo.animate.x).toString()+"px" //El + 50 es para incluir a la misma flecha
       posicion.style.top =(newNodo.animate.y).toString()+"px"
 
@@ -95,12 +93,82 @@ class Animation{
     }
   delete(data){
     let aux = this.head
-    if(data==aux.data){this.head=aux.sig 
+    if(data==aux.data){
+      const selecBtn = document.getElementById("btn"+aux.animate.id)
+      selecBtn.classList="animate__animated animate__hinge"
+      const sClone = selecBtn.cloneNode(true)
+      selecBtn.parentNode.replaceChild(sClone, selecBtn)
+
+      const selecFlechaSiguiente = document.getElementById("flecha"+aux.sig.animate.id)
+      selecFlechaSiguiente.classList="animate__animated animate__hinge"
+      const sClone2 = selecFlechaSiguiente.cloneNode(true)
+      selecFlechaSiguiente.parentNode.replaceChild(sClone2, selecFlechaSiguiente)
+
+      const a1= setInterval(function(){
+          //Eliminando el botón y Flecha siguiente
+          const padre = sClone.parentNode
+          padre.removeChild(sClone)
+          const padre2 = sClone2.parentNode
+          padre2.removeChild(sClone2)
+
+          clearInterval(a1)
+      },2000)
+      //Eliminando la Flecha del Siguiente elemento
+      this.head=aux.sig 
+      this.head.animate.x=10
+      this.head.animate.y=20
+
+      //Iria el posicionamiento de la actual cabeza
+      const selecBtnNuevo = document.getElementById("btn"+this.head.animate.id)
+      selecBtnNuevo.classList="animate__animated animate__slideInRight"
+      const sClone3 = selecBtnNuevo.cloneNode(true)
+      selecBtnNuevo.parentNode.replaceChild(sClone3, selecBtnNuevo)
+      sClone3.style.left =(this.head.animate.x).toString()+"px"
+      sClone3.style.top =(this.head.animate.y).toString()+"px"
+      aux=this.head
+      this.reOrdenar(aux)
+      this.size--
+
       return}
-    while(aux.sig != null){
+    while(aux != null){
       if(aux.data==data){
+
+        const selecBtn = document.getElementById("btn"+aux.animate.id)
+        selecBtn.classList="animate__animated animate__hinge"
+        const sClone = selecBtn.cloneNode(true)
+        selecBtn.parentNode.replaceChild(sClone, selecBtn)
+
+        const selecFlechaSiguiente = document.getElementById("flecha"+aux.animate.id)
+        selecFlechaSiguiente.classList="animate__animated animate__hinge"
+        const sClone2 = selecFlechaSiguiente.cloneNode(true)
+        selecFlechaSiguiente.parentNode.replaceChild(sClone2, selecFlechaSiguiente)
+
+        const a2= setInterval(function(){
+            //Eliminando el botón y Flecha siguiente
+            const padre = sClone.parentNode
+            padre.removeChild(sClone)
+            const padre2 = sClone2.parentNode
+            padre2.removeChild(sClone2)
+
+            clearInterval(a2)
+        },2000)
+        if(aux.sig!=null){
+        aux.sig.animate.x=aux.animate.x
+        aux.sig.animate.y=aux.animate.y
+        //Iria el posicionamiento de la actual cabeza
+        const selecBtnNuevo = document.getElementById("btn"+aux.sig.animate.id)
+        selecBtnNuevo.classList="animate__animated animate__slideInRight"
+        const sClone3 = selecBtnNuevo.cloneNode(true)
+        selecBtnNuevo.parentNode.replaceChild(sClone3, selecBtnNuevo)
+        sClone3.style.left =(aux.sig.animate.x).toString()+"px"
+        sClone3.style.top =(aux.sig.animate.y).toString()+"px"
+        }
+
         aux.ant.sig =aux.sig
-        aux.sig.ant=aux.ant
+        //aux.sig.ant=aux.ant
+        if(aux.sig!=null){
+          aux.sig.ant=aux.ant
+          this.reOrdenar(aux.ant)}
         this.size--
         return
       }
@@ -110,28 +178,89 @@ class Animation{
   }
   refresh(dataActual,dataFinal){
     let aux = this.head
-    while (aux.sig != null) {
-      if (aux.data==dataActual) {
-        aux.data=dataFinal
-        return
-      }
-      aux=aux.sig
-      }
+    var f = setInterval(whiles,500)
+    function whiles(){
+        if (aux != null) {
+            const selecBtn = document.getElementById("btn"+aux.animate.id)
+            //selecBtn.innerText="Espere"
+            if (aux.data==dataActual) {
+                aux.data=dataFinal
+                selecBtn.innerText=dataFinal
+                selecBtn.classList="animate__animated animate__rotateIn"
+                const sClone = selecBtn.cloneNode(true)
+                selecBtn.parentNode.replaceChild(sClone, selecBtn)
+                clearInterval(f)
+                }
+            else{
+            selecBtn.classList="animate__animated animate__bounceIn"
+            const sClone = selecBtn.cloneNode(true)
+            selecBtn.parentNode.replaceChild(sClone, selecBtn)
+            aux=aux.sig
+            }
+        }
+        else{
+            clearInterval(f)
+        }
+    }
     }
 
   search(data){
     let aux = this.head
-    while (aux.sig != null) {
-      if (aux.data==data) {
-        return true
-      }
-      aux=aux.sig
-      }return false
+    var g = setInterval(searchAnimation,500)
+    function searchAnimation(){
+        if (aux != null) {
+            const selecBtn = document.getElementById("btn"+aux.animate.id)
+            //selecBtn.innerText="Espere"
+            if (aux.data==data) {
+                selecBtn.classList="animate__animated animate__wobble animate__repeat-3"
+                const sClone = selecBtn.cloneNode(true)
+                selecBtn.parentNode.replaceChild(sClone, selecBtn)
+                clearInterval(g)
+                }
+            else{
+            selecBtn.classList="animate__animated animate__bounceIn"
+            const sClone = selecBtn.cloneNode(true)
+            selecBtn.parentNode.replaceChild(sClone, selecBtn)
+            aux=aux.sig
+            }
+        }
+        else{
+            clearInterval(g)
+        }
     }
-
-  cargar(){}
-
-  guardar(){}
+    }
+reOrdenar(aux){
+    const boton=document.getElementById("b1")
+    while(aux.sig != null){
+        aux.sig.animate.x= aux.animate.x + aux.animate.disBtn + (aux.animate.heightBtn*0.93) +20
+        if(this.hMax<aux.sig.animate.heightBtn){ this.hMax=aux.sig.animate.heightBtn}
+        
+        if(boton.offsetWidth-100>aux.sig.animate.x){
+            aux.sig.animate.y=aux.animate.y
+        }//Definiendo el valor de y
+        else{
+            aux.sig.animate.y=aux.animate.y + this.hMax +20
+            aux.sig.animate.x=this.head.animate.x +45
+            this.hMax=0
+        }
+        
+        const p = document.getElementById("btn"+(aux.sig.animate.id))
+        const posicion = p.cloneNode(true)
+        p.parentNode.replaceChild(posicion, p)
+        posicion.style.left = (aux.sig.animate.x).toString()+"px" //El + 50 es para incluir a la misma flecha
+        posicion.style.top =(aux.sig.animate.y).toString()+"px"
+        posicion.classList="animate__animated animate__slideInRight"
+        
+        const sF = document.getElementById("flecha"+(aux.sig.animate.id))
+        const selecFlecha = sF.cloneNode(true)
+        sF.parentNode.replaceChild(selecFlecha, sF)
+        selecFlecha.style.position="absolute"
+        selecFlecha.classList="animate__animated animate__slideInRight"
+        selecFlecha.style.left = (aux.sig.animate.x-(aux.sig.animate.heightBtn*0.93)-10).toString()+"px"
+        selecFlecha.style.top = (aux.sig.animate.y+5).toString()+"px"
+        aux=aux.sig
+    }
+}
 
   print(){
     var valores = []

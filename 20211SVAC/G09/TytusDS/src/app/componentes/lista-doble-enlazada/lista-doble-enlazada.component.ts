@@ -25,7 +25,7 @@ export class ListaDobleEnlazadaComponent implements OnInit {
   }
 
   ldobleRefresh(val1:string,val2:string){
-    ldobleRefresh(val1,val2)
+    ldobleRefresh(val2,val1)
   }
 
   ldobleSearch(val:string){
