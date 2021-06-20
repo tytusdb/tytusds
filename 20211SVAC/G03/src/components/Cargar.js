@@ -6,6 +6,8 @@ import ColaPrioridad from '../estructuras/EstructurasLineales/ColaPrioridad'
 import ABB from '../estructuras/Estructuras_Arboreas/ABB'
 import Pila from '../estructuras/EstructurasLineales/Pila'
 import ListaCirD from '../estructuras/EstructurasLineales/ListaCirD'
+import ListaCS from '../estructuras/EstructurasLineales/ListaCirS'
+import ListaSimple from '../estructuras/EstructurasLineales/ListaSimple'
 
 let propsG
 function onChange(e){
@@ -55,10 +57,10 @@ function structW(nombre,datos,edd){ // FUNCION PARA SABER QUE TIPO DE ESTRUCTURA
 
         case "Lista circular simplemente enlazada":
 
-            /* if(edd == null){
-                edd = new ListaCirD();
+            if(edd == null){
+                edd = new ListaCS();
             }
-            edd.cargar(datos) */
+            edd.cargar(datos)
             break
 
         case "Lista circular doblemente enlazada":

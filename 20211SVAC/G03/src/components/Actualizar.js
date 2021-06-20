@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { Button, Header, Icon, Modal,Menu,Input } from 'semantic-ui-react'
 
-import Cola from '../estructuras/EstructurasLineales/Cola'
-
 export default class Actualizar extends Component {
 
     state={
@@ -18,21 +16,12 @@ export default class Actualizar extends Component {
         let datoNuevo = this.state.datoNuevo
         switch(nombre){
             case "Pila" :
-                if(edd == null){
-                    edd = new Cola();
-                }
-              //  edd.cargar(dato)
+                edd.actualizar(datoAnterior,datoNuevo)
                 break
             case "Cola":
-                if(edd == null){
-                    edd = new Cola();
-                }
                 edd.actualizar(datoAnterior,datoNuevo)
                 break
             case "Cola de prioridad":
-                if(edd == null){
-                    edd = new Cola();
-                }
                 edd.actualizar(datoAnterior,datoNuevo)
                 break
             case "Lista simplemente enlazada":
@@ -59,7 +48,6 @@ export default class Actualizar extends Component {
                 edd.cargar(dato)  */
                 break
             case "Arbol ABB":
-                console.log("actualizando ABB")
                 edd.actualizar(datoAnterior,datoNuevo)
                 break
             default:

@@ -7,6 +7,11 @@ import ColaPrioridad from '../estructuras/EstructurasLineales/ColaPrioridad'
 import ABB from '../estructuras/Estructuras_Arboreas/ABB'
 
 
+import Pila from '../estructuras/EstructurasLineales/Pila'
+import ListaCirD from '../estructuras/EstructurasLineales/ListaCirD'
+import ListaCS from '../estructuras/EstructurasLineales/ListaCirS'
+
+
 export default class Agregar extends Component {
 
     state={
@@ -24,9 +29,9 @@ export default class Agregar extends Component {
         switch(nombre){
             case "Pila" :
                 if(edd == null){
-                    edd = new Cola();
+                    edd = new Pila();
                 }
-                edd.cargar(dato)
+                edd.agregar(dato)
                 break
             case "Cola":
                 if(edd == null){
@@ -48,20 +53,24 @@ export default class Agregar extends Component {
     
             case "Lista doblemente enlazada":
     
-                 edd = new Cola();
-                edd.cargar(dato) 
+                 /* edd = new Cola();
+                edd.cargar(dato)  */
                 break
     
             case "Lista circular simplemente enlazada":
     
-                /* edd = new Cola();
-                edd.cargar(datos) */
+                if(edd == null){
+                    edd = new ListaCS();
+                }
+                edd.insert(dato)
                 break
     
             case "Lista circular doblemente enlazada":
     
-                edd = new Cola();
-                edd.cargar(dato) 
+                if(edd == null){
+                    edd = new ListaCirD();
+                }
+                edd.insert(dato) 
                 break
             case "Arbol ABB":
     
@@ -69,8 +78,6 @@ export default class Agregar extends Component {
                     edd = new ABB();
                 }
                 edd.insertar(dato) 
-                console.log(edd.obtenerNodos())
-                console.log(edd.obtenerAputadores())
                 break
             default:
                 break;

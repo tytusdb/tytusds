@@ -1,7 +1,7 @@
 //Forma de insercion: Desordenada
 //Eliminacion Unica de primer dato encontrado
 //Busqueda de primer metodo encontrado
-export default ListaCS;
+var fs = require('fs')
 class Nodo{ //Clase Nodo
     //Constructor
     constructor(dato){
@@ -9,14 +9,6 @@ class Nodo{ //Clase Nodo
         this.dato = dato;
     }
 
-    //Setters & Getters
-    getDato(){
-        return dato;
-    }
-
-    setDato(dato){
-        this.dato = dato;
-    }
 }
 
 class ListaCS{ //Clase Lista Circular Simple
@@ -108,7 +100,7 @@ class ListaCS{ //Clase Lista Circular Simple
 
     //Metodo Cargar
     cargar(arreglo) {
-        arreglo.array.forEach(elemento => {
+        arreglo.map(elemento => {
             this.insert(elemento)
         })
     }
@@ -127,5 +119,34 @@ class ListaCS{ //Clase Lista Circular Simple
         let nombre = "ListaCircularSimple"
         fs.writeFile(nombre, json)  
     }
+
+    Recorrido(datoBuscar){
+        let aux = this.cabeza;
+        let contador = 0;
+
+        let arreglo = []
+        let contadoraux = 0;
+
+        while(contador != this.size){
+
+            let dato = {id: contadoraux, label: aux.dato.toString(),}
+            arreglo[contadoraux] = dato
+            
+            if(aux.dato == datoBuscar){
+                let dato = {id: contadoraux, label: aux.dato.toString(),  color: "lime"}
+                arreglo[contadoraux] = dato
+            }
+
+
+            aux= aux.siguiente;
+            contador++;
+            contadoraux++;
+        }
+
+        return arreglo
+    }
 }
 
+
+
+export default ListaCS;
