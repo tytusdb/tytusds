@@ -47,20 +47,20 @@ export class ABinarioComponent implements OnInit {
     }
   }
   delete(valor){
-
+      this.bst.eliminar(valor);
+      this.graficar();
   }
   update(valor,nuevo_valor){
-
+      this.bst.update(valor,nuevo_valor);
+      this.graficar();
   }
   graficar(){
     let contenedor= document.getElementById("contenedor");
     let datos=this.bst.Dot();
     let Nodos=datos[0];
     let Edges=datos[1];
-    console.log(Nodos);
-    console.log(Edges);
     let data={nodes:Nodos,edges:Edges};
-
+    console.log(data);
 
     //OPCIONES PARA LOS NODOS----------------------------------------------------------
     let opciones={
@@ -79,13 +79,17 @@ export class ABinarioComponent implements OnInit {
       }, physics:{
         enabled: true,
         barnesHut: {
-          theta: 0.5,
           gravitationalConstant: -1000,
           centralGravity: 0.3,
           springLength: 95
         }},
       layout:{
-        hierarchical:'LR'
+        hierarchical: {
+          direction: "RL",
+          sortMethod: "directed",
+          nodeSpacing: 200,
+          treeSpacing: 400
+        }
       }
     };
     //------------------------------------------------------------------------

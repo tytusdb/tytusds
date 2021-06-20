@@ -83,15 +83,18 @@ class Abinario{
       if(nodo.right==null && nodo.left==null){
         this.E_hijo(nodo,null);
         this.E_Nodo(nodo);
+        this.nNulls-=2;
       }
       //caso 2
       else if(nodo.left!=null && nodo.right==null){
         this.E_hijo(nodo,nodo.left);
         this.E_Nodo(nodo);
+        this.nNulls-=1;
         //caso 3
       }else if(nodo.right!=null && nodo.left==null){
         this.E_hijo(nodo,nodo.right);
         this.E_Nodo(nodo);
+        this.nNulls-=1;
       }
       //caso4
       else if(nodo.right!=null && nodo.left!=null){
@@ -108,7 +111,7 @@ class Abinario{
     nodo=null;
   }
 
-  //Eliminar en caso tenga un solo hijo
+  //Eliminar nodo con un hijo
   E_hijo(nodo,nodo_hijo){
     if(nodo.padre!=null){
       //si el nodo a eliminar se encuentra de lado izquierdo para que esto se cumpla se debe de cumplir la igualacion
@@ -124,7 +127,7 @@ class Abinario{
     }
   }
 
-  //MINIMO
+  //MINIMO, obtener el valor mas a la izquierda de la rama derecha.
   minimo(nodo){
     if(nodo==null){
       return null
@@ -178,7 +181,6 @@ class Abinario{
     //se recorre todo el arbol y se llena con todos los valores de la lista
     this.dotgen(this.raiz);
     //reset de la lista:
-
   }
   Recorrer(nodo){
     if(nodo!=null){
@@ -273,7 +275,6 @@ class Abinario{
       console.log(JSON.stringify(edge))
       console.log(JSON.stringify(this.L_edges[i])===JSON.stringify(edge))
       if(JSON.stringify(this.L_edges[i])===JSON.stringify(edge)){
-
         return true;
       }
     }

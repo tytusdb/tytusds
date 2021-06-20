@@ -12,8 +12,6 @@ let m={
 console.log(JSON.stringify(l)===JSON.stringify(m));
 
 bst.append(10);
-let dot=bst.Dot();
-console.log(dot);
 bst.append(5);
 bst.append(15);
 bst.append(14);
@@ -21,7 +19,14 @@ bst.append(16);
 bst.append(15)
 bst.append(1);
 bst.append(6);
+bst.preorden()
+bst.eliminar(10);
+console.log("xD");
 bst.preorden();
+bst.eliminar(14)
+console.log("xD");
+bst.preorden();
+
 
 
 //ELIMINAR UN NODO HOJA SI HIJOS FUNCIONA
