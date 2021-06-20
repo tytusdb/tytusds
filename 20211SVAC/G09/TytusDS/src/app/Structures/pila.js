@@ -128,46 +128,15 @@ class Pila{
     //Buscar Pila
     buscar(dato) {
       let mostrarNodo = this.primero;
-      var lista = []
       var encontrar = false;
       while (mostrarNodo) {
-        if(mostrarNodo.dato === dato){
+        if(mostrarNodo.dato == dato){
           encontrar = true;
-          return true;
-          alert('Se encontro el dato que busca')
+          return encontrar;
         }
-        //mostrarNodo = mostrarNodo.siguiente;
-        else if(encontrar === false){
-            alert('No se encontro el dato que busca')
-        }
-        //console.log(mostrarNodo.dato);
-        lista.push(mostrarNodo.dato)
         mostrarNodo = mostrarNodo.siguiente;
-      }return lista
-      /*let aux = this.primero;
-      var g = setInterval(searchAnimation,500)
-      function searchAnimation(){
-          if (aux != null) {
-            console.log("el id es: "+aux.animate.id)
-            const selecBtn = document.getElementById("btn"+aux.animate.id)
-            //selecBtn.innerText="Espere"
-            if (aux.dato==dato) {
-                selecBtn.classList="animate__animated animate__wobble animate__repeat-3"
-                const sClone = selecBtn.cloneNode(true)
-                selecBtn.parentNode.replaceChild(sClone, selecBtn)
-                clearInterval(g)
-                }
-            else{
-            selecBtn.classList="animate__animated animate__bounceIn"
-            const sClone = selecBtn.cloneNode(true)
-            selecBtn.parentNode.replaceChild(sClone, selecBtn)
-            aux=aux.siguiente
-            }
-        }
-        else{
-            clearInterval(g)
-        }
-      }*/
+      }
+      return encontrar
     } 
     
 } 
@@ -182,10 +151,15 @@ function addValuePila(data){
   console.log("-------------Nueva Pila----------------");
   console.log(stack.print());
 }
-function getValuePilaDelet(data){
+function getValuePilaDelet(){
   stack.pop();
   console.log("-------------Nueva Pila----------------");
   console.log(stack.print());//
+}
+
+function getValueBuscar(data){
+  console.log("se ejecuto buscar:" + stack.buscar(data))
+    
 }
 
 //console.log("Ingresando valores");
@@ -233,7 +207,7 @@ function AbrirArchivoPila(event) {
     }
 
     console.log("--------nueva pila-------------")
-    console.log(stack.buscar());
+    console.log(stack.print());
   
 
   };
@@ -242,7 +216,7 @@ function AbrirArchivoPila(event) {
 }//guardar archivo
 function downloadPila(filename, text) {
   
-  lista = stack.buscar()
+  lista = stack.print()
 
   var element = document.createElement('a');
   let doc = JSON.stringify({ "categoria": categoria, 'nombre': nombre, 'repeticion':repeticion, 'animacion':animacion, 'valores': lista });

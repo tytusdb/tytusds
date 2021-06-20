@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 declare var addValuePila:any;
 declare var getValuePilaDelet:any;
+declare var getValueBuscar:any;
 
 @Component({
   selector: 'app-pila',
@@ -20,6 +21,9 @@ export class PilaComponent implements OnInit {
   getValuePilaDelet(){
     getValuePilaDelet()
 
+  }
+  getValueBuscarPila(val:string){
+    getValueBuscar(val)
   }
   getValueCircular(val:string){
     //lsimplecircleAdd(val)

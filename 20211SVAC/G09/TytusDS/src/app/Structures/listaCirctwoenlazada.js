@@ -79,21 +79,26 @@ class NodoListaCircularDoble{
 }
   
 const lCircularDEnlazada = new ListaCircularDoblEnlazada();
+var categoriaCircular = "Estructura Lineal";
+var nombreCircular = 'Lista doble Circular';
+var repeticionCircular = "True";
+var animacionCircular = "0";
 
 function ldobleCircleAdd(date){
   lCircularDEnlazada.add(date);
-  console.log("hola"+lCircularDEnlazada.print()) 
+  console.log(lCircularDEnlazada.print()) 
 }
 
 function ldobleCircleDelete(date){
   lCircularDEnlazada.delete(date);
-  console.log(linkedList) 
+  console.log(lCircularDEnlazada.print()) 
 }
 function ldobleCircleRefresh(date1,date2){
   lCircularDEnlazada.refresh(date1,date2);
-  console.log(linkedList) 
+  console.log(lCircularDEnlazada.print()) 
 }
 function ldobleCircleSearch(date){
+  console.log(lCircularDEnlazada.search(date))
   return lCircularDEnlazada.search(date); 
 }
 function ldobleCircleCargar(date){

@@ -46,6 +46,20 @@ class Cola {
         mostrarNodo = mostrarNodo.siguiente;
       }
     }
+
+    //Metodo buscar
+    buscar(dato){
+      let mostrarNodo = this.primero;
+      var encontrar = false;
+      while (mostrarNodo) {
+        if(mostrarNodo.dato === dato){
+          encontrar = true;
+          return encontrar;
+        }
+        mostrarNodo = mostrarNodo.siguiente;
+      }
+      return encontrar
+    }
   }
 
 const cola = new Cola();
