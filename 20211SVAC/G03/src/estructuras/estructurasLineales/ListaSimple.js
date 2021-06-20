@@ -63,6 +63,20 @@ class ListaSimple{
         }
     }
 
+    actualizar(id, valor) {
+        if (this.primero == null) {
+            console.log("No hay nada en las lista")
+        }
+        else {
+            let temporal = this.primero;
+            while (temporal != null) {
+                if (temporal.id == id) {
+                    temporal.valor = valor;
+                }
+                temporal = temporal.siguiente;
+            }
+        }
+    }
 
 
  
