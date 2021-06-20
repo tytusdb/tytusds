@@ -78,7 +78,21 @@ class ListaSimple{
         }
     }
 
+    buscar(valor) {
+        if (this.primero == null  ) {
+            console.log("no hay elementos en la lista");           
 
+        }
+        else {
+            temporal = this.primero;
+            while(temporal != null){ 
+                if(temporal.valor == valor){
+                    return temporal;  
+                }
+                temporal = temporal.siguiente;
+            }
+        }
+    }
  
   
 }
