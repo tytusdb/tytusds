@@ -10,7 +10,7 @@ import ListaCircularDoble from './impl-estructuras/lista-circular-doble';
 import { routerTransition } from '../../router.animations';
 import { RectanguloNodo} from './impl-canvas/rectangulo-nodo';
 import {Flecha} from './impl-canvas/flecha';
-import { Subscription } from 'rxjs';
+import { of, Subscription } from 'rxjs';
 import {JsonNodo,JsonNodoPrioridad,JsonSalidaNodoPrioridad} from './impl-estructuras/json-nodo';
 import {FlechaCompuesta} from './impl-canvas/flecha-compuesta';
 import ColaPrioridad from './impl-estructuras/cola-prioridad';
@@ -24,6 +24,7 @@ import ColaPrioridad from './impl-estructuras/cola-prioridad';
 export class ListasEddComponent implements OnInit {
   paramsSubscription: Subscription;
   public idTipoLista=0;
+  public showMessage=false;
   listaEnlArray:string[]=[];
   listaEnlJSon:string;
   listaEnlazada:any;
@@ -39,6 +40,7 @@ export class ListasEddComponent implements OnInit {
   requestId;
   interval;
   rectangulosNodos: RectanguloNodo[] = [];
+  flechas: any[]=[];
   private anchoNodo=160;
   private anchoNodoHead=100;
   private altoNodo=30;
@@ -50,7 +52,7 @@ export class ListasEddComponent implements OnInit {
   strCarga:string;
   colorFondoCanvas='black';
   opcionRepeticiones: string;
-  flechas: any[];
+ 
 
   //constructor(private ngZone: NgZone) { }
   constructor(private route: ActivatedRoute) {}
@@ -93,7 +95,7 @@ export class ListasEddComponent implements OnInit {
     this.listaEnlJSon="";
     this.radioData = 1;
     this.opcionOperar='Inicio';
-    this.opcionRepeticiones='Si';
+    this.opcionRepeticiones="true";
   }
   cambiarPagina(){
     this.borrarCanvas();
@@ -102,6 +104,7 @@ export class ListasEddComponent implements OnInit {
     this.listaEnlJSon='';
     this.valorIndiceActualizar='';
     this.valorNodoActualizar='';
+    this.showMessage=false;
   }
   borrarCanvas(){
     this.ctx.fillStyle = this.colorFondoCanvas;
@@ -122,11 +125,12 @@ export class ListasEddComponent implements OnInit {
   }
   clickAgregarNodo() {
     if(this.valorNodoInsertar!=null && this.valorNodoInsertar!=''){
-      this.agregarNodo(this.valorNodoInsertar);
+      this.agregarNodo(this.valorNodoInsertar, false);
       this.valorNodoInsertar=''; this.prioridad='';
     }
   }
-  agregarNodo(valorInsertar:string){
+  agregarNodo(valorInsertar:string, esCarga:boolean){
+    let insertaValor=true;
     //Si no es pila o cola, aplica si inserta al inicio o final
     if(this.idTipoLista>=1&&this.idTipoLista<=4){
       if(this.opcionOperar=='Inicio'){
@@ -140,14 +144,18 @@ export class ListasEddComponent implements OnInit {
       this.listaEnlazada.push(valorInsertar);
     } //cola
     else if(this.idTipoLista==6){
-      this.listaEnlazada.encolar(valorInsertar);
+      if(this.opcionRepeticiones=="false"){
+        if(this.listaEnlazada.existeValor(valorInsertar)){
+          this.showMessage=true;
+          insertaValor=false;         }       }
+      if(insertaValor) this.listaEnlazada.encolar(valorInsertar, this.opcionRepeticiones=="true");
     } //cola prioridad
     else if(this.idTipoLista==7){
       if(this.prioridad!=null&&this.prioridad!='')
         this.listaEnlazada.encolar(valorInsertar,this.prioridad);
     }
     this.actualizarListaStr();
-    this.pintarNodos();
+    if(!esCarga&&insertaValor) this.pintarNodos();
   }
   clickActualizarNodo(){
     this.listaEnlazada.actualizar(this.valorIndiceActualizar, this.valorNodoActualizar);
@@ -173,22 +181,7 @@ export class ListasEddComponent implements OnInit {
     this.flechas=[];
     this.pintarNodos();
   }
-
-  clickCargar(){
-    let strIntoObj = JSON.parse(this.strCarga);
-    console.log(strIntoObj);
-    if(strIntoObj.animacion!=undefined&&strIntoObj.animacion!=null){
-      this.velocidadAnimacion=strIntoObj.animacion;
-    }
-    for (let valorStrNodo of strIntoObj.valores) {
-      if(this.idTipoLista==7){
-        this.prioridad=valorStrNodo.prioridad;
-        this.agregarNodo(valorStrNodo.valor);
-      } 
-      else this.agregarNodo(valorStrNodo);
-    }
-  }
-
+  
   /*Se borra canvas, se recorre lista dinamica pintando los nodos y flechas*/ 
   pintarNodos(){
     this.borrarCanvas();
@@ -233,11 +226,12 @@ export class ListasEddComponent implements OnInit {
       }
       i++;
     }
-    clearInterval(this.interval);
+    //console.log('interval:'+this.interval+', veloc:'+this.velocidadAnimacion);
+    if(this.interval!=undefined) clearInterval(this.interval);
     this.interval=
     setInterval(() => {
       this.tick();
-    }, 10 - this.velocidadAnimacion);    
+    }, 10 - this.velocidadAnimacion);
   }
   tick() {
     this.borrarCanvas();
@@ -254,6 +248,7 @@ export class ListasEddComponent implements OnInit {
     }
     this.requestId = requestAnimationFrame(() => this.tick);
   }
+
   drawBorder() {
     this.ctx.beginPath();
     this.ctx.moveTo(0, 0);
@@ -263,12 +258,79 @@ export class ListasEddComponent implements OnInit {
     this.ctx.lineTo(0, 0);
     this.ctx.strokeStyle= this.colorFlecha;
     this.ctx.stroke();
-  
   }
 
   ngOnDestroy() {
     clearInterval(this.interval);
     cancelAnimationFrame(this.requestId);
   }
+  fileContent: string = '';
 
+  public cargarArchivo(fileList: FileList): void {
+    let file = fileList[0];
+    let fileReader: FileReader = new FileReader();
+    let self = this;
+    fileReader.onloadend = function(x) {
+      self.fileContent = fileReader.result.toString();
+    }
+    fileReader.readAsText(file);
+    this.strCarga=self.fileContent;
+  }
+
+  clickCargar(){
+    this.strCarga=this.fileContent;
+    console.log(this.strCarga);
+    let strIntoObj = JSON.parse(this.strCarga);
+    console.log(strIntoObj);
+    if(strIntoObj.animacion!=undefined&&strIntoObj.animacion!=null){
+      this.velocidadAnimacion=strIntoObj.animacion;
+    }
+    if(strIntoObj.repeticion!=undefined){
+      this.opcionRepeticiones=strIntoObj.repeticion;
+    }
+    if(strIntoObj.posicion!=undefined){
+      if(strIntoObj.posicion=='Inicio'||strIntoObj.posicion=='Fin')
+        this.opcionOperar=strIntoObj.posicion;
+    }
+    for (let valorStrNodo of strIntoObj.valores) {
+      if(this.idTipoLista==7){
+        this.prioridad=valorStrNodo.prioridad;
+        this.agregarNodo(valorStrNodo.valor,true);
+      } 
+      else this.agregarNodo(valorStrNodo,true);
+    }
+    this.pintarNodos();
+  }
+
+  private setting = {
+    element: {
+      dynamicDownload: null as HTMLElement
+    }
+  }
+  downloadJson() {
+    this.fakeValidateUserData().subscribe((res) => {
+      this.dyanmicDownloadByHtmlTag({
+        fileName: this.tituloLista+'.json',
+        text: res
+      });
+    });
+  }
+  fakeValidateUserData() {
+    return of(this.listaEnlJSon);
+  }
+  private dyanmicDownloadByHtmlTag(arg: {
+    fileName: string,
+    text: string
+    }) {
+      if (!this.setting.element.dynamicDownload) {
+        this.setting.element.dynamicDownload = document.createElement('a');
+      }
+      const element = this.setting.element.dynamicDownload;
+      const fileType = arg.fileName.indexOf('.json') > -1 ? 'text/json' : 'text/plain';
+      element.setAttribute('href', `data:${fileType};charset=utf-8,${encodeURIComponent(arg.text)}`);
+      element.setAttribute('download', arg.fileName);
+      var event = new MouseEvent("click");
+      element.dispatchEvent(event);
+    }
+  
 }

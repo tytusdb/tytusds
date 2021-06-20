@@ -2,30 +2,59 @@ import NodoSimple from "./nodo-simple";
 
 export default class Cola {
   inicio: NodoSimple;
-  elementos = [];
+  longitud:number;
 
   constructor(){
-    this.elementos = [];
+    this.longitud = 0;
   }
   estaVacia(): boolean {
-    return this.elementos.length === 0;
+    return this.longitud == 0;
   }
   toArray(): any[] {
-    return this.elementos;
+    const colaArray = new Array(this.longitud);
+    let aux=this.inicio;
+    let i=0;
+    while(aux!=null){
+      colaArray[i]=aux.getData();
+      i++;
+      aux=aux.getNext();
+    }
+    return colaArray;
   }
   size(): number {
-    return this.elementos.length;
+    return this.longitud;
   }
-  encolar(data: any): void {
-    this.elementos.push(data);
+  encolar(data: any) {
+    let nuevo=new NodoSimple(data);
+    if(this.longitud==0){
+      this.inicio=nuevo;
+    }else{
+        let aux=this.inicio;
+        while(aux.getNext()!=null){
+          aux=aux.getNext();
+        }
+        aux.setNext(nuevo);
+    }
+    this.longitud++;    
   }
   desencolar(): any {
-    return this.elementos.shift();
+    let nodo=null;
+    if(this.longitud>0){
+      nodo = this.inicio;
+      this.inicio=this.inicio.getNext();
+      this.longitud--;
+    }
+    return nodo;
   }
-  peek() {
-    return this.elementos[this.elementos.length - 1];
-  }
-  actualizar(posicion, newData){
-    throw new Error("Method not implemented.");
+  existeValor(valor):boolean{
+    let existeValor=false;
+    let aux=this.inicio;
+    while(aux!=null&&!existeValor){
+      if(aux.getData()==valor){
+        return true;
+      }
+      aux=aux.getNext();
+    }
+    return existeValor;
   }
 }
