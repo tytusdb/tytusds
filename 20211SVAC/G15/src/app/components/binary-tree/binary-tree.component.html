@@ -15,8 +15,8 @@
 
             <div class="col-lg-3 col-sm-12 col-12 mt-1">
                 <div class="input-group">
-                    <input type="number" class="form-control" value="" id="numero" name="numero" [(ngModel)]="numeroBuscar"
-                        placeholder="Ingresa un Numero">
+                    <input type="number" class="form-control" value="" id="numero" name="numero"
+                        [(ngModel)]="numeroBuscar" placeholder="Ingresa un Numero">
                     <div class="input-group-append">
                         <button class="btn btn-secondary " type="button" (click)="search()">Buscar</button>
                     </div>
@@ -39,14 +39,65 @@
 
             <div class="col-lg-3 col-sm-12 col-12 mt-1">
                 <div class="input-group">
-                    <input type="number" class="form-control" value="" id="numero" name="numero" [(ngModel)]="numeroEliminar"
-                        placeholder="Ingresa un Numero">
+                    <input type="number" class="form-control" value="" id="numero" name="numero"
+                        [(ngModel)]="numeroEliminar" placeholder="Ingresa un Numero">
                     <div class="input-group-append">
                         <button class="btn btn-warning " type="button" (click)="delete()">Eliminar</button>
                     </div>
                 </div>
             </div>
 
+
+
+            <div class="col-12 col-sm-12 col-lg-2 text-left mt-2 text-white mt-1">
+                <div class="dropdown">
+                    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Opciones
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <div class="input-group">
+                            <input class="form-check-input ml-1" type="checkbox" value="" id="repetidos"
+                                name="repetidos" [(ngModel)]="repetidos">
+                            <label class="form-check-label ml-4" for="flexCheckDefault">
+                                Numeros Repetidos</label>
+                        </div>
+
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="numero" name="numero" [(ngModel)]="duracion"
+                                placeholder="Velocidad">
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+
+            <div class="col-12 col-sm-12 col-lg-3 text-left mt-2 text-white mt-1">
+                <div class="input-group">
+                    <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+                    <div class="file-upload">
+
+                        {{fileName || "No file uploaded yet."}}
+
+                        <button class="btn btn-primary" (click)="fileUpload.click()">
+                            <i class="fas fa-upload"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-12 col-lg-3 text-left mt-2 text-white mt-1">
+                <div class="input-group">
+                    <button class="btn btn-primary" (click)="generarJSON()">
+                        Generar JSON
+                    </button>
+                </div>
+            </div>
 
         </div>
 

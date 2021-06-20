@@ -10,7 +10,10 @@ body {
   margin-left: auto;
 }
 
-
 .opciones {
   background-color: #b43e60;
+}
+
+.file-input {
+  display: none;
 }

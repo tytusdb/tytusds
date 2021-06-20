@@ -236,4 +236,35 @@ export class BinaryTree {
         else return false
     }
 
+
+    public generarJSON(){
+        return this.obtenerJSON(this.raiz)
+    }
+
+    private obtenerJSON(nodo){
+        if(nodo === null) return []
+        let temp = []
+        temp.push(nodo.getNumero())
+        let izq = this.obtenerJSON(nodo.getLeft())
+        temp = temp.concat(izq)
+        let der = this.obtenerJSON(nodo.getRight())
+        temp = temp.concat(der)
+
+        return temp
+
+    }
+
+
+    public searchWithOutAnimation(numero){
+        return this.busquedaRecursivaSinAnimacion(this.raiz,numero)
+    }
+
+    private busquedaRecursivaSinAnimacion(nodo,numero){
+        if(nodo === null) return null 
+        if(nodo.getNumero() < numero) return this.busquedaRecursivaSinAnimacion(nodo.getRight(),numero)
+        if(nodo.getNumero() > numero) return this.busquedaRecursivaSinAnimacion(nodo.getLeft(),numero)
+        if(nodo.getNumero() === numero) return nodo 
+        return null
+    }
+
 }
