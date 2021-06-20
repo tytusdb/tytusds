@@ -55,7 +55,7 @@ class ListaSimple{
         const selecFlecha = document.getElementById(divFlecha.id)
         newNodo.x= current.x + current.disBtn + (objeto.offsetHeight*0.93) + 20
         if(this.hMax<objeto.offsetHeight){ this.hMax=objeto.offsetHeight}
-        console.log(this.hMax)
+        
         if(boton.offsetWidth-100>newNodo.x){
             newNodo.y=current.y
         }//Definiendo el valor de y
@@ -72,9 +72,7 @@ class ListaSimple{
         selecFlecha.classList='animate__animated animate__backInLeft animate__fast'
         selecFlecha.style.left = (newNodo.x-(objeto.offsetHeight*0.93)-10).toString()+"px"
         selecFlecha.style.top = (newNodo.y+5).toString()+"px"
-        console.log("Termino")
         this.contId++
-        console.log("Tamaño de la Div "+selecFlecha.offsetWidth+"Tam height"+objeto.offsetHeight)
         //Al final ya que el contId debe ser el mismo para la caja de la flecha y el botón
     }else{
         this.head = newNodo
@@ -112,7 +110,6 @@ delete(data){
             clearInterval(a1)
         },2000)
         //Eliminando la Flecha del Siguiente elemento
-        //console.log("El id del botón es flecha"+(parseInt(aux.next.id)+1).toString())
         this.head=aux.next
         this.head.x=10
         this.head.y=20
@@ -123,14 +120,12 @@ delete(data){
         selecBtnNuevo.parentNode.replaceChild(sClone3, selecBtnNuevo)
         sClone3.style.left =(this.head.x).toString()+"px"
         sClone3.style.top =(this.head.y).toString()+"px"
-        console.log("El id del botón es btn"+(parseInt(aux.id)+1).toString())
         aux=this.head
         this.reOrdenar(aux)
         this.size--
         return}
     while(aux != null){
         aux2=aux.next;
-        console.log(aux.data+"  "+aux2.data)
         if(aux2.data==data){  
         //Elemento a eliminar de la lista aux 2
         const selecBtn = document.getElementById("btn"+aux2.id)
@@ -201,18 +196,6 @@ refresh(dataActual,dataFinal){
             clearInterval(f)
         }
     }
-    /*while (aux.next != null) {
-        if (aux.data==dataActual) {
-        aux.data=dataFinal
-        return
-        }
-        const selecBtn = document.getElementById(aux.id)
-        setTimeout(function(){selecBtn.classList="animate__animated animate__bounceIn animate__delay-1s"
-        load()
-        selecBtn.innerText="Espere"
-        console.log("Esperando")},3000)
-        aux=aux.next
-    }*/
     }
 
 search(data){
@@ -255,7 +238,6 @@ reOrdenar(aux){
             aux.next.x=this.head.x +45
             this.hMax=0
         }
-        //console.log("Id"+aux.next.id+" x = "+aux.next.x+" y ="+aux.next.y)
         
         const p = document.getElementById("btn"+(aux.next.id))
         const posicion = p.cloneNode(true)
