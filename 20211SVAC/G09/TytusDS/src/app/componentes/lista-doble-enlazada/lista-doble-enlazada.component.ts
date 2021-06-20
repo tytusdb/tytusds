@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-declare var require: any;
-let ldenlazada=require('../../Structures/listatwoenlazada')
+declare var ldobleAdd:any;
+
+
 
 @Component({
   selector: 'app-lista-doble-enlazada',
@@ -8,13 +9,13 @@ let ldenlazada=require('../../Structures/listatwoenlazada')
   styleUrls: ['./lista-doble-enlazada.component.css']
 })
 export class ListaDobleEnlazadaComponent implements OnInit {
-  list=ldenlazada
   
   displayVal='';
-  getValue(val:string){
+  getValueDobleEnlazada(val:string){
     console.warn(val)
-    var hola = this.list. ldobleAdd(val)  
+    var hola = ldobleAdd(val)
     this.displayVal=hola
+    
   }
   
   constructor() { }
