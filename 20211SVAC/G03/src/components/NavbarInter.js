@@ -10,6 +10,8 @@ import Buscar from './Buscar'
 
 import Seleccion from '../estructuras/Ordenamientos/Seleccion'
 import Insercion from '../estructuras/Ordenamientos/Insercion'
+import ordRapido from '../estructuras/Ordenamientos/OrdRapido'
+
 import Grafica from './GraficaListas'
 import GraficarArbol from './GraficarArbol'
 let count = 0;
@@ -45,21 +47,17 @@ export default class NavbarInter extends Component {
         switch (this.state.nombre) {
           case "Ordenamiento Selección":
             arregloOrdenado = Seleccion(this.state.estrutura);
-            console.log("estoy ordenando Seleccion")
             break;
           
           case "Ordenamiento Inserción":
             arregloOrdenado = Insercion(this.state.estrutura);
-            
-            console.log("estoy ordenando Insercion")
             break;
           case "Ordenamiento Burbuja":
             
             console.log("estoy ordenando Burbuja")
             break;
           case "Ordenamiento Rapido":
-            
-            console.log("estoy ordenando Rapido")
+              arregloOrdenado = ordRapido(this.state.estrutura);
             break;
           default:
             break;
@@ -68,6 +66,28 @@ export default class NavbarInter extends Component {
 
         this.setState({
           estrutura: arregloOrdenado
+        })
+    }
+
+    desencolar=()=>{
+        switch (this.state.nombre) {
+          case "Cola":
+            this.state.estrutura.Pop()
+            break;
+          
+          case "Cola de prioridad":
+            this.state.estrutura.Pop()
+            break;
+          case "Pila":
+            this.state.estrutura.eliminar()
+            break;
+          default:
+            break;
+          
+        }
+
+        this.setState({
+          estrutura: this.state.estrutura
         })
     }
 
@@ -151,6 +171,35 @@ export default class NavbarInter extends Component {
                <h1 style={{ color: 'white' }}>{this.state.nombre}</h1>
                {/* <h3>{this.state.estructura.Imprimir()}</h3> */}
                <GraficarArbol nombre={this.state.nombre} estructura={this.state.estrutura} valorBusqueda={this.state.busqueda} key={count++}/>
+            </div>
+          )
+        }else if(this.state.nombre == "Pila"
+              || this.state.nombre == "Cola"
+              || this.state.nombre == "Cola de prioridad"){
+          return (
+            <div>
+                <Menu className="ui tpo inverted attached menu">
+                  <Menu.Item>
+                              <Link to="/tytusds/20211SVAC/G03/build/">TytusDS</Link>
+                  </Menu.Item>
+                  <Cargar obtenerDatos={this.obtenerDatos} nombre={this.state.nombre} edd={this.state.estrutura} key={count++}/>
+                  <Agregar  obtenerDatos={this.obtenerDatos} nombre={this.state.nombre} edd={this.state.estrutura} key={count++} />
+                  <Eliminar obtenerDatos={this.obtenerDatos} nombre={this.state.nombre} edd={this.state.estrutura} key={count++}/> 
+                  <Actualizar obtenerDatos={this.obtenerDatos} nombre={this.state.nombre} edd={this.state.estrutura} key={count++}/>
+                  <Buscar busqueda={this.obtenerBusqueda} key={count++}/>
+                  <Menu.Item name="Desencolar" 
+                    onClick={this.handleItemClick, this.desencolar}>
+                  </Menu.Item>
+                <Menu.Menu position='right'>
+                  <Menu.Item name="Guardar" icon='save'>
+                  </Menu.Item>
+                  
+                </Menu.Menu>
+              </Menu>
+              <br/>
+               <h1 style={{ color: 'white' }}>{this.state.nombre}</h1>
+               {/* <h3>{this.state.estructura.Imprimir()}</h3> */}
+              <Dibujar nombre={this.state.nombre} estructura={this.state.estrutura} valorBusqueda={this.state.busqueda} key={count++}/>
             </div>
           )
         }else{

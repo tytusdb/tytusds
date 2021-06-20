@@ -13,10 +13,28 @@ export class BurbujaComponent implements OnInit {
   fileName = '';
   burbuja:Burbuja
   datos: []
+  numero:boolean;
+  letra:boolean;
+
+  
   public barChartOptions: ChartOptions = {
     responsive: true,
-    // We use these empty structures as placeholders for dynamic theming.
-    scales: { xAxes: [{}], yAxes: [{}] },
+    tooltips: {enabled: false},
+    hover: {mode: null},
+    
+    scales: { xAxes: [{
+      gridLines:{
+        display: false
+      },
+    }],
+    yAxes: [{
+      gridLines:{
+        display: false
+      },
+      ticks: {
+        display: false
+    }
+    }]},
     plugins: {
       datalabels: {
         anchor: 'end',
@@ -24,13 +42,14 @@ export class BurbujaComponent implements OnInit {
       }
     }
   };
+  
   public barChartLabels: Label[] = [];
   public barChartType: ChartType = 'bar';
-  public barChartLegend = true;
-  public barChartPlugins = [pluginDataLabels];
+  public barChartLegend = false;
+  //public barChartPlugins = [pluginDataLabels];
 
-  public barChartData: ChartDataSets[] = [
-    { data: [], label: 'METODO BURBUJA' }
+  public barChartData:ChartDataSets[]= [
+    { data: [], label: 'METODO BURBUJA'}
   ];
   constructor() { }
 
@@ -39,10 +58,24 @@ export class BurbujaComponent implements OnInit {
   }
   async mostrarBarras(){
     //console.log(this.datos)
-      this.barChartLabels = this.datos;
-      this.barChartData[0].data=this.datos
+      if (this.numero===true) {
+        this.barChartLabels = this.datos;
+        this.barChartData[0].data=this.datos
+      }else{
+        this.barChartLabels = this.datos;
+        let datoletra = []
+        let y=1;
+        for (let index = 0; index < this.datos.length; index++) {
+          datoletra.push(y);
+          y++;
+          
+        }
+        this.barChartData[0].data=datoletra
+      }
+     
     
   }
+
   async onFileSelected(event) {
     const file = event.target.files[0];
     if (file) {
@@ -55,6 +88,13 @@ export class BurbujaComponent implements OnInit {
       for(let i = 0; i < data.length; i++){
         //await this.addData(data[i])
         datos2.push(data[i])
+        if (!isNaN(data[i])) {
+          this.letra=false;
+          this.numero=true;
+        }else{
+          this.numero=false;
+          this.letra=true;
+        }
        
       }
      // console.log(datos2)
@@ -62,12 +102,42 @@ export class BurbujaComponent implements OnInit {
       this.datos=this.burbuja.ordenamiento_burbuja(datos2);
       console.log(this.datos)
       //this.mostrarBarras(this.datos)
-      this.barChartLabels = data;
-      this.barChartData[0].data=data
+      if (this.numero===true) {
+        this.barChartLabels = data;
+        this.barChartData[0].data=data
+      }else{
+        this.barChartLabels = data;
+        let datoletra = []
+        let y=5;
+        for (let index = 0; index < data.length; index++) {
+          if (data[index]>data[index+1]) {
+             y=Math.round(Math.random() * 100),60;
+             datoletra.push(y);
+            
+          }
+          else if(data[index]<data[index+1])
+          {
+            
+            
+            y=Math.round(Math.random() * 100),50;
+            
+            datoletra.push(y);
+            
+          }
+         // y=Math.round(Math.random() * 100)
+          
+         
+          
+        }
+        this.barChartData[0].data = datoletra;
+      }
+      
+     // this.barChartData.labels =data
       
 
     }
   }
+  
 
   async processFile(file) {
     return new Promise((resolve, reject) => {
@@ -85,7 +155,7 @@ export class BurbujaComponent implements OnInit {
   generarJSON(){
     let data = this.burbuja.generarJSON()
     var link = document.createElement("a");
-    link.download = "data.json";
+    link.download = "OrdenamientoBurbuja.json";
     var info = "text/json;charset=utf-8," + encodeURIComponent(data);
     link.href = "data:" + info;
     link.click();
