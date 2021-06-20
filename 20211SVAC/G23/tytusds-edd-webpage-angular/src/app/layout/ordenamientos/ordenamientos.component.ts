@@ -16,6 +16,7 @@ export class OrdenamientosComponent implements OnInit {
   public idOrdenamiento=0;
   tituloOrdenamiento:string;
   strCarga:string;
+  strOrdenamientoJson: string
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
@@ -71,7 +72,8 @@ export class OrdenamientosComponent implements OnInit {
       this.barChartData[0].data = data;
       let jsonNodoArray= new JsonNodoOrdenamiento("Ordenamiento",this.tituloOrdenamiento,data);
       this.strOrdenamientoJson = JSON.stringify(jsonNodoArray);
-    }else if(this.idOrdenamiento==2){
+    } 
+    else if(this.idOrdenamiento==2){
 
     }else if(this.idOrdenamiento==3){
 
@@ -109,7 +111,7 @@ export class OrdenamientosComponent implements OnInit {
     }
   }
   downloadJson() {
-    this.fakeValidateUserData().subscribe((res) => {
+    this.fakeValidateUserData().subscribe((res: any) => {
       this.dyanmicDownloadByHtmlTag({
         fileName: this.tituloOrdenamiento+'.json',
         text: res
@@ -118,9 +120,6 @@ export class OrdenamientosComponent implements OnInit {
   }
   fakeValidateUserData() {
     return of(this.strOrdenamientoJson);
-  }
-  strOrdenamientoJson(strOrdenamientoJson: any) {
-    throw new Error('Method not implemented.');
   }
   private dyanmicDownloadByHtmlTag(arg: {
     fileName: string,
