@@ -13,7 +13,7 @@ export class pila {
         this.draw = new Draw()
     }
 
-    async push(dato: number|string, svg, dibujo, duracion) {
+    async push(dato: number|string, dibujo, duracion) {
         let temp: nodo = new nodo(dato, this.id)
         if (this.primero == null) {
             this.primero = temp

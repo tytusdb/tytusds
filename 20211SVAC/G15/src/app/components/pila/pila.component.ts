@@ -13,7 +13,6 @@ export class PilaComponent implements OnInit {
   datoAntiguo: number|string
   datoNuevo: number|string
   pila: pila
-  svg1
   fileName= ""
 
   repetidos: boolean = false
@@ -23,34 +22,61 @@ export class PilaComponent implements OnInit {
 
   ngOnInit(): void {
     this.pila = new pila()
-    this.svg1 = document.getElementById("svg")
-    this.svg1.style.position = 'absolute';
-    this.svg1.style.top = '0';
-    this.svg1.style.left = '0';
-    this.svg1.style.width = '100%';
-    this.svg1.style.height = '100vh';
-    this.svg1.style.zIndex = '0';
+    
+  }
+  async pushbutton(){
+    await this.push(this.nombre)
+    this.nombre = ""
   }
 
-  async push(){
+  async push(dato){
     if (!this.repetidos) {
-      let temp = this.pila.search(this.nombre)
+      let temp = this.pila.search(dato)
       if (temp !== null) {
         Swal.fire({
           target: document.getElementById('form-modal'),
           icon: 'error',
           title: 'Oops...',
-          text: `El dato ${this.nombre} ya existe en la pila`
+          text: `El dato ${dato} ya existe en la pila`
         })
         this.nombre=""
         return -1;
       }
     }
+  
     
       let dibujo = document.getElementById("cuerpoDraw")
-      await this.pila.push(this.nombre, this.svg1, dibujo, `${this.velocidad}s`)
+      await this.pila.push(dato, dibujo, `${this.velocidad}s`)
       this.nombre=""
     return 1;
+  }
+
+  async onFileSelected(event) {
+    const file = event.target.files[0];
+    if (file) {
+
+      this.fileName = file.name;
+      let data: any = await this.processFile(file)
+      data = JSON.parse(data)
+      data = data.valores
+      for (let i = 0; i < data.length; i++) {
+        await this.push(data[i])
+      }
+
+
+    }
+  }
+
+  async processFile(file) {
+    return new Promise((resolve, reject) => {
+      let reader = new FileReader()
+      reader.onload = (event) => {
+        resolve(event.target.result.toString())
+      }
+      reader.onerror = reject;
+
+      reader.readAsText(file);
+    })
   }
 
 }
