@@ -41,7 +41,7 @@ class EstructuraCola{
 		let nodo = this.primero;
 		var dot = [];
 		if(nodo!=null){
-		if (nodo.siguiente!=null) {
+			if (nodo.siguiente!=null) {
 				while(nodo!=this.ultimo){
 					var label1 = "" + nodo.valor
 					dot.push({id:nodo.valor, label: label1});
