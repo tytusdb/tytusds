@@ -12,7 +12,7 @@ export class PilaComponent implements OnInit {
     console.warn(val)
     
   }
-  getValuelsimpleCircleDelete(val:string){
+  getValuelsimpleCircleDelete(){
     //lsimpleCircleDelete(val)
   }
   getValueCircular(val:string){
