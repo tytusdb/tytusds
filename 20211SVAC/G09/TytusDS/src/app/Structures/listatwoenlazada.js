@@ -1,4 +1,4 @@
-class Nodo{
+class NodoListaTwoEnlazada{
     constructor(data, sig, ant){
       this.data = data
       this.sig = sig
@@ -12,7 +12,7 @@ class Nodo{
     }
   
   add(data){
-    const newNodo = new Nodo(data, null, null)
+    const newNodo = new NodoListaTwoEnlazada(data, null, null)
     if(this.head){        
       let current = this.head
       while(current.sig){
