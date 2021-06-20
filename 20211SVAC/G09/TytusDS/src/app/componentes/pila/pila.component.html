@@ -28,9 +28,9 @@ Pila
 </button>
 <br>
 <input type="text" #box placeholder="Ingrese Datos" name="username"/> 
-<button class="boton" (click)="getValueCircular(box.value)" >Push</button> &nbsp; &nbsp;
+<button class="boton" (click)="getValuePila(box.value)" >Push</button> &nbsp; &nbsp;
 <input type="text" #box1 placeholder="Eliminar Datos" name="username"/> 
-<button class="boton" (click)="getValuelsimpleCircleDelete(box1.value)" >Eliminar</button>&nbsp; &nbsp;
+<button class="boton" (click)="getValuePilaDelet()" >Eliminar</button>&nbsp; &nbsp;
 <input type="text" #box3 placeholder="Buscar Datos" name="username"/> 
 <button class="boton" (click)="getValue1(box3.value)" >Buscar</button>&nbsp; &nbsp;
 <br>
@@ -44,8 +44,8 @@ Pila
 <!--<p>La lista es: {{displayVal}}</p>-->
 <br>
 <br>
-<button class="btn btn-primary btn-block text-white" type="submit" onclick="download('hola.js','hola')">Guardar Arreglo</button>
-<input type="file" onchange="ArbrirArchivoListaSimpleCirular(event)">
+<button class="btn btn-primary btn-block text-white" type="submit" onclick="downloadPila('Pila.js','hola')">Guardar Arreglo</button>
+<input type="file" onchange="AbrirArchivoPila(event)">
   <div id="divInsert" style="position: absolute;">
     <div id="divInsert1" style="position: absolute; top: 0px; left: 0px;"></div>
   <div id="divInsert">
