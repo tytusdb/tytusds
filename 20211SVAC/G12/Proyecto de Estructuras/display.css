@@ -1,0 +1,36 @@
+.myDiv {
+    border: 5px outset black;
+    background-color: lightblue;
+    height: 75px;
+    width: 75px;
+    display: table-cell;
+    position: absolute;
+    animation-fill-mode: forwards;
+}
+
+@keyframes colorChangeRed {
+    50%{
+        border-color: black;
+    }
+    100%{
+        border-color: red;
+    }
+}
+
+@keyframes colorChangeGreen {
+    from {
+        border-color: black;
+    }
+    to {
+        border-color: lawngreen;
+    }
+}
+@keyframes colorChangeYellow {
+    from {
+        border-color: black;
+    }
+    to {
+        border-color: yellow;
+    }
+}
+
