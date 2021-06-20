@@ -24,6 +24,7 @@ class NodoListaTwoEnlazada{
       this.head = newNodo
     }
     this.size++
+    
     }
   delete(data){
     let aux = this.head
@@ -80,6 +81,7 @@ const lDEnlazada = new ListaDobleEnlazada();
 
 function ldobleAdd(date){
   lDEnlazada.add(date);
+  console.log(lDEnlazada.print())
 }
 
 function ldobleDelete(date){
