@@ -1,0 +1,15 @@
+<link rel="stylesheet" href="ord-quicksort.component.css">
+<app-opciones (opcionesEvento)="getOpciones($event)"></app-opciones>
+<div class="container">
+  <h1>Ordenamiento Quicksort</h1>
+  <hr>
+  <div class="row p-2">
+    <div class="col-md-6"><input class="form-control" type="file" id="formFile" (change)="getDocumento($event.target)" ></div>
+  </div>
+  <canvas id="Oanimacion" height="120" class="bg-light col-12" ></canvas>
+</div>
+<div class="container">
+  <div class="row pt-2">
+    <div class="col-3" ><button class="btn btn-success button1" (click)="guardar()" >Guardar</button></div>
+  </div>
+</div>
