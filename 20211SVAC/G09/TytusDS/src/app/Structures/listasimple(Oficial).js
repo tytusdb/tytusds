@@ -263,10 +263,10 @@ print(){
 }
 
 const listSimple = new ListaSimple();
-var categoria;
-var nombre;
-var repeticion;
-var animacion;
+var categoria = "Estructura Lineal";
+var nombre = 'Lista Simple';
+var repeticion = "True";
+var animacion = "0";
 
 function lsimpleAdd(data){
 listSimple.add(data);

@@ -113,27 +113,46 @@ class Pila{
       }
     }
     //Mostrar valores de la pila
-    print() {
+    buscar(dato) {
       let mostrarNodo = this.primero;
+      var lista = []
+      var encontrar = false;
+
       while (mostrarNodo) {
-        console.log(mostrarNodo.dato);
+        if(mostrarNodo.dato === dato){
+          encontrar = true;
+          return true;
+          alert('Se encontro el dato que busca')
+        }
+        //mostrarNodo = mostrarNodo.siguiente;
+        else if(encontrar === false){
+            alert('No se encontro el dato que busca')
+        }
+        //console.log(mostrarNodo.dato);
+        lista.push(mostrarNodo.dato)
         mostrarNodo = mostrarNodo.siguiente;
-      }
-    }
-}
+      }return lista
+    } 
+    
+} 
 const stack = new Pila();
+var categoria = "Estructura Lineal";
+var nombre = "pila";
+var repeticion = "false";
+var animacion = "0";
+
 function addValuePila(data){
   stack.push(data);
   console.log("-------------Nueva Pila----------------");
-  stack.print();
+  console.log(stack.print());
 }
 function getValuePilaDelet(data){
   stack.pop();
   console.log("-------------Nueva Pila----------------");
-  stack.print();//
+  console.log(stack.print());//
 }
 
-console.log("Ingresando valores");
+//console.log("Ingresando valores");
 //stack.push(1);
 //stack.push(2);
 //stack.push(3);
@@ -171,19 +190,23 @@ function AbrirArchivoPila(event) {
       if(key=='valores'){
           //console.log(doc[key].length)
           for (var k in doc[key]){
-              listSimple.add(doc[key][k])
+              stack.push(doc[key][k])
           }
       }
-   }
-   
+      
+    }
+
+    console.log("--------nueva pila-------------")
+    console.log(stack.print());
+  
 
   };
-
+  
   reader.readAsText(file);
 }//guardar archivo
 function downloadPila(filename, text) {
   
-  lista = listSimple.print()
+  lista = stack.print()
 
   var element = document.createElement('a');
   let doc = JSON.stringify({ "categoria": categoria, 'nombre': nombre, 'repeticion':repeticion, 'animacion':animacion, 'valores': lista });

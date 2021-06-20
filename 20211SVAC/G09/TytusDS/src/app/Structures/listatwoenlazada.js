@@ -274,6 +274,10 @@ reOrdenar(aux){
 }
   
 const lDEnlazada = new ListaDobleEnlazada();
+var categoriaSCi;
+var nombreSCi;
+var repeticionSCi;
+var animacionSCi;
 
 function ldobleAdd(date){
   lDEnlazada.add(date);
@@ -314,19 +318,19 @@ function AbrirArchivoListaDobleEnlazada(event) {
     for (var key in doc) {
       //console.log('name=' + key + ' value=' + doc[key]);
       if(key=='categoria'){
-          categoria = doc[key]
+          categoriaDoble = doc[key]
           console.log(categoria)
       }
       if(key=='nombre'){
-          nombre = doc[key]
+          nombreDoble = doc[key]
           console.log(nombre)
       }
       if(key=='repeticion'){
-          repeticion = doc[key]
+          repeticionDoble = doc[key]
           console.log(repeticion)
       }
       if(key=='animacion'){
-          animacion = doc[key]
+          animacionDoble = doc[key]
           console.log(animacion)
       }
       if(key=='valores'){
@@ -351,7 +355,7 @@ function downloadListaDobleEnlazada(filename, text) {
   lista = lDEnlazada.print()
 
   var element = document.createElement('a');
-  let doc = JSON.stringify({ "categoria": categoria, 'nombre': nombre, 'repeticion':repeticion, 'animacion':animacion, 'valores': lista });
+  let doc = JSON.stringify({ "categoria": categoriaDoble, 'nombre': nombreDoble, 'repeticion':repeticionDoble, 'animacion':animacionDoble, 'valores': lista });
   
   //console.log(listSimple.print())
   element.setAttribute('href', 'data:json,' + doc);
