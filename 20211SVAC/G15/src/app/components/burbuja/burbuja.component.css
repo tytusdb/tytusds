@@ -1,0 +1,16 @@
+body{
+    min-height: 300vh;
+    background-color: #263238;
+}
+.container {
+    position: relative;
+    z-index: 9999;
+  }
+  
+  .opciones {
+    background-color: #b43e60;
+  }
+
+  .file-input{
+    display: none;
+  }

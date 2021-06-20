@@ -34,9 +34,11 @@ class Pila {
                 if (aux.dato == datoB) {
                     console.log(aux.dato)
                     console.log("ENCONTRADO")
+                    return true
                 }
                 aux = aux.siguiente;
             }
+            return false
         }
     }
 
@@ -68,7 +70,7 @@ class Pila {
                 if (aux.dato == datoB) {
                     aux.dato = valor;
                     console.log("DATO ACTUALIZADO")
-                    break
+                    return true
                 } else {
                     aux = aux.siguiente;
                 }

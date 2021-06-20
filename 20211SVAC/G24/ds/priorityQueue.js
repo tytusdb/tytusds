@@ -77,13 +77,14 @@ class priorityQueue{
 	update(pos, elem){
 		if (pos==0){
 			this.front.data=elem;
-			return;
+			return this.front;
 		}
 		var cur=this.front;
 		for(var i=0; i<pos-1; i++){
 			cur=cur.prev;
 		}
 		cur.prev.data=elem;
+		return cur.prev;
 	}
 
 	setPos(){
