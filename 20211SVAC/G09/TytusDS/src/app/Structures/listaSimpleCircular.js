@@ -83,6 +83,10 @@ class NodoListaSimpleCirular{
 }
   
 const lSCircular = new ListaSimpleCirular();
+var categoriaCircular = "Estructura Lineal";
+var nombreCircular = 'Lista Simple Circular';
+var repeticionCircular = "True";
+var animacionCircular = "0";
 
 function lsimpleCircleAdd(date){
   lSCircular.add(date);
@@ -121,19 +125,19 @@ function ArbrirArchivoListaSimpleCirular(event){
       for (var key in doc) {
         //console.log('name=' + key + ' value=' + doc[key]);
         if(key=='categoria'){
-            categoria = doc[key]
+            categoriaCircular = doc[key]
             console.log(categoria)
         }
         if(key=='nombre'){
-            nombre = doc[key]
+            nombreCircular = doc[key]
             console.log(nombre)
         }
         if(key=='repeticion'){
-            repeticion = doc[key]
+            repeticionCircular = doc[key]
             console.log(repeticion)
         }
         if(key=='animacion'){
-            animacion = doc[key]
+            animacionCircular = doc[key]
             console.log(animacion)
         }
         if(key=='valores'){
@@ -143,11 +147,29 @@ function ArbrirArchivoListaSimpleCirular(event){
             }
         }
      }
-     
+     console.log(lSCircular.print())
 
     };
-    console.log(lSCircular.print())
+    
     reader.readAsText(file);
 }//guardar archivo
+function downloadEnlazadaCircular(filename, text) {
+    
+  listaCir = lSCircular.print()
+
+  var element = document.createElement('a');
+  let doc = JSON.stringify({ "categoria": categoriaCircular, 'nombre': nombreCircular, 'repeticion':repeticionCircular, 'animacion':animacionCircular, 'valores': listaCir });
+  
+  //console.log(listSimple.print())
+  element.setAttribute('href', 'data:json,' + doc);
+  element.setAttribute('download', filename);
+
+  element.style.display = 'none';
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
+}
 
 
