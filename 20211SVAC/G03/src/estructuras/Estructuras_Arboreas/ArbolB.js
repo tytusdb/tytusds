@@ -241,4 +241,84 @@ class ArbolB{
             }
         }
     }
+
+    //Metodo eliminar
+    eliminar(dato){
+        if (this.raiz == null){
+            console.log("no existe arbol")
+            return 
+        }
+        let aux = this.raiz
+        let aux2 = aux.raiz
+        while (aux2 != null){
+            if(aux2.dato == dato && aux2.izquierdo == null && aux2.derecho == null){
+                if(aux2.anterior == null && aux2.siguiente != null){
+                    let tmp = aux2.siguiente
+                    aux.raiz = tmp
+                    aux2.siguiente = null
+                    tmp.anterior = null
+                    console.log("Nodo Raiz eliminado")
+                    return
+                }else if(aux2.anterior != null && aux2.siguiente != null){
+                    let tmp = aux2.siguiente
+                    aux2.anterior.siguiente = tmp
+                    tmp.anterior = aux2.anterior
+                    aux2.anterior = null
+                    aux2.siguiente = null
+                    console.log("Nodo medio eliminado")
+                    return
+                }else if(aux2.anterior != null && aux2.siguiente == null){
+                    let tmp = aux2.anterior
+                    tmp.siguiente = null
+                    aux2.anterior = null
+                    console.log("Nodo eliminado al final")
+                    return
+                }else if(aux2.anterior == null && aux2.siguiente == null){
+                    if(aux2.izquierdo == null && aux2.derecho == null){
+                        this.raiz = null
+                        console.log("eliminado unico nodo")
+                    }
+                }
+            }
+            aux2 = aux2.siguiente
+        }
+        this.eliminando(this.raiz, dato) 
+    }
+
+    //Sub metodo eliminar
+    eliminando(rama, dato){
+        if (rama.raiz == null){
+            console.log("no hay nodos")
+            return 
+        }
+        let aux = rama.raiz
+        if(aux.izquierdo != null){
+            this.eliminando(aux.izquierdo, dato)
+        }
+        if(aux.derecho!=null){
+            this.eliminando(aux.derecho, dato)
+        }
+        if(aux.siguiente == null && aux.anterior == null){
+            if(aux.dato == dato){
+                console.log("Dato identificado" + dato)
+                aux.dato = "papa"
+                this.elimin(this.raiz)
+                this.creando()
+                return
+            }
+        }
+        while(aux!= null){
+            if(aux.anterior != null && aux.derecho != null){
+                this.eliminando(aux.derecho, dato)
+            }
+            if(aux.dato == dato){
+                console.log("Dato identificado" + dato)
+                aux.dato = "papa"
+                this.elimin(this.raiz)
+                this.creando()
+                return
+            }
+            aux = aux.siguiente
+        }
+    }
 }
