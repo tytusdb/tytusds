@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="86524488-193f-4d3f-9429-eb125c3b6d8c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pages/cola.html" beforeDir="false" afterPath="$PROJECT_DIR$/Pages/cola.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pages/colaDePrioridad.html" beforeDir="false" afterPath="$PROJECT_DIR$/Pages/colaDePrioridad.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pages/listaCircularDoblementeEnlazada.html" beforeDir="false" afterPath="$PROJECT_DIR$/Pages/listaCircularDoblementeEnlazada.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pages/listaCircularSimplementeEnlazada.html" beforeDir="false" afterPath="$PROJECT_DIR$/Pages/listaCircularSimplementeEnlazada.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pages/listaDoblementeEnlazada.html" beforeDir="false" afterPath="$PROJECT_DIR$/Pages/listaDoblementeEnlazada.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pages/listaSimplementeEnlazada.html" beforeDir="false" afterPath="$PROJECT_DIR$/Pages/listaSimplementeEnlazada.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pages/pila.html" beforeDir="false" afterPath="$PROJECT_DIR$/Pages/pila.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CSS/estructurasLineales.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +27,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\jocec\Documents\GitHub\tytusds\20211SVAC\G14\CSS" />
       <recent name="C:\Users\jocec\Documents\GitHub\tytusds\20211SVAC\G14\Pages" />
       <recent name="C:\Users\jocec\Documents\GitHub\tytusds\20211SVAC\G14\JS" />
     </key>
@@ -48,7 +42,7 @@
       <updated>1624041488352</updated>
       <workItem from="1624041491192" duration="1256000" />
       <workItem from="1624222995798" duration="610000" />
-      <workItem from="1624223736112" duration="196000" />
+      <workItem from="1624223736112" duration="1067000" />
     </task>
     <servers />
   </component>
