@@ -72,19 +72,22 @@
 					]
 				});
 				
+			const canvas = document.createElement('canvas');
+			const ctx = canvas.getContext('2d');
+			ctx.font= '20px serif';
 			document.getElementById('nBtn').onclick = function(){
 				var input = document.getElementById('nText').value;
 				var spd = document.getElementById('speed').value;
 				if (ls.front==null){
-					cy.add([{data:{id:ls.size,name:input}}]);
+					cy.add([{data:{id:ls.size,name:input}}]).style({width:ctx.measureText(input).width});
 				}else{
 					var n1=ls.size - 1;
 					var n2=ls.size;
-					cy.add({data:{id:ls.size,name:input}});
+					cy.add({data:{id:ls.size,name:input}}).style({width:ctx.measureText(input).width});
 					cy.add({data:{source:n1,target:n2}});
 				}
 				ls.enqueue(input);
-				var options={name:'dagre',rankDir:'RL',spacingFactor:'0.35',animate:'end',animationDuration: 100*spd};
+				var options={name:'dagre',rankDir:'RL',animate:'end',animationDuration: 100*spd};
 				cy.layout(options).run();
 			}
 			
@@ -93,7 +96,7 @@
 				var spd = document.getElementById('speed').value;
 				ls.dequeue();
 				cy.remove(r);
-				var options={name:'dagre',rankDir:'RL',spacingFactor:'0.35',animate:'end',animationDuration: 100*spd};
+				var options={name:'dagre',rankDir:'RL',animate:'end',animationDuration: 100*spd};
 				cy.layout(options).run();
 			}
 			
@@ -134,7 +137,7 @@
 				var input = document.getElementById('nText').value;
 				var pos=cy.$(':selected').data('id');
 				ls.update(pos,input);
-				cy.$(':selected').data('name',input);
+				cy.$(':selected').data('name',input).style({width:ctx.measureText(input).width});
 			}
 
 		</script>
