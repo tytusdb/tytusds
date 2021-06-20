@@ -134,5 +134,9 @@ export class AVL{
             p.right = a.left
         }return a
     }
+    
+    balancear(){
+        
+    }
 
 }
