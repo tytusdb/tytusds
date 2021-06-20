@@ -55,6 +55,7 @@ class Rama {
             } while (temporal != null);
         }
     }
+
 }
 
 class ArbolBplus {
@@ -75,6 +76,8 @@ class ArbolBplus {
         this._agregar(nodo, this.raiz)
 
     }
+
+
     _agregar(nodo, ramaAux) {
         if (this.raiz == null) {
             this.raiz = new Rama();
@@ -89,7 +92,22 @@ class ArbolBplus {
             this.buscarInsercion(nodo, ramaAux);
         }
     }
-    
+
+
+    buscarInsercion(nodo, rama) {
+        let temp = rama.indice;
+        for (let i = 1; i <= rama.contador; i++, temp = temp.siguiente) {
+            if (nodo.valor < temp.valor) {
+                this._agregar(nodo, temp.rama_Izq);
+                break;
+            } else if (temp.siguiente == null) {
+                this._agregar(nodo, temp.rama_Der);
+                break;
+            }
+        }
+    }  
+
+
 
 }
 module.exports.ArbolBplus = ArbolBplus;
