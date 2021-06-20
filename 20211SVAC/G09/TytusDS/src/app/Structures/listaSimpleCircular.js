@@ -90,20 +90,20 @@ function lsimpleCircleDelete(date){
   lSCircular.delete(date);
   console.log(linkedList) 
 }
-function lsimpleRefresh(date1,date2){
+function lsimpleCircleRefresh(date1,date2){
   lSCircular.refresh(date1,date2);
   //console.log(linkedList) 
 }
-function lsimpleSearch(date){
+function lsimpleCircleSearch(date){
   return lSCircular.search(date); 
 }
-function lsimpleCargar(date){
+function lsimpleCrircleCargar(date){
   lSCircular.cargar();
 }
-function lsimpleGuardar(date){
+function lsimpleCircleGuardar(date){
   lSCircular.guardar();
 }
-function lsimplePrint(){return print()}
+function lsimpleCriclePrint(){return print()}
 
 function ArbrirArchivoListaSimpleCirular(event){
     var file = event.target.files[0];

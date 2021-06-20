@@ -85,24 +85,24 @@ function ldobleCircleAdd(date){
   console.log(linkedList) 
 }
 
-function ldobleDelete(date){
+function ldobleCircleDelete(date){
   lCircularDEnlazada.delete(date);
   console.log(linkedList) 
 }
-function ldobleRefresh(date1,date2){
+function ldobleCircleRefresh(date1,date2){
   lCircularDEnlazada.refresh(date1,date2);
   console.log(linkedList) 
 }
-function ldobleSearch(date){
+function ldobleCircleSearch(date){
   return lCircularDEnlazada.search(date); 
 }
-function ldobleCargar(date){
+function ldobleCircleCargar(date){
   lCircularDEnlazada.cargar();
 }
-function ldobleGuardar(date){
+function ldobleCircleGuardar(date){
   lCircularDEnlazada.guardar();
 }
-function ldoblePrint(){return print()}
+function ldobleCirclePrint(){return print()}
 
 function AbrirListaDobleCircular(event) {
   var file = event.target.files[0];

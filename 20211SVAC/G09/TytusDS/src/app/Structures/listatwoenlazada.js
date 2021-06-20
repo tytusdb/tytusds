@@ -86,12 +86,16 @@ function ldobleAdd(date){
 
 function ldobleDelete(date){
   lDEnlazada.delete(date) 
+  console.log(lDEnlazada.print())
 }
 function ldobleRefresh(date1,date2){
   lDEnlazada.refresh(date1,date2)
+  console.log(lDEnlazada.print())
 }
 function ldobleSearch(date){
-  return lDEnlazada.search(date) 
+  console.log(lDEnlazada.search(date)) 
+  return lDEnlazada.search(date)
+  
 }
 function ldobleCargar(date){
   lDEnlazada.cargar()
