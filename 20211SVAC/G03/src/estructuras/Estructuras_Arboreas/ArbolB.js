@@ -321,4 +321,45 @@ class ArbolB{
             aux = aux.siguiente
         }
     }
+
+    //Metodo de reestructuracion de arbol
+    creando(){
+        this.raiz = null
+        for(let i = 0; i<arr.length;i++){
+            let dat = arr[i]
+            this.insertar(dat)
+        }
+        console.log("Arbol Creado")
+        arr = []
+    }
+    
+    //Metodo para manejo de array de uso unico
+    elimin(rama){
+        if (rama.raiz == null){
+            console.log("no hay nodos")
+            return 
+        }
+        let aux = rama.raiz
+        if(aux.izquierdo != null){
+            this.elimin(aux.izquierdo)
+        }
+        if(aux.derecho!=null){
+            this.elimin(aux.derecho)
+        }
+        if(aux.siguiente == null && aux.anterior == null){
+            if(aux.dato != "papa"){
+                arr.push(aux.dato)
+                return
+            }
+        }
+        while(aux!= null){
+            if(aux.anterior != null && aux.derecho != null){
+                this.elimin(aux.derecho)
+            }
+            if(aux.dato != "papa"){
+                arr.push(aux.dato)
+            }
+            aux = aux.siguiente
+        }
+    }
 }
