@@ -94,8 +94,24 @@ class ListaCS{ //Clase Lista Circular Simple
 
     //Metodo Actualizar
     actualizar(datoelim, datoinse){
-        this.eliminar(datoelim)
-        this.insert(datoinse)
+        let aux = this.cabeza;
+        let contador = 1;
+        let tmp = aux.siguiente
+        while(tmp.dato != datoelim && contador != this.size){
+            aux= aux.siguiente;
+            tmp= tmp.siguiente;
+            contador++;
+        }
+        if(tmp.dato == datoelim){
+            //Dato encontrado
+            console.log(tmp.dato + " fue hayado con exito");
+            tmp.dato = datoinse
+            console.log(datoelim + " fue editado con exito a " + tmp.dato);
+        }
+        if (contador == this.size){
+            //Dato no encontrado
+            console.log("No se encontro el dato buscado");
+        }
     }
 
     //Metodo Cargar
