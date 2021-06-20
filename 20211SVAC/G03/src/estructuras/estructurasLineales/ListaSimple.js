@@ -115,6 +115,28 @@ class ListaSimple{
         fs.writeFile(nombre, json)
         
     }
+
+    Recorrido(datoBuscar){
+
+        let arreglo = []
+        let contador = 0;
+        let temporal = this.primero;
+            while(temporal != null){ 
+                let dato = {id: contador, label: temporal.valor.toString(),}
+                arreglo[contador] = dato
+
+                if(temporal.valor == datoBuscar){
+                    
+                    let dato = {id: contador, label: temporal.valor.toString(),  color: "lime"}
+                    arreglo[contador] = dato
+                }
+                temporal = temporal.siguiente;
+                contador++;
+            }
+
+            return arreglo;
+
+    }
   
 }
-module.exports.ListaSimple = ListaSimple;
+export default ListaSimple;

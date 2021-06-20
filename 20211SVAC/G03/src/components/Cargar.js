@@ -46,13 +46,17 @@ function structW(nombre,datos,edd){ // FUNCION PARA SABER QUE TIPO DE ESTRUCTURA
             break
         case "Lista simplemente enlazada":
 
-            /* edd = new Cola();
-            edd.cargar(datos) */
+            if(edd == null){
+                edd = new ListaSimple();
+            }
+            edd.cargar(datos)
             break
 
         case "Lista doblemente enlazada":
 
-             edd = new Cola();
+            if(edd == null){
+                edd = new ListaDoble();
+            }
             edd.cargar(datos) 
             break
 

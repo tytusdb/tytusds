@@ -99,7 +99,7 @@ class ListaDoble {
 
     cargar(arreglo) {
         
-        arreglo.array.forEach(elemento => {
+        arreglo.map(elemento => {
             this.agregar(elemento);
         });
     }
@@ -117,6 +117,24 @@ class ListaDoble {
         let json = JSON.stringify(archivojs)
         let nombre = "ListaSimple" + contadorListas;
         fs.writeFile(nombre, json)
+
+    }
+
+    Recorrido(datoBuscar){
+        let temporal = this.primero;
+        let arreglo = [];
+        let contador = 0;
+        while(temporal != null){ 
+            let dato = {id: contador, label: temporal.valor.toString(),}
+            arreglo[contador] = dato
+            
+            if(temporal.valor == datoBuscar){
+                let dato = {id: contador, label: temporal.valor.toString(),  color: "lime"}
+                arreglo[contador] = dato
+            }
+            temporal = temporal.siguiente;
+            contador++;
+        }
 
     }
 
