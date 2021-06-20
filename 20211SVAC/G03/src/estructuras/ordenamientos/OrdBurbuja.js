@@ -18,4 +18,12 @@ class Ordenamiento{
         }
         this.arreglo = datos;
     }
+
+    cargar(archivo){
+        let datos = json.parse[datos];
+        let arreglo = datos["valores"];
+        this.ordenar(arreglo)
+
+    }
+
 }	
