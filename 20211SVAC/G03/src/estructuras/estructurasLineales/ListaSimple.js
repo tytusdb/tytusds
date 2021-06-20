@@ -1,3 +1,4 @@
+var fs = require('fs')
 class Nodo {
     constructor(valor){
         this.valor = valor;
@@ -8,8 +9,7 @@ class Nodo {
 class ListaSimple{  
 
     constructor(){
-       this.primero = null;          
-       const fs = require("fs");       
+       this.primero = null;             
     }  
 
     
@@ -45,9 +45,9 @@ class ListaSimple{
                 else {
                     if (temporal.siguiente != null) {
                         if (temporal.siguiente.valor == elemento) {
-                            siguienteT = temporal.siguiente;
-                            temporal.siguiente = siguiente.siguiente;
-                            siguiente.siguiente = null;
+                            let siguienteT = temporal.siguiente;
+                            temporal.siguiente = siguienteT.siguiente;
+                            siguienteT.siguiente = null;
                             return;
                         }
                     }
@@ -81,7 +81,7 @@ class ListaSimple{
 
         }
         else {
-            temporal = this.primero;
+            let temporal = this.primero;
             while(temporal != null){ 
                 if(temporal.valor == valor){
                     return temporal;  
@@ -93,7 +93,7 @@ class ListaSimple{
 
 
     cargar(arreglo) {        
-        arreglo.array.forEach(elemento => {
+        arreglo.map(elemento => {
             this.agregar(elemento);
         });
         
@@ -101,6 +101,7 @@ class ListaSimple{
     }
     guardar() {
         
+        let contadorListas
         contadorListas ++;
         let archivojs;
         let temporal = this.primero;

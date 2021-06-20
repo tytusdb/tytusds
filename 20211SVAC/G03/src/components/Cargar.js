@@ -6,8 +6,8 @@ import ColaPrioridad from '../estructuras/EstructurasLineales/ColaPrioridad'
 import ABB from '../estructuras/Estructuras_Arboreas/ABB'
 import Pila from '../estructuras/EstructurasLineales/Pila'
 import ListaCirD from '../estructuras/EstructurasLineales/ListaCirD'
-import ListaCS from '../estructuras/EstructurasLineales/ListaCirS'/* 
-import ListaSimple from '../estructuras/EstructurasLineales/ListaSimple' */
+import ListaCS from '../estructuras/EstructurasLineales/ListaCirS'
+import ListaSimple from '../estructuras/EstructurasLineales/ListaSimple'
 import ListaDoble from '../estructuras/EstructurasLineales/ListaDoble'
 
 let propsG
