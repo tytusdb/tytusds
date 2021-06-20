@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class ListaCircularComponent implements OnInit {
 
   displayVal='';
-  getValue(val:string){
+  getValue1(val:string){
     console.warn(val)
     
     

@@ -12,6 +12,7 @@ import { ListaSimpleComponent } from "./componentes/lista-simple/lista-simple.co
 import { ListaDobleEnlazadaComponent } from './componentes/lista-doble-enlazada/lista-doble-enlazada.component';
 import { ListaCircularComponent } from './componentes/lista-circular/lista-circular.component';
 import { ListaDobleCircularComponent } from './componentes/lista-doble-circular/lista-doble-circular.component';
+import { PilaComponent } from './componentes/pila/pila.component';
 const routes: Routes = [
   {path: "EstructurasLineales",    component: EstructurasLinealesComponent},
   {path: "Inicio",    component: InicioComponent},
@@ -21,9 +22,8 @@ const routes: Routes = [
   {path:"listaSimple",  component: ListaSimpleComponent},
   {path:"ListaDobleEnlazada", component:ListaDobleEnlazadaComponent},
   {path:"ListaCircular", component:ListaCircularComponent },
-  {path:"ListaDobleCircular", component:ListaDobleCircularComponent}
-
-
+  {path:"ListaDobleCircular", component:ListaDobleCircularComponent},
+  {path:"pila", component:PilaComponent}
 ];
 
 @NgModule({

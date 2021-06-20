@@ -1,10 +1,10 @@
-class Nodo{
+class NodoListaSimpleCirular{
     constructor(data, sig){
       this.data = data;
       this.sig = sig;
     }
   }
-  class ListaDobleEnlazada{
+  class ListaSimpleCirular{
     constructor(){
       this.head = null;
       this.size = 0;
@@ -12,7 +12,7 @@ class Nodo{
     
   
   add(data){
-    const newNodo = new Nodo(data, this.head);
+    const newNodo = new NodoListaSimpleCirular(data, this.head);
     if(this.head){        
       let aux = this.head
       while(aux.sig != this.head){
@@ -79,28 +79,71 @@ class Nodo{
     }
 }
   
-const lSCircular = new ListaDobleEnlazada();
+const lSCircular = new ListaSimpleCirular();
 
-function lsimpleAdd(date){
+function lsimplecircleAdd(date){
   lSCircular.add(date);
   console.log(linkedList) 
 }
 
-function lsimpleDelete(date){
+function lsimpleCircleDelete(date){
   lSCircular.delete(date);
   console.log(linkedList) 
 }
-function lsimpleRefresh(date1,date2){
+function lsimpleCircleRefresh(date1,date2){
   lSCircular.refresh(date1,date2);
-  console.log(linkedList) 
+  //console.log(linkedList) 
 }
-function lsimpleSearch(date){
+function lsimpleCircleSearch(date){
   return lSCircular.search(date); 
 }
-function lsimpleCargar(date){
+function lsimpleCrircleCargar(date){
   lSCircular.cargar();
 }
-function lsimpleGuardar(date){
+function lsimpleCircleGuardar(date){
   lSCircular.guardar();
 }
-function lsimplePrint(){return print()}
+function lsimpleCriclePrint(){return print()}
+
+function ArbrirArchivoListaSimpleCirular(event){
+    var file = event.target.files[0];
+    var reader = new FileReader();
+    reader.onload = function(event) {
+      // El texto del archivo se mostrará por consola aquí
+     // console.log(event.target.result)
+      let doc = JSON.parse(event.target.result);
+      //console.log(doc)
+
+      for (var key in doc) {
+        //console.log('name=' + key + ' value=' + doc[key]);
+        if(key=='categoria'){
+            categoria = doc[key]
+            console.log(categoria)
+        }
+        if(key=='nombre'){
+            nombre = doc[key]
+            console.log(nombre)
+        }
+        if(key=='repeticion'){
+            repeticion = doc[key]
+            console.log(repeticion)
+        }
+        if(key=='animacion'){
+            animacion = doc[key]
+            console.log(animacion)
+        }
+        if(key=='valores'){
+            //console.log(doc[key].length)
+            for (var k in doc[key]){
+              lSCircular.add(doc[key][k])
+            }
+        }
+     }
+     
+
+    };
+    console.log(lSCircular.print())
+    reader.readAsText(file);
+}//guardar archivo
+
+
