@@ -1,17 +1,17 @@
 <body class="rounded shadow-lg o-hidden border-0 my-5 text-white masthead" style="background:url('assets/Imagenes/fondo3.jpg'); background-size:cover;">
-<button class="btn btn-primary btn-block text-white" type="submit" onclick="add()">
+<button id="b1" class="btn btn-primary btn-block text-white" type="submit" onclick="add()">
 <em class="fas fa-list"></em>
 Lista Doblemente Enlazada
 </button>
 <input type="text" #box placeholder="Ingrese Datos" name="username"/> 
 <button  (click)="getValue(box.value)" >Push</button> &nbsp; &nbsp;
 <input type="text" #box1 placeholder="Eliminar Datos" name="username"/> 
-<button (click)="getValue(box1.value)" >Eliminar</button>&nbsp; &nbsp;
+<button (click)="getDelete(box1.value)" >Eliminar</button>&nbsp; &nbsp;
 <input type="text" #box2 placeholder="Actualizar Datos" name="username"/> 
-<button (click)="getValue(box2.value)" >Actualizar</button>
+<button (click)="getRefresh(box2.value)" >Actualizar</button>
 <p>La lista es: {{displayVal}}</p>
 <input type="text" #box3 placeholder="Buscar Datos" name="username"/> 
-<button (click)="getValue(box3.value)" >Buscar</button>&nbsp; &nbsp;
+<button (click)="getSearch(box3.value)" >Buscar</button>&nbsp; &nbsp;
 <br>
 <br>
 <button class="btn btn-primary btn-block text-white" type="submit" onclick="downloadListaDobleEnlazada('ListaDobleEnlazada.js','hola')">Guardar Arreglo</button>
@@ -20,6 +20,6 @@ Lista Doblemente Enlazada
     <div id="divInsert1" style="position: absolute; top: 0px; left: 0px;"></div>
   <div id="divInsert">
   </div>  
-|<!--<button class="btn btn-primary btn-block text-white" type="submit" (click)="calladd(box.value)">Enviar</button>-->
+<!--<button class="btn btn-primary btn-block text-white" type="submit" (click)="calladd(box.value)">Enviar</button>-->
 <!--<button class="btn btn-primary btn-block text-white" type="submit" onclick="add()">Enviar</button> Falta trabajar-->
 
