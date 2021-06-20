@@ -9,14 +9,6 @@ class Nodo{
         this.heightBtn = heightBtn
     }
 }
-/*class ItemList{
-    constructor(data, id, x, y){
-        this.data = data;
-        this.id = id;
-        this.x = x;
-        this.y = y;
-    }
-}*/
 class ListaSimple{
     constructor(){
         this.head = null;
@@ -66,7 +58,7 @@ class ListaSimple{
         }
 
         current.next = newNodo;
-        
+
         posicion.style.left = (newNodo.x).toString()+"px" //El + 50 es para incluir a la misma flecha
         posicion.style.top =(newNodo.y).toString()+"px"
 
