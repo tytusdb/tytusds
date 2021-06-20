@@ -1,7 +1,31 @@
-async function probe() {
-    await swap("0", "1", 1000)
-    console.log("ok")
+async function Insert() {
+    prb.push(parseInt(document.getElementById("entry").value))
+    show()
 }
+function lFile(){
+    var upload=document.getElementById("loadedFile")
+    if (upload)
+    {
+        upload.addEventListener('change', function() {
+            if (upload.files.length > 0)
+            {
+                var reader = new FileReader(); // File reader to read the file
+                // This event listener will happen when the reader has read the file
+                reader.addEventListener('load', function() {
+                    prb=[]
+                    var result = JSON.parse(reader.result); // Parse the result into an object
+                    for (const resultKey in result.valores) {
+                        prb.push(parseInt(result.valores[resultKey]))
+                    }
+                    show()
+                });
+
+                reader.readAsText(upload.files[0]); // Read the uploaded file
+            }
+        });
+    }
+}
+
 
 async function swap(id1, id2, speed) {
     let element1 = document.getElementById("a" + id1);
@@ -113,19 +137,19 @@ async function ordenamiento_burbuja(array, comp, speed) {
 
 
 function ordenarBurbuja() {
-    prb = ordenamiento_burbuja(prb, numberComparison, 500);
+    ordenamiento_burbuja(prb, numberComparison, 500);
 
 }
 
 function ordenarInsertion() {
-    prb = insertionSort(prb, numberComparison, 1000);
+    insertionSort(prb, numberComparison, 1000);
 }
 
 function ordenarSelection() {
-    prb = selectionSort(prb, numberComparison, 1000);
+    selectionSort(prb, numberComparison, 1000);
 }
 function ordenarQuick() {
-    prb = quicksort(prb, numberComparison, 500);
+    quicksort(prb, numberComparison, 10);
 }
 
 function numberComparison(a, b) {
@@ -209,8 +233,10 @@ async function insertionSort(arr, comp, speed) {
 }
 
 function show() {
+    document.getElementById('result').innerHTML=""
     let lef = 0;
     for (const k in prb) {
+        console.log(prb[k])
         let pos = k.toString();
         document.getElementById('result').innerHTML +=
             `<div class="myDiv" style="top: 100px;left: ${lef.toString() + 'px'}" id=${"a" + pos}>${prb[k]}</div><br />`;
