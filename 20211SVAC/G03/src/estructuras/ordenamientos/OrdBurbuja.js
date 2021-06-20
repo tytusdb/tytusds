@@ -3,8 +3,6 @@ class Ordenamiento{
         this.arreglo = null;
         this.contadorArreglos = 0;
     }
-
-
     ordenar(datos){
         this.arreglo = datos;
         for (let i = 0; i< datos.length-1; i++){
@@ -26,4 +24,16 @@ class Ordenamiento{
 
     }
 
-}	
+    guardar(){
+        contadorListas ++;
+        let archivojs;
+        archivojs["Datos"] = this.arreglo;        
+       
+        let json = JSON.stringify(archivojs)
+        let nombre = "Ordenamiento" + contadorListas;
+        fs.writeFile(nombre, json)
+
+    }
+}
+
+module.exports.Ordenamiento = Ordenamiento;	
