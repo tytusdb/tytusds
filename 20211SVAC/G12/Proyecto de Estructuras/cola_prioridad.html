@@ -9,12 +9,13 @@
 </head>
 <body>
     <header class="header">
-        <center><h1>Cola</h1></center>
+        <center><h1>Cola Prioridad</h1></center>
         <input type="file" id="Archivo">
         Repetidos<input type="checkbox" id="checkbox"/>
     </header>
     <form><center>
         <input type="text" id="dato_pag" placeholder="Dato" required/>
+        <input type="text" id="prioridad" placeholder="Prioridad" required/>
         <input type="button" onClick="insertar_nodo()" value="Add" />
         <input type="button" onClick="eliminar_nodo()" value="Remove" />
         <input type="button" onClick="buscar()" value="Buscar" />
@@ -27,6 +28,6 @@
     <br>
     </form>
     <section class = "lista" id="lista"></section>
-    <script type="text/javascript" src="cola.js"></script>   
+    <script type="text/javascript" src="cola_prioridad.js"></script>   
 </body>
 </html>

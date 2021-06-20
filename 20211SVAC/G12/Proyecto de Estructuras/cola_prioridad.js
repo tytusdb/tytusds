@@ -1,38 +1,61 @@
 class Nodo{
-    constructor(dato){
-        this.dato = dato;
-        this.siguiente = null;
+    constructor(dato, prioridad){
+        this.dato = dato
+        this.prioridad = prioridad
+        this.siguiente = null
     }
 }
 
-class Pila{
+class Cola_Prioridad{
     constructor(){
         this.primero = null;
+        this.ultimo = null;
         this.size = 0;
     }
+    insertar(dato, prioridad){
+        let nuevo = new Nodo(dato, prioridad);
 
-    insertar_push(dato){
-        let nuevo = new Nodo(dato);
-
-        nuevo.siguiente = this.primero;
-        this.primero = nuevo;
+        if(this.primero == null){
+            this.primero = nuevo;
+            this.primero.siguiente = null;
+            this.ultimo = nuevo;
+        }else{
+            nuevo.siguiente = this.primero
+            this.primero = nuevo;
+            var actual = this.primero;
+            var next = actual.siguiente;
+            while(actual.siguiente != null){
+                if(actual.prioridad > next.prioridad){
+                    var aux = actual.dato;
+                    var auxiliar = actual.prioridad;
+                    actual.dato = next.dato;
+                    actual.prioridad = next.prioridad;
+                    next.dato = aux;
+                    next.dprioridad = auxiliar;
+                    actual = actual.siguiente;
+                    next = next.siguiente;
+                }else{
+                    actual = actual.siguiente;
+                    next = next.siguiente;
+                }
+            }
+        }
         this.size++;
     }
 
-    print_pila(){
+    print_cola(){
         let actual = this.primero;
         if(this.primero != null){
             while(actual != null){
                 console.log("Dato: ", actual.dato);
                 actual = actual.siguiente;
             }
-            console.log("El tamaño de la Pila es: ", this.size);
         }else{
-            console.log("La pila se encuentra vacia");
+            console.log("La Cola se encuentra vacia");
         }
     }
 
-    buscar_pila(dato){
+    buscar_cola(dato){
         let actual = this.primero;
         let encontrado = false;
         if(this.primero != null){
@@ -44,14 +67,26 @@ class Pila{
                 actual = actual.siguiente;
             }
             if(!encontrado){
-                console.log("Dato no encontrado");
+                console.log("Dato no encontrado")
             }
         }else{
-            console.log("La pila se encuentra vacia");
+            console.log("La Cola se encuentra vacia");
         }
     }
 
-    actualizar_pila(dato_viejo, dato_nuevo){
+    eliminar_remove(){
+        let actual = this.primero;
+        if(this.primero != null){
+            if(actual == this.primero){
+                this.primero = this.primero.siguiente
+                this.size--;
+            }
+        }else{
+            console.log("La cola se encuentra vacia");
+        }   
+    }
+
+    actualizar_cola(dato_viejo, dato_nuevo){
         let actual = this.primero;
         let encontrado = false;
         if(this.primero != null){
@@ -65,25 +100,22 @@ class Pila{
                 actual = actual.siguiente;
             }
             if(!encontrado){
-                console.log("Dato no encontrado");
+                console.log("Dato no encontrado")
             }
         }else{
-            console.log("La pila se encuentra vacia");
-        }    
-    }
-
-    eliminar_pop(){
-        let actual = this.primero;
-        if(this.primero != null){
-            if(actual == this.primero){
-                this.primero = this.primero.siguiente
-                this.size--;
-            }
-        }else{
-            console.log("La pila se encuentra vacia");
-        }   
+            console.log("La Cola se encuentra vacia");
+        }
     }
 }
+
+/*cola_prioridad.insertar(2,6);
+cola_prioridad.insertar(9,3);
+cola_prioridad.insertar(5,5);
+cola_prioridad.insertar(10,0);
+cola_prioridad.eliminar_remove();
+cola_prioridad.actualizar_cola(9,1);
+cola_prioridad.buscar_cola(5);
+cola_prioridad.print_cola();*/
 
 /* --------Implementacion---------------- */
 
@@ -93,7 +125,7 @@ let pointers = document.getElementsByClassName('pointer');
 var indice = 0;
 var velocidad = 500; 
 
-let pila = new Pila();
+let cola_prioridad = new Cola_Prioridad();
 
 function animacion_nodo(i) {
     return new Promise(resolve => {
@@ -113,80 +145,14 @@ function animacion_nodo(i) {
 }
 
 async function nodos_animados(from, to) {
-    for (let i = to; i >= from; i--) {
+    for (let i = from; i <= to; i++) {
         await animacion_nodo(i);
     }
 }
 
-/*async function insertar_nodo(){
-    var dato = document.getElementById('dato_pag').value;
-    
-    pila.insertar_push(dato);
-
-    if(dato === ''){
-        alert("Por favor ingrese un dato");
-        return false;
-    }else{
-        let node = document.createElement('div');
-        node.classList.add('node');
-
-        let number = document.createElement('p');
-        number.classList.add('number');
-
-        let text = document.createTextNode(dato);
-
-        number.appendChild(text);
-        node.appendChild(number);
-
-        let pointer = document.createElement('div');
-        pointer.classList.add('pointer');
-
-        let img = document.createElement('img');
-        img.src = "img/flechaIzquierda.png";
-    
-        pointer.appendChild(img);
-
-        for(var i = 10; i >= 0; i--){
-            console.log(i);
-        }
-
-        if(indice === 0){
-            list.prepend(node);
-            list.prepend(pointer);
-            node.animate([{transform: 'scale(0.5)', background: '#f12711', 
-            background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
-            background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0},
-            {transform: 'scale(1)',background: '#f12711', 
-            background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
-            background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0.2},
-            {transform: 'scale(1.5)',background: '#f12711', 
-            background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
-            background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0.5}],
-            {duration: velocidad});
-            indice++;
-        }else{
-            //console.log("->",nodes.length-1);
-            await nodos_animados(0, nodes.length-1);
-            list.prepend(node);
-            list.prepend(pointer);
-            node.animate([{transform: 'scale(0.5)', background: '#f12711', 
-            background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
-            background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0},
-            {transform: 'scale(1)',background: '#f12711', 
-            background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
-            background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0.2},
-            {transform: 'scale(1.5)',background: '#f12711', 
-            background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
-            background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0.5}],
-            {duration:velocidad});
-            indice++;
-            console.log(nodes.length)
-        }
-    }
-}*/
-
 async function insertar_nodo(){
     var dato = document.getElementById('dato_pag').value;
+    var prioridad = document.getElementById('prioridad').value;
     var checkbox = document.getElementById('checkbox').checked;
     var encontrado = false;
 
@@ -195,30 +161,35 @@ async function insertar_nodo(){
         return false;
     }else{
         if(checkbox == true){
-            pila.insertar_push(dato);
+            cola_prioridad.insertar(dato, prioridad);
             console.log("Activado");
             let node = document.createElement('div');
             node.classList.add('node');
     
             let number = document.createElement('p');
             number.classList.add('number');
-    
+
+            let set = document.createElement('p');
+            set.classList.add('set');
+
             let text = document.createTextNode(dato);
-    
+            let priori = document.createTextNode(prioridad);    
             number.appendChild(text);
+            set.appendChild(priori);
             node.appendChild(number);
+            node.appendChild(set);
     
             let pointer = document.createElement('div');
             pointer.classList.add('pointer');
     
             let img = document.createElement('img');
-            img.src = "img/flechaIzquierda.png";
+            img.src = "img/flecha6.png";
         
             pointer.appendChild(img);
     
             if(indice === 0){
-                list.prepend(node);
-                list.prepend(pointer);
+                list.appendChild(node);
+                list.appendChild(pointer);
                 node.animate([{transform: 'scale(0.5)', background: '#f12711', 
                 background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
                 background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0},
@@ -231,9 +202,23 @@ async function insertar_nodo(){
                 {duration: velocidad});
                 indice++;
             }else{
-                await nodos_animados(0, nodes.length-1);
-                list.prepend(node);
-                list.prepend(pointer);
+                for(var i = 0; i<nodes.length; i++){
+                    var prueba = nodes[i].lastElementChild.textContent;
+                    console.log("-->",prueba);
+                    if(prioridad < prueba){
+                        console.log("es menor");
+                        console.log(i);
+                        list.insertBefore(pointer, nodes[i])
+                        list.insertBefore(node, pointers[i])
+                        break;
+                    }else if(prioridad == prueba){
+                        list.appendChild(node);
+                        list.appendChild(pointer);
+                    }else{
+                        list.appendChild(node);
+                        list.appendChild(pointer);
+                    }
+                }       
                 node.animate([{transform: 'scale(0.5)', background: '#f12711', 
                 background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
                 background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0},
@@ -254,24 +239,29 @@ async function insertar_nodo(){
     
             let number = document.createElement('p');
             number.classList.add('number');
+
+            let set = document.createElement('p');
+            set.classList.add('set');
     
             let text = document.createTextNode(dato);
-    
+            let priori = document.createTextNode(prioridad);    
             number.appendChild(text);
+            set.appendChild(priori);
             node.appendChild(number);
+            node.appendChild(set);
     
             let pointer = document.createElement('div');
             pointer.classList.add('pointer');
     
             let img = document.createElement('img');
-            img.src = "img/flechaIzquierda.png";
+            img.src = "img/flecha6.png";
         
             pointer.appendChild(img);
     
             if(indice === 0){
-                pila.insertar_push(dato);
-                list.prepend(node);
-                list.prepend(pointer);
+                cola_prioridad.insertar(dato, prioridad);
+                list.appendChild(node);
+                list.appendChild(pointer);
                 node.animate([{transform: 'scale(0.5)', background: '#f12711', 
                 background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
                 background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0},
@@ -293,10 +283,26 @@ async function insertar_nodo(){
                     }
                 }
                 if(encontrado == false){
-                    pila.insertar_push(dato);
-                    await nodos_animados(0, nodes.length-1);
-                    list.prepend(node);
-                    list.prepend(pointer);
+                    for(var j = 0; j<nodes.length; j++){
+                        var prueba = nodes[j].lastElementChild.textContent;
+                        console.log("-->",prueba);
+                        if(prioridad < prueba){
+                            console.log("es menor");
+                            console.log(j);
+                            cola_prioridad.insertar(dato, prioridad);
+                            list.insertBefore(pointer, nodes[j])
+                            list.insertBefore(node, pointers[j])
+                            break;
+                        }else if(prioridad == prueba){
+                            cola_prioridad.insertar(dato, prioridad);
+                            list.appendChild(node);
+                            list.appendChild(pointer);
+                        }else{
+                            cola_prioridad.insertar(dato, prioridad);
+                            list.appendChild(node);
+                            list.appendChild(pointer);
+                        }
+                    }
                     node.animate([{transform: 'scale(0.5)', background: '#f12711', 
                     background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
                     background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0},
@@ -316,7 +322,7 @@ async function insertar_nodo(){
 }
 
 async function eliminar_nodo(){
-    pila.eliminar_pop();
+    cola.eliminar_remove();
     list.removeChild(nodes[0]);
     list.removeChild(pointers[0]);
 }
@@ -325,7 +331,7 @@ async function actualizar_nodo(){
     var encontrado = false;
     var dato_viejo = document.getElementById('dato_viejo').value;
     var dato_nuevo = document.getElementById('dato_nuevo').value;
-    pila.actualizar_pila(dato_viejo, dato_nuevo);
+    cola.actualizar_cola(dato_viejo, dato_nuevo);
 
     let node_nuevo = document.createElement('div');
     node_nuevo.classList.add('node');
@@ -368,7 +374,7 @@ async function actualizar_nodo(){
 
 function velocidad_max(){
     var nueva_velocidad = document.getElementById('velocidad').value;
-    pila.print_pila();
+    cola_prioridad.print_cola();
 
     if(nueva_velocidad === ''){
         alert("Por favor ingrese un dato");
@@ -384,7 +390,7 @@ async function buscar(){
     var buscar_dato = document.getElementById('dato_pag').value;
     var encontrado = false;
     var tamaño = 0;
-    pila.buscar_pila(buscar_dato);
+    cola.buscar_cola(buscar_dato);
 
     if(buscar_dato === ''){
         alert("Por favor ingrese un dato");
@@ -422,7 +428,7 @@ async function abrirArchivo(evento){
                 if(mydata.repeticion == true){
                     console.log("esta en true");
                     valores = mydata.valores[i];
-                    pila.insertar_push(valores);
+                    cola.insertar_add(valores);
                     let node = document.createElement('div');
                     node.classList.add('node');
     
@@ -438,13 +444,13 @@ async function abrirArchivo(evento){
                     pointer.classList.add('pointer');
     
                     let img = document.createElement('img');
-                    img.src = "img/flechaIzquierda.png";
+                    img.src = "img/flecha6.png";
         
                     pointer.appendChild(img);
     
                     if(indice === 0){
-                        list.prepend(node);
-                        list.prepend(pointer);
+                        list.appendChild(node);
+                        list.appendChild(pointer);
                         node.animate([{transform: 'scale(0.5)', background: '#f12711', 
                         background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
                         background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0},
@@ -458,8 +464,8 @@ async function abrirArchivo(evento){
                         indice++;
                     }else{
                         await nodos_animados(0, nodes.length-1);
-                        list.prepend(node);
-                        list.prepend(pointer);
+                        list.appendChild(node);
+                        list.appendChild(pointer);
                         node.animate([{transform: 'scale(0.5)', background: '#f12711', 
                         background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
                         background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0},
@@ -491,14 +497,14 @@ async function abrirArchivo(evento){
                     pointer.classList.add('pointer');
     
                     let img = document.createElement('img');
-                    img.src = "img/flechaIzquierda.png";
+                    img.src = "img/flecha6.png";
         
                     pointer.appendChild(img);
     
                     if(indice === 0){
-                        pila.insertar_push(valores);
-                        list.prepend(node);
-                        list.prepend(pointer);
+                        cola.insertar_add(valores);
+                        list.appendChild(node);
+                        list.appendChild(pointer);
                         node.animate([{transform: 'scale(0.5)', background: '#f12711', 
                         background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
                         background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0},
@@ -524,10 +530,10 @@ async function abrirArchivo(evento){
                             }
                         }
                         if(search == false){
-                            pila.insertar_push(valores);
+                            cola.insertar_add(valores);
                             await nodos_animados(0, nodes.length-1);
-                            list.prepend(node);
-                            list.prepend(pointer);
+                            list.appendChild(node);
+                            list.appendChild(pointer);
                             node.animate([{transform: 'scale(0.5)', background: '#f12711', 
                             background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
                             background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0},
@@ -558,5 +564,3 @@ async function abrirArchivo(evento){
 window.addEventListener('load', ()=>{
     document.getElementById('Archivo').addEventListener('change', abrirArchivo);
 });
-
-//module.exports = Pila;

@@ -27,15 +27,15 @@ class Lista_Doble{
     }
 
     print(){
-        let valores = [];
+        //let valores = [];
         let aux = this.primero;
         while(aux != null){
-            valores.push(aux.dato);
+            //valores.push(aux.dato);
             console.log("Dato: ", aux.dato);
             aux = aux.siguiente;
         }
         console.log("El tamaño de la lista es de: ", this.size)
-        return valores
+        //return valores
     }
 
     buscar(valor){
@@ -114,7 +114,7 @@ let list = document.getElementById('lista');
 let nodes = document.getElementsByClassName('node');
 let pointers = document.getElementsByClassName('pointer');
 var indice = 0;
-var velocidad = 500; 
+var velocidad = 500;
 
 let lista_doble = new Lista_Doble();
 
@@ -143,62 +143,130 @@ async function nodos_animados(from, to) {
 
 async function insertar_nodo(){
     var dato = document.getElementById('dato_pag').value;
-    
-    lista_doble.insertar(dato);
+    var checkbox = document.getElementById('checkbox').checked;
+    var encontrado = false;
 
     if(dato === ''){
         alert("Por favor ingrese un dato");
         return false;
     }else{
-        let node = document.createElement('div');
-        node.classList.add('node');
-
-        let number = document.createElement('p');
-        number.classList.add('number');
-
-        let text = document.createTextNode(dato);
-
-        number.appendChild(text);
-        node.appendChild(number);
-
-        let pointer = document.createElement('div');
-        pointer.classList.add('pointer');
-
-        let img = document.createElement('img');
-        img.src = "img/flechaDoble.png";
+        if(checkbox == true){
+            lista_doble.insertar(dato);
+            console.log("Activado");
+            let node = document.createElement('div');
+            node.classList.add('node');
     
-        pointer.appendChild(img);
-
-        if(indice === 0){
-            list.appendChild(node);
-            list.appendChild(pointer);
-            node.animate([{transform: 'scale(0.5)', background: '#f12711', 
-            background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
-            background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0},
-            {transform: 'scale(1)',background: '#f12711', 
-            background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
-            background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0.2},
-            {transform: 'scale(1.5)',background: '#f12711', 
-            background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
-            background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0.5}],
-            {duration: velocidad});
-            indice++;
+            let number = document.createElement('p');
+            number.classList.add('number');
+    
+            let text = document.createTextNode(dato);
+    
+            number.appendChild(text);
+            node.appendChild(number);
+    
+            let pointer = document.createElement('div');
+            pointer.classList.add('pointer');
+    
+            let img = document.createElement('img');
+            img.src = "img/flechaDoble.png";
+        
+            pointer.appendChild(img);
+    
+            if(indice === 0){
+                list.appendChild(node);
+                list.appendChild(pointer);
+                node.animate([{transform: 'scale(0.5)', background: '#f12711', 
+                background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
+                background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0},
+                {transform: 'scale(1)',background: '#f12711', 
+                background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
+                background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0.2},
+                {transform: 'scale(1.5)',background: '#f12711', 
+                background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
+                background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0.5}],
+                {duration: velocidad});
+                indice++;
+            }else{
+                await nodos_animados(0, nodes.length-1);
+                list.appendChild(node);
+                list.appendChild(pointer);
+                node.animate([{transform: 'scale(0.5)', background: '#f12711', 
+                background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
+                background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0},
+                {transform: 'scale(1)',background: '#f12711', 
+                background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
+                background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0.2},
+                {transform: 'scale(1.5)',background: '#f12711', 
+                background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
+                background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0.5}],
+                {duration:velocidad});
+                indice++;
+                console.log(nodes.length)
+            }
         }else{
-            await nodos_animados(0, nodes.length-1);
-            list.appendChild(node);
-            list.appendChild(pointer);
-            node.animate([{transform: 'scale(0.5)', background: '#f12711', 
-            background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
-            background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0},
-            {transform: 'scale(1)',background: '#f12711', 
-            background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
-            background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0.2},
-            {transform: 'scale(1.5)',background: '#f12711', 
-            background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
-            background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0.5}],
-            {duration:velocidad});
-            indice++;
-            console.log(nodes.length)
+            console.log("Apagado");
+            let node = document.createElement('div');
+            node.classList.add('node');
+    
+            let number = document.createElement('p');
+            number.classList.add('number');
+    
+            let text = document.createTextNode(dato);
+    
+            number.appendChild(text);
+            node.appendChild(number);
+    
+            let pointer = document.createElement('div');
+            pointer.classList.add('pointer');
+    
+            let img = document.createElement('img');
+            img.src = "img/flechaDoble.png";
+        
+            pointer.appendChild(img);
+    
+            if(indice === 0){
+                lista_doble.insertar(dato);
+                list.appendChild(node);
+                list.appendChild(pointer);
+                node.animate([{transform: 'scale(0.5)', background: '#f12711', 
+                background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
+                background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0},
+                {transform: 'scale(1)',background: '#f12711', 
+                background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
+                background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0.2},
+                {transform: 'scale(1.5)',background: '#f12711', 
+                background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
+                background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0.5}],
+                {duration: velocidad});
+                indice++;
+            }else{
+                for(var i = 0; i<nodes.length; i++){
+                    let comparacion = nodes[i].firstChild.innerHTML;
+                    //console.log("->",comparacion);
+                    if(dato == comparacion){
+                        encontrado = true;
+                        break;
+                    }
+                }
+                if(encontrado == false){
+                    lista_doble.insertar(dato);
+                    await nodos_animados(0, nodes.length-1);
+                    list.appendChild(node);
+                    list.appendChild(pointer);
+                    node.animate([{transform: 'scale(0.5)', background: '#f12711', 
+                    background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
+                    background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0},
+                    {transform: 'scale(1)',background: '#f12711', 
+                    background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
+                    background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0.2},
+                    {transform: 'scale(1.5)',background: '#f12711', 
+                    background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
+                    background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0.5}],
+                    {duration:velocidad});
+                    indice++;
+                    console.log(nodes.length)
+                }
+            }
         }
     }
 }
@@ -324,5 +392,164 @@ async function buscar(){
         }
     }
 }
+
+async function abrirArchivo(evento){
+    let archivo = evento.target.files[0];
+
+    if(archivo){
+        let reader = new FileReader();
+        reader.onload = async function(e){
+            let contenido = e.target.result;
+            var mydata = JSON.parse(contenido);
+            console.log(mydata.repeticion)
+            for(var i=0; i<(mydata.valores).length; i++){
+                if(mydata.repeticion == true){
+                    console.log("esta en true");
+                    valores = mydata.valores[i];
+                    lista_doble.insertar(valores);
+                    let node = document.createElement('div');
+                    node.classList.add('node');
+    
+                    let number = document.createElement('p');
+                    number.classList.add('number');
+    
+                    let text = document.createTextNode(valores);
+    
+                    number.appendChild(text);
+                    node.appendChild(number);
+    
+                    let pointer = document.createElement('div');
+                    pointer.classList.add('pointer');
+    
+                    let img = document.createElement('img');
+                    img.src = "img/flechaDoble.png";
+        
+                    pointer.appendChild(img);
+    
+                    if(indice === 0){
+                        list.appendChild(node);
+                        list.appendChild(pointer);
+                        node.animate([{transform: 'scale(0.5)', background: '#f12711', 
+                        background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
+                        background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0},
+                        {transform: 'scale(1)',background: '#f12711', 
+                        background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
+                        background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0.2},
+                        {transform: 'scale(1.5)',background: '#f12711', 
+                        background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
+                        background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0.5}],
+                        {duration: velocidad});
+                        indice++;
+                    }else{
+                        await nodos_animados(0, nodes.length-1);
+                        list.appendChild(node);
+                        list.appendChild(pointer);
+                        node.animate([{transform: 'scale(0.5)', background: '#f12711', 
+                        background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
+                        background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0},
+                        {transform: 'scale(1)',background: '#f12711', 
+                        background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
+                        background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0.2},
+                        {transform: 'scale(1.5)',background: '#f12711', 
+                        background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
+                        background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0.5}],
+                        {duration:velocidad});
+                        indice++;
+                        console.log(nodes.length)
+                    }
+                }else{
+                    console.log("esta en false");
+                    valores = mydata.valores[i];
+                    let node = document.createElement('div');
+                    node.classList.add('node');
+    
+                    let number = document.createElement('p');
+                    number.classList.add('number');
+    
+                    let text = document.createTextNode(valores);
+    
+                    number.appendChild(text);
+                    node.appendChild(number);
+    
+                    let pointer = document.createElement('div');
+                    pointer.classList.add('pointer');
+    
+                    let img = document.createElement('img');
+                    img.src = "img/flechaDoble.png";
+        
+                    pointer.appendChild(img);
+    
+                    if(indice === 0){
+                        lista_doble.insertar(valores);
+                        list.appendChild(node);
+                        list.appendChild(pointer);
+                        node.animate([{transform: 'scale(0.5)', background: '#f12711', 
+                        background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
+                        background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0},
+                        {transform: 'scale(1)',background: '#f12711', 
+                        background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
+                        background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0.2},
+                        {transform: 'scale(1.5)',background: '#f12711', 
+                        background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
+                        background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0.5}],
+                        {duration: velocidad});
+                        indice++;
+                    }else{
+                        var search = false;
+                        console.log(i);
+                        for(var j = 0; j<nodes.length; j++){
+                            var muestra = nodes[j].firstChild.innerHTML;
+                            console.log(muestra);
+                            console.log(valores);
+                            if(valores == muestra){
+                                console.log("este se repitio")
+                                search = true;
+                                break;
+                            }
+                        }
+                        //encontrado = false;
+                        /*for(var i = 0; i<nodes.length; i++){
+                            let comparacion = nodes[i].firstChild.innerHTML;
+                            //console.log("->",comparacion);
+                            if(valores == comparacion){
+                                //encontrado = true;
+                                console.log(comparacion)
+                            }
+                        }*/
+                        if(search == false){
+                            lista_doble.insertar(valores);
+                            await nodos_animados(0, nodes.length-1);
+                            list.appendChild(node);
+                            list.appendChild(pointer);
+                            node.animate([{transform: 'scale(0.5)', background: '#f12711', 
+                            background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
+                            background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0},
+                            {transform: 'scale(1)',background: '#f12711', 
+                            background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
+                            background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0.2},
+                            {transform: 'scale(1.5)',background: '#f12711', 
+                            background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
+                            background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0.5}],
+                            {duration:velocidad});
+                            indice++;
+                            console.log(nodes.length)
+                        }
+                        //encontrado = false;
+                    }
+                    //console.log("-->", encontrado)
+                }
+                //console.log(valores)
+            }
+            console.log(mydata)
+        };
+        reader.readAsText(archivo);
+    }else{
+        alert("No se selecciono ningun archivo");
+    }
+}
+
+window.addEventListener('load', ()=>{
+    document.getElementById('Archivo').addEventListener('change', abrirArchivo);
+});
 
 //module.exports = Lista_Doble;
