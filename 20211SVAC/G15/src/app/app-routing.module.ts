@@ -8,6 +8,7 @@ import { ListaCircularSimpleComponent } from "./components/lista-circular-simple
 import { OrdenamientosComponent } from './components/ordenamientos/ordenamientos.component';
 import { EstructuraslinealesComponent } from './components/estructuraslineales/estructuraslineales.component';
 import { BurbujaComponent } from './components/burbuja/burbuja.component';
+import { PilaComponent } from './components/pila/pila.component';
 
 const routes: Routes = [
   {path: 'listaDobleCircular', component: ListaDobleCircularComponent, pathMatch: 'full'},
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'Ordenamiento', component: OrdenamientosComponent, pathMatch: 'full'},
   {path: 'estructuraLineales', component: EstructuraslinealesComponent, pathMatch: 'full'},
   {path: 'burbuja', component: BurbujaComponent, pathMatch: 'full'},
+  {path: 'pila', component: PilaComponent, pathMatch: 'full'},
   {path: '', component: HomeComponent, pathMatch: 'full'}
   
 ];
