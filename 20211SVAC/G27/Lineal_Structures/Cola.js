@@ -1,30 +1,61 @@
+class Node{
+    constructor(data, prev, next){
+        this.data = data;
+        this.prev = prev;
+        this.next = next;
+    }
+    getData(){
+        return this.data;
+    }
+};
+
+
 class Queue{
     constructor(){
-        this.items = {};
-        this.front = 0;
-        this.end = 0;
+       // this.items = {};
+        this.head = null;
+        this.tail = null;
+        this.size = 0; 
 
     };
     
-    enqueue(data){
-        this.items[this.end] = data;
-        this.end++;
-
+    enqueue(element){
+        if(this.head == null){
+            this.head = new Node(element);
+            this.tail = this.head;
+        }else{
+            var newNode = new Node(element);
+            newNode.next = this.tail;
+            this.tail.prev = newNode;
+            this.tail = newNode; 
+        }
+        this.size++;
+        //this.items[this.end] = data;
+        //this.end++;
     };
 
     dequeue(){
-        if(this.front === this.end){
+        var p = this.head
+        if(this.head === this.tail){
             return null;
 
         };
-        const data = this.items[this.front];
+        if(p == null){
+            return null;
+        };
+        this.head = this.head.prev;
+        p.next = null;
+        p.prev = null;
+        this.size--;
+        return p;
+        /*const data = this.items[this.front];
         delete this.items[this.front];
         this.front++;
-        return data;
+        return data;*/
     };
     
     getSize(){
-        return this.end - this.front;
+        return this.size;
     };
 
     isEmpty(){
@@ -39,20 +70,10 @@ class Queue{
         if(this.getSize() === 0){
             return null;
         };
-        return this.items[this.front];
+        return this.head;
     };
 
-    print(){
-        if(this.getSize() === 0){
-            return null;
 
-        };
-        let result = '';
-        for (let i = this.front; i < this.end; i++){
-            result += this.items[i] + '\n'; 
-        };
-        return result;
-    };
 };
 
 const queue = new Queue();
@@ -61,4 +82,4 @@ queue.enqueue(3);
 queue.enqueue(2);
 queue.enqueue(4);
 queue.dequeue();
-console.log(queue.print());
+console.log(queue)
