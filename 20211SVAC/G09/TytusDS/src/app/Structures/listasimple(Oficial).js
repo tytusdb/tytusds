@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 class Nodo{
     constructor(data, next, id, x, y,disBtn,heightBtn){
-=======
-class NodoListaSimple{
-    constructor(data, next, id, x, y,disBtn){
->>>>>>> 23325bbef0a69c3704739ce373bc19f48f6ddc4e
         this.data = data;
         this.next = next;
         this.id = id
@@ -46,24 +41,8 @@ class ListaSimple{
         const posicion=document.getElementById(objeto.id)
         posicion.style.position="absolute"
         const boton=document.getElementById("b1")
-<<<<<<< HEAD
 
     const newNodo = new Nodo(data, null, (this.contId).toString(), null, null, objeto.offsetWidth, objeto.offsetHeight);
-=======
-/*
-        var pos = 0;
-        var id = setInterval(frame, 10);
-        function frame() {
-            if (pos == 50) {
-                clearInterval(id);
-            } else {
-                pos++;
-                //objeto.style.top = pos + 'px';
-                //divInsert.style.left = pos + 'px';
-            }
-        }*/
-    const newNodo = new NodoListaSimple(data, null, objeto.id, null, null, objeto.offsetWidth);
->>>>>>> 23325bbef0a69c3704739ce373bc19f48f6ddc4e
     if(this.head){        
         let current = this.head;
         while(current.next){
