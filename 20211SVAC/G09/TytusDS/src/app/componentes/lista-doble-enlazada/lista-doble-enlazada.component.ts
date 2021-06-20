@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+declare var ldobleAdd:any;
+
 
 
 @Component({
@@ -10,8 +12,10 @@ export class ListaDobleEnlazadaComponent implements OnInit {
  
   
   displayVal='';
-  getValue(val:string){
+  getValueDobleEnlazada(val:string){
     console.warn(val)
+    var hola = ldobleAdd(val)
+    this.displayVal=hola
     
   }
   

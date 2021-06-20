@@ -80,7 +80,7 @@ class NodoListaCircularDoble{
   
 const lCircularDEnlazada = new ListaCircularDoblEnlazada();
 
-function ldobleAdd(date){
+function ldobleCircleAdd(date){
   lCircularDEnlazada.add(date);
   console.log(linkedList) 
 }

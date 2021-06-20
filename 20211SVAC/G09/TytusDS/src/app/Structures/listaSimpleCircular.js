@@ -81,12 +81,12 @@ class NodoListaSimpleCirular{
   
 const lSCircular = new ListaSimpleCirular();
 
-function lsimpleAdd(date){
+function lsimplecircleAdd(date){
   lSCircular.add(date);
   console.log(linkedList) 
 }
 
-function lsimpleDelete(date){
+function lsimpleCircleDelete(date){
   lSCircular.delete(date);
   console.log(linkedList) 
 }
