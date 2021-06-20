@@ -12,7 +12,6 @@ declare var ldobleSearch:any;
   styleUrls: ['./lista-doble-enlazada.component.css']
 })
 export class ListaDobleEnlazadaComponent implements OnInit {
- 
   
   displayVal='';
   getValueDobleEnlazada(val:string){
@@ -39,4 +38,7 @@ export class ListaDobleEnlazadaComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getDelete(val:string){}
+  getSearch(val:string){}
+  getRefresh(val:string){}
 }
