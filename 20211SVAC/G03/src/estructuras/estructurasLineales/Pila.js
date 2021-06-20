@@ -49,6 +49,46 @@ class Pila{
             }
         }
     }
-	
+    
+
+    buscar(valor){
+        let temporal = this.cabeza;
+        if (this.cabeza == null){
+            console.log("No hay nada en la lista")
+            
+        }else{
+            while(temporal != null){
+                if (temporal.valor == valor){
+                    return temporal;
+                }
+                temporal = temporal.siguiente;                
+
+            }
+        }
+
+    }
+
+    cargar(arreglo) {
+        
+        arreglo.array.forEach(elemento => {
+            this.agregar(elemento);
+        });
+    }
+
+    guardar(){
+        contadorPilas ++;
+        let archivojs;
+        let temporal = this.primero;
+        while (temporal != null){
+            archivojs[temporal.id] = temporal.valor;
+            temporal = temporal.siguiente;
+            
+        }
+        let json = JSON.stringify(archivojs)
+        let nombre = "Pila" + contadorPilas;
+        fs.writeFile(nombre, json)
+    }	
    	
  }
+
+ export default Pila;
