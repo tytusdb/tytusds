@@ -17,7 +17,7 @@ export class ListaDobleCircularComponent implements OnInit {
     ldobleCircleAdd(val)
   }
 
-  getValor(){
+  getValor(val:string){
     
   }
 
