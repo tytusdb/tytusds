@@ -128,22 +128,15 @@ class Pila{
     //Buscar Pila
     buscar(dato) {
       let mostrarNodo = this.primero;
-      var lista = []
       var encontrar = false;
       while (mostrarNodo) {
-        if(mostrarNodo.dato === dato){
+        if(mostrarNodo.dato == dato){
           encontrar = true;
-          return true;
-          alert('Se encontro el dato que busca')
+          return encontrar;
         }
-        //mostrarNodo = mostrarNodo.siguiente;
-        else if(encontrar === false){
-            alert('No se encontro el dato que busca')
-        }
-        //console.log(mostrarNodo.dato);
-        lista.push(mostrarNodo.dato)
         mostrarNodo = mostrarNodo.siguiente;
-      }return lista
+      }
+      return encontrar
     } 
     
 } 
@@ -158,10 +151,15 @@ function addValuePila(data){
   console.log("-------------Nueva Pila----------------");
   console.log(stack.print());
 }
-function getValuePilaDelet(data){
+function getValuePilaDelet(){
   stack.pop();
   console.log("-------------Nueva Pila----------------");
   console.log(stack.print());//
+}
+
+function getValueBuscar(data){
+  console.log("se ejecuto buscar:" + stack.buscar(data))
+    
 }
 
 //console.log("Ingresando valores");
@@ -209,7 +207,7 @@ function AbrirArchivoPila(event) {
     }
 
     console.log("--------nueva pila-------------")
-    console.log(stack.buscar());
+    console.log(stack.print());
   
 
   };
@@ -218,7 +216,7 @@ function AbrirArchivoPila(event) {
 }//guardar archivo
 function downloadPila(filename, text) {
   
-  lista = stack.buscar()
+  lista = stack.print()
 
   var element = document.createElement('a');
   let doc = JSON.stringify({ "categoria": categoria, 'nombre': nombre, 'repeticion':repeticion, 'animacion':animacion, 'valores': lista });
