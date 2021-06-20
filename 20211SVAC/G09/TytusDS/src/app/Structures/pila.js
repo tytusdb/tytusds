@@ -31,10 +31,21 @@ class Pila{
     }
 
     //Mostrar valores de la pila
-    print() {
+    buscar(dato) {
       let mostrarNodo = this.primero;
       var lista = []
+      var encontrar = false;
+
       while (mostrarNodo) {
+        if(mostrarNodo.dato === dato){
+          encontrar = true;
+          return true;
+          alert('Se encontro el dato que busca')
+        }
+        //mostrarNodo = mostrarNodo.siguiente;
+        else if(encontrar === false){
+            alert('No se encontro el dato que busca')
+        }
         //console.log(mostrarNodo.dato);
         lista.push(mostrarNodo.dato)
         mostrarNodo = mostrarNodo.siguiente;
