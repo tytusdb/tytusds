@@ -1,9 +1,5 @@
-input{
-  padding:5px 5px;
-}
-.estructuras{
-  height: 400px;
-  background-color: #0a58ca;
+#Oanimacion{
+  height: 320px;
 }
 .button1{
   padding: 5px 10px;
@@ -26,9 +22,4 @@ input{
   background-color: #08555b;
   box-shadow: 0 5px black;
   transform: translateY(4px);
-}
-.animacion{
-  height: 400px;
-  background-color: white;
-
 }

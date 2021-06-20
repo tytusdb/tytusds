@@ -6,14 +6,15 @@ input{
   background-color: #0a58ca;
 }
 .button1{
+  margin-right: 10px;
   padding: 5px 10px;
   text-align: center;
   border: none;
   color:white;
   text-decoration: none;
-  font-size: 16px;
+  font-size: 10px;
   cursor: pointer;
-  border-radius: 7px;
+  border-radius: 10px;
   box-shadow: 0 9px black;
   padding-right:5px;
   padding-left: 5px;
@@ -32,3 +33,15 @@ input{
   background-color: white;
 
 }
+
+
+#myDiv1{
+  border: none;
+  color:white;
+  cursor: pointer;
+  border-radius: 10px;
+  box-shadow: 0 3px black;
+  width: 870px;
+  height: 500;
+  margin:0px auto;
+  position:relative;}

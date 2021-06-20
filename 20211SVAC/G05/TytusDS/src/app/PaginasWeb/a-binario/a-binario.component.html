@@ -1,1 +1,28 @@
-<p>a-binario works!</p>
+<app-opciones (opcionesEvento)="getOpciones($event)"></app-opciones>
+
+<div class="container">
+  <h1>Arbol Binario</h1>
+  <hr>
+  <div class="row py-2">
+    <div class="col-md-1 col-sm-2 col-lg-1"><input #num type="text" placeholder="Num." class="form-control"> </div>
+    <div class="col-md-1 col-sm-2 col-lg-1"><input #texto type="text" placeholder="Texto" class="form-control"> </div>
+    <div class="col-md-1 col-sm-2 col-lg-1"> <button id="Agregar" class="btn btn-success button1" (click)="Add(texto.value,num.value)">Agregar</button></div>
+    <div class="col-md-1 col-sm-2 col-lg-1"><input #eliminar type="text" class="form-control" placeholder="Valor"> </div>
+    <div class="col-md-1 col-sm-2 col-lg-1 "> <button id="Eliminar" class="button1 btn btn-success" (click)="delete(eliminar.value)">Eliminar</button></div>
+    <div class="col-md-2 col-sm-2 col-lg-2"><input #valor type="text" class="form-control" placeholder="Nodo a actualizar"> </div>
+    <div class="col-md-2 col-sm-2 col-lg-2"><input #nuevo_valor type="text" class="form-control" placeholder="Nuevo Valor"> </div>
+    <div class="col-md-1 col-sm-2 col-lg-1 "> <button id="Actualizar" class="button1 btn btn-success" (click)="update(valor.value,nuevo_valor.value)">Actualizar</button></div>
+    <div class="col-md-1 col-sm-2 col-lg-1"><input type="text" class="form-control" placeholder="Buscar"></div>
+    <div class="col-md-1 col-sm-2 col-lg-1 "><button class="btn btn-success">Buscar</button></div>
+  </div>
+  <div class="row p-2">
+    <div class="col-md-6"><input class="form-control" type="file" id="formFile" (change)="getDocumento($event.target)" ></div>
+  </div>
+</div>
+<div class="animacion container bg-light" id="contenedor">
+</div>
+<div class="container">
+  <div class="row pt-2">
+    <div class="col-3" ><button class="btn btn-success button1" (click)="guardar()">Guardar</button></div>
+  </div>
+</div>

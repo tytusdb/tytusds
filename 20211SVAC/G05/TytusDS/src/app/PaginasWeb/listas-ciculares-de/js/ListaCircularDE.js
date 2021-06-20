@@ -10,6 +10,9 @@ class ListaCircularDE{
     set setRepeat(repeat){
       this.repeat=repeat;
     }
+    Size(){
+      return this.size;
+    }
     appendF(valor) {
         if(this.repeat==true){
             this.append_f(valor);
@@ -183,6 +186,18 @@ class ListaCircularDE{
       LEdges.push(edge);
     }
     return LEdges;
+  }
+  indexBusqueda(valor){
+    let current=this.head;
+    let k=0
+    for (let i = 0; i < this.size; i++) {
+      if(current.valor==valor){
+        break;
+      }
+      k+=1;
+      current=current.next;
+    }
+    return k
   }
   Rdatos(){
     let ldatos=[];
