@@ -1,4 +1,5 @@
 //Clase Nodo
+var fs = require('fs')
 class Nodo{
     constructor(dato){  //Constructor
         this.dato = dato
@@ -218,7 +219,7 @@ class ABB{
                         nodo.izquierda = nodmax
                         console.log("se elimino el nodo")
                         return
-                    }else if(tmp.izquierda == nul && tmp.derecha != null){ // Reestructuracion de arbol y eliminacion de nodo
+                    }else if(tmp.izquierda == null && tmp.derecha != null){ // Reestructuracion de arbol y eliminacion de nodo
                         let nodiz = tmp.derecha
                         let minder= null
                         if(nodiz.izquierda != null){
@@ -397,13 +398,13 @@ class ABB{
         this.insertar(datoin)
         console.log("Actualizado")
     }
-
     //Metodo Cargar
     cargar(arreglo) {
-        arreglo.array.forEach(elemento => {
-            this.insertar(elemento);
+        arreglo.map(e => {
+            this.insertar(e)
         })
     }
+    
 
     //Metodo Guardar
     guardando(){
@@ -428,6 +429,70 @@ class ABB{
         let nombre = "ArbolBinarioBusqueda";
         fs.writeFile(nombre, json) 
     }
+
+    
+    graficarNodos(nodo,vector,datoBuscar){
+
+        if(nodo.izquierda == null && nodo.derecha == null){
+            let dato
+            if(datoBuscar == nodo.dato){
+                dato = {id: nodo.dato, label: nodo.dato.toString(), color: "lime"}
+            }else{
+                dato = {id: nodo.dato, label: nodo.dato.toString(),}
+            }
+            
+            vector.push(dato)
+        }else{
+            let dato
+            if(datoBuscar == nodo.dato){
+                dato = {id: nodo.dato, label: nodo.dato.toString(), color: "lime"}
+            }else{
+                dato = {id: nodo.dato, label: nodo.dato.toString(),}
+            }
+            
+            vector.push(dato)
+        }
+        
+        if(nodo.izquierda != null){
+            this.graficarNodos(nodo.izquierda,vector,datoBuscar)
+        }
+
+        if (nodo.derecha != null){
+            this.graficarNodos(nodo.derecha,vector,datoBuscar)
+        }
+
+        return vector
+    }
+
+    obtenerNodos(datoBuscar){
+        let vector = []
+
+        return this.graficarNodos(this.raiz,vector,datoBuscar)
+    }
+
+    graficarApuntadores(nodo,vector){
+
+        if(nodo.izquierda != null){
+            this.graficarApuntadores(nodo.izquierda,vector)
+            let edge = {from:nodo.dato, to:nodo.izquierda.dato}
+            vector.push(edge)
+        }
+
+        if (nodo.derecha != null){
+            this.graficarApuntadores(nodo.derecha,vector)
+            let edge = {from:nodo.dato, to:nodo.derecha.dato}
+            vector.push(edge)
+        }
+
+        return vector
+    }
+
+    obtenerAputadores(){
+        let vector = []
+
+        return this.graficarApuntadores(this.raiz,vector)
+    }
 }
 
+export default ABB;
 

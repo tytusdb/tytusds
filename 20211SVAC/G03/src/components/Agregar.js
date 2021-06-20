@@ -2,8 +2,8 @@
 import { Button, Header, Icon, Modal,Menu,Input } from 'semantic-ui-react'
 import './modal.css'
 import React, { Component } from 'react'
-import Cola from '../estructuras/EstruturasLineales/Cola'
-import ColaPrioridad from '../estructuras/EstruturasLineales/ColaPrioridad'
+import Cola from '../estructuras/EstructurasLineales/Cola'
+import ColaPrioridad from '../estructuras/EstructurasLineales/ColaPrioridad'
 import ABB from '../estructuras/Estructuras_Arboreas/ABB'
 
 

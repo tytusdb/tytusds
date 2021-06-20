@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Button, Header, Icon, Modal,Menu,Input } from 'semantic-ui-react'
 
-import Cola from '../estructuras/Estruturas_Lineales/Cola'
+import Cola from '../estructuras/EstructurasLineales/Cola'
 
 export default class Actualizar extends Component {
 
