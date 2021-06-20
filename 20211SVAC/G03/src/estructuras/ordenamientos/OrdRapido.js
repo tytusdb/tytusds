@@ -1,5 +1,5 @@
 //Funcion de Ordenamiento rapido
-function ordRapido(arreglo){
+export default function ordRapido(arreglo){
     //Posible Arreglo de un solo dato
     if (arreglo.length === 1){
         return arreglo;
