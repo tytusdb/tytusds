@@ -1,21 +1,24 @@
 import { Component, OnInit } from '@angular/core';
+import { Validators } from '@angular/forms';
 import { saveAs } from 'file-saver';
 import { DocumentoService } from '../../services/documento.service';
 declare var require: any;
-let Lista=require('./js/Cola');
+let Lista=require('./js/Cola-Prioridad');
 let vis=require('../../../../vis-4.21.0/dist/vis');
 
 @Component({
-  selector: 'app-cola',
-  templateUrl: './cola.component.html',
-  styleUrls: ['./cola.component.css','../../../../css/bootstrap.min.css','../../../../vis-4.21.0/dist/vis.css']
+  selector: 'app-cp',
+  templateUrl: './cp.component.html',
+  styleUrls: ['./cp.component.css','../../../../css/bootstrap.min.css','../../../../vis-4.21.0/dist/vis.css']
 })
-export class ColaComponent implements OnInit {
+export class CpComponent implements OnInit {
   lista=Lista;
   ag = '';
+  ag0 = '';
   ag1 = '';
   ag2 = '';
   ag3 = '';
+  agx = '';
   opciones = {
     ingreso: 'final',
     velocidadLineales: 1000,
@@ -38,57 +41,58 @@ export class ColaComponent implements OnInit {
     this.opciones = opciones;
   }
 
-
-
   getDocumento(documento: any): void{
     if(this.opciones['repeticionLineales']===true){
       this.documentoService.getDocumento(documento).then( contenido => {
         console.log(contenido);
         contenido['valores'].forEach(valor => { 
-          this.lista.insertar2(valor);
-          }); });
-    }
-    else{
+          this.lista.guardar(valor['prioridad'],valor['valor']);
+          //this.lista.insertar2(valor);
+          }
+          ); 
+          setInterval(this.lista.buscarespecial(),1000);});  
+    }else{
       this.documentoService.getDocumento(documento).then( contenido => {
-        console.log(contenido);
         contenido['valores'].forEach(valor => { 
-          this.lista.guardarg(valor);
-          }); });
+          this.lista.guardar2(valor);
+          });setInterval(this.lista.buscarespecial(),1000); });
     }
+    //this.lista.buscarespecial();
     
   }
 
   guardar(): void {
     const contenido: any = {
       categoria: "Estructura Lineal",
-      nombre: "Cola",
+      nombre: "Cola De Prioridad",
       repeticion:true,
       animacion:10,
       valores: []
     };
     contenido.valores=contenido.valores.concat(this.lista.leer());
     let blob = new Blob([JSON.stringify(contenido)], {type: 'json;charset=utf-8'});
-    saveAs(blob, 'Cola.json');
+    saveAs(blob, 'ColaPrioridad.json');
   }
 
 
-  Add(valor){
+  Add(valor,valor1){
     if(this.opciones['repeticionLineales']===true){
       //this.lista.repeat=true;
-      this.lista.insertar(valor);
+      this.lista.guardar(valor,valor1);
+      this.lista.buscarespecial()
       this.ag = '';
+      this.ag0 = '';
+      this.agx = '';
       return;
     }
     else{
       //this.lista.repeat=false;
-      this.lista.insertar(valor);
+      this.lista.guardar2(valor,valor1);
+      this.lista.buscarespecial()
       this.ag = '';
+      this.agx = '';
       return;
-      console.log("gg");
     }
-    
-    
-  
     //this.graficar();
   }
   delete(){
@@ -103,20 +107,18 @@ export class ColaComponent implements OnInit {
      this.lista.buscar(valor);
     this.ag3 = '';
       return;
-
   }
 
   modi(valor,valor1){
     if(this.opciones['repeticionLineales']===true){
       //this.lista.repeat=true;
+      //this.lista.modificar(valor,valor1);
       this.lista.modificar(valor,valor1);
       this.lista.pintar();
       this.ag1 = '';
       this.ag2 = '';
       return;
-      
-    }
-    else{
+    }else{
       //this.lista.repeat=false;
       this.lista.modificar2(valor,valor1);
       this.lista.pintar();
