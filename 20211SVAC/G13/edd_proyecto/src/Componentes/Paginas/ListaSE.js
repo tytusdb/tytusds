@@ -14,11 +14,22 @@ var data = {
 
 var options = {
 	physics: {
-	  stabilization: false,
-	  barnesHut: {
-		springLength: 200,
-	  },
+		stabilization: false,
+		barnesHut: {
+			springLength: 200,
+		},
 	},
+	nodes:{
+        borderWidth: 30,
+        color: {
+            background: '#00F3B8',
+            border:  '#FFF300',
+            highlight: {
+                border: '#00F3B8',
+                background: '#FF1F00'
+            }
+        }
+    }
   };
 class ListaSE extends Component {
 
@@ -186,12 +197,8 @@ class ListaSE extends Component {
 			<div style={{height: 28 + 'em'}} ref={this.appRef} />
 		</>
 
-
-
-
 	  );
 	}
   }
   
   export default ListaSE;
-		

@@ -158,7 +158,7 @@ class ListaSimple{
 
                     let nodoUno = parseInt(i)
                     let nodoDos = parseInt(nodoUno) + parseInt(1)
-                    if (i==2){
+                    if (i==0){
                         dot.push({from:0, to:1, arrows: "to"});
                     }
                     if ( nodoUno!= false && nodoDos != false){
