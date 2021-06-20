@@ -397,4 +397,11 @@ class ABB{
         this.insertar(datoin)
         console.log("Actualizado")
     }
+
+    //Metodo Cargar
+    cargar(arreglo) {
+        arreglo.array.forEach(elemento => {
+            this.insertar(elemento);
+        })
+    }
 }
