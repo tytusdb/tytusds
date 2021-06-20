@@ -1,7 +1,7 @@
 //Forma de insercion: Desordenada
 //Eliminacion Unica de primer dato encontrado
 //Busqueda de primer metodo encontrado
-
+export default ListaCS;
 class Nodo{ //Clase Nodo
     //Constructor
     constructor(dato){

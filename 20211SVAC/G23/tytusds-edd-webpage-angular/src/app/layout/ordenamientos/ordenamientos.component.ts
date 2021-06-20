@@ -1,8 +1,9 @@
 import { routerTransition } from '../../router.animations';
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { of, Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import BurbujaImpl from './impl-ordenamientos/burbuja';
+import { JsonNodoOrdenamiento } from './impl-ordenamientos/ordenamiento-json';
 
 @Component({
   selector: 'app-ordenamientos',
@@ -15,6 +16,7 @@ export class OrdenamientosComponent implements OnInit {
   public idOrdenamiento=0;
   tituloOrdenamiento:string;
   strCarga:string;
+  strOrdenamientoJson: string
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
@@ -68,7 +70,10 @@ export class OrdenamientosComponent implements OnInit {
         data[i]=datosOrdenados[i];
       }
       this.barChartData[0].data = data;
-    }else if(this.idOrdenamiento==2){
+      let jsonNodoArray= new JsonNodoOrdenamiento("Ordenamiento",this.tituloOrdenamiento,data);
+      this.strOrdenamientoJson = JSON.stringify(jsonNodoArray);
+    } 
+    else if(this.idOrdenamiento==2){
 
     }else if(this.idOrdenamiento==3){
 
@@ -77,11 +82,19 @@ export class OrdenamientosComponent implements OnInit {
     }
     //this.barChartData[0].data = data;
   }
-  public randomize(): void {
-    const data = [Math.round(Math.random() * 100), 59, 80, Math.random() * 100, 56, Math.random() * 100, 40];
-    this.barChartData[0].data = data;
-  } 
+  fileContent: string = '';
+  public cargarArchivo(fileList: FileList): void {
+    let file = fileList[0];
+    let fileReader: FileReader = new FileReader();
+    let self = this;
+    fileReader.onloadend = function(x) {
+      self.fileContent = fileReader.result.toString();
+    }
+    fileReader.readAsText(file);
+    this.strCarga=self.fileContent;
+  }
   clickCargar(){
+    this.strCarga=this.fileContent;
     let strIntoObj = JSON.parse(this.strCarga);
     //console.log(strIntoObj);
     let labels:string[] = new Array(strIntoObj.valores.length);
@@ -92,4 +105,34 @@ export class OrdenamientosComponent implements OnInit {
     this.barChartData[0].data = strIntoObj.valores;
     console.log(this.barChartData[0].data);
   }
+  private setting = {
+    element: {
+      dynamicDownload: null as HTMLElement
+    }
+  }
+  downloadJson() {
+    this.fakeValidateUserData().subscribe((res: any) => {
+      this.dyanmicDownloadByHtmlTag({
+        fileName: this.tituloOrdenamiento+'.json',
+        text: res
+      });
+    });
+  }
+  fakeValidateUserData() {
+    return of(this.strOrdenamientoJson);
+  }
+  private dyanmicDownloadByHtmlTag(arg: {
+    fileName: string,
+    text: string
+    }) {
+      if (!this.setting.element.dynamicDownload) {
+        this.setting.element.dynamicDownload = document.createElement('a');
+      }
+      const element = this.setting.element.dynamicDownload;
+      const fileType = arg.fileName.indexOf('.json') > -1 ? 'text/json' : 'text/plain';
+      element.setAttribute('href', `data:${fileType};charset=utf-8,${encodeURIComponent(arg.text)}`);
+      element.setAttribute('download', arg.fileName);
+      var event = new MouseEvent("click");
+      element.dispatchEvent(event);
+    }
 }

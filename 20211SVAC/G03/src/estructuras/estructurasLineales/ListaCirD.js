@@ -1,22 +1,13 @@
 //Insertcion no ordenada
 //Busqueda unica
 //Eliminacion unica
-
+var fs = require('fs')
 class Nodo{ //Clase Nodo
     
     //Constructor
     constructor(dato){
         this.siguiente = null;
         this.anterior = null;
-        this.dato = dato;
-    }
-
-    //Setters & Getters
-    getDato(){
-        return dato;
-    }
-
-    setDato(dato){
         this.dato = dato;
     }
 }
@@ -125,7 +116,7 @@ class ListaCD{  //Clase Lista Circular doble
 
     //Metodo Carga
     cargar(arreglo) {
-        arreglo.array.forEach(elemento => {
+        arreglo.map(elemento => {
             this.insert(elemento)
         })
     }
@@ -144,5 +135,33 @@ class ListaCD{  //Clase Lista Circular doble
         let nombre = "ListaCircularDoble"
         fs.writeFile(nombre, json)  
     }
+
+
+    Recorrido(datoBuscar){
+        let aux = this.cabeza;
+        let contador = 0;
+
+        
+        let arreglo = []
+        let contadoraux = 0;
+        while(contador != this.size){
+            let dato = {id: contadoraux, label: aux.dato.toString(),}
+            arreglo[contadoraux] = dato
+
+            
+            if(aux.dato == datoBuscar){
+                let dato = {id: contadoraux, label: aux.dato.toString(),  color: "lime"}
+                arreglo[contadoraux] = dato
+            }
+            aux= aux.siguiente;
+            contador++;
+            contadoraux++;
+        }
+
+        return arreglo
+    }
+    
 }
+
+export default ListaCD;
 
