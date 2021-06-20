@@ -2,13 +2,11 @@ import { nodo } from './nodo'
 import { Draw } from '../Draw/Draw'
 export class pila {
     private primero: nodo
-   // private ultimo: nodo
     private draw: Draw
     private id: number;
 
     constructor() {
         this.primero = null
-        //this.ultimo = null
         this.id = 0;
         this.draw = new Draw()
     }
@@ -17,8 +15,7 @@ export class pila {
         let temp: nodo = new nodo(dato, this.id)
         if (this.primero == null) {
             this.primero = temp
-           // this.ultimo = temp
-            
+           
             let div: any = this.draw.crearNodo(dato, this.id)
             dibujo.appendChild(div)
             this.id++
@@ -37,7 +34,6 @@ export class pila {
 
         let tempPrimero = this.primero
         temp.setSiguiente(tempPrimero)
-        //this.ultimo.setSiguiente(temp)
         this.primero = temp
 
         return temp.getId();
@@ -53,6 +49,24 @@ export class pila {
         } while (temp != this.primero)
 
         return null
+    }
+
+    async pop(duracion) {
+        let temp = this.primero
+        if (temp === null) return -1
+       
+        await this.draw.animateNode("nodo" + temp.getId(), 'zoomOut', duracion)
+        this.draw.removerElemento("nodo" + temp.getId())
+            
+        if (temp.getSiguiente() === null) { //caso de que no haya mas datos 
+            this.primero = null
+            return 1;
+        }
+
+        this.primero = temp.getSiguiente()
+        return 1;
+        
+
     }
 
     async searchAnimation(dato, duration) {
@@ -83,10 +97,6 @@ export class pila {
     getPrimero() {
         return this.primero
     }
-
-   /* getUltimo() {
-        return this.ultimo
-    }*/
 
     generarJSON() {
         let data = {

@@ -105,4 +105,51 @@ export class PilaComponent implements OnInit {
 
   }
 
+  async modificar() {
+    let datomodificar = await this.pila.searchAnimation(this.datoAntiguo, `${this.velocidad}s`)
+    if (datomodificar === null) {
+      Swal.fire({
+        target: document.getElementById('form-modal'),
+        icon: 'error',
+        title: 'Oops...',
+        text: `El dato ${this.datoAntiguo} no existe en la pila`
+      })
+      return;
+    }
+    if (!this.repetidos) {
+      let temp = this.pila.search(this.datoNuevo)
+      if (temp !== null) {
+        Swal.fire({
+          target: document.getElementById('form-modal'),
+          icon: 'error',
+          title: 'Oops...',
+          text: `El dato ${this.datoNuevo} ya existe en la pila`
+        })
+        this.datoNuevo=""
+        this.datoAntiguo=""
+        return -1;
+      }
+    }
+
+    datomodificar.nodo.setDato(this.datoNuevo)
+    document.getElementById("nodo" + datomodificar.nodo.getId()).innerHTML = "" + this.datoNuevo
+    this.datoAntiguo = ""
+    this.datoNuevo = ""
+  }
+
+  async pop() {
+    let result = await this.pila.pop(`${this.velocidad}s`)
+    return 1;
+  }
+
+  generarJSON() {
+    let data = this.pila.generarJSON()
+    var link = document.createElement("a");
+    link.download = "Pila.json";
+    var info = "text/json;charset=utf-8," + encodeURIComponent(data);
+    link.href = "data:" + info;
+    link.click();
+    link.remove()
+  }
+
 }
