@@ -32,7 +32,7 @@ class NodoListaSimpleCirular{
       return}
     while(aux.sig != this.head){
       aux2=aux.sig;
-      console.log(aux.data+"  "+aux2.data)
+      //console.log(aux.data+"  "+aux2.data)
       if(aux2.data==data){  
         aux2=aux2.sig
         aux.sig=aux2
@@ -83,12 +83,12 @@ const lSCircular = new ListaSimpleCirular();
 
 function lsimplecircleAdd(date){
   lSCircular.add(date);
-  console.log(linkedList) 
+  console.log(lSCircular.print()) 
 }
 
 function lsimpleCircleDelete(date){
   lSCircular.delete(date);
-  console.log(linkedList) 
+  console.log(lSCircular.print()) 
 }
 function lsimpleCircleRefresh(date1,date2){
   lSCircular.refresh(date1,date2);

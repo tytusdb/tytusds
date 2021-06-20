@@ -38,7 +38,8 @@
               "src/app/Structures/listatwoenlazada.js",
               "src/app/Structures/listasimple(Oficial).js",
               "src/app/Structures/listaSimpleCircular.js",
-              "src/app/Structures/listaCirctwoenlazada.js"
+              "src/app/Structures/listaCirctwoenlazada.js",
+              "src/app/Structures/listaSimpleCircular.js"
               ]
           },
           "configurations": {
@@ -107,7 +108,8 @@
               "src/app/Structures/listatwoenlazada.js",
               "src/app/Structures/listasimple(Oficial).js",
               "src/app/Structures/listaSimpleCircular.js",
-              "src/app/Structures/listaCirctwoenlazada.js"
+              "src/app/Structures/listaCirctwoenlazada.js",
+              "src/app/Structures/listaSimpleCircular.js"
             ]
           }
         },

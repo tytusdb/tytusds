@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+declare var lsimplecircleAdd:any;
+declare var lsimpleCircleDelete:any;
 
 @Component({
   selector: 'app-lista-circular',
@@ -11,7 +13,12 @@ export class ListaCircularComponent implements OnInit {
   getValue1(val:string){
     console.warn(val)
     
-    
+  }
+  getValuelsimpleCircleDelete(val:string){
+    lsimpleCircleDelete(val)
+  }
+  getValueCircular(val:string){
+    lsimplecircleAdd(val)
   }
 
   constructor() { }
