@@ -187,12 +187,17 @@ class Pila{
       }
 
     }
+
+    
+
   } 
 const stack = new Pila();
 var categoriaPila = "Estructura Lineal";
 var nombrePila = "pila";
 var repeticionPila = "false";
 var animacionPila = "0";
+
+
 
 function addValuePila(data){
   stack.push(data);
