@@ -88,10 +88,11 @@ class AVL{
     graficar(){
         let tx=(150*this.valores)/2
         let ty=1
-        this.graficarNodo(this.raiz,tx,ty)
+        let temp=[this.raiz.altura]
+        this.graficarNodo(this.raiz,tx,ty,150*this.raiz.altura)
     }
 
-    graficarNodo(nodo,x,y){
+    graficarNodo(nodo,x,y,d){
         if (nodo!=null){
             console.log(nodo.val)
             console.log(nodo.altura)
@@ -108,8 +109,8 @@ class AVL{
                 document.getElementById("result").innerHTML+=
                     `<div class="long-arrow-right" style="top: ${(nodo.y+75)+"px"};left: ${(nodo.x+105) + 'px'}" id=${"a" + nodo.val+"R"}></div><br />`;
             }
-            this.graficarNodo(nodo.izq,(x-150),y+2)
-            this.graficarNodo(nodo.der,(x+150),y+2)
+            this.graficarNodo(nodo.izq,(x-parseInt(d)/2),y+2,d/2)
+            this.graficarNodo(nodo.der,(x+parseInt(d)/2),y+2,d/2)
 
 
         }
