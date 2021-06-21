@@ -199,13 +199,27 @@ class Cola {
     }
 
     //Metodo Actualizar
-    ActualizarCola(){
+    ReemplazarDato(datoAnterior, datoNuevo){
+      let datoActual = this.primero;
+      while(datoActual){
+        if(datoActual.dato === datoAnterior){
+          datoActual.dato = datoNuevo;
 
-    }
-
-    ReemplazarDato(){
+        }
+        datoActual = datoActual.siguiente;
+      }
       
     }
+    
+    ActualizarCola(datoActual, reemplazoDato){
+      let actualizar = this.primero;
+      if(this.buscar(datoActual)){
+        this.ReemplazarDato(datoActual, reemplazoDato);
+
+      }
+
+    }
+    
   }
 
 const cola = new Cola();
