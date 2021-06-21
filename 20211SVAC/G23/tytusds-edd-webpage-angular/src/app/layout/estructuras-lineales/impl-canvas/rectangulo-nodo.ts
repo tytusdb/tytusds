@@ -29,9 +29,9 @@ export class RectanguloNodo {
         this.ctx.fillStyle = this.colorRelleno;
         this.ctx.fillRect(this.xInicial+this.anchoRectangulo, this.yInicial+this.anchoRectangulo, this.ancho-this.anchoRectangulo*2, this.alto-this.anchoRectangulo*2);
         this.ctx.fillStyle = this.colorBorde;
-        this.ctx.fillRect( this.xInicial+this.ancho*2/3, this.yInicial, this.anchoRectangulo, this.alto);
+        this.ctx.fillRect( this.xInicial+this.ancho-20, this.yInicial, this.anchoRectangulo, this.alto);
         if(this.esDoble){
-            this.ctx.fillRect( this.xInicial+this.ancho/3, this.yInicial, this.anchoRectangulo, this.alto);
+            this.ctx.fillRect( this.xInicial+20, this.yInicial, this.anchoRectangulo, this.alto);
         }
         this.drawText();
     }

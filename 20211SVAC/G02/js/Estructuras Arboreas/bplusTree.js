@@ -1,6 +1,11 @@
 var contador = 2
 var arrayNodes = []
 var edges = []
+var clickedNode
+var clickedNodoValue
+var network = null
+var switchToggle = document.getElementById("flexSwitchCheckDefault")
+var slider = document.getElementById("customRange2")
 class Nodo{
     constructor(padre, id){
         this.id = id
@@ -220,7 +225,7 @@ class ArbolBMas{
     recorrerLista(temp){
         if(temp != null){
             if(temp.siguiente!= null){
-                edges.push({from: temp.id, to: temp.siguiente.id})
+                edges.push({from: temp.id, to: temp.siguiente.id, arrows: "to"})
                 if(temp.siguiente.siguiente!= null){
                     this.recorrerLista(temp.siguiente)
                 }
@@ -272,7 +277,14 @@ function actualizarTablero(){
                 nodeSpacing: 150,
                 sortMethod : 'directed'
               }
-        } 
+        },
+        edges: {
+            smooth: {
+              type: 'curvedCW',
+              forceDirection: 'none',
+              roundness: 1
+            }
+        }
     };
     network = new vis.Network(container, data, options);
     network.on('click', function (properties) {
@@ -303,14 +315,28 @@ function crearArbol(){
 }
 
 function insertarNodo(){
-    var valor = parseInt(document.getElementById("valueNodo").value, 10);
-    document.getElementById("valueNodo").value = "" 
-    arbol.agregar(valor)
+    var valor
+    if(document.getElementById("valueNodo").value.charCodeAt(0)>=48 && document.getElementById("valueNodo").value.charCodeAt(0)<=57){
+        valor = parseInt(document.getElementById("valueNodo").value, 10)
+    }else{
+        valor = document.getElementById("valueNodo").value
+    }
+    if(arbol.buscar(valor, arbol.raiz) && switchToggle.checked == false){
+        alert("No se aceptan valores repetidos")
+    }else{
+        arbol.agregar(valor)
+    }
+    document.getElementById("valueNodo").value = ""
     actualizarTablero()
 }
 
 function searchNode(){
-    var valor = parseInt(document.getElementById("valueNodo").value, 10);
+    var valor
+    if(document.getElementById("valueNodo").value.charCodeAt(0)>=48 && document.getElementById("valueNodo").value.charCodeAt(0)<=57){
+        valor = parseInt(document.getElementById("valueNodo").value, 10);
+    }else{
+        valor = document.getElementById("valueNodo").value
+    }
     if(arbol.buscar(valor, arbol.raiz)){
         focus()
         setTimeout(zoomExtended, 2000)
@@ -321,8 +347,14 @@ function searchNode(){
 }
 
 function focus() {
-    var valueNodo = parseInt(document.getElementById("valueNodo").value, 10);
-    let nodeId = arbolbb.buscarNodo(valueNodo, arbolbb.raiz)
+    let nodeId
+    var valueNodo
+    if(document.getElementById("valueNodo").value.charCodeAt(0)>=48 && document.getElementById("valueNodo").value.charCodeAt(0)<=57){
+        valueNodo = parseInt(document.getElementById("valueNodo").value, 10);
+    }else{
+        valueNodo = document.getElementById("valueNodo").value
+    }
+    nodeId = arbolbb.buscarNodo(valueNodo, arbolbb.raiz)
     document.getElementById("valueNodo").value = ""
     var options = {
         scale: 3.0,
@@ -344,4 +376,53 @@ function zoomExtended(){
     }
 
     network.moveTo(options);
+}
+
+function read(){
+    var fileInput = document.querySelector('input[type="file"]');
+
+    var file = fileInput.files.item(0);
+    var reader = new FileReader();
+
+    reader.readAsText(file);
+    
+    reader.onload = function() {
+        var obj = JSON.parse(reader.result)
+        let val = obj.valores
+        if(arbol == null){
+            arbol = new ArbolBMas(obj.grado)
+        }
+        arbol.repetidos = obj.repeticion
+        slider.value = obj.animacion
+        
+        let contador =0
+        switch(arbol.repetidos){
+            case true:
+                switchToggle.checked = true
+                for(let i=0; i<val.length; i++){
+                    contador = contador + 0.5
+                    setTimeout(function (params) {
+                        arbol.agregar(val[i])
+                        actualizarTablero()
+                    },(1000)*Math.round(parseInt(slider.value)/2)*contador) 
+                }
+                break;
+            case false:
+                switchToggle.checked = false
+                for(let i=0; i<val.length; i++){
+                    contador = contador + 0.5
+                    if (arbol.buscar(val[i], arbol.raiz)){
+                        console.log("no se aceptan valores repetidos")
+                    }else{                    
+                        contador = contador + 0.5
+                        setTimeout(function (params) {
+                            arbol.agregar(val[i])
+                            actualizarTablero()
+                        },(1000)*Math.round(parseInt(slider.value)/2)*contador)
+                    }
+                    
+                }
+                break;
+        }
+    }
 }

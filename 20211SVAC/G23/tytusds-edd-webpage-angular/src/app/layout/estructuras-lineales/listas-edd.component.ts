@@ -131,27 +131,42 @@ export class ListasEddComponent implements OnInit {
   }
   agregarNodo(valorInsertar:string, esCarga:boolean){
     let insertaValor=true;
+    this.showMessage=false;
     //Si no es pila o cola, aplica si inserta al inicio o final
     if(this.idTipoLista>=1&&this.idTipoLista<=4){
-      if(this.opcionOperar=='Inicio'){
-        this.listaEnlazada.agregarAlInicio(valorInsertar);
-      }
-      else{
-        this.listaEnlazada.agregarAlFinal(valorInsertar);
+      if(this.opcionRepeticiones=="false"){
+        if(this.listaEnlazada.buscar(valorInsertar)){
+          this.showMessage=true;
+          insertaValor=false;         }       }
+      if(insertaValor){ 
+        if(this.opcionOperar=='Inicio'){
+          this.listaEnlazada.agregarAlInicio(valorInsertar);
+        }
+        else{
+          this.listaEnlazada.agregarAlFinal(valorInsertar);
+        }
       }
     } //pila
     else if(this.idTipoLista==5){
-      this.listaEnlazada.push(valorInsertar);
+      if(this.opcionRepeticiones=="false"){
+        if(this.listaEnlazada.buscar(valorInsertar)){
+          this.showMessage=true;
+          insertaValor=false;         }       }
+        if(insertaValor) this.listaEnlazada.push(valorInsertar);
     } //cola
     else if(this.idTipoLista==6){
       if(this.opcionRepeticiones=="false"){
-        if(this.listaEnlazada.existeValor(valorInsertar)){
+        if(this.listaEnlazada.buscar(valorInsertar)){
           this.showMessage=true;
           insertaValor=false;         }       }
       if(insertaValor) this.listaEnlazada.encolar(valorInsertar, this.opcionRepeticiones=="true");
     } //cola prioridad
     else if(this.idTipoLista==7){
-      if(this.prioridad!=null&&this.prioridad!='')
+      if(this.opcionRepeticiones=="false"){
+        if(this.listaEnlazada.buscar(valorInsertar)){
+          this.showMessage=true;
+          insertaValor=false;         }       }
+      if(this.prioridad!=null&&this.prioridad!=''&&insertaValor)
         this.listaEnlazada.encolar(valorInsertar,this.prioridad);
     }
     this.actualizarListaStr();

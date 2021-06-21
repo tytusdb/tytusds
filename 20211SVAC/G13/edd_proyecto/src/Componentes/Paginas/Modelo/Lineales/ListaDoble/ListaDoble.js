@@ -6,7 +6,7 @@ class ListaDoble{
         this.ultimo = null;
     }
 
-    insertar(dato){
+    insertar = (dato) => {
 
         let nodo_nuevo = new Nodo(dato);
 
@@ -22,7 +22,7 @@ class ListaDoble{
         }
     }
 
-    insertar_inicio(dato){
+    insertar_inicio = (dato) => {
         let nodo_nuevo = new Nodo(dato)
 
         nodo_nuevo.set_siguiente(this.get_primero())
@@ -30,7 +30,7 @@ class ListaDoble{
         this.set_primero(nodo_nuevo)
     }
 
-    insertar_ultimo(dato){
+    insertar_ultimo = (dato) => {
         let nodo_nuevo = new Nodo(dato)
         
         this.get_ultimo().set_siguiente(nodo_nuevo)
@@ -39,7 +39,7 @@ class ListaDoble{
 
     }
 
-    eliminar(dato){
+    eliminar = (dato) => {
 
         if (this.vacia() == false){
             
@@ -105,7 +105,7 @@ class ListaDoble{
         return console.log("Data not found!");
     }
 
-    update(dato, cambio){
+    update = (dato, cambio) => {
         let nodo_actual = this.get_primero();
 
         if (this.vacia() == false){
@@ -122,16 +122,17 @@ class ListaDoble{
 
     }
 
-    search(dato){
+    search = (dato) => {
         let nodo_actual = this.get_primero()
-
+        let i = 0;
         if (this.vacia() == false){
 
             do{
                 if (nodo_actual.get_dato() == dato){
                     console.log("Data found! " + nodo_actual.get_dato());
-                    return true
+                    return i;
                 }
+                i ++;
                 nodo_actual = nodo_actual.get_siguiente();
             }while(nodo_actual != null);
 
@@ -147,7 +148,7 @@ class ListaDoble{
 
 
 
-    print(){
+    print = () => {
         console.log("-> ->")
         let nodo_actual = this.get_primero();
         if (this.vacia() == false){
@@ -168,7 +169,7 @@ class ListaDoble{
         }
     }
 
-    vacia(){
+    vacia = () => {
         if (this.get_primero() == null){ 
             return true;
         }else{
@@ -176,11 +177,59 @@ class ListaDoble{
         }
     }
 
+    setNodesDataSet = () => { // Esto Genera los nodos de Vis.
 
-    get_primero(){ return this.primero; }
-    set_primero(primero){ this.primero = primero; }
-    get_ultimo(){ return this.ultimo; }
-    set_ultimo(ultimo){ this.ultimo = ultimo; }
+        let nodo_actual = this.get_primero();
+        var dot = [];
+        if (this.vacia() == false){
+            let i = 0
+            do {
+				dot.push({id:i, label: nodo_actual.get_dato()});	
+                nodo_actual = nodo_actual.get_siguiente();
+                i++;
+            } while (nodo_actual != null);
+
+        }
+        return dot;
+
+    } 
+
+    setEdgesDataSet = () => {
+
+        let nodo_actual = this.get_primero();
+        var dot = [];
+        if (this.vacia() == false){
+            let i = 0;
+            do {
+                if (nodo_actual.get_siguiente() != null){
+
+                    let nodoUno = parseInt(i)
+                    let nodoDos = parseInt(nodoUno) + parseInt(1)
+                    if (i==0){
+                        dot.push({from:0, to:1, arrows: "to"});
+                        dot.push({from:1, to:0, arrows: "to"});
+                    }
+                    if ( nodoUno!= false && nodoDos != false){
+                        dot.push({from:parseInt(nodoUno), to:parseInt(nodoDos), arrows: "to"});
+                        dot.push({from:parseInt(nodoDos), to:parseInt(nodoUno), arrows: "to"});
+                    }
+                }
+                nodo_actual = nodo_actual.get_siguiente();
+                i ++;
+            } while (nodo_actual != null);
+
+        }
+
+        return dot;
+
+
+    }
+
+
+    get_primero = () => { return this.primero; }
+    set_primero = (primero) =>{ this.primero = primero; }
+    get_ultimo = () => { return this.ultimo; }
+    set_ultimo = (ultimo) => { this.ultimo = ultimo; }
 
 
 

@@ -1,14 +1,61 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import '~animate.css/animate.min';
+@import "~animate.css/animate.min";
 .node {
   border-radius: 50%;
   width: 50px;
   height: 50px;
-  background:#8D44B0;
+  background: #8d44b0;
   border: 3px solid #000;
   color: #ffff;
   padding: 10px;
   text-align: center;
-  font: 20px Arial, sans-serif;
+  font: 10px Arial, sans-serif;
+  overflow-wrap: break-word;
+}
+
+#tree .node-container .nodo {
+  border: 1px solid black;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  border-radius: 50%;
+  margin: auto;
+  position: absolute;
+  background-color: #d1c4e9;
+  overflow-wrap: break-word;
+}
+
+#tree .node-container .nodo:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+#tree .node-container .nodo p {
+  font-size: 15px;
+  margin: auto;
+}
+
+.arrow-container .line {
+  width: 100px;
+  border: 1px solid black;
+}
+
+.arrow-container .arrow {
+  width: 0;
+  height: 0;
+  border-left: 10px solid black;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  position: absolute;
+  top: -9px;
+  left: 100%;
+}
+
+.arrow-container {
+  width: 100px;
+  position: absolute;
+  top: 100px;
+  left: 700px;
+  visibility: hidden;
 }

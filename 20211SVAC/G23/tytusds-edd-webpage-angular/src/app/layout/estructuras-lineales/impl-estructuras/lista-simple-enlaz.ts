@@ -175,4 +175,15 @@ export default class ListaSimpleEnlazada implements ListaPadre {
     }
     current.setData ( newData);
   }
+  buscar(valor):boolean{
+    let existeValor=false;
+    let node = this.inicio;
+    for (let i = 0; i < this.size(); i++) {
+      if(valor== node.getData()){
+        existeValor=true; break;
+      }
+      node = node.getNext();
+    }
+    return existeValor;
+  }
 }

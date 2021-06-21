@@ -30,7 +30,7 @@ export class RectanguloDobleNodo {
         this.ctx.fillStyle = this.colorRelleno;
         this.ctx.fillRect(this.xFinal+this.anchoRectangulo, this.yFinal+this.anchoRectangulo, this.ancho-this.anchoRectangulo*2, this.alto-this.anchoRectangulo*2);
         this.ctx.fillStyle = this.colorBorde;
-        this.ctx.fillRect( this.xFinal+this.ancho*2/3, this.yFinal, this.anchoRectangulo, this.alto);
+        this.ctx.fillRect( this.xFinal+this.ancho-20, this.yFinal, this.anchoRectangulo, this.alto);
         this.drawText();
     }
     public drawText(){

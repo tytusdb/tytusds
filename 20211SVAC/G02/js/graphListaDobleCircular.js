@@ -260,7 +260,7 @@ function read(){
                         // agregar1(val, i)
                         listDoubleCir.agregarFinal(val[i].toString())
                         actualizarTablero()
-                    },(1000)*Math.round(parseInt(slider.value)/2) * contador)
+                    },(500)*(11- slider.value)*contador)
                     
                 }
                 break;
@@ -272,7 +272,7 @@ function read(){
                         // agregar1(val, i)
                         listDoubleCir.agregarFinal(val[i].toString())
                         actualizarTablero()
-                    },(1000)*Math.round(parseInt(slider.value)/2) * contador)
+                    },(500)*(11- slider.value)*contador)
                     
                 }
                 break
@@ -361,7 +361,7 @@ function modificarNodo(){
 
 function searchNode(){
     focus()
-    setTimeout(zoomExtended, (1000)*(slider.value))
+    setTimeout(zoomExtended, (1000)*(11-slider.value))
     document.getElementById("valueNodo").value = ""
 }
 
@@ -375,7 +375,7 @@ function focus() {
         scale: 3.0,
         offset: {x:0,y:0},
         animation: {
-            duration: (1000)*(slider.value),
+            duration: (1000)*(11-slider.value),
             easingFunction: "easeOutQuint"
         },
         

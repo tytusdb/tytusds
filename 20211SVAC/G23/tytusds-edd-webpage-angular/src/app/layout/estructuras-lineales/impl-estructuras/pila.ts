@@ -56,6 +56,17 @@ export default class Pila implements ListaPadre {
     }
     return nodo;
   }
+  buscar(valor):boolean{
+    let existeValor=false;
+    let aux=this.inicio;
+    while(aux!=null&&!existeValor){
+      if(aux.getData()==valor){
+        return true;
+      }
+      aux=aux.getNext();
+    }
+    return existeValor;
+  }
   peek() {
     throw new Error("Method not implemented.");
   }

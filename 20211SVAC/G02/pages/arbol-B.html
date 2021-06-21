@@ -33,14 +33,12 @@
               </div>
               <button class="btn btn-primary" onclick="crearArbol()">Crear Arbol</button>
               <button class="btn btn-primary" onclick="insertarNodo()">Insertar valor</button>
-              <button class="btn btn-danger" onclick="eliminarNodo()">Eliminar</button>
-              <button class="btn btn-success" onclick="modificarNodo()">Actualizar</button>
               <button class="btn btn-secondary" onclick="searchNode()">Buscar</button>
             </div>
             <div class="col-sm-8">
               <div class="input-group mb-3">
-                <input type="file" class="form-control" id="inputGroupFile01">
-                <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04" onclick="read()">Cargar archivo</button>
+                <input type="file" class="form-control" id="inputGroupFile01" accept="application/JSON">
+                <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04" onclick="read()" >Cargar archivo</button>
               </div>
               <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">

@@ -1,0 +1,121 @@
+@font-face {
+	src: url('../fonts/Montserrat-Light.ttf');
+	font-weight: 400;
+	font-family: 'Montserrat';
+	font-display: swap;
+}
+
+@font-face {
+	src: url('../fonts/Montserrat-Regular.ttf');
+	font-weight: 500;
+	font-family: 'Montserrat';
+	font-display: swap;
+}
+
+@font-face {
+	src: url('../fonts/Montserrat-Bold.ttf');
+	font-weight: 600;
+	font-family: 'Montserrat';
+	font-display: swap;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	user-select: none;
+	-moz-user-select: none;
+	font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+		Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+	font-size: 17px;
+	background-color: var(--paleDarkNight);
+	--radius: 10px;
+	transition: background-color 0.2s ease-in-out;
+}
+
+ul {
+	list-style: none;
+}
+
+button,
+.btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	height: 50px;
+	font-weight: 500;
+	border-radius: var(--radius);
+	border: none;
+	outline: none;
+	appearance: none;
+	padding: 0 10px;
+	color: var(--whiteLightPale);
+	cursor: pointer;
+	transition: box-shadow 0.2s ease-in-out;
+	background: linear-gradient(to right, #5e81f4, hsl(226, 87%, 60%));
+}
+
+button:hover,
+.btn:hover {
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+button > i:first-child,
+.btn > i:first-child {
+	margin-right: 10px;
+}
+
+button > i ~ i,
+.btn > i ~ i {
+	margin-left: 10px;
+}
+
+.input {
+	display: flex;
+	align-items: center;
+	height: 50px;
+	background: var(--whiteDark);
+	border-radius: var(--radius);
+	padding: 10px 20px;
+}
+
+.input > label > i {
+	color: #aab8c6;
+	margin-right: 20px;
+	transition: color 0.2s ease-in-out;
+}
+
+.input > input {
+	width: 100%;
+	border: none;
+	outline: none;
+	appearance: none;
+	font-weight: 500;
+	background: transparent;
+	color: var(--moonOceanOpal);
+}
+
+.input > input:-webkit-autofill,
+.input > input:-webkit-autofill:hover,
+.input > input:-webkit-autofill:focus,
+.input > textarea:-webkit-autofill,
+.input > textarea:-webkit-autofill:hover,
+.input > textarea:-webkit-autofill:focus,
+.input > select:-webkit-autofill,
+.input > select:-webkit-autofill:hover,
+.input > select:-webkit-autofill:focus {
+	-webkit-text-fill-color: var(--moonOceanOpal);
+	-webkit-box-shadow: 0 0 0 30px var(--whiteDark) inset;
+	background-color: transparent;
+}
+
+.input > input::placeholder {
+	color: var(--blueGrayGray);
+}
+
+.input:focus-within > label > i {
+	color: var(--darkGrayPale);
+}
