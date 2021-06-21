@@ -1,23 +1,22 @@
 import React, { Component } from 'react'
-import './burbuja.css'
 import { Bar, defaults } from 'react-chartjs-2'
 
 
-
-export class Burbuja extends Component {
+export class Rapido extends Component {
+    
     constructor(props) {
         super(props)
 
         this.state = {
-            valorBurbuja: "",
-            burbuja: [],
+            valorRapido: "",
+            rapido: [],
         
         }
         this.leerJson = this.leerJson.bind(this)
     }
 
 
-
+    
     handleClick = (e) => {
         console.log("bonton regresar presionado")
     };
@@ -30,7 +29,7 @@ export class Burbuja extends Component {
         // });
 
         this.setState({
-            valorBurbuja: e.target.value
+            valorRapido: e.target.value
         })
     };
 
@@ -39,10 +38,11 @@ export class Burbuja extends Component {
         e?.preventDefault();
         // console.log("Formulario Subido")
         // console.log(this.state.valorBurbuja)
-        this.state.burbuja.push(parseInt(this.state.valorBurbuja))
+        this.state.rapido.push(parseInt(this.state.valorRapido))
 
         this.setState({
-            burbuja: this.state.burbuja
+            rapido: this.state.rapido
+
         })
     };
 
@@ -59,12 +59,12 @@ export class Burbuja extends Component {
             valores.forEach((element, index) => {
                 setTimeout(() => {
                     this.setState({
-                        valorBurbuja: element,
+                        valorRapido: element,
                     }, () => {
                         this.handleSubmit()
                     })
 
-                }, index * 600)
+                }, index * 1000)
             });
 
             this.setState({
@@ -74,43 +74,49 @@ export class Burbuja extends Component {
         reader.readAsText(input.files[0], "UTF-8")
     }
 
-    ordenamientoAnimacion = (contador, listaBurbuja) => {
+
+
+    ordenamientoAnimacion = (contador, lista) => {
+
+
         setTimeout(() => {
             this.setState({
-                burbuja: listaBurbuja
+                rapido: lista
             })
-        }, 800*contador)
+        }, contador*1000)
     }
 
-    ordenamiento = () => {
 
-        const tamañoLista = this.state.burbuja.length
-        const listaBurbuja = this.state.burbuja
+
+    ordenamiento = (lista) => {
+
+        const tamañoLista = this.state.rapido.length
+        lista = this.state.rapido
         let contador = 0
 
-
-        for (var i = 1; i < tamañoLista; i++) {
-            for (var j = 0; j < (tamañoLista - i ); j++) {
-
-                if (listaBurbuja[j] > listaBurbuja[j + 1]) {
-                    var aux = listaBurbuja[j];
-                    listaBurbuja[j] = listaBurbuja[j + 1];
-                    listaBurbuja[j + 1] = aux
-
-                }
-
-                this.ordenamientoAnimacion(++contador, [...listaBurbuja])
-            }
-
-            this.ordenamientoAnimacion(++contador, [...listaBurbuja])
+        if(tamañoLista<1){
+            return []
         }
+
+        var izquierda = [] ; 
+        var derecha = [];
+        var pivote = [0];
+        
+        for(var i = 1; i<tamañoLista; i ++){
+            if(lista[i] < pivote){
+                izquierda.push(lista[i]) ; 
+            }else{
+                derecha.push(lista[i])
+            }
+        }
+
+        return [].concat(this.ordenamiento(izquierda), pivote, this.ordenamiento(derecha))
 
     }
 
 
 
     render() {
-        console.log(this.state.burbuja)
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
@@ -118,13 +124,13 @@ export class Burbuja extends Component {
 
                         <div className="row gap-2">
                             <div className="col-sm-2 d-grid gap-2">
-                                <input
+                            <input
                                     type="text"
                                     className="form-control"
                                     id="Elemento"
                                     placeholder="Elemento"
                                     onChange={this.handleChange}
-                                    value={this.state.valorBurbuja}
+                                    value={this.state.valorRapido}
                                 />
                             </div>
 
@@ -152,11 +158,11 @@ export class Burbuja extends Component {
                      
                     <Bar
                             data={{
-                                labels: this.state.burbuja,
+                                labels: this.state.rapido,
                                 datasets: [
                                     {
-                                        label: 'ordenamiento de burbuja ',
-                                        data: this.state.burbuja,
+                                        label: 'ordenamiento de rapdio ',
+                                        data: this.state.rapido,
                                         backgroundColor: [
                                             'rgba(255, 99, 132, 0.2)',
                                             'rgba(54, 162, 235, 0.2)',
@@ -207,15 +213,10 @@ export class Burbuja extends Component {
 
                     </div>
 
-                    
-                    <div className="">
-                  
-                    </div>
                 </div>
-
             </div>
         )
     }
 }
 
-export default Burbuja
+export default Rapido
