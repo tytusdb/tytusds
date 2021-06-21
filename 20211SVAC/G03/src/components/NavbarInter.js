@@ -150,7 +150,8 @@ export default class NavbarInter extends Component {
               <Dibujar nombre={this.state.nombre} estructura={this.state.estrutura}  key={count++}/>
             </div>
           )
-        }else if(this.state.nombre == "Arbol ABB"){
+        }else if(this.state.nombre == "Arbol ABB"
+              ||this.state.nombre == "Arbol AVL"){
           return (
             <div>
                 <Menu className="ui tpo inverted attached menu">

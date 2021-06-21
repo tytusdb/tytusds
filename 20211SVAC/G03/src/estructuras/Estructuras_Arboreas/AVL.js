@@ -49,7 +49,7 @@ class ArbolAVL {
  si es mayor, se desplaza hacia la derecha*/
             if (valor < temporal.valor) {
                 temporal.izquierda = this._agregar(valor, temporal.izquierda);
-                if ((this.altura(temporal.izquierda) - this.altura(temporal.derecha)) == 2) {
+                if ((this.altura(temporal.izquierda) - this.altura(temporal.derecha)) == -2) {
                     if (valor < temporal.izquierda.valor) {
                         temporal = this.r_izquierda(temporal);
                     } else {
@@ -69,7 +69,7 @@ class ArbolAVL {
                 }
             }else{
                 //si el valor a agregar ya existe
-                nodo.valor = valor;
+                temporal.valor = valor;
             }
         }
 //altura del nodo a insertar
@@ -124,8 +124,78 @@ class ArbolAVL {
             this.agregar(e)
         })
     }
+
+    preOrden(nodo){
+        if(nodo != null){
+        console.log(nodo.valor)
+        this.preOrden(nodo.izquierda)
+        this.preOrden(nodo.derecha)
+        }
+    }
+
+    graficarNodos(nodo,vector,datoBuscar){
+
+        if(nodo.izquierda == null && nodo.derecha == null){
+            let dato
+            if(datoBuscar == nodo.valor){
+                dato = {id: nodo.valor, label: nodo.valor.toString(), color: "lime"}
+            }else{
+                dato = {id: nodo.valor, label: nodo.valor.toString(),}
+            }
+            
+            vector.push(dato)
+        }else{
+            let dato
+            if(datoBuscar == nodo.valor){
+                dato = {id: nodo.valor, label: nodo.valor.toString(), color: "lime"}
+            }else{
+                dato = {id: nodo.valor, label: nodo.valor.toString(),}
+            }
+            
+            vector.push(dato)
+        }
+        
+        if(nodo.izquierda != null){
+            this.graficarNodos(nodo.izquierda,vector,datoBuscar)
+        }
+
+        if (nodo.derecha != null){
+            this.graficarNodos(nodo.derecha,vector,datoBuscar)
+        }
+
+        return vector
+    }
+
+    obtenerNodos(datoBuscar){
+        let vector = []
+
+        return this.graficarNodos(this.raiz,vector,datoBuscar)
+    }
+
+    graficarApuntadores(nodo,vector){
+
+        if(nodo.izquierda != null){
+            this.graficarApuntadores(nodo.izquierda,vector)
+            let edge = {from:nodo.valor, to:nodo.izquierda.valor}
+            vector.push(edge)
+        }
+
+        if (nodo.derecha != null){
+            this.graficarApuntadores(nodo.derecha,vector)
+            let edge = {from:nodo.valor, to:nodo.derecha.valor}
+            vector.push(edge)
+        }
+
+        return vector
+    }
+
+    obtenerAputadores(){
+        let vector = []
+
+        return this.graficarApuntadores(this.raiz,vector)
+    }
     
 }
-module.exports.ArbolAVL = ArbolAVL;
+export default ArbolAVL;
 
 

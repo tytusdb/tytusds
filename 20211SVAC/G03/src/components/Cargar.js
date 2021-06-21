@@ -3,7 +3,10 @@ import { Button, Header, Icon, Modal,Menu,Input } from 'semantic-ui-react'
 
 import Cola from '../estructuras/EstructurasLineales/Cola'
 import ColaPrioridad from '../estructuras/EstructurasLineales/ColaPrioridad'
+
+import ArbolAVL from '../estructuras/Estructuras_Arboreas/AVL'
 import ABB from '../estructuras/Estructuras_Arboreas/ABB'
+
 import Pila from '../estructuras/EstructurasLineales/Pila'
 import ListaCirD from '../estructuras/EstructurasLineales/ListaCirD'
 import ListaCS from '../estructuras/EstructurasLineales/ListaCirS'
@@ -95,6 +98,14 @@ function structW(nombre,datos,edd){ // FUNCION PARA SABER QUE TIPO DE ESTRUCTURA
 
             edd = new ABB();
             edd.cargar(datos)
+            console.log(edd.obtenerNodos())
+            console.log(edd.obtenerAputadores())
+            break
+        case "Arbol AVL":
+
+            edd = new ArbolAVL();
+            edd.cargar(datos)
+            edd.preOrden(edd.raiz);
             console.log(edd.obtenerNodos())
             console.log(edd.obtenerAputadores())
             break
