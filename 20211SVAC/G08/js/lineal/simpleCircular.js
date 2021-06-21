@@ -185,7 +185,7 @@ async function agregar(i, data) {
     pointer.style.opacity = "0";
 
     let img = document.createElement('img');
-    img.src = "flecha_sola.png";
+    img.src = "../../img/flecha_sola.png";
     pointer.appendChild(img);
 
     let flecha = document.createElement('div');
@@ -193,13 +193,13 @@ async function agregar(i, data) {
     flecha.style.opacity = "0";
     
     let img1 = document.createElement('img');
-    img1.src = "flecha_cabeza.png";
+    img1.src = "../../img/flecha_cabeza.png";
     
     let img2 = document.createElement('img');
-    img2.src = "pedazo.jpg";
+    img2.src = "../../img/pedazo.jpg";
 
     let img3 = document.createElement('img');
-    img3.src = "abajo.jpg";
+    img3.src = "../../img/abajo.jpg";
     
     let nodnum = nodes.length - 1;
     
