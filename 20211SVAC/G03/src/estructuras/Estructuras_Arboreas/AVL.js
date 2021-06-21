@@ -203,6 +203,45 @@ class ArbolAVL {
     }
 
 
+    balancear() {
+        this.balancearAlturas(this.raiz)
+        this.raiz = this._balancear(this.raiz)
+
+    }
+
+    _balancear(temporal) {
+        if (temporal.izquierda == null) {
+            return temporal;
+        }else if(temporal.derecha == null){
+            return temporal;
+        }
+        else {
+
+            temporal.izquierda = this._balancear(temporal.izquierda);
+            if ((this.altura(temporal.izquierda) - this.altura(temporal.derecha)) == 2) {
+                if (temporal.izquierda.derecha == null) {
+                    temporal = this.r_izquierda(temporal);
+                } else {
+                    temporal = this.r_dobleizquierda(temporal);
+                }
+            }
+            temporal.derecha = this._balancear(temporal.derecha);
+            if ((this.altura(temporal.derecha) - this.altura(temporal.izquierda)) == 2) {
+                if (temporal.derecha.izquierda == null) {
+                    temporal = this.r_derecha(temporal);
+                } else {
+                    temporal = this.r_doblederecha(temporal);
+                }
+            }
+        }
+        /* */
+        let al_der = this.altura(temporal.derecha);
+        let al_izq = this.altura(temporal.izquierda);
+        temporal.altura = this.MAX(al_der, al_izq) + 1
+        return temporal;
+    }
+
+
 
 
 
