@@ -1,38 +1,45 @@
 var fs = require('fs')
 class Nodo {
-    constructor(valor){
+    constructor(valor) {
+        this.id = null;
         this.valor = valor;
-        this.siguiente = null;        
+        this.siguiente = null;
+        this.anterior = null;
     }
-   
 }
-class ListaSimple{  
 
-    constructor(){
-       this.primero = null;             
-    }  
 
+class ListaDoble {
+    constructor() {
+        //inicializar atributos
+        this.contador = 0;
+        this.contadorListas = 0;
+        this.primero = null;
+        this.ultimo = null;
+
+    }
     
-
-    agregar(elemento) {
-        //crear un nodo para agregar a la lista
-        let nodo = new Nodo(elemento)        
-        if (this.primero == null) {
+    agregar(elemento){
+        this.contador ++;
+        var temporal = this.primero;
+        let nodo = new Nodo(elemento);
+        if(this.primero == null){
+            nodo.id = this.contador;
             this.primero = nodo;
-
-        }
-        else {
-            // Busca el final del arreglo e ingresa el nodo ahi
-            let temporal = this.primero;
-            while (temporal.siguiente != null) {
+        }else {
+            
+            while(temporal.siguiente != null) {
                 temporal = temporal.siguiente;
-            }            
+                console.log(temporal)
+            }
+            nodo.id = this.contador;
             temporal.siguiente = nodo;
+            nodo.anterior = temporal;
         }
     }
- 
 
-    eliminar(elemento) {
+
+    eliminar(elemento){
         if (this.primero == null) {
             console.log("No hay nada en las lista")
         }
@@ -47,8 +54,10 @@ class ListaSimple{
                         if (temporal.siguiente.valor == elemento) {
                             let siguienteT = temporal.siguiente;
                             temporal.siguiente = siguienteT.siguiente;
+                            temporal.siguiente.anterior = temporal;
                             siguienteT.siguiente = null;
                             return;
+
                         }
                     }
                 }
@@ -57,8 +66,7 @@ class ListaSimple{
         }
     }
 
-
-    actualizar(id, valor) {
+    actualizar(id,valor){
         if (this.primero == null) {
             console.log("No hay nada en las lista")
         }
@@ -74,11 +82,9 @@ class ListaSimple{
     }
 
 
-
-    buscar(valor) {
+    buscar(valor){
         if (this.primero == null  ) {
-            console.log("no hay elementos en la lista");           
-
+            console.log("no hay elementos en la lista");          
         }
         else {
             let temporal = this.primero;
@@ -91,16 +97,14 @@ class ListaSimple{
         }
     }
 
-
-    cargar(arreglo) {        
+    cargar(arreglo) {
+        
         arreglo.map(elemento => {
             this.agregar(elemento);
         });
-        
-
     }
-    guardar() {
-        
+
+    guardar(){
         let contadorListas
         contadorListas ++;
         let archivojs;
@@ -111,32 +115,32 @@ class ListaSimple{
             
         }
         let json = JSON.stringify(archivojs)
-        let nombre = "ListaSimple";
+        let nombre = "ListaSimple" + contadorListas;
         fs.writeFile(nombre, json)
-        
+
     }
 
     Recorrido(datoBuscar){
-
-        let arreglo = []
-        let contador = 0;
         let temporal = this.primero;
-            while(temporal != null){ 
-                let dato = {id: contador, label: temporal.valor.toString(),}
+        let arreglo = [];
+        let contador = 0;
+        while(temporal != null){ 
+            let dato = {id: contador, label: temporal.valor.toString(),}
+            arreglo[contador] = dato
+            
+            if(temporal.valor == datoBuscar){
+                let dato = {id: contador, label: temporal.valor.toString(),  color: "lime"}
                 arreglo[contador] = dato
-
-                if(temporal.valor == datoBuscar){
-                    
-                    let dato = {id: contador, label: temporal.valor.toString(),  color: "lime"}
-                    arreglo[contador] = dato
-                }
-                temporal = temporal.siguiente;
-                contador++;
             }
+            temporal = temporal.siguiente;
+            contador++;
+        }
 
-            return arreglo;
+        return arreglo
 
     }
-  
+
+
 }
-export default ListaSimple;
+
+export default ListaDoble;
