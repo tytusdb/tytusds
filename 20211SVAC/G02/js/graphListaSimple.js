@@ -27,7 +27,7 @@ class ListaSimple{
             alert("No se pueden agregar elementos vacios.")
         }else{
             if((this.buscar(dato) && (switchToggle.checked == false))){
-                console.log("Este dato ya existe, por favor habilite los datos repetidos")
+                alert("Este dato ya existe")
             }else{
                 var nuevo = new Nodo(this.id, dato)
                 nuevo.siguiente = null
@@ -210,7 +210,7 @@ function read(){
                     setTimeout(function (params) {
                         listSimple.insertaFinal(val[i].toString())
                         actualizarTablero()
-                    },(1000)*Math.round(parseInt(slider.value)/2)*contador)
+                    },(500)*(11- slider.value)*contador)
                     
                 }
                 break;
@@ -222,7 +222,7 @@ function read(){
                     setTimeout(function (params) {
                         listSimple.insertaFinal(val[i].toString())
                         actualizarTablero()
-                    },(1000)*Math.round(parseInt(slider.value)/2)*contador)
+                    },(500)*(11 - slider.value)*contador)
                 }
                 break
             default:
@@ -307,7 +307,7 @@ function modificarNodo(){
 
 function searchNode(){
     focus()
-    setTimeout(zoomExtended, (1000)*(slider.value))
+    setTimeout(zoomExtended, (1000)*(11- slider.value))
     document.getElementById("valueNodo").value = ""
 }
 
@@ -321,7 +321,7 @@ function focus() {
         scale: 3.0,
         offset: {x:0,y:0},
         animation: {
-            duration: (1000)*(slider.value),
+            duration: (1000)*(11 - slider.value),
             easingFunction: "easeOutQuint"
         }
     }

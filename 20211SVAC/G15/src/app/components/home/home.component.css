@@ -54,9 +54,6 @@ p {
 	100% { background-position: 100% 100%; }
 }
 
-body{
-    min-height: 100vh;
-    background-color: #263238;
-}
+
 #cabecera { height: 265px; }
 

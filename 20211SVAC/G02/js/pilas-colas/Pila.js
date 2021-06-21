@@ -5,8 +5,10 @@ var carga = [];
 var network = null;
 var clickedNode;
 var clickedNodoValue;
+var slidervar = '';
 var fileInput = document.querySelector('input[type="file"]');
 var switchToggle = document.getElementById("flexSwitchCheckDefault")
+var slider = document.getElementById("customRange2");
 
 class Nodo {
     constructor(dato) {
@@ -258,7 +260,7 @@ function focus() {
         scale: 5.0,
         offset: {x:0,y:0},
         animation: {
-            duration: 2500,
+            duration: (1000)*(slider.value),
             easingFunction: "easeOutQuint"
         }
     }
@@ -267,15 +269,22 @@ function focus() {
 
 function BuscarNodo() {
     focus();
+    setTimeout(zoomExtended, (1000)*(slider.value));
     document.getElementById("valueNodo").value="";
 }
 
 function insertarNodos(array) {
     let temp = array;
+    let contador = 0;
+    slider.value = slidervar;
+
     for (let i = 0; i < temp.length; i++) {
-        pila.ApilarJson(temp[i].toString());
+        contador = contador + 0.5;
+        setTimeout(function (params) {
+            pila.ApilarJson(temp[i].toString());
+            actualizarT();
+        },(1000)*Math.round(parseInt(slider.value)/2)*contador)
     }
-    actualizarT();
 }
 
 function readFile(callback) {
@@ -293,6 +302,7 @@ function readFile(callback) {
         var obj = JSON.parse(reader.result);
         let val = obj.valores;
         repetidos = obj.repeticion;
+        slidervar = obj.animacion;
 
         switch (repetidos) {
             case false:
@@ -304,7 +314,6 @@ function readFile(callback) {
                     }
                 }
                 insertarNodos(carga);
-                console.log('No tiene que entrar repetidos', carga.length);
                 break;
 
             case true:
@@ -313,10 +322,21 @@ function readFile(callback) {
                     carga.push(val[i].toString());
                 }
                 insertarNodos(carga);
-                console.log('tiene que entrar repetidos', carga.length);
                 break;
             default:
                 console.log('Falta indicador de repitencia')
         }
     }
+}
+
+function zoomExtended(){
+    // var duration = parseInt(document.getElementById("duration").value);
+    var options = {
+        scale: 1.0,
+        duration: 4500,
+        offset: {x:0,y:0},
+        easingFunction: "easeOutCubic"
+    }
+
+    network.moveTo(options);
 }

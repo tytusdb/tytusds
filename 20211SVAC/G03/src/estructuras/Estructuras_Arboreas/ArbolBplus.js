@@ -55,7 +55,6 @@ class Rama {
             } while (temporal != null);
         }
     }
-
 }
 
 class ArbolBplus {
@@ -65,14 +64,11 @@ class ArbolBplus {
         this.raiz = null;
 
     }
-
 /*-----------------------------------------------
 -------------Inicio bloque Agregar --------------
 -----------------------------------------------*/
-
     agregar(valor) {
         let nodo = new Nodo(valor);
-
         this._agregar(nodo, this.raiz)
 
     }
@@ -93,7 +89,6 @@ class ArbolBplus {
         }
     }
 
-
     buscarInsercion(nodo, rama) {
         let temp = rama.indice;
         for (let i = 1; i <= rama.contador; i++, temp = temp.siguiente) {
@@ -105,7 +100,8 @@ class ArbolBplus {
                 break;
             }
         }
-    }  
+    }
+
 
 
     dividirRama(ramaAux) {
@@ -212,10 +208,73 @@ reacomodo sus hijos en los espacios de las divisiones*/
                 this.dividirRama(ramaAux.ramaPadre)
             }
         }
-    }
+    }    
 /*-----------------------------------------------
 ---------------Fin bloque Agregar ---------------
 -----------------------------------------------*/
+
+    eliminar(valor){    
+        let arbolAux  = this.raiz;
+        this._eliminar(valor, arbolAux);
+
+    }
+
+    _eliminar(valor, ramaAux){
+        if(ramaAux.hoja != true){
+            this._eliminar(valor, ramaAux.indice.rama_Izq)
+        }else if(ramaAux.hoja == true){
+            this.raiz = null;
+            while(ramaAux != null){
+                let nodotemp = ramaAux.indice;     
+                for(let i = 1; i <= ramaAux.contador; i ++,nodotemp = nodotemp.siguiente){
+                    if(nodotemp.valor == valor){
+                        continue
+                    }else{
+                        this.agregar(nodotemp.valor)
+                    }                     
+                }ramaAux = ramaAux.ramaContinua
+            }
+
+        }
+
+    }
+
+    actualizar(valor, valorNuevo){
+        this.eliminar(valor)
+        this.agregar(valorNuevo)
+    }
+
+    buscar(valor){      
+        let Encontrado = this._buscar(valor, this.raiz)  
+        console.log(Encontrado.valor + "Aqui esta")
+    }
+
+    _buscar(valor, ramaAux){
+        let temporal = ramaAux.indice;
+        for(let  i = 1; i<=ramaAux.contador; i++, temporal = temporal.siguiente){
+            if(temporal.valor > valor){
+                if(ramaAux.hoja == false){
+                   let nodo = this._buscar(valor, temporal.rama_Izq)
+                   return nodo;
+                }
+            }else if(temporal.valor == valor){
+                if(ramaAux.hoja == false){
+                   let  nodo1 = this._buscar(valor, temporal.rama_Der)
+                    if(nodo1 instanceof Nodo){
+                        return nodo1
+                    }
+                    let nodo2 = this._buscar(valor, temporal.rama_Izq)
+                    if(nodo2 instanceof Nodo){
+                        return nodo2
+                    }
+                }else if(ramaAux.hoja == true){
+                    return temporal;
+                    break;
+                }
+            }
+        }
+    }
+
 
     cargar(arreglo) {
         let arreglo1 = arreglo;
@@ -224,7 +283,7 @@ reacomodo sus hijos en los espacios de las divisiones*/
         });
 }
 
-
+    guardar(){}
 
 }
 module.exports.ArbolBplus = ArbolBplus;

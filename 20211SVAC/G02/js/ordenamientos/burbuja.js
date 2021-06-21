@@ -66,20 +66,14 @@ function read() {
       let chart1 = graficar(labelsX, datosYtemp)
       let datosY = [...datosYtemp]
       burbuja(datosY)
-      
+      let contador = 0
       for(let i=0; i<datosYtemp.length; i++){
         for(let y=0; y<arrayGeneral.length; y++){
-          let contador = 1
           if(datosY[i] == arrayGeneral[y].codigo){
-            setTimeout(function () {
-              // console.log(slider.value)
-              // console.log("codigo " + datosY[i] )
-              // console.log("codigo array " + arrayGeneral[y].codigo )
-              // console.log("palabra " + arrayGeneral[i].palabra )
-              
-              updateChart(chart1,arrayGeneral[y].palabra,arrayGeneral[y].codigo,i)        
-            },1000*(11-parseInt(slider.value))*contador)
             contador += 1
+            setTimeout(function () {
+              updateChart(chart1,arrayGeneral[y].palabra,arrayGeneral[y].codigo,i)        
+            },100*(11-parseInt(slider.value))*contador)
             copiaTemp.push(arrayGeneral[y].palabra)
           } else{
             continue
@@ -122,16 +116,16 @@ function descargar(array){
     
   let arrayDescargado ={
     categoria: "Estructura lineal",
-    nombre: "ordenamiento",
+    nombre: "Ordenamiento Burbuja",
     valores: arrayTemp
   }
 
-  var data1 = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(arrayDescargado));
+  var data1 = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(arrayDescargado, null, '\t'));
   var a = document.createElement('a');
   a.innerHTML = 'Descargar JSON';
 
   a.href = 'data:' + data1;
-  a.download = 'dataOrdenada.json';
+  a.download = 'dataOrdenadaBurbuja.json';
   var container = document.getElementById('container');
   container.appendChild(a);
 }
