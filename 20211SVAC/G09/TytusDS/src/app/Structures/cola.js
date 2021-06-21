@@ -242,14 +242,20 @@ function adDCola(data){
 
 function DeletCola(data){
   cola.dequeue(data)
-  console.log("-------------------------------")
-  console.log(cola.print())
+  console.log("-------------------------------");
+  console.log(cola.print());
 }
 
 function buscarCola(data){
-  console.log(cola.buscar(data))
-  console.log("-------------------------------")
+  console.log(cola.buscar(data));
+  console.log("-------------------------------");
  
+}
+function actualizarCOla(var1,var2){
+  console.log("-------------------------------");
+  cola.ActualizarCola(var1,var2);
+  console.log(cola.print());
+
 }
 //abrir un documento
 function AbrirArchivoCola(event) {
