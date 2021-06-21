@@ -1,27 +1,19 @@
 import React from 'react';
 import ListaSimple from '../../../EDD/ListaSimple';
+import './ListaSimpleEnlazada.css';
+import flecha from '../../../assets/flecha.png'
 
-// lista.add_f(1);
-// lista.add_f(2);
-// lista.add_f(3);
-// lista.add_f(4);
-// lista.add_f(5);
-// lista.imprimir();
-// console.log("");
-// lista.update(2,10);
-// lista.delete(5);
-// lista.imprimir();
-// lista.seek(8);
 
-class ListaSimpleEnlazada extends React.Component{
-    constructor(props){
+class ListaSimpleEnlazada extends React.Component {
+    constructor(props) {
         super(props);
         this.state = {
             elemento: '',
             reemplazado: '',
+            data: null,
             lista: new ListaSimple()
         };
-       
+
         this.ContenidoElemento = this.ContenidoElemento.bind(this);
         this.ContenidoReemplazado = this.ContenidoReemplazado.bind(this);
         this.InsertarContenidoInicio = this.InsertarContenidoInicio.bind(this);
@@ -29,43 +21,85 @@ class ListaSimpleEnlazada extends React.Component{
         this.ImprimirLista = this.ImprimirLista.bind(this);
         this.EliminarElemento = this.EliminarElemento.bind(this);
         this.ModificarElemento = this.ModificarElemento.bind(this);
+        this.leerJson = this.leerJson.bind(this);
     }
 
-    ContenidoElemento(e){
-        this.setState({elemento:e.target.value});
+    ContenidoElemento(e) {
+        this.setState({ elemento: e.target.value });
     }
 
-    ContenidoReemplazado(e){
-        this.setState({reemplazado:e.target.value});
+    ContenidoReemplazado(e) {
+        this.setState({ reemplazado: e.target.value });
     }
 
-    InsertarContenidoInicio(){
+    InsertarContenidoInicio() {
         this.state.lista.add_i(this.state.elemento);
+        this.setState({
+            lista: this.state.lista,
+        });
     }
 
-    InsertarContenidoFinal(){
+    InsertarContenidoFinal() {
         this.state.lista.add_f(this.state.elemento);
+        this.setState({
+            lista: this.state.lista,
+        });
     }
 
-    EliminarElemento(){
+    EliminarElemento() {
         this.state.lista.delete(this.state.elemento);
+        this.setState({
+            lista: this.state.lista,
+        });
     }
 
 
-    ImprimirLista(){
+    ImprimirLista() {
         this.state.lista.imprimir();
     }
-    
-    ModificarElemento(){
+
+    ModificarElemento() {
         this.state.lista.update(this.state.elemento, this.state.reemplazado);
+        this.setState({
+            lista: this.state.lista,
+        });
     }
 
-    render(){
-        return(
-            <div className="container"> 
+
+    leerJson(event) {
+        const input = event.target
+        const reader = new FileReader()
+        reader.onload = (event) => {
+            const text = reader.result
+
+            const json = JSON.parse(text)
+            const valores = json.valores
+
+            valores.forEach((element, index) => {
+                setTimeout(() => {
+                    this.setState({
+                        elemento: element,
+                    }, () => {
+                        this.InsertarContenidoFinal()
+                    })
+
+                }, index * 1000)
+            });
+
+            this.setState({
+                data: json
+            })
+        }
+        reader.readAsText(input.files[0], "UTF-8")
+    }
+
+    render() {
+        console.log(this.state.lista.length);
+        return (
+            <div className="container">
                 <div className="row gap-2">
                     <div className="col-sm-2 d-grid gap-2">
-                        <input type="text" className="form-control" id="Elemento" placeholder="Elemento" value={this.state.elemento} onChange={this.ContenidoElemento}/>
+                        <input type="text" className="form-control" id="Elemento" placeholder="Elemento" value={this.state.elemento} onChange={this.ContenidoElemento} />
                     </div>
 
                     <div className="col-sm-2 d-grid gap-2">
@@ -81,20 +115,40 @@ class ListaSimpleEnlazada extends React.Component{
                     </div>
 
                     <div className="col-sm-2 d-grid gap-2">
-                        <button className="btn btn-warning" onClick={this.ImprimirLista} >Imprimir</button>
+                        <input type="file" class="form-control" onChange={this.leerJson} />
                     </div>
 
                     <div className="col-sm-2 d-grid gap-2">
-                        <input type="text" className="form-control" id="contenido" placeholder="Reemplazar" value={this.state.reemplazado} onChange={this.ContenidoReemplazado}/>
+                        <input type="text" className="form-control" id="contenido" placeholder="Reemplazar" value={this.state.reemplazado} onChange={this.ContenidoReemplazado} />
                     </div>
 
                     <div className="col-sm-2 d-grid gap-2">
                         <button className="btn btn-warning" onClick={this.ModificarElemento}>Modificar</button>
                     </div>
+
+
                 </div>
 
                 <div className="card mt-2">
-                
+                    <div className="contPadre">
+                    
+                        {
+                            Array(this.state.lista.length).fill({}).map((_e, i) => (
+                                <div className="contNodo animate__animated animate__fadeInBottomLeft">
+                                    <div className="valor">{this.state.lista.get(i)}</div>
+                                    <div className="enlace"></div>
+                                    <div className="flech animate__animated animate__backInLeft">
+                                    <img src={flecha} width="40px" height="15px"/>
+                                    </div>
+                                </div>
+                            ))
+                        }
+                        <div className="nodoNull animate__animated animate__fadeInDown">
+                        Null
+                    </div>
+                    </div>
+
+
                 </div>
 
             </div>

@@ -1,16 +1,10 @@
 #array {
-	
-	
 	float: none;
 	width: 500px;
 	height: 900px;
-	
 	transform: rotate(90deg);
-
 	margin-left:530px;
-	margin-top: -175px;
-	
-	
+	margin-top: -175px;	
 
 }
 
@@ -20,28 +14,16 @@
 	position: absolute;
 	bottom: 0px;
 	transition: 0.2s all ease;
-
-
 }
 
 .block_id {
-
-	
-	
 	font-size: 15px;
 	padding: 2px;
-	
-	
-	
-
 	position: absolute;
 	color: black;
 	margin-top: -50px;
 	width: 100%;
 	text-align: center;
 	transform: rotate(270deg);
-	
-	
-
 
 }
