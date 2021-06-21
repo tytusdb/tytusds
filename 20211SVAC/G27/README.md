@@ -12,5 +12,5 @@
 ## ORDENAMIENTOS
 ### [Ordenamiento Burbuja](https://tytusdb.github.io/tytusds/20211SVAC/G27/ordenamientos/bubleSort.html)
 ### [Ordenamiento Insercion](https://tytusdb.github.io/tytusds/20211SVAC/G27/ordenamientos/insertionSort.html)
-### [Ordenamiento Insercion](https://tytusdb.github.io/tytusds/20211SVAC/G27/ordenamientos/Rapido.html)
-### [Ordenamiento Insercion](https://tytusdb.github.io/tytusds/20211SVAC/G27/ordenamientos/Seleccion.html)
+### [Ordenamiento Rapido](https://tytusdb.github.io/tytusds/20211SVAC/G27/ordenamientos/Rapido.html)
+### [Ordenamiento Seleccion](https://tytusdb.github.io/tytusds/20211SVAC/G27/ordenamientos/Seleccion.html)
