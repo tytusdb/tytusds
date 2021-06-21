@@ -13,7 +13,7 @@
 			  border: 1px solid lightgray;
 			}</style>
         <script src ="../vis-network.min.js"></script>
-		<script src="Cola.js"></script>
+		<script src="ColaP.js"></script>
 
 	</head>
 </head>
@@ -64,7 +64,7 @@
   </nav>
 	<body class="is-preload">
 			<div class="contenedor">
-				<h1>COLA</h1>
+				<h1>COLA DE PRIORIDAD</h1>
             <div id="ventanas">
                 <ul id=lista>
                 </ul>
@@ -76,7 +76,12 @@
 					<input id="fileInput" title="Abrir" type="file" size="50" onchange="AbrirArchivo(this.files)" class="btnp">
 				</div>
 				<div>
-					<br><input type="text" id="newValue" name="newValue"><br><br>
+					<ul>
+                        <li>
+                          <br><a class="a-label">Valor </a><input type="text" id="newValue" name="newValue">
+                          <a class="a-label">Prioridad </a><input type="text" id="Prioridad" name="Posicion">
+                        </li>
+                      </ul>
 				</div>
 				<div id="miRed"></div>				
             </body>
