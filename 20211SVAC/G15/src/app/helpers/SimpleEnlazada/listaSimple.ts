@@ -53,7 +53,7 @@ export class listaSimple {
         return temp.getId();
     }
 
-    async InsertarInicio(dato: number|string, svg, dibujo, duracion) {
+    async InsertarInicio(dato, svg, dibujo, duracion) {
         let temp: nodo = new nodo(dato, this.id)
         if (this.primero == null) {
             this.primero = temp
@@ -84,6 +84,153 @@ export class listaSimple {
 
         return temp.getId();
     }
+
+    async InsertarOrden(dato, svg, dibujo, duracion) {
+        console.log("ente")
+        if (this.primero == null) {
+            let temp: nodo = new nodo(dato, this.id)
+            this.primero = temp
+            this.ultimo = temp
+            let div: any = this.draw.crearNodo(dato, this.id)
+            dibujo.appendChild(div)
+            this.id++
+            await this.draw.animateNode("nodo" + temp.getId(), "zoomIn", duracion)
+            return temp.getId();
+        }
+        if (this.primero.getSiguiente() !== this.ultimo && this.primero.getSiguiente() !== null) {
+            this.draw.removerElemento("arrowprimero-ultimo")
+        }
+        //metodo para cuando sea numero
+        if(!isNaN(dato))
+        {   
+            if (this.primero.getSiguiente() === null) {
+                if (Number(dato) <= Number(this.primero.getDato())) await this.InsertarInicio(dato, svg, dibujo, duracion)
+                else await this.InsertarFinal(dato, svg, dibujo, duracion)
+                return 1
+            }
+            if (Number(this.primero.getDato()) > Number(dato)) {await this.InsertarInicio(dato, svg, dibujo, duracion)
+                return 1
+            }
+
+            if (Number(this.primero.getDato())<Number(dato) && Number(dato) < Number(this.primero.getSiguiente().getDato())) {
+                let temp: nodo = new nodo(dato, this.id)
+                temp.setId(this.id)
+                this.id++
+                let id1 = this.primero.getId();
+                let id2 = this.primero.getSiguiente().getId()
+                let aux = this.primero
+                temp.setSiguiente(aux.getSiguiente())
+                aux.setSiguiente(temp)
+                this.draw.removerElemento("arrow" + id1 + "-" + id2)
+                let div: any = this.draw.crearNodo(dato, temp.getId())
+                dibujo.insertBefore(div, dibujo.children[1]);
+                await this.draw.animateNode("nodo" + temp.getId(), "zoomIn", duracion)
+
+                this.corregirPaths(svg, this.primero)
+                return 1;
+            }
+
+            let aux = this.primero
+            let index = 0
+
+            do {
+
+                let siguiente = aux.getSiguiente()
+                if (Number(dato) >= Number(aux.getDato()) && Number(dato) < Number(siguiente.getDato())) {
+                    let temp: nodo = new nodo(dato, this.id)
+                    temp.setId(this.id)
+                    this.id++
+
+                    let id1 = this.primero.getId();
+                    let id2 = this.primero.getSiguiente().getId()
+                    temp.setSiguiente(aux.getSiguiente())
+                    aux.setSiguiente(temp)
+                    this.draw.removerElemento("arrow" + id1 + "-" + id2)
+                    let div: any = this.draw.crearNodo(dato, temp.getId())
+                    dibujo.insertBefore(div, dibujo.children[index + 1]);
+                    await this.draw.animateNode("nodo" + temp.getId(), "zoomIn", duracion)
+                    this.corregirPaths(svg, this.primero)
+                    return 1;
+
+                }
+
+                index++
+                aux = aux.getSiguiente()
+                if (aux === this.ultimo) break
+                if (aux === null) break
+
+            } while (aux != this.primero)
+
+            await this.InsertarFinal(dato, svg, dibujo, duracion)
+            return 1
+        }else{
+            if (this.primero.getSiguiente() === null) {
+                if (dato <= this.primero.getDato()) await this.InsertarInicio(dato, svg, dibujo, duracion)
+                else await this.InsertarFinal(dato, svg, dibujo, duracion)
+                return 1
+            }
+            if (this.primero.getDato() > dato) {await this.InsertarInicio(dato, svg, dibujo, duracion)
+                return 1
+            }
+
+            if (this.primero.getDato()<dato && dato < this.primero.getSiguiente().getDato()) {
+                let temp: nodo = new nodo(dato, this.id)
+                temp.setId(this.id)
+                this.id++
+                let id1 = this.primero.getId();
+                let id2 = this.primero.getSiguiente().getId()
+                let aux = this.primero
+                temp.setSiguiente(aux.getSiguiente())
+                aux.setSiguiente(temp)
+                this.draw.removerElemento("arrow" + id1 + "-" + id2)
+                let div: any = this.draw.crearNodo(dato, temp.getId())
+                dibujo.insertBefore(div, dibujo.children[1]);
+                await this.draw.animateNode("nodo" + temp.getId(), "zoomIn", duracion)
+
+                this.corregirPaths(svg, this.primero)
+                return 1;
+            }
+
+            let aux = this.primero
+            let index = 0
+
+            do {
+
+                let siguiente = aux.getSiguiente()
+                if (dato >= aux.getDato() && dato < siguiente.getDato()) {
+                    let temp: nodo = new nodo(dato, this.id)
+                    temp.setId(this.id)
+                    this.id++
+
+                    let id1 = this.primero.getId();
+                    let id2 = this.primero.getSiguiente().getId()
+                    temp.setSiguiente(aux.getSiguiente())
+                    aux.setSiguiente(temp)
+                    this.draw.removerElemento("arrow" + id1 + "-" + id2)
+                    let div: any = this.draw.crearNodo(dato, temp.getId())
+                    dibujo.insertBefore(div, dibujo.children[index + 1]);
+                    await this.draw.animateNode("nodo" + temp.getId(), "zoomIn", duracion)
+                    this.corregirPaths(svg, this.primero)
+                    return 1;
+
+                }
+
+                index++
+                aux = aux.getSiguiente()
+                if (aux === this.ultimo) break
+                if (aux === null) break
+
+            } while (aux != this.primero)
+
+            await this.InsertarFinal(dato, svg, dibujo, duracion)
+            return 1
+        }
+    }
+    
+ 
+
+
+
 
     search(dato) {
         let temp = this.primero
