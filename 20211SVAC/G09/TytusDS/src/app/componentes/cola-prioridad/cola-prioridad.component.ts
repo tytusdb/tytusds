@@ -6,6 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cola-prioridad.component.css']
 })
 export class ColaPrioridadComponent implements OnInit {
+  displayVal='';
+  getValue1(val:string){
+    console.warn(val)
+    
+  }
+  getValuelsimpleCircleDelete(val:string){
+    //lsimpleCircleDelete(val)
+  }
+  getValueCircular(val:string){
+    //lsimplecircleAdd(val)
+  }
 
   constructor() { }
 
