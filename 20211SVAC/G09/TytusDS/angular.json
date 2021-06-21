@@ -35,7 +35,14 @@
               "src/styles.css"
             ],
             "scripts": [
-              "src/app/Structures/listasimple(Oficial).js"
+              "src/app/Structures/listatwoenlazada.js",
+              "src/app/Structures/listasimple(Oficial).js",
+              "src/app/Structures/listaSimpleCircular.js",
+              "src/app/Structures/listaCirctwoenlazada.js",
+              "src/app/Structures/pila.js",
+              "src/app/Structures/cola.js",
+              "src/app/Structures/colaPrioridad.js",
+              "src/app/Ordenamientos/Ordenamientos.js"
               ]
           },
           "configurations": {
@@ -101,8 +108,14 @@
               "node_modules/animate.css/animate.min.css"
             ],
             "scripts": [
+              "src/app/Structures/listatwoenlazada.js",
               "src/app/Structures/listasimple(Oficial).js",
-              "src/app/Structures/structuresLinealesAbs.js"
+              "src/app/Structures/listaSimpleCircular.js",
+              "src/app/Structures/listaCirctwoenlazada.js",
+              "src/app/Structures/pila.js",
+              "src/app/Structures/cola.js",
+              "src/app/Structures/colaPrioridad.js",
+              "src/app/Ordenamientos/Ordenamientos.js"
             ]
           }
         },
