@@ -154,6 +154,18 @@ var accionSeleccion;
 var ListaSinOrdenarSeleccion= [];
 var ListaOrdenadaSeleccion= [];//termina var seleccion
 
+///variables insercion
+var categoriaInsercion = "Ordenamientos";
+var nombreInsercion = 'Ordenamiento por Insercion';
+var repeticionInsercion = "True";
+var animacionInsercion = "0";
+var chekStringInsercion = false;
+var NombresAscciInsercion;
+var NombresAscciOrdenadosInsercion;
+var accionInsercion;
+var ListaSinOrdenarInsercion= [];
+var ListaOrdenadaInsercion= []; //terminan insercion
+
 
 function AbrirOrdenamientoBurbuja(event) {
     var file = event.target.files[0];
@@ -242,12 +254,31 @@ function downloadBurbuja(filename, text) {
     document.body.removeChild(element);
 }
 function checkBox(){
-    console.log("cambioando chek");
-    chekString = true;
+    if(chekString == true){
+        chekString = false;
+        console.log("cambiando chek "+ chekString);
+    }else{
+        chekStringSeleccion = true;
+        console.log("cambioando chek "+ chekString);
+    }  
 }
 function checkBoxSeleccion(){
-    console.log("cambioando chekSeleccion");
-    chekStringSeleccion = true;
+    if(chekStringSeleccion == true){
+        chekStringSeleccion = false;
+        console.log("cambiando chek "+ chekStringSeleccion);
+    }else{
+        chekStringSeleccion = true;
+        console.log("cambioando chek "+ chekStringSeleccion);
+    }  
+}
+function checkBoxInsercion(){
+    if(chekStringInsercion == true){
+        chekStringInsercion = false;
+        console.log("cambiando chek "+ chekStringInsercion);
+    }else{
+        chekStringInsercion = true;
+        console.log("cambioando chek "+ chekStringInsercion);
+    }  
 }
 function AbrirSeleccion(event) {
     var file = event.target.files[0];
@@ -338,5 +369,91 @@ function downloadSeleccion(filename, text) {
     document.body.removeChild(element);
 }
 
-//lista = [10,9,8,7,6,5,4,3,2,11,12,1];
-//console.log(seleccion(lista))
+function AbrirInsercion(event) {
+    var file = event.target.files[0];
+    var reader = new FileReader();
+    
+    reader.onload = function(event) {
+      // El texto del archivo se mostrará por consola aquí
+     // console.log(event.target.result)
+      let doc = JSON.parse(event.target.result);
+      //console.log(doc)
+
+      for (var key in doc) {
+        //console.log('name=' + key + ' value=' + doc[key]);
+        if(key=='categoria'){
+            categoria = doc[key]
+            console.log(categoria)
+        }
+        if(key=='nombre'){
+            nombre = doc[key]
+            console.log(nombre)
+        }
+        if(key=='repeticion'){
+            repeticion = doc[key]
+            console.log(repeticion)
+        }
+        if(key=='animacion'){
+            animacion = doc[key]
+            console.log(animacion)
+        }
+        if(key=='valores'){
+            ListaSinOrdenarInsercion = [];
+            ListaOrdenadaInsercion = [];
+           if(chekStringInsercion == false){
+                for (var k in doc[key]){
+                    // console.log(doc[key][k])
+                    ListaSinOrdenarInsercion.push(doc[key][k])
+                }
+                ListaOrdenadaInsercion = insercion(ListaSinOrdenarInsercion);
+                console.log(ListaOrdenadaInsercion);
+            }
+            if(chekStringInsercion == true){
+                console.log("check es true")
+                for (var k in doc[key]){
+                    // console.log(doc[key][k])
+                    ListaSinOrdenarInsercion.push(doc[key][k])
+                }
+                //1ro  obtengo ascci desordenado 
+                NombresAscciInsercion = ObtenerString(ListaSinOrdenarInsercion);
+                //2do ordeno Ascci
+                NombresAscciOrdenadosInsercion = insercion(NombresAscciInsercion);
+                //3ro  ordeno las 2 listas
+                accionInsercion = compararString(NombresAscciOrdenadosInsercion,ListaSinOrdenarInsercion);
+                console.log(accionInsercion)
+            }
+        }
+     } 
+     
+
+    };
+
+    reader.readAsText(file);
+}//guardar archivo
+function downloadInsercion(filename, text) {
+    let ListaBurbujaInsercion;
+    if(chekStringInsercion == true){
+        ListaBurbujaInsercion = accionInsercion;
+    }
+    if(chekStringInsercion == false){
+        ListaOrdenadaInsercion = insercion(ListaSinOrdenarInsercion)
+        ListaBurbujaInsercion = ListaOrdenadaInsercion;
+    }
+    
+    var element = document.createElement('a');
+    let doc = JSON.stringify({ "categoria": categoriaInsercion, 'nombre': nombreInsercion ,'repeticion':repeticionInsercion, 'animacion':animacionInsercion, 'valores': ListaBurbujaInsercion });
+    
+    //console.log(listSimple.print())
+    element.setAttribute('href', 'data:json,' + doc);
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+}
+
+lista = [10,9,8,7,6,5,4,3,2,11,12,1];
+console.log(insercion(lista))
