@@ -1,6 +1,115 @@
 // C  O  D  I  G  O
 // C  L  A  S  E  S
-// Programando la cola
+// Programando la Cola de Prioridad
+
+class Prioridad {
+    constructor(){
+        this.front = null; 
+        this.back = null;
+        this.longitud = 0;
+    }
+    agregar(elemento, prioridad){ // importante pasar ambos datos
+        let nuevoN = new Nodo(elemento, prioridad); 
+        
+        if(this.empty()){ 
+            // si la cola de prioridad esta vacia lleno con la informacion
+            this.front = nuevoN;
+            this.back = nuevoN;
+        } else {  // si ya tiene datos hago esto
+            // guardo la informacion para la comparacion necesaria
+            nuevoN.siguiente = this.front;
+            this.front = nuevoN;
+            // guardo para que no se pierdan los datos en el intercambios
+            let presente = this.front;
+            let futuro = presente.siguiente;
+            while(presente.siguiente != null){ // hasta que la cola no este vacia
+                if(presente.prioridad > futuro.prioridad){ // aplico metodo burbuja para ordenar
+                    // guardo info para intercambiar
+                    let auxe = presente.elemento; // dato 
+                    let auxp = presente.prioridad; // prioridad
+                    presente.elemento = futuro.elemento;
+                    presente.prioridad = futuro.prioridad;
+                    futuro.elemento = auxe;
+                    futuro.prioridad = auxp;
+                    // para ir evaluando con los siguientes elementos
+                    presente = presente.siguiente;
+                    futuro = futuro.siguiente;
+                } else {
+                    presente = presente.siguiente;
+                    futuro = futuro.siguiente;
+                }
+
+            }
+
+        }
+        this.longitud++;
+    }
+    mostrar(){
+        let cadena = "";
+        let nodoActual = this.front;
+        while(nodoActual != null){
+            cadena += nodoActual.elemento +"-";
+            if(nodoActual.siguiente != null){
+                nodoActual = nodoActual.siguiente;
+
+            } else {
+                nodoActual = null;
+            }
+        }
+        cadena += "null";
+        console.log(cadena);
+    }
+    empty(){
+        if(this.front == null){
+            return true;
+        }
+        return false;
+    }
+    verificar(elemento){
+        let aux = this.front;
+        while(aux != null){
+            if(aux.elemento == elemento){
+                return true;
+            }
+            aux = aux.siguiente;
+        }
+        return false;
+    }
+    len(){
+        return this.longitud;
+    }
+    indiceVerificar(elemento){
+        let aux = this.front;
+        let contador = 0;
+        while(aux != null){
+            if (aux.elemento == elemento){
+                return contador;
+            }
+            aux = aux.siguiente;
+            contador++;
+        }
+        return null;
+    }
+    eliminar(){
+        const actual = this.front;
+        this.front = this.front.siguiente; // mueve el enlace front al siguientenodo
+        this.longitud--;
+
+        return actual.elemento;
+
+    }
+}
+
+class Nodo {
+    constructor(elemento, prioridad){
+        this.elemento = elemento;
+        this.prioridad = prioridad; 
+        this.siguiente = null
+    }
+}
+var prioridad = new Prioridad();
+
+/*
 class Cola{
     constructor(){
         this.front = null;
@@ -12,7 +121,7 @@ class Cola{
         const nodo = new Nodo(elemento, prioridad);
 
         if(this.front){ // primer nodo
-            this.back.siguiente = nodo;
+            this.front= nodo;
             this.back = nodo;
         } else { // si todavia no hay nodos en la cola
             nodo.siguiente = this.front;
@@ -37,8 +146,7 @@ class Cola{
                 }
             } 
 
-            this.front = nodo;
-            this.back = nodo;
+           
         }
         this.longitud++;
     }
@@ -105,8 +213,8 @@ class Nodo{
 
     }
 }
-
-var cola = new Cola();
+*/
+//var cola = new Cola();
 
 /*
 cola.agregar(2);
@@ -167,9 +275,10 @@ function agregar(){
     var val_prioridad = document.getElementById('prioridad');
 
     // Verificacion de repeticion de valores
-    var repe = cola.verificar(spc_elemento.value);
+    var repe = prioridad.verificar(spc_elemento.value);
+    console.log("Valor repetido: "+repe);
     var chek_Repe = btn_Repetir.checked;
-
+    
     if (repe == true && chek_Repe == true){
         
         alert("No se pueden repetir valores");
@@ -182,8 +291,8 @@ function agregar(){
 }
 
 function agregar2(box, dato, box2, prior){
-    // Insertando elemento en la pila
-    cola.agregar(dato)
+    // Insertando elemento en la cola de prioridad
+    prioridad.agregar(dato, prior);
     // Creando los cuadros y agregandole el elemento ingresado
     const div = document.createElement("div");
     const div2 = document.createElement("div");
@@ -196,7 +305,7 @@ function agregar2(box, dato, box2, prior){
     container.appendChild(div);
     container.appendChild(div2);
 
-    console.log(cola.mostrar())
+    console.log(prioridad.mostrar())
     box.value ="";
     box.focus();
     box2.value ="";
@@ -210,10 +319,11 @@ async function eliminar(){
     console.log("Eliminando");
 
     // Longitud de la lista 
-    let iDelete = cola.len();
+    let iDelete = prioridad.len();
 
-    // Eliminando de la lista 
-    cola.eliminar();
+    // Eliminando de la cola de prioridad
+    prioridad.eliminar();
+    prioridad.mostrar();
 
     // Pintando el cuadro a eliminar 
     bloques[0].style.backgroundColor = "#DC143C";
