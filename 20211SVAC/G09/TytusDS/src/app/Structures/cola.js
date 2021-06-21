@@ -116,11 +116,11 @@ function AbrirArchivoCola(event) {
       if(key=='valores'){
           //console.log(doc[key].length)
           for (var k in doc[key]){
-              listSimple.add(doc[key][k])
+              cola.enqueue(doc[key][k])
           }
       }
    }
-   
+   cola.print()
 
   };
 
