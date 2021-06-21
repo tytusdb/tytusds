@@ -3,12 +3,14 @@ export default class Node{
     private right:Node
     private left:Node
     private id:number
+    private ya:boolean
 
     constructor(data, id){
         this.data = data
         this.left = null
         this.right = null
         this.id = id
+        this.ya = true
         //this.up = null
     }
 }

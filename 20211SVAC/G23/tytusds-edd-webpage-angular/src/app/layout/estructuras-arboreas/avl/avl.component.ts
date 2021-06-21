@@ -21,21 +21,31 @@ export class AvlComponent implements OnInit {
   }
 
   Insertar(){
-    console.log("IMPRIMIENDO EL INSERTAR")
-    this.bst.insertar(this.x)
-    console.log(this.x)
-    console.log("X no vale NADA")
+    let y = parseInt(this.x)
+    console.log(y)
+    if(typeof parseInt(this.x) === 'number'){
+      console.log("SI ES NUMERO")
+      this.bst.put(y)
+    }else{
+      console.log("NO ES NUMERO")
+      this.bst.put(this.x)
+    }
+    //this.bst.insert(y)
+    //console.log(this.x)
+    console.log("RAIZ",this.bst.root)
+    //console.log("X no vale NADA")
     this.x = ''
-    this.x = this.bst.inOrder(this.bst.root,this.x)
+    //this.x = this.bst.inOrder(this.bst.root,this.x)
+    //this.bst.inOrder(this.bst.root)
     console.log("----------------------")
-    console.log("IMPRIMIENDO EL RETORNO DE InOrder",this.x)
-    this.x = ''
-    this.visit() 
+    //console.log("IMPRIMIENDO EL RETORNO DE InOrder",this.x)
+    this.x = '' 
+    this.visit()
   }
 
   Eliminar(){
     console.log("IMPRIMIENDO EL ELIMINAR")
-    this.bst.eliminar(this.x)
+    this.bst.delete(this.x)
     console.log(this.x)
     this.x = ''
     this.visit()

@@ -1,14 +1,17 @@
 export class Nodo{
-    data: any
+    value: any
+    size: number
     left: Nodo
     right: Nodo
     height: number
     id:number
-    constructor(data,id){
-        this.data = data
-        this.left = null
+    ya:boolean
+    constructor(val,height,size){
+        this.value = val
+        this.size = size
+        this.height = height
         this.right = null
-        this.height = 0
-        this.id = id
+        this.left = null
+        this.ya = false
     }
 }

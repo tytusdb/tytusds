@@ -164,6 +164,10 @@ export default class BST{
     dotgen(tmp) {
         if (tmp != null) {
             console.log(tmp.data)
+            if(tmp.ya) {
+                this.dot+=tmp.data+'[style="filled",color="turquoise"];'
+                tmp.ya = false
+            }
 
             if (tmp.left != null) this.dot += tmp.data+'--'+tmp.left.data+';'
             else {
