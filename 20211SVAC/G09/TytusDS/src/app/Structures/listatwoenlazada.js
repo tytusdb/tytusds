@@ -66,8 +66,8 @@ class Animation{
           this.hMax=0
       }
 
-      current.sig = newNodo
       newNodo.ant = current
+      current.sig = newNodo
       posicion.style.left = (newNodo.animate.x).toString()+"px" //El + 50 es para incluir a la misma flecha
       posicion.style.top =(newNodo.animate.y).toString()+"px"
 
