@@ -217,4 +217,33 @@ class MerkleTree{
             this.imprimir(nodo.derecha)
         }
     }
+
+    //Metodo Buscar
+    buscando(dato){
+        if(this.raiz ==null){
+            console.log("No existe arbol")
+            return
+        }
+        let hasheo = sha256.create()
+        hasheo.update(String(dato))
+        hasheo.hex()
+        let nodo = this.raiz
+        this.buscar(hasheo, nodo)
+    }
+
+    //SubMetodo Buscar
+    buscar(hasheo, nodo){
+        if(nodo!= null){
+            let noha = nodo.hash.hex()
+            let has = hasheo.hex()
+            if(has == noha && nodo.nodohijo == true){
+                console.log(nodo.hash + " fue encontrado para "+nodo.dato)
+                return
+            }
+            this.buscar(hasheo, nodo.izquierda)
+            this.buscar(hasheo, nodo.derecha)
+        }
+    }
+
+
 }
