@@ -14,6 +14,7 @@ export class InsertionSortComponent implements OnInit {
   fileName = '';
   arreglo: [] = []
   arregloOrdenado: any[] = []
+  arregloletra: any[] = []
   duracion: number = 2
   insertion: Insertion
 
@@ -63,9 +64,9 @@ export class InsertionSortComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  async mostrarGrafica(arreglo) {
+  async mostrarGrafica(arreglo, arreglo2) {
     this.barChartLabels = arreglo
-    this.barChartData[0].data = arreglo
+    this.barChartData[0].data = arreglo2
   }
 
   async onFileSelected(event) {
@@ -78,7 +79,15 @@ export class InsertionSortComponent implements OnInit {
       this.duracion = +data.animacion
       data = data.valores
       this.arreglo = data
-      await this.mostrarGrafica(this.arreglo)
+      if (isNaN(this.arreglo[this.arreglo.length - 1])) {
+        this.arregloletra = []
+        for (let j = 1; j <= this.arreglo.length; j++) {
+          let a = Math.round(Math.random() * 100)
+          this.arregloletra.push(a)
+        }
+        this.mostrarGrafica(this.arreglo, this.arregloletra)
+      }
+      else  this.mostrarGrafica(this.arreglo, this.arreglo)
     }
   }
 
@@ -97,7 +106,14 @@ export class InsertionSortComponent implements OnInit {
   async ordenar() {
     for (let i = 0; i < this.arreglo.length; i++) {
       this.arregloOrdenado = this.insertion.ordenar(this.arregloOrdenado, this.arreglo[i])
-      this.mostrarGrafica(this.arregloOrdenado)
+      if (isNaN(this.arreglo[i])) {
+        this.arregloletra = []
+        for (let j = 1; j <= this.arregloOrdenado.length; j++) {
+          this.arregloletra.push(j)
+          this.mostrarGrafica(this.arregloOrdenado, this.arregloletra)
+        }
+      }
+      else this.mostrarGrafica(this.arregloOrdenado, this.arregloOrdenado)
       await this.sleep(this.duracion * 1000)
     }
 

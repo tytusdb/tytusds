@@ -1,15 +1,15 @@
 export class NodoSimpleCircular{
-    private numero: number
+    private numero: number | string
     private id:number;
     private siguiente: NodoSimpleCircular
 
-    constructor(numero:number,id:number){
-        this.numero = numero;
+    constructor(numero:number|string,id:number){
+        this.numero = numero ;
         this.id = id;
         this.siguiente = null
     }
 
-    setNumero(numero:number){
+    setNumero(numero:number|string){
         this.numero = numero
     }
     

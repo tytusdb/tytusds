@@ -21,7 +21,7 @@ export class BinaryTree {
     }
 
 
-    public async update(numero: number, nuevo: number, duracion) {
+    public async update(numero: number|string, nuevo: number|string, duracion) {
         let result = await this.delete(numero,duracion)
         if(result !== undefined){
             result = await this.addNode(nuevo,document.getElementById('tree'),duracion)
@@ -30,7 +30,7 @@ export class BinaryTree {
         return 0
     }
 
-    public addNode(numero: number, contenedor, duracion) {
+    public addNode(numero: number|string, contenedor, duracion) {
         let nodo = new NodeBinary(numero, this.id)
         this.id++
 
@@ -43,7 +43,7 @@ export class BinaryTree {
         return this.insertNode(nodo, this.raiz, this.raiz.getId(), contenedor, duracion)
     }
 
-    public async search(numero: number, duracion) {
+    public async search(numero: number|string, duracion) {
         if (this.raiz === null) return null
         if (this.raiz.getNumero() === numero) {
             await this.drawTree.animateNode('node-container-' + this.raiz.getId(), 'swing', duracion)
@@ -56,7 +56,7 @@ export class BinaryTree {
         return await this.buscarRecursivo(numero, duracion, this.raiz.getRight())
     }
 
-    private async buscarRecursivo(numero: number, duracion, raiz: NodeBinary) {
+    private async buscarRecursivo(numero: number|string, duracion, raiz: NodeBinary) {
         if (raiz === null) return null
         if (raiz.getNumero() === numero) {
             await this.drawTree.animateNode('node-container-' + raiz.getId(), 'swing', duracion)
@@ -72,13 +72,13 @@ export class BinaryTree {
     }
 
 
-    public async delete(numero: number, duracion) {
+    public async delete(numero: number|string, duracion) {
         let result = await this.removeNode(this.raiz, numero, null, duracion)
         await this.drawTree.ajustarNodos(this.raiz)
         return result
     }
 
-    private async removeNode(node: NodeBinary, numero: number, padre: NodeBinary, duracion): Promise<NodeBinary> {
+    private async removeNode(node: NodeBinary, numero: number|string, padre: NodeBinary, duracion): Promise<NodeBinary> {
         if (node === null) return undefined
 
         if (numero < node.getNumero()) {

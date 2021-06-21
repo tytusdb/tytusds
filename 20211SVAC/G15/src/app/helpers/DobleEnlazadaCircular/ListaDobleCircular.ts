@@ -14,7 +14,7 @@ export class ListaDobleCircular {
         this.draw = new Draw()
     }
 
-    async add(numero: number, svg, dibujo, duracion) {
+    async add(numero: number|string, svg, dibujo, duracion) {
         let temp: NodoDobleCircular = new NodoDobleCircular(numero, this.id)
         if (this.primero == null) {
             this.primero = temp
@@ -67,7 +67,7 @@ export class ListaDobleCircular {
     }
 
 
-    async addAlInicio(numero: number, svg, dibujo, duracion) {
+    async addAlInicio(numero: number|string, svg, dibujo, duracion) {
         let temp: NodoDobleCircular = new NodoDobleCircular(numero, this.id)
         if (this.primero == null) {
             this.primero = temp
@@ -106,7 +106,7 @@ export class ListaDobleCircular {
         return temp.getId();
     }
 
-    async addOrdenado(numero: number, svg, dibujo, duracion) {
+    async addOrdenado(numero: number|string, svg, dibujo, duracion) {
 
         // Ingresar si esta vacia
         if (this.primero == null) {
@@ -244,7 +244,7 @@ export class ListaDobleCircular {
     }
 
 
-    async eliminar(numero: number, duracion, svg) {
+    async eliminar(numero: number|string, duracion, svg) {
         let temp = this.primero
         if (temp === null) return -1
         //Eliminar Primero
