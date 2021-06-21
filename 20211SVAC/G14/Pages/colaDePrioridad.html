@@ -3,10 +3,13 @@
 <head>
     <link rel="stylesheet" type="text/css" href="../CSS/header.css">
     <link rel="stylesheet" type="text/css" href="../CSS/ddNavBar.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/estructurasLineales.css">
     <meta charset="UTF-8">
     <title>Cola de Prioridad</title>
 </head>
 <body>
+
+<script src="./JS/colaDePrioridad.js"></script>
 
 <h1>Cola de Prioridad</h1>
 
@@ -45,6 +48,19 @@
         </div>
     </li>
 </ul>
+
+<br>
+
+<form action="/action_page.php">
+    <label for="valorAdd">Valor:</label>
+    <input type="text" class="css-input" id="valorAdd" onkeypress="return event.keyCode != 13;">
+    <label for="valorAdd">Prioridad:</label>
+    <input type="text" class="css-input" id="valorPrior" onkeypress="return event.keyCode != 13;">
+    <input type = "button" class="myButton" id="btnAdd" onclick = "agregar()" value = "Agregar">
+    <input type = "button" class="myButton" id="btnEliminar" onclick = "eliminar()" value = "Eliminar">
+</form>
+
+<h2 st id="cola"></h2>
 
 </body>
 </html>
