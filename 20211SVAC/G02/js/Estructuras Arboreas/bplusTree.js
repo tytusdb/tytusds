@@ -355,7 +355,7 @@ function focus() {
     }else{
         valueNodo = document.getElementById("valueNodo").value
     }
-    nodeId = arbolbb.buscarNodo(valueNodo, arbolbb.raiz)
+    nodeId = arbol.buscarNodo(valueNodo, arbol.raiz)
     document.getElementById("valueNodo").value = ""
     var options = {
         scale: 3.0,
