@@ -2,16 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { saveAs } from 'file-saver';
 import { DocumentoService } from '../../services/documento.service';
 declare var require: any;
-let Lista=require('./js/Pila');
+let Lista=require('./js/arbol_b');
 let vis=require('../../../../vis-4.21.0/dist/vis');
 
 @Component({
-  selector: 'app-pila',
-  templateUrl: './pila.component.html',
-  styleUrls: ['./pila.component.css','../../../../css/bootstrap.min.css','../../../../vis-4.21.0/dist/vis.css']
+  selector: 'app-b',
+  templateUrl: './b.component.html',
+  styleUrls: ['./b.component.css','../../../../css/bootstrap.min.css','../../../../vis-4.21.0/dist/vis.css']
 })
-export class PilaComponent implements OnInit {
+export class BComponent implements OnInit {
   lista=Lista;
+  ag = '';
+  ag1 = '';
+  ag2 = '';
+  ag3 = '';
   opciones = {
     ingreso: 'final',
     velocidadLineales: 1000,
@@ -22,12 +26,14 @@ export class PilaComponent implements OnInit {
     repeticionArboles: true,
   };
 
-  constructor(private documentoService: DocumentoService) {
+  constructor(private documentoService: DocumentoService)  {
   this.lista=new Lista();
+  
   }
 
   ngOnInit(): void {
   }
+
   getOpciones(opciones: any): void {
     this.opciones = opciones;
   }
@@ -39,15 +45,15 @@ export class PilaComponent implements OnInit {
       this.documentoService.getDocumento(documento).then( contenido => {
         console.log(contenido);
         contenido['valores'].forEach(valor => { 
-          this.lista.guardar2(valor);
-          });this.lista.pintar2(); });
+          this.lista.insertar2(valor);
+          }); });
     }
     else{
       this.documentoService.getDocumento(documento).then( contenido => {
         console.log(contenido);
         contenido['valores'].forEach(valor => { 
           this.lista.guardarg(valor);
-          }); this.lista.pintar2(); });
+          }); });
     }
     
   }
@@ -55,49 +61,49 @@ export class PilaComponent implements OnInit {
   guardar(): void {
     const contenido: any = {
       categoria: "Estructura Lineal",
-      nombre: "Pila",
+      nombre: "Cola",
       repeticion:true,
       animacion:10,
       valores: []
     };
     contenido.valores=contenido.valores.concat(this.lista.leer());
     let blob = new Blob([JSON.stringify(contenido)], {type: 'json;charset=utf-8'});
-    saveAs(blob, 'pila.json');
+    saveAs(blob, 'Cola.json');
   }
-
-
-
 
 
   Add(valor){
     if(this.opciones['repeticionLineales']===true){
       //this.lista.repeat=true;
-      this.lista.guardar(valor);
+      //this.lista.crearArbol(3);
+      //this.lista.insertarNodo(valor);
+      this.ag = '';
+      return;
     }
     else{
       //this.lista.repeat=false;
-      this.lista.guardarg(valor);
+      this.lista.insertar(valor);
+      this.ag = '';
+      return;
       console.log("gg");
     }
-
-
-
-  
+    
     
   
     //this.graficar();
   }
   delete(){
-    this.lista.desapila();
+    this.lista.eliminar();
     
-
+    //this.graficar();
   }
- bus(valor){
-    let bus= this.lista.buscar(valor);
-    if (bus!==null){
-    }else{
-      alert("Dicho nodo no ha sido ingresado")
-    }
+  //OPCIONES PARA GRAFICAR------------------------
+  //
+
+  bus(valor){
+     this.lista.buscar(valor);
+    this.ag3 = '';
+      return;
 
   }
 
@@ -105,12 +111,19 @@ export class PilaComponent implements OnInit {
     if(this.opciones['repeticionLineales']===true){
       //this.lista.repeat=true;
       this.lista.modificar(valor,valor1);
-      //this.lista.pintar();
+      this.lista.pintar();
+      this.ag1 = '';
+      this.ag2 = '';
+      return;
+      
     }
     else{
       //this.lista.repeat=false;
       this.lista.modificar2(valor,valor1);
-      //this.lista.pintar();
+      this.lista.pintar();
+      this.ag1 = '';
+      this.ag2 = '';
+      return;
     }
 
   }
@@ -118,11 +131,4 @@ export class PilaComponent implements OnInit {
   actualizar(){
     this.lista.pintar();
   }
-
-
-
-
-  //OPCIONES PARA GRAFICAR------------------------
-  //
-
 }
