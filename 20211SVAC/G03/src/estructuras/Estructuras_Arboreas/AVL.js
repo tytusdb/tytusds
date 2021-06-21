@@ -125,6 +125,64 @@ class ArbolAVL {
         })
     }
 
+
+    eliminar(valor) {
+        this._eliminar(valor, this.raiz, null);
+        this.balancear(this.raiz)
+
+
+    }
+
+    _eliminar(valor, temporal, anterior) {
+        if (valor == temporal.valor) {
+            if ((temporal.derecha == null) && (temporal.izquierda == null)) {
+                if(anterior.derecha == temporal){
+                    anterior.derecha = null;
+                }else if(anterior.izquierda == temporal){
+                    anterior.izquierda = null;
+                }
+                
+
+            } else if (temporal.izquierda != null) {
+                this._encontrarReemplazo(temporal, temporal.izquierda, anterior);
+
+            } else if ((temporal.izquierda == null) && temporal.derecha != null) {
+                if (anterior.derecha = temporal) {
+                    anterior.derecha = temporal.derecha
+                    temporal = null;
+                } else if (anterior.izquierda = temporal) {
+                    anterior.izquierda = temporal.derecha;
+                    temporal = null;
+                }
+            }
+        }
+
+        if(temporal != null){
+            if (temporal.izquierda != null) {
+                if (valor <= temporal.izquierda.valor) {
+                    this._eliminar(valor, temporal.izquierda, temporal)
+                }
+                if (temporal.derecha != null) {
+                    if (valor >= temporal.derecha.valor) {
+                        this._eliminar(valor, temporal.derecha, temporal)
+                    }
+                }
+            }
+        
+    }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
     preOrden(nodo){
         if(nodo != null){
         console.log(nodo.valor)
@@ -194,6 +252,10 @@ class ArbolAVL {
 
         return this.graficarApuntadores(this.raiz,vector)
     }
+
+
+
+
     
 }
 export default ArbolAVL;
