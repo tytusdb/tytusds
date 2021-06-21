@@ -223,10 +223,10 @@ class ArbolBB{
             this.recorrerGraficar(temp.izq)
             arrayNodes.push({id: temp.id, label: temp.dato.toString(), shape: "circle"})
             if(temp.izq != null){
-                edges.push({from: temp.id, to: temp.izq.id})
+                edges.push({from: temp.id, to: temp.izq.id, arrows: "to"})
             }
             if(temp.der != null){
-                edges.push({from: temp.id, to: temp.der.id})
+                edges.push({from: temp.id, to: temp.der.id, arrows: "to"})
             }
             this.recorrerGraficar(temp.der)
         }
@@ -244,12 +244,18 @@ function actualizarTablero(){
         edges: edges,
     };
     var options = { 
-        physics: false,
+        physics: {
+            solver: "barnesHut"
+            ,barnesHut: {
+                avoidOverlap: 1
+            }
+        },
         layout: {
             hierarchical: {
                 direction: 'UD',
                 nodeSpacing: 150,
-                sortMethod : 'directed'
+                sortMethod : 'directed',
+                shakeTowards: 'roots'
               }
         } 
     };
@@ -341,7 +347,7 @@ function focus() {
         scale: 3.0,
         offset: {x:0,y:0},
         animation: {
-            duration: 2500,
+            duration: (1000)*(slider.value),
             easingFunction: "easeOutQuint"
         }
     }

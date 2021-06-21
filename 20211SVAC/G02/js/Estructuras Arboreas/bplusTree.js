@@ -274,8 +274,9 @@ function actualizarTablero(){
         layout: {
             hierarchical: {
                 direction: 'UD',
-                nodeSpacing: 150,
-                sortMethod : 'directed'
+                nodeSpacing: 250,
+                sortMethod : 'directed',
+                shakeTowards: 'roots'
               }
         },
         edges: {
@@ -354,13 +355,13 @@ function focus() {
     }else{
         valueNodo = document.getElementById("valueNodo").value
     }
-    nodeId = arbolbb.buscarNodo(valueNodo, arbolbb.raiz)
+    nodeId = arbol.buscarNodo(valueNodo, arbol.raiz)
     document.getElementById("valueNodo").value = ""
     var options = {
         scale: 3.0,
         offset: {x:0,y:0},
         animation: {
-            duration: 2500,
+            duration: (1000)*(slider.value),
             easingFunction: "easeOutQuint"
         }
     }

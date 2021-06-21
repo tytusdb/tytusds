@@ -1,7 +1,14 @@
 h1 {
     padding: 30px;
     text-align: center;
-    background: indianred;
+    background: #EB3228;
     font-size: 30px;
     color: white;
 }
+
+body{
+    background-image: url("background.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    }

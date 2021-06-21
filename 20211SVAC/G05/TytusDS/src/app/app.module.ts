@@ -19,6 +19,7 @@ import { AvlComponent } from './PaginasWeb/avl/avl.component';
 import { OrdQuicksortComponent } from './PaginasWeb/ord-quicksort/ord-quicksort.component';
 import { ABinarioComponent } from './PaginasWeb/a-binario/a-binario.component';
 import { InserccionComponent} from './PaginasWeb/inserccion/inserccion.component';
+import { BComponent} from './PaginasWeb/b/b.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { InserccionComponent} from './PaginasWeb/inserccion/inserccion.component
     AvlComponent,
     OrdQuicksortComponent,
     ABinarioComponent,
+    BComponent,
     InserccionComponent
   ],
   imports: [

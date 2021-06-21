@@ -1,20 +1,22 @@
 <body>
-    <div >
-        <p>
-            <!-- UNIVERSIDAD DE SAN CARLOS DE GUATEMALA -->
-            <span>
-                Lista Circular Simple
-            </span>
-            &mdash; ESTRUCTURA DE DATOS &mdash;
-        </p>
-    </div >   
-    <br><br><br><br><br><br><br><br><br><br><br>
     <div class="container mt-2">
+        <div class="row mb-5">
+            <div class="container text-center">
+                <p class="paragraph ml-1">
+                    <!-- UNIVERSIDAD DE SAN CARLOS DE GUATEMALA -->
+                    <span>
+                        Lista Circular Simple
+                    </span>
+                    &mdash; ESTRUCTURA DE DATOS &mdash;
+                </p>
+            </div>
+
+        </div>
         <div class="row opciones p-2">
 
             <div class="col-lg-3 col-sm-12 col-12 mt-1">
                 <div class="input-group">
-                    <input  class="form-control" type="text" id="numero" name="numero" [(ngModel)]="numero"
+                    <input class="form-control" type="text" id="numero" name="numero" [(ngModel)]="numero"
                         placeholder="Ingresa">
                     <div class="input-group-append">
                         <button class="btn btn-secondary " type="button" (click)="addLast()">Guardar</button>

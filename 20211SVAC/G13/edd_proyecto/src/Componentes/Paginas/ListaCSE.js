@@ -118,8 +118,9 @@ class ListaCSE extends Component {
 	}
 
 	handleSearch = () => {
-		let dato = listaCircular.search(this.state.text);
-		if (dato != false){
+		var dato = listaCircular.search(this.state.text);
+		
+		if (0 <= parseInt(dato)){
 			console.log(dato+" ENCONTRADO")
             getNodes = new DataSet(listaCircular.setNodesDataSet());
             getEdges = new DataSet(listaCircular.setEdgesDataSet());
