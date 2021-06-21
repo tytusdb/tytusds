@@ -199,5 +199,22 @@ class MerkleTree{
         }
     }
 
+    //Metodo Imprimir
+    imprimiendo(){
+        if(this.raiz ==null){
+            console.log("No existe arbol")
+            return
+        }
+        this.imprimir(this.raiz)
+    }
 
+    //SubMetodo Imprimir
+    imprimir(nodo){
+        if(nodo != null){
+            console.log(nodo.dato + " Es el dato")
+            console.log(nodo.hash + " Es el Hash")
+            this.imprimir(nodo.izquierda)
+            this.imprimir(nodo.derecha)
+        }
+    }
 }
