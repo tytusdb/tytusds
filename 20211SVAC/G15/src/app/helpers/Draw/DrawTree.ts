@@ -19,6 +19,9 @@ export class DrawTree {
             function handleAnimationEnd(event) {
                 event.stopPropagation();
                 node.classList.remove(animationName);
+                let duracion = duration.split('s')[0]
+                duracion = +duracion
+
                 resolve('Animation ended');
             }
 
@@ -59,10 +62,13 @@ export class DrawTree {
      */
     async addNode(node, position, previousId, contenedor, duracion, raiz) {
         this.createNode(node, contenedor);
+        await this.animateNode("node-container-" + node.getId(), "zoomIn", duracion)
+        this.sleep(4000)
         if (node === raiz) {
-            
+
             let position: any = document.getElementById('node-' + node.getId()).getBoundingClientRect();
             document.getElementById('node-' + node.getId()).style.left = (window.screen.width / 2) - (position.width / 2) + 'px';
+
         }
         else {
             let previous = document.getElementById('node-' + previousId).getBoundingClientRect()
@@ -74,13 +80,10 @@ export class DrawTree {
 
             this.ajustarNodos(raiz)
             this.crearLinea('node-' + node.getId(), 'node-' + previousId, contenedor)
-
-
         }
 
-        await this.animateNode("node-container-" + node.getId(), "zoomIn", duracion)
 
-
+        return 1
 
     }
 
@@ -165,7 +168,7 @@ export class DrawTree {
     }
 
     ajustarNodos(raiz) {
-        this.recalcularPosicion(raiz, null, "center", window.screen.width / 2 - 50)
+        this.recalcularPosicion(raiz, null, "center", window.screen.width / 2 - 25)
         this.recalcularTodo()
 
     }
@@ -187,25 +190,30 @@ export class DrawTree {
         let extra = (this.nodosCompletos(node) + this.getAltura(node)) * width / 2
 
         let left = x - extra - width
-        let right = x + extra + width
+
+        let right = x + extra + 20
 
         if (anterior) {
             let ant = document.getElementById('node-' + anterior.getId()).getBoundingClientRect()
             let actual = document.getElementById('node-' + node.getId())
             let r = width / 2
-
+            let izquierda = (x - r)
+            izquierda = (izquierda < 0) ? 0 : izquierda
             actual.style.top = (ant.y + width + 50) + 'px'
             if (posicion === "right") actual.style.left = (x + r) + 'px'
-            else if (posicion === "left") actual.style.left = (x - r) + 'px'
+            else if (posicion === "left") actual.style.left = izquierda + 'px'
         }
         else {
+
             let posicion = document.getElementById('node-' + node.getId()).getBoundingClientRect()
-            document.getElementById('node-' + node.getId()).style.left = (window.screen.width / 2) - (posicion.width / 2) + 'px'
+            let izquierda = (window.screen.width / 2) - (posicion.width / 2)
+            izquierda = (izquierda < 0) ? 0 : izquierda
+            document.getElementById('node-' + node.getId()).style.left = izquierda + 'px'
         }
 
 
         this.recalcularPosicion(node.getLeft(), node, "left", left - extra + width * 1.5)
-        this.recalcularPosicion(node.right, node, "right", right + extra - width * 1.5)
+        this.recalcularPosicion(node.getRight(), node, "right", right + extra - width * 1.5)
     }
 
 
@@ -252,7 +260,7 @@ export class DrawTree {
         let total2 = (toWidth * 2) + (toHeight * 2)
 
 
-       
+
 
         let x1 = fromElement.left
         let y1 = fromElement.top
@@ -405,6 +413,10 @@ export class DrawTree {
         Array.from(arrows).forEach((element: any) => {
             this.dibujarPath(element.dataset.from, element.dataset.to, element, element.dataset.color);
         });
+    }
+
+    sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
     }
 
 }

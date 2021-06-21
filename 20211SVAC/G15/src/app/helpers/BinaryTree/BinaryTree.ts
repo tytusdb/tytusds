@@ -21,16 +21,16 @@ export class BinaryTree {
     }
 
 
-    public async update(numero: number|string, nuevo: number|string, duracion) {
-        let result = await this.delete(numero,duracion)
-        if(result !== undefined){
-            result = await this.addNode(nuevo,document.getElementById('tree'),duracion)
+    public async update(numero: number | string, nuevo: number | string, duracion) {
+        let result = await this.delete(numero, duracion)
+        if (result !== undefined) {
+            result = await this.addNode(nuevo, document.getElementById('tree'), duracion)
             return 1
         }
         return 0
     }
 
-    public addNode(numero: number|string, contenedor, duracion) {
+    public addNode(numero: number | string, contenedor, duracion) {
         let nodo = new NodeBinary(numero, this.id)
         this.id++
 
@@ -43,7 +43,7 @@ export class BinaryTree {
         return this.insertNode(nodo, this.raiz, this.raiz.getId(), contenedor, duracion)
     }
 
-    public async search(numero: number|string, duracion) {
+    public async search(numero: number | string, duracion) {
         if (this.raiz === null) return null
         if (this.raiz.getNumero() === numero) {
             await this.drawTree.animateNode('node-container-' + this.raiz.getId(), 'swing', duracion)
@@ -56,7 +56,7 @@ export class BinaryTree {
         return await this.buscarRecursivo(numero, duracion, this.raiz.getRight())
     }
 
-    private async buscarRecursivo(numero: number|string, duracion, raiz: NodeBinary) {
+    private async buscarRecursivo(numero: number | string, duracion, raiz: NodeBinary) {
         if (raiz === null) return null
         if (raiz.getNumero() === numero) {
             await this.drawTree.animateNode('node-container-' + raiz.getId(), 'swing', duracion)
@@ -72,17 +72,17 @@ export class BinaryTree {
     }
 
 
-    public async delete(numero: number|string, duracion) {
+    public async delete(numero: number | string, duracion) {
         let result = await this.removeNode(this.raiz, numero, null, duracion)
         await this.drawTree.ajustarNodos(this.raiz)
         return result
     }
 
-    private async removeNode(node: NodeBinary, numero: number|string, padre: NodeBinary, duracion): Promise<NodeBinary> {
+    private async removeNode(node: NodeBinary, numero: number | string, padre: NodeBinary, duracion): Promise<NodeBinary> {
         if (node === null) return undefined
 
         if (numero < node.getNumero()) {
-            
+
             let subTree: NodeBinary = await this.removeNode(node.getLeft(), numero, node, duracion)
             node.setLeft(subTree)
             return node
@@ -126,16 +126,16 @@ export class BinaryTree {
             let p = document.createElement('p');
             p.append('' + node.getNumero());
             div.appendChild(p);
-            let result = await this.removeNode(node.getRight(),aux.getNumero(),null,duracion)
+            let result = await this.removeNode(node.getRight(), aux.getNumero(), null, duracion)
 
-            if(result !== null){
+            if (result !== null) {
                 document.getElementById('tree').removeChild(document.getElementById('arrow-node-' + node.getRight().getId()))
                 await this.drawTree.crearLinea('node-' + result.getId(), 'node-' + node.getId(), document.getElementById('tree'))
             }
-           
-            if(node === this.raiz) this.raiz.setRight(result)
+
+            if (node === this.raiz) this.raiz.setRight(result)
             else node.setRight(result)
-            
+
 
             return node
 
@@ -203,7 +203,7 @@ export class BinaryTree {
 
 
     private async findMinNode(nodo: NodeBinary): Promise<NodeBinary> {
-        if(nodo.getLeft() === null) return nodo 
+        if (nodo.getLeft() === null) return nodo
         return await this.findMinNode(nodo.getLeft())
 
     }
@@ -237,12 +237,12 @@ export class BinaryTree {
     }
 
 
-    public generarJSON(){
+    public generarJSON() {
         return this.obtenerJSON(this.raiz)
     }
 
-    private obtenerJSON(nodo){
-        if(nodo === null) return []
+    private obtenerJSON(nodo) {
+        if (nodo === null) return []
         let temp = []
         temp.push(nodo.getNumero())
         let izq = this.obtenerJSON(nodo.getLeft())
@@ -255,16 +255,19 @@ export class BinaryTree {
     }
 
 
-    public searchWithOutAnimation(numero){
-        return this.busquedaRecursivaSinAnimacion(this.raiz,numero)
+    public searchWithOutAnimation(numero) {
+        return this.busquedaRecursivaSinAnimacion(this.raiz, numero)
     }
 
-    private busquedaRecursivaSinAnimacion(nodo,numero){
-        if(nodo === null) return null 
-        if(nodo.getNumero() < numero) return this.busquedaRecursivaSinAnimacion(nodo.getRight(),numero)
-        if(nodo.getNumero() > numero) return this.busquedaRecursivaSinAnimacion(nodo.getLeft(),numero)
-        if(nodo.getNumero() === numero) return nodo 
+    private busquedaRecursivaSinAnimacion(nodo, numero) {
+        if (nodo === null) return null
+        if (nodo.getNumero() < numero) return this.busquedaRecursivaSinAnimacion(nodo.getRight(), numero)
+        if (nodo.getNumero() > numero) return this.busquedaRecursivaSinAnimacion(nodo.getLeft(), numero)
+        if (nodo.getNumero() === numero) return nodo
         return null
     }
+
+
+  
 
 }
