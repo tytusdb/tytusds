@@ -23,6 +23,21 @@ const routes: Routes = [
             }
             ,
             {
+                path: 'seleccion',
+                loadChildren: () => import('./ordenamientos/seleccion/seleccion.module').then((m) => m.SeleccionModule)
+            }
+            ,
+            {
+                path: 'insercion',
+                loadChildren: () => import('./ordenamientos/insercion/insercion.module').then((m) => m.InsercionModule)
+            }
+            ,
+            {
+                path: 'quick',
+                loadChildren: () => import('./ordenamientos/quick/quick.module').then((m) => m.QuickModule)
+            }
+            ,
+            {
                 path: 'Abb',
                 loadChildren: () => import('./estructuras-arboreas/abb/abb.module').then((m) => m.AbbModule)
             }
