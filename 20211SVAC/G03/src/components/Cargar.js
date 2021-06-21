@@ -13,6 +13,8 @@ import ListaCS from '../estructuras/EstructurasLineales/ListaCirS'
 import ListaSimple from '../estructuras/EstructurasLineales/ListaSimple'
 import ListaDoble from '../estructuras/EstructurasLineales/ListaDoble'
 
+import ArbolB from '../estructuras/Estructuras_Arboreas/ArbolB'
+
 let propsG
 function onChange(e){
     let files = e.target.files[0];
@@ -109,6 +111,12 @@ function structW(nombre,datos,edd){ // FUNCION PARA SABER QUE TIPO DE ESTRUCTURA
             console.log(edd.obtenerNodos())
             console.log(edd.obtenerAputadores())
             break
+        case "Arbol B":
+
+            edd = new ArbolB(3);
+            edd.cargar(datos)
+            console.log(edd.graficar())
+            break
         default:
             break;
     }
@@ -123,12 +131,16 @@ function arrString(arreglo){
     
     if(arreglo[0].charCodeAt){
         for (let i = 0; i < arreglo.length-1; i++) {
-          newarr.push(getCharCodes(arreglo[i]))
+            let newValor = {valor:arreglo[i],ASCII:getCharCodes(arreglo[i])}
+          newarr.push(newValor)
           
         }
     }else{
-      console.log("soy un numero")
-      return arreglo
+        for (let i = 0; i < arreglo.length-1; i++) {
+            let newValor = {valor:arreglo[i],ASCII:arreglo[i]}
+          newarr.push(newValor)
+          
+        }
     }
   
     return newarr

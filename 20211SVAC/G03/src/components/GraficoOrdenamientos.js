@@ -39,10 +39,10 @@ export default function GraficoOrdenamientos(props) {
           
         >
          
-          <XAxis dataKey="name" />
+          <XAxis dataKey="valor" />
           <YAxis />
           <Tooltip />
-          <Bar dataKey={Number} fill="#8884d8" animationDuration={duration}/>
+          <Bar dataKey="ASCII" fill="#82ca9d" animationDuration={duration}/>
         </BarChart>
     
         

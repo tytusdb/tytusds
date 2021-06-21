@@ -492,6 +492,34 @@ class ABB{
 
         return this.graficarApuntadores(this.raiz,vector)
     }
+
+    graficar(nodo){
+        let etiqueta = ""
+
+        if(nodo.izquierda == null && nodo.derecha == null){
+            etiqueta = "nodo" + nodo.dato.toString() +" [ shape=circle, label=\"{" + nodo.dato.toString() +"}\"];\n"
+        }else{
+            etiqueta = "nodo" + nodo.dato.toString() +" [ shape=circle, label=\"{" + nodo.dato.toString() +"}\"];\n"
+        }
+
+        if(nodo.izquierda != null){
+            etiqueta = etiqueta + this.graficar(nodo.izquierda) + "nodo" + nodo.dato.toString() + " -> nodo" + nodo.izquierda.dato.toString() + "\n"
+        }
+        if(nodo.derecha != null){
+            etiqueta = etiqueta + this.graficar(nodo.derecha) + "nodo" + nodo.dato.toString() + " -> nodo" + nodo.derecha.dato.toString() + "\n"
+        }
+
+        return etiqueta
+
+    }
+
+    graficarArbol(){
+
+        let dot = "digraph{ size=\"6,6\"; 	node [color=lightblue2, style=filled];" + this.graficar(this.raiz) +"}"
+
+        return dot
+
+    }
 }
 
 export default ABB;
