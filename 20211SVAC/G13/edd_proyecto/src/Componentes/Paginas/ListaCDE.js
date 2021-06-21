@@ -53,6 +53,14 @@ class ListaCDE extends Component{
     	  [name]: value
     	});
     }
+	handleFileChange = (e) => {
+		const file = e.target.files[0];
+		const reader = new FileReader();
+		reader.readAsText(file);
+		reader.onload = () => {
+			this.setState({fileName: file.name, fileContent: reader.result})
+		}
+	}
     handleAdd = () => {
     	listacde.Agregar(this.state.text);
 		getNodes = new DataSet(listacde.GenerarNodosDOT());
@@ -123,11 +131,16 @@ class ListaCDE extends Component{
 		this.network = new Network(this.appRef.current, data, options);
 	}
 	handleOpenFile = () => {
+
 		const dataJson = JSON.parse(this.state.fileContent);
-		console.log(dataJson.valores)
-        for (var i=0; i < dataJson.valores.length; i++) {
-            console.log(dataJson.valores[i]);
-            listacde.Agregar(dataJson.valores[i])
+		let nombre = "Lista Simplemente/doblemente/circular simplemente/circular doblemente Enlazada"
+		if (dataJson.categoria == "Estructura Lineal" && dataJson.nombre == nombre){
+
+			for (var i=0; i < dataJson.valores.length; i++) {
+				console.log(dataJson.valores[i]);
+				listacde.Agregar(dataJson.valores[i])
+			
+			}
 			getNodes = new DataSet(listacde.GenerarNodosDOT());
 			getEdges = new DataSet(listacde.GenerarEdgesDOT());
 			data = {
@@ -135,8 +148,13 @@ class ListaCDE extends Component{
 				edges: getEdges
 			}
 			this.network = new Network(this.appRef.current, data, options);
-			
-        }
+
+		}else {
+
+			alert("No es un Archivo de ESTRUCTURA LINEAL!!")
+		}
+
+		
 	}
 
     render() {
