@@ -9,11 +9,11 @@ import Swal from 'sweetalert2'
 })
 export class BinaryTreeComponent implements OnInit {
   public network: any
-  numero: number|string = 0
-  numeroBuscar: number|string = 0
-  numeroViejo: number|string = 0
-  numeroNuevo: number|string = 0
-  numeroEliminar: number|string = 0
+  numero: number | string = 0
+  numeroBuscar: number | string = 0
+  numeroViejo: number | string = 0
+  numeroNuevo: number | string = 0
+  numeroEliminar: number | string = 0
   duracion: number = 0.3
   repetidos: boolean = true
 
@@ -32,13 +32,13 @@ export class BinaryTreeComponent implements OnInit {
 
 
   async add() {
-    this.addData(this.numero)
+    await this.addData(this.convertir(this.numero))
     this.numero = 0
 
   }
 
   async search() {
-    let result = await this.binaryTree.search(this.numeroBuscar, this.duracion + 's')
+    let result = await this.binaryTree.search(this.convertir(this.numeroBuscar), this.duracion + 's')
     if (result === null) {
       Swal.fire({
         icon: 'error',
@@ -57,7 +57,7 @@ export class BinaryTreeComponent implements OnInit {
   }
 
   async update() {
-    let result = await this.binaryTree.update(this.numeroViejo, this.numeroNuevo, this.duracion + 's')
+    let result = await this.binaryTree.update(this.convertir(this.numeroViejo), this.convertir(this.numeroNuevo), this.duracion + 's')
     console.log(result)
     this.numeroViejo = 0
     this.numeroNuevo = 0
@@ -72,7 +72,7 @@ export class BinaryTreeComponent implements OnInit {
   async addData(numero) {
     let contenedor = document.getElementById('tree')
     if (!this.repetidos) {
-      let resultado = this.binaryTree.searchWithOutAnimation(numero)
+      let resultado = this.binaryTree.searchWithOutAnimation(this.convertir(numero))
       if (resultado !== null) {
         Swal.fire({
           icon: 'error',
@@ -82,7 +82,7 @@ export class BinaryTreeComponent implements OnInit {
         return;
       }
     }
-    await this.binaryTree.addNode(numero, contenedor, this.duracion + 's')
+    await this.binaryTree.addNode(this.convertir(numero), contenedor, this.duracion + 's')
     return 1
   }
 
@@ -93,13 +93,20 @@ export class BinaryTreeComponent implements OnInit {
       this.fileName = file.name;
       let data: any = await this.processFile(file)
       data = JSON.parse(data)
-      this.duracion = (+data.animacion >= 2) ? +data.animacion - 2 : +data.animacion 
+      this.duracion = +data.animacion
       this.repetidos = data.repeticion
       data = data.valores
       for (let i = 0; i < data.length; i++) {
+
         await this.addData(data[i])
-        await this.sleep(2000)
+        await this.sleep(this.duracion * 1000)
       }
+
+      Swal.fire({
+        icon: 'success',
+        title: ':)',
+        text: `Recorrido Completo `
+      })
 
 
     }
@@ -139,4 +146,9 @@ export class BinaryTreeComponent implements OnInit {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
+
+  convertir(dato) {
+    if (isNaN(dato)) return dato
+    return +dato
+  }
 }
