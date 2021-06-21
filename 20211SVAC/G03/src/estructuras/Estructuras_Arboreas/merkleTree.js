@@ -300,4 +300,40 @@ class MerkleTree{
             this.cargandoArbolLista(nodo.derecha)
         }
     }
+
+    //Metodo Modificar
+    modificar(datoelim, nuevodato){
+        if(this.raiz ==null){
+            console.log("No existe arbol")
+            return
+        }
+        let hasheo = sha256.create()
+        hasheo.update(String(datoelim))
+        hasheo.hex()
+        let nodo = this.raiz
+        this.modificando(hasheo, nuevodato, nodo)
+    }
+
+    //SubMetodo modificar
+    modificando(hasheo, nuevodato, nodo){
+        if(nodo!= null){
+            let noha = nodo.hash.hex()
+            let has1 = hasheo.hex()
+            if(has1 == noha && nodo.nodohijo == true){
+                nodo.dato = nuevodato
+                this.cargaArbolLista()
+                this.raiz = null
+                for(let i = 0;i<recarga.length;i++){
+                    this.insertar(recarga[i])
+                }
+                recarga = []
+                this.hashing()
+                console.log("Dato Modificado")
+                return
+            }
+            this.modificando(hasheo, nuevodato, nodo.izquierda)
+            this.modificando(hasheo, nuevodato, nodo.derecha)
+        }
+    }
+
 }
