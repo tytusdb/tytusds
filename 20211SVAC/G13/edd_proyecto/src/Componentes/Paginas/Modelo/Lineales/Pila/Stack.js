@@ -1,11 +1,11 @@
 const Nodo = require('./Nodo.js')
-class Pila{
+class Stack{
 
     constructor(){
         this.primero = null
     }
 
-    push(dato){ //Agrega un valor al final de la lista.
+    push = (dato) =>{ //Agrega un valor al final de la lista.
         let  nodo_nuevo = new Nodo(dato)
         if (this.empty() == false){
             nodo_nuevo.set_siguiente(this.get_primero())
@@ -16,7 +16,7 @@ class Pila{
 
     }
 
-    pop(){ // Saca el primero de la pila.
+    pop = () => { // Saca el primero de la pila.
 
         if(this.empty() == false){
 
@@ -42,7 +42,7 @@ class Pila{
 
 
     
-    update(dato, cambio){
+    update = (dato, cambio) => {
         let nodo_actual = this.get_primero();
 
         if (this.empty() == false){
@@ -59,17 +59,18 @@ class Pila{
 
     }
 
-    search(dato){
+    search = (dato) => {
         let nodo_actual = this.get_primero()
 
         if (this.empty() == false){
-
+            let i = 0;
             do{
                 if (nodo_actual.get_dato() == dato){
                     console.log("Data found! " + nodo_actual.get_dato());
-                    return true
+                    return i;
                 }
                 nodo_actual = nodo_actual.get_siguiente();
+                i ++;
             }while(nodo_actual != null);
 
         }else{ 
@@ -83,7 +84,7 @@ class Pila{
     }
 
 
-    print(){
+    print = () => {
 
         if(this.empty() == false){
             let nodo_actual = this.get_primero()
@@ -101,7 +102,7 @@ class Pila{
     }
 
 
-    empty(){
+    empty = () => {
         if (this.get_primero() == null){
             return true;
         }else{
@@ -109,9 +110,55 @@ class Pila{
         }
     }
 
-    get_primero(){ return this.primero; }
-    set_primero(primero){ this.primero = primero; }
+    
+    setNodesDataSet = () => { // Esto Genera los nodos de Vis.
+
+        let nodo_actual = this.get_primero();
+        var dot = [];
+        if (this.empty() == false){
+            let i = 0
+            do {
+				dot.push({id:i, label: nodo_actual.get_dato()});	
+                nodo_actual = nodo_actual.get_siguiente();
+                i++;
+            } while (nodo_actual != null);
+
+        }
+        return dot;
+
+    } 
+
+    setEdgesDataSet = () => {
+
+        let nodo_actual = this.get_primero();
+        var dot = [];
+        if (this.empty() == false){
+            let i = 0;
+            do {
+                if (nodo_actual.get_siguiente() != null){
+
+                    let nodoUno = parseInt(i)
+                    let nodoDos = parseInt(nodoUno) + parseInt(1)
+                    if (i==0){
+                        dot.push({from:0, to:1, arrows: "to"});
+                    }
+                    if ( nodoUno!= false && nodoDos != false){
+                        dot.push({from:parseInt(nodoUno), to:parseInt(nodoDos), arrows: "to"});
+                    }
+                }
+                nodo_actual = nodo_actual.get_siguiente();
+                i ++;
+            } while (nodo_actual != null);
+        }
+
+        return dot;
+
+    }
+
+
+    get_primero = () => { return this.primero; }
+    set_primero = (primero) => { this.primero = primero; }
 
 }
 
-module.exports = Pila;
+module.exports = Stack;
