@@ -40,11 +40,14 @@ class Cola {
 
     //mostrar datos de la cola
     print() {
+      let list = []
       let mostrarNodo = this.primero;
       while (mostrarNodo) {
-        console.log(mostrarNodo.dato);
+        list.push(mostrarNodo.dato)
+        //console.log(mostrarNodo.dato);
         mostrarNodo = mostrarNodo.siguiente;
       }
+      return list
     }
 
     //Metodo buscar
@@ -71,13 +74,13 @@ var animacionCola = "0";
 function adDCola(data){
   cola.enqueue(data)
   console.log("-------------------------------")
-  cola.print()
+  console.log(cola.print())
 }
 
 function DeletCola(data){
   cola.dequeue(data)
   console.log("-------------------------------")
-  cola.print()
+  console.log(cola.print())
 }
 
 function buscarCola(data){
@@ -120,7 +123,7 @@ function AbrirArchivoCola(event) {
           }
       }
    }
-   cola.print()
+   console.log(cola.print())
 
   };
 
