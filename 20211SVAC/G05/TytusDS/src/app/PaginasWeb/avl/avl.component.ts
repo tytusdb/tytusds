@@ -42,20 +42,36 @@ export class AvlComponent implements OnInit {
   }
 
   agregar(): void {
-    this.arbol.raiz = this.arbol.insertar(this.arbol.raiz, +this.valorAgregar);
+    if (isNaN(parseInt(this.valorAgregar, 10))){
+      this.arbol.raiz = this.arbol.insertar(this.arbol.raiz, this.valorAgregar);
+    }else {
+      this.arbol.raiz = this.arbol.insertar(this.arbol.raiz, +this.valorAgregar);
+    }
     this.graficar();
     this.valorAgregar = '';
   }
-
+  
   eliminar(): void {
-    this.arbol.raiz = this.arbol.eliminar(this.arbol.raiz, +this.valorEliminar);
+    if (isNaN(parseInt(this.valorEliminar, 10))){
+      this.arbol.raiz = this.arbol.eliminar(this.arbol.raiz, this.valorEliminar);
+    }else {
+      this.arbol.raiz = this.arbol.eliminar(this.arbol.raiz, +this.valorEliminar);
+    }
     console.log(this.arbol.getNodos());
     this.graficar();
     this.valorEliminar = '';
   }
-
+  
   actualizar(): void {
-
+    if (isNaN(parseInt(this.nodoActualizar, 10)) && isNaN(parseInt(this.valorActualizar, 10))){
+      this.arbol.actualizar(this.arbol.raiz, this.nodoActualizar, this.valorActualizar);
+    }else {
+      this.arbol.actualizar(this.arbol.raiz, +this.nodoActualizar, +this.valorActualizar);
+    }
+    this.graficar();
+    this.valorActualizar = '';
+    this.nodoActualizar = '';
+    
   }
 
   buscar(): void {
