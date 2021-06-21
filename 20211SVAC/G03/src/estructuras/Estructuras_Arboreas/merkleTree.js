@@ -279,4 +279,25 @@ class MerkleTree{
             this.eliminando(hasheo, nodo.derecha)
         }
     }
+    
+    //Metodo cargarlista para reestructuracion del arbol
+    cargaArbolLista(){
+        if(this.raiz ==null){
+            console.log("No existe arbol")
+            return
+        }
+        let nodo = this.raiz
+        this.cargandoArbolLista(nodo)
+    }
+
+    //SubMetodo Cargando lista para reestructuracion del arbol
+    cargandoArbolLista(nodo){
+        if(nodo!= null){
+            if(nodo.nodohijo == true && nodo.dato != -1){
+                recarga.push(nodo.dato)
+            }
+            this.cargandoArbolLista(nodo.izquierda)
+            this.cargandoArbolLista(nodo.derecha)
+        }
+    }
 }
