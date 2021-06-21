@@ -166,33 +166,38 @@ class Pila{
     } 
 
     //Actualizar
-    ReemplazarDato(datoAnterior, datoNuevo){
-      let datoActual = this.primero;
-      while(datoActual){
-        if(datoActual.dato === datoAnterior){
-          datoActual.dato = datoNuevo;
-          break;
-
-        }
-        datoActual = datoActual.siguiente;
-      }
-      
-    }
+  
     
-    ActualizarPila(datoActual, reemplazoDato){
-      let actualizar = this.primero;
-      if(this.buscar(datoActual)){
-        this.ReemplazarDato(datoActual, reemplazoDato);
-
-      }
+    ActualizarPila(datoAnterior, datoNuevo){
+      let actual = this.primero;
+      let encontrado = false;
+      if(this.primero != null){
+          while(actual != null && encontrado != true){
+              if(actual.dato == datoAnterior){
+                  actual.dato = datoNuevo;
+                  encontrado = true;
+              }
+              actual = actual.siguiente;
+          }
+          if(!encontrado){
+              console.log("Dato no encontrado");
+          }
+      }else{
+          console.log("La pila se encuentra vacia");
+      }  
 
     }
+
+    
+
   } 
 const stack = new Pila();
 var categoriaPila = "Estructura Lineal";
 var nombrePila = "pila";
 var repeticionPila = "false";
 var animacionPila = "0";
+
+
 
 function addValuePila(data){
   stack.push(data);
