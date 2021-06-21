@@ -8,12 +8,15 @@
     "@testing-library/user-event": "^12.8.3",
     "animate.css": "^4.1.1",
     "bootstrap": "^5.0.1",
+    "flowpoints": "^1.0.18",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-organizational-chart": "^2.1.0",
     "react-particles-js": "^3.4.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "styled-components": "^5.3.0",
     "web-vitals": "^1.1.2"
   },
   "scripts": {

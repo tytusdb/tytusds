@@ -1,17 +1,17 @@
 import React from 'react';
-import ListaSimple from '../../../EDD/ListaSimple';
-import './ListaSimpleEnlazada.css';
-import flecha from '../../../assets/flecha.png'
+import CircularDoble from '../../EDD/CircularDoble';
+import './ListaCircularDoble.css';
+import { Flowpoint, Flowspace } from 'flowpoints';
 
 
-class ListaSimpleEnlazada extends React.Component {
+class ListaCircularDoble extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             elemento: '',
             reemplazado: '',
             data: null,
-            lista: new ListaSimple()
+            lista: new CircularDoble()
         };
 
         this.ContenidoElemento = this.ContenidoElemento.bind(this);
@@ -37,6 +37,7 @@ class ListaSimpleEnlazada extends React.Component {
         this.setState({
             lista: this.state.lista,
         });
+
     }
 
     InsertarContenidoFinal() {
@@ -93,8 +94,10 @@ class ListaSimpleEnlazada extends React.Component {
         reader.readAsText(input.files[0], "UTF-8")
     }
 
+
+
+
     render() {
-        console.log(this.state.lista.length);
         return (
             <div className="container">
                 <div className="row gap-2">
@@ -127,25 +130,80 @@ class ListaSimpleEnlazada extends React.Component {
                     </div>
 
 
+
                 </div>
 
                 <div className="card mt-2">
                     <div className="contPadre">
-                    
-                        {
-                            Array(this.state.lista.length).fill({}).map((_e, i) => (
-                                <div className="contNodo animate__animated animate__fadeInBottomLeft">
-                                    <div className="valor">{this.state.lista.get(i)}</div>
-                                    <div className="enlace"></div>
-                                    <div className="flech animate__animated animate__backInLeft">
-                                    <img src={flecha} width="40px" height="15px"/>
-                                    </div>
-                                </div>
-                            ))
-                        }
-                        <div className="nodoNull animate__animated animate__fadeInDown">
-                        Null
-                    </div>
+                        <Flowspace
+                            arrowEnd={true}
+                            arrowStart={true}
+                            style={{ width: '100%', height: '300px', overflow: 'auto' }}
+                            theme={"deep-purple"}
+                            connectionSize={4}>
+
+                            {
+                                Array(this.state.lista.length).fill({}).map((_e, i) => (
+                                    (this.state.lista.length - 1 == i) ? (
+                                        
+                                        <Flowpoint 
+                                        key={"point_" + i}
+                                        theme="indigo"
+                                        variant="outlined"
+                                        outputs={{
+                                            ["point_" + (0)]: {
+                                                output: "auto",
+                                                input: "auto",
+                                            },
+                                        }}
+                                        style={{ backgroundColor: 'lightblue' }}
+                                        startPosition={{ x: 150 * i, y: 100 }}
+                                        snap={{ x: 10, y: 10 }}
+                                        dragX={false}
+                                        dragY={false}
+                                        minX={50}
+                                        minY={50}
+                                        width={100}
+                                        height={50}
+                                    >
+                                        <div className="animate__animated animate__backInUp">
+                                        {this.state.lista.get(i)}
+                                        </div>
+                                    </Flowpoint>
+                                    ):(
+                                        <Flowpoint
+                                        key={"point_" + i}
+                                        theme="indigo"
+                                        variant="outlined"
+                                        outputs={{
+                                            ["point_" + (i + 1)]: {
+                                                output: "auto",
+                                                input: "auto",
+                                            },
+                                        }}
+                                        style={{ backgroundColor: 'lightblue' }}
+                                        startPosition={{ x: 150 * i, y: 100 }}
+                                        snap={{ x: 10, y: 10 }}
+                                        dragX={false}
+                                        dragY={false}
+                                        minX={50}
+                                        minY={50}
+                                        width={100}
+                                        height={50}
+                                    >
+                                        <div className="animate__animated animate__backInUp">
+                                        {this.state.lista.get(i)}
+                                        </div>
+                                    </Flowpoint>
+                                        
+                                    )
+                                ))
+                            }
+
+
+                        </Flowspace>
+
+
                     </div>
 
 
@@ -156,4 +214,4 @@ class ListaSimpleEnlazada extends React.Component {
     }
 }
 
-export default ListaSimpleEnlazada;
+export default ListaCircularDoble;

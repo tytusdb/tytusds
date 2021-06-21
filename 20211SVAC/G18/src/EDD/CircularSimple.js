@@ -9,6 +9,7 @@ class NodoSimpleCircular {
 class ListaSimpleCircular {
   constructor() {
     this.cabeza = null;
+    this.length = 0;
   }
 
   add_f(valor) {
@@ -28,6 +29,7 @@ class ListaSimpleCircular {
       aux.siguiente = nuevo;
       nuevo.siguiente = this.cabeza;
     }
+    this.length++;
   }
 
   add_i(valor) {
@@ -53,12 +55,14 @@ class ListaSimpleCircular {
       this.cabeza = nuevo;
       nuevo.primero = true;
     }
+    this.length++;
   }
 
 
   delete(valor){
     if(this.cabeza.valor == valor){
       this.cabeza=this.cabeza.siguiente;
+      this.length--;
       if(this.cabeza!=null){
         this.cabeza.primero=true;
         let aux = this.cabeza;
@@ -70,11 +74,13 @@ class ListaSimpleCircular {
           this.cabeza.siguiente=null;
         }
       }
+      
     }else{
       let aux = this.cabeza;
       while(!aux.siguiente.primero){
         if(aux.siguiente.valor==valor){
           aux.siguiente=aux.siguiente.siguiente;
+          this.length--;
           if(this.cabeza.siguiente.primero){
             this.cabeza.siguiente=null;
             break;
@@ -93,6 +99,7 @@ class ListaSimpleCircular {
         aux.valor = nvalor;
         console.log("se reemplazo: " + valor + ", por: " + aux.valor);
         casoPrimero = false;
+        break;
       }else if(aux.primero){
         casoPrimero=false;
       }
@@ -117,9 +124,28 @@ class ListaSimpleCircular {
     return null;
   }
 
+  get(index) {
+    let aux = this.cabeza;
+    for(let i =0; i<this.length; i++ ){
+      if(i==index){
+          break
+      }
+      aux = aux.siguiente;
+    }
+    return aux.valor
+  }
+
+  first(){
+    let casoPrimero = true;
+    let actual = this.cabeza;
+    for (; actual != null && (casoPrimero || !actual.primero); actual = actual.siguiente) {
+      casoPrimero = false;
+    }
+    return actual.valor
+  }
+
 
   imprimir() {
-    let aux = this.cabeza;
     let casoPrimero = true;
     let actual = this.cabeza;
     for (; actual != null && (casoPrimero || !actual.primero); actual = actual.siguiente) {
@@ -142,3 +168,5 @@ console.log("");
 
 lista.delete(2);
 lista.imprimir();
+
+export default ListaSimpleCircular;

@@ -10,6 +10,7 @@ class NodoDoble {
 class ListaDobleEnlazada {
   constructor() {
     this.cabeza = null;
+    this.length = 0;
   }
 
   add_f(valor){
@@ -24,6 +25,7 @@ class ListaDobleEnlazada {
       aux.siguiente = nuevo;
       nuevo.anterior = aux;
     }
+    this.length++;
   }
 
 
@@ -37,11 +39,13 @@ class ListaDobleEnlazada {
       aux.anterior = nuevo;
       this.cabeza = nuevo;
     }
+    this.length++;
   }
 
   delete(valor) {
     if (this.cabeza.valor == valor) {
       this.cabeza = this.cabeza.siguiente;
+      this.length--;
       if (this.cabeza != null){
         this.cabeza.anterior=null;
       }
@@ -50,6 +54,7 @@ class ListaDobleEnlazada {
       while (aux.siguiente != null) {
         if (aux.siguiente.valor == valor) {
           aux.siguiente = aux.siguiente.siguiente;
+          this.length--;
           if (aux.siguiente != null){
             aux.siguiente.anterior=aux;
           }
@@ -66,6 +71,7 @@ class ListaDobleEnlazada {
         if (aux.valor == valor) {
           aux.valor = nvalor;
           console.log("se reemplazo: " + valor + ", por: "+ aux.valor);
+          break;
         }
         aux = aux.siguiente;
     }
@@ -84,6 +90,17 @@ class ListaDobleEnlazada {
     return null;
   }
 
+  get(index) {
+    let aux = this.cabeza;
+    for(let i =0; i<this.length; i++ ){
+      if(i==index){
+          break
+      }
+      aux = aux.siguiente;
+    }
+    return aux.valor
+  }
+
     imprimir() {
       let aux = this.cabeza;
       while (aux != null) {
@@ -99,18 +116,4 @@ class ListaDobleEnlazada {
 
 }
 
-let lista = new ListaDobleEnlazada();
-lista.add_i(7);
-lista.add_i(5);
-lista.add_f(1);
-lista.add_f(2);
-lista.add_f(3);
-lista.add_f(4);
-lista.add_f(6);
-lista.imprimir();
-console.log("");
-lista.update(7,9);
-lista.imprimir();
-console.log("");
-lista.delete(9);
-lista.imprimir();
+export default ListaDobleEnlazada;

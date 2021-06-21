@@ -1,17 +1,17 @@
 import React from 'react';
-import ListaSimple from '../../../EDD/ListaSimple';
-import './ListaSimpleEnlazada.css';
-import flecha from '../../../assets/flecha.png'
+import ListaDoble from '../../EDD/ListaDobleEnlazada';
+import './ListaDobleEnlazada.css';
+import flecha from '../../assets/flechad.png'
 
 
-class ListaSimpleEnlazada extends React.Component {
+class ListaDobleEnlazada extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             elemento: '',
             reemplazado: '',
             data: null,
-            lista: new ListaSimple()
+            lista: new ListaDoble()
         };
 
         this.ContenidoElemento = this.ContenidoElemento.bind(this);
@@ -135,17 +135,18 @@ class ListaSimpleEnlazada extends React.Component {
                         {
                             Array(this.state.lista.length).fill({}).map((_e, i) => (
                                 <div className="contNodo animate__animated animate__fadeInBottomLeft">
+                                    <div className="enlace"></div>
                                     <div className="valor">{this.state.lista.get(i)}</div>
                                     <div className="enlace"></div>
                                     <div className="flech animate__animated animate__backInLeft">
-                                    <img src={flecha} width="40px" height="15px"/>
+                                    <img src={flecha} width="40px" height="30px"/>
                                     </div>
                                 </div>
                             ))
                         }
                         <div className="nodoNull animate__animated animate__fadeInDown">
                         Null
-                    </div>
+                        </div>
                     </div>
 
 
@@ -156,4 +157,4 @@ class ListaSimpleEnlazada extends React.Component {
     }
 }
 
-export default ListaSimpleEnlazada;
+export default ListaDobleEnlazada;
