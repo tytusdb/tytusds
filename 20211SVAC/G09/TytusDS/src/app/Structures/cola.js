@@ -215,6 +215,34 @@ class Cola {
     ActualizarCola(datoAnterior, datoNuevo){
       let actual = this.primero;
       let encontrado = false;
+
+      let aux = this.primero;
+      var f = setInterval(whiles,500)
+      function whiles(){
+          if (actual != null && encontrado != true) {
+              const selecBtn = document.getElementById("btn"+aux.animate.id)
+              //selecBtn.innerText="Espere"
+              if (aux.dato == datoAnterior) {
+                  aux.dato = datoNuevo;
+                  encontrado = true;
+                  selecBtn.innerText=datoNuevo
+                  selecBtn.classList="animate__animated animate__rotateIn"
+                  const sClone = selecBtn.cloneNode(true)
+                  selecBtn.parentNode.replaceChild(sClone, selecBtn)
+                  clearInterval(f)
+                  }
+              else{
+              selecBtn.classList="animate__animated animate__bounceIn"
+              const sClone = selecBtn.cloneNode(true)
+              selecBtn.parentNode.replaceChild(sClone, selecBtn)
+              aux=aux.siguiente
+              }
+          }
+          else{
+              clearInterval(f)
+          }
+      }      
+/*
       if(this.primero != null){
           while(actual != null && encontrado != true){
               if(actual.dato == datoAnterior){
@@ -230,7 +258,7 @@ class Cola {
       }else{
           console.log("La Cola se encuentra vacia");
       }
-
+*/
     }
 
     
