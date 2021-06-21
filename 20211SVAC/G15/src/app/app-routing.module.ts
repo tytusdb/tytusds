@@ -12,6 +12,7 @@ import { PilaComponent } from './components/pila/pila.component';
 import { ListasimpleComponent } from './components/listasimple/listasimple.component';
 
 import { BinaryTreeComponent } from './components/binary-tree/binary-tree.component'
+import { EstructuraArboreaComponent } from './components/estructura-arborea/estructura-arborea.component';
 const routes: Routes = [
   {path: 'binaryTree', component: BinaryTreeComponent, pathMatch: 'full'},
   {path: 'listaDobleCircular', component: ListaDobleCircularComponent, pathMatch: 'full'},
@@ -21,6 +22,7 @@ const routes: Routes = [
   {path: 'burbuja', component: BurbujaComponent, pathMatch: 'full'},
   {path: 'pila', component: PilaComponent, pathMatch: 'full'},
   {path: 'listaSimple', component: ListasimpleComponent, pathMatch: 'full'},
+  {path: 'estructuraArborea', component: EstructuraArboreaComponent, pathMatch: 'full'},
   {path: '', component: HomeComponent, pathMatch: 'full'}
   
 ];

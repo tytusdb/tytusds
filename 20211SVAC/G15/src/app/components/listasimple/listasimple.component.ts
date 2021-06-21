@@ -75,8 +75,6 @@ export class ListasimpleComponent implements OnInit {
     }
 
   }
-
-
   changeAlInicio() {
     if (this.alinicio) {
       this.alfinal = false
@@ -90,6 +88,28 @@ export class ListasimpleComponent implements OnInit {
       this.alfinal = false
       this.alinicio = false
     }
+
+  }
+  async buscar() {
+    let busqueda = await this.lista.searchAnimation(this.datoBuscar, `${this.velocidad}s`)
+    if (busqueda === null) {
+      Swal.fire({
+        target: document.getElementById('form-modal'),
+        icon: 'error',
+        title: 'Oops...',
+        text: `El dato ${this.datoBuscar} no existe en la pila`
+      })
+      this.datoBuscar = ""
+      return;
+    }
+    Swal.fire({
+      target: document.getElementById('form-modal'),
+      icon: 'success',
+      title: ':)',
+      text: `Se econtro el dato ${this.datoBuscar} en la posicion ${busqueda.index}`
+    })
+    this.datoBuscar = ""
+    return;
 
   }
 
