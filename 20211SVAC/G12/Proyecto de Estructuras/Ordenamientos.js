@@ -1,9 +1,47 @@
+var speedG=50
+var type="numeric"
+class File {
+    constructor(categoria,nombre,repeticion,animacion,valores) {
+        this.categoria=categoria
+        this.nombre=nombre
+        this.repeticion=repeticion
+        this.animacion=animacion
+        this.valores=valores
+    }
+}
+var file
+
+function download(){
+    file.valores=prb
+    var jsonB=new Blob([JSON.stringify(file,null,4)],{ type: 'application/javascript;charset=utf-8' })
+    var jsonlink=URL.createObjectURL(jsonB)
+    var link=document.createElement("a")
+    link.href=jsonlink
+    link.download="[ORDENADO].json"
+    link.dispatchEvent(
+        new MouseEvent('click', {
+            bubbles: true,
+            cancelable: true,
+            view: window
+        })
+    );
+    document.body.removeChild(link);
+}
+
 async function Insert() {
     prb.push(parseInt(document.getElementById("entry").value))
     show()
 }
-function lFile(){
+
+function isNumeric(str) {
+    if (typeof str != "string") return false // we only process strings!
+    return !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
+        !isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
+}
+
+window.addEventListener('load',function (){
     var upload=document.getElementById("loadedFile")
+    var sp=document.getElementById('speedSelector')
     if (upload)
     {
         upload.addEventListener('change', function() {
@@ -14,9 +52,19 @@ function lFile(){
                 reader.addEventListener('load', function() {
                     prb=[]
                     var result = JSON.parse(reader.result); // Parse the result into an object
-                    for (const resultKey in result.valores) {
-                        prb.push(parseInt(result.valores[resultKey]))
+                    file=new File(result.categoria,result.nombre,result.repeticion,result.animacion,result.valores)
+                    if (isNaN(result.valores[0])){
+                        for (const resultKey in result.valores) {
+                            prb.push(result.valores[resultKey])
+                        }
+                    }else {
+                        for (const resultKey in result.valores) {
+                            prb.push(parseInt(result.valores[resultKey]))
+                        }
                     }
+                    document.getElementById('speedSelector').value=parseInt(file.animacion)
+                    document.getElementById('sp').innerHTML=file.animacion
+                    speedG=(11-file.animacion)*25
                     show()
                 });
 
@@ -24,8 +72,16 @@ function lFile(){
             }
         });
     }
-}
+    sp.addEventListener('change',function (){
+        document.getElementById('sp').innerHTML=sp.value
+        speedG=(11-sp.value)*25
+    })
 
+})
+
+function dl(){
+   
+}
 
 async function swap(id1, id2, speed) {
     let element1 = document.getElementById("a" + id1);
@@ -137,19 +193,19 @@ async function ordenamiento_burbuja(array, comp, speed) {
 
 
 function ordenarBurbuja() {
-    ordenamiento_burbuja(prb, numberComparison, 500);
+    ordenamiento_burbuja(prb, numberComparison, speedG);
 
 }
 
 function ordenarInsertion() {
-    insertionSort(prb, numberComparison, 1000);
+    insertionSort(prb, numberComparison, speedG);
 }
 
 function ordenarSelection() {
-    selectionSort(prb, numberComparison, 1000);
+    selectionSort(prb, numberComparison, speedG);
 }
 function ordenarQuick() {
-    quicksort(prb, numberComparison, 10);
+    quicksort(prb, numberComparison, speedG);
 }
 
 function numberComparison(a, b) {
@@ -162,11 +218,12 @@ function numberComparison(a, b) {
 }
 
 
+
 async function quicksort(unsortedArray, comparisonFunction,speed) {
     const sortedArray =unsortedArray;
     pivotPosition=0
     level =1
-    await recursiveSort(sortedArray, 0, unsortedArray.length - 1, comparisonFunction,speed);
+    await recursiveSort(sortedArray, 0, unsortedArray.length - 1, comparisonFunction,1,speed);
     await movePartition(0,unsortedArray.length-1,1,speed)
     return sortedArray;
 }
@@ -177,33 +234,36 @@ function swapArrayElements(arrayToSwap, i, j) {
     arrayToSwap[j] = a;
 }
 let level;
-async function partition(arrayToDivide, start, end, comp,speed) {
+async function partition(arrayToDivide, start, end, comp,level,speed) {
     const pivot = arrayToDivide[end];
     await changeColor(end,"Red",speed)
     let splitIndex = start;
     await movePartition(start,end,level,speed)
-    level ++
     for (let j = start; j <= end - 1; j++) {
         const sortValue = comp(arrayToDivide[j], pivot);
         if (sortValue === -1) {
-            await swap(splitIndex, j,speed)
+            if (splitIndex!==j){
+                await swap(splitIndex, j,speed)
+            }
             swapArrayElements(arrayToDivide, splitIndex, j);
             splitIndex++;
         }
     }
     await changeColor(end,"Black",speed)
-    await swap(splitIndex, end,speed)
+    if (splitIndex!==end){
+        await swap(splitIndex, end,speed)
+    }
     swapArrayElements(arrayToDivide, splitIndex, end);
     pivotPosition= splitIndex;
 }
 let pivotPosition
 
-async function recursiveSort(arrayToSort, start, end, comparisonFunction,speed) {
+async function recursiveSort(arrayToSort, start, end, comparisonFunction,level,speed) {
 
     if (start < end) {
-        await partition(arrayToSort, start, end, comparisonFunction,speed);
-        await recursiveSort(arrayToSort, start, pivotPosition - 1, comparisonFunction,speed);
-        await recursiveSort(arrayToSort, pivotPosition + 1, end, comparisonFunction,speed);
+        await partition(arrayToSort, start, end, comparisonFunction,level,speed);
+        await recursiveSort(arrayToSort, start, pivotPosition - 1, comparisonFunction,level+1,speed);
+        await recursiveSort(arrayToSort, pivotPosition + 1, end, comparisonFunction,level+1,speed);
     }
 }
 
