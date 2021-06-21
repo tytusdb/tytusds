@@ -1,3 +1,4 @@
+
 class AnimationPila{
   constructor(id, x, y,disBtn,heightBtn){
     this.id = id
