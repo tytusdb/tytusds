@@ -53,6 +53,38 @@ export class listaSimple {
         return temp.getId();
     }
 
+    async InsertarInicio(dato: number|string, svg, dibujo, duracion) {
+        let temp: nodo = new nodo(dato, this.id)
+        if (this.primero == null) {
+            this.primero = temp
+            this.ultimo = temp
+
+            let div: any = this.draw.crearNodo(dato, this.id)
+            dibujo.appendChild(div)
+            this.id++
+            await this.draw.animateNode("nodo" + temp.getId(), "zoomIn", duracion)
+            return temp.getId();
+        }
+        temp.setId(this.id)
+        this.id++
+
+        if (this.primero.getSiguiente() !== this.ultimo && this.primero.getSiguiente() !== null) {
+            this.draw.removerElemento("arrowultimo-primero")
+        }
+
+        let div: any = this.draw.crearNodo(dato, temp.getId())
+        dibujo.insertBefore(div, dibujo.firstChild);
+        await this.draw.animateNode("nodo" + temp.getId(), "zoomIn", duracion)
+
+        let aux = this.primero
+        temp.setSiguiente(aux)
+        this.ultimo.setSiguiente(temp)
+        this.primero = temp
+        this.corregirPaths(svg, this.primero)
+
+        return temp.getId();
+    }
+
     search(dato) {
         let temp = this.primero
         if (temp === null) return null
