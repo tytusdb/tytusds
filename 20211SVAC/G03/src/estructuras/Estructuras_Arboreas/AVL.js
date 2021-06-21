@@ -173,6 +173,35 @@ class ArbolAVL {
     }
 
 
+    _encontrarReemplazo(tempEliminar, temporal, anteriorValor) {
+
+        let aux = temporal;
+        let anteriorAux = null;
+        let encicla = false;
+
+        while (aux.derecha != null) {
+            encicla = true;
+            anteriorAux = aux;
+            aux = aux.derecha;
+        }
+        if (aux.izquierda != null) {
+            anteriorAux.derecha = aux.izquierda;
+        } else if (encicla == true) {
+            anteriorAux.derecha = null;
+        } else if (encicla == false) {
+            if (tempEliminar.izquierda == temporal) {
+                tempEliminar.izquierda = temporal.izquierda;
+            }
+        }
+
+        if (anteriorValor.derecha == tempEliminar) {
+            anteriorValor.derecha.valor = aux.valor;
+        } else if (anteriorValor.izquierda == tempEliminar) {
+            anteriorValor.izquierda.valor = aux.valor;
+        }
+        aux = null;
+    }
+
 
 
 
