@@ -215,7 +215,12 @@ function getValueBuscar(data){
   console.log("se ejecuto buscar:" + stack.buscar(data))
     
 }
+function getActualizar(dat1,dat2){
+  stack.ActualizarPila(dat1,dat2);
+  console.log("-------------Nueva Pila----------------");
+  console.log(stack.print());
 
+}
 //console.log("Ingresando valores");
 //stack.push(1);
 //stack.push(2);

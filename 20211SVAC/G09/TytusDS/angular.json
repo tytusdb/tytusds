@@ -42,9 +42,8 @@
               "src/app/Structures/pila.js",
               "src/app/Structures/cola.js",
               "src/app/Structures/colaPrioridad.js",
-              "src/app/Ordenamientos/Ordenamientos.js",
-              "src/app/Structures/Animation.js"
-              ]
+              "src/app/Ordenamientos/Ordenamientos.js"
+                         ]
           },
           "configurations": {
             "production": {
@@ -116,8 +115,7 @@
               "src/app/Structures/pila.js",
               "src/app/Structures/cola.js",
               "src/app/Structures/colaPrioridad.js",
-              "src/app/Ordenamientos/Ordenamientos.js",
-              "src/app/Structures/Animation.js"
+              "src/app/Ordenamientos/Ordenamientos.js"
             ]
           }
         },
