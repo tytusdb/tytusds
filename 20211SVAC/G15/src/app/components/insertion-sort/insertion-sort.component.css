@@ -1,0 +1,16 @@
+body {
+  min-height: 100vh;
+}
+.opciones {
+  background-color: #b43e60;
+}
+
+.file-input {
+  display: none;
+}
+
+.ordenamiento {
+  background-color: #82b1ff;
+  overflow: auto auto;
+  height: 80vh;
+}

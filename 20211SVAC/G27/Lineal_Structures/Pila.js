@@ -11,7 +11,6 @@ class Nodo {
 
 class Stack{
     constructor(){
-        //this.items = {};
         this.top = null;
         this.tamano = 0;
     };
@@ -42,7 +41,7 @@ class Stack{
         var aux = this.top;
         this.top = this.top.siguiente;
         aux.siguiente = null;
-        this.tamano--;
+        this.tamano --;
         return aux;
     };
 
@@ -66,9 +65,24 @@ class Stack{
         return this.top;
     };
 
+    /*print(){
+        let result = '';
+        for(let i = this.top; i > 0; i--){
+            result += this.items[i] + '\n';
+        };
+        return result;
+    };*/
 };
 
 const stack = new Stack();
+
+//stack.push('Alv1');
+//stack.push('Alv2');
+//stack.push('Alv3');
+//stack.pop();
+//console.log(stack.print());
+
+
 
 function agregarValor(){
     var x = document.getElementById("newValue").value;

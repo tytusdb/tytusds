@@ -1,7 +1,7 @@
 //Forma de insercion: Desordenada
 //Eliminacion Unica de primer dato encontrado
 //Busqueda de primer metodo encontrado
-export default ListaCS;
+var fs = require('fs')
 class Nodo{ //Clase Nodo
     //Constructor
     constructor(dato){
@@ -9,14 +9,6 @@ class Nodo{ //Clase Nodo
         this.dato = dato;
     }
 
-    //Setters & Getters
-    getDato(){
-        return dato;
-    }
-
-    setDato(dato){
-        this.dato = dato;
-    }
 }
 
 class ListaCS{ //Clase Lista Circular Simple
@@ -102,13 +94,29 @@ class ListaCS{ //Clase Lista Circular Simple
 
     //Metodo Actualizar
     actualizar(datoelim, datoinse){
-        this.eliminar(datoelim)
-        this.insert(datoinse)
+        let aux = this.cabeza;
+        let contador = 1;
+        let tmp = aux.siguiente
+        while(tmp.dato != datoelim && contador != this.size){
+            aux= aux.siguiente;
+            tmp= tmp.siguiente;
+            contador++;
+        }
+        if(tmp.dato == datoelim){
+            //Dato encontrado
+            console.log(tmp.dato + " fue hayado con exito");
+            tmp.dato = datoinse
+            console.log(datoelim + " fue editado con exito a " + tmp.dato);
+        }
+        if (contador == this.size){
+            //Dato no encontrado
+            console.log("No se encontro el dato buscado");
+        }
     }
 
     //Metodo Cargar
     cargar(arreglo) {
-        arreglo.array.forEach(elemento => {
+        arreglo.map(elemento => {
             this.insert(elemento)
         })
     }
@@ -127,5 +135,34 @@ class ListaCS{ //Clase Lista Circular Simple
         let nombre = "ListaCircularSimple"
         fs.writeFile(nombre, json)  
     }
+
+    Recorrido(datoBuscar){
+        let aux = this.cabeza;
+        let contador = 0;
+
+        let arreglo = []
+        let contadoraux = 0;
+
+        while(contador != this.size){
+
+            let dato = {id: contadoraux, label: aux.dato.toString(),}
+            arreglo[contadoraux] = dato
+            
+            if(aux.dato == datoBuscar){
+                let dato = {id: contadoraux, label: aux.dato.toString(),  color: "lime"}
+                arreglo[contadoraux] = dato
+            }
+
+
+            aux= aux.siguiente;
+            contador++;
+            contadoraux++;
+        }
+
+        return arreglo
+    }
 }
 
+
+
+export default ListaCS;

@@ -108,10 +108,22 @@ class ListaCD{  //Clase Lista Circular doble
 
     //Metodo Actualizar
     actualizar(datoelim, datoins){
-        //Eliminacion de Dato 
-        this.eliminar(datoelim)
-        //Insercion de nuevo dato
-        this.insert(datoins)
+        let aux = this.cabeza;
+        let contador = 1;
+        while(aux.dato != datoelim && contador != this.size){
+            aux= aux.siguiente;
+            contador++;
+        }
+        if(aux.dato == datoelim){
+            //Dato encontrado
+            console.log(aux.dato + " fue encontrado exitosamente");
+            aux.dato = datoins
+            console.log(datoelim + " fue cambiado exitosamente a "+aux.dato);
+        }
+        if (contador == this.size){
+            //Dato no encontrado
+            console.log("No se encontro el dato buscado");
+        }
     }
 
     //Metodo Carga

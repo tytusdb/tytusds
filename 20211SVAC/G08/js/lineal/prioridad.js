@@ -7,12 +7,36 @@ class Cola{
         this.back = null;
         this.longitud = 0;
     }
-    agregar(elemento){
-        const nodo = new Nodo(elemento);
+
+    agregar(elemento, prioridad){
+        const nodo = new Nodo(elemento, prioridad);
+
         if(this.front){ // primer nodo
             this.back.siguiente = nodo;
             this.back = nodo;
         } else { // si todavia no hay nodos en la cola
+            nodo.siguiente = this.front;
+            this.front = nodo;
+
+            let actual = this.front;
+            let next = nodo.siguiente;
+            while(actual.siguiente != null){
+                if(nodo.prioridad > next.prioridad){
+                    let auxe = actual.value;
+                    let auxp = actual.prioridad;
+                    actual.value = siguiente.value;
+                    actual.prioridad = siguiente.prioridad;
+                    siguiente.value = auxe;
+                    siguiente.prioridad = auxp;
+                    actual = actual.siguiente;
+                    siguiente = siguiente.siguiente;
+
+                } else {
+                    actual = actual.siguiente;
+                    siguiente = siguiente.siguiente;
+                }
+            } 
+
             this.front = nodo;
             this.back = nodo;
         }
@@ -74,8 +98,9 @@ class Cola{
 }
 
 class Nodo{
-    constructor(elemento){
+    constructor(elemento, prioridad){
         this.value = elemento;
+        this.prioridad = prioridad;
         this.siguiente = null;
 
     }

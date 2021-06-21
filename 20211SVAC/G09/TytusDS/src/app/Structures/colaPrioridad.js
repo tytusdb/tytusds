@@ -85,16 +85,83 @@ class PriorityQueue {
 
 
 var priorityQueue = new PriorityQueue();
+var categoriaPrio = "Estructura Lineal";
+var nombrePrio = 'Cola Prioridad';
+var repeticionPrio = "True";
+var animacionPrio = "0";
 
-priorityQueue.enqueue("5", 1);
-priorityQueue.enqueue("2", 5);
-priorityQueue.enqueue("3", 1);
-priorityQueue.enqueue("6", 2);
-priorityQueue.enqueue("4", 6);
-priorityQueue.enqueue("1", 2);
+function insertarPrioridad(var1,var2){
+    priorityQueue.enqueue(var1,var2)
+    console.log(priorityQueue.printPQueue());
+}
 
-console.log(priorityQueue.printPQueue());
+//priorityQueue.enqueue("5", 1);
+//priorityQueue.enqueue("2", 5);
+//priorityQueue.enqueue("3", 1);
+//priorityQueue.enqueue("6", 2);
+//priorityQueue.enqueue("4", 6);
+//priorityQueue.enqueue("1", 2);
 
-console.log("Eliminar elemento con mayor prioridad");
-priorityQueue.dequeue();
-console.log(priorityQueue.printPQueue());
+//console.log(priorityQueue.printPQueue());
+
+//console.log("Eliminar elemento con mayor prioridad");
+//priorityQueue.dequeue();
+//console.log(priorityQueue.printPQueue());
+function AbrirPrioridad(event) {
+    var file = event.target.files[0];
+    var reader = new FileReader();
+    reader.onload = function(event) {
+      // El texto del archivo se mostrará por consola aquí
+     // console.log(event.target.result)
+      let doc = JSON.parse(event.target.result);
+      //console.log(doc)
+
+      for (var key in doc) {
+        //console.log('name=' + key + ' value=' + doc[key]);
+        if(key=='categoria'){
+            categoriaPrio = doc[key]
+            console.log(categoria)
+        }
+        if(key=='nombre'){
+            nombrePrio = doc[key]
+            console.log(nombre)
+        }
+        if(key=='repeticion'){
+            repeticionPrio = doc[key]
+            console.log(repeticion)
+        }
+        if(key=='animacion'){
+            animacionPrio = doc[key]
+            console.log(animacion)
+        }
+        if(key=='valores'){
+            //console.log(doc[key].length)
+            for (var k in doc[key]){
+                priorityQueue.enqueue(doc[key][k]['valor'],doc[key][k]['prioridad'])
+            }
+        }
+     }console.log(priorityQueue.printPQueue())
+     
+
+    };
+
+    reader.readAsText(file);
+}//guardar archivo
+function downloadPrioridad(filename, text) {
+    
+    lista = listSimple.print()
+  
+    var element = document.createElement('a');
+    let doc = JSON.stringify({ "categoria": categoriaPrio, 'nombre': nombrePrio, 'repeticion':repeticionPrio, 'animacion':animacionPrio, 'valores': lista });
+    
+    //console.log(listSimple.print())
+    element.setAttribute('href', 'data:json,' + doc);
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+}

@@ -112,53 +112,43 @@ function graficar(){
     var x_pos = -150;
     var y_pos = 0;
     var nodes = [];
-    var contador = 0;       
+    var contador = 0;
+    var edges = [];       
     // creating an array with nodes
     var aux = lista.primero;
 
     nodes.push({id: "Cabeza", label: "Cabeza", x: -150, y: -100});
     nodes.push({id: "Cola", label: "Cola", x: -150, y: 100});
     while(aux != null){
-      nodes.push({id: aux.valor, label: "Valor: " + aux.valor, x: x_pos, y: y_pos});
+      nodes.push({id: contador, label: "Valor: " + aux.valor, x: x_pos, y: y_pos});
+      
+      edges.push({
+        from: contador,
+        to: contador+1,
+        arrows: "to",
+        physics: false,
+        smooth: {type: "cubicBezier"},
+      });
+
+      edges.push({
+        from: contador+1,
+        to: contador,
+        arrows: "to",
+        physics: false,
+        smooth: {type: "cubicBezier"},
+      });
+
       aux = aux.siguiente;
-      x_pos = x_pos + 100;  
+      x_pos = x_pos + 100;
+      contador++;  
     }
     // create an array with edges
 
-    
-    var edges = [];
 
-    var p = lista.primero;
-    while(p != null){
-      if(p.siguiente != null){
-        edges.push({
-          from: p.valor,
-          to: p.siguiente.valor,
-          arrows: "to",
-          physics: false,
-          smooth: {type: "cubicBezier"},
-        });
-      }
-      p = p.siguiente;
-    }
-
-    p = lista.ultimo;
-    while(p != null){
-      if(p.anterior != null){
-        edges.push({
-          from: p.valor,
-          to: p.anterior.valor,
-          arrows: "to",
-          physics: false,
-          smooth: {type: "cubicBezier"},
-        });
-      }
-      p = p.anterior;
-    }
     
     edges.push({
       from: "Cabeza",
-      to: lista.primero.valor,
+      to: 0,
       arrows: "to",
       physics: false,
       smooth: {type: "cubicBezier"},
@@ -166,7 +156,7 @@ function graficar(){
     
     edges.push({
       from: "Cola",
-      to: lista.ultimo.valor,
+      to: contador-1,
       arrows: "to",
       physics: false,
       smooth: {type: "cubicBezier"},

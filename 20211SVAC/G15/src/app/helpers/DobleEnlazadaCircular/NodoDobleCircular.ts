@@ -1,17 +1,17 @@
 export class NodoDobleCircular{
-    private numero: number
+    private numero: number|string
     private id:number;
     private siguiente: NodoDobleCircular
     private anterior: NodoDobleCircular
 
-    constructor(numero:number,id:number){
+    constructor(numero:number|string,id:number){
         this.numero = numero;
         this.id = id;
         this.siguiente = null
         this.anterior = null
     }
 
-    setNumero(numero:number){
+    setNumero(numero:number|string){
         this.numero = numero
     }
     

@@ -66,7 +66,6 @@ class Queue{
     /*print(){
         if(this.getSize() === 0){
             return null;
-
         };
         let result = '';
         for (let i = this.front; i < this.end; i++){

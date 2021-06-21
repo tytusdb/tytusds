@@ -95,16 +95,17 @@ class avl{
 
 	}
 
-	
-	search(elem,node=this.root){
+	search(elem,node=this.root,rec='0'){
 		if (node==null){
 			return null;
-		}else if(data < node.data){
-			return this.search(elem,node.left);
-		}else if(data > node.data){
-			return this.search(elem,node.right);
+		}else if(elem < node.data){
+			rec=rec+'l'
+			return this.search(elem,node.left,rec);
+		}else if(elem > node.data){
+			rec=rec+'r'
+			return this.search(elem,node.right,rec);
 		}else{
-			return node;
+			return rec;
 		}
 	}
 

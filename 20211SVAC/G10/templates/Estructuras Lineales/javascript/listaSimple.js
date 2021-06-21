@@ -326,12 +326,13 @@ function crear_cuadrado() {
 }
 
 function animar() {
-    
+
+    let time = 5
     window.requestAnimationFrame(function loop() {
 
         if (x_start != x_figura) {
-            x_start += 5 
-            x_start_text += 5
+            x_start += time 
+            x_start_text += time
 
             context.clearRect(0, 0, canvas.width, 220)
             context.beginPath()
@@ -344,8 +345,8 @@ function animar() {
             context.fillText(dato.value, x_start_text, 60, 60)
 
             if (x_start == x_figura) {
-                y_start += 5
-                y_start_text += 5
+                y_start += time
+                y_start_text += time
 
                 context.clearRect(0, 0, canvas.width, 220)
                 context.beginPath()
@@ -364,8 +365,8 @@ function animar() {
             }
             window.requestAnimationFrame(loop)
         } else {
-            y_start += 5
-            y_start_text += 5
+            y_start += time
+            y_start_text += time
 
             context.clearRect(0, 0, canvas.width, 220)
             context.beginPath()

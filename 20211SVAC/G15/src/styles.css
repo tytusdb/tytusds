@@ -10,7 +10,8 @@
   color: #ffff;
   padding: 10px;
   text-align: center;
-  font: 20px Arial, sans-serif;
+  font: 10px Arial, sans-serif;
+  overflow-wrap: break-word;
 }
 
 #tree .node-container .nodo {
@@ -23,6 +24,7 @@
   margin: auto;
   position: absolute;
   background-color: #d1c4e9;
+  overflow-wrap: break-word;
 }
 
 #tree .node-container .nodo:hover {
@@ -30,7 +32,7 @@
 }
 
 #tree .node-container .nodo p {
-  font-size: larger;
+  font-size: 15px;
   margin: auto;
 }
 
