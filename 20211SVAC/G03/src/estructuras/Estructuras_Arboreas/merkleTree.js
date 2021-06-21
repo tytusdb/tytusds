@@ -245,5 +245,38 @@ class MerkleTree{
         }
     }
 
+    //Metodo Eliminar
+    Eliminar(dato){
+        if(this.raiz ==null){
+            console.log("No existe arbol")
+            return
+        }
+        let hasheo = sha256.create()
+        hasheo.update(String(dato))
+        hasheo.hex()
+        let nodo = this.raiz
+        this.eliminando(hasheo, nodo)
+    }
 
+    //SubMetodo Eliminar
+    eliminando(hasheo, nodo){
+        if(nodo!= null){
+            let noha = nodo.hash.hex()
+            let has = hasheo.hex()
+            if(has == noha && nodo.nodohijo == true){
+                nodo.nodohijo = false
+                this.cargaArbolLista()
+                this.raiz = null
+                for(let i = 0;i<recarga.length;i++){
+                    this.insertar(recarga[i])
+                }
+                recarga = []
+                this.hashing()
+                console.log("Dato Eliminado")
+                return
+            }
+            this.eliminando(hasheo, nodo.izquierda)
+            this.eliminando(hasheo, nodo.derecha)
+        }
+    }
 }
