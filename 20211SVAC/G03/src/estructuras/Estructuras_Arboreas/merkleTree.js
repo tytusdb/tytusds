@@ -178,7 +178,26 @@ class MerkleTree{
         this.raiz = lista.cabeza.datTemporal
     }
 
-   
+    //Metodo Asignacion de Hash
+    hashing(){
+        if(this.raiz ==null){
+            console.log("No existe arbol")
+            return
+        }
+        this.subHashing(this.raiz)
+    }
+
+    //SubMetodo Asignacion de Hash
+    subHashing(nodo){
+        if(nodo != null){
+            let hasheo = sha256.create()
+            hasheo.update(String(nodo.dato))
+            hasheo.hex()
+            nodo.hash = hasheo
+            this.subHashing(nodo.izquierda)
+            this.subHashing(nodo.derecha)
+        }
+    }
 
 
 }
