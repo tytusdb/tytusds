@@ -131,10 +131,10 @@ class ArbolDeMerkle{
             this.recorrerGraficar(temp.izq)
             arrayNodes.push({id: temp.id, label: temp.valor.toString(), shape: "box"})
             if(temp.izq != null){
-                edges.push({from: temp.id, to: temp.izq.id})
+                edges.push({from: temp.id, to: temp.izq.id, arrows: "from"})
             }
             if(temp.der != null){
-                edges.push({from: temp.id, to: temp.der.id})
+                edges.push({from: temp.id, to: temp.der.id, arrows: "from"})
             }
             this.recorrerGraficar(temp.der)
         }
