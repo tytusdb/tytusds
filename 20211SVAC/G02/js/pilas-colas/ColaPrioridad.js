@@ -5,7 +5,10 @@ var cargaPriori = [];
 var network = null;
 var clickedNode;
 var clickedNodoValue;
+var slidervar = '';
 var fileInput = document.querySelector('input[type="file"]');
+var switchToggle = document.getElementById("flexSwitchCheckDefault");
+var slider = document.getElementById("customRange2");
 
 class Nodo {
     constructor(dato, prioridad) {
@@ -52,6 +55,60 @@ class ColaPrioridad {
         }
 
 
+    }
+
+    encolarCondicion(dato, prioridad){
+        let nodo = new Nodo(dato, prioridad);
+        let actual = this.primero;
+
+        nodo.anterior = nodo.siguiente = null;
+
+        if (switchToggle.checked === false) {
+            if (!this.isVacia()) {
+                if (!this.buscar(dato)) {
+                    if (actual.priori > prioridad) {
+                        this.primero.anterior = nodo;
+                        nodo.siguiente = this.primero;
+                        this.primero = nodo;
+                    } else {
+                        while (actual.siguiente != null && actual.siguiente.priori <= prioridad) {
+                            actual = actual.siguiente;
+                        }
+                        this.primero.anterior = actual;
+                        nodo.siguiente = actual.siguiente;
+                        actual.siguiente = nodo;
+
+                        this.size++;
+                    }
+                }
+            } else {
+                this.primero = nodo;
+                this.ultimo = this.primero;
+                this.size++;
+            }
+        }else
+        {
+            if (!this.isVacia()) {
+                if (actual.priori > prioridad) {
+                    this.primero.anterior = nodo;
+                    nodo.siguiente = this.primero;
+                    this.primero = nodo;
+                } else {
+                    while (actual.siguiente != null && actual.siguiente.priori <= prioridad) {
+                        actual = actual.siguiente;
+                    }
+                    this.primero.anterior = actual;
+                    nodo.siguiente = actual.siguiente;
+                    actual.siguiente = nodo;
+
+                    this.size++;
+                }
+            } else {
+                this.primero = nodo;
+                this.ultimo = this.primero;
+                this.size++;
+            }
+        }
     }
 
     desencolar(){
@@ -116,11 +173,11 @@ class ColaPrioridad {
             }
             if (encontrado === false)
             {
-                alert("El dato ingreso no se encuentra en la Cola de prioridad");
                 return false;
             }
         }else{
             alert('Ingrese datos a la Cola de prioridad para buscarlos');
+            return false;
         }
     }
 
@@ -220,7 +277,7 @@ function insertarNodo() {
     let valueNodo = document.getElementById('valueNodo').value;
     let valuePrioridad = document.getElementById("valuePrioridad").value;
     if (valuePrioridad === "") valuePrioridad = 5;
-    colaPrioridad.encolar(valueNodo, valuePrioridad);
+    colaPrioridad.encolarCondicion(valueNodo, valuePrioridad);
     actualizarT();
     document.getElementById("valueNodo").value="";
     document.getElementById("valuePrioridad").value="";
@@ -229,12 +286,16 @@ function insertarNodo() {
 function insertarNodos(arrayVal, arrayP) {
     let temp = arrayVal;
     let temp1 = arrayP;
-    console.log(temp, 'temp')
-    console.log(temp1, 'temp1')
+    let contador = 0;
+    slider.value = slidervar;
+
     for (let i = 0; i < temp.length; i++) {
-        colaPrioridad.encolar(temp[i], temp1[i]);
+        contador = contador + 0.5;
+        setTimeout(function (params) {
+            colaPrioridad.encolar(temp[i], temp1[i]);
+            actualizarT();
+        },(1000)*Math.round(parseInt(slider.value)/2)*contador)
     }
-    actualizarT();
     document.getElementById("valueNodo").value="";
 }
 
@@ -254,6 +315,7 @@ function readFile(callback) {
         var obj = JSON.parse(reader.result);
         let val = obj.valores;
         repetidos = obj.repeticion;
+        slidervar = obj.animacion;
 
 
         switch (repetidos) {
@@ -291,7 +353,7 @@ function focus() {
         scale: 5.0,
         offset: {x:0,y:0},
         animation: {
-            duration: 2500,
+            duration: (1000)*(slider.value),
             easingFunction: "easeOutQuint"
         }
     }
@@ -314,5 +376,18 @@ function desencolarNodo(){
 
 function buscarNodo(){
     focus()
+    setTimeout(zoomExtended, (1000)*(slider.value))
     document.getElementById("valueNodo").value="";
+}
+
+function zoomExtended(){
+    // var duration = parseInt(document.getElementById("duration").value);
+    var options = {
+        scale: 1.0,
+        duration: 4500,
+        offset: {x:0,y:0},
+        easingFunction: "easeOutCubic"
+    }
+
+    network.moveTo(options);
 }
