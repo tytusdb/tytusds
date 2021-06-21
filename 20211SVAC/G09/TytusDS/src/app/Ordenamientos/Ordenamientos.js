@@ -24,7 +24,6 @@ function ordBurburjaString(arreglo) {
     return arreglo;
 }
 
-
 function seleccion(array){
     let pMax,aux
     for (let i = 0; i < array.length; i++) {
@@ -133,7 +132,7 @@ function compararString(var1, var2){
 //accion = compararString(NombresAscciOrdenados,lista);
 //console.log(accion)
 /////////////////////ordenamiento burbuja
-var categoriaBurbuja = "Estructura Lineal";
+var categoriaBurbuja = "Ordenamientos";
 var nombreBurbuja = 'Ordenamiento Burbuja';
 var repeticionBurbuja = "True";
 var animacionBurbuja = "0";
@@ -142,7 +141,18 @@ var ListaSinOrdenar = []
 var chekString = false;
 var NombresAscci;
 var NombresAscciOrdenados;
-var accion
+var accion;
+//variables seleccion
+var categoriaSeleccion = "Ordenamientos";
+var nombreBurbujaSeleccion = 'Ordenamiento por seleccion';
+var repeticionBurbujaSeleccion = "True";
+var animacionBurbujaSeleccion = "0";
+var chekStringSeleccion = false;
+var NombresAscciSeleccion;
+var NombresAscciOrdenadosSeleccion;
+var accionSeleccion;
+var ListaSinOrdenarSeleccion= [];
+var ListaOrdenadaSeleccion= [];//termina var seleccion
 
 
 function AbrirOrdenamientoBurbuja(event) {
@@ -174,6 +184,8 @@ function AbrirOrdenamientoBurbuja(event) {
             console.log(animacion)
         }
         if(key=='valores'){
+            ListaSinOrdenar = [];
+            ListaOrdenada = [];
            if(chekString == false){
                 for (var k in doc[key]){
                     // console.log(doc[key][k])
@@ -233,3 +245,98 @@ function checkBox(){
     console.log("cambioando chek");
     chekString = true;
 }
+function checkBoxSeleccion(){
+    console.log("cambioando chekSeleccion");
+    chekStringSeleccion = true;
+}
+function AbrirSeleccion(event) {
+    var file = event.target.files[0];
+    var reader = new FileReader();
+    
+    reader.onload = function(event) {
+      // El texto del archivo se mostrará por consola aquí
+     // console.log(event.target.result)
+      let doc = JSON.parse(event.target.result);
+      //console.log(doc)
+
+      for (var key in doc) {
+        //console.log('name=' + key + ' value=' + doc[key]);
+        if(key=='categoria'){
+            categoria = doc[key]
+            console.log(categoria)
+        }
+        if(key=='nombre'){
+            nombre = doc[key]
+            console.log(nombre)
+        }
+        if(key=='repeticion'){
+            repeticion = doc[key]
+            console.log(repeticion)
+        }
+        if(key=='animacion'){
+            animacion = doc[key]
+            console.log(animacion)
+        }
+        if(key=='valores'){
+            ListaSinOrdenarSeleccion = [];
+            ListaOrdenadaSeleccion =[];
+           if(chekStringSeleccion == false){
+                for (var k in doc[key]){
+                    // console.log(doc[key][k])
+                    ListaSinOrdenarSeleccion.push(doc[key][k])
+                }
+                ListaOrdenadaSeleccion = seleccion(ListaSinOrdenarSeleccion);
+                console.log(ListaOrdenadaSeleccion);
+            }
+            if(chekStringSeleccion == true){
+                console.log("check es true")
+                for (var k in doc[key]){
+                        // console.log(doc[key][k])
+                        ListaSinOrdenarSeleccion.push(doc[key][k]);
+                        
+                    }
+                    //1ro  obtengo ascci desordenado 
+                    NombresAscciSeleccion = ObtenerString(ListaSinOrdenarSeleccion);
+                    //2do ordeno Ascci
+                    NombresAscciOrdenadosSeleccion = seleccion(NombresAscciSeleccion);
+                    //console.log(NombresAscciOrdenadosSeleccion)
+                    //3ro  ordeno las 2 listas
+                    accionSeleccion = compararString(NombresAscciOrdenadosSeleccion,ListaSinOrdenarSeleccion);
+                    console.log(accionSeleccion)
+                }
+            }  
+        }
+      
+     
+
+    };
+
+    reader.readAsText(file);
+}//guardar archivo
+function downloadSeleccion(filename, text) {
+    let ListaSeleccion;
+    if(chekString == true){
+        ListaSeleccion = accionSeleccion;
+    }
+    if(chekString == false){
+        ListaOrdenadaSeleccion = seleccion(ListaSinOrdenarSeleccion)
+        ListaSeleccion = ListaOrdenadaSeleccion;
+    }
+    
+    var element = document.createElement('a');
+    let doc = JSON.stringify({ "categoria": categoriaSeleccion, 'nombre': nombreBurbujaSeleccion, 'repeticion':repeticionBurbujaSeleccion, 'animacion':animacionBurbujaSeleccion, 'valores': ListaSeleccion });
+    
+    //console.log(listSimple.print())
+    element.setAttribute('href', 'data:json,' + doc);
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+}
+
+//lista = [10,9,8,7,6,5,4,3,2,11,12,1];
+//console.log(seleccion(lista))
