@@ -166,6 +166,18 @@ var accionInsercion;
 var ListaSinOrdenarInsercion= [];
 var ListaOrdenadaInsercion= []; //terminan insercion
 
+///variables rapido
+var categoriaRapido = "Ordenamientos";
+var nombreRapido = 'Ordenamiento Rapido';
+var repeticionRapido = "True";
+var animacionRapido = "0";
+var chekStringRapido = false;
+var NombresAscciRapido;
+var NombresAscciOrdenadosRapido;
+var accionRapido;
+var ListaSinOrdenarRapido= [];
+var ListaOrdenadaRapido= []; //terminan rapido
+
 
 function AbrirOrdenamientoBurbuja(event) {
     var file = event.target.files[0];
@@ -258,7 +270,7 @@ function checkBox(){
         chekString = false;
         console.log("cambiando chek "+ chekString);
     }else{
-        chekStringSeleccion = true;
+        chekString = true;
         console.log("cambioando chek "+ chekString);
     }  
 }
@@ -278,6 +290,15 @@ function checkBoxInsercion(){
     }else{
         chekStringInsercion = true;
         console.log("cambioando chek "+ chekStringInsercion);
+    }  
+}
+function checkBoxRapido(){
+    if(chekStringRapido == true){
+        chekStringRapido = false;
+        console.log("cambiando chek "+ chekStringRapido);
+    }else{
+        chekStringRapido = true;
+        console.log("cambioando chek "+ chekStringRapido);
     }  
 }
 function AbrirSeleccion(event) {
@@ -454,6 +475,92 @@ function downloadInsercion(filename, text) {
 
     document.body.removeChild(element);
 }
+function AbrirOrdenamientoRapido(event) {
+    var file = event.target.files[0];
+    var reader = new FileReader();
+    
+    reader.onload = function(event) {
+      // El texto del archivo se mostrará por consola aquí
+     // console.log(event.target.result)
+      let doc = JSON.parse(event.target.result);
+      //console.log(doc)
+
+      for (var key in doc) {
+        //console.log('name=' + key + ' value=' + doc[key]);
+        if(key=='categoria'){
+            categoria = doc[key]
+            console.log(categoria)
+        }
+        if(key=='nombre'){
+            nombre = doc[key]
+            console.log(nombre)
+        }
+        if(key=='repeticion'){
+            repeticion = doc[key]
+            console.log(repeticion)
+        }
+        if(key=='animacion'){
+            animacion = doc[key]
+            console.log(animacion)
+        }
+        if(key=='valores'){
+            ListaSinOrdenarRapido = [];
+            ListaOrdenadaRapido = [];
+            console.log("el chek es"+chekStringRapido)
+           if(chekStringRapido== false){
+                for (var k in doc[key]){
+                    // console.log(doc[key][k])
+                    ListaSinOrdenarRapido.push(doc[key][k])
+                }
+                ListaOrdenadaRapido = ordRapido(ListaSinOrdenarRapido);
+                console.log(ListaOrdenadaRapido);
+            }
+            if(chekStringRapido == true){
+                console.log("check es true")
+                for (var k in doc[key]){
+                    // console.log(doc[key][k])
+                    ListaSinOrdenarRapido.push(doc[key][k])
+                }
+                //1ro  obtengo ascci desordenado 
+                NombresAscciRapido = ObtenerString(ListaSinOrdenarRapido);
+                //console.log(NombresAscciRapido)
+                //2do ordeno Ascci
+                NombresAscciOrdenadosRapido = ordRapido(NombresAscciRapido);
+                //3ro  ordeno las 2 listas
+                accionRapido = compararString(NombresAscciOrdenadosRapido,ListaSinOrdenarRapido);
+                console.log(accionRapido)
+            }
+        }
+     } 
+
+    };
+
+    reader.readAsText(file);
+}//guardar archivo
+function downloadRapido(filename, text) {
+    let ListaBurbujarRapida;
+    if(chekStringRapido == true){
+        ListaBurbujarRapida = accionRapido;
+    }
+    if(chekStringRapido == false){
+        ListaOrdenadaRapido = insercion(ListaSinOrdenarRapido)
+        ListaBurbujarRapida = ListaOrdenadaRapido;
+    }
+    
+    var element = document.createElement('a');
+    let doc = JSON.stringify({ "categoria": categoriaRapido, 'nombre': nombreRapido,'repeticion':repeticionRapido, 'animacion':animacionRapido, 'valores': ListaBurbujarRapida });
+    
+    //console.log(listSimple.print())
+    element.setAttribute('href', 'data:json,' + doc);
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+}
 
 lista = [10,9,8,7,6,5,4,3,2,11,12,1];
-console.log(insercion(lista))
+console.log(ordRapido(lista))
