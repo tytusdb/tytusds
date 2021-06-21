@@ -88,6 +88,7 @@ function ordRapido(array){
 }
 function ObtenerString(array){
     let listaString = []
+    let listaSuma = []
     for (k in array){
         //console.log(array[k])
         let suma = 0;
@@ -100,13 +101,34 @@ function ObtenerString(array){
             
         } 
         //console.log(suma)
-        listaString.push({'string':array[k],'suma1':suma})
+        //listaString.push({'string':array[k],'suma1':suma})
+        listaString.push(suma)
+
     }
     return listaString
 }
-
-
-hola = ObtenerString(["che","juli","daniel","miguel"]);
-console.log(hola)
-//console.log(ordBurburjaString())
-//console.log(ordBurburja([8,7,9,5]));
+function compararString(var1, var2){
+    let contador = 1
+    let popo = []
+    for (k in var1){
+        //console.log(var1[k])
+        for (l in var2){
+            //console.log(var2[l])
+            let unicode = 0;
+            for(u in var2[l]){
+                unicode = unicode + var2[l][u].charCodeAt(0)
+            }
+            if(var1[k]==unicode){
+                popo.push(var2[l])
+                //console.log("el valor es: "+contador+" "+ unicode + " "+var2[l])
+                contador=contador+1
+            }
+        }
+    }
+    return popo
+}
+lista = ["juli","daniel","miguel","che",'la',"ferggie","o"];
+NombresAscci = ObtenerString(lista);
+NombresAscciOrdenados = ordBurburja(NombresAscci);
+accion = compararString(NombresAscciOrdenados,lista);
+console.log(accion)
