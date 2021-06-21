@@ -11,6 +11,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ListaCircularSimpleComponent } from './components/lista-circular-simple/lista-circular-simple.component';
 import { ColaComponent } from './components/cola/cola.component';
 import { ColaPrioridadComponent } from './components/cola-prioridad/cola-prioridad.component';
+import { ListaDobleComponent } from './components/lista-doble/lista-doble.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { ColaPrioridadComponent } from './components/cola-prioridad/cola-priorid
     ColaComponent,
     ColaprioridadComponent,
     ColaPrioridadComponent,
+    ListaDobleComponent,
   ],
   imports: [
     BrowserModule,
