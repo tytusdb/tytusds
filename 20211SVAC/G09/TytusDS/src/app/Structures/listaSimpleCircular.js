@@ -28,9 +28,21 @@ class NodoListaSimpleCirular{
   delete(data){
     let aux = this.head
     let aux2
-    if(data==aux.data){this.head=aux.sig
+    if(data==aux.data){
+      if(this.head.sig==this.head)
+      {this.head=null}
+      else{
+      this.head=aux.sig
+      aux=this.head //Reiniciando aux, para que recorra hasta el último valor y cambiarle su cabecera
+
+      while (aux.sig.sig!=this.head) { //Se recorre el siguiente del siguienta para que valide la nueva cabecera
+        aux=aux.sig
+      }
+      aux.sig=this.head}
+      this.size--
       return}
-    while(aux.sig != this.head){
+
+    do{
       aux2=aux.sig;
       //console.log(aux.data+"  "+aux2.data)
       if(aux2.data==data){  
@@ -41,28 +53,33 @@ class NodoListaSimpleCirular{
       }
     else{
       aux=aux.sig}
-    }
+    }while(aux != this.head)
   }
   refresh(dataActual,dataFinal){
+    if(this.head!=null){
     let aux = this.head
-    while (aux.sig != this.head) {
+    do {
       if (aux.data==dataActual) {
         aux.data=dataFinal
         return
       }
       aux=aux.sig
+    }while (aux != this.head)
     }
-    }
+  }
 
   search(data){
     let aux = this.head
-    while (aux.sig != this.head) {
+    if(this.head!=null){
+    do {
       if (aux.data==data) {
         return true
       }
       aux=aux.sig
-    }return false
+    }while (aux != this.head)
     }
+    return false
+  }
 
   cargar(){}
 
@@ -70,16 +87,15 @@ class NodoListaSimpleCirular{
 
   print(){
     var valores = []
+    if(this.head!=null){
       let aux = this.head;
-
-      do {
+      do{
           valores.push(aux.data);
           aux = aux.sig;
-      }while (aux.sig != this.head);
-      if(this.size!=1){
-      valores.push(aux.data);}
+      }while (aux != this.head);
       return valores;
-    }
+  }
+}
 }
   
 const lSCircular = new ListaSimpleCirular();

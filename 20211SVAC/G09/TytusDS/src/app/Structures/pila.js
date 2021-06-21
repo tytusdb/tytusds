@@ -127,16 +127,42 @@ class Pila{
 
     //Buscar Pila
     buscar(dato) {
-      let mostrarNodo = this.primero;
-      var encontrar = false;
-      while (mostrarNodo) {
+      //let mostrarNodo = this.primero;
+      //var encontrar = false;
+      /*while (mostrarNodo) {
         if(mostrarNodo.dato == dato){
           encontrar = true;
           return encontrar;
         }
         mostrarNodo = mostrarNodo.siguiente;
       }
-      return encontrar
+      return encontrar*/
+      let aux = this.primero
+      var g = setInterval(searchAnimation,500)
+      function searchAnimation(){
+          if (aux) {
+              const selecBtn = document.getElementById("btn"+aux.animate.id)
+              //selecBtn.innerText="Espere"
+              if (aux.dato == dato) {
+                  selecBtn.classList="animate__animated animate__wobble animate__repeat-3"
+                  const sClone = selecBtn.cloneNode(true)
+                  selecBtn.parentNode.replaceChild(sClone, selecBtn)
+                  clearInterval(g)
+                  //encontrar = true;
+                  //return encontrar;
+                  }
+              else{
+              selecBtn.classList="animate__animated animate__bounceIn"
+              const sClone = selecBtn.cloneNode(true)
+              selecBtn.parentNode.replaceChild(sClone, selecBtn)
+              aux=aux.siguiente
+              }
+          }
+          else{
+              clearInterval(g)
+              //return encontrar
+          }
+      }
     } 
     
 } 

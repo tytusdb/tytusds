@@ -7,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ColaComponent implements OnInit {
   displayVal='';
+
+  addCola(val:string){
+
+  }
   getValue1(val:string){
     console.warn(val)
     

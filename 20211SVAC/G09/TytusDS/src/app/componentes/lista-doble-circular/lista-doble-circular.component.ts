@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 declare var ldobleCircleAdd:any;
+declare var ldobleCircleDelete:any;
+declare var ldobleCircleSearch:any;
+declare var ldobleCircleRefresh:any;
 
 @Component({
   selector: 'app-lista-doble-circular',
@@ -15,6 +18,17 @@ export class ListaDobleCircularComponent implements OnInit {
   }
   getValorCircularDoble(val:string){
     ldobleCircleAdd(val)
+  }
+  CircularDobleEliminar(val:string){
+    ldobleCircleDelete(val)
+  }
+  BuscarDatoCirularDoble(val:string){
+    ldobleCircleSearch(val)
+
+  }
+  actualizarCircularDoble(val1:string,val2:string){
+    ldobleCircleRefresh(val1,val2)
+
   }
 
   getValor(val:string){
