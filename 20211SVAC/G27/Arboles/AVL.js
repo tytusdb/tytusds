@@ -8,7 +8,7 @@ class Node {
 }
   
 
-
+//clase arbol
 class ArbolAVL {
     constructor() {
         this.root = null
