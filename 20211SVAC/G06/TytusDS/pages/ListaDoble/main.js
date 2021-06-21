@@ -22,6 +22,7 @@ var options = {};
 var network = new vis.Network(container, data, options);
 
 var cont = 0
+var vista = 0
 
 let listita = new ListaDoble()
 let array = []
@@ -33,15 +34,26 @@ $('#search').on('click', () => search())
 $('#update').on('click', () => actualizar())
 $('#delete').on('click', () => deleteEdgeMode(document.getElementById("valor").value))
 $('#cargar').on('click', () => cargarJson())
+$('#guardar').on('click', () => guardarJson())
 
 function prueba() {
     console.log(listita.mostrar())
     console.log("jola")
 }
 
+let primero = 0
+
 function agregar() {
-    // create an array with nodes
+    var repetir = document.getElementById("flexSwitchCheckDefault").checked;
     let inputValue = document.getElementById("valor").value;
+    if (repetir == false) {
+        let encontrado = listita.buscar(inputValue)
+        if (encontrado) {
+            alert("¡¡ERROR!! Valor ya existente")
+            return
+        }
+    }
+    primero = listita.primero
     var valor = {
         id: cont,
         label: inputValue,
@@ -70,9 +82,13 @@ function agregar() {
 var cont2 = 1
 
 function search() {
-    cont2 = 0
+    var uno = array2.indexOf(primero.dato)
+    var dos = array[uno].id
+    cont2 = dos
     view()
 }
+
+let bandera = false
 
 function actualizar() {
     let inputValue = document.getElementById("valor").value;
@@ -80,58 +96,53 @@ function actualizar() {
     console.log(inputValue)
     var idVal = array2.indexOf(inputValue)
     console.log(idVal)
+    view2(array[idVal].id)
     array[idVal].label = inputValue2
     array2[idVal] = inputValue2
-    view2(array[idVal].id)
-    listita.actualizar(inputValue, inputValue2)
+    bandera = listita.actualizar(inputValue, inputValue2)
     nodes.update({ id: array[idVal].id, label: inputValue2 })
-    console.log(array)
-    console.log(array2)
+    bandera = false
 }
 
 async function view() {
     let inputValue = document.getElementById("valor").value;
+    let animacion = document.getElementById("formControlRange").value;
     var idVal = array2.indexOf(inputValue)
     var animation = {
-        scale: 4,
-        animation: {
-            duration: 500,
-            easingFunction: "linear"
+            scale: 4,
+            animation: {
+                duration: convertir(animacion),
+                easingFunction: "linear"
+            }
         }
-    }
-    while (cont2 <= array[idVal].id) {
-        network.selectNodes([cont2])
-        network.focus(cont2, animation)
-        await new Promise(resolve => setTimeout(resolve, 1100)); // 3 sec
-        cont2++
-    }
+        //while (cont2 <= array[idVal].id) {
+    network.selectNodes([cont2])
+    network.focus(cont2, animation)
+    await new Promise(resolve => setTimeout(resolve, convertir(animacion) + 10)); // 3 sec
     cont2++
+    //}
 }
 
 async function view2(nodo) {
+    let animacion = document.getElementById("formControlRange").value;
     var animation = {
         scale: 4,
         animation: {
-            duration: 500,
+            duration: convertir(animacion),
             easingFunction: "linear"
         }
     }
     network.selectNodes([nodo])
     network.focus(nodo, animation)
-        //await new Promise(resolve => setTimeout(resolve, 1100)); // 3 sec
+    await new Promise(resolve => setTimeout(resolve, convertir(animacion) + 10)); // 3 sec
 
 }
 
 function deleteEdgeMode(nodeId) {
     var valor = array2.indexOf(nodeId)
-    console.log("pos a borrar " + valor)
     network.selectNodes([array[valor].id]);
     array.splice(valor, 1)
     array2.splice(valor, 1)
-    console.log("arreglo " + array2)
-    console.log("arreglo " + array)
-    console.log(array[valor - 1].id)
-    console.log(array[valor].id)
     var num = listita.eliminar(nodeId)
     if (num == "op4" || num == "op3") {
         edges.add([
@@ -145,6 +156,8 @@ function deleteEdgeMode(nodeId) {
         cont-- //por ser el ultimo dato 
     }
     network.deleteSelected();
+    network.selectNodes([updatedIds[0]]);
+    network.editNode();
 
 }
 
@@ -155,13 +168,24 @@ function cargarJson() {
     reader.onload = function() {
         const obj = JSON.parse(reader.result)
         var updatedIds
+        var repetir = obj.repeticion
+        if (repetir == true) {
+            document.getElementById("flexSwitchCheckDefault").checked = true;
+        } else {
+            document.getElementById("flexSwitchCheckDefault").checked = false;
+        }
         for (let i = 0; i < obj.valores.length; i++) {
+            if (repetir == false) {
+                let encontrado = listita.buscar(obj.valores[i].toString())
+                if (encontrado) {
+                    continue
+                }
+            }
             var valor = {
                 id: i,
                 label: obj.valores[i].toString(),
             }
             updatedIds = nodes.add([{
-                shape: 'box',
                 id: i,
                 label: listita.agregar(obj.valores[i].toString()),
             }]);
@@ -180,10 +204,59 @@ function cargarJson() {
     };
 }
 
+var archivo = 1
+
+function guardarJson() {
+    var animacion = document.getElementById("formControlRange").value
+    var obj = {
+        categoria: "Estructura Lineal",
+        nombre: "Lista Doble",
+        repeticion: document.getElementById("flexSwitchCheckDefault").checked,
+        animacion: animacion / 10,
+        valores: array2
+    }
+    var texto = JSON.stringify(obj);
+    console.log(obj)
+    download("Lista Doblemente Enlazada" + archivo + ".json", texto);
+    archivo++
+}
+
+function convertir(porcentaje) {
+    let result = (100 - porcentaje) * 10
+    if (result == 0) {
+        result = 50
+    }
+    return result
+}
+
+function download(filename, textInput) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8, ' + encodeURIComponent(textInput));
+    element.setAttribute('download', filename);
+    document.body.appendChild(element);
+    element.click();
+}
+
+if (vista == 0) {
+    network.on("animationFinished", function(ctx) {
+        let inputValue = document.getElementById("valor").value;
+        var idVal = array2.indexOf(inputValue)
+        try {
+            if (cont2 > array[idVal].id) {
+                network.fit()
+            } else {
+                view()
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    });
+
+}
 network.on("animationFinished", function(ctx) {
-    if (cont2 >= cont) {
+    if (!bandera) {
         network.fit()
     } else {
-        view()
+        view2(document.getElementById("valor").value, document.getElementById("cambio").value)
     }
 });

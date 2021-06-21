@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PilaComponent } from './pila.component';
+import { PilaComponent } from './Pila.component';
 
-describe('PilaComponent', () => {
+describe('ListasCircularesComponent', () => {
   let component: PilaComponent;
   let fixture: ComponentFixture<PilaComponent>;
 

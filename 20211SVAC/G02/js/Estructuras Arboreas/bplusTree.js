@@ -1,6 +1,11 @@
 var contador = 2
 var arrayNodes = []
 var edges = []
+var clickedNode
+var clickedNodoValue
+var network = null
+var switchToggle = document.getElementById("flexSwitchCheckDefault")
+var slider = document.getElementById("customRange2")
 class Nodo{
     constructor(padre, id){
         this.id = id
@@ -43,7 +48,7 @@ class ArbolBMas{
             temp.agregar(valor)
         }else{
             var encontrar = false
-            for(i = 0; i<temp.claves.length; i++){
+            for(var i = 0; i<temp.claves.length; i++){
                 if(valor < temp.claves[i]){
                     encontrar = true
                     temp.hijos[i] = this._agregar(valor, temp.hijos[i])
@@ -64,12 +69,12 @@ class ArbolBMas{
                 temp.hijos.push(new Nodo(temp, contador))
                 contador++
                 temp.hijos.push(new Nodo(temp, contador))
-                for(i = 0; i<this.enmedio; i++){
+                for(var i = 0; i<this.enmedio; i++){
                     temp.hijos[0].agregar(c.claves[i])
                     temp.hijos[1].agregar(c.claves[i+this.enmedio+1])
                 }
                 if(c.hijos.length > 0){
-                    for(i = 0; i<this.enmedio+1; i++){
+                    for(var i = 0; i<this.enmedio+1; i++){
                         temp.hijos[0].hijos[i] = c.hijos[i]
                         temp.hijos[0].hijos[i].padre = temp.hijos[0]
                         temp.hijos[1].hijos[i] = c.hijos[i+this.enmedio+1]
@@ -95,7 +100,7 @@ class ArbolBMas{
                         break
                     }
                 }
-                for(i = temp.padre.claves.length; i>index+1; i--){
+                for(var i = temp.padre.claves.length; i>index+1; i--){
                     temp.padre.hijos[i] = temp.padre.hijos[i-1]
                 }
                 var aux = temp
@@ -103,7 +108,7 @@ class ArbolBMas{
                 temp.padre.hijos[index] = new Nodo(temp.padre, contador)
                 contador ++
                 temp.padre.hijos[index+1] = new Nodo(temp.padre, contador)
-                for(i = 0; i<this.enmedio; i++){
+                for(var i = 0; i<this.enmedio; i++){
                     console.log(aux.claves[i])
                     temp.padre.hijos[index].agregar(aux.claves[i])
                     temp.padre.hijos[index+1].agregar(aux.claves[i+this.enmedio+1])
@@ -111,11 +116,11 @@ class ArbolBMas{
                 temp = temp.padre.hijos[index]
 
                 if(tieneHijos){
-                    for(i = 0; i<this.enmedio+1; i++){
+                    for(var i = 0; i<this.enmedio+1; i++){
                         temp.padre.hijos[index].hijos[i] = aux.hijos[i]
                         temp.padre.hijos[index].hijos[i].padre = temp.padre.hijos[index]
                     }
-                    for(i = this.enmedio+1; i<this.grado+1; i++){
+                    for(var i = this.enmedio+1; i<this.grado+1; i++){
                         temp.padre.hijos[index+1].hijos[i-this.enmedio-1] = aux.hijos[i]
                         temp.padre.hijos[index+1].hijos[i-this.enmedio-1].padre = temp.padre.hijos[index+1]
                     } 
@@ -145,7 +150,7 @@ class ArbolBMas{
     //Método de busqueda retorna un booleano
     buscar(valor, temp){
         if(temp != null){
-            for(i = 0; i< temp.claves.length; i++){
+            for(var i = 0; i< temp.claves.length; i++){
                 if(temp.claves[i] == valor){
                     return true
                 }
@@ -165,7 +170,7 @@ class ArbolBMas{
 
     buscarNodo(valor, temp){
         if(temp != null){
-            for(i = 0; i< temp.claves.length; i++){
+            for(var i = 0; i< temp.claves.length; i++){
                 if(temp.claves[i] == valor){
                     return temp.id
                 }
@@ -187,7 +192,7 @@ class ArbolBMas{
         if(temp != null){
             var texto = ""
             var i
-            for(i = 0; i<temp.claves.length; i++){
+            for(var i = 0; i<temp.claves.length; i++){
                 if(i == temp.claves.length-1){
                     texto = texto + temp.claves[i].toString();
                 }else{
@@ -196,7 +201,7 @@ class ArbolBMas{
             }
             arrayNodes.push({id: temp.id, label: texto, shape: "box"})
             texto = ""
-            for(i = 0; i<temp.hijos.length; i++){
+            for(var i = 0; i<temp.hijos.length; i++){
                 edges.push({from: temp.id, to: temp.hijos[i].id})
                 this.recorrerGraficar(temp.hijos[i])
             }
@@ -233,8 +238,8 @@ class ArbolBMas{
 //Metodo de ordenamiento burbuja
 function sort(arreglo){
     var aux = 0;
-    for(i=0; i< arreglo.length-1; i++){
-        for(j=i+1; j<arreglo.length; j++){
+    for(var i=0; i< arreglo.length-1; i++){
+        for(var j=i+1; j<arreglo.length; j++){
             if(arreglo[i] > arreglo[j]){
                 aux = arreglo[i];
                 arreglo[i] = arreglo[j];
@@ -257,6 +262,7 @@ let arbol = null
 
 function actualizarTablero(){
     arbol.recorrerGraficar(arbol.raiz);
+    arbol.recorrerListaGraficar(arbol.raiz)
     var nodes = new vis.DataSet(arrayNodes);
     var container = document.getElementById("mynetwork");
     var data = {
@@ -343,4 +349,50 @@ function zoomExtended(){
     }
 
     network.moveTo(options);
+}
+
+function read(){
+    var fileInput = document.querySelector('input[type="file"]');
+
+    var file = fileInput.files.item(0);
+    var reader = new FileReader();
+
+    reader.readAsText(file);
+    
+    reader.onload = function() {
+        var obj = JSON.parse(reader.result)
+        let val = obj.valores
+        arbol.repetidos = obj.repeticion
+        slider.value = obj.animacion
+        
+        let contador =0
+        switch(arbol.repetidos){
+            case true:
+                switchToggle.checked = true
+                for(let i=0; i<val.length; i++){
+                    contador = contador + 0.5
+                    setTimeout(function (params) {
+                        arbol.agregar(val[i])
+                        actualizarTablero()
+                    },(1000)*Math.round(parseInt(slider.value)/2)*contador) 
+                }
+                break;
+            case false:
+                switchToggle.checked = false
+                for(let i=0; i<val.length; i++){
+                    contador = contador + 0.5
+                    if (arbol.buscar(val[i], arbolbb.raiz)){
+                        console.log("no se aceptan valores repetidos")
+                    }else{                    
+                        contador = contador + 0.5
+                        setTimeout(function (params) {
+                            arbol.agregar(val[i])
+                            actualizarTablero()
+                        },(1000)*Math.round(parseInt(slider.value)/2)*contador)
+                    }
+                    
+                }
+                break;
+        }
+    }
 }
