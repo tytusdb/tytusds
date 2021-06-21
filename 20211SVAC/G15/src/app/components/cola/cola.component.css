@@ -31,6 +31,10 @@ body {
     height: "100vh";
     z-index: "0";
   }
+  
+  .file-input{
+    display: none;
+  }
 
   p {
     /*text-transform: uppercase;*/ /* para colocar todo el texto en mayuscula  */
