@@ -212,14 +212,28 @@ class Cola {
       
     }
     
-    ActualizarCola(datoActual, reemplazoDato){
-      let actualizar = this.primero;
-      if(this.buscar(datoActual)){
-        this.ReemplazarDato(datoActual, reemplazoDato);
+    ActualizarCola(datoAnterior, datoNuevo){
+      let actual = this.primero;
+      let encontrado = false;
+      if(this.primero != null){
+          while(actual != null && encontrado != true){
+              if(actual.dato == datoAnterior){
+                  actual.dato = datoNuevo;
+                  encontrado = true;
 
+              }
+              actual = actual.siguiente;
+          }
+          if(!encontrado){
+              console.log("Dato no encontrado")
+          }
+      }else{
+          console.log("La Cola se encuentra vacia");
       }
 
     }
+
+    
     
   }
 
