@@ -63,11 +63,15 @@ class Cola {
   }
 
 const cola = new Cola();
-console.log("Ingresando valores");
-cola.enqueue("1");
-cola.enqueue("2");
-cola.enqueue("3");
-cola.print();
-console.log("Sacamos primero de la cola: ");
-cola.dequeue() //Sacamos 1
-cola.print();
+function addCola(data){
+  cola.enqueue(data)
+  cola.print()
+}
+//console.log("Ingresando valores");
+//cola.enqueue("1");
+//cola.enqueue("2");
+//cola.enqueue("3");
+//cola.print();
+//console.log("Sacamos primero de la cola: ");
+//cola.dequeue() //Sacamos 1
+//cola.print();
