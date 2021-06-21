@@ -197,6 +197,15 @@ class Cola {
           }
       }
     }
+
+    //Metodo Actualizar
+    ActualizarCola(){
+
+    }
+
+    ReemplazarDato(){
+      
+    }
   }
 
 const cola = new Cola();
