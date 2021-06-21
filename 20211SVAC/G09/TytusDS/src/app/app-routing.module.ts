@@ -15,6 +15,7 @@ import { ListaDobleCircularComponent } from './componentes/lista-doble-circular/
 import { PilaComponent } from './componentes/pila/pila.component';
 import { ColaComponent } from './componentes/cola/cola.component';
 import { ColaPrioridadComponent } from './componentes/cola-prioridad/cola-prioridad.component';
+import { OrdenamientoBurbujaComponent } from './componentes/ordenamiento-burbuja/ordenamiento-burbuja.component';
 const routes: Routes = [
   {path: "EstructurasLineales",    component: EstructurasLinealesComponent},
   {path: "Inicio",    component: InicioComponent},
@@ -27,7 +28,8 @@ const routes: Routes = [
   {path:"ListaDobleCircular", component:ListaDobleCircularComponent},
   {path:"pila", component:PilaComponent},
   {path:"cola",component:ColaComponent},
-  {path:"colaPrioridad", component:ColaPrioridadComponent}
+  {path:"colaPrioridad", component:ColaPrioridadComponent},
+  {path:"burbuja", component:OrdenamientoBurbujaComponent}
 ];
 
 @NgModule({
