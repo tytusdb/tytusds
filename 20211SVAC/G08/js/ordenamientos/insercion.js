@@ -161,7 +161,7 @@ async function insercion(delay = 100){
     var bloques = document.querySelectorAll(".block");
     velocidad =10;
     console.log(listaValores);
-    var cont = false;
+
     for(let i = 1; i < listaValores.length; i++){
         const element = listaValores[i];
         const element2 = listaWords[i];
@@ -242,8 +242,6 @@ function lonWord(){
         sumaPalabra = 0;
     }
     return newLista;
-    
-    
 }
 
 // L E C T U R A - J S O N

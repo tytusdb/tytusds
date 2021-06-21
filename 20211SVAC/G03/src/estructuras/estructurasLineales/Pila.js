@@ -35,14 +35,14 @@ class Pila{
         return inicio;
     }
 
-    actualizar(id, valor){
+    actualizar(valoranterior, valor){
         let temporal = this.cabeza;
         if (this.cabeza == null){
             console.log("No hay nada en la lista")
             
         }else{
             while(temporal != null){
-                if (temporal.id == id){
+                if (temporal.valor == valoranterior){
                     temporal.valor = valor;
                 }
                 temporal = temporal.siguiente;                
@@ -104,7 +104,7 @@ class Pila{
                 arreglo[contador] = dato
 
                 if (temporal.valor == datoBuscar){
-                    let dato = {id: contador, label: temporal.dato.toString(),  color: "lime"}
+                    let dato = {id: contador, label: temporal.valor.toString(),  color: "lime"}
                     arreglo[contador] = dato
                 }
                 temporal = temporal.siguiente;   

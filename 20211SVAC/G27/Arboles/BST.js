@@ -213,7 +213,7 @@ class Node {
   
   
   const bst = new BST();
-  
+  /*
   bst.add(9);
   bst.add(4);
   bst.add(17);
@@ -236,3 +236,25 @@ class Node {
   console.log('postOrder: ' + bst.postOrder());
   
   console.log('levelOrder: ' + bst.levelOrder());
+*/
+  //here I load a JSON Files
+function AbrirArchivo(files){
+  var file = files[0];
+  var reader = new FileReader();
+  reader.onload = function(event){
+    var contents = event.target.result;
+    var json = JSON.parse(contents);
+    var count = Object.keys(json.valores).length;
+    for (let index = 0; index < count; index++) {
+      bst.add(json.valores[index]); 
+    }
+    console.log('inOrder: ' + bst.inOrder());
+    console.log('preOrder: ' + bst.preOrder());
+    console.log('postOrder: ' + bst.postOrder());
+  };
+  reader.onerror = function(event) {
+    console.error("File could not be read! Code " + event.target.error.code);
+};
+  reader.readAsText(file);
+}
+

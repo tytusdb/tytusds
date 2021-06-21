@@ -1,23 +1,47 @@
+<head>
+<style type="text/css">
+ .boton {
+  color: #318aac !important;
+  font-size: 15px;
+  font-weight: 500;
+  padding-top:6px;
+  padding-bottom:6px;
+  padding-left:20px;
+  padding-right:20px;
+  background: rgba(0,0,0,0);
+  border: 3px solid;
+  border-color: #318aac;
+  transition: all 1s ease;
+  position: relative;
+}
+.boton:hover {
+  background: #318aac;
+  color: #fff !important;
+}
+</style>
+</head>
+
+
 <header class="rounded shadow-lg o-hidden border-0 my-5 text-center text-white masthead" style="background:url('assets/Imagenes/Fondo2.jpg')no-repeat center center;background-size:cover;">
 <div class="container">
         <div class="row justify-content-center">
             <div class="col-sm-6">
-                <button class="btn btn-primary btn-block text-white" type="submit">
+                <button class="btn boton btn-block text-white" [routerLink]="['/burbuja']">
                 <em class="fas fa-bar-chart-o"></em>
                    Ordenamiento Burbuja
                     
                 </button>
-                <button  class="btn btn-primary btn-block text-white btn-user" type="submit">
+                <button  class="btn boton btn-block text-white btn-user" [routerLink]="['/seleccion']">
                 <em class="fas fa-bar-chart-o"></em>
                     Ordenamiento De Seleccion
                 </button>
 
-                   <button  class="btn btn-primary btn-block text-white btn-user" type="submit">
+                   <button  class="btn boton btn-block text-white btn-user" [routerLink]="['/insercion']">
                    <em class="fas fa-bar-chart-o"></em>
                     Ordenamiento De Insercion
                      
                    </button>
-                   <button  class="btn btn-primary btn-block text-white btn-user" type="submit">
+                   <button  class="btn boton btn-block text-white btn-user" [routerLink]="['/rapido']">
                    <em class="fas fa-bar-chart-o"></em>
                      Ordenamiento Rapido
                    </button>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test File</title>
+</head>
+<body>
+    <h1>Pagina</h1>
+
+    <script>
+        
+        function ordenar(array){
+            for(let i= 0; i< array.length;i++){
+                for(let j = i + 1;j<array.length;j++){
+                    if(array[j]<array[i]){
+                        aux = array[j];
+                        array[j]= array[i];
+                        array[i] = aux;
+                    }                        
+                }      
+             }
+            //console.log(array);
+        }
+
+        function validarExt(){
+            
+        var input = document.getElementById('file'),
+        code = document.getElementById('code');
+            var file = input.files[0];
+            
+            var reader = new FileReader();
+            reader.onload = function(e) {
+            var json;
+            // Aquí mostramos el texto que contiene el archivo
+            //code.value = e.target.result;
+
+            // Aquí guardamos en una variable el resultado de parsear el JSON
+            json = JSON.parse(e.target.result);
+            ordenar(json.valores);       
+            escritura(json,'ordenamiento');
+          };
+          reader.readAsText(file);
+        }
+
+        function escritura(data, filename){
+            let file = new Blob([JSON.stringify(data)],{type:'application/json'});
+            let a = document.createElement('a');
+            a.href = URL.createObjectURL(file);
+            a.download = `${filename}.json`;
+            a.click()
+            console.log(a)
+        }
+
+    </script>
+
+    <section class="text-center">
+        <!--<input type="file" id="archivoInput" onchange= "return validarExt()">
+        <div id ="visorArchivo">
+
+        </div>
+        <input id="file" type="file" accept="txt/json" onchange= "return escritura()"/><br/>-->
+
+        <input id="file" type="file" accept="txt/json" onchange= "return validarExt()"/><br/>
+        
+        <textarea id="code" name="code" rows="5" cols="50"></textarea>
+
+    </section>
+    
+
+</body>
+</html>

@@ -4,7 +4,9 @@ body {
     min-height: 100vh;
   /*background-color: #FAFAFA; */
     /* background: #030321;   */
-    background-color: #263238;
+    background: #090d00; 
+	color: rgba(255,255,255,.25); 
+   
     font-family: Arial; 
     text-align: center; 
   }
@@ -14,11 +16,7 @@ body {
     z-index: 9999;
     
   }
-  
-  .opciones{
-    /* background-color:#B43E60; */
-  }
-  
+
   .arrow {
     stroke: rgb(0, 0, 0);
     stroke-width: 2;
