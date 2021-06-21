@@ -12,24 +12,36 @@ class NodoListaCircularDoble{
     }
 
   add(data){
-    const newNodo = new NodoListaCircularDoble(data, null, this.head)
+    const newNodo = new NodoListaCircularDoble(data, this.head, null )
     if(this.head){        
       let aux = this.head
-      while(aux.sig){
+      while(aux.sig != this.head){
         aux = aux.sig
       }
-      aux.sig = newNodo
       newNodo.ant = aux
-      this.head.ant = newNodo
+      aux.sig = newNodo
+      this.head.ant = aux.sig
     }else{
       this.head = newNodo
-      this.head.ant=newNodo
+      this.head.sig = this.head
+      this.head.ant=this.head
     }
     this.size++
     }
   delete(data){
     let aux = this.head
-    if(data==aux.data){this.head=aux.sig 
+    let aux2 = this.head
+    if(data==aux.data){//Comprobando si la cabeza es igual al data
+      if(this.head.sig == this.head){
+        this.head=null
+        return
+      }
+      this.head=aux.sig
+      while(aux.sig != aux2){
+        aux = aux.sig
+      }
+      aux.sig = this.head
+      this.head.ant=aux
       return}
     while(aux.sig != null){
       if(aux.data==data){
@@ -43,24 +55,27 @@ class NodoListaCircularDoble{
     }
   }
   refresh(dataActual,dataFinal){
+    if(this.head!=null){
     let aux = this.head
-    while (aux.sig != null) {
+    do {
       if (aux.data==dataActual) {
         aux.data=dataFinal
         return
       }
       aux=aux.sig
-      }
+      }while (aux != this.head)
+    }
     }
 
   search(data){
     let aux = this.head
-    while (aux.sig != null) {
+    do {
       if (aux.data==data) {
         return true
       }
       aux=aux.sig
-      }return false
+      }while (aux != this.head)
+      return false
     }
 
   cargar(){}
@@ -70,10 +85,10 @@ class NodoListaCircularDoble{
   print(){
     var valores = []
       let aux = this.head;
-      while (aux != null) {
+      do {
           valores.push(aux.data);
           aux = aux.sig;
-      }
+      }while (aux != this.head)
       return valores;
     }
 }
