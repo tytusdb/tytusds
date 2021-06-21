@@ -1,36 +1,144 @@
 class NodoCola {
-    constructor(dato, siguiente) {
+    constructor(dato, siguiente, anterior, animate) {
       this.dato = dato;
       this.siguiente = siguiente;
+      this.anterior = anterior;
+      this.animate = animate
     }
 }
-  
+class AnimationCola{
+  constructor(id, x, y,disBtn,heightBtn){
+    this.id = id
+    this.x = x
+    this.y = y
+    this.disBtn = disBtn
+    this.heightBtn = heightBtn
+  }
+}
 class Cola {
     constructor() {
-      this.primero = null;
-      this.guardarCola = null;
+      this.primero = null
+      this.ultimo = null
+      this.guardarCola = null
+      this.contId = 0
+      this.hMax = 0
     }
 
     //Ingresar datos a la cola
     enqueue(dato) {
-      const nuevo = new NodoCola(dato, null);
+
+      const divInsert=document.getElementById("divInsert1");
+      const objeto=document.createElement("button"); //Creacion del botón
+      const texto=document.createTextNode(dato);
+      objeto.appendChild(texto);
+      //Diseño del botón
+      objeto.style.backgroundColor='rgb(30,144,255)'
+      objeto.style.color='rgb(255,255,255)'
+      objeto.style.fontSize='15px'
+      objeto.style.borderRadius="5px"
+      objeto.id="btn"+(this.contId).toString()
+      objeto.classList='animate__animated animate__rubberBand animate__slow'
+      divInsert.appendChild(objeto)//Insertando el div en el Div principal
+      const posicion=document.getElementById(objeto.id)
+      posicion.style.position="absolute"
+      const boton=document.getElementById("b1")
+  
+      const animacion = new AnimationCola((this.contId).toString(), null, null, objeto.offsetWidth, objeto.offsetHeight)
+
+      const nuevo = new NodoCola(dato, null, null, animacion);
+
       if (this.guardarCola) {
+
+        /*const divFlecha = document.createElement("div")//Creando el div donde se añaden los botones
+        divInsert.appendChild(divFlecha)
+        divFlecha.innerHTML='<img src="assets/img/flecha_doble_enlazada.png" height="'+objeto.offsetHeight+ '" />'
+        divFlecha.id="flecha"+(this.contId).toString()
+        const selecFlecha = document.getElementById(divFlecha.id)*/
+        nuevo.animate.x=10
+        nuevo.animate.y=20
+        posicion.style.left =(nuevo.animate.x).toString()+"px"
+        posicion.style.top =(nuevo.animate.y).toString()+"px"        
+        //nuevo.animate.x= current.animate.x + current.animate.disBtn + (objeto.offsetHeight*0.93) + 20
+        
+
+        nuevo.anterior=this.guardarCola
         this.guardarCola.siguiente = nuevo;
+
+        posicion.style.left = (nuevo.animate.x).toString()+"px" //El + 50 es para incluir a la misma flecha
+        posicion.style.top =(nuevo.animate.y).toString()+"px"
+        this.reOrdenar()
+        /*selecFlecha.style.position="absolute"
+        selecFlecha.classList='animate__animated animate__backInLeft animate__fast'
+        selecFlecha.style.left = (newNodo.animate.x-(objeto.offsetHeight*0.93)-10).toString()+"px"
+        selecFlecha.style.top = (newNodo.animate.y+5).toString()+"px"*/
+        this.contId++
+
       }
       this.guardarCola = nuevo
+      //console.log("Eso es"+(!this.primero))
       if (!this.primero) {
         this.primero = this.guardarCola
+
+        this.primero.animate.x=10
+        this.primero.animate.y=20
+        posicion.style.left =(this.primero.animate.x).toString()+"px"
+        posicion.style.top =(this.primero.animate.y).toString()+"px"
+        this.contId++
+        this.hMax=objeto.offsetHeight
       }
     }
 
+    reOrdenar(){
+      let aux=this.primero
+      while (aux.siguiente!=null) {
+        aux = aux.siguiente
+      }
+      this.hMax=aux.animate.heightBtn
+      const boton=document.getElementById("b1")
+      while (aux.anterior!=null){
+        
+        if(this.hMax<aux.anterior.animate.heightBtn){ this.hMax=aux.anterior.animate.heightBtn}//Validando la altura máxima de un botón, para guardarlo para la siguiente fila
+
+        aux.anterior.animate.x=aux.animate.x+aux.animate.disBtn
+        if(boton.offsetWidth-100>aux.anterior.animate.x){//Validando que el ancho del área no se sobrepase, de lo contrario crea una nueva fila
+            aux.anterior.animate.y=aux.animate.y
+        }//Definiendo el valor de y
+        else{
+            aux.anterior.animate.y=aux.animate.y + this.hMax +20
+            aux.anterior.animate.x=this.primero.animate.x
+            this.hMax=0
+        }
+        const p = document.getElementById("btn"+(aux.anterior.animate.id))
+        const posicion = p.cloneNode(true)
+        p.parentNode.replaceChild(posicion, p)
+        posicion.style.left = (aux.anterior.animate.x).toString()+"px" //El + 50 es para incluir a la misma flecha
+        posicion.style.top =(aux.anterior.animate.y).toString()+"px"
+        posicion.classList="animate__animated animate__slideInLeft"
+
+        aux=aux.anterior
+      }
+    }
     //Sacar el primero de la cola
     dequeue() {
       if (!this.primero) {
         return null;
       }
+      let aux=this.primero
+      const selecBtn = document.getElementById("btn"+aux.animate.id)
+      selecBtn.classList="animate__animated animate__hinge"
+      const sClone = selecBtn.cloneNode(true)
+      selecBtn.parentNode.replaceChild(sClone, selecBtn)
+
+      const a1= setInterval(function(){
+          //Eliminando el botón y Flecha siguiente
+          const padre = sClone.parentNode
+          padre.removeChild(sClone)
+          clearInterval(a1)
+      },2000)      
       const nodoPrimero = this.primero;
       if (this.primero.siguiente) {
         this.primero = this.primero.siguiente;
+        this.primero.anterior=null
       } else {
         this.primero = null; 
         this.guardarCola = null; 
@@ -52,16 +160,42 @@ class Cola {
 
     //Metodo buscar
     buscar(dato){
-      let mostrarNodo = this.primero;
-      var encontrar = false;
-      while (mostrarNodo) {
+      /*let mostrarNodo = this.primero;
+      var encontrar = false;*/
+      /*while (mostrarNodo) {
         if(mostrarNodo.dato === dato){
           encontrar = true;
           return encontrar;
         }
         mostrarNodo = mostrarNodo.siguiente;
+      }*/
+      //return encontrar
+      let aux=this.primero
+      while (aux.siguiente!=null) {
+        aux = aux.siguiente
       }
-      return encontrar
+      //let aux = this.primero
+      var g = setInterval(searchAnimation,500)
+      function searchAnimation(){
+          if (aux != null) {
+              const selecBtn = document.getElementById("btn"+aux.animate.id)
+              if (aux.dato==dato) {
+                  selecBtn.classList="animate__animated animate__wobble animate__repeat-3"
+                  const sClone = selecBtn.cloneNode(true)
+                  selecBtn.parentNode.replaceChild(sClone, selecBtn)
+                  clearInterval(g)
+                  }
+              else{
+              selecBtn.classList="animate__animated animate__bounceIn"
+              const sClone = selecBtn.cloneNode(true)
+              selecBtn.parentNode.replaceChild(sClone, selecBtn)
+              aux=aux.anterior
+              }
+          }
+          else{
+              clearInterval(g)
+          }
+      }
     }
   }
 
@@ -70,7 +204,12 @@ var categoriaCola = "Estructura Lineal";
 var nombreCola = 'Lista Simple';
 var repeticionCola = "True";
 var animacionCola = "0";
-
+/*
+cola.enqueue(1)
+cola.enqueue(2)
+cola.enqueue(3)
+cola.enqueue(4)
+*/
 function adDCola(data){
   cola.enqueue(data)
   console.log("-------------------------------")
