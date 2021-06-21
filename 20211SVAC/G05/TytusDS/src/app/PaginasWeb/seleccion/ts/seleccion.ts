@@ -19,4 +19,5 @@ export class OrdenamientoSeleccion {
         }
         return iteraciones;
     }
+    
 }
