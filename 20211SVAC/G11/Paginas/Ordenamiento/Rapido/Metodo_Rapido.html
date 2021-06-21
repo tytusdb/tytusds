@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista_Simplemente_enlazada</title>
+    <link rel="stylesheet" href= "../../../CSS/Header.css">
+    <link rel="stylesheet" href= "../../../CSS/estilos.css">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+
+<body>
+    
+    <script type="text/javascript"  language="JavaScript" src="/Paginas/Ordenamiento/Rapido/Quick_sort.js" ></script>
+
+    <div class="header">
+        <a href="../../../index.html" class="logo">
+            <img class="log" src="../../../IMAGENES/iconoT1.png">
+            Visualizaciones de estructura de datos
+        </a>
+    </div>
+
+    <div id = "contenedor">
+        <div class = "row mt-3">
+            <div class = "col-8">
+                <h2>Metodo Ordenamiento Rapido</h2>
+                <!--Caja de texto-->
+                <div class= "input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Ingrese Numeros" aria-label="Ingresar Numeros" aria-describedby= "button-addon2" id="numeros"> 
+                
+                    <!--button Agregar-->
+                    <div class = "input-group-append">
+                        <button class = "btn btn-outline-secondary mx-2" type="button" id="btnAgregar">Agregar</button>
+                    </div>
+
+                    <!--button Ordenar-->
+                    <div class = "input-group-append">
+                        <button class = "btn btn-outline-secondary mx-2" type="button" id="btnOrdenar">Ordenar</button>
+                    </div>
+
+                    <!--button Limpiar-->
+                    <div class = "input-group-append">
+                        <button class = "btn btn-outline-secondary mx-2" type="button" id="btnLimpiar">Limpiar</button>
+                    </div>
+
+                    <!--button Cargar-->
+                    <div class = "input-group-append">
+                        <button class = "btn btn-outline-secondary mx-2" type="button" id="btnCargar">Cargar</button>
+                    </div>
+
+                    <!--button Cargar-->
+                    <div class = "input-group-append">
+                        <button class = "btn btn-outline-secondary mx-2" type="button" id="btnGuardar">Guardar</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-12 d-flex justify-content-center">
+                <ul class="list-group list-group-horizontal" id="listaAgregar">
+                    <!--<li class="list-group-item">1</li>-->
+                </ul>
+            </div>
+            
+            <div class="col-12 d-flex flex-column align-items-center bd-highlight mb-3 mt-3" id="listaOrdenar">
+                <!--<ul class="list-group list-group-horizontal" ></ul>-->
+            </div>                
+            
+        </div>
+    </div>
+
+</body>
+</html>
