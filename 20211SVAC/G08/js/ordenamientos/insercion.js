@@ -208,8 +208,24 @@ async function insercion(delay = 100){
 
         
     }
-    console.log("Valores ordenados")
-    console.log(listaValores);
+    paintGreen(bloques);
+
+}
+
+// Cuando este todo ordenado pintar verde las barras
+async function paintGreen(bar){
+
+    for(let i = 0; i < bar.length; i++){
+        bar[i].style.backgroundColor = "#28DF0B";
+        
+        // delay de 0.1 segundo para que se entienda
+        await new Promise((resolve) =>
+        setTimeout(() =>{
+            resolve();
+        }, (80)) //delay
+        ); 
+
+    }
 
 }
 
