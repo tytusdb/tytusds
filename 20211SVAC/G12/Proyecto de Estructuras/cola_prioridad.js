@@ -124,6 +124,10 @@ let nodes = document.getElementsByClassName('node');
 let pointers = document.getElementsByClassName('pointer');
 var indice = 0;
 var velocidad = 500; 
+var categoria = "";
+var tipo = "";
+var repeticion = "";
+var animacion = ""; 
 
 let cola_prioridad = new Cola_Prioridad();
 
@@ -156,7 +160,7 @@ async function insertar_nodo(){
     var checkbox = document.getElementById('checkbox').checked;
     var encontrado = false;
 
-    if(dato === ''){
+    if(dato === '' || prioridad === ''){
         alert("Por favor ingrese un dato");
         return false;
     }else{
@@ -322,7 +326,7 @@ async function insertar_nodo(){
 }
 
 async function eliminar_nodo(){
-    cola.eliminar_remove();
+    cola_prioridad.eliminar_remove();
     list.removeChild(nodes[0]);
     list.removeChild(pointers[0]);
 }
@@ -331,7 +335,7 @@ async function actualizar_nodo(){
     var encontrado = false;
     var dato_viejo = document.getElementById('dato_viejo').value;
     var dato_nuevo = document.getElementById('dato_nuevo').value;
-    cola.actualizar_cola(dato_viejo, dato_nuevo);
+    cola_prioridad.actualizar_cola(dato_viejo, dato_nuevo);
 
     let node_nuevo = document.createElement('div');
     node_nuevo.classList.add('node');
@@ -390,7 +394,7 @@ async function buscar(){
     var buscar_dato = document.getElementById('dato_pag').value;
     var encontrado = false;
     var tamaño = 0;
-    cola.buscar_cola(buscar_dato);
+    cola_prioridad.buscar_cola(buscar_dato);
 
     if(buscar_dato === ''){
         alert("Por favor ingrese un dato");
@@ -424,21 +428,35 @@ async function abrirArchivo(evento){
             let contenido = e.target.result;
             var mydata = JSON.parse(contenido);
             console.log(mydata.repeticion)
+            categoria = mydata.categoria;
+            tipo = mydata.nombre;
+            repeticion = mydata.repeticion;
+            animacion = mydata.animacion;
+            //console.log(mydata.valores[0].valor, mydata.valores[0].prioridad)
             for(var i=0; i<(mydata.valores).length; i++){
+                //console.log(valor_json);
+                //console.log(prioridad_json);
                 if(mydata.repeticion == true){
                     console.log("esta en true");
-                    valores = mydata.valores[i];
-                    cola.insertar_add(valores);
+                    var valor_json = mydata.valores[i].valor;
+                    var prioridad_json = mydata.valores[i].prioridad;
+                    //valores = mydata.valores[i];
+                    cola_prioridad.insertar(valor_json, prioridad_json);
                     let node = document.createElement('div');
                     node.classList.add('node');
     
                     let number = document.createElement('p');
                     number.classList.add('number');
-    
-                    let text = document.createTextNode(valores);
-    
+
+                    let set = document.createElement('p');
+                    set.classList.add('set');
+        
+                    let text = document.createTextNode(valor_json);
+                    let priori = document.createTextNode(prioridad_json);    
                     number.appendChild(text);
+                    set.appendChild(priori);
                     node.appendChild(number);
+                    node.appendChild(set);
     
                     let pointer = document.createElement('div');
                     pointer.classList.add('pointer');
@@ -463,9 +481,24 @@ async function abrirArchivo(evento){
                         {duration: velocidad});
                         indice++;
                     }else{
+                        for(var j = 0; j<nodes.length; j++){
+                            var prueba = nodes[j].lastElementChild.textContent;
+                            console.log("-->",prueba);
+                            if(prioridad_json < prueba){
+                                console.log("es menor");
+                                console.log(j);
+                                list.insertBefore(pointer, nodes[j])
+                                list.insertBefore(node, pointers[j])
+                                break;
+                            }else if(prioridad_json == prueba){
+                                list.appendChild(node);
+                                list.appendChild(pointer);
+                            }else{
+                                list.appendChild(node);
+                                list.appendChild(pointer);
+                            }
+                        }
                         await nodos_animados(0, nodes.length-1);
-                        list.appendChild(node);
-                        list.appendChild(pointer);
                         node.animate([{transform: 'scale(0.5)', background: '#f12711', 
                         background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
                         background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0},
@@ -481,17 +514,24 @@ async function abrirArchivo(evento){
                     }
                 }else{
                     console.log("esta en false");
-                    valores = mydata.valores[i];
+                    var valor_json = mydata.valores[i].valor;
+                    var prioridad_json = mydata.valores[i].prioridad;
+                    //valores = mydata.valores[i];
                     let node = document.createElement('div');
                     node.classList.add('node');
     
                     let number = document.createElement('p');
                     number.classList.add('number');
     
-                    let text = document.createTextNode(valores);
-    
+                    let set = document.createElement('p');
+                    set.classList.add('set');
+        
+                    let text = document.createTextNode(valor_json);
+                    let priori = document.createTextNode(prioridad_json);    
                     number.appendChild(text);
+                    set.appendChild(priori);
                     node.appendChild(number);
+                    node.appendChild(set);
     
                     let pointer = document.createElement('div');
                     pointer.classList.add('pointer');
@@ -502,7 +542,7 @@ async function abrirArchivo(evento){
                     pointer.appendChild(img);
     
                     if(indice === 0){
-                        cola.insertar_add(valores);
+                        cola_prioridad.insertar(valor_json, prioridad_json);
                         list.appendChild(node);
                         list.appendChild(pointer);
                         node.animate([{transform: 'scale(0.5)', background: '#f12711', 
@@ -522,18 +562,35 @@ async function abrirArchivo(evento){
                         for(var j = 0; j<nodes.length; j++){
                             var muestra = nodes[j].firstChild.innerHTML;
                             console.log(muestra);
-                            console.log(valores);
-                            if(valores == muestra){
+                            //console.log(valores);
+                            if(valor_json == muestra){
                                 console.log("este se repitio")
                                 search = true;
                                 break;
                             }
                         }
                         if(search == false){
-                            cola.insertar_add(valores);
+                            for(var j = 0; j<nodes.length; j++){
+                                var prueba = nodes[j].lastElementChild.textContent;
+                                console.log("-->",prueba);
+                                if(prioridad_json < prueba){
+                                    console.log("es menor");
+                                    console.log(j);
+                                    cola_prioridad.insertar(valor_json, prioridad_json);
+                                    list.insertBefore(pointer, nodes[j]);
+                                    list.insertBefore(node, pointers[j]);
+                                    break;
+                                }else if(prioridad_json == prueba){
+                                    cola_prioridad.insertar(valor_json, prioridad_json);
+                                    list.appendChild(node);
+                                    list.appendChild(pointer);
+                                }else{
+                                    cola_prioridad.insertar(valor_json, prioridad_json)
+                                    list.appendChild(node);
+                                    list.appendChild(pointer);
+                                }
+                            }
                             await nodos_animados(0, nodes.length-1);
-                            list.appendChild(node);
-                            list.appendChild(pointer);
                             node.animate([{transform: 'scale(0.5)', background: '#f12711', 
                             background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
                             background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0},
@@ -547,11 +604,8 @@ async function abrirArchivo(evento){
                             indice++;
                             console.log(nodes.length)
                         }
-                        //encontrado = false;
                     }
-                    //console.log("-->", encontrado)
                 }
-                //console.log(valores)
             }
             console.log(mydata)
         };
@@ -564,3 +618,40 @@ async function abrirArchivo(evento){
 window.addEventListener('load', ()=>{
     document.getElementById('Archivo').addEventListener('change', abrirArchivo);
 });
+
+function DescargarArchivo(){
+    var list = ""
+
+    for(var i = 0; i<nodes.length; i++){
+        list += JSON.stringify({"valor": nodes[i].firstChild.innerHTML, "prioridad": nodes[i].lastElementChild.textContent})
+    }
+
+    var contenido = JSON.stringify({"categoria": categoria, "nombre": tipo, "repeticion": repeticion, "animacion": animacion, "valores":[list]});
+    console.log(contenido);
+
+    //formato para guardar el archivo
+    var hoy=new Date();
+    var dd=hoy.getDate();
+    var mm=hoy.getMonth()+1;
+    var yyyy=hoy.getFullYear();
+    var HH=hoy.getHours();
+    var MM=hoy.getMinutes();
+    var formato = "cola_prioridad"+"_"+dd+"_"+mm+"_"+yyyy+"_"+HH+"_"+MM;
+
+    var nombre= formato+".json";//nombre del archivo
+    var file=new Blob([contenido], {type: 'text/plain'});
+
+    if(window.navigator.msSaveOrOpenBlob){
+        window.navigator.msSaveOrOpenBlob(file, nombre);
+    }else{
+        var a=document.createElement("a"),url=URL.createObjectURL(file);
+        a.href=url;
+        a.download=nombre;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function(){
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);  
+        },0); 
+    }
+}

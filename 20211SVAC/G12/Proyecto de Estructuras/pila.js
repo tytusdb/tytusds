@@ -92,6 +92,10 @@ let nodes = document.getElementsByClassName('node');
 let pointers = document.getElementsByClassName('pointer');
 var indice = 0;
 var velocidad = 500; 
+var categoria = "";
+var tipo = "";
+var repeticion = "";
+var animacion = ""; 
 
 let pila = new Pila();
 
@@ -117,73 +121,6 @@ async function nodos_animados(from, to) {
         await animacion_nodo(i);
     }
 }
-
-/*async function insertar_nodo(){
-    var dato = document.getElementById('dato_pag').value;
-    
-    pila.insertar_push(dato);
-
-    if(dato === ''){
-        alert("Por favor ingrese un dato");
-        return false;
-    }else{
-        let node = document.createElement('div');
-        node.classList.add('node');
-
-        let number = document.createElement('p');
-        number.classList.add('number');
-
-        let text = document.createTextNode(dato);
-
-        number.appendChild(text);
-        node.appendChild(number);
-
-        let pointer = document.createElement('div');
-        pointer.classList.add('pointer');
-
-        let img = document.createElement('img');
-        img.src = "img/flechaIzquierda.png";
-    
-        pointer.appendChild(img);
-
-        for(var i = 10; i >= 0; i--){
-            console.log(i);
-        }
-
-        if(indice === 0){
-            list.prepend(node);
-            list.prepend(pointer);
-            node.animate([{transform: 'scale(0.5)', background: '#f12711', 
-            background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
-            background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0},
-            {transform: 'scale(1)',background: '#f12711', 
-            background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
-            background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0.2},
-            {transform: 'scale(1.5)',background: '#f12711', 
-            background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
-            background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0.5}],
-            {duration: velocidad});
-            indice++;
-        }else{
-            //console.log("->",nodes.length-1);
-            await nodos_animados(0, nodes.length-1);
-            list.prepend(node);
-            list.prepend(pointer);
-            node.animate([{transform: 'scale(0.5)', background: '#f12711', 
-            background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
-            background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0},
-            {transform: 'scale(1)',background: '#f12711', 
-            background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
-            background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0.2},
-            {transform: 'scale(1.5)',background: '#f12711', 
-            background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
-            background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0.5}],
-            {duration:velocidad});
-            indice++;
-            console.log(nodes.length)
-        }
-    }
-}*/
 
 async function insertar_nodo(){
     var dato = document.getElementById('dato_pag').value;
@@ -417,7 +354,12 @@ async function abrirArchivo(evento){
         reader.onload = async function(e){
             let contenido = e.target.result;
             var mydata = JSON.parse(contenido);
+            console.log(mydata.nombre);
             console.log(mydata.repeticion)
+            categoria = mydata.categoria;
+            tipo = mydata.nombre;
+            repeticion = mydata.repeticion;
+            animacion = mydata.animacion;
             for(var i=0; i<(mydata.valores).length; i++){
                 if(mydata.repeticion == true){
                     console.log("esta en true");
@@ -558,5 +500,43 @@ async function abrirArchivo(evento){
 window.addEventListener('load', ()=>{
     document.getElementById('Archivo').addEventListener('change', abrirArchivo);
 });
+
+function DescargarArchivo(){
+    var lista = [];
+
+    for(var i = 0; i<nodes.length; i++){
+        lista.push(nodes[i].firstChild.innerHTML)
+    }
+
+    var contenido = JSON.stringify({"categoria": categoria, "nombre": tipo, "repeticion": repeticion, "animacion": animacion, "valores":lista});
+    console.log(contenido);
+    console.log(JSON.stringify(lista));
+
+    //formato para guardar el archivo
+    var hoy=new Date();
+    var dd=hoy.getDate();
+    var mm=hoy.getMonth()+1;
+    var yyyy=hoy.getFullYear();
+    var HH=hoy.getHours();
+    var MM=hoy.getMinutes();
+    var formato = "pila"+"_"+dd+"_"+mm+"_"+yyyy+"_"+HH+"_"+MM;
+
+    var nombre= formato+".json";//nombre del archivo
+    var file=new Blob([contenido], {type: 'text/plain'});
+
+    if(window.navigator.msSaveOrOpenBlob){
+        window.navigator.msSaveOrOpenBlob(file, nombre);
+    }else{
+        var a=document.createElement("a"),url=URL.createObjectURL(file);
+        a.href=url;
+        a.download=nombre;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function(){
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);  
+        },0); 
+    }
+}
 
 //module.exports = Pila;
