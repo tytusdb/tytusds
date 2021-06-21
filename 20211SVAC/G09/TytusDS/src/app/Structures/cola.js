@@ -63,6 +63,15 @@ class Cola {
       }
       return encontrar
     }
+
+    //Metodo Actualizar
+    ActualizarCola(){
+
+    }
+
+    ReemplazarDato(){
+      
+    }
   }
 
 const cola = new Cola();
