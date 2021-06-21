@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TytusDS - Insercion</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="../../../../index.html">{ TytusDS }</a>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="../../../index.html">Principal</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+    <br>
+    
+    <div class="container">
+        <h1>Ordenamiento de Inserción</h1>
+        <br>
+        <div class="row">
+          <div class="col-8">
+            <div class="input-group">
+              <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload"  accept="application/JSON">
+              <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04" onclick="read()">Cargar archivo</button>
+            </div>
+            <br>
+            <label for="customRange2" class="form-label">Velocidad de ordenamiento</label>
+            <input type="range" class="form-range" min="1" max="10" id="customRange2">
+          </div>
+          <div class="col-4">
+            <!-- <a name="download" class="btn btn-success" onclick="descargar()">Abrir</a> -->
+            <div id="container" class="btn btn-dark"></div>
+          </div>
+        </div>
+        <canvas id="myChart"></canvas>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Promise,fetch"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script src="../../js/ordenamientos/insercion.js"></script>
+  </body>
+</html>

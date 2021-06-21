@@ -1,10 +1,20 @@
 <body>
+    <div >
+        <p>
+            <!-- UNIVERSIDAD DE SAN CARLOS DE GUATEMALA -->
+            <span>
+                Lista Cicular Doble Enlazada
+            </span>
+            &mdash; ESTRUCTURA DE DATOS &mdash;
+        </p>
+    </div >   
+    <br><br><br><br><br><br><br><br><br><br><br><br>
     <div class="container mt-2">
         <div class="row opciones p-2">
 
             <div class="col-lg-3 col-sm-12 col-12 mt-1">
                 <div class="input-group">
-                    <input type="number" class="form-control" id="numero" name="numero" [(ngModel)]="numero"
+                    <input type="text" class="form-control" id="numero" name="numero" [(ngModel)]="numero"
                         placeholder="Ingresa un Numero">
                     <div class="input-group-append">
                         <button class="btn btn-secondary " type="button" (click)="addLast()">Guardar</button>
@@ -14,7 +24,7 @@
 
             <div class="col-lg-3 col-sm-12 col-12 mt-1">
                 <div class="input-group">
-                    <input type="number" class="form-control" id="numero" name="numero" [(ngModel)]="numeroBuscar"
+                    <input type="text" class="form-control" id="numero" name="numero" [(ngModel)]="numeroBuscar"
                         placeholder="Ingresa un Numero">
                     <div class="input-group-append">
                         <button class="btn btn-success" type="button" (click)="search()">Buscar</button>
@@ -23,9 +33,9 @@
             </div>
             <div class="col-lg-3 col-sm-12 col-12 mt-1">
                 <div class="input-group">
-                    <input type="number" class="form-control" id="numero" name="numero" [(ngModel)]="numeroAntiguo"
+                    <input type="text" class="form-control" id="numero" name="numero" [(ngModel)]="numeroAntiguo"
                         placeholder="Antiguo">
-                    <input type="number" class="form-control" id="numero" name="numero" [(ngModel)]="numeroNuevo"
+                    <input type="text" class="form-control" id="numero" name="numero" [(ngModel)]="numeroNuevo"
                         placeholder="Nuevo">
                     <div class="input-group-append">
                         <button class="btn btn-warning" type="button" (click)="actualizar()">Actualizar</button>
@@ -34,7 +44,7 @@
             </div>
             <div class="col-lg-3 col-sm-12 col-12 mt-1">
                 <div class="input-group">
-                    <input type="number" class="form-control" id="numero" name="numero" [(ngModel)]="numeroEliminar"
+                    <input type="text" class="form-control" id="numero" name="numero" [(ngModel)]="numeroEliminar"
                         placeholder="Ingresa un Numero">
                     <div class="input-group-append">
                         <button class="btn btn-danger" type="button" (click)="delete()">Eliminar</button>

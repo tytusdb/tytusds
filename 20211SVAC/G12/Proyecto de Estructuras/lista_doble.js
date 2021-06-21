@@ -115,6 +115,10 @@ let nodes = document.getElementsByClassName('node');
 let pointers = document.getElementsByClassName('pointer');
 var indice = 0;
 var velocidad = 500;
+var categoria = "";
+var tipo = "";
+var repeticion = "";
+var animacion = ""; 
 
 let lista_doble = new Lista_Doble();
 
@@ -402,6 +406,10 @@ async function abrirArchivo(evento){
             let contenido = e.target.result;
             var mydata = JSON.parse(contenido);
             console.log(mydata.repeticion)
+            categoria = mydata.categoria;
+            tipo = mydata.nombre;
+            repeticion = mydata.repeticion;
+            animacion = mydata.animacion;
             for(var i=0; i<(mydata.valores).length; i++){
                 if(mydata.repeticion == true){
                     console.log("esta en true");
@@ -551,5 +559,43 @@ async function abrirArchivo(evento){
 window.addEventListener('load', ()=>{
     document.getElementById('Archivo').addEventListener('change', abrirArchivo);
 });
+
+function DescargarArchivo(){
+    var lista = [];
+
+    for(var i = 0; i<nodes.length; i++){
+        lista.push(nodes[i].firstChild.innerHTML)
+    }
+
+    var contenido = JSON.stringify({"categoria": categoria, "nombre": tipo, "repeticion": repeticion, "animacion": animacion, "valores":lista});
+    console.log(contenido);
+    console.log(JSON.stringify(lista));
+
+    //formato para guardar el archivo
+    var hoy=new Date();
+    var dd=hoy.getDate();
+    var mm=hoy.getMonth()+1;
+    var yyyy=hoy.getFullYear();
+    var HH=hoy.getHours();
+    var MM=hoy.getMinutes();
+    var formato = "lista_doble"+"_"+dd+"_"+mm+"_"+yyyy+"_"+HH+"_"+MM;
+
+    var nombre= formato+".json";//nombre del archivo
+    var file=new Blob([contenido], {type: 'text/plain'});
+
+    if(window.navigator.msSaveOrOpenBlob){
+        window.navigator.msSaveOrOpenBlob(file, nombre);
+    }else{
+        var a=document.createElement("a"),url=URL.createObjectURL(file);
+        a.href=url;
+        a.download=nombre;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function(){
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);  
+        },0); 
+    }
+}
 
 //module.exports = Lista_Doble;

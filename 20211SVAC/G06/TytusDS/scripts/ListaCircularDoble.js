@@ -54,17 +54,20 @@ class ListaCircularDoble {
 						this.ultimo.siguiente = this.primero
 						this.primero.anterior = this.ultimo
 						this.len--
+						return eliminado
 					} else if(tmp == this.ultimo){
 						eliminado = this.ultimo
 						this.ultimo = ant
 						this.primero.anterior = this.ultimo
 						this.ultimo.siguiente = this.primero
 						this.len--
+						return eliminado
 					} else {
 						eliminado = tmp
 						ant.siguiente = tmp.siguiente
 						tmp.siguiente.anterior = ant
 						this.len--
+						return eliminado
 					}
 				}
 				ant = tmp
@@ -98,15 +101,18 @@ class ListaCircularDoble {
 		let tmp = this.primero
 		let encontrado = false
 		var dato
-		do{
-			if(tmp.valor.value == valor){
-				encontrado = true
-				dato = tmp
+		if(tmp != null){
+			do{
+				if(tmp.valor.value == valor){
+					encontrado = true
+					dato = tmp
+					return dato
+				}
+				tmp = tmp.siguiente
+			}while(tmp != this.primero);
+			if(encontrado){
+				return dato
 			}
-			tmp = tmp.siguiente
-		}while(tmp != this.primero);
-		if(encontrado){
-			return dato
 		}
 		return null
 	}

@@ -11,6 +11,7 @@ class NodoDobleCircular {
 class ListaDobleCircular {
   constructor() {
     this.cabeza = null;
+    this.length = 0;
   }
 
   add_f(valor) {
@@ -32,6 +33,7 @@ class ListaDobleCircular {
       nuevo.siguiente = aux;
       nuevo.anterior = ultimo;
     }
+    this.length++;
   }
 
   add_i(valor) {
@@ -59,33 +61,36 @@ class ListaDobleCircular {
       this.cabeza = nuevo;
       nuevo.primero = true;
     }
+    this.length++;
   }
 
-  delete(valor){
-    if(this.cabeza.valor == valor){
-      this.cabeza=this.cabeza.siguiente;
-      if(this.cabeza!=null){
-        this.cabeza.primero=true;
-        this.cabeza.anterior.anterior.siguiente=this.cabeza;
-        this.cabeza.anterior=this.cabeza.anterior.anterior;
-        if(this.cabeza.siguiente.primero){
-          this.cabeza.siguiente=null;
-          this.cabeza.anterior=null;
+  delete(valor) {
+    if (this.cabeza.valor == valor) {
+      this.cabeza = this.cabeza.siguiente;
+      this.length--;
+      if (this.cabeza != null) {
+        this.cabeza.primero = true;
+        this.cabeza.anterior.anterior.siguiente = this.cabeza;
+        this.cabeza.anterior = this.cabeza.anterior.anterior;
+        if (this.cabeza.siguiente.primero) {
+          this.cabeza.siguiente = null;
+          this.cabeza.anterior = null;
         }
       }
-    }else{
+    } else {
       let aux = this.cabeza;
-      while(!aux.siguiente.primero){
-        if(aux.siguiente.valor==valor){
-          aux.siguiente=aux.siguiente.siguiente;
-          aux.siguiente.anterior=aux;
-          if(this.cabeza.siguiente.primero){
-            this.cabeza.siguiente=null;
-            this.cabeza.anterior=null;
+      while (!aux.siguiente.primero) {
+        if (aux.siguiente.valor == valor) {
+          aux.siguiente = aux.siguiente.siguiente;
+          aux.siguiente.anterior = aux;
+          this.length--;
+          if (this.cabeza.siguiente.primero) {
+            this.cabeza.siguiente = null;
+            this.cabeza.anterior = null;
             break;
           }
         }
-        aux=aux.siguiente;
+        aux = aux.siguiente;
       }
     }
   }
@@ -99,8 +104,8 @@ class ListaDobleCircular {
         aux.valor = nvalor;
         console.log("se reemplazo: " + valor + ", por: " + aux.valor);
         casoPrimero = false;
-      }else if(aux.primero){
-        casoPrimero=false;
+      } else if (aux.primero) {
+        casoPrimero = false;
       }
       aux = aux.siguiente;
     }
@@ -112,10 +117,10 @@ class ListaDobleCircular {
     while (aux != null && (casoPrimero || !aux.primero)) {
       if (aux.valor == valor) {
         console.log("encontrado paps: " + aux.valor);
-        casoPrimero=false;
+        casoPrimero = false;
         return aux.valor;
-      }else if(aux.primero){
-        casoPrimero=false;
+      } else if (aux.primero) {
+        casoPrimero = false;
       }
       aux = aux.siguiente;
     }
@@ -123,6 +128,16 @@ class ListaDobleCircular {
     return null;
   }
 
+  get(index) {
+    let aux = this.cabeza;
+    for (let i = 0; i < this.length; i++) {
+      if (i == index) {
+        break
+      }
+      aux = aux.siguiente;
+    }
+    return aux.valor
+  }
 
 
   imprimir() {
@@ -141,15 +156,5 @@ class ListaDobleCircular {
 
 }
 
-let lista = new ListaDobleCircular();
-lista.add_f(1);
-lista.add_f(2);
-lista.add_i(3);
-lista.imprimir();
-console.log("");
-lista.update(40,6);
-lista.seek(3);
-lista.imprimir();
-lista.delete(40);
-console.log("");
-lista.imprimir();
+
+export default ListaDobleCircular;

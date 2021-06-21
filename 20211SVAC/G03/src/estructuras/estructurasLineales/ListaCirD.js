@@ -1,22 +1,13 @@
 //Insertcion no ordenada
 //Busqueda unica
 //Eliminacion unica
-
+var fs = require('fs')
 class Nodo{ //Clase Nodo
     
     //Constructor
     constructor(dato){
         this.siguiente = null;
         this.anterior = null;
-        this.dato = dato;
-    }
-
-    //Setters & Getters
-    getDato(){
-        return dato;
-    }
-
-    setDato(dato){
         this.dato = dato;
     }
 }
@@ -117,15 +108,27 @@ class ListaCD{  //Clase Lista Circular doble
 
     //Metodo Actualizar
     actualizar(datoelim, datoins){
-        //Eliminacion de Dato 
-        this.eliminar(datoelim)
-        //Insercion de nuevo dato
-        this.insert(datoins)
+        let aux = this.cabeza;
+        let contador = 1;
+        while(aux.dato != datoelim && contador != this.size){
+            aux= aux.siguiente;
+            contador++;
+        }
+        if(aux.dato == datoelim){
+            //Dato encontrado
+            console.log(aux.dato + " fue encontrado exitosamente");
+            aux.dato = datoins
+            console.log(datoelim + " fue cambiado exitosamente a "+aux.dato);
+        }
+        if (contador == this.size){
+            //Dato no encontrado
+            console.log("No se encontro el dato buscado");
+        }
     }
 
     //Metodo Carga
     cargar(arreglo) {
-        arreglo.array.forEach(elemento => {
+        arreglo.map(elemento => {
             this.insert(elemento)
         })
     }
@@ -144,6 +147,32 @@ class ListaCD{  //Clase Lista Circular doble
         let nombre = "ListaCircularDoble"
         fs.writeFile(nombre, json)  
     }
+
+
+    Recorrido(datoBuscar){
+        let aux = this.cabeza;
+        let contador = 0;
+
+        
+        let arreglo = []
+        let contadoraux = 0;
+        while(contador != this.size){
+            let dato = {id: contadoraux, label: aux.dato.toString(),}
+            arreglo[contadoraux] = dato
+
+            
+            if(aux.dato == datoBuscar){
+                let dato = {id: contadoraux, label: aux.dato.toString(),  color: "lime"}
+                arreglo[contadoraux] = dato
+            }
+            aux= aux.siguiente;
+            contador++;
+            contadoraux++;
+        }
+
+        return arreglo
+    }
+    
 }
 
 export default ListaCD;

@@ -1,3 +1,4 @@
+var fs = require('fs')
 class Nodo{
     constructor(valor){        
         this.valor = valor;
@@ -8,7 +9,7 @@ class Nodo{
 
 class Pila{
     constructor(){
-        this.cabeza = cabeza;  
+        this.cabeza = null;  
         this.contador = 0;   
         this.contadorPilas = 0;    
     }
@@ -29,19 +30,19 @@ class Pila{
 
 
     eliminar(){
-        inicio = this.cabeza;
+        let inicio = this.cabeza;
         this.cabeza = this.cabeza.siguiente
         return inicio;
     }
 
-    actualizar(id, valor){
+    actualizar(valoranterior, valor){
         let temporal = this.cabeza;
         if (this.cabeza == null){
             console.log("No hay nada en la lista")
             
         }else{
             while(temporal != null){
-                if (temporal.id == id){
+                if (temporal.valor == valoranterior){
                     temporal.valor = valor;
                 }
                 temporal = temporal.siguiente;                
@@ -70,12 +71,13 @@ class Pila{
 
     cargar(arreglo) {
         
-        arreglo.array.forEach(elemento => {
-            this.agregar(elemento);
-        });
+        arreglo.map(e => {
+            this.agregar(e)
+        })
     }
 
     guardar(){
+        let contadorPilas;
         contadorPilas ++;
         let archivojs;
         let temporal = this.primero;
@@ -88,6 +90,32 @@ class Pila{
         let nombre = "Pila" + contadorPilas;
         fs.writeFile(nombre, json)
     }	
+
+    Recorrido(datoBuscar){
+        let arreglo = []
+        let temporal = this.cabeza;
+        let contador = 0
+        if (this.cabeza == null){
+            console.log("No hay nada en la lista")
+            
+        }else{
+            while(temporal != null){
+                let dato = {id: contador, label: temporal.valor.toString(),}
+                arreglo[contador] = dato
+
+                if (temporal.valor == datoBuscar){
+                    let dato = {id: contador, label: temporal.valor.toString(),  color: "lime"}
+                    arreglo[contador] = dato
+                }
+                temporal = temporal.siguiente;   
+                contador++              
+
+            }
+        }
+        return arreglo
+    }
+
+    
    	
  }
 

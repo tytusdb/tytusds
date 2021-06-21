@@ -31,19 +31,20 @@ const EstructurasLineales = [
         title: 'Lista doblemente enlazada',
         image: dobleEnlazada,
         url: "/",
-        text: 'Sebas gay'
+        text: 'Sebas gay',
+        url: '/ListaDobleEnlazada'
     },
     {
         id: 4,
         title: 'Lista circular simple enlazada',
         image: circularSimple,
-        url: "/",
+        url: "/ListaCircularSimple",
     },
     {
         id: 5,
         title: 'Lista circular doblemente enlazada',
         image: circularDoble,
-        url: "/",
+        url: "/ListaCircularDoble",
     },
 
     {
