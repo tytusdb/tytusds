@@ -89,7 +89,7 @@ class AVL{
         let tx=(150*this.valores)/2
         let ty=1
         let temp=[this.raiz.altura]
-        this.graficarNodo(this.raiz,tx,ty,150*this.raiz.altura)
+        this.graficarNodo(this.raiz,tx,ty,150*(this.raiz.altura+1))
     }
 
     graficarNodo(nodo,x,y,d){
