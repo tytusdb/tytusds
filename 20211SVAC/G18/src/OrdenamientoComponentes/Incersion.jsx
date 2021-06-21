@@ -1,17 +1,15 @@
-import React, { Component } from 'react'
-import './burbuja.css'
 import { Bar, defaults } from 'react-chartjs-2'
+import React, { Component } from 'react'
 
+export class Incersion extends Component {
 
-
-export class Burbuja extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            valorBurbuja: "",
-            burbuja: [],
-        
+            valorincersion: "",
+            incersion: [],
+          
         }
         this.leerJson = this.leerJson.bind(this)
     }
@@ -30,7 +28,7 @@ export class Burbuja extends Component {
         // });
 
         this.setState({
-            valorBurbuja: e.target.value
+            valorincersion: e.target.value
         })
     };
 
@@ -39,10 +37,10 @@ export class Burbuja extends Component {
         e?.preventDefault();
         // console.log("Formulario Subido")
         // console.log(this.state.valorBurbuja)
-        this.state.burbuja.push(parseInt(this.state.valorBurbuja))
+        this.state.incersion.push(parseInt(this.state.valorincersion))
 
         this.setState({
-            burbuja: this.state.burbuja
+            incersion: this.state.incersion
         })
     };
 
@@ -59,12 +57,12 @@ export class Burbuja extends Component {
             valores.forEach((element, index) => {
                 setTimeout(() => {
                     this.setState({
-                        valorBurbuja: element,
+                        valorincersion: element,
                     }, () => {
                         this.handleSubmit()
                     })
 
-                }, index * 600)
+                }, index * 1000)
             });
 
             this.setState({
@@ -74,43 +72,52 @@ export class Burbuja extends Component {
         reader.readAsText(input.files[0], "UTF-8")
     }
 
-    ordenamientoAnimacion = (contador, listaBurbuja) => {
+
+
+    ordenamientoAnimacion = (contador, listaIncersion) => {
+
+
         setTimeout(() => {
             this.setState({
-                burbuja: listaBurbuja
+                incersion: listaIncersion
             })
-        }, 800*contador)
+        }, contador*1000)
     }
+
+
 
     ordenamiento = () => {
 
-        const tamañoLista = this.state.burbuja.length
-        const listaBurbuja = this.state.burbuja
+        const tamañoLista = this.state.incersion.length
+        const listaIncersion = this.state.incersion
         let contador = 0
 
+        setTimeout (()=>{
 
-        for (var i = 1; i < tamañoLista; i++) {
-            for (var j = 0; j < (tamañoLista - i ); j++) {
+        },)
 
-                if (listaBurbuja[j] > listaBurbuja[j + 1]) {
-                    var aux = listaBurbuja[j];
-                    listaBurbuja[j] = listaBurbuja[j + 1];
-                    listaBurbuja[j + 1] = aux
+        for(let i = 1; i<tamañoLista; i++){
+            let elemento = listaIncersion[i];
+            let j = i-1;
 
-                }
+            while( j> -1 && elemento < listaIncersion[j] ){
 
-                this.ordenamientoAnimacion(++contador, [...listaBurbuja])
+                listaIncersion[j + 1] = listaIncersion[j];
+                j--;
+                this.ordenamientoAnimacion(++contador,listaIncersion )
             }
 
-            this.ordenamientoAnimacion(++contador, [...listaBurbuja])
-        }
-
+            listaIncersion[j+1] = elemento; 
+            this.ordenamientoAnimacion(++contador,listaIncersion )
+        }   
+        
+       console.log(listaIncersion)
     }
 
 
 
     render() {
-        console.log(this.state.burbuja)
+        
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
@@ -124,7 +131,7 @@ export class Burbuja extends Component {
                                     id="Elemento"
                                     placeholder="Elemento"
                                     onChange={this.handleChange}
-                                    value={this.state.valorBurbuja}
+                                    value={this.state.valorincersion}
                                 />
                             </div>
 
@@ -152,11 +159,11 @@ export class Burbuja extends Component {
                      
                     <Bar
                             data={{
-                                labels: this.state.burbuja,
+                                labels: this.state.incersion,
                                 datasets: [
                                     {
-                                        label: 'ordenamiento de burbuja ',
-                                        data: this.state.burbuja,
+                                        label: 'ordenamiento de insercion ',
+                                        data: this.state.incersion,
                                         backgroundColor: [
                                             'rgba(255, 99, 132, 0.2)',
                                             'rgba(54, 162, 235, 0.2)',
@@ -212,10 +219,9 @@ export class Burbuja extends Component {
                   
                     </div>
                 </div>
-
             </div>
         )
     }
 }
 
-export default Burbuja
+export default Incersion

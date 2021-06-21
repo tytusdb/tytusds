@@ -1,26 +1,18 @@
 import React, { Component } from 'react'
-import './burbuja.css'
 import { Bar, defaults } from 'react-chartjs-2'
+import "./seleccion.css"
 
-
-
-export class Burbuja extends Component {
+export class Seleccion extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            valorBurbuja: "",
-            burbuja: [],
-        
+            valorSeleccion: "",
+            seleccion: [],
+
         }
-        this.leerJson = this.leerJson.bind(this)
     }
 
-
-
-    handleClick = (e) => {
-        console.log("bonton regresar presionado")
-    };
 
     handleChange = (e) => {
         // console.log({
@@ -30,87 +22,74 @@ export class Burbuja extends Component {
         // });
 
         this.setState({
-            valorBurbuja: e.target.value
+            valorSeleccion: e.target.value
         })
     };
+
 
 
     handleSubmit = (e) => {
-        e?.preventDefault();
+        e.preventDefault();
         // console.log("Formulario Subido")
         // console.log(this.state.valorBurbuja)
-        this.state.burbuja.push(parseInt(this.state.valorBurbuja))
+        this.state.seleccion.push(parseInt(this.state.valorSeleccion))
 
         this.setState({
-            burbuja: this.state.burbuja
+            burbuja: this.state.seleccion
         })
     };
 
 
-    leerJson(event) {
-        const input = event.target
-        const reader = new FileReader()
-        reader.onload = (event) => {
-            const text = reader.result
 
-            const json = JSON.parse(text)
-            const valores = json.valores
 
-            valores.forEach((element, index) => {
-                setTimeout(() => {
-                    this.setState({
-                        valorBurbuja: element,
-                    }, () => {
-                        this.handleSubmit()
-                    })
 
-                }, index * 600)
-            });
+    ordenamientoAnimacion = (contador, listaSeleccion) => {
 
-            this.setState({
-                data: json
-            })
-        }
-        reader.readAsText(input.files[0], "UTF-8")
-    }
 
-    ordenamientoAnimacion = (contador, listaBurbuja) => {
         setTimeout(() => {
             this.setState({
-                burbuja: listaBurbuja
+                seleccion: listaSeleccion
             })
-        }, 800*contador)
+        },  contador*800)
     }
+
 
     ordenamiento = () => {
-
-        const tamañoLista = this.state.burbuja.length
-        const listaBurbuja = this.state.burbuja
+        const tamañoLista = this.state.seleccion.length;
+        const seleccionLista = this.state.seleccion;
         let contador = 0
 
+        for (let i = 0; i < tamañoLista; i++) {
+            let minimo = i
+            for (let j = i + 1; j < tamañoLista; j++) {
+                if (seleccionLista[minimo] > seleccionLista[j]) {
 
-        for (var i = 1; i < tamañoLista; i++) {
-            for (var j = 0; j < (tamañoLista - i ); j++) {
-
-                if (listaBurbuja[j] > listaBurbuja[j + 1]) {
-                    var aux = listaBurbuja[j];
-                    listaBurbuja[j] = listaBurbuja[j + 1];
-                    listaBurbuja[j + 1] = aux
-
+                    minimo = j;
+                    this.ordenamientoAnimacion(++contador, seleccionLista)
+         
                 }
-
-                this.ordenamientoAnimacion(++contador, [...listaBurbuja])
+      
             }
-
-            this.ordenamientoAnimacion(++contador, [...listaBurbuja])
+            
+            if(minimo != i){
+                let temporal = seleccionLista[i]
+                seleccionLista[i] =  seleccionLista[minimo]
+                seleccionLista[minimo] = temporal
+            }
+            this.ordenamientoAnimacion(++contador, seleccionLista)
+         
         }
 
-    }
 
+        this.setState({
+            seleccion: seleccionLista,
+        })
+
+    }
 
 
     render() {
-        console.log(this.state.burbuja)
+        console.log(this.state.seleccion)
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
@@ -124,39 +103,45 @@ export class Burbuja extends Component {
                                     id="Elemento"
                                     placeholder="Elemento"
                                     onChange={this.handleChange}
-                                    value={this.state.valorBurbuja}
+                                    value={this.state.valorSeleccion}
                                 />
                             </div>
 
                             <div className="col-sm-2 d-grid gap-2">
-                                <button type="submit" className="btn btn-outline-success" onClick={this.handleClick} >Agregar elemento</button>
+                                <button type="submit" className="btn btn-success" onClick={this.handleClick} >Agregar elemento</button>
                             </div>
 
                             <div className="col-sm-2 d-grid gap-2">
-                                <button type="button" className="btn btn-outline-success" onClick={this.ordenamiento} >Ordenar</button>
+                                <button type="button" className="btn btn-success" onClick={this.ordenamiento} >Ordenar</button>
                             </div>
 
-                            <div className="col-sm-2 d-grid gap-2">
-                                <input type="file" class="form-control" onChange={this.leerJson} />
-
-
-                            </div>
                         </div>
 
                     </div>
                 </form>
 
-
                 <div className="container">
                     <div className="card mt-4">
-                     
-                    <Bar
+                        <Bar
                             data={{
-                                labels: this.state.burbuja,
+                                labels: this.state.seleccion,
+                                options: {
+                                    plugins: {
+                                        legend: {
+                                            labels: {
+                                                // This more specific font property overrides the global property
+                                                font: {
+                                                    size: 200
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+
                                 datasets: [
                                     {
-                                        label: 'ordenamiento de burbuja ',
-                                        data: this.state.burbuja,
+                                        label: 'ordenamiento de seleccion ',
+                                        data: this.state.seleccion,
                                         backgroundColor: [
                                             'rgba(255, 99, 132, 0.2)',
                                             'rgba(54, 162, 235, 0.2)',
@@ -203,14 +188,11 @@ export class Burbuja extends Component {
                                 },
                             }}
                         />
-                 
+
 
                     </div>
 
-                    
-                    <div className="">
-                  
-                    </div>
+
                 </div>
 
             </div>
@@ -218,4 +200,4 @@ export class Burbuja extends Component {
     }
 }
 
-export default Burbuja
+export default Seleccion

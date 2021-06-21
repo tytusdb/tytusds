@@ -1,10 +1,9 @@
 
- 
  .card{
      height: auto !important;
  }
 
- .ordenamiento{
+ .ordenamiento_seleccion{
      position: relative;
      display: flex;
      flex-direction: row;
@@ -13,7 +12,7 @@
      margin-top: 100px;
  }
  
- .ordemineto2{
+ .ordenamiento_seleccion2{
      position: relative;
      display: flex;
      flex-direction: row;
@@ -22,11 +21,11 @@
      flex-wrap: wrap;
  }
  
- .ordemiento_circles{
+ .ordemientoSeleccion_circles{
  
-     width: 100px;
-     height: 100px;
-     background-color: royalblue;
+     width: 65px;
+     height: 65px;
+     background-color:darksalmon;
      border-radius: 50%;
      display: flex;
      justify-content: center;
@@ -38,19 +37,16 @@
    
  }
  
- .ordemiento_circles__after{
-     width: 100px;
-     height: 100px;
+ .ordemientoSeleccion_circles__after{
+     width: 65px;
+     height: 65px;
      background-color: pink;
      border-radius: 50%;
      display: flex;
      justify-content: center;
      align-items: center;
-     text-align: center;
-     
+     text-align: center;    
      margin: 5px;
-    
-    
      text-align: center ;
  }
  
