@@ -22,6 +22,7 @@ var options = {};
 var network = new vis.Network(container, data, options);
 
 var cont = 0
+var vista = 0
 
 let listita = new ListaDoble()
 let array = []
@@ -40,6 +41,8 @@ function prueba() {
     console.log("jola")
 }
 
+let primero = 0
+
 function agregar() {
     var repetir = document.getElementById("flexSwitchCheckDefault").checked;
     let inputValue = document.getElementById("valor").value;
@@ -50,6 +53,7 @@ function agregar() {
             return
         }
     }
+    primero = listita.primero
     var valor = {
         id: cont,
         label: inputValue,
@@ -78,7 +82,9 @@ function agregar() {
 var cont2 = 1
 
 function search() {
-    cont2 = 0
+    var uno = array2.indexOf(primero.dato)
+    var dos = array[uno].id
+    cont2 = dos
     view()
 }
 
@@ -90,9 +96,9 @@ function actualizar() {
     console.log(inputValue)
     var idVal = array2.indexOf(inputValue)
     console.log(idVal)
+    view2(array[idVal].id)
     array[idVal].label = inputValue2
     array2[idVal] = inputValue2
-    view2(array[idVal].id)
     bandera = listita.actualizar(inputValue, inputValue2)
     nodes.update({ id: array[idVal].id, label: inputValue2 })
     bandera = false
@@ -103,19 +109,18 @@ async function view() {
     let animacion = document.getElementById("formControlRange").value;
     var idVal = array2.indexOf(inputValue)
     var animation = {
-        scale: 4,
-        animation: {
-            duration: convertir(animacion),
-            easingFunction: "linear"
+            scale: 4,
+            animation: {
+                duration: convertir(animacion),
+                easingFunction: "linear"
+            }
         }
-    }
-    while (cont2 <= array[idVal].id) {
-        network.selectNodes([cont2])
-        network.focus(cont2, animation)
-        await new Promise(resolve => setTimeout(resolve, convertir(animacion) + 10)); // 3 sec
-        cont2++
-    }
+        //while (cont2 <= array[idVal].id) {
+    network.selectNodes([cont2])
+    network.focus(cont2, animation)
+    await new Promise(resolve => setTimeout(resolve, convertir(animacion) + 10)); // 3 sec
     cont2++
+    //}
 }
 
 async function view2(nodo) {
@@ -135,14 +140,9 @@ async function view2(nodo) {
 
 function deleteEdgeMode(nodeId) {
     var valor = array2.indexOf(nodeId)
-    let animacion = document.getElementById("formControlRange").value;
     network.selectNodes([array[valor].id]);
     array.splice(valor, 1)
     array2.splice(valor, 1)
-    console.log("arreglo " + array2)
-    console.log("arreglo " + array)
-    console.log(array[valor - 1].id)
-    console.log(array[valor].id)
     var num = listita.eliminar(nodeId)
     if (num == "op4" || num == "op3") {
         edges.add([
@@ -237,14 +237,22 @@ function download(filename, textInput) {
     element.click();
 }
 
-network.on("animationFinished", function(ctx) {
-    if (cont2 >= cont) {
-        network.fit()
-    } else {
-        view()
-    }
-});
+if (vista == 0) {
+    network.on("animationFinished", function(ctx) {
+        let inputValue = document.getElementById("valor").value;
+        var idVal = array2.indexOf(inputValue)
+        try {
+            if (cont2 > array[idVal].id) {
+                network.fit()
+            } else {
+                view()
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    });
 
+}
 network.on("animationFinished", function(ctx) {
     if (!bandera) {
         network.fit()

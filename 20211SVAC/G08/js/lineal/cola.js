@@ -174,7 +174,7 @@ function agregar(){
 
 function agregar2(box, dato){
     // Insertando elemento en la pila
-    cola.agregar(dato)
+    cola.agregar(dato);
     // Creando los cuadros y agregandole el elemento ingresado
     const div = document.createElement("div");
     div.classList.add('cuadrito');

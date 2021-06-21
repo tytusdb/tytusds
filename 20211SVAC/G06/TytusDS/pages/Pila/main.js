@@ -82,9 +82,9 @@ function actualizar() {
     console.log(inputValue)
     var idVal = array2.indexOf(inputValue)
     console.log(idVal)
+    view2(array[idVal].id)
     array[idVal].label = inputValue2
     array2[idVal] = inputValue2
-    view2(array[idVal].id)
     bandera = listita.actualizar(inputValue, inputValue2)
     nodes.update({ id: array[idVal].id, label: inputValue2 })
     bandera = false
@@ -103,12 +103,9 @@ async function view() {
             easingFunction: "linear"
         }
     }
-    while (cont2 <= array[idVal].id) {
-        network.selectNodes([cont2])
-        network.focus(cont2, animation)
-        await new Promise(resolve => setTimeout(resolve, 1100)); // 3 sec
-        cont2++
-    }
+    network.selectNodes([cont2])
+    network.focus(cont2, animation)
+    await new Promise(resolve => setTimeout(resolve, 1100)); // 3 sec
     cont2++
 }
 
@@ -176,6 +173,8 @@ function cargarJson() {
     };
 }
 
+var archivo = 1;
+
 function guardarJson() {
     var animacion = document.getElementById("formControlRange").value
     var obj = {
@@ -186,7 +185,6 @@ function guardarJson() {
         valores: array2
     }
     var texto = JSON.stringify(obj);
-    console.log(obj)
     download("Pila" + archivo + ".json", texto);
     archivo++
 }
@@ -208,10 +206,16 @@ function download(filename, textInput) {
 }
 
 network.on("animationFinished", function(ctx) {
-    if (cont2 >= cont) {
-        network.fit()
-    } else {
-        view()
+    let inputValue = document.getElementById("valor").value;
+    var idVal = array2.indexOf(inputValue)
+    try {
+        if (cont2 > array[idVal].id) {
+            network.fit()
+        } else {
+            view()
+        }
+    } catch (error) {
+        console.log(error)
     }
 });
 
