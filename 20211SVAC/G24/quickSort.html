@@ -14,35 +14,50 @@
 				<input type='button' id='play' value='Ordenar' />
 				<input style='margin-left: 1%;' id='speed' type='range' min='0' max='9' step='1' value='4'/>
 				<script>
-					var list=[]
+					var list=[];
+					var auxList=[];
 					document.getElementById('file').onchange = function(){
 						var fil = document.getElementById('file').files[0];
 						const read= new FileReader();
 						read.onload=function(){
 							list=JSON.parse(read.result).valores
+							if(isNumeric(list[1])){
+								auxList=[...list];
+							}else{
+								for (var i=0;i<list.length;i++){
+									auxList.push(Ascii2Number(list[i]));	
+								}
+							}
 						}
 						read.readAsText(fil)
+					}
 
+					function Ascii2Number(string){
+						val=0
+						for(var i=0; i<string.length;i++){
+							val=val+string.charCodeAt(i);
+						}
+						return val;
 					}
 						document.getElementById('play').onclick=function(){
 							var n=list.length;
-							var max= Math.max(...list);
+							var max= Math.max(...auxList);
 							var lengthBar = Math.floor(canvas.width / n);
 							if (max > canvas.width){	
 								var heightProportionBar=canvas.height / max;
 							}else{
-								var heightProportionBar=1;	
+								var heightProportionBar=max / canvas.height;	
 							}
 
-							const barList = list.map((v,i)=>{
+							const barList = auxList.map((v,i)=>{
 								return new bar(lengthBar*i,0,lengthBar,Math.floor(v*heightProportionBar));
 							});
 					
 							const drawA = () => barList.forEach((b)=>b.draw());
 							drawA();
-							
+									
 							var queue=0;
-							quicksortActions(list, (action) => {
+							quicksortActions(list,auxList, (action) => {
 								var spd = document.getElementById('speed').value;
 								queue++;
 								setTimeout(() =>{
@@ -94,13 +109,13 @@
 				canvas.width = div.clientWidth;
 				const ctx = canvas.getContext("2d");
 
-				const quicksortActions= (list, onAction) =>{
+				const quicksortActions= (list,auxList, onAction) =>{
 
 					function swap(items,index1,index2){
 						onAction({type:actions.swap,data:[index1,index2]});
-						var tmp=items[index1];
-						items[index1]=items[index2];
-						items[index2]=tmp;
+						var tmp=items[index1];var tmpL=list[index1];
+						items[index1]=items[index2];list[index1]=list[index2];
+						items[index2]=tmp;list[index2]=tmpL;
 					}
 
 					function partition(items,l,r){
@@ -143,7 +158,7 @@
 						return items;
 					}
 
-					var lst=quicksort(list,0,list.length-1);
+					var lst=quicksort(auxList,0,list.length-1);
 					};
 				
 				function bar(x,y,w,h,c='gray'){
@@ -179,6 +194,9 @@
 
 					this.getVal = (v) => this.h;
 				}
+			function isNumeric(n) {
+  				return !isNaN(parseFloat(n)) && isFinite(n);
+			}
 
 			</script>
 
