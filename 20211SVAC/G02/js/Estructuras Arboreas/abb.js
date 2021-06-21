@@ -244,12 +244,18 @@ function actualizarTablero(){
         edges: edges,
     };
     var options = { 
-        physics: false,
+        physics: {
+            solver: "barnesHut"
+            ,barnesHut: {
+                avoidOverlap: 1
+            }
+        },
         layout: {
             hierarchical: {
                 direction: 'UD',
                 nodeSpacing: 150,
-                sortMethod : 'directed'
+                sortMethod : 'directed',
+                shakeTowards: 'roots'
               }
         } 
     };
@@ -341,7 +347,7 @@ function focus() {
         scale: 3.0,
         offset: {x:0,y:0},
         animation: {
-            duration: 2500,
+            duration: (1000)*(slider.value),
             easingFunction: "easeOutQuint"
         }
     }
