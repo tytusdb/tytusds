@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista_Simplemente_enlazada</title>
+    <link rel="stylesheet" href= "../../../CSS/Header.css">
+    <link rel="stylesheet" href= "../../../CSS/estilos.css">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript"  language="JavaScript" src="lista_simplemente_enlazada.js" defer></script>
+</head>
+
+<body>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <div class="header">
+        <a href="../../../index.html" class="logo">
+            <img class="log" src="../../../IMAGENES/iconoT1.png">
+            Visualizaciones de estructura de datos
+        </a>
+    </div>
+
+    <div class="container">
+        <div class="row mt-3">
+            <div class="col-8">
+                <h2>Lista Simplemente Enlazada</h2>
+                <p>Ingrese un dato</p>
+                
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Ingresar datos" id="valor">
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-append">
+                        <button class ="btn-Ingrese">Ingrese</button>
+                    </div>
+
+                    <div class="input-group-append">
+                        <button class ="btn-Elimina">Eliminar</button>
+                    </div>
+
+                    <div class="input-group-append">
+                        <button class ="btn-Actualizar">Actualizar</button>
+                    </div>
+
+                    <div class="input-group-append">
+                        <button class ="btn-Buscar">Buscar</button>
+                    </div>
+                    
+                    <div class="input-group-append">
+                        <button class ="btn-Guardar">Guardar</button>
+                    </div>                    
+                </div>
+
+                <div class="input-group mb-3">                    
+                    <div id = "div_file">
+                        <p id="texto">Cargar</p>
+                        <input type ="file" id="btn_Cargar" accept="txt/json" onchange= "return validarExt()"/>
+                     </div>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <div id="capa" style="position: absolute; top: 20px; left: 10px; right: 20px;">
+                    <div id="capa1" style="position: absolute; top:30%; left: 10%;">    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    
+</body>
+</html>

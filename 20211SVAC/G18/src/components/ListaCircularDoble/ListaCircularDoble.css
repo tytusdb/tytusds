@@ -1,0 +1,52 @@
+.contPadre{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 300px;
+  }
+  
+  .nodoNull{
+    width: 100px;
+    height: 80px;
+    background-color:#2874A6;
+    text-align: center;
+    padding-top: 5px;
+    border: 1px solid;
+    text-align: center;
+    padding-top: 25px;
+    font-weight: bold;
+  }
+  
+  
+  .contNodo{
+    width: 150px;
+    height: 40px;
+    flex-direction: row;
+    align-items: center;
+    display: flex;
+    box-sizing: border-box;
+  }
+  
+  .valor{
+    width: 100px;
+    height: 80px;
+    background-color:#3498DB;
+    text-align: center;
+    padding-top: 5px;
+    border: 1px solid;
+  }
+  
+  .enlace{
+    width: 10px;
+    height: 80px;
+    background-color: black;
+    color:black;
+  }
+  
+  
+  .card{
+    height: auto !important;
+  }

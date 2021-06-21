@@ -5,13 +5,15 @@
 		<meta charset="utf-8" />
 		<script src="../jquery-1.7.2.min.js"></script>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="../layout/css/main.css" />
 		<style type="text/css">
-			#mynetwork {
+			#miRed {
+        margin: auto;
 			  width: 900px;
 			  height: 550px;
 			  border: 1px solid lightgray;
 			}</style>
-        <script src ="../vis-network.min.js"></script>
+    <script src ="../vis-network.min.js"></script>
 		<script src="ListaCirDoble.js"></script>
 	</head>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -26,42 +28,68 @@
                 Estructuras Lineales
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="simple_list.html" id="Lista_Simple">Lista Simple Enlazada<span class="sr-only">(current)</span></a>
-                <a class="dropdown-item" href="double_linked_list.html" id="Lista_Doble">Lista Doble Enlazada<span class="sr-only">(current)</span></a>
-                <a class="dropdown-item" href="ListaCircularSimple.html" id="Lista_Doble">Lista circular Simple<span class="sr-only">(current)</span></a>
-                <a class="dropdown-item" href="ListaCirDoble.html" id="Lista_Doble">Lista Circular Doble<span class="sr-only">(current)</span></a>
+                <a class="dropdown-item" href="../Lineal_Structures/simple_list.html" id="Lista_Simple">Lista Simple Enlazada<span class="sr-only">(current)</span></a>
+                <a class="dropdown-item" href="../Lineal_Structures/double_list.html" id="Lista_Doble">Lista Doble Enlazada<span class="sr-only">(current)</span></a>
+                <a class="dropdown-item" href="../Lineal_Structures/ListaCircularSimple.html" id="Lista_Circular_S">Lista Circular Simple<span class="sr-only">(current)</span></a>
+                <a class="dropdown-item" href="../Lineal_Structures/ListaCirCoble.html" id="Lista_Circular_S">Lista Circular Doble<span class="sr-only">(current)</span></a>
+                <a class="dropdown-item" href="../Lineal_Structures/ColaP.html" id="colaP">Cola de Prioridad<span class="sr-only">(current)</span></a>
+                <a class="dropdown-item" href="../Lineal_Structures/Pila.html" id="Pila">Pila<span class="sr-only">(current)</span></a>
+                <a class="dropdown-item" href="../Lineal_Structures/Cola.html" id="cola">Cola<span class="sr-only">(current)</span></a>
               </div>
-            </li>
-            <li class="nav-item">
+            </li>                                           
+            <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Estructuras No Lineales
-                  </a>
+                  Estructuras No Lineales
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="#">Action</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Ordenamientos
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="bubleSort.html" id="Lista_Simple">Ordenamiento Burbuja<span class="sr-only">(current)</span></a>
+                    <a class="dropdown-item" href="insertionSort.html" id="Lista_Doble">Ordenamiento Insercion<span class="sr-only">(current)</span></a>
+                    <a class="dropdown-item" href="Rapido.html" id="Lista_Doble">Ordenamiento Rapido<span class="sr-only">(current)</span></a>
+                    <a class="dropdown-item" href="Seleccion.html" id="selection">Ordenamiento Rapido<span class="sr-only">(current)</span></a>
+                </div>
             </li>
           </ul>
         </div>
       </nav>
 	<body class="is-preload">
 			<div class="contenedor">
-				<h1>Lista Circular Doble</h1>
+				<h1>LISTA CIRCULAR DOBLE</h1>
             <div id="ventanas">
                 <ul id=lista>
                 </ul>
             </div>
             <body>
                 <div id="contenidoventanas">
-					<button onclick="sacarInicio();" title="sacar" id="btn4" class="btn btn-primary">Sacar Inicio</button>
-					<button onclick="agregarValor();" title="insertar" id="btn4" class="btn btn-primary">Agregar</button>
-					<button onclick="eliminarValor();" title="eliminar" id="btn4" class="btn btn-primary">Eliminar</button>
+                  <button onclick="agregarValor();" title="insertar" id="btn4" class="btn btn-primary">Agregar</button>
+          <button onclick="agregarValorEn();" title="insertar" id="btn4" class="btn btn-primary">Agregar En</button>
+					<button onclick="eliminarValorEn();" title="eliminar" id="btn4" class="btn btn-primary">Eliminar En</button>
+          <button onclick="eliminarValor();" title="eliminar" id="btn4" class="btn btn-primary">Eliminar</button>
+          <button onclick="encontrar();" title="sacar" id="btn4" class="btn btn-primary">Buscar</button>
 					<input id="fileInput" title="Abrir" type="file" size="50" onchange="AbrirArchivo(this.files)" class="btnp">
 				</div>
 				<div>
-					<br><input type="text" id="newValue" name="newValue"><br>
+          <ul>
+            <li>
+              <br><a class="a-label">Valor </a><input type="text" id="newValue" name="newValue">
+              <a class="a-label">Posicion </a><input type="text" id="Posicion" name="Posicion">
+            </li>
+          </ul>
 				</div>
-				<div id="mynetwork"></div>				
+				<div id="miRed"></div>				
             </body>
         </div>
-		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 	</body>
 </html>

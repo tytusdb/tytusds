@@ -3,10 +3,13 @@
 <head>
     <link rel="stylesheet" type="text/css" href="../CSS/header.css">
     <link rel="stylesheet" type="text/css" href="../CSS/ddNavBar.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/estructurasLineales.css">
     <meta charset="UTF-8">
     <title>Pila</title>
 </head>
 <body>
+
+<script src="./JS/pila.js"></script>
 
 <h1>Pila</h1>
 
@@ -45,6 +48,17 @@
         </div>
     </li>
 </ul>
+
+<br>
+
+<form action="/action_page.php">
+    <label for="valorAdd">Valor:</label>
+    <input type="text" class="css-input" id="valorAdd" onkeypress="return event.keyCode != 13;">
+    <input type = "button" class="myButton" id="btnAdd" onclick = "agregar()" value = "Agregar valor">
+    <input type = "button" class="myButton" id="btnEliminar" onclick = "eliminar()" value = "Eliminar valor">
+</form>
+
+<h2 st id="pila"></h2>
 
 </body>
 </html>

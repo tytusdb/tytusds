@@ -1,8 +1,10 @@
+var i = 0;
 class Nodo{
 
     constructor(dato) {
         this.siguiente = null;
         this.dato = dato;
+        i ++;
         
     }
 

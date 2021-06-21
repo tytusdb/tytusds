@@ -12,7 +12,16 @@ btn_Save.addEventListener("click", saveFile,true);
 
 // LIMPIAR PANTALLA 
 var btn_clear = document.getElementById("limpiar");
-btn_clear.addEventListener("click", limpiar)
+btn_clear.addEventListener("click", limpiar);
+
+// VELOCIDAD
+
+var btn_velocidad = document.getElementById("velocidad");
+btn_velocidad.addEventListener("click", datoVelocidad);
+
+// V  A  R  I  A  B  L  E  S  -  G  L  O  B  A  L  E  S 
+var listaValores = [];
+var listaWords = [];
 
 // ***** LIMPIAR PANTALLA *****
 function limpiar(){
@@ -21,13 +30,16 @@ function limpiar(){
 
 function saveFile(){
     console.log("Save")
-    var valoRight = burbujaFile(listaValores);
-    console.log(valoRight);
+    if (tipoDato == 'number'){
+        var listaFile = listaValores;
+    } else {
+        var listaFile = listaWords;
+    }
 
     var fileJ = {
         "categoria": `${convert.categoria}`,
         "nombre": `${convert.nombre}`,
-        "valores": valoRight
+        "valores": listaFile
     }
 
     let saveArchivo = new Blob([JSON.stringify(fileJ)],{type:"application/json"});
@@ -36,22 +48,11 @@ function saveFile(){
     a.download = "burbuja.json";
     a.click();
 
-
-
 }
-
-
-    
-
-
-var btn_velocidad = document.getElementById("velocidad");
-btn_velocidad.addEventListener("click", datoVelocidad)
 
 function datoVelocidad(){
-    velocidad = document.getElementById("numVelocidad").value;
-    
+    velocidad = document.getElementById("numVelocidad").value;  
 }
-
 
 // L E C T U R A - A R C H I V O
 function readFile(evento){ // lectura del archivo .json
@@ -66,6 +67,7 @@ function readFile(evento){ // lectura del archivo .json
     
             console.log("Valores sin ordenar")
             listaValores = convert.valores;
+            listaWords = convert.valores;
             tipoDato = typeof(listaValores[0]);
 
                       
@@ -84,61 +86,22 @@ window.addEventListener('load', ()=>{ // cada vez que cambie
     document.getElementById('file').addEventListener('change',readFile)
 });
 
-// O R D E N A M I E N T O - B U R B U J A
-
-function burbujaFile(lista){
-    var aux;
-    
-    for (var i=0; i<lista.length; i++){
-        for(var j=i+1; j<lista.length; j++){
-            if(lista[i]>lista[j]){
-                aux = lista[j];
-                lista[j] =lista[i];
-                lista[i] = aux;
-            }
-        }
-    }
-    return lista;
-    
-}
-
 function longitudWord(palabra){
     var suma = 0; 
-
     for (var q = 0; q < palabra.length; q++){
-        suma = suma + palabra.charCodeAt(q);
-
-
-        /*
-        if (palabra[q] == " "){
-            break;
-
-        } else {
-           
-        }
-        */
-        
-
-        
+        suma = suma + palabra.charCodeAt(q);  
     }
-
-    console.log(suma);
     return suma;
 }
 
-
-
-
 // V I S U A L I Z A D O R
 var container = document.getElementById("array");
-
 function generateElements(datos, typeD){
     for (var t = 0; t < datos.length;t++){
 
         // creando div para cada dato de la lista
         var elemento = document.createElement("div");
         elemento.classList.add("block");
-
 
         // añadiendo el estilo a los bloques 
         // ** CAMBIOS DE LONGITUD PENDIENTES **
@@ -160,8 +123,6 @@ function generateElements(datos, typeD){
 
         }
         
-        
-
         //elemento.style.height = `${datos[t]*0.05}px`;
         elemento.style.transform=`translate(${t*35}px)`
 
@@ -182,7 +143,6 @@ function generateElements(datos, typeD){
 // funcion para intercambiar posicion de bloques
 function cambiar(bloque1, bloque2){
     return new Promise((resolve) =>{
-
         // cambiar el estilo de los bloques
         var bloque_tmp = bloque1.style.transform;
         bloque1.style.transform = bloque2.style.transform;
@@ -204,12 +164,11 @@ function cambiar(bloque1, bloque2){
 // ordenamiento burbuja
 async function burbuja(delay = 100){
     var bloques = document.querySelectorAll(".block");
-    velocidad =10;
-    
+    velocidad = 10;
 
     // algoritmo del ordenamiento
-    for(var v = 0; v < bloques.length; v+=1){
-        for (var c = 0; c < bloques.length - v - 1; c +=1){
+    for(var v = 0; v < listaValores.length; v+=1){
+        for (var c = 0; c < listaValores.length - v - 1; c +=1){
         
             // color de bloques seleccionados
             bloques[c].style.backgroundColor = "#FF4949";
@@ -222,35 +181,20 @@ async function burbuja(delay = 100){
                 }, (velocidad*200)) //delay
             );
 
-            console.log("ejecutando");
-
-            if (tipoDato === 'number'){
-                var valor1 = Number(bloques[c].childNodes[0].innerHTML);
-                var valor2 = Number(bloques[c+1].childNodes[0].innerHTML);
-
-            } else {
-                var valor1 = String(bloques[c].childNodes[0].innerHTML);
-                var valor2 = String(bloques[c+1].childNodes[0].innerHTML);
-
-            }
-            
-            
-            /*
-            var valor1 =(bloques[c].childNodes[0].innerHTML);
-            var valor2 =(bloques[c+1].childNodes[0].innerHTML);
-            */
-            
-
             // comparar los valores para ordenarlos 
-            if (valor1 > valor2){
+            if (listaValores[c] > listaValores[c+1]){
                 await cambiar(bloques[c], bloques[c + 1]);
                 bloques = document.querySelectorAll(".block");
-                var aux = listaValores[c];
-                listaValores[c] = listaValores[v];
-                listaValores[v] = aux;
 
-                
+                var auxa = listaValores[c];
+                listaValores[c] = listaValores[c+1];
+                listaValores[c+1] = auxa;
 
+                if (tipoDato != 'number'){
+                    var auxo = listaWords[c];
+                    listaWords[c] = listaWords[c+1];
+                    listaWords[c+1] = auxo;
+                }
             }
             bloques[c].style.backgroundColor = "#6b5b95";
             bloques[c + 1].style.backgroundColor = "#6b5b95";
@@ -262,29 +206,28 @@ async function burbuja(delay = 100){
 
 }
 
-
+// ORDENAMIENTO CON STRING
+function lonWord(){ // esta funcion obtiene la suma ascii de cada palabra
+    var newLista = [];
+    var sumaPalabra = 0;
+    for(let i = 0; i < listaValores.length; i++){
+        for(let j = 0; j < listaValores[i].length; j++){
+            sumaPalabra = sumaPalabra + listaValores[i].charCodeAt(j);
+        }
+        newLista[i] = sumaPalabra;
+        sumaPalabra = 0;
+    }
+    return newLista;
+}
 
 // L E C T U R A - J S O N
 function infoFile(){ // metodo que convierte la cadena obtenida del archivo en json y permite leerlo
-    /*
-    console.log(contenido);
-    convert = JSON.parse(contenido);
-    
-    console.log("Valores sin ordenar")
-    listaValores = convert.valores;
-    console.log(convert.valores);
-
-    /*
-    console.log("------------")
-    burbuja(listaValores);  
-    console.log("EMPIEZO NUEVO PROCESO");
-    */
-    
-    burbuja();
-    
-    
-
+    if(tipoDato == 'number'){
+       burbuja();
+    } else {
+        listaValores = lonWord();
+        burbuja();
+    }
 }
-
 
 
