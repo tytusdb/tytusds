@@ -11,6 +11,20 @@ function ordBurburja(arreglo) {
     return arreglo;
 }
 
+function ordBurburjaString(arreglo) {
+    for (var i = (arreglo.length); i > 0; i--) {
+        for (var j = 0; j < i; j++) {
+            if(arreglo[j]> arreglo[j+1]){
+                var temp = arreglo[j];
+                arreglo[j] = arreglo[j+1]
+                arreglo[j+1] = temp;
+            }
+        }
+    }
+    return arreglo;
+}
+
+
 function seleccion(array){
     let pMax,aux
     for (let i = 0; i < array.length; i++) {
@@ -72,3 +86,27 @@ function partir(array,inicio,fin){
 function ordRapido(array){
     return quicksort(array,0,array.length-1)
 }
+function ObtenerString(array){
+    let listaString = []
+    for (k in array){
+        //console.log(array[k])
+        let suma = 0;
+        for (l in array[k]){
+            
+            //console.log(array[k][l])
+            letra = array[k][l]
+            //console.log(letra.charCodeAt(0))
+            suma = suma + letra.charCodeAt(0)
+            
+        } 
+        //console.log(suma)
+        listaString.push({'string':array[k],'suma1':suma})
+    }
+    return listaString
+}
+
+
+hola = ObtenerString(["che","juli","daniel","miguel"]);
+console.log(hola)
+//console.log(ordBurburjaString())
+//console.log(ordBurburja([8,7,9,5]));
