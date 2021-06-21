@@ -1,5 +1,9 @@
+//Libreria para encriptado
+const { sha256 } = require("js-sha256")
 
+//Clase Nodo para lista temporal de carga de datos
 class NodoListaTemporal{
+    //Constructor
     constructor(datTemporal){
         this.datTemporal = datTemporal
         this.siguiente = null
@@ -7,14 +11,16 @@ class NodoListaTemporal{
     }
 }
 
+//Clase Lista temporal para carga de datos
 class ListaTemporal{
+    //Constructor
     constructor(){
         this.cabeza = null
         this.cola = null
         this.size = 0
     }
 
-    //Metodo Insertar
+    //Metodo Insertar en lista temporal
     insertLista(dato){
         let nodo = new NodoListaTemporal(dato);
         //Insercion de primer nodo
@@ -34,6 +40,7 @@ class ListaTemporal{
         }
     }
 
+    //Metodo Eliminar par alista temporal
     eliminarLista(dato){
         let nodo = this.cabeza
         if(this.cabeza.datTemporal == dato && this.cabeza == this.cola){
@@ -80,9 +87,12 @@ class ListaTemporal{
     }
 }
 
+//arreglo para reestructuracion de datos
 var recarga = []
 
+//Clase Nodo para arbol merkle
 class Nodo{
+    //Constructor
     constructor(dato, izquierda, derecha, nodohijo){
         this.dato = dato
         this.hash = null
@@ -92,33 +102,32 @@ class Nodo{
     }
 }
 
-
+//Clase Arbol Merkle
 class MerkleTree{
+    //Constructor
     constructor(){
         this.raiz = null
     }
 
-    suma(nodo) {
-        if (nodo.derecha != null && nodo.izquierda != null){
-            return nodo.derecha.dato + nodo.izquierda.dato
-        }
-        return -1
-    }
-
+    //Metodo Insertar en arbol Merkle
     insertar(dato){
         let nodo = new Nodo(dato, null, null, true)
+        //Insercion de primer nodo
         if(this.raiz == null){
             let listatmp = new ListaTemporal()
             listatmp.insertLista(nodo)
             listatmp.insertLista(new Nodo(-1, null, null, true))
             this.construirArbol(listatmp)           
-        }else{
+        }else{  //Insercion de Nodo no primero
             let listatmp = this.ObtenerLista()
             listatmp.insertLista(nodo)
             this.construirArbol(listatmp)
         }
+        //Hasheo de datos en sha256
+        this.hashing()
     }
 
+    //Metodo de Carga de datos en lista temporal para insercion de arbol
     ObtenerLista(){
         let listatmp = new ListaTemporal()
         this.obtenerlista(listatmp, this.raiz.izquierda)
@@ -126,6 +135,7 @@ class MerkleTree{
         return listatmp
     }
 
+    //Sub metodo de carga de datos en lista temporal para insercion de arbol
     obtenerlista(lista, nodo){
         if(nodo != null){
             this.obtenerlista(lista, nodo.izquierda)
@@ -136,19 +146,23 @@ class MerkleTree{
         }
     }
 
+    //Metodo para armado base de arbol
     construirArbol(lista){
         let tamanio = new Float64Array(lista.size)
         let cant = 1
         let operacion = tamanio.length/2
+        //Calculo de nodos actuales
         while (operacion > 1){
             cant++
             operacion = operacion/2
         }
         let vectorTotal = new Float64Array(cant)
-        let totalnodos = Math.pow(2, vectorTotal.length)
+        let totalnodos = Math.pow(2, vectorTotal.length)    //Calculo de nodos hijos para arbol merkle
+        //Complemetacion de nodos hijo para arbol merkle final
         while(lista.size < Math.floor(totalnodos)){
             lista.insertLista(new Nodo(-1,null,null,true))
         }
+        //Insercion de datos en arbol
         while(lista.size>1){
             let primero = lista.cabeza
             let segundo = primero.siguiente
@@ -160,10 +174,11 @@ class MerkleTree{
             let nuevo = new Nodo(suma, nodo1, nodo2,false)
             lista.insertLista(nuevo)
         }
+        //Asignacion de raiz
         this.raiz = lista.cabeza.datTemporal
     }
 
-    
-}
+   
 
-  
+
+}
