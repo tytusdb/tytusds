@@ -1,112 +1,121 @@
 class Nodo{
-    constructor(dato){
-        this.dato = dato;
-        this.siguiente = null;
-        this.anterior = null;
+    constructor(dato, prioridad){
+        this.dato = dato
+        this.prioridad = prioridad
+        this.siguiente = null
     }
 }
 
-class Lista_Doble{
+class Cola_Prioridad{
     constructor(){
         this.primero = null;
         this.ultimo = null;
         this.size = 0;
     }
-    insertar(dato){
-        let nuevo = new Nodo(dato);
+    insertar(dato, prioridad){
+        let nuevo = new Nodo(dato, prioridad);
+
         if(this.primero == null){
             this.primero = nuevo;
-            this.ultimo = this.primero;
-            this.size++;
-        }else{
-            this.ultimo.siguiente = nuevo;
-            nuevo.anterior = this.ultimo;
+            this.primero.siguiente = null;
             this.ultimo = nuevo;
-            this.size++;
-        }
-    }
-
-    print(){
-        //let valores = [];
-        let aux = this.primero;
-        while(aux != null){
-            //valores.push(aux.dato);
-            console.log("Dato: ", aux.dato);
-            aux = aux.siguiente;
-        }
-        console.log("El tamaño de la lista es de: ", this.size)
-        //return valores
-    }
-
-    buscar(valor){
-        let aux = this.primero;
-        while(aux != null){
-            if(aux.dato == valor){
-                console.log("Si se encontro el dato: ", valor)
-                return aux;
-            }
-            aux = aux.siguiente;
-        }
-        console.log("No se encontro");
-        return null;
-    }
-
-    eliminar(valor){
-        let aux = this.primero;
-        while(aux != null){
-            if(aux.dato == valor){
-                if(this.primero == aux){
-                    this.primero = aux.siguiente;
-                    aux.siguiente.anterior = null;
-                    aux.siguiente = null;
-                    this.size--;
-                    return aux;
-                }else if(this.ultimo == aux){
-                    this.ultimo = aux.anterior;
-                    aux.anterior.siguiente = null;
-                    aux.anterior = null;
-                    this.size--;
-                    return aux;
+        }else{
+            nuevo.siguiente = this.primero
+            this.primero = nuevo;
+            var actual = this.primero;
+            var next = actual.siguiente;
+            while(actual.siguiente != null){
+                if(actual.prioridad > next.prioridad){
+                    var aux = actual.dato;
+                    var auxiliar = actual.prioridad;
+                    actual.dato = next.dato;
+                    actual.prioridad = next.prioridad;
+                    next.dato = aux;
+                    next.dprioridad = auxiliar;
+                    actual = actual.siguiente;
+                    next = next.siguiente;
                 }else{
-                    aux.anterior.siguiente = aux.siguiente;
-                    aux.siguiente.anterior = aux.anterior;
-                    aux.anterior = null;
-                    aux.siguiente = null;
-                    this.size--;
-                    return aux;
+                    actual = actual.siguiente;
+                    next = next.siguiente;
                 }
             }
-            aux = aux.siguiente;
         }
-        console.log("No se encontro el dato")
+        this.size++;
     }
 
-    actualizar(dato_viejo, dato_nuevo){
-        let aux = this.primero;
-        while(aux != null){
-            if(aux.dato == dato_viejo){
-                if(this.primero == aux){
-                    console.log("Se encontro el dato")
-                    aux.dato = dato_nuevo;
-                    console.log("Se actulizo exitosamente")
-                    return aux;
-                }else if(this.ultimo == aux){
-                    console.log("Se encontro el dato")
-                    aux.dato = dato_nuevo;
-                    console.log("Se actulizo exitosamente")
-                    return aux;
-                }else{
-                    console.log("Se encontro el dato")
-                    aux.dato = dato_nuevo;
-                    console.log("Se actulizo exitosamente")
-                    return aux;
-                }
+    print_cola(){
+        let actual = this.primero;
+        if(this.primero != null){
+            while(actual != null){
+                console.log("Dato: ", actual.dato);
+                actual = actual.siguiente;
             }
-            aux = aux.siguiente;
+        }else{
+            console.log("La Cola se encuentra vacia");
         }
-        console.log("No se encontro el dato")
+    }
+
+    buscar_cola(dato){
+        let actual = this.primero;
+        let encontrado = false;
+        if(this.primero != null){
+            while(actual != null && encontrado != true){
+                if(actual.dato == dato){
+                    console.log("Si se encontro el dato: ", dato);
+                    encontrado = true;
+                }
+                actual = actual.siguiente;
+            }
+            if(!encontrado){
+                console.log("Dato no encontrado")
+            }
+        }else{
+            console.log("La Cola se encuentra vacia");
+        }
+    }
+
+    eliminar_remove(){
+        let actual = this.primero;
+        if(this.primero != null){
+            if(actual == this.primero){
+                this.primero = this.primero.siguiente
+                this.size--;
+            }
+        }else{
+            console.log("La cola se encuentra vacia");
+        }   
+    }
+
+    actualizar_cola(dato_viejo, dato_nuevo){
+        let actual = this.primero;
+        let encontrado = false;
+        if(this.primero != null){
+            while(actual != null && encontrado != true){
+                if(actual.dato == dato_viejo){
+                    console.log("Si se encontro el dato: ", dato_viejo);
+                    actual.dato = dato_nuevo;
+                    encontrado = true;
+                    console.log("Se actualizo el dato con exito");
+                }
+                actual = actual.siguiente;
+            }
+            if(!encontrado){
+                console.log("Dato no encontrado")
+            }
+        }else{
+            console.log("La Cola se encuentra vacia");
+        }
     }
 }
+
+/*cola_prioridad.insertar(2,6);
+cola_prioridad.insertar(9,3);
+cola_prioridad.insertar(5,5);
+cola_prioridad.insertar(10,0);
+cola_prioridad.eliminar_remove();
+cola_prioridad.actualizar_cola(9,1);
+cola_prioridad.buscar_cola(5);
+cola_prioridad.print_cola();*/
 
 /* --------Implementacion---------------- */
 
@@ -114,13 +123,13 @@ let list = document.getElementById('lista');
 let nodes = document.getElementsByClassName('node');
 let pointers = document.getElementsByClassName('pointer');
 var indice = 0;
-var velocidad = 500;
+var velocidad = 500; 
 var categoria = "";
 var tipo = "";
 var repeticion = "";
 var animacion = ""; 
 
-let lista_doble = new Lista_Doble();
+let cola_prioridad = new Cola_Prioridad();
 
 function animacion_nodo(i) {
     return new Promise(resolve => {
@@ -147,32 +156,38 @@ async function nodos_animados(from, to) {
 
 async function insertar_nodo(){
     var dato = document.getElementById('dato_pag').value;
+    var prioridad = document.getElementById('prioridad').value;
     var checkbox = document.getElementById('checkbox').checked;
     var encontrado = false;
 
-    if(dato === ''){
+    if(dato === '' || prioridad === ''){
         alert("Por favor ingrese un dato");
         return false;
     }else{
         if(checkbox == true){
-            lista_doble.insertar(dato);
+            cola_prioridad.insertar(dato, prioridad);
             console.log("Activado");
             let node = document.createElement('div');
             node.classList.add('node');
     
             let number = document.createElement('p');
             number.classList.add('number');
-    
+
+            let set = document.createElement('p');
+            set.classList.add('set');
+
             let text = document.createTextNode(dato);
-    
+            let priori = document.createTextNode(prioridad);    
             number.appendChild(text);
+            set.appendChild(priori);
             node.appendChild(number);
+            node.appendChild(set);
     
             let pointer = document.createElement('div');
             pointer.classList.add('pointer');
     
             let img = document.createElement('img');
-            img.src = "img/flechaDoble.png";
+            img.src = "img/flecha6.png";
         
             pointer.appendChild(img);
     
@@ -191,9 +206,23 @@ async function insertar_nodo(){
                 {duration: velocidad});
                 indice++;
             }else{
-                await nodos_animados(0, nodes.length-1);
-                list.appendChild(node);
-                list.appendChild(pointer);
+                for(var i = 0; i<nodes.length; i++){
+                    var prueba = nodes[i].lastElementChild.textContent;
+                    console.log("-->",prueba);
+                    if(prioridad < prueba){
+                        console.log("es menor");
+                        console.log(i);
+                        list.insertBefore(pointer, nodes[i])
+                        list.insertBefore(node, pointers[i])
+                        break;
+                    }else if(prioridad == prueba){
+                        list.appendChild(node);
+                        list.appendChild(pointer);
+                    }else{
+                        list.appendChild(node);
+                        list.appendChild(pointer);
+                    }
+                }       
                 node.animate([{transform: 'scale(0.5)', background: '#f12711', 
                 background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
                 background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0},
@@ -214,22 +243,27 @@ async function insertar_nodo(){
     
             let number = document.createElement('p');
             number.classList.add('number');
+
+            let set = document.createElement('p');
+            set.classList.add('set');
     
             let text = document.createTextNode(dato);
-    
+            let priori = document.createTextNode(prioridad);    
             number.appendChild(text);
+            set.appendChild(priori);
             node.appendChild(number);
+            node.appendChild(set);
     
             let pointer = document.createElement('div');
             pointer.classList.add('pointer');
     
             let img = document.createElement('img');
-            img.src = "img/flechaDoble.png";
+            img.src = "img/flecha6.png";
         
             pointer.appendChild(img);
     
             if(indice === 0){
-                lista_doble.insertar(dato);
+                cola_prioridad.insertar(dato, prioridad);
                 list.appendChild(node);
                 list.appendChild(pointer);
                 node.animate([{transform: 'scale(0.5)', background: '#f12711', 
@@ -253,10 +287,26 @@ async function insertar_nodo(){
                     }
                 }
                 if(encontrado == false){
-                    lista_doble.insertar(dato);
-                    await nodos_animados(0, nodes.length-1);
-                    list.appendChild(node);
-                    list.appendChild(pointer);
+                    for(var j = 0; j<nodes.length; j++){
+                        var prueba = nodes[j].lastElementChild.textContent;
+                        console.log("-->",prueba);
+                        if(prioridad < prueba){
+                            console.log("es menor");
+                            console.log(j);
+                            cola_prioridad.insertar(dato, prioridad);
+                            list.insertBefore(pointer, nodes[j])
+                            list.insertBefore(node, pointers[j])
+                            break;
+                        }else if(prioridad == prueba){
+                            cola_prioridad.insertar(dato, prioridad);
+                            list.appendChild(node);
+                            list.appendChild(pointer);
+                        }else{
+                            cola_prioridad.insertar(dato, prioridad);
+                            list.appendChild(node);
+                            list.appendChild(pointer);
+                        }
+                    }
                     node.animate([{transform: 'scale(0.5)', background: '#f12711', 
                     background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
                     background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0},
@@ -276,44 +326,16 @@ async function insertar_nodo(){
 }
 
 async function eliminar_nodo(){
-    var eliminar_dato = document.getElementById('dato_pag').value;
-    var tamaño = 0
-    var encontrado = false;
-    lista_doble.eliminar(eliminar_dato);
-    if(eliminar_dato === ''){
-        alert("Por favor ingrese un dato");
-        return false;
-    }else{
-        for(var i = 0; i<nodes.length; i++){
-            var muestra = nodes[i].firstChild.innerHTML;
-            console.log(muestra);
-            tamaño++;
-            if(muestra == eliminar_dato){
-                encontrado = true;
-                await nodos_animados(0, tamaño-1);
-                nodes[tamaño-1].animate([{background: 'lime', opacity: 1, offset: 0}],{duration:velocidad});
-                console.log("encontrado");
-                setTimeout(()=>{
-                    list.removeChild(nodes[i]);
-                    list.removeChild(pointers[i]);
-                },velocidad-500)
-                indice--;
-                break;
-            }      
-        }
-        if(encontrado==false){
-            alert("no se encontro");
-            console.log("no se encontro"); 
-        }
-    }
-    console.log("->",tamaño);
+    cola_prioridad.eliminar_remove();
+    list.removeChild(nodes[0]);
+    list.removeChild(pointers[0]);
 }
 
 async function actualizar_nodo(){
     var encontrado = false;
     var dato_viejo = document.getElementById('dato_viejo').value;
     var dato_nuevo = document.getElementById('dato_nuevo').value;
-    lista_doble.actualizar(dato_viejo, dato_nuevo);
+    cola_prioridad.actualizar_cola(dato_viejo, dato_nuevo);
 
     let node_nuevo = document.createElement('div');
     node_nuevo.classList.add('node');
@@ -356,7 +378,7 @@ async function actualizar_nodo(){
 
 function velocidad_max(){
     var nueva_velocidad = document.getElementById('velocidad').value;
-    lista_doble.print();
+    cola_prioridad.print_cola();
 
     if(nueva_velocidad === ''){
         alert("Por favor ingrese un dato");
@@ -372,7 +394,7 @@ async function buscar(){
     var buscar_dato = document.getElementById('dato_pag').value;
     var encontrado = false;
     var tamaño = 0;
-    lista_doble.buscar(buscar_dato);
+    cola_prioridad.buscar_cola(buscar_dato);
 
     if(buscar_dato === ''){
         alert("Por favor ingrese un dato");
@@ -410,27 +432,37 @@ async function abrirArchivo(evento){
             tipo = mydata.nombre;
             repeticion = mydata.repeticion;
             animacion = mydata.animacion;
+            //console.log(mydata.valores[0].valor, mydata.valores[0].prioridad)
             for(var i=0; i<(mydata.valores).length; i++){
+                //console.log(valor_json);
+                //console.log(prioridad_json);
                 if(mydata.repeticion == true){
                     console.log("esta en true");
-                    valores = mydata.valores[i];
-                    lista_doble.insertar(valores);
+                    var valor_json = mydata.valores[i].valor;
+                    var prioridad_json = mydata.valores[i].prioridad;
+                    //valores = mydata.valores[i];
+                    cola_prioridad.insertar(valor_json, prioridad_json);
                     let node = document.createElement('div');
                     node.classList.add('node');
     
                     let number = document.createElement('p');
                     number.classList.add('number');
-    
-                    let text = document.createTextNode(valores);
-    
+
+                    let set = document.createElement('p');
+                    set.classList.add('set');
+        
+                    let text = document.createTextNode(valor_json);
+                    let priori = document.createTextNode(prioridad_json);    
                     number.appendChild(text);
+                    set.appendChild(priori);
                     node.appendChild(number);
+                    node.appendChild(set);
     
                     let pointer = document.createElement('div');
                     pointer.classList.add('pointer');
     
                     let img = document.createElement('img');
-                    img.src = "img/flechaDoble.png";
+                    img.src = "img/flecha6.png";
         
                     pointer.appendChild(img);
     
@@ -449,9 +481,24 @@ async function abrirArchivo(evento){
                         {duration: velocidad});
                         indice++;
                     }else{
+                        for(var j = 0; j<nodes.length; j++){
+                            var prueba = nodes[j].lastElementChild.textContent;
+                            console.log("-->",prueba);
+                            if(prioridad_json < prueba){
+                                console.log("es menor");
+                                console.log(j);
+                                list.insertBefore(pointer, nodes[j])
+                                list.insertBefore(node, pointers[j])
+                                break;
+                            }else if(prioridad_json == prueba){
+                                list.appendChild(node);
+                                list.appendChild(pointer);
+                            }else{
+                                list.appendChild(node);
+                                list.appendChild(pointer);
+                            }
+                        }
                         await nodos_animados(0, nodes.length-1);
-                        list.appendChild(node);
-                        list.appendChild(pointer);
                         node.animate([{transform: 'scale(0.5)', background: '#f12711', 
                         background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
                         background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0},
@@ -467,28 +514,35 @@ async function abrirArchivo(evento){
                     }
                 }else{
                     console.log("esta en false");
-                    valores = mydata.valores[i];
+                    var valor_json = mydata.valores[i].valor;
+                    var prioridad_json = mydata.valores[i].prioridad;
+                    //valores = mydata.valores[i];
                     let node = document.createElement('div');
                     node.classList.add('node');
     
                     let number = document.createElement('p');
                     number.classList.add('number');
     
-                    let text = document.createTextNode(valores);
-    
+                    let set = document.createElement('p');
+                    set.classList.add('set');
+        
+                    let text = document.createTextNode(valor_json);
+                    let priori = document.createTextNode(prioridad_json);    
                     number.appendChild(text);
+                    set.appendChild(priori);
                     node.appendChild(number);
+                    node.appendChild(set);
     
                     let pointer = document.createElement('div');
                     pointer.classList.add('pointer');
     
                     let img = document.createElement('img');
-                    img.src = "img/flechaDoble.png";
+                    img.src = "img/flecha6.png";
         
                     pointer.appendChild(img);
     
                     if(indice === 0){
-                        lista_doble.insertar(valores);
+                        cola_prioridad.insertar(valor_json, prioridad_json);
                         list.appendChild(node);
                         list.appendChild(pointer);
                         node.animate([{transform: 'scale(0.5)', background: '#f12711', 
@@ -508,27 +562,35 @@ async function abrirArchivo(evento){
                         for(var j = 0; j<nodes.length; j++){
                             var muestra = nodes[j].firstChild.innerHTML;
                             console.log(muestra);
-                            console.log(valores);
-                            if(valores == muestra){
+                            //console.log(valores);
+                            if(valor_json == muestra){
                                 console.log("este se repitio")
                                 search = true;
                                 break;
                             }
                         }
-                        //encontrado = false;
-                        /*for(var i = 0; i<nodes.length; i++){
-                            let comparacion = nodes[i].firstChild.innerHTML;
-                            //console.log("->",comparacion);
-                            if(valores == comparacion){
-                                //encontrado = true;
-                                console.log(comparacion)
-                            }
-                        }*/
                         if(search == false){
-                            lista_doble.insertar(valores);
+                            for(var j = 0; j<nodes.length; j++){
+                                var prueba = nodes[j].lastElementChild.textContent;
+                                console.log("-->",prueba);
+                                if(prioridad_json < prueba){
+                                    console.log("es menor");
+                                    console.log(j);
+                                    cola_prioridad.insertar(valor_json, prioridad_json);
+                                    list.insertBefore(pointer, nodes[j]);
+                                    list.insertBefore(node, pointers[j]);
+                                    break;
+                                }else if(prioridad_json == prueba){
+                                    cola_prioridad.insertar(valor_json, prioridad_json);
+                                    list.appendChild(node);
+                                    list.appendChild(pointer);
+                                }else{
+                                    cola_prioridad.insertar(valor_json, prioridad_json)
+                                    list.appendChild(node);
+                                    list.appendChild(pointer);
+                                }
+                            }
                             await nodos_animados(0, nodes.length-1);
-                            list.appendChild(node);
-                            list.appendChild(pointer);
                             node.animate([{transform: 'scale(0.5)', background: '#f12711', 
                             background: '-webkit-linear-gradient(to right, #f5af19, #f12711)',  
                             background: 'linear-gradient(to right, #f5af19, #f12711)', opacity: 0.9, offset: 0},
@@ -542,11 +604,8 @@ async function abrirArchivo(evento){
                             indice++;
                             console.log(nodes.length)
                         }
-                        //encontrado = false;
                     }
-                    //console.log("-->", encontrado)
                 }
-                //console.log(valores)
             }
             console.log(mydata)
         };
@@ -561,15 +620,14 @@ window.addEventListener('load', ()=>{
 });
 
 function DescargarArchivo(){
-    var lista = [];
+    var list = ""
 
     for(var i = 0; i<nodes.length; i++){
-        lista.push(nodes[i].firstChild.innerHTML)
+        list += JSON.stringify({"valor": nodes[i].firstChild.innerHTML, "prioridad": nodes[i].lastElementChild.textContent})
     }
 
-    var contenido = JSON.stringify({"categoria": categoria, "nombre": tipo, "repeticion": repeticion, "animacion": animacion, "valores":lista});
+    var contenido = JSON.stringify({"categoria": categoria, "nombre": tipo, "repeticion": repeticion, "animacion": animacion, "valores":[list]});
     console.log(contenido);
-    console.log(JSON.stringify(lista));
 
     //formato para guardar el archivo
     var hoy=new Date();
@@ -578,7 +636,7 @@ function DescargarArchivo(){
     var yyyy=hoy.getFullYear();
     var HH=hoy.getHours();
     var MM=hoy.getMinutes();
-    var formato = "lista_doble"+"_"+dd+"_"+mm+"_"+yyyy+"_"+HH+"_"+MM;
+    var formato = "cola_prioridad"+"_"+dd+"_"+mm+"_"+yyyy+"_"+HH+"_"+MM;
 
     var nombre= formato+".json";//nombre del archivo
     var file=new Blob([contenido], {type: 'text/plain'});
@@ -597,5 +655,3 @@ function DescargarArchivo(){
         },0); 
     }
 }
-
-//module.exports = Lista_Doble;

@@ -5,11 +5,19 @@
     <link rel="stylesheet" href="display.css">
     <title>Title</title>
     <script src="Ordenamientos.js"></script>
+
 </head>
 <body onload="show()">
     <button onclick="ordenarBurbuja()">Ordenamiento Burbuja</button>
     <button onclick="ordenarInsertion()">Ordenamiento Insercion</button>
-    <button onclick="probe()">insert</button>
+    <button onclick="ordenarSelection()">Ordenamiento Seleccion</button>
+    <button onclick="ordenarQuick()">Ordenamiento Quick</button>
+    <input type="range" min="1" max="10" value="5" class="slider" id="speedSelector">
+    <label id="sp">5</label>
+    <input type="text" id="entry">
+    <button onclick="Insert()">insert</button>
+    <input type="file" id="loadedFile">
+    <button onclick="download()">export</button>
     <div style="width: 100%; display: table">
         <div id="result" style="display: table-row"></div>
     </div>
