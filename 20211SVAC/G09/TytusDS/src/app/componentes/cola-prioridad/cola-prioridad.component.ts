@@ -11,6 +11,9 @@ export class ColaPrioridadComponent implements OnInit {
     console.warn(val)
     
   }
+  getValueprioridad(){
+    
+  }
   getValuelsimpleCircleDelete(val:string){
     //lsimpleCircleDelete(val)
   }
