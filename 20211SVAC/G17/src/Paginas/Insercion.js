@@ -55,19 +55,7 @@ let arreglo = [
     8546
 ];
 let cambios = 0;
-function sleep(ms) {
-    return new Promise(
-        resolve => setTimeout(resolve, ms)
-    );
-}
 
-async function delayedGreeting() {
-    console.log("Hello");
-    await sleep(2000);
-    console.log("World!");
-    await sleep(2000);
-    console.log("Goodbye!");
-}
 
 
 class Seleccion extends Component {
