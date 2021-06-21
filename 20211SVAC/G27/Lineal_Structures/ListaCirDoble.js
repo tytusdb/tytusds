@@ -156,9 +156,8 @@ class circularLinkedList{
     //If element found then return its position
     while(current){
       if(elm === current.element){
-        return ++index;
+        return index;
       }
-
       index++;
       current = current.next;
     }
@@ -257,8 +256,19 @@ var lista = new circularLinkedList;
 function agregarValor(){
   var x = document.getElementById("newValue").value;
   document.getElementById("newValue").value = "";
-  lista.append(x);
+  lista.append(x); 
   document.getElementById("newValue").focus();
+  //console.log(lista.toString());  
+  graficar();
+}
+function agregarValorEn(){
+  var x = document.getElementById("newValue").value;
+  document.getElementById("newValue").value = "";
+  var p = document.getElementById("Posicion").value;
+  document.getElementById("Posicion").value = "";
+  lista.insert(p,x);
+  document.getElementById("newValue").focus();
+  //console.log(lista.toString());  
   graficar();
 }
 
@@ -267,106 +277,102 @@ function sacarInicio(){
   graficar();
 }
 
+function eliminarValorEn(){
+  var x = document.getElementById("Posicion").value;
+  document.getElementById("Posicion").value ="";
+  lista.removeAt(x);
+  document.getElementById("Posicion").focus();
+  //console.log(lista.toString());
+  graficar();
+}
+
 function eliminarValor(){
   var x = document.getElementById("newValue").value;
   document.getElementById("newValue").value ="";
   lista.delete(x);
   document.getElementById("newValue").focus();
+  //console.log(lista.toString());
   graficar();
 }
 
 function graficar(){
-
-
-var x_pos = -150;
-var y_pos = 0;
-var nodes = [];
-var contador = 0;       
-// creating an array with nodes
-var aux = lista.head;
-
-nodes.push({id: "Cabeza", label: "Cabeza", x: -150, y: -100});
-nodes.push({id: "Cola", label: "Cola", x: -150, y: 100});
-while(aux != null){
-  nodes.push({id: aux.element, label: "Valor: " + aux.element, x: x_pos, y: y_pos});
-  aux = aux.next;
-  x_pos = x_pos + 100;  
-}
-// create an array with edges
-
-
-var edges = [];
-
-var p = lista.head;
-while(p != null){
-  if(p.next != null){
+  var x_pos = -150;
+  var y_pos = 0;
+  var nodes = [];
+  var edges = [];
+  var contador = 0;       
+  // creating an array with nodes
+  var aux = lista.head;
+  do{
+    nodes.push({id: contador, label: "Valor: " + aux.element, x: x_pos, y: y_pos});
+    x_pos = x_pos + 100; 
     edges.push({
-      from: p.element,
-      to: p.next.element,
+      from: contador,
+      to: contador+1,
       arrows: "to",
       physics: false,
       smooth: {type: "cubicBezier"},
     });
-
-  }
-
-  p = p.next;
-}
-
-
-p = lista.tail;
-while(p != null){
-  if(p.prev != null){
     edges.push({
-      from: p.element,
-      to: p.prev.element,
+      from: contador + 1,
+      to: contador,
       arrows: "to",
       physics: false,
       smooth: {type: "cubicBezier"},
     });
-    
-  }
-  p = p.prev;
-}
+    aux = aux.next;
+    contador++; 
+  }while(aux != lista.head);
 
-edges.push({
-  from: "Cabeza",
-  to: lista.head.element,
-  arrows: "to",
-  physics: false,
-  smooth: {type: "cubicBezier"},
-});
+  edges.push({
+      from: contador-1,
+      to: 0,
+      arrows: "to",
+      physics: false,
+      smooth: {type: "curvedCW"},
+    });
+  
+  // create a network
+  var container = document.getElementById("miRed");
+  var data = {
+    nodes: nodes,
+    edges: edges,
+  };
 
+  const options = {
 
-edges.push({
-  from: "Cola",
-  to: lista.tail.element,
-  arrows: "to",
-  physics: false,
-  smooth: {type: "cubicBezier"},
-});
-
-// create a network
-var container = document.getElementById("mynetwork");
-var data = {
-  nodes: nodes,
-  edges: edges,
-};
-
-const options = {
-
-  nodes: {
-    shape: "box",
-  },
-
-  physics: {
-    hierarchicalRepulsion: {
-      nodeDistance: 110,
+    nodes: {
+      shape: "box",
     },
-  },
-};
-var network = new vis.Network(container, data, options);
+
+    physics: {
+      hierarchicalRepulsion: {
+        nodeDistance: 110,
+      },
+    },
+  };
+  var network = new vis.Network(container, data, options);
 
 }
+
+//here I load a JSON Files
+function AbrirArchivo(files){
+  var file = files[0];
+  var reader = new FileReader();
+  reader.onload = function(event){
+    var contents = event.target.result;
+    var json = JSON.parse(contents);
+    var count = Object.keys(json.valores).length;
+    for (let index = 0; index < count; index++) {
+      lista.append(json.valores[index]); 
+    }
+    //console.log(lista.toString());
+    graficar();
+  };
+  reader.onerror = function(event) {
+    console.error("File could not be read! Code " + event.target.error.code);
+  };
+  reader.readAsText(file);
+  }
 
 

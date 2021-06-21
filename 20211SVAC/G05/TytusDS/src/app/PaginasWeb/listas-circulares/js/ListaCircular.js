@@ -10,6 +10,11 @@ class ListaCircular{
     set setRepeat(repeat){
       this.repeat=repeat;
     }
+    Size(){
+      return this.size;
+    }
+
+    //AGREGAR AL INICIO
     appendI(valor){
       if(this.repeat==true){
         this.append_i(valor)
@@ -31,6 +36,7 @@ class ListaCircular{
       }
       this.size+=1;
     }
+    //AGREGAR AL FINAL
   appendF(valor){
     if(this.repeat==true){
       this.append_f(valor)
@@ -51,6 +57,45 @@ class ListaCircular{
         }
         this.size+=1;
     }
+    //AGREGAR DE FORMA ORDENADA
+  appendO(valor){
+    if(this.repeat===true){
+      this.append_O(valor);
+    }else if (this.repeat==false && this.buscar(valor)==null){
+      this.append_O(valor);
+    }
+  }
+  append_O(valor){
+      if(this.cabeza===null){
+        this.append_i(valor)
+      }else{
+        let nodoM=this.buscarO(valor);
+        if(nodoM!=null) {
+          if (nodoM == this.head) {
+            this.append_i(valor);
+          } else {
+            let new_nodo=new Nodo(valor);
+            nodoM=this.buscar(nodoM.valor);
+            new_nodo.next=nodoM.next;
+            nodoM.next=new_nodo;
+            this.size+=1;
+          }
+        }else{
+          this.append_f(valor);
+        }
+      }
+    }
+    buscarO(valor){
+      let current=this.head;
+      for( let i=0; i<this.size;i++) {
+        if (current.valor > valor) {
+          return current;
+        }
+        current = current.next;
+      }
+      return null;
+    }
+
     //regresa el nodo que esta una posición anterior al nodo buscado
     buscar(valor){
         let current=this.head;
@@ -62,24 +107,53 @@ class ListaCircular{
         }
         return null;
     }
+    indexBusqueda(valor){
+      let current=this.head;
+      let k=0
+      for (let i = 0; i < this.size; i++) {
+        if(current.valor==valor){
+          break;
+        }
+        k+=1;
+        current=current.next;
+      }
+      return k
+    }
+    //ELIMINAR
     eliminar(valor){
         let nodoanterior=this.buscar(valor);
-        if (nodoanterior!=null){
+        if (nodoanterior!==null){
             if(nodoanterior.next===this.head){
-                nodoanterior.next=this.head.next;
-                this.head=nodoanterior.next;
+                if(this.size!==1){
+                  nodoanterior.next=this.head.next;
+                  this.head=nodoanterior.next;
+                }else{
+                  this.head=null;
+                }
             }else if (nodoanterior.next===this.tail){
                 nodoanterior.next==this.tail.next;
                 this.tail=nodoanterior.next;
             }else{
                 nodoanterior.next=nodoanterior.next.next;
             }
+          this.size-=1;
+            return 1;
+        }else{
+
+          return null;
         }
-        this.size-=1;
+
     }
+    //ACTUALIZAR UN NODO
     actualizar(valor,new_valor){
-        let nodo=this.buscar(valor).next;
-        nodo.valor=new_valor;
+        let nodo=this.buscar(valor);
+        if(nodo!=null){
+          nodo=nodo.next;
+          nodo.valor=new_valor;
+          return 1;
+        }else{
+          return null;
+        }
     }
 
     imprimir(){
@@ -99,7 +173,8 @@ class ListaCircular{
       }
 
       for(let i=0; i<this.size;i++){
-        let nodo=new NodoE(i,current.valor);
+        let vnodo=current.valor.toString();
+        let nodo=new NodoE(i,vnodo);
         Lnodo.push(nodo);
         current=current.next
       }
@@ -119,8 +194,16 @@ class ListaCircular{
           LEdges.push(edge)
         }
       }
-      console.log(LEdges);
       return LEdges;
+    }
+    Rdatos(){
+      let ldatos=[];
+      let current=this.head;
+      for(let i=0; i<this.size; i++){
+        ldatos.push(current.valor);
+        current=current.next;
+      }
+      return ldatos;
     }
 
 }

@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<meta charset="utf-8"/>
-		<title>Proyecto</title>
+		<title>Lista simplemente enlazada</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.19.0/cytoscape.min.js"></script>
@@ -55,15 +55,15 @@
 							css:{
 								'content':'data(name)',
 								'text-valign':'center',
-								'text-halign':'center'
+								'text-halign':'center',
+								'shape':'rectangle',
+								'border-width':'1',
 							}
 						},
 						{
 							selector: 'edge',
 							style: {
 								'width': 3,
-								'line-color': '#ccc',
-								'target-arrow-color': '#ccc',
 								'target-arrow-shape': 'triangle',
 								'curve-style': 'bezier'
 							}	
@@ -71,15 +71,19 @@
 					]
 				});
 				
+			const canvas = document.createElement('canvas');
+			const ctx = canvas.getContext('2d');
+			ctx.font= '20px serif';
+			
 			document.getElementById('nBtn').onclick = function(){
 				var input = document.getElementById('nText').value;
 				var spd = document.getElementById('speed').value;
 				if (ls.head==null){
-					cy.add([{data:{id:ls.size,name:input}}]);
+					cy.add([{data:{id:ls.size,name:input}}]).style({width:ctx.measureText(input).width});
 				}else{
 					var n1=ls.size - 1;
 					var n2=ls.size;
-					cy.add({data:{id:ls.size,name:input}});
+					cy.add({data:{id:ls.size,name:input}}).style({width:ctx.measureText(input).width});;
 					cy.add({data:{source:n1,target:n2}});
 				}
 				ls.add(input)
@@ -133,7 +137,7 @@
 				var input = document.getElementById('nText').value;
 				var pos=cy.$(':selected').data('id');
 				ls.update(pos,input);
-				cy.$(':selected').data('name',input);
+				cy.$(':selected').data('name',input).style({width:ctx.measureText(input).width});;
 			}
 
 		</script>

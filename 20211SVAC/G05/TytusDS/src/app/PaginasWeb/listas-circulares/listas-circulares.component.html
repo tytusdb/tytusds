@@ -1,18 +1,27 @@
-<app-opciones></app-opciones>
-<h1>Listas Circulares</h1>
-<br>
-<div class="container">
-  <!--AGREGAR-->
-  <input #agregar type="text" placeholder="data a agregar">
-  <button id="Agregar" class="button btn btn-success" (click)="Add(agregar.value)">Agregar</button>
-  <input #eliminar type="text" placeholder="nodo a eliminar">
-  <button id="Eliminar" class="button">Eliminar</button>
-  <input type="text" placeholder="nodo a actualizar">
-  <input type="text" placeholder="nuevo texto">
-  <button id="Actualizar" class="button">Actualizar</button>
-</div>
-<br>
-<br>
-<div class="animacion container" id="contenedor">
+<app-opciones (opcionesEvento)="getOpciones($event)"></app-opciones>
 
+<div class="container">
+    <h1>Listas Circulares</h1>
+    <hr>
+    <div class="row py-2">
+        <div class="col-1"><input #agregar type="text" placeholder="Valor" class="form-control"> </div>
+        <div class="col-1"> <button id="Agregar" class="btn btn-success button1" (click)="Add(agregar.value)">Agregar</button></div>
+        <div class="col-1"><input #eliminar type="text" class="form-control" placeholder="Valor"> </div>
+        <div class="col-1"> <button id="Eliminar" class="button1 btn btn-success" (click)="delete(eliminar.value)">Eliminar</button></div>
+        <div class="col-2"><input #valor type="text" class="form-control" placeholder="Nodo a actualizar"> </div>
+        <div class="col-2"><input #nuevo_valor type="text" class="form-control" placeholder="Nuevo Valor"> </div>
+        <div class="col-1"> <button id="Actualizar" class="button1 btn btn-success" (click)="update(valor.value,nuevo_valor.value)">Actualizar</button></div>
+        <div class="col-1"><input #search type="text" class="form-control" placeholder="Buscar"></div>
+        <div class="col-1"><button class="btn btn-success button1" (click)="busqueda(search.value)">Buscar</button></div>
+    </div>
+    <div class="row p-2">
+      <div class="col-md-6"><input class="form-control" type="file" id="formFile" (change)="getDocumento($event.target)" ></div>
+    </div>
+</div>
+<div class="animacion container bg-light" id="contenedor">
+</div>
+<div class="container">
+  <div class="row pt-2">
+    <div class="col-3" ><button class="btn btn-success button1" (click)="guardar()">Guardar</button></div>
+  </div>
 </div>

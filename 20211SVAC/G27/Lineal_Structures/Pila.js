@@ -11,6 +11,7 @@ class Nodo {
 
 class Stack{
     constructor(){
+
         this.top = null;
         this.tamano = 0;
     };
@@ -41,8 +42,7 @@ class Stack{
         var aux = this.top;
         this.top = this.top.siguiente;
         aux.siguiente = null;
-        this.tamano --;
-        return aux;
+ aux;
     };
 
     getSize(){
@@ -65,26 +65,8 @@ class Stack{
         return this.top;
     };
 
-    /*print(){
-        let result = '';
-        for(let i = this.top; i > 0; i--){
-            result += this.items[i] + '\n';
-
-        };
-        return result;
-
-    };*/
-};
 
 const stack = new Stack();
-
-//stack.push('Alv1');
-//stack.push('Alv2');
-//stack.push('Alv3');
-//stack.pop();
-//console.log(stack.print());
-
-
 
 function agregarValor(){
     var x = document.getElementById("newValue").value;
@@ -94,32 +76,7 @@ function agregarValor(){
     graficar();
 }
 
-function eliminarValor(){
-    var x = document.getElementById("newValue").value;
-    document.getElementById("newValue").value = "";
-    stack.pop();
-    document.getElementById("newValue").focus();
-    graficar();
-}
-function graficar(){ 
-    var nodes = [];
-    var contador = 0; 
-    var x_pos = 0;
-    var y_pos = -150;      
-    // creating an array with nodes
-    var aux2 = stack.top;
-    for (let index = 0; index < stack.getSize(); index++) {
-        nodes.push({id: contador, label: "Valor: " + aux2.valor, x: x_pos, y: y_pos});
-        aux2 = aux2.siguiente;
-        y_pos = y_pos + 38;
-        contador++;
-    }
-    
-    // create a network
-    var container = document.getElementById("miRed");
-    var data = {
-      nodes: nodes,
-    };
+
 
     const options = {
         nodes: {

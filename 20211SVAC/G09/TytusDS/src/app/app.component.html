@@ -1,4 +1,4 @@
-<div id="wrapper">
+<div id="wrapper" class="animated bounce">
     <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0" aria-label="">
         <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
             <div class="sidebar-brand-icon rotate-n-0"><img src="assets/Imagenes/estructura.png" alt="Imagen de estructura" width="50" height="50"></div>
@@ -7,15 +7,14 @@
             <hr class="sidebar-divider my-0">
             <ul class="navbar-nav text-light" id="accordionSidebar">
                 
-                <li class="nav-item"><a class="nav-link" href="/Inicio"><i class="fas fa-home"></i><span>Inicio</span></a></li>
-                <li class="nav-item"><a class="nav-link" href="/EstructurasLineales"><i class="fas fa-list"></i><span>Estructuras Lineales</span></a></li>
-                <li class="nav-item"><a class="nav-link" href="/Ordenamientos"><i class="fas fa-bar-chart-o"></i><span>Ordenamientos</span></a></li>
+                <li class="nav-item"><a class="nav-link" [routerLink]="['/Inicio']"><em class="fas fa-home"></em><span>Inicio</span></a></li>
+                <li class="nav-item"><a class="nav-link" [routerLink]="['/EstructurasLineales']"><em class="fas fa-list"></em><span>Estructuras Lineales</span></a></li>
+                <li class="nav-item"><a class="nav-link" [routerLink]="['/Ordenamientos']"><em class="fas fa-bar-chart-o"></em><span>Ordenamientos</span></a></li>
 
-
-                <li class="nav-item"><a class="nav-link" href="/Arboles"><i class="fas fa-network-wired"></i><span>Estructuras Arboreas</span></a></li>
-                <li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-table"></i><span>Estructuras No Linelaes</span></a></li>
-                <li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-desktop"></i><span>Algoritmo De Codificacion</span></a></li>
-                <li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-bezier-curve"></i><span>Estructuras Compuestas</span></a></li>
+                <li class="nav-item"><a class="nav-link" [routerLink]="['/Arboles']" ><em class="fas fa-network-wired"></em><span>Estructuras Arboreas</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="/"><em class="fas fa-table"></em><span>Estructuras No Linelaes</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="/"><em class="fas fa-desktop"></em><span>Algoritmo De Codificacion</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="/"><em class="fas fa-bezier-curve"></em><span>Estructuras Compuestas</span></a></li>
     
             </ul>
         </div>
@@ -23,14 +22,14 @@
     <div class="d-flex flex-column" id="content-wrapper">
         <div id="content">
             <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top" aria-label="">
-                <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><em class="fas fa-bars"></em></button>
                     <div class="sidebar-brand-text mx-3"><span>Proyecto De Estructuras</span></div>
                     <ul class="navbar-nav flex-nowrap ml-auto">
-                        <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#"><i class="fas fa-search"></i></a>
+                        <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#"><em class="fas fa-search"></em></a>
                             <div class="dropdown-menu dropdown-menu-right p- animated--grow-in" aria-labelledby="searchDropdown">
                                 <form class="form-inline mr-auto navbar-search w-100">
                                     <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Search for ...">
-                                        <div class="input-group-append"><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
+                                        <div class="input-group-append"><button class="btn btn-primary py-0" type="button"><em class="fas fa-search"></em></button></div>
                                     </div>
                                 </form>
                             </div>
