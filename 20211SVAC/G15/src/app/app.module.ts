@@ -20,7 +20,7 @@ import { ListasimpleComponent } from './components/listasimple/listasimple.compo
 import { BinaryTreeComponent } from './components/binary-tree/binary-tree.component';
 import { EstructuraArboreaComponent } from './components/estructura-arborea/estructura-arborea.component'
 
-
+import { InsertionSortComponent } from './components/insertion-sort/insertion-sort.component'
 
 @NgModule({
   declarations: [
@@ -39,8 +39,7 @@ import { EstructuraArboreaComponent } from './components/estructura-arborea/estr
     ListasimpleComponent,
     BinaryTreeComponent,
     EstructuraArboreaComponent,
-
-
+    InsertionSortComponent,
   ],
   imports: [
     BrowserModule,
