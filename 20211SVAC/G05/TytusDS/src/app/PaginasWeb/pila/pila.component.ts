@@ -40,14 +40,14 @@ export class PilaComponent implements OnInit {
         console.log(contenido);
         contenido['valores'].forEach(valor => { 
           this.lista.guardar2(valor);
-          }); });
+          });this.lista.pintar2(); });
     }
     else{
       this.documentoService.getDocumento(documento).then( contenido => {
         console.log(contenido);
         contenido['valores'].forEach(valor => { 
           this.lista.guardarg(valor);
-          }); });
+          }); this.lista.pintar2(); });
     }
     
   }

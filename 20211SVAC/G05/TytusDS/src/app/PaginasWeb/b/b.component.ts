@@ -75,7 +75,8 @@ export class BComponent implements OnInit {
   Add(valor){
     if(this.opciones['repeticionLineales']===true){
       //this.lista.repeat=true;
-      this.lista.insertar(valor);
+      //this.lista.crearArbol(3);
+      //this.lista.insertarNodo(valor);
       this.ag = '';
       return;
     }

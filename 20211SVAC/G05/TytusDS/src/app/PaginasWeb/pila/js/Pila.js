@@ -32,8 +32,7 @@ class Pila {
           element.style.fontSize='15px'; 
           element.style.borderRadius="5px";
           element.style.boxShadow="0 9px black";
-          element.style.width="125px";
-          element.style.height="40px";
+          element.style.width="400px";
           myDiv.insertBefore(element, myDiv.firstElementChild);
           var element1=document.createElement("button");
           var myDiv1=document.getElementById("myDiv1");
@@ -43,13 +42,8 @@ class Pila {
           element1.style.backgroundColor='rgb(0,0,0)'; 
           element1.style.color='rgb(255,255,255)';
           element1.style.width="40px";
-          element1.style.height="30px";
           myDiv1.insertBefore(element1, myDiv1.firstElementChild);
-          window.scroll({
-            top: 2000,
-            left: 100,
-            behavior: 'smooth'
-          });
+          
           
           var pos = -30;
           var id = setInterval(frame, 4);
@@ -67,14 +61,10 @@ class Pila {
     element1.appendChild(content1);
     element1.style.backgroundColor='rgb(53,204,0)'; 
     element1.style.color='rgb(255,255,255)';
-    element1.style.width="70px";
+    element1.style.width="440px";
     element1.style.height="30px";
     myDiv1.insertBefore(element1, myDiv1.firstElementChild);
-    window.scroll({
-        top: 2000,
-        left: 100,
-        behavior: 'smooth'
-      });
+    
     var eli=function(){
         var puntero=document.getElementById("myDiv1");
         puntero.removeChild(puntero.childNodes[0]); 
@@ -192,7 +182,7 @@ class Pila {
             element1.appendChild(content1);
             element1.style.backgroundColor='rgb(213,0,36)'; 
             element1.style.color='rgb(255,255,255)';
-            element1.style.width="40px";
+            element1.style.width="440px";
             element1.style.height="30px";
             myDiv1.insertBefore(element1, myDiv1.firstElementChild);
             var eli=function(){
@@ -217,7 +207,6 @@ if (this.uno!=null){ do{
     element1.style.backgroundColor='rgb(0,0,0)'; 
     element1.style.color='rgb(255,255,255)';
     element1.style.width="40px";
-    element1.style.height="30px";
     myDiv1.appendChild(element1);
     window.scroll({
         top: 2000,
@@ -235,8 +224,7 @@ if (this.uno!=null){ do{
     element.style.fontSize='15px'; 
     element.style.borderRadius="5px";
     element.style.boxShadow="0 9px black";
-    element.style.width="125px";
-    element.style.height="40px";
+    element.style.width="400px";
     //myDiv.insertBefore(element, myDiv.firstElementChild);
     myDiv.appendChild(element);
     window.scroll({
@@ -254,42 +242,71 @@ else{
 
    pintar2(){
     var ele= document.getElementById("myDiv1");
-    while (ele.firstChild) {ele.removeChild(ele.firstChild);}   
+    while (ele.firstChild) {
+        ele.removeChild(ele.firstChild);}   
+   var contar=this.tamaño;
     let aux = this.uno;
-    var fun=function() {if (this.uno!=null){ 
-    var element=document.createElement("button");
-    var myDiv=document.getElementById("myDiv1");
-    var content =document.createTextNode(aux.dato);
-    element.appendChild(content);
-    element.style.backgroundColor='rgb(25, 25, 112)'; 
-    element.style.color='rgb(255,255,255)';
-    element.style.fontSize='20px'; 
-    element.style.borderRadius="5px";
-    element.style.boxShadow="0 9px black";
-    element.style.width="400px";
-    element.style.height="70px";
-    myDiv.appendChild(element); 
-    window.scroll({
-        top: 2000,
-        left: 100,
-        behavior: 'smooth'
-      });
-    var pos = 0;
-    var id = setInterval(frame, 10);
-    function frame() {
-        if (pos == 50) { clearInterval(id);} 
-        else {
-            pos++;
-            myDiv.style.top = pos + 'px';
-            myDiv.style.left = pos + 'px';}}
+    var bandera=true;
+    var bandera1=true;
+    if (this.uno!=null){
+        var fun=function(){
+            bandera1=false;
+                var element1=document.createElement("button");
+                var myDiv1=document.getElementById("myDiv1");
+                var content1=document.createTextNode(contar);
+                contar--; 
+                element1.appendChild(content1);
+                element1.style.backgroundColor='rgb(0,0,0)'; 
+                element1.style.color='rgb(255,255,255)';
+                element1.style.width="40px";
+                myDiv1.appendChild(element1);
+                window.scroll({
+                    top: 2000,
+                    left: 100,
+                    behavior: 'smooth'
+                  });
+                //myDiv1.insertBefore(element1, myDiv1.firstElementChild);
+
+                var element=document.createElement("button");
+                var myDiv=document.getElementById("myDiv1");
+                var content =document.createTextNode(aux.dato);
+                element.appendChild(content);
+                element.style.backgroundColor='rgb(25, 25, 112)'; 
+                element.style.color='rgb(255,255,255)';
+                element.style.fontSize='15px'; 
+                element.style.borderRadius="5px";
+                element.style.boxShadow="0 9px black";
+                element.style.width="400px";
+                myDiv.appendChild(element);
+                window.scroll({
+                    top: 2000,
+                    left: 100,
+                    behavior: 'smooth'
+                  });
+                //myDiv.insertBefore(element, myDiv.firstElementChild);
+               
+            
+            aux=aux.post;
+                var pos = 0;
+                var id = setInterval(frame, 10);
+function frame() { if (pos == 50) { clearInterval(id);} 
+    else { pos++; myDiv.style.top = pos + 'px'; myDiv.style.left = 55 + 'px';}}
+          
+          if (aux==null){  
+              clearInterval(intervalo);}
+        };
+        var intervalo = setInterval(fun,1800);
     }
-    aux=aux.post;
-    if (aux==null){clearInterval(intervalo);}
-};
-    var intervalo = setInterval(fun,2000);
+    if (this.uno==null){alert("Pila Vacia");}
+
+    
+
 
 
    }
+
+
+
 
    leer(){
     let ldatos=[];
@@ -305,7 +322,7 @@ else{
   }
 
     buscar(valor){
-        var ele= document.getElementById("myDiv1");
+    var ele= document.getElementById("myDiv1");
     while (ele.firstChild) {
         ele.removeChild(ele.firstChild);}   
    var contar=this.tamaño;
@@ -327,7 +344,6 @@ else{
                     element1.style.backgroundColor='rgb(38,193,0)'; 
                     element1.style.color='rgb(255,255,255)';
                     element1.style.width="40px";
-                    element1.style.height="30px";
                     myDiv1.appendChild(element1);
                     window.scroll({
                         top: 2000,
@@ -345,8 +361,7 @@ else{
                     element.style.fontSize='15px'; 
                     element.style.borderRadius="5px";
                     element.style.boxShadow="0 9px black";
-                    element.style.width="125px";
-                    element.style.height="40px";
+                    element.style.width="400px";
                     myDiv.appendChild(element);
                     window.scroll({
                         top: 2000,
@@ -365,7 +380,6 @@ else{
                     element1.style.backgroundColor='rgb(0,0,0)'; 
                     element1.style.color='rgb(255,255,255)';
                     element1.style.width="40px";
-                    element1.style.height="30px";
                     myDiv1.appendChild(element1);
                     window.scroll({
                         top: 2000,
@@ -383,8 +397,7 @@ else{
                     element.style.fontSize='15px'; 
                     element.style.borderRadius="5px";
                     element.style.boxShadow="0 9px black";
-                    element.style.width="125px";
-                    element.style.height="40px";
+                    element.style.width="400px";
                     myDiv.appendChild(element);
                     window.scroll({
                         top: 2000,
