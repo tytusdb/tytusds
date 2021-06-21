@@ -37,11 +37,17 @@
           </div>
           <div class="col-sm-8">
             <div class="input-group mb-3">
-              <input type="file" class="form-control" id="inputGroupFile01">
+              <input type="file" class="form-control" id="inputGroupFile01" accept="application/JSON">
+              <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04" onclick="read()" >Cargar archivo</button>
             </div>
             <div class="form-check form-switch">
               <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
               <label class="form-check-label" for="flexSwitchCheckDefault">Permitir elementos repetidos</label>
+            </div>
+            <br>
+            <div class="col-sm-8">
+              <label for="customRange2" class="form-label">Velocidad animacion</label>
+              <input type="range" class="form-range" min="1" max="10" id="customRange2">
             </div>
           </div>
         </div>

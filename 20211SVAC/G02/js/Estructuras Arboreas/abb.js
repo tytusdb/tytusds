@@ -7,6 +7,8 @@ var edges = []
 var clickedNode //
 var clickedNodoValue
 var network = null
+var switchToggle = document.getElementById("flexSwitchCheckDefault")
+var slider = document.getElementById("customRange2")
 //Clase nodo del arbol binario de busqueda
 class Nodo{
     constructor(dato, id){
@@ -25,8 +27,7 @@ class ArbolBB{
     }
     //Método de sobrecarga para ingresar valores al arbol
     agregar(dato){
-        if(!this.repetidos && this.buscar(dato,  this.raiz)){
-            alert("Este dato ya existe, por favor habilite los datos repetidos")
+        if(switchToggle.checked == false && this.buscar(dato,  this.raiz)){
         }else{
             this.raiz = this._agregar(dato, this.raiz)
             contador++;
@@ -122,7 +123,7 @@ class ArbolBB{
     //Método de sobrecarga para la actualización
     actualizar(id, dato, datoNuevo){
         if(this.buscar(dato, this.raiz)){
-            if(this.buscar(datoNuevo, this.raiz) && !this.repetidos){
+            if(this.buscar(datoNuevo, this.raiz) && switchToggle.checked == false){
                 alert("No se aceptan valores repetidos")
                 return
             }
@@ -269,8 +270,13 @@ function actualizarTablero(){
 }
 
 function insertarNodo(){
-    var valor = parseInt(document.getElementById("valueNodo").value, 10);
-    if(arbolbb.buscar(valor, arbolbb.raiz) && !arbolbb.repetidos){
+    var valor
+    if(document.getElementById("valueNodo").value.charCodeAt(0)>=48 && document.getElementById("valueNodo").value.charCodeAt(0)<=57){
+        valor = parseInt(document.getElementById("valueNodo").value, 10)
+    }else{
+        valor = document.getElementById("valueNodo").value
+    }
+    if(arbolbb.buscar(valor, arbolbb.raiz) && switchToggle.checked == false){
         alert("No se aceptan valores repetidos")
     }else{
         arbolbb.agregar(valor)
@@ -290,10 +296,14 @@ function eliminarNodo(){
 }
 
 function actualizarNodo(){
-    var valor = parseInt(document.getElementById("valueNodo").value, 10);
+    var valor = document.getElementById("valueNodo").value
     document.getElementById("valueNodo").value = ""
     if(clickedNodoValue != undefined){
-    arbolbb.actualizar(clickedNode, clickedNodoValue, valor)
+        if(valor.charCodeAt(0)>=48 && valor.charCodeAt(0)<=57){
+            arbolbb.actualizar(clickedNode, clickedNodoValue, parseInt(valor))
+        }else{
+            arbolbb.actualizar(clickedNode, clickedNodoValue, valor)
+        }
     }else{
         alert("Seleccione un nodo")
     }
@@ -301,7 +311,12 @@ function actualizarNodo(){
 }
 
 function searchNode(){
-    var valor = parseInt(document.getElementById("valueNodo").value, 10);
+    var valor
+    if(document.getElementById("valueNodo").value.charCodeAt(0)>=48 && document.getElementById("valueNodo").value.charCodeAt(0)<=57){
+        valor = parseInt(document.getElementById("valueNodo").value, 10);
+    }else{
+        valor = document.getElementById("valueNodo").value
+    }
     if(arbolbb.buscar(valor, arbolbb.raiz)){
         focus()
         setTimeout(zoomExtended, 2000)
@@ -313,8 +328,14 @@ function searchNode(){
 
 
 function focus() {
-    var valueNodo = parseInt(document.getElementById("valueNodo").value, 10);
-    let nodeId = arbolbb.buscarNodo(valueNodo, arbolbb.raiz)
+    let nodeId
+    var valueNodo
+    if(document.getElementById("valueNodo").value.charCodeAt(0)>=48 && document.getElementById("valueNodo").value.charCodeAt(0)<=57){
+        valueNodo = parseInt(document.getElementById("valueNodo").value, 10);
+    }else{
+        valueNodo = document.getElementById("valueNodo").value
+    }
+    nodeId = arbolbb.buscarNodo(valueNodo, arbolbb.raiz)
     document.getElementById("valueNodo").value = ""
     var options = {
         scale: 3.0,
@@ -336,4 +357,50 @@ function zoomExtended(){
     }
 
     network.moveTo(options);
+}
+
+function read(){
+    var fileInput = document.querySelector('input[type="file"]');
+
+    var file = fileInput.files.item(0);
+    var reader = new FileReader();
+
+    reader.readAsText(file);
+    
+    reader.onload = function() {
+        var obj = JSON.parse(reader.result)
+        let val = obj.valores
+        arbolbb.repetidos = obj.repeticion
+        slider.value = obj.animacion
+        
+        let contador =0
+        switch(arbolbb.repetidos){
+            case true:
+                switchToggle.checked = true
+                for(let i=0; i<val.length; i++){
+                    contador = contador + 0.5
+                    setTimeout(function (params) {
+                        arbolbb.agregar(val[i])
+                        actualizarTablero()
+                    },(1000)*Math.round(parseInt(slider.value)/2)*contador) 
+                }
+                break;
+            case false:
+                switchToggle.checked = false
+                for(let i=0; i<val.length; i++){
+                    contador = contador + 0.5
+                    if (arbolbb.buscar(val[i], arbolbb.raiz)){
+                        console.log("no se aceptan valores repetidos")
+                    }else{                    
+                        contador = contador + 0.5
+                        setTimeout(function (params) {
+                            arbolbb.agregar(val[i])
+                            actualizarTablero()
+                        },(1000)*Math.round(parseInt(slider.value)/2)*contador)
+                    }
+                    
+                }
+                break;
+        }
+    }
 }

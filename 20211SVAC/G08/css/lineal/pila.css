@@ -1,11 +1,9 @@
 .cuadrito{
-
     width: 6em;
     height: 2em;
     background-color: #ffffff;
-    
     border: 1px solid black;
-    margin: 2em 1em 1em 0;
+    margin: 1em 2em 0em ;
     text-align: center;
     padding-top: 10px;
     padding-bottom: 3px;
@@ -13,19 +11,21 @@
     font-weight: bold;
     box-shadow: 1px 1px 2px 1px black;
     
-    animation: fadeInUp; 
+    animation: backInRight;
     animation-duration: 1s; 
     
-    /*animation-name: entrada;
-    animation-duration: 1s;*/
-
+}
+.cuadroAnim{
+    height: 428px;
+    padding-left: 50px;
+    
 }
 .eliminado{
     animation: flipOutX; 
     animation-duration: 2s; 
 }
 .busqueda{
-    animation: shakeY;
+    animation: shakeX;
     animation-duration: 2s;
 }
 .actualizar{
@@ -34,6 +34,8 @@
 }
 #espacio{
     display: flex;
+    
+    flex-direction:column-reverse;
     flex-wrap: wrap;
     margin: 2em 0em;
 }

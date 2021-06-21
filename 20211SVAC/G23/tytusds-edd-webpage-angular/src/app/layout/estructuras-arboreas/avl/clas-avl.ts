@@ -1,8 +1,15 @@
+import { ThisReceiver } from "@angular/compiler"
 import { Nodo } from "./nodo-avl"
 export class AVL{
-    root: Nodo
+    public root: Nodo
+    public contadores:number
+    public nulls:number
+    public dot:string
     constructor(){
         this.root = null
+        this.contadores = 0
+        this.nulls = 0
+        this.dot = ''
     }
 
     MAXIMO(valor1,valor2){
@@ -21,7 +28,10 @@ export class AVL{
     }
 
     add(valor, nodo){
-        if(nodo == null) return new Nodo(valor)
+        if(nodo == null){
+            return new Nodo(valor,this.contadores)
+            this.contadores += 1
+        } 
         else{
             if (valor < nodo.valor){
                 nodo.izquierda = this.add(valor,nodo.izquierda)
@@ -133,6 +143,31 @@ export class AVL{
         }else{
             p.right = a.left
         }return a
+    }
+    
+    balancear(){
+        
+    }
+
+    dotgen(tmp) {
+        if (tmp != null) {
+            console.log(tmp.data)
+
+            if (tmp.left != null) this.dot += tmp.data+'--'+tmp.left.data+';'
+            else {
+                this.dot += 'null'+this.nulls+'[color="white", label=""];\n'
+                this.dot += tmp.data+'-- null'+this.nulls+'[color="white", label=""];'
+            }
+            this.nulls += 1
+            if (tmp.right != null) this.dot += tmp.data+'--'+tmp.right.data+';'
+            else {
+                this.dot += 'null'+this.nulls+'[color="white", label=""];\n'
+                this.dot += tmp.data+'-- null'+this.nulls+'[color="white", label=""];'
+            }
+            this.nulls += 1
+            this.dotgen(tmp.left)
+            this.dotgen(tmp.right)
+        }
     }
 
 }

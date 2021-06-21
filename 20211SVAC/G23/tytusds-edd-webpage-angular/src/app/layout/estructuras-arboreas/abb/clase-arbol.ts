@@ -4,59 +4,102 @@ export default class BST{
     public root:Node
     public data:any
     public dot:string
+    public datagraph
+    public edgegraph
+    public contadores:number
+    public nulls:number
+
     constructor(){
         this.root = null
         this.dot = ''
+        this.datagraph = []
+        this.edgegraph = []
+        this.contadores = 0
+        this.nulls = 0
     }
     getRoot(){
         return this.root
     }
     insert(data){
-        let newNode = new Node(data)
-        if(this.root === null){
-            this.root = newNode
-               // console.log(newNode.data)
-        }else{
-            this.insertNode(this.root,newNode)
+        //let newNode = new Node(data,this.contadores)
+        if(this.root != null) this.insertNode(data, this.root)
+        // console.log(newNode.data)
+        else {
+            this.root = new Node(data,this.contadores)
+            this.contadores += 1
+        }
+    }
+    insertNode(value, node){
+        //console.log("Nodos")
+        //console.log(node.data, value)
+        //console.log("Nodos Padre")
+        if(value < node.data) {
+            //console.log(value,"ES MENOR QUE",node.data )
+            if(node.left != null){
+                this.insertNode(value,node.left)
+                // node.left.up = node
+            }    
+            else{
+                node.left = new Node(value,this.contadores)
+                this.contadores += 1
+            }
+                
+        }else if (value > node.data){
+           // console.log(value,"ES MAYOR QUE",node.data )
+            //console.log(5>12)
+            if(node.right != null) {
+                this.insertNode(value,node.right)
+                // node.right.up = node
+            }
+            else {
+                node.right = new Node(value,this.contadores)
+                this.contadores += 1
+            }
+        }else { /// Si hay repeticion, si no, se quita y ya
+            if(node.left != null) this.insertNode(value,node.left)
+            else{
+                node.left = new Node(value, this.contadores)
+                this.contadores += 1
+            }
+        }
+    }
+    inOrder(node){
+        if(node !== null){
+            //console.log("Se va a ir a la izquierda")
+            this.inOrder(node.left)
+            console.log("NODE DATA",node.data)
+            this.datagraph.push({id:node.id,label:node.data.toString()})
+            console.log("DATA",node.data)
+            //console.log("Regreso de la izquierda")
+            //console.log("IMPRIMIENDO EL DEL CENTRO")
+            //console.log(node.data)
+            //console.log("******")
+            //console.log("Se va a ir a la derecha")
+            
+            this.inOrder(node.right)
+            //console.log("Regreso de la derecha")
         }
 
     }
-    insertNode(node, newNode){
-        //console.log("Nodos")
-        //console.log(node.data, newNode.data)
-        //console.log("Nodos Padre")
-        if(node !== this.root){
-            //console.log(node.up.data, newNode.up.data)
-        }else{
-            //console.log("Es NULL",newNode.up.data)
-        }
-        if(newNode.data < node.data) {
-            if(node.left === null){
-             node.left = newNode
-            // node.left.up = node
-            }    
-            else this.insertNode(node.left, newNode)
-        }else if (newNode.data > node.data){
-            if(node.right === null) {
-                node.right = newNode
-               // node.right.up = node
-            }
-            else this.insertNode(node.right, newNode)
-        }else { /// Si hay repeticion, si no, se quita y ya
-            if(node.left === null) node.left = newNode
-            else this.insertNode(node.left, newNode)
-        }
-    }
-    inOrder(node, retorno){
+    inOrder2(node,retorno){
         if(node !== null){
-            retorno = this.inOrder(node.left,retorno)
-            console.log(node.data)
-            console.log("******")
-            retorno += node.data.toString()  + " ----- "
+            //console.log("Se va a ir a la izquierda")
+            retorno = this.inOrder2(node.left,retorno)
+            console.log("NODE DATA",node.data)
+            this.datagraph.push({id:node.id,label:node.data.toString()})
+            console.log("DATA",node.data)
+            //console.log("Regreso de la izquierda")
+            //console.log("IMPRIMIENDO EL DEL CENTRO")
+            //console.log(node.data)
+            retorno += 
+            //console.log("******")
+            //console.log("Se va a ir a la derecha")
             
-            retorno = this.inOrder(node.right,retorno)
+            retorno = this.inOrder2(node.right,retorno)
+            //console.log("Regreso de la derecha")
         }
         return retorno
+
     }
 
     search(node,founding){
@@ -117,15 +160,40 @@ export default class BST{
         }return a
     }
 
-    actualizar(nodo){
-        
-    }
 
     dotgen(tmp) {
         if (tmp != null) {
+            console.log(tmp.data)
 
-            if (tmp.left != null) this.dot += tmp.value+'--'+tmp.left.value+';'
-            if (tmp.right != null) this.dot += tmp.value+'--'+tmp.right.value+';'
+            if (tmp.left != null) this.dot += tmp.data+'--'+tmp.left.data+';'
+            else {
+                this.dot += 'null'+this.nulls+'[color="white", label=""];\n'
+                this.dot += tmp.data+'-- null'+this.nulls+'[color="white", label=""];'
+            }
+            this.nulls += 1
+            if (tmp.right != null) this.dot += tmp.data+'--'+tmp.right.data+';'
+            else {
+                this.dot += 'null'+this.nulls+'[color="white", label=""];\n'
+                this.dot += tmp.data+'-- null'+this.nulls+'[color="white", label=""];'
+            }
+            this.nulls += 1
+            this.dotgen(tmp.left)
+            this.dotgen(tmp.right)
+        }
+    }
+
+    dotgenarray(tmp) {
+        if (tmp != null) {
+            //this.nulls += 1
+        
+            if (tmp.left != null) {
+                this.edgegraph.push({from:tmp.id, to:tmp.left.id})
+              //  this.nulls += 1
+            }
+            if (tmp.right != null) {
+                this.edgegraph.push({from:tmp.id,to:tmp.right.id})
+                //this.nulls += 1
+            }
 
 			
 			/*
@@ -137,8 +205,8 @@ export default class BST{
 			else if (tmp.right == null)
 				this.dot += tmp.value+'-- {'+tmp.left.value+' null};'
 				*/
-            this.dotgen(tmp.left)
-            this.dotgen(tmp.right)
+            this.dotgenarray(tmp.left)
+            this.dotgenarray(tmp.right)
         }
     }
 

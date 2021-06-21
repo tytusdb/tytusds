@@ -106,7 +106,6 @@ function search() {
     var uno = array2.indexOf(primero.dato)
     var dos = array[uno].id
     cont2 = dos
-    console.log()
     view()
 }
 
@@ -118,10 +117,10 @@ function actualizar() {
     var idVal = array2.indexOf(inputValue)
     var prueba = array[idVal].id
     console.log(prueba)
+    view2(prueba)
     array[idVal].label = inputValue2
     array2[idVal] = inputValue2
     array3[idVal].dato = inputValue2
-    view2(prueba)
     bandera = listita.actualizar(inputValue, inputValue2)
     nodes.update({ id: prueba, label: inputValue2 })
     bandera = false
@@ -136,19 +135,19 @@ async function view() {
     let animacion = document.getElementById("formControlRange").value;
     var idVal = array2.indexOf(inputValue)
     var animation = {
-        scale: 4,
-        animation: {
-            duration: convertir(animacion),
-            easingFunction: "linear"
+            scale: 4,
+            animation: {
+                duration: convertir(animacion),
+                easingFunction: "linear"
+            }
         }
-    }
-    while (cont2 <= array[idVal].id) {
-        network.selectNodes([cont2])
-        network.focus(cont2, animation)
-        await new Promise(resolve => setTimeout(resolve, convertir(animacion) + 10)); // 3 sec
-        cont2++
-    }
+        //while (cont2 <= array[idVal].id) {
+    network.selectNodes([cont2])
+    network.focus(cont2, animation)
+    await new Promise(resolve => setTimeout(resolve, convertir(animacion) + 10)); // 3 sec
     cont2++
+    //}
+    //cont2++
 }
 
 function deleteEdgeMode(nodeId) {
@@ -309,12 +308,17 @@ function convertir(porcentaje) {
     return result
 }
 
-
 network.on("animationFinished", function(ctx) {
-    if (cont2 >= cont) {
-        network.fit()
-    } else {
-        view()
+    let inputValue = document.getElementById("valor").value;
+    var idVal = array2.indexOf(inputValue)
+    try {
+        if (cont2 > array[idVal].id) {
+            network.fit()
+        } else {
+            view()
+        }
+    } catch (error) {
+        console.log(error)
     }
 });
 

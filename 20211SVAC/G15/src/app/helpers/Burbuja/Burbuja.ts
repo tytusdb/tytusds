@@ -21,6 +21,7 @@ export class Burbuja{
    }
 
    generarJSON() {
+    
     let data = {
         categoria: "Estructura Lineal",
         nombre: "ordenamiento",

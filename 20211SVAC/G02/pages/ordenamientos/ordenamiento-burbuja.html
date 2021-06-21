@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TytusDS - Ordenamiento Burbuja</title>
+    <title>TytusDS - Burbuja</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-          <a class="navbar-brand" href="../../../../index.html">{ TytusDS }</a>
+          <a class="navbar-brand" href="../../index.html">{ TytusDS }</a>
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="../../../index.html">Principal</a>
+                <a class="nav-link" aria-current="page" href="../../index.html">Principal</a>
               </li>
             </ul>
           </div>
@@ -33,9 +33,12 @@
             </div>
             <br>
             <label for="customRange2" class="form-label">Velocidad de ordenamiento</label>
-            <input type="range" class="form-range" min="0" max="5" id="customRange2">
+            <input type="range" class="form-range" min="1" max="10" id="customRange2">
           </div>
-          <div class="col-4"></div>
+          <div class="col-4">
+            <!-- <a name="download" class="btn btn-success" onclick="descargar()">Abrir</a> -->
+            <div id="container" class="btn btn-dark"></div>
+          </div>
         </div>
         <canvas id="myChart"></canvas>
     </div>

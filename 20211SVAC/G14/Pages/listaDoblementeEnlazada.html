@@ -3,10 +3,13 @@
 <head>
     <link rel="stylesheet" type="text/css" href="../CSS/header.css">
     <link rel="stylesheet" type="text/css" href="../CSS/ddNavBar.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/estructurasLineales.css">
     <meta charset="UTF-8">
     <title>Lista Doblemente Enlazada</title>
 </head>
 <body>
+
+<script src="./JS/listaDoblementeEnlazada.js"></script>
 
 <h1>Lista Doblemente Enlazada</h1>
 
@@ -45,6 +48,29 @@
         </div>
     </li>
 </ul>
+
+<br>
+
+<form action="/action_page.php">
+    <label for="valorAdd">Valor:</label>
+    <input type="text" class="css-input" id="valorAdd" onkeypress="return event.keyCode != 13;">
+    <label for="valorAdd">Índice:</label>
+    <input type="text" class="css-input" id="valorAddIn" onkeypress="return event.keyCode != 13;">
+    <input type = "button" class="myButton" id="btnAddH" onclick = "agregarHead()" value = "Agregar Cabeza">
+    <input type = "button" class="myButton" id="btnAddT" onclick = "agregarTail()" value = "Agregar Cola">
+    <input type = "button" class="myButton" id="btnAddIn" onclick = "agregarEn()" value = "Agregar en">
+    <input type = "button" class="myButton" id="btnEliminar" onclick = "eliminar()" value = "Eliminar">
+    <input type = "button" class="myButton" id="btnUpdate" onclick = "update()" value = "Actualizar">
+    <input type = "button" class="myButton" id="btnFind" onclick = "find()" value = "Encontrar">
+</form>
+
+<br>
+
+<h2 st id="lista2"></h2>
+
+<br>
+
+<h2 st id="lista"></h2>
 
 </body>
 </html>

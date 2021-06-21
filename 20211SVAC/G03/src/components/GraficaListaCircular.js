@@ -20,7 +20,7 @@ export default function GraficaListaCircular(props) {
         
     }
 
-    if(props.nombre == "Lista circular doblemente Enlazada"){
+    if(props.nombre == "Lista circular doblemente enlazada"){
         let contador = nodosAfuera.length
         for (let i = 0; i < nodosAfuera.length-1; i++) {
             let edge = {from:i+1, to:i}

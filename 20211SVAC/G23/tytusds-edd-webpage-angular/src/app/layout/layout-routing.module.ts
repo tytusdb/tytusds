@@ -41,6 +41,11 @@ const routes: Routes = [
                 path: 'BPlus',
                 loadChildren: () => import('./estructuras-arboreas/bplus/bplus.module').then((m) => m.BplusModule)
             }
+            ,
+            {
+                path: 'Merkle',
+                loadChildren: () => import('./estructuras-arboreas/merkle/merkle.module').then((m) => m.MerkleModule)
+            }
         ]
     }
 ];
