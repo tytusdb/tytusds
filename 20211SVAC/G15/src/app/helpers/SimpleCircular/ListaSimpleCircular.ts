@@ -14,7 +14,7 @@ export class ListaSimpleCircular {
         this.draw = new Draw()
     }
 
-    async add(numero: number, svg, dibujo, duracion) {
+    async add(numero: number|string, svg, dibujo, duracion) {
         let temp: NodoSimpleCircular = new NodoSimpleCircular(numero, this.id)
         if (this.primero == null) {
             this.primero = temp
@@ -57,7 +57,7 @@ export class ListaSimpleCircular {
     }
 
 
-    async addAlInicio(numero: number, svg, dibujo, duracion) {
+    async addAlInicio(numero: number|string, svg, dibujo, duracion) {
         let temp: NodoSimpleCircular = new NodoSimpleCircular(numero, this.id)
         if (this.primero == null) {
             this.primero = temp
@@ -92,7 +92,7 @@ export class ListaSimpleCircular {
         return temp.getId();
     }
 
-    async addOrdenado(numero: number, svg, dibujo, duracion) {
+    async addOrdenado(numero: number|string, svg, dibujo, duracion) {
 
         // Ingresar si esta vacia
         if (this.primero == null) {
@@ -222,7 +222,7 @@ export class ListaSimpleCircular {
     }
 
 
-    async eliminar(numero: number, duracion, svg) {
+    async eliminar(numero: number|string, duracion, svg) {
         this.draw.removerElemento("arrowultimo-primero")
         let temp = this.primero
         if (temp === null) return -1
@@ -338,8 +338,13 @@ export class ListaSimpleCircular {
 
 
     crearUltimos(svg) {
+
+
         if (this.primero.getSiguiente() === null) return;
         if (this.primero.getSiguiente() === this.ultimo) return;
+
+        this.draw.removerElemento("arrowultimo-primero")
+        this.draw.removerElemento("arrowprimero-ultimo")
 
         let div = document.getElementById("nodo" + this.primero.getId())
         let div2 = document.getElementById("nodo" + this.ultimo.getId())

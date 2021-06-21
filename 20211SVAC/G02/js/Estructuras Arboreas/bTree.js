@@ -331,14 +331,27 @@ function crearArbol(){
 }
 
 function insertarNodo(){
-    var valor = parseInt(document.getElementById("valueNodo").value, 10);
-    document.getElementById("valueNodo").value = "" 
-    arbol.agregar(valor)
+    var valor
+    if(document.getElementById("valueNodo").value.charCodeAt(0)>=48 && document.getElementById("valueNodo").value.charCodeAt(0)<=57){
+        valor = parseInt(document.getElementById("valueNodo").value, 10)
+    }else{
+        valor = document.getElementById("valueNodo").value
+    }
+    if(arbol.buscar(valor, arbol.raiz) && switchToggle.checked == false){
+        alert("No se aceptan valores repetidos")
+    }else{
+        arbol.agregar(valor)
+    }
     actualizarTablero()
 }
 
 function searchNode(){
-    var valor = parseInt(document.getElementById("valueNodo").value, 10);
+    var valor
+    if(document.getElementById("valueNodo").value.charCodeAt(0)>=48 && document.getElementById("valueNodo").value.charCodeAt(0)<=57){
+        valor = parseInt(document.getElementById("valueNodo").value, 10);
+    }else{
+        valor = document.getElementById("valueNodo").value
+    }
     if(arbol.buscar(valor, arbol.raiz)){
         focus()
         setTimeout(zoomExtended, 2000)
@@ -348,9 +361,15 @@ function searchNode(){
     document.getElementById("valueNodo").value = ""
 }
 
-function focus() {
-    var valueNodo = parseInt(document.getElementById("valueNodo").value, 10);
-    let nodeId = arbol.buscarNodo(valueNodo, arbol.raiz)
+function focus() {    
+    let nodeId
+    var valueNodo
+    if(document.getElementById("valueNodo").value.charCodeAt(0)>=48 && document.getElementById("valueNodo").value.charCodeAt(0)<=57){
+        valueNodo = parseInt(document.getElementById("valueNodo").value, 10);
+    }else{
+        valueNodo = document.getElementById("valueNodo").value
+    }
+    nodeId = arbol.buscarNodo(valueNodo, arbol.raiz)
     document.getElementById("valueNodo").value = ""
     var options = {
         scale: 3.0,
