@@ -272,7 +272,7 @@ function actualizarTablero(){
 function insertarNodo(){
     var valor
     if(document.getElementById("valueNodo").value.charCodeAt(0)>=48 && document.getElementById("valueNodo").value.charCodeAt(0)<=57){
-        valor = parseInt(document.getElementById("valueNodo").value)
+        valor = parseInt(document.getElementById("valueNodo").value, 10)
     }else{
         valor = document.getElementById("valueNodo").value
     }
@@ -312,7 +312,7 @@ function actualizarNodo(){
 
 function searchNode(){
     var valor
-    if(document.getElementById("valueNodo").charCodeAt(0)>=48 && document.getElementById("valueNodo").charCodeAt(0)<=57){
+    if(document.getElementById("valueNodo").value.charCodeAt(0)>=48 && document.getElementById("valueNodo").value.charCodeAt(0)<=57){
         valor = parseInt(document.getElementById("valueNodo").value, 10);
     }else{
         valor = document.getElementById("valueNodo").value
@@ -330,7 +330,7 @@ function searchNode(){
 function focus() {
     let nodeId
     var valueNodo
-    if(document.getElementById("valueNodo").charCodeAt(0)>=48 && document.getElementById("valueNodo").charCodeAt(0)<=57){
+    if(document.getElementById("valueNodo").value.charCodeAt(0)>=48 && document.getElementById("valueNodo").value.charCodeAt(0)<=57){
         valueNodo = parseInt(document.getElementById("valueNodo").value, 10);
     }else{
         valueNodo = document.getElementById("valueNodo").value
