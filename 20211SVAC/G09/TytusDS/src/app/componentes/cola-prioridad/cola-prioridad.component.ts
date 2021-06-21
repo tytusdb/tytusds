@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+declare var insertarPrioridad:any;
 
 @Component({
   selector: 'app-cola-prioridad',
@@ -11,8 +12,8 @@ export class ColaPrioridadComponent implements OnInit {
     console.warn(val)
     
   }
-  getValueprioridad(){
-    
+  getValueprioridad(val1:string,val2:string){
+    insertarPrioridad(val1,val2)
   }
   getValuelsimpleCircleDelete(val:string){
     //lsimpleCircleDelete(val)

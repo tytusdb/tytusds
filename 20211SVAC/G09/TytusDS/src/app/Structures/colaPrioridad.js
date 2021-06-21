@@ -85,16 +85,20 @@ class PriorityQueue {
 
 
 var priorityQueue = new PriorityQueue();
+function insertarPrioridad(var1,var2){
+    priorityQueue.enqueue(var1,var2)
+    console.log(priorityQueue.printPQueue());
+}
 
-priorityQueue.enqueue("5", 1);
-priorityQueue.enqueue("2", 5);
-priorityQueue.enqueue("3", 1);
-priorityQueue.enqueue("6", 2);
-priorityQueue.enqueue("4", 6);
-priorityQueue.enqueue("1", 2);
+//priorityQueue.enqueue("5", 1);
+//priorityQueue.enqueue("2", 5);
+//priorityQueue.enqueue("3", 1);
+//priorityQueue.enqueue("6", 2);
+//priorityQueue.enqueue("4", 6);
+//priorityQueue.enqueue("1", 2);
 
-console.log(priorityQueue.printPQueue());
+//console.log(priorityQueue.printPQueue());
 
-console.log("Eliminar elemento con mayor prioridad");
-priorityQueue.dequeue();
-console.log(priorityQueue.printPQueue());
+//console.log("Eliminar elemento con mayor prioridad");
+//priorityQueue.dequeue();
+//console.log(priorityQueue.printPQueue());
