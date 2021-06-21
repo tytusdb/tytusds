@@ -1,10 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="ArbolAVL.js"></script>
+    <link rel="stylesheet" href="AVL.css">
+    <script>
+        const prb=new AVL();
+        prb.insertar(0)
+        prb.insertar(10)
+        prb.insertar(5)
+        prb.insertar(3)
+        prb.insertar(14)
+        prb.insertar(6)
+        prb.insertar(7)
+        prb.insertar(11)
+        prb.insertar(1)
+        prb.insertar(17)
+        function show(){
+            prb.graficar()
+        }
+    </script>
 </head>
-<body>
-$END$
+<body onload="show()">
+    <div id="result" style="display: table">
+
+    </div>
 </body>
 </html>
