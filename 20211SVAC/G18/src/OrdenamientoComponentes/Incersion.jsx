@@ -227,11 +227,11 @@ export class Incersion extends Component {
                             </div>
 
                             <div className="col-sm-2 d-grid gap-2">
-                                <button type="submit" className="btn btn-outline-success" onClick={this.handleClick} >Agregar elemento</button>
+                                <button type="submit" className="btn btn-success" onClick={this.handleClick} >Agregar elemento</button>
                             </div>
 
                             <div className="col-sm-2 d-grid gap-2">
-                                <button type="button" className="btn btn-outline-success" onClick={this.ordenamiento} >Ordenar</button>
+                                <button type="button" className="btn btn-success" onClick={this.ordenamiento} >Ordenar</button>
                             </div>
 
                             <div className="col-sm-2 d-grid gap-2">

@@ -29,7 +29,6 @@ function App() {
             <Route path = "/insercion" component={Incersion}/>
             <Route path = "/rapido" component={Rapido}/>
             <Route path="/" exact component={Principal}/>
-         
             <Route path="/ListaSimpleEnlazada" component={ListaSimpleEnlazada} />
             <Route path="/ListaDobleEnlazada" component={ListaDobleEnlazada} />
             <Route path="/ListaCircularSimple" component={ListaCircularSimple} />
