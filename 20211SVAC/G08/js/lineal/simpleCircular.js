@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
         buscar_dato(valores.data);
         document.getElementById("elemento").value = "";
     });
-
+     
     //----------------LIMPIAR----------------
     document.getElementById('limpiar').addEventListener('click', function() {
         let tamano = 0;
@@ -66,20 +66,20 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('cargar').addEventListener('click', function() {
         guardar();
     });
-     
 });
 
-// ----- REPETIR -----
+//----------------REPETIR----------------
 const btn_Repetir = document.getElementById('repeticion');
 btn_Repetir.addEventListener('click', repetir);
+
 
 //----------------VARIEBLES GLOBALES----------------
 
 let list = document.getElementById('list');
+let flechas = document.getElementById('flechas');
 let nodes = document.getElementsByClassName('node');
 let pointers = document.getElementsByClassName('pointer');
 let error = document.getElementById('error');
-var tipoDato;
 
 //----------------TIEMPO ANIMACION----------------
 let tiempo_animacion;
@@ -112,14 +112,11 @@ function flecha_animacion(i) {
 
 function borrar_nodos(i) {
     return new Promise(resolve => {
-        let nod = nodes[i];
-        let fle = pointers[i];
-
-        nod.style.animation = "deleteNode " + tiempo_animacion + "s ease";
-		fle.style.animation = "deletePointer " + tiempo_animacion + "s ease";
+        nodes[i].style.animation = "deleteNode " + tiempo_animacion + "s ease";
+		pointers[i].style.animation = "deletePointer " + tiempo_animacion + "s ease";
 		setTimeout(() => {
-			list.removeChild(nod);
-            list.removeChild(fle);
+			list.removeChild(nodes[i]);
+            list.removeChild(pointers[i]);
             resolve();
 		}, tiempo_animacion);
     });
@@ -154,16 +151,14 @@ function animacion_antes_de_colocar (from, to) {
     return new Promise(resolve => {
         for (let i = from; i < to; i++) {
             console.log('length3', nodes.length)
-            let nod = nodes[i];
-            let fle = pointers[i];
 
-            nod.style.animation = "moveRightNode " + tiempo_animacion + "s ease";
+            nodes[i].style.animation = "moveRightNode " + tiempo_animacion + "s ease";
 
-            fle.style.animation = "moveRightNode " + tiempo_animacion + "s ease";
+            pointers[i].style.animation = "moveRightNode " + tiempo_animacion + "s ease";
 
             setTimeout(() => {
-                nod.style.animation = null;
-                fle.style.animation = null;
+                nodes[i].style.animation = null;
+                pointers[i].style.animation = null;
             }, tiempo_animacion)
         }
 
@@ -190,14 +185,36 @@ async function agregar(i, data) {
     pointer.style.opacity = "0";
 
     let img = document.createElement('img');
-    img.src = "../../img/flecha_doble.png";
-
+    img.src = "../../img/flecha_sola.png";
     pointer.appendChild(img);
 
+    let flecha = document.createElement('div');
+    flecha.classList.add('flecha');
+    flecha.style.opacity = "0";
+    
+    let img1 = document.createElement('img');
+    img1.src = "../../img/flecha_cabeza.png";
+    
+    let img2 = document.createElement('img');
+    img2.src = "../../img/pedazo.jpg";
+
+    let img3 = document.createElement('img');
+    img3.src = "../../img/abajo.jpg";
+    
+    let nodnum = nodes.length - 1;
+    
+    if (i === 0){
+        flecha.appendChild(img1);
+    }
+    else if ( i === nodes.length && i !=0){
+        flecha.appendChild(img3);
+    }
+    
     if (i === nodes.length) {
         await animacion_nodos(0, nodes.length - 1);
         list.appendChild(node);
         list.appendChild(pointer);
+        flechas.appendChild(flecha);
     }
     else {
         await animacion_nodos(0, i - 1);
@@ -211,6 +228,8 @@ async function agregar(i, data) {
     setTimeout(() => {
         pointer.style.opacity = 1;
         pointer.style.animation = "slide " + tiempo_animacion + "s ease";
+        flecha.style.opacity =1;
+        flecha.style.animation = "slide " + tiempo_animacion + "s ease";
     }, tiempo_animacion);
 
     console.log(list);
@@ -330,7 +349,6 @@ async function pathnodes2(){
     alert("No se encuentra el elemento")
 }
 
-
 //----------------LIMPIAR----------------
 async function limpiar(tam) {
     for (let i = tam;i <= nodes.length; i++) {
@@ -400,6 +418,7 @@ function listaNums(numso){
     }
     return hola;
 }
+
 //----------------GUARDAR JSON----------------
 function guardar(){
     var repetic = btn_Repetir.checked;
@@ -411,7 +430,7 @@ function guardar(){
     
     var fileJ = {
         "categoria": "Estructura Lineal",
-        "nombre": "Lista doble:",
+        "nombre": "Lista circular simplemente enlazada:",
         "repeticion": repetic,
         "animacion": velocidad,
         "valores": content
@@ -420,11 +439,11 @@ function guardar(){
     let saveArchivo = new Blob([JSON.stringify(fileJ)],{type:"application/json"});
     let a = document.createElement("a");
     a.href = URL.createObjectURL(saveArchivo);
-    a.download = "listaDoble.json";
+    a.download = "listaCircularSimple.json";
     a.click();
 }
 
-//----------------REPETIR ELEMENTOS----------------
+// ***** REPETIR ELEMENTOS *****
 function repetir(){
     if(btn_Repetir.value == 'on'){
         console.log("Repeticion encendida");

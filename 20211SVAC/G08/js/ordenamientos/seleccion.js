@@ -21,6 +21,11 @@ btn_clear.addEventListener("click", limpiar)
 var btn_velocidad = document.getElementById("velocidad");
 btn_velocidad.addEventListener("click", datoVelocidad)
 
+// V  A  R  I  A  B  L  E  S  -  G  L  O  B  A  L  E  S
+var listaValores = [];
+var listaWords = [];
+var tipoDato;
+
 
 // F  U  N  C  I  O  N  E  S  -  E  V  E  N  T  O  S
 
@@ -31,13 +36,18 @@ function limpiar(){
 
 // ***** MANIPULACION DE DATOS PARA GUARDAR ARCHIVO JSON*****
 function saveFile(){
-    console.log("Save")
+    console.log("Save");
+    if (tipoDato == 'number'){
+        var listaFile = listaValores;
+    } else {
+        var listaFile = listaWords;
+    }
     
 
     var fileJ = {
         "categoria": `${convert.categoria}`,
         "nombre": `${convert.nombre}`,
-        "valores": listaValores
+        "valores": listaFile
     }
 
     let saveArchivo = new Blob([JSON.stringify(fileJ)],{type:"application/json"});
@@ -66,6 +76,7 @@ function readFile(evento){ // lectura del archivo .json
             convert = JSON.parse(contenido);
             console.log("Valores sin ordenar")
             listaValores = convert.valores;
+            listaWords = convert.valores;
             tipoDato = typeof(listaValores[0]);                      
             generateElements(listaValores, tipoDato);
 
@@ -156,7 +167,7 @@ function cambiar(bloque1, bloque2){
 async function seleccion(delay = 100){
     var bloques = document.querySelectorAll(".block");
     velocidad = 10;
-    console.log("*******"+listaValores)
+    
     for (var r = 0; r < listaValores.length ; r++){ 
         var valMin = r;
         // minimo de cada ronda
@@ -173,7 +184,7 @@ async function seleccion(delay = 100){
                 if (valMin !== r){
                     bloques[valMin].style.backgroundColor="#6b5b95";
                 }
-     
+                
                 valMin = g;
                 //bloques[valMin].style.backgroundColor = "#FF4949";
             } else {
@@ -183,8 +194,6 @@ async function seleccion(delay = 100){
         }
 
 
-
-       
         // cambiar los bloques de posicion
         var temp1 = bloques[valMin].style.height;
         var temp2 = bloques[valMin].childNodes[0].innerText;
@@ -203,77 +212,49 @@ async function seleccion(delay = 100){
         var tempo = listaValores[r];
         listaValores[r] = listaValores[valMin];
         listaValores[valMin] = tempo;
+  
         bloques[valMin].style.backgroundColor="#6b5b95";
         bloques[r].style.backgroundColor="#13CE66";
 
-        
-        
-    }   
-    console.log("---"+listaValores)
+        if (tipoDato != 'number'){
+            var tempo2 = listaWords[r];
+            listaWords[r] = listaWords[valMin];
+            listaWords[valMin] = tempo2;
+        }
+    }  
+    
 }
 
-
-/*
-async function insercion(delay = 100){
-    var bloques = document.querySelectorAll(".block");
-    velocidad =10;
-    console.log(listaValores);
-    var cont = false;
-    for(let i = 1; i < listaValores.length; i++){
-        const element = listaValores[i];
-        let j = i - 1;
-        // color de bloques seleccionados
-        bloques[i].style.backgroundColor = "#FF4949";
-        bloques[j].style.backgroundColor = "#FF4949";
-        // delay de 0.1 segundo para que se entienda
-        await new Promise((resolve) =>
-        setTimeout(() =>{
-            resolve();
-        }, (velocidad*100)) //delay
-        );   
-        while(j >= 0 && listaValores[j] > element){
-
-            bloques[j].style.backgroundColor = "#FF4949";
-            bloques[j+1].style.backgroundColor = "#FF4949";
-            // delay de 0.1 segundo para que se entienda
-            await new Promise((resolve) =>
-            setTimeout(() =>{
-                resolve();
-            }, (velocidad*50)) //delay
-            );  
-
-            listaValores[j + 1] = listaValores[j];
-            await cambiar(bloques[j], bloques[j + 1]);
-            bloques = document.querySelectorAll(".block");
-            bloques[j].style.backgroundColor = "#6b5b95";
-            bloques[j+1].style.backgroundColor = "#6b5b95";
-
-            // j + 1
-            j--; // -1 
-            // j +1 aqui se dejan de seleccionar 
+// ORDENAMIENTO CON STRING
+function lonWord(){
+    var newLista = [];
+    var sumaPalabra = 0;
+    for(let i = 0; i < listaValores.length; i++){
+        for(let j = 0; j < listaValores[i].length; j++){
             
+            sumaPalabra = sumaPalabra + listaValores[i].charCodeAt(j);
         }
-        
-        bloques[i].style.backgroundColor = "#6b5b95";
-        bloques[i-1].style.backgroundColor = "#6b5b95";
-          
-
-        listaValores[j + 1] = element;
-        
+        newLista[i] = sumaPalabra;
+        sumaPalabra = 0;
     }
-    console.log("Valores ordenados")
-    console.log(listaValores);
-
-}*/
+    return newLista;
+    
+    
+}
 
 
 // L E C T U R A - J S O N
 function infoFile(){ // metodo que convierte la cadena obtenida del archivo en json y permite leerlo
-     
-    seleccion();
-    
+    if(tipoDato == 'number'){
+        seleccion();
 
+    } else {
+        //listaWords = listaValores; // haciendo copia de la lista original
+        listaValores = lonWord();
+        seleccion();
+        
+    }
+       
 }
-
 
 
