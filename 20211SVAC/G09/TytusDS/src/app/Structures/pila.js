@@ -167,10 +167,10 @@ class Pila{
     
 } 
 const stack = new Pila();
-var categoria = "Estructura Lineal";
-var nombre = "pila";
-var repeticion = "false";
-var animacion = "0";
+var categoriaPila = "Estructura Lineal";
+var nombrePila = "pila";
+var repeticionPila = "false";
+var animacionPila = "0";
 
 function addValuePila(data){
   stack.push(data);
@@ -208,19 +208,19 @@ function AbrirArchivoPila(event) {
     for (var key in doc) {
       //console.log('name=' + key + ' value=' + doc[key]);
       if(key=='categoria'){
-          categoria = doc[key]
+          categoriPilaa = doc[key]
           console.log(categoria)
       }
       if(key=='nombre'){
-          nombre = doc[key]
+          nombrePila = doc[key]
           console.log(nombre)
       }
       if(key=='repeticion'){
-          repeticion = doc[key]
+          repeticionPila = doc[key]
           console.log(repeticion)
       }
       if(key=='animacion'){
-          animacion = doc[key]
+          animacionPila = doc[key]
           console.log(animacion)
       }
       if(key=='valores'){
@@ -245,7 +245,7 @@ function downloadPila(filename, text) {
   lista = stack.print()
 
   var element = document.createElement('a');
-  let doc = JSON.stringify({ "categoria": categoria, 'nombre': nombre, 'repeticion':repeticion, 'animacion':animacion, 'valores': lista });
+  let doc = JSON.stringify({ "categoria": categoriaPila, 'nombre': nombrePila, 'repeticion':repeticionPila, 'animacion':animacionPila, 'valores': lista });
   
   //console.log(listSimple.print())
   element.setAttribute('href', 'data:json,' + doc);
