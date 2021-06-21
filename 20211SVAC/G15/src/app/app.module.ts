@@ -9,7 +9,8 @@ import { FormsModule } from '@angular/forms';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ListaCircularSimpleComponent } from './components/lista-circular-simple/lista-circular-simple.component';
-import { ColaComponent } from './components/cola/cola.component'
+import { ColaComponent } from './components/cola/cola.component';
+import { ColaPrioridadComponent } from './components/cola-prioridad/cola-prioridad.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,8 @@ import { ColaComponent } from './components/cola/cola.component'
     ListaDobleCircularComponent,
     ListaCircularSimpleComponent,
     ColaComponent,
+    ColaprioridadComponent,
+    ColaPrioridadComponent,
   ],
   imports: [
     BrowserModule,
