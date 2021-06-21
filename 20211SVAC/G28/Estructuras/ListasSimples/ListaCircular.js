@@ -1,4 +1,5 @@
 const Nodo = require("./Nodo");
+const datos = require("./datos");
 
 class ListaCircular {
     constructor(){
@@ -103,9 +104,12 @@ class ListaCircular {
                 console.log("el nuevo valor ya existe en la lista");
             }else{
             var actual = this.primero;
-            while(true){
+            var continuar = true;
+            while(continuar==true){
                 if (actual.datos.dato1 == antiguo){
-                    actual.datos.dato1 = nuevo;
+                    var nuevos = new datos(nuevo,null);
+                    actual.datos = nuevos;
+                    continuar = false;
                     break;
                     //actualizar solo el primero que coincida
                 }

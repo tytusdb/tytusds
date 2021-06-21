@@ -1,4 +1,5 @@
 const Nodo = require("./Nodo");
+const datos = require("./datos");
 
 class ListaSimple {
     constructor(){
@@ -86,9 +87,11 @@ class ListaSimple {
                 console.log("el nuevo valor ya existe en la lista");
             }else{
             var actual = this.primero;
-            while(true){
-                if (verificador.datos.dato1 == antiguo){
-                    verificador.datos.dato1 = nuevo;
+            while(actual != null){
+                if (actual.datos.dato1 == antiguo){
+                    var nuevos = new datos(nuevo,null);
+                    actual.datos = nuevos;
+                    console.log("AQUI DEBO SALIRME PORQUE YA LO CAMBIE");
                     break;
                     //actualizar solo el primero que coincida
                 }
