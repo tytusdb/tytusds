@@ -8,11 +8,11 @@ import Swal from 'sweetalert2'
   styleUrls: ['./ListaDobleCircular.component.css']
 })
 export class ListaDobleCircularComponent implements OnInit {
-  numero: number
-  numeroBuscar: number
-  numeroEliminar: number
-  numeroAntiguo: number
-  numeroNuevo: number
+  numero: number|string
+  numeroBuscar: number|string
+  numeroEliminar: number|string
+  numeroAntiguo: number|string
+  numeroNuevo: number|string
   ListaDobleCircular: ListaDobleCircular
   svg1
 
