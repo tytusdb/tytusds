@@ -132,6 +132,18 @@ function compararString(var1, var2){
 //NombresAscciOrdenados = ordBurburja(NombresAscci);
 //accion = compararString(NombresAscciOrdenados,lista);
 //console.log(accion)
+/////////////////////ordenamiento burbuja
+var categoriaBurbuja = "Estructura Lineal";
+var nombreBurbuja = 'Ordenamiento Burbuja';
+var repeticionBurbuja = "True";
+var animacionBurbuja = "0";
+var ListaOrdenada = []
+var ListaSinOrdenar = []
+var chekString = false;
+var NombresAscci;
+var NombresAscciOrdenados;
+var accion
+
 
 function AbrirOrdenamientoBurbuja(event) {
     var file = event.target.files[0];
@@ -141,36 +153,83 @@ function AbrirOrdenamientoBurbuja(event) {
       // El texto del archivo se mostrará por consola aquí
      // console.log(event.target.result)
       let doc = JSON.parse(event.target.result);
-      
       //console.log(doc)
 
       for (var key in doc) {
         //console.log('name=' + key + ' value=' + doc[key]);
         if(key=='categoria'){
-            categoriaPrio = doc[key]
+            categoria = doc[key]
             console.log(categoria)
         }
         if(key=='nombre'){
-            nombrePrio = doc[key]
+            nombre = doc[key]
             console.log(nombre)
         }
         if(key=='repeticion'){
-            repeticionPrio = doc[key]
+            repeticion = doc[key]
             console.log(repeticion)
         }
         if(key=='animacion'){
-            animacionPrio = doc[key]
+            animacion = doc[key]
             console.log(animacion)
         }
         if(key=='valores'){
-            //console.log(doc[key].length)
-            for (var k in doc[key]){
-                ListaAOrdenar.push(doc[key][k]);
-                console.log(doc[key][k])
-            } 
+           if(chekString == false){
+                for (var k in doc[key]){
+                    // console.log(doc[key][k])
+                    ListaSinOrdenar.push(doc[key][k])
+                }
+                ListaOrdenada = ordBurburja(ListaSinOrdenar);
+                console.log(ListaOrdenada);
+            }
+            if(chekString == true){
+                console.log("check es true")
+                for (var k in doc[key]){
+                    // console.log(doc[key][k])
+                    ListaSinOrdenar.push(doc[key][k])
+                }
+                //1ro  obtengo ascci desordenado 
+                NombresAscci = ObtenerString(ListaSinOrdenar);
+                //2do ordeno Ascci
+                NombresAscciOrdenados = ordBurburja(NombresAscci);
+                //3ro  ordeno las 2 listas
+                accion = compararString(NombresAscciOrdenados,ListaSinOrdenar);
+                console.log(accion)
+            }
         }
-     }
+     } 
      
+
     };
-    
+
+    reader.readAsText(file);
 }//guardar archivo
+
+function downloadBurbuja(filename, text) {
+    let ListaBurbuja;
+    if(chekString == true){
+        ListaBurbuja = accion;
+    }
+    if(chekString == false){
+        ListaOrdenada = ordBurburja(ListaSinOrdenar)
+        ListaBurbuja = ListaOrdenada;
+    }
+    
+    var element = document.createElement('a');
+    let doc = JSON.stringify({ "categoria": categoriaBurbuja, 'nombre': nombreBurbuja, 'repeticion':repeticionBurbuja, 'animacion':animacionBurbuja, 'valores': ListaBurbuja });
+    
+    //console.log(listSimple.print())
+    element.setAttribute('href', 'data:json,' + doc);
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+}
+function checkBox(){
+    console.log("cambioando chek");
+    chekString = true;
+}
