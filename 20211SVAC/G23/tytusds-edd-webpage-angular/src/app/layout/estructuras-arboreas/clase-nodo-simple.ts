@@ -2,11 +2,13 @@ export default class Node{
     private data:any
     private right:Node
     private left:Node
+    private id:number
 
-    constructor(data){
+    constructor(data, id){
         this.data = data
         this.left = null
         this.right = null
+        this.id = id
         //this.up = null
     }
 }

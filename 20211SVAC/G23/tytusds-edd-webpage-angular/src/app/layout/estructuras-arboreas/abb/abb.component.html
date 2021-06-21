@@ -36,16 +36,11 @@
                 <div class="card-body align-items-center" >
                     <button class="btn btn-secondary mr-3" type="button" (click)="Insertar()">Agregar</button>
                     <button class="btn btn-secondary mr-3" type="button" (click)="Eliminar()">Eliminar</button>
-                    <button class="btn btn-secondary mr-3" type="button" (click)="Actualizar()">Actualizar</button>
+                   <!-- <button class="btn btn-secondary mr-3" type="button" (click)="Actualizar()">Actualizar</button>-->
                 </div>
             </div>
         </div>      
-        <div class="col-xs-2">
-            <div class="card mb-3 text-center my-auto">
-                <small><label for="customRange2" class="form-label">Velocidad animacion: {{velocidadAnimacion}}</label></small>
-                <input type="range" class="form-range" min="0" max="10" id="customRange2" [(ngModel)]="velocidadAnimacion">
-            </div>
-        </div>
+        
     </div>
     <div class="row">
         <div class="col-xl-6 text-xs-center">
@@ -63,15 +58,19 @@
             </fieldset>
         </div>
     </div>   
-    <div class="row">
-        <div class="col-xl-12 text-xs-center">
-            <div class="card mb-3">
-                <div class="card-body">
-                    <!--<textarea class="form-control" rows="3"></textarea>-->
-                    <canvas #canvas width="1000" height="500"></canvas>
-                    <!--<button (click)="play()">Play</button>-->
-                </div>
-            </div>
-        </div>
-    </div> 
+    
+    <br>
+    <div id="mynetwork" #siteConfigNetwork></div>
 </div>
+<style type="text/css">
+    #mynetwork {
+        width: 1200px;
+        height: 500px;
+        border: 1px solid lightgray;
+    }
+    #mySvgNetwork {
+        width: 700px;
+        height: 300px;
+        border: 1px solid lightgray;
+    }
+</style>
