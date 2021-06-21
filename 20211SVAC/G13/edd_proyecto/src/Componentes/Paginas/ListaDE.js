@@ -119,7 +119,7 @@ class ListaDE extends Component {
 
 	handleSearch = () => {
 		let dato = listaDoble.search(this.state.text);
-		if (dato != false){
+		if (0 <= parseInt(dato)){
 			console.log(dato+" ENCONTRADO")
             getNodes = new DataSet(listaDoble.setNodesDataSet());
             getEdges = new DataSet(listaDoble.setEdgesDataSet());

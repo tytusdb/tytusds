@@ -88,12 +88,13 @@ class ListaSimple{
 
     search = (dato) =>{
         let nodo_actual = this.get_cabeza()
-        let i = 0;
+        
         if (this.get_vacia() == false){
-            
+            let i = 0;
             do{
+
                 if (nodo_actual.get_dato() == dato){
-                    console.log("Data found! " + nodo_actual.get_dato());
+                    console.log("Data found! " + nodo_actual.get_dato()+"-> Posicion"+i);
                     return i;
                 }
                 i ++;
@@ -174,6 +175,15 @@ class ListaSimple{
 
 
     }
+
+    readJason = (text) => {
+
+       
+      
+        
+
+    }
+
 
     get_cabeza = () =>{ return this.cabeza; }
     set_cabeza = (cabeza) =>{ this.cabeza = cabeza; }
