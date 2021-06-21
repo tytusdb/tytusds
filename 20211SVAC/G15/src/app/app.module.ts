@@ -14,6 +14,9 @@ import { EstructuraslinealesComponent } from './components/estructuraslineales/e
 import { BurbujaComponent } from './components/burbuja/burbuja.component';
 import { PilaComponent } from './components/pila/pila.component';
 import { ListasimpleComponent } from './components/listasimple/listasimple.component'
+import { BinaryTreeComponent } from './components/binary-tree/binary-tree.component';
+import { EstructuraArboreaComponent } from './components/estructura-arborea/estructura-arborea.component'
+
 
 @NgModule({
   declarations: [
@@ -26,6 +29,9 @@ import { ListasimpleComponent } from './components/listasimple/listasimple.compo
     BurbujaComponent,
     PilaComponent,
     ListasimpleComponent,
+    BinaryTreeComponent,
+    EstructuraArboreaComponent,
+
   ],
   imports: [
     BrowserModule,

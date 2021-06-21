@@ -11,7 +11,9 @@ import { BurbujaComponent } from './components/burbuja/burbuja.component';
 import { PilaComponent } from './components/pila/pila.component';
 import { ListasimpleComponent } from './components/listasimple/listasimple.component';
 
+import { BinaryTreeComponent } from './components/binary-tree/binary-tree.component'
 const routes: Routes = [
+  {path: 'binaryTree', component: BinaryTreeComponent, pathMatch: 'full'},
   {path: 'listaDobleCircular', component: ListaDobleCircularComponent, pathMatch: 'full'},
   {path: 'listaSimpleCircular', component: ListaCircularSimpleComponent, pathMatch: 'full'},
   {path: 'Ordenamiento', component: OrdenamientosComponent, pathMatch: 'full'},
