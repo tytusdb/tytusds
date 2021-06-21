@@ -1,14 +1,13 @@
 <body>
     <div >
         <p>
-            <!-- UNIVERSIDAD DE SAN CARLOS DE GUATEMALA -->
             <span>
                 Lista Simple
             </span>
             &mdash; ESTRUCTURA DE DATOS &mdash;
         </p>
     </div >   
-    <br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br>
     <div class="container mt-2" ID="form-modal"> 
         <div class="row opciones p-2">
 
@@ -34,7 +33,7 @@
                     <input class="form-control" id="dato" name="dato" [(ngModel)]="datoAntiguo" type="text" placeholder="Antiguo" >
                     <input class="form-control" id="dato" name="dato" [(ngModel)]="datoNuevo" type="text" placeholder="Nuevo" >
                     <div class="input-group-append">
-                        <button class="btn btn-warning" type="button" >Actualizar</button>
+                        <button class="btn btn-warning" type="button" (click)="modificar()" >Actualizar</button>
                     </div>
                 </div>
             </div>
@@ -42,7 +41,7 @@
                 <div class="input-group">
                     <input class="form-control" id="dato" name="dato" [(ngModel)]="datoEliminar" type="text" placeholder="Ingresar Dato" >
                     <div class="input-group-append">
-                        <button class="btn btn-danger" type="button">Eliminar</button>
+                        <button class="btn btn-danger" type="button" (click)="eliminar()">Eliminar</button>
                     </div>
                 </div>
             </div>
