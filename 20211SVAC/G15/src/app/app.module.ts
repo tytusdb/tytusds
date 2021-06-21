@@ -13,7 +13,8 @@ import { OrdenamientosComponent } from './components/ordenamientos/ordenamientos
 import { EstructuraslinealesComponent } from './components/estructuraslineales/estructuraslineales.component';
 import { BurbujaComponent } from './components/burbuja/burbuja.component';
 import { PilaComponent } from './components/pila/pila.component'
-import { BinaryTreeComponent } from './components/binary-tree/binary-tree.component'
+import { BinaryTreeComponent } from './components/binary-tree/binary-tree.component';
+import { InsertionSortComponent } from './components/insertion-sort/insertion-sort.component'
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { BinaryTreeComponent } from './components/binary-tree/binary-tree.compon
     BurbujaComponent,
     PilaComponent,
     BinaryTreeComponent,
+    InsertionSortComponent,
   ],
   imports: [
     BrowserModule,

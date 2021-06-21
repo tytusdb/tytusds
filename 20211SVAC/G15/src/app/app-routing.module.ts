@@ -9,6 +9,7 @@ import { OrdenamientosComponent } from './components/ordenamientos/ordenamientos
 import { EstructuraslinealesComponent } from './components/estructuraslineales/estructuraslineales.component';
 import { BurbujaComponent } from './components/burbuja/burbuja.component';
 import { PilaComponent } from './components/pila/pila.component';
+import { InsertionSortComponent } from './components/insertion-sort/insertion-sort.component'
 
 import { BinaryTreeComponent } from './components/binary-tree/binary-tree.component'
 const routes: Routes = [
@@ -19,6 +20,7 @@ const routes: Routes = [
   {path: 'estructuraLineales', component: EstructuraslinealesComponent, pathMatch: 'full'},
   {path: 'burbuja', component: BurbujaComponent, pathMatch: 'full'},
   {path: 'pila', component: PilaComponent, pathMatch: 'full'},
+  {path: 'ordenamiento/insercion', component: InsertionSortComponent, pathMatch: 'full'},
   {path: '', component: HomeComponent, pathMatch: 'full'}
   
 ];
