@@ -113,7 +113,7 @@
 				var spd = document.getElementById('speed').value;
 				ls.add(input);	
 				cy.remove('node');
-				var a=addNodes(input);
+				addNodes(input);
 				var options={name:'dagre'};
 				cy.layout(options).run();
 				blink(recorrido);
