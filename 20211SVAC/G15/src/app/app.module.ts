@@ -9,6 +9,9 @@ import { FormsModule } from '@angular/forms';
 import { ChartsModule } from 'ng2-charts';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ListaCircularSimpleComponent } from './components/lista-circular-simple/lista-circular-simple.component';
+import { ColaComponent } from './components/cola/cola.component';
+import { ColaPrioridadComponent } from './components/cola-prioridad/cola-prioridad.component';
+import { ListaDobleComponent } from './components/lista-doble/lista-doble.component';
 import { OrdenamientosComponent } from './components/ordenamientos/ordenamientos.component';
 import { EstructuraslinealesComponent } from './components/estructuraslineales/estructuraslineales.component';
 import { BurbujaComponent } from './components/burbuja/burbuja.component';
@@ -18,12 +21,17 @@ import { BinaryTreeComponent } from './components/binary-tree/binary-tree.compon
 import { EstructuraArboreaComponent } from './components/estructura-arborea/estructura-arborea.component'
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     ListaDobleCircularComponent,
     ListaCircularSimpleComponent,
+
+    ColaComponent,
+    ColaPrioridadComponent,
+    ListaDobleComponent,
     OrdenamientosComponent,
     EstructuraslinealesComponent,
     BurbujaComponent,
@@ -31,6 +39,7 @@ import { EstructuraArboreaComponent } from './components/estructura-arborea/estr
     ListasimpleComponent,
     BinaryTreeComponent,
     EstructuraArboreaComponent,
+
 
   ],
   imports: [

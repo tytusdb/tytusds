@@ -78,6 +78,10 @@ class ColaDePrioridad {
     //Imprimir la cola
     print()
     {
+                if(this.isEmpty()){
+            return null;
+        }
+        
         let result = "";
         for (let i = 0; i <= this.getSize(); i++) {
             if(i === 0){

@@ -63,6 +63,12 @@ export class ListasimpleComponent implements OnInit {
       await this.lista.InsertarInicio(dato, this.svg1, dibujo, `${this.velocidad}s`)
       this.nombre = ""
     }
+    if (this.ordenado) {
+      let dibujo = document.getElementById("cuerpoDraw")
+      await this.lista.InsertarOrden(dato, this.svg1, dibujo, `${this.velocidad}s`)
+      this.nombre = ""
+    }
+    
 
 
     return 1
