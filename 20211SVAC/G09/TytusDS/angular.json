@@ -41,7 +41,8 @@
               "src/app/Structures/listaCirctwoenlazada.js",
               "src/app/Structures/pila.js",
               "src/app/Structures/cola.js",
-              "src/app/Structures/colaPrioridad.js"
+              "src/app/Structures/colaPrioridad.js",
+              "src/app/Ordenamientos/Ordenamientos.js"
               ]
           },
           "configurations": {
@@ -113,7 +114,8 @@
               "src/app/Structures/listaCirctwoenlazada.js",
               "src/app/Structures/pila.js",
               "src/app/Structures/cola.js",
-              "src/app/Structures/colaPrioridad.js"
+              "src/app/Structures/colaPrioridad.js",
+              "src/app/Ordenamientos/Ordenamientos.js"
             ]
           }
         },
