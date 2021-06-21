@@ -353,8 +353,13 @@ function actualizarTablero(){
 }
 
 function insertarNodo(){
-    var valor = parseInt(document.getElementById("valueNodo").value, 10);
-    if(arbolbb.buscar(valor, arbolbb.raiz) && !arbolbb.repetidos){
+    var valor
+    if(document.getElementById("valueNodo").value.charCodeAt(0)>=48 && document.getElementById("valueNodo").value.charCodeAt(0)<=57){
+        valor = parseInt(document.getElementById("valueNodo").value)
+    }else{
+        valor = document.getElementById("valueNodo").value
+    }
+    if(arbolbb.buscar(valor, arbolbb.raiz) && switchToggle.checked == false){
         alert("No se aceptan valores repetidos")
     }else{
         arbolbb.agregar(valor)
@@ -374,18 +379,27 @@ function eliminarNodo(){
 }
 
 function actualizarNodo(){
-    var valor = parseInt(document.getElementById("valueNodo").value, 10);
+    var valor = document.getElementById("valueNodo").value
     document.getElementById("valueNodo").value = ""
     if(clickedNodoValue != undefined){
-        arbolbb.actualizar(clickedNode, clickedNodoValue, valor)
+        if(valor.charCodeAt(0)>=48 && valor.charCodeAt(0)<=57){
+            arbolbb.actualizar(clickedNode, clickedNodoValue, parseInt(valor))
         }else{
-            alert("Seleccione un nodo")
+            arbolbb.actualizar(clickedNode, clickedNodoValue, valor)
         }
+    }else{
+        alert("Seleccione un nodo")
+    }
     actualizarTablero()
 }
 
 function searchNode(){
-    var valor = parseInt(document.getElementById("valueNodo").value, 10);
+    var valor
+    if(document.getElementById("valueNodo").charCodeAt(0)>=48 && document.getElementById("valueNodo").charCodeAt(0)<=57){
+        valor = parseInt(document.getElementById("valueNodo").value, 10);
+    }else{
+        valor = document.getElementById("valueNodo").value
+    }
     if(arbolbb.buscar(valor, arbolbb.raiz)){
         focus()
         setTimeout(zoomExtended, 2000)
@@ -397,8 +411,14 @@ function searchNode(){
 
 
 function focus() {
-    var valueNodo = parseInt(document.getElementById("valueNodo").value, 10);
-    let nodeId = arbolbb.buscarNodo(valueNodo, arbolbb.raiz)
+    let nodeId
+    var valueNodo
+    if(document.getElementById("valueNodo").charCodeAt(0)>=48 && document.getElementById("valueNodo").charCodeAt(0)<=57){
+        valueNodo = parseInt(document.getElementById("valueNodo").value, 10);
+    }else{
+        valueNodo = document.getElementById("valueNodo").value
+    }
+    nodeId = arbolbb.buscarNodo(valueNodo, arbolbb.raiz)
     document.getElementById("valueNodo").value = ""
     var options = {
         scale: 3.0,
