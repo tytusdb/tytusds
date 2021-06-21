@@ -28,17 +28,17 @@ Cola
 </button>
 <br>
 <input type="text" #box placeholder="Ingrese Datos" name="username"/>&nbsp;
-<input type="text" #box placeholder="Ingrese Prioridad" name="username"/> 
-<button class="boton" (click)="getValueCircular(box.value)" >Push</button> &nbsp; &nbsp;&nbsp; &nbsp;
-<input type="text" #box1 placeholder="Eliminar Datos" name="username"/> 
+<input type="text" #box1 placeholder="Ingrese Prioridad" name="username"/> 
+<button class="boton" (click)="getPrioridad(box.value,box1.value)" >Push</button> &nbsp; &nbsp;&nbsp; &nbsp;
+<input type="text" #box2 placeholder="Eliminar Datos" name="username"/> 
 <button class="boton" (click)="getValuelsimpleCircleDelete(box1.value)" >Eliminar</button>&nbsp; &nbsp;
 <br>
 <br>
 
 <input type="text" #box3 placeholder="Buscar Datos" name="username"/> 
 <button class="boton" (click)="getValue1(box3.value)" >Buscar</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<input type="text" #box2 placeholder="Dato a Reemplazar" name="username"/>&nbsp;
-<input type="text" #box4 placeholder="Nuevo Dato" name="username1"/> 
+<input type="text" #box4 placeholder="Dato a Reemplazar" name="username"/>&nbsp;
+<input type="text" #box5 placeholder="Nuevo Dato" name="username1"/> 
 <button class="boton" (click)="getValue1(box2.value)" >Actualizar</button>
 <!--<p>La lista es: {{displayVal}}</p>-->
 <br>
