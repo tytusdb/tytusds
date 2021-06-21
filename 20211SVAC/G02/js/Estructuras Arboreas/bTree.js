@@ -385,6 +385,9 @@ function read(){
     reader.onload = function() {
         var obj = JSON.parse(reader.result)
         let val = obj.valores
+        if(arbol == null){
+            arbol = new ArbolB(obj.grado)
+        }
         arbol.repetidos = obj.repeticion
         slider.value = obj.animacion
         
@@ -404,7 +407,7 @@ function read(){
                 switchToggle.checked = false
                 for(let i=0; i<val.length; i++){
                     contador = contador + 0.5
-                    if (arbol.buscar(val[i], arbolbb.raiz)){
+                    if (arbol.buscar(val[i], arbol.raiz)){
                         console.log("no se aceptan valores repetidos")
                     }else{                    
                         contador = contador + 0.5
