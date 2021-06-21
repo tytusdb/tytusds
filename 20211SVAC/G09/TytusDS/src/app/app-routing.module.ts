@@ -16,6 +16,9 @@ import { PilaComponent } from './componentes/pila/pila.component';
 import { ColaComponent } from './componentes/cola/cola.component';
 import { ColaPrioridadComponent } from './componentes/cola-prioridad/cola-prioridad.component';
 import { OrdenamientoBurbujaComponent } from './componentes/ordenamiento-burbuja/ordenamiento-burbuja.component';
+import { OrdenamientoSeleccionComponent } from './componentes/ordenamiento-seleccion/ordenamiento-seleccion.component';
+import { OrdenamientoInsercionComponent } from './componentes/ordenamiento-insercion/ordenamiento-insercion.component';
+import { OrdenamientoRapidoComponent } from './componentes/ordenamiento-rapido/ordenamiento-rapido.component';
 const routes: Routes = [
   {path: "EstructurasLineales",    component: EstructurasLinealesComponent},
   {path: "Inicio",    component: InicioComponent},
@@ -29,7 +32,11 @@ const routes: Routes = [
   {path:"pila", component:PilaComponent},
   {path:"cola",component:ColaComponent},
   {path:"colaPrioridad", component:ColaPrioridadComponent},
-  {path:"burbuja", component:OrdenamientoBurbujaComponent}
+  {path:"burbuja", component:OrdenamientoBurbujaComponent},
+  {path:"seleccion", component:OrdenamientoSeleccionComponent},
+  {path:"insercion", component:OrdenamientoInsercionComponent},
+  {path:"rapido", component:OrdenamientoRapidoComponent}
+
 ];
 
 @NgModule({
