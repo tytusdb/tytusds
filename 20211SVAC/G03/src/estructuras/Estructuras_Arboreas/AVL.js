@@ -241,6 +241,41 @@ class ArbolAVL {
         return temporal;
     }
 
+    balancearAlturas(temporal) {
+        if (temporal.izquierda != null) {
+            this.balancearAlturas(temporal.izquierda);
+        } else if (temporal.derecha != null) {
+            this.balancearAlturas(temporal.derecha);
+        }
+        temporal.altura = this.MAX(this.altura(temporal.derecha), this.altura(temporal.izquierda)) + 1
+
+    }
+
+
+    actualizar(valor, valorNuevo) {
+        this.eliminar(valor);
+        this.agregar(valorNuevo)
+    }
+
+    buscar(valor) {
+       let variable = this._buscar(valor,this.raiz);
+       console.log("-------")
+       console.log(variable.valor)
+       console.log("-------")
+
+    }
+
+    _buscar(valor, temporal){
+        if(temporal.valor < valor){
+            temporal = this._buscar(valor, temporal.izquierda)
+        }else if(temporal.valor > valor){
+            temporal = this.buscar(valor, temporal.derecha)
+        }else if(temporal.valor == valor){
+            return temporal;
+
+        }
+
+    }
 
 
 
