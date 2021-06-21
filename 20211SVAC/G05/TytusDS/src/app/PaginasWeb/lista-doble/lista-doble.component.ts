@@ -44,18 +44,21 @@ export class ListaDobleComponent implements OnInit {
 
   getDocumento(documento: any): void {
     this.documentoService.getDocumento(documento).then( contenido => {
+      if (contenido['repeticion'] !== undefined) {
+        this.opciones['repeticionLineales'] = contenido['repeticion'];
+      }
+      if (contenido['posicion'] !== undefined) {
+        this.opciones['ingreso'] = contenido['posicion'];
+      }
       contenido['valores'].forEach(valor => {
-        if (this.opciones.ingreso === 'final') {
-          this.lista.agregarFinal(valor);
-        } else if (this.opciones.ingreso === 'inicio') {
-          this.lista.agregarInicio(valor);
-        }
+        this.valorAgregar = '' + valor;
+        this.agregar(true);
       });
       this.graficar();
     });
   }
 
-  agregar(): void {
+  agregar(esperar?: boolean): void {
     if (this.valorAgregar.length > 0) {
       if (this.opciones['repeticionLineales'] === false) {
         if (this.lista.verRepetido(this.valorAgregar) === true) {
@@ -64,14 +67,16 @@ export class ListaDobleComponent implements OnInit {
         }
       }
 
-      if (this.opciones['ingreso'] === 'final'){
+      if (this.opciones['ingreso'].toLowerCase() === 'final' || this.opciones['ingreso'].toLowerCase() === 'fin'){
         this.lista.agregarFinal(this.valorAgregar);
-      }else if (this.opciones['ingreso'] === 'inicio') {
+      }else if (this.opciones['ingreso'].toLowerCase() === 'inicio') {
         this.lista.agregarInicio(this.valorAgregar);
       }
       this.lista.recorrer();
-      this.graficar();
       this.valorAgregar = '';
+      if (!esperar) {
+        this.graficar();
+      }
     }
   }
 
