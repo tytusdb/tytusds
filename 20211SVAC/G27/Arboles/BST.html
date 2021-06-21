@@ -13,7 +13,7 @@
 			  border: 1px solid lightgray;
 			}</style>
         <script src ="../vis-network.min.js"></script>
-		<script src="Cola.js"></script>
+		<script src="BST.js"></script>
 
 	</head>
 </head>
@@ -43,9 +43,7 @@
 				Estructuras No Lineales
 			  </a>
 			  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-				<a class="dropdown-item" href="#">Action</a>
-				<a class="dropdown-item" href="#">Another action</a>
-				<a class="dropdown-item" href="#">Something else here</a>
+				<a class="dropdown-item" href="BST.html" id="Lista_Simple">BST<span class="sr-only">(current)</span></a>
 			  </div>
 		  </li>
 		  <li class="nav-item dropdown">
@@ -53,10 +51,10 @@
 				Ordenamientos
 			  </a>
 			  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-				<a class="dropdown-item" href="bubleSort.html" id="bubble">Ordenamiento Burbuja<span class="sr-only">(current)</span></a>
-                <a class="dropdown-item" href="insertionSort.html" id="insertion">Ordenamiento Insercion<span class="sr-only">(current)</span></a>
-            	<a class="dropdown-item" href="Rapido.html" id="quick">Ordenamiento Rapido<span class="sr-only">(current)</span></a>
-                <a class="dropdown-item" href="Seleccion.html" id="selection">Ordenamiento Seleccion<span class="sr-only">(current)</span></a>
+				<a class="dropdown-item" href="bubleSort.html" id="Lista_Simple">Ordenamiento Burbuja<span class="sr-only">(current)</span></a>
+                <a class="dropdown-item" href="insertionSort.html" id="Lista_Doble">Ordenamiento Insercion<span class="sr-only">(current)</span></a>
+                <a class="dropdown-item" href="Rapido.html" id="Lista_Doble">Ordenamiento Rapido<span class="sr-only">(current)</span></a>
+                <a class="dropdown-item" href="Seleccion.html" id="selection">Ordenamiento Rapido<span class="sr-only">(current)</span></a>
 			  </div>
 		  </li>
 		</ul>
@@ -64,19 +62,26 @@
   </nav>
 	<body class="is-preload">
 			<div class="contenedor">
-				<h1>COLA</h1>
+				<h1>ARBOL BUSQUEDA BINARIA</h1>
             <div id="ventanas">
                 <ul id=lista>
                 </ul>
             </div>
             <body>
                 <div id="contenidoventanas">
-					<button onclick="agregarValor();" title="Encolar" id="btn4" class="btn btn-primary">Encolar</button>
-					<button onclick="eliminarValor();" title="Desencolar" id="btn4" class="btn btn-primary">Desencolar</button>
+					<button onclick="agregarValor();" title="Encolar" id="btn4" class="btn btn-primary">Insertar</button>
+					<button onclick="eliminarValor();" title="Desencolar" id="btn4" class="btn btn-primary">Eliminar</button>
+                    <button onclick="inorden();" title="Desencolar" id="btn4" class="btn btn-primary">Inorden</button>
+                    <button onclick="preorden();" title="Desencolar" id="btn4" class="btn btn-primary">Preorden</button>
+                    <button onclick="postorden();" title="Desencolar" id="btn4" class="btn btn-primary">Postorden</button>
 					<input id="fileInput" title="Abrir" type="file" size="50" onchange="AbrirArchivo(this.files)" class="btnp">
 				</div>
 				<div>
-					<br><input type="text" id="newValue" name="newValue"><br><br>
+					<ul>
+                        <li>
+                          <br><a class="a-label">Valor </a><input type="text" id="newValue" name="newValue">
+                        </li>
+                      </ul>
 				</div>
 				<div id="miRed"></div>				
             </body>
