@@ -9,11 +9,11 @@ import Swal from 'sweetalert2'
 })
 export class BinaryTreeComponent implements OnInit {
   public network: any
-  numero: number = 0
-  numeroBuscar: number = 0
-  numeroViejo: number = 0
-  numeroNuevo: number = 0
-  numeroEliminar: number = 0
+  numero: number|string = 0
+  numeroBuscar: number|string = 0
+  numeroViejo: number|string = 0
+  numeroNuevo: number|string = 0
+  numeroEliminar: number|string = 0
   duracion: number = 0.3
   repetidos: boolean = true
 
@@ -93,12 +93,12 @@ export class BinaryTreeComponent implements OnInit {
       this.fileName = file.name;
       let data: any = await this.processFile(file)
       data = JSON.parse(data)
-      this.duracion = +data.animacion
+      this.duracion = (+data.animacion >= 2) ? +data.animacion - 2 : +data.animacion 
       this.repetidos = data.repeticion
       data = data.valores
       for (let i = 0; i < data.length; i++) {
         await this.addData(data[i])
-        await this.sleep(4000)
+        await this.sleep(2000)
       }
 
 
