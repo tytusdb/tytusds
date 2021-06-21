@@ -42,15 +42,18 @@ class CircularLinkedList{
     }
 
     print(){
+        let cadena = "";
         if(!this.head){
             return;
         }
         let curr = this.head;
-        while(curr.next !== this.head){
-            console.log(curr.data);
+        do{
+            var valor = curr.data;
+            cadena += valor + " ->";
             curr = curr.next;
-        }
-        console.log(curr.data);
+        }while(curr != this.head)
+        cadena += curr.data;
+        console.log(cadena);
     }
 
     count(){
@@ -111,7 +114,104 @@ class CircularLinkedList{
 }
 
 let cList = new CircularLinkedList();
-//cList.clear();
-//cList.insertAtFirst("cero")
-//cList.print();
+cList.clear();
 
+function agregarValorFinal(){
+    var x = document.getElementById("newValue").value;
+    document.getElementById("newValue").value = "";
+    cList.insertAtLast(x);
+    document.getElementById("newValue").focus();
+    graficar();
+}
+
+function agregarValorInicio(){
+    var x = document.getElementById("newValue").value;
+    document.getElementById("newValue").value = "";
+    cList.insertAtFirst(x);
+    document.getElementById("newValue").focus();
+    graficar();
+}
+
+function eliminarValorInicio(){
+    cList.removeFirst();
+    document.getElementById("newValue").focus();
+    graficar();
+  }
+
+  function eliminarValorFinal(){
+    cList.removeLast();
+    document.getElementById("newValue").focus();
+    graficar();
+  }
+
+function graficar(){
+    var x_pos = -150;
+    var y_pos = 0;
+    var nodes = [];
+    var edges = [];
+    var contador = 0;       
+    // creating an array with nodes
+    var aux = cList.head;
+    do{
+      nodes.push({id: contador, label: "Valor: " + aux.data, x: x_pos, y: y_pos});
+      x_pos = x_pos + 100; 
+      edges.push({
+        from: contador,
+        to: contador+1,
+        arrows: "to",
+        physics: false,
+        smooth: {type: "cubicBezier"},
+      });
+      aux = aux.next;
+      contador++; 
+    }while(aux != cList.head);
+
+    edges.push({
+        from: contador-1,
+        to: 0,
+        arrows: "to",
+        physics: false,
+        smooth: {type: "curvedCW"},
+      });
+    
+    // create a network
+    var container = document.getElementById("miRed");
+    var data = {
+      nodes: nodes,
+      edges: edges,
+    };
+  
+    const options = {
+  
+      nodes: {
+        shape: "box",
+      },
+  
+      physics: {
+        hierarchicalRepulsion: {
+          nodeDistance: 110,
+        },
+      },
+    };
+    var network = new vis.Network(container, data, options);
+  
+  }
+  
+  //here I load a JSON Files
+  function AbrirArchivo(files){
+  var file = files[0];
+  var reader = new FileReader();
+  reader.onload = function(event){
+    var contents = event.target.result;
+    var json = JSON.parse(contents);
+    var count = Object.keys(json.valores).length;
+    for (let index = 0; index < count; index++) {
+      cList.insertAtLast(json.valores[index]); 
+    }
+    graficar();
+  };
+  reader.onerror = function(event) {
+    console.error("File could not be read! Code " + event.target.error.code);
+  };
+  reader.readAsText(file);
+  }

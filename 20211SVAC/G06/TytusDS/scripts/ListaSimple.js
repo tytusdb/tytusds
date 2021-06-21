@@ -27,23 +27,27 @@ class ListaSimple {
 	}
 
 	delete(valor){
+		let eliminado = null
 		if(this.len != 0){
-			if (this.primero == this.ultimo && valor == this.primero.valor){
+			if (this.primero == this.ultimo && valor == this.primero.valor.value){
+				eliminado = this.primero
 				this.primero = null
 				this.ultimo = null
 				this.len--
-			} else if (valor == this.primero.valor){
+			} else if (valor == this.primero.valor.value){
+				eliminado = this.primero
 				this.primero = this.primero.siguiente
 				this.len--
 			} else {
 				let ant =  this.primero
 				let tmp = this.primero.siguiente
-				while(tmp != null && valor != tmp.valor){
+				while(tmp != null && valor != tmp.valor.value){
 					//Para recorrer la lista
 					ant = ant.siguiente
 					tmp = tmp.siguiente
 				}
 				if (tmp != null){
+					eliminado = tmp
 					ant.siguiente = tmp.siguiente
 					if(tmp == this.ultimo){
 						this.ultimo = ant
@@ -52,28 +56,40 @@ class ListaSimple {
 				}
 			}
 		}
+		return eliminado
 	}
 
 	update(valor, nuevoValor){
 		let tmp = this.primero
 		while(tmp != null){
-			if(valor == tmp.valor){
-				tmp.valor = nuevoValor
-				return
+			if(valor == tmp.valor.value){
+				tmp.valor.value = nuevoValor
+				return tmp
 			}
 			tmp = tmp.siguiente
 		}
+		return null
 	}
 
 	search(valor){
 		let tmp = this.primero
 		while(tmp != null){
-			if(valor == tmp.valor){
-				return tmp.valor
+			if(valor == tmp.valor.value){
+				return tmp
 			}
 			tmp = tmp.siguiente
 		}
 		return null
+	}
+
+	toArray(){
+		let array = []
+		let tmp = this.primero
+		while(tmp != null){
+			array.push(tmp.valor)
+			tmp = tmp.siguiente
+		}
+		return array
 	}
 
 	print(){
@@ -82,9 +98,9 @@ class ListaSimple {
 		let cont = 0;
 		while(tmp != null){
 			if (cont == 0){
-				cadena += tmp.valor;
+				cadena += tmp.valor.value;
 			} else {
-				cadena += "->" + tmp.valor;
+				cadena += "->" + tmp.valor.value;
 			}
 			cont++;
 			tmp = tmp.siguiente;
@@ -92,14 +108,3 @@ class ListaSimple {
 		return cadena;
 	}
 }
-
-/*function main(){
-	let listita = new ListaSimple()
-	listita.add(12)
-	listita.add(10)
-	listita.add(11)
-	listita.add(13)
-	console.log(listita.print())
-}
-
-main();*/

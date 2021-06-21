@@ -6,20 +6,39 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { ListaDobleCircularComponent } from './components/listadobleCircular/listadobleCircular.component';
 import { FormsModule } from '@angular/forms';
+import { ChartsModule } from 'ng2-charts';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { ListaCircularSimpleComponent } from './components/lista-circular-simple/lista-circular-simple.component';
+import { OrdenamientosComponent } from './components/ordenamientos/ordenamientos.component';
+import { EstructuraslinealesComponent } from './components/estructuraslineales/estructuraslineales.component';
+import { BurbujaComponent } from './components/burbuja/burbuja.component';
+import { PilaComponent } from './components/pila/pila.component';
+import { ListasimpleComponent } from './components/listasimple/listasimple.component'
+import { BinaryTreeComponent } from './components/binary-tree/binary-tree.component';
+import { EstructuraArboreaComponent } from './components/estructura-arborea/estructura-arborea.component'
 
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     ListaDobleCircularComponent,
+    ListaCircularSimpleComponent,
+    OrdenamientosComponent,
+    EstructuraslinealesComponent,
+    BurbujaComponent,
+    PilaComponent,
+    ListasimpleComponent,
+    BinaryTreeComponent,
+    EstructuraArboreaComponent,
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

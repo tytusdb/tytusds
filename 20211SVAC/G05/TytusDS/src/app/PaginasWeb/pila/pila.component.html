@@ -1,20 +1,15 @@
 <app-opciones></app-opciones>
-
+<h1>Listas Circulares</h1>
+<br>
 <div class="container">
-    <h1>PILA</h1>
-    <hr>
-    <!--AGREGAR-->
-
-    <div class="row">
-        <div class="col-3"><input #agregar type="text" placeholder="data a agregar"> </div>
-        <div class="col-3"><input #eliminar type="text" placeholder="nodo a eliminar"> </div>
-        <div class="col-3"><input #valor type="text" placeholder="nodo a actualizar"> </div>
-        <div class="col-3"><input #nuevo_valor type="text" placeholder="nuevo texto"> </div>
-    </div>
-    <div class="row">
-        <div class="col-3"> <button id="Agregar" class="btn btn-success button1" (click)="Add(agregar.value)">Agregar</button></div>
-        <div class="col-3"> <button id="Eliminar" class="button1 btn btn-success" (click)="delete()">Eliminar</button></div>
-    </div>
+  <!--AGREGAR-->
+  <input #agregar type="text" placeholder="data a agregar">
+  <button id="Agregar" class="button btn btn-success" (click)="Add(agregar.value)">Agregar</button>
+  <input #eliminar type="text" placeholder="nodo a eliminar">
+  <button id="Eliminar" class="button">Eliminar</button>
+  <input type="text" placeholder="nodo a actualizar">
+  <input type="text" placeholder="nuevo texto">
+  <button id="Actualizar" class="button">Actualizar</button>
 </div>
 <br>
 <br>

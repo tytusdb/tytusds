@@ -6,6 +6,13 @@ class ListaCircularDE{
         this.size=0
         this.repeat=repeat;
     }
+    //cambiar el repeat
+    set setRepeat(repeat){
+      this.repeat=repeat;
+    }
+    Size(){
+      return this.size;
+    }
     appendF(valor) {
         if(this.repeat==true){
             this.append_f(valor);
@@ -53,23 +60,31 @@ class ListaCircularDE{
         }
         this.size+=1;
     }
-    appendO(valor){
+  appendO(valor) {
+    if(this.repeat==true){
+      this.append_O(valor);
+    }else if (this.repeat===false && this.buscar(valor)==null){
+      this.append_O(valor);
+    }
+  }
+    append_O(valor){
         if(this.cabeza=null){
-            this.appendI(valor)
+            this.append_i(valor)
         }else{
             let nodoM=this.buscarO(valor);
             let new_nodo=new Nodo(valor);
             if(nodoM!=null) {
                 if (nodoM == this.head) {
-                    this.appendI(valor);
+                    this.append_i(valor);
                 } else {
                    nodoM.prev.next=new_nodo;
                    new_nodo.prev=nodoM.prev;
                    new_nodo.next=nodoM;
                    nodoM.prev=new_nodo;
+                   this.size+=1;
                 }
             }else{
-                this.appendF(valor);
+                this.append_f(valor);
             }
         }
     }
@@ -138,7 +153,8 @@ class ListaCircularDE{
     }
 
     for(let i=0; i<this.size;i++){
-      let nodo=new NodoE(i,current.valor);
+      let vnodo=current.valor.toString();
+      let nodo=new NodoE(i,vnodo);
       Lnodo.push(nodo);
       current=current.next
     }
@@ -170,6 +186,27 @@ class ListaCircularDE{
       LEdges.push(edge);
     }
     return LEdges;
+  }
+  indexBusqueda(valor){
+    let current=this.head;
+    let k=0
+    for (let i = 0; i < this.size; i++) {
+      if(current.valor==valor){
+        break;
+      }
+      k+=1;
+      current=current.next;
+    }
+    return k
+  }
+  Rdatos(){
+    let ldatos=[];
+    let current=this.head;
+    for(let i=0; i<this.size; i++){
+      ldatos.push(current.valor);
+      current=current.next;
+    }
+    return ldatos;
   }
 
 }

@@ -98,32 +98,7 @@ else{
 
   }
 
-  const stack = new pila();
-  stack.guardar("john");
-  stack.guardar("jo1");
-  stack.guardar("jo2");
-  stack.guardar("jo3");
-  stack.guardar("jo4");
-  stack.desapila();
-  stack.buscar("e");
-  stack.buscar("john");
-  stack.buscar("jo2");
-  stack.desapila();
-  stack.desapila();
-  stack.desapila();
-  stack.desapila();
-  stack.desapila();
-  stack.desapila();
-  stack.modificar("jo3","zz")
-  stack.imprimir();
-  stack.guardar("john");
-  stack.guardar("jo3");
-  stack.guardar("jo4");
-  stack.imprimir();
-  stack.modificar("jo3","zz")
-  stack.modificar("john","zzz")
-  stack.modificar("jo4","z")
-  stack.imprimir();
+  module.exports = pila;
   
 
 

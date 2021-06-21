@@ -1,14 +1,17 @@
 input{
   padding:5px 10px;
+  margin-right: 5px;
+  margin-left: 5px;
 }
 .estructuras{
   height: 400px;
   background-color: #0a58ca;
 }
-.button1{
+.button{
   margin-right: 10px;
   padding: 5px 10px;
   text-align: center;
+  background-color: #0d6efd;
   border: none;
   color:white;
   text-decoration: none;
@@ -20,16 +23,15 @@ input{
   padding-left: 5px;
 }
 
-.button1:hover {
+.button:hover {
   background-color: #08555b;
 }
-.button1:active {
+.button:active {
   background-color: #08555b;
   box-shadow: 0 5px black;
   transform: translateY(4px);
 }
 .animacion{
   height: 400px;
-  background-color: white;
-  border-style:double;
+  background-color: blue;
 }

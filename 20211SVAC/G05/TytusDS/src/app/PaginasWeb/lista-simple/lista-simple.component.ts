@@ -15,7 +15,7 @@ export class ListaSimpleComponent implements OnInit {
 
   lista: ListaSimple;  //  Variable para manejar la lista simple
 
-  //  Las variables para manejar las operaciones de la lista 
+  //  Las variables para manejar las operaciones de la lista
   valorAgregar = '';
   valorEliminar = '';
   nodoActualizar = '';
@@ -32,8 +32,6 @@ export class ListaSimpleComponent implements OnInit {
     grado: 3,
     repeticionArboles: true,
   };
-
-  documento: any;  //  Si el usuario ingresa un usuario para hacer su estructura
 
   constructor(private documentoService: DocumentoService) {
     this.lista = new ListaSimple();
