@@ -1,17 +1,17 @@
 export class NodeBinary{
-    private numero:number
+    private numero:number|string
     private id:number
     private left:NodeBinary
     private right:NodeBinary
 
-    constructor(numero:number,id:number){
+    constructor(numero:number|string,id:number){
         this.numero = numero
         this.id = id
         this.left = null 
         this.right = null
     }
 
-    public setNumero(numero:number){
+    public setNumero(numero:number|string){
         this.numero = numero
     }
     
