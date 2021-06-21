@@ -42,14 +42,14 @@ export class ListaDobleCircularComponent implements OnInit {
   }
 
   async addLast() {
-    let result = await this.addData(this.numero)
+    let result = await this.addData(this.convertir(this.numero))
     if (result === -1) return
     this.numero = 0
   }
 
   async addData(numero) {
     if (!this.repetidos) {
-      let temp = this.ListaDobleCircular.search(numero)
+      let temp = this.ListaDobleCircular.search(this.convertir(numero))
       if (temp !== null) {
         Swal.fire({
           icon: 'error',
@@ -61,24 +61,24 @@ export class ListaDobleCircularComponent implements OnInit {
     }
     if (this.alfinal) {
       let dibujo = document.getElementById("cuerpoDraw")
-      await this.ListaDobleCircular.add(numero, this.svg1, dibujo, `${this.velocidad}s`)
+      await this.ListaDobleCircular.add(this.convertir(numero), this.svg1, dibujo, `${this.velocidad}s`)
     }
 
     if (this.alinicio) {
       let dibujo = document.getElementById("cuerpoDraw")
-      await this.ListaDobleCircular.addAlInicio(numero, this.svg1, dibujo, `${this.velocidad}s`)
+      await this.ListaDobleCircular.addAlInicio(this.convertir(numero), this.svg1, dibujo, `${this.velocidad}s`)
     }
 
     if (this.ordenado) {
       let dibujo = document.getElementById("cuerpoDraw")
-      await this.ListaDobleCircular.addOrdenado(numero, this.svg1, dibujo, `${this.velocidad}s`)
+      await this.ListaDobleCircular.addOrdenado(this.convertir(numero), this.svg1, dibujo, `${this.velocidad}s`)
     }
     return 1
   }
 
 
   async search() {
-    let result = await this.ListaDobleCircular.searchAnimation(this.numeroBuscar, `${this.velocidad}s`)
+    let result = await this.ListaDobleCircular.searchAnimation(this.convertir(this.numeroBuscar), `${this.velocidad}s`)
     if (result === null) {
       Swal.fire({
         icon: 'error',
@@ -97,7 +97,7 @@ export class ListaDobleCircularComponent implements OnInit {
   }
 
   async delete() {
-    let result = await this.ListaDobleCircular.eliminar(this.numeroEliminar, `${this.velocidad}s`, this.svg1)
+    let result = await this.ListaDobleCircular.eliminar(this.convertir(this.numeroEliminar), `${this.velocidad}s`, this.svg1)
     if (result === -1) {
       Swal.fire({
         icon: 'error',
@@ -111,7 +111,7 @@ export class ListaDobleCircularComponent implements OnInit {
 
 
   async actualizar() {
-    let result = await this.ListaDobleCircular.searchAnimation(this.numeroAntiguo, `${this.velocidad}s`)
+    let result = await this.ListaDobleCircular.searchAnimation(this.convertir(this.numeroAntiguo), `${this.velocidad}s`)
     if (result === null) {
       Swal.fire({
         icon: 'error',
@@ -120,7 +120,7 @@ export class ListaDobleCircularComponent implements OnInit {
       })
       return;
     }
-    result.nodo.setNumero(this.numeroNuevo)
+    result.nodo.setNumero(this.convertir(this.numeroNuevo))
     document.getElementById("nodo" + result.nodo.getId()).innerHTML = "" + this.numeroNuevo
     this.numeroAntiguo = 0
     this.numeroNuevo = 0
@@ -190,6 +190,11 @@ export class ListaDobleCircularComponent implements OnInit {
     link.href = "data:" + info;
     link.click();
     link.remove()
+  }
+
+  convertir(dato){
+    if(isNaN(dato)) return dato
+    return +dato
   }
 
 }
