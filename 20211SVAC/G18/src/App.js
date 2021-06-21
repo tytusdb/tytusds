@@ -8,6 +8,9 @@ import Principal from './components/Principal'
 import Particles from 'react-particles-js';
 import Burbuja from './OrdenamientoComponentes/Burbuja'
 import ListaSimpleEnlazada from './components/EstructurasLineales/ListaSimpleEnlazada/ListaSimpleEnlazada';
+import ListaDobleEnlazada from './components/ListaDobleEnlazada/ListaDobleEnlazada';
+import ListaCircularSimple from './components/ListaCircularSimple/ListaCircularSimple';
+import ListaCircularDoble from './components/ListaCircularDoble/ListaCircularDoble';
 
 function App() {
     return (
@@ -21,6 +24,9 @@ function App() {
             <Route path="/burbuja" component={Burbuja}/>
             <Route path="/" exact component={Principal}/>
             <Route path="/ListaSimpleEnlazada" component={ListaSimpleEnlazada} />
+            <Route path="/ListaDobleEnlazada" component={ListaDobleEnlazada} />
+            <Route path="/ListaCircularSimple" component={ListaCircularSimple} />
+            <Route path="/ListaCircularDoble" component={ListaCircularDoble} />
 
         </Switch>
 
