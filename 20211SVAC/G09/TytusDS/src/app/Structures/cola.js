@@ -204,6 +204,7 @@ class Cola {
       while(datoActual){
         if(datoActual.dato === datoAnterior){
           datoActual.dato = datoNuevo;
+          break;
 
         }
         datoActual = datoActual.siguiente;

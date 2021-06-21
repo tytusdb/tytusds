@@ -164,8 +164,30 @@ class Pila{
           }
       }
     } 
+
+    //Actualizar
+    ReemplazarDato(datoAnterior, datoNuevo){
+      let datoActual = this.primero;
+      while(datoActual){
+        if(datoActual.dato === datoAnterior){
+          datoActual.dato = datoNuevo;
+          break;
+
+        }
+        datoActual = datoActual.siguiente;
+      }
+      
+    }
     
-} 
+    ActualizarPila(datoActual, reemplazoDato){
+      let actualizar = this.primero;
+      if(this.buscar(datoActual)){
+        this.ReemplazarDato(datoActual, reemplazoDato);
+
+      }
+
+    }
+  } 
 const stack = new Pila();
 var categoriaPila = "Estructura Lineal";
 var nombrePila = "pila";
