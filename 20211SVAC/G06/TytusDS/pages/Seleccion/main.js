@@ -1,3 +1,5 @@
+var type = "number"
+
 var data = {
   /*labels: ["0", "1", "2", "3", "4", "5", "6"],
   datasets: [{
@@ -41,8 +43,52 @@ var MyChart = new Chart(ctx, {
 /*EVENTOS*/
 $('#ordenar').on('click', () => Seleccion())
 $('#cargar').on('click', () => cargarJson())
+$('#guardar').on('click', () => guardarJson())
+
+function download(filename, text) {
+  var element = document.createElement('a');
+  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+  element.setAttribute('download', filename);
+
+  element.style.display = 'none';
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
+}
+
+function guardarJson(){
+  var categoria = "Estructura Lineal"
+  var nombre = "Ordenamiento"
+  var repetir = true;
+  var speed = document.getElementById("formControlRange").value;
+  //verificamos si son numeros o string
+  var objeto
+  if(type == "number"){
+    objeto = {
+      categoria: categoria,
+      nombre: nombre,
+      repeticion: repetir,
+      animacion: speed/10,
+      valores: MyChart.data.datasets[0].data
+    }
+  } else {
+    objeto = {
+      categoria: categoria,
+      nombre: nombre,
+      repeticion: repetir,
+      animacion: speed/10,
+      valores: MyChart.data.labels
+    }
+  }
+  var JsonString = JSON.stringify(objeto);
+  console.log(JsonString)
+  download("Seleccion.json",JsonString);
+}
 
 async function cargarJson(){
+  type = "number"
   var objeto = null
   //Obtenemos el archivo 
   let upload = document.getElementById('formFileSm');
@@ -55,16 +101,23 @@ async function cargarJson(){
     //SETEAMOS LA GRAFICA
     let labels = []
     let backgroundColor = []
+    let numeros = []
     for(let i = 0; i < objeto.valores.length; i++){
-      labels.push(i.toString()) 
+      labels.push(objeto.valores[i].toString()) 
       backgroundColor.push("rgba(47, 3, 124 , 0.6)")
+      if(typeof objeto.valores[i] == 'number'){
+        numeros.push(objeto.valores[i])
+      } else {
+        type = "string"
+        numeros.push(10);
+      }
     }
     MyChart.data = {
       labels: labels,
       datasets:[{
         label: "Ordenamiento",
         backgroundColor: backgroundColor,
-        data:objeto.valores
+        data:numeros
       }]
     }
     MyChart.update()
@@ -72,6 +125,41 @@ async function cargarJson(){
 }
 
 async function Seleccion(){
+  if(type == "number"){
+    SeleccionNumbers()
+  } else {
+    SeleccionLabels()
+  }
+}
+
+async function SeleccionLabels(){
+  var speed = document.getElementById("formControlRange").value;
+  speed = convertir(speed)
+  for(let i = 0; i < MyChart.data.datasets[0].data.length; i++){
+    MyChart.data.datasets[0].backgroundColor[i] = '#030106'
+    MyChart.update()
+    await new Promise(resolve => setTimeout(resolve, speed)); // 3 sec
+    for(let j = i+1; j < MyChart.data.datasets[0].data.length; j++){
+      if(MyChart.data.labels[i] > MyChart.data.labels[j]){
+        let tmp = MyChart.data.datasets[0].data[j]
+        MyChart.data.datasets[0].data[j] = MyChart.data.datasets[0].data[i]
+        MyChart.data.datasets[0].data[i] = tmp
+        //ahora lo mismo pero con string
+        let tmp2 = MyChart.data.labels[j]
+        MyChart.data.labels[j] = MyChart.data.labels[i]
+        MyChart.data.labels[i] = tmp2
+      }
+      MyChart.data.datasets[0].backgroundColor[j] = '#030106'
+      MyChart.update()
+      await new Promise(resolve => setTimeout(resolve, speed)); // 3 sec
+      MyChart.data.datasets[0].backgroundColor[j] = 'rgba(47, 3, 124 , 0.6)'
+    }
+    MyChart.data.datasets[0].backgroundColor[i] = 'rgba(47, 3, 124 , 0.6)'
+  }
+  MyChart.update()
+}
+
+async function SeleccionNumbers(){
   var speed = document.getElementById("formControlRange").value;
   speed = convertir(speed)
   for(let i = 0; i < MyChart.data.datasets[0].data.length; i++){
@@ -83,6 +171,10 @@ async function Seleccion(){
         let tmp = MyChart.data.datasets[0].data[j]
         MyChart.data.datasets[0].data[j] = MyChart.data.datasets[0].data[i]
         MyChart.data.datasets[0].data[i] = tmp
+        //ahora lo mismo pero con string
+        let tmp2 = MyChart.data.labels[j]
+        MyChart.data.labels[j] = MyChart.data.labels[i]
+        MyChart.data.labels[i] = tmp2
       }
       MyChart.data.datasets[0].backgroundColor[j] = '#030106'
       MyChart.update()
@@ -91,6 +183,7 @@ async function Seleccion(){
     }
     MyChart.data.datasets[0].backgroundColor[i] = 'rgba(47, 3, 124 , 0.6)'
   }
+  MyChart.update()
 }
 
 function OrdenamientoLimpio(array){

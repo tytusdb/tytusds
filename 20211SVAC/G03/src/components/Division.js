@@ -23,7 +23,7 @@ export default class Division extends Component {
                     <Card.Content extra>
                     <a>
                         <Icon className='angle double right icon' style={{ color: 'white' }}>
-                            <Link style={{ color: 'white' }} to={{pathname:"/gitPagueReac/estructura", state:{nombre: this.props.title}}}>IR</Link>
+                            <Link style={{ color: 'white' }} to={{pathname:"/tytusds/20211SVAC/G03/build/estructura", state:{nombre: this.props.title}}}>IR</Link>
                          </Icon>
                     </a>
                     </Card.Content>

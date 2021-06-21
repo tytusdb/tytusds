@@ -1,3 +1,4 @@
+var fs = require('fs')
 class Nodo {
     constructor(dato, prioridad){
         this.dato = dato

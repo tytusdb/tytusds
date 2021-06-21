@@ -9,7 +9,7 @@ class ListaSimple{
     }
 
 
-    insertar(dato){
+    insertar = (dato) =>{
         let nodo_nuevo = new Nodo(dato);
         if (this.get_vacia() == true){
             this.set_cabeza(nodo_nuevo);
@@ -23,21 +23,21 @@ class ListaSimple{
 
     }
     
-    insertar_inicio(dato){
+    insertar_inicio = (dato) =>{
         let nodo_nuevo = new Nodo(dato)
 
         nodo_nuevo.set_siguiente(this.get_cabeza())
         this.set_cabeza(nodo_nuevo)
     }
 
-    insertar_ultimo(dato){
+    insertar_ultimo = (dato) =>{
         let nodo_nuevo = new Nodo(dato)
         this.get_ultimo().set_siguiente(nodo_nuevo)
         this.set_ultimo(nodo_nuevo)
 
     }
 
-    eliminar(dato){
+    eliminar = (dato) =>{
 
         if (this.get_vacia() == false){
             
@@ -69,7 +69,7 @@ class ListaSimple{
         return console.log("Data not found!");
     }
 
-    update(dato, cambio){
+    update = (dato, cambio) =>{
         let nodo_actual = this.get_cabeza();
 
         if (this.get_vacia() == false){
@@ -86,17 +86,19 @@ class ListaSimple{
 
     }
 
-    search(dato){
+    search = (dato) =>{
         let nodo_actual = this.get_cabeza()
-
+        let i = 0;
         if (this.get_vacia() == false){
-
+            
             do{
                 if (nodo_actual.get_dato() == dato){
                     console.log("Data found! " + nodo_actual.get_dato());
-                    return true
+                    return i;
                 }
+                i ++;
                 nodo_actual = nodo_actual.get_siguiente();
+
             }while(nodo_actual != null);
 
         }else{ 
@@ -109,7 +111,7 @@ class ListaSimple{
         return false;
     }
 
-    mostrar(){
+    mostrar = () => {
         let nodo_actual = this.get_cabeza();
         if (this.get_vacia() == false){
 
@@ -120,7 +122,7 @@ class ListaSimple{
         }
     }
     
-    get_vacia(){
+    get_vacia = () => {
         if (this.get_cabeza() == null){
             return true;
         }else{
@@ -128,10 +130,55 @@ class ListaSimple{
         }  
     }
 
-    get_cabeza(){ return this.cabeza; }
-    set_cabeza(cabeza){ this.cabeza = cabeza; }
-    get_ultimo(){ return this.ultimo; }
-    set_ultimo(ultimo){ this.ultimo = ultimo; }
+    setNodesDataSet = () => { // Esto Genera los nodos de Vis.
+
+        let nodo_actual = this.get_cabeza();
+        var dot = [];
+        if (this.get_vacia() == false){
+            let i = 0
+            do {
+				dot.push({id:i, label: nodo_actual.get_dato()});	
+                nodo_actual = nodo_actual.get_siguiente();
+                i++;
+            } while (nodo_actual != null);
+
+        }
+        return dot;
+
+    } 
+
+    setEdgesDataSet = () => {
+
+        let nodo_actual = this.get_cabeza();
+        var dot = [];
+        if (this.get_vacia() == false){
+            let i = 0;
+            do {
+                if (nodo_actual.get_siguiente() != null){
+
+                    let nodoUno = parseInt(i)
+                    let nodoDos = parseInt(nodoUno) + parseInt(1)
+                    if (i==0){
+                        dot.push({from:0, to:1, arrows: "to"});
+                    }
+                    if ( nodoUno!= false && nodoDos != false){
+                        dot.push({from:parseInt(nodoUno), to:parseInt(nodoDos), arrows: "to"});
+                    }
+                }
+                nodo_actual = nodo_actual.get_siguiente();
+                i ++;
+            } while (nodo_actual != null);
+        }
+
+        return dot;
+
+
+    }
+
+    get_cabeza = () =>{ return this.cabeza; }
+    set_cabeza = (cabeza) =>{ this.cabeza = cabeza; }
+    get_ultimo = () => { return this.ultimo; }
+    set_ultimo = (ultimo) => { this.ultimo = ultimo; }
 }
 
 module.exports = ListaSimple;

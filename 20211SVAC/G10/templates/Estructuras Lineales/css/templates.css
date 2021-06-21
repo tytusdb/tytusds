@@ -62,6 +62,7 @@ nav h1 {
 .controles {
     background-color: rgb(34, 40, 49);
     height: 55px;
+    z-index: 1;
 }
 
 .boton {
@@ -96,4 +97,8 @@ nav h1 {
 
 #velocidad {
     margin: 0px 5px 10px 10px;
+}
+
+/*#lienzo {
+    background: url('/templates/Estructuras Lineales/grid.jpg');
 }

@@ -8,7 +8,7 @@ class ListaCircular{
     }
 
 
-    insertar(dato){
+    insertar = (dato) => {
         let nodo_nuevo = new Nodo(dato);
         if (this.vacia() == true){
             this.set_primero(nodo_nuevo);
@@ -26,7 +26,7 @@ class ListaCircular{
 
     }
 
-    insertar_inicio(dato){
+    insertar_inicio = (dato) => {
         let nodo_nuevo = new Nodo(dato)
 
         nodo_nuevo.set_siguiente(this.get_primero())
@@ -35,7 +35,7 @@ class ListaCircular{
         this.size ++;
     }
 
-    insertar_ultimo(dato){
+    insertar_ultimo = (dato) => {
         let nodo_nuevo = new Nodo(dato)
         
         this.get_ultimo().set_siguiente(nodo_nuevo)
@@ -45,7 +45,7 @@ class ListaCircular{
     }
 
 
-    eliminar(dato){
+    eliminar = (dato) => {
         if(this.vacia() == false){
 
              if (this.get_primero().get_dato() == dato){ //Condicion cuando hay 2 nodos -> eliminando al primero
@@ -125,7 +125,7 @@ class ListaCircular{
     }
 
     
-    update(dato, cambio){
+    update = (dato, cambio) => {
         let nodo_actual = this.get_primero();
 
         if (this.vacia() == false){
@@ -145,7 +145,7 @@ class ListaCircular{
 
     }
 
-    search(dato){
+    search = (dato) => {
         let nodo_actual = this.get_primero()
 
         if (this.vacia() == false){
@@ -155,7 +155,7 @@ class ListaCircular{
                 
                 if (nodo_actual.get_dato() == dato){
                     console.log("Data found! " + nodo_actual.get_dato());
-                    return true
+                    return i
                 }
                 nodo_actual = nodo_actual.get_siguiente();
                 i++;
@@ -171,7 +171,7 @@ class ListaCircular{
         return false;
     }
 
-    print(){
+    print = () => {
         
         var i = 0;
         let nodo_actual = this.get_primero();
@@ -190,7 +190,7 @@ class ListaCircular{
         console.log(this.get_ultimo().get_siguiente().get_dato());
     }
 
-    vacia(){
+    vacia = () => {
         if (this.get_primero() == null){
             return true;
         }else{
@@ -198,11 +198,58 @@ class ListaCircular{
         }
     }
 
-    get_primero(){ return this.primero; }
-    set_primero(primero){ this.primero = primero; }
+    setNodesDataSet = () => { // Esto Genera los nodos de Vis.
+
+        let nodo_actual = this.get_primero();
+        var dot = [];
+        if (this.vacia() == false){
+            let i = 0
+            while(i<this.size){
+				dot.push({id:i, label: nodo_actual.get_dato()});	
+                nodo_actual = nodo_actual.get_siguiente();
+                i++;
+            } 
+
+        }
+        return dot;
+
+    } 
+
+    setEdgesDataSet = () => {
+
+        let nodo_actual = this.get_primero();
+        var dot = [];
+        if (this.vacia() == false){
+            let i = 0;
+            while(i<this.size){
+            
+                let nodoUno = parseInt(i)
+                let nodoDos = parseInt(nodoUno) + parseInt(1)
+                if (i==0){
+                    dot.push({from:0, to:1, arrows: "to"});
+                }
+                if ( nodoUno!= false && nodoDos != false){
+                    dot.push({from:parseInt(nodoUno), to:parseInt(nodoDos), arrows: "to"});
+                }
+                if ((i+1)==this.size){
+                    dot.push({from:i, to:0, arrows: "to"});
+                }
+                nodo_actual = nodo_actual.get_siguiente();
+                i ++;
+            }
+        }
+
+        return dot;
+
+
+    }
+
+
+    get_primero = () => { return this.primero; }
+    set_primero = (primero) =>{ this.primero = primero; }
     
-    get_ultimo(){ return this.ultimo; }
-    set_ultimo(ultimo){ this.ultimo = ultimo; }
+    get_ultimo = () => { return this.ultimo; }
+    set_ultimo = (ultimo) => { this.ultimo = ultimo; }
 
 }
 

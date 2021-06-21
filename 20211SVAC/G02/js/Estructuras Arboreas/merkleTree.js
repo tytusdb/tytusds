@@ -5,6 +5,8 @@ var clickedNode
 var index
 var clickedNodoValue
 var network = null
+var switchToggle = document.getElementById("flexSwitchCheckDefault")
+var slider = document.getElementById("customRange2")
 
 class NodoBloque{
     constructor(valor, id){
@@ -241,4 +243,52 @@ function zoomExtended(){
     }
 
     network.moveTo(options);
+}
+
+function read(){
+    var fileInput = document.querySelector('input[type="file"]');
+
+    var file = fileInput.files.item(0);
+    var reader = new FileReader();
+
+    reader.readAsText(file);
+    
+    reader.onload = function() {
+        var obj = JSON.parse(reader.result)
+        let val = obj.valores
+        arbolbb.repetidos = obj.repeticion
+        slider.value = obj.animacion
+        
+        let contadorr =0
+        switch(arbolbb.repetidos){
+            case true:
+                switchToggle.checked = true
+                for(let i=0; i<val.length; i++){
+                    contadorr = contadorr + 0.5
+                    setTimeout(function (params) {
+                        arbolbb.agregar(parseInt(val[i],16))
+                        arbolbb.estructurar()
+                        actualizarTablero()
+                    },(1000)*Math.round(parseInt(slider.value)/2)*contadorr) 
+                }
+                break;
+            case false:
+                switchToggle.checked = false
+                for(let i=0; i<val.length; i++){
+                    contadorr = contadorr + 0.5
+                    if (arbolbb.buscar(parseInt(val[i],16), arbolbb.raiz)){
+                        console.log("no se aceptan valores repetidos")
+                    }else{
+                        contadorr = contadorr + 0.5
+                        setTimeout(function (params) {
+                            arbolbb.agregar(parseInt(val[i],16))
+                            arbolbb.estructurar()
+                            actualizarTablero()
+                        },(1000)*Math.round(parseInt(slider.value)/2)*contadorr)                        
+                    }
+                    
+                }
+                break;
+        }
+    }
 }
