@@ -336,4 +336,10 @@ class MerkleTree{
         }
     }
 
+    //Metodo Cargar
+    cargar(arreglo) {
+        arreglo.array.forEach(elemento => {
+            this.insertar(elemento);
+        })
+    }
 }
