@@ -5,6 +5,7 @@ var network = null;
 var clickedNode;
 var clickedNodoValue;
 var fileInput = document.querySelector('input[type="file"]');
+var switchToggle = document.getElementById("flexSwitchCheckDefault");
 
 class Nodo {
     constructor(dato) {
@@ -32,6 +33,35 @@ class Cola {
             this.primero = nodo;
             this.ultimo = nodo;
             this.size++;
+        }
+    }
+
+    encolarCondicion (dato) {
+        const nodo = new Nodo(dato);
+
+        if (switchToggle.checked === false) {
+            if (this.size > 0) {
+                if (!this.buscar(dato)) {
+                    this.ultimo.siguiente = nodo;
+                    this.ultimo = nodo;
+                    this.size++;
+                }
+            } else {
+                this.primero = nodo;
+                this.ultimo = nodo;
+                this.size++;
+            }
+        }else
+        {
+            if (this.size > 0) {
+                this.ultimo.siguiente = nodo;
+                this.ultimo = nodo;
+                this.size++;
+            } else {
+                this.primero = nodo;
+                this.ultimo = nodo;
+                this.size++;
+            }
         }
     }
 
@@ -192,7 +222,7 @@ function actualizarT() {
 
 function insertarNodo() {
     let valueNodo = document.getElementById('valueNodo').value;
-    cola.encolar(valueNodo);
+    cola.encolarCondicion(valueNodo);
     actualizarT();
     document.getElementById("valueNodo").value="";
 }
