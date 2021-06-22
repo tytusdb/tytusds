@@ -10,6 +10,8 @@ class Nodo{
     }
 }
 
+//String para graficacion
+var salida = ""
 //Arreglo de uso unico
 var arr = []
 
@@ -415,64 +417,9 @@ class ArbolB{
         })
     }
 
-    graficar(){
-        let dot = "digraph g { node [shape = record,height=.1];"+ this.graficarRamas(this.raiz) +"}"
-        if (this.raiz == null){
-            console.log("no existe arbol")
-            return 
-        }
-        return dot 
-    }
-
-    //Sub metodo de impresion de arbol
-    graficarRamas(rama){
-        let etiqueta = "";
-        if (rama.raiz == null){
-            console.log("no hay nodos")
-            return 
-        }
-        
-        let aux = rama.raiz
-        if(aux.izquierdo != null){
-            this.graficarRamas(aux.izquierdo)
-        }
-
-        if(aux.derecho!=null){
-            this.graficarRamas(aux.derecho)
-        }
-
-        if(aux.anterior == null && aux.siguiente == null){
-            console.log(aux.dato)
-            etiqueta = "nodo"+aux.dato+"[label=\"<f0>"+aux.dato.toString()+"|"
-            for (let index = 1; index < this.orden-1; index++) {
-                etiqueta = etiqueta + "<f"+index+">|"
-                
-            }
-            etiqueta = etiqueta +"<f"+this.orden+">"
-            return
-        }
-        let contador = 0;
-        while(aux!= null){
-            if(contador == 0){
-                etiqueta = "nodo"+aux.dato+"[label=\"<f"+contador+">"+aux.dato.toString()+"|"
-            }else if(contador == this.orden){
-                etiqueta = etiqueta + "<f"+contador+">"+aux.dato.toString()+"\"];"
-            }else{
-                etiqueta = etiqueta + "<f"+contador+">"+aux.dato.toString()+"\"];"
-            }
-            console.log(aux.dato)
-            aux = aux.siguiente
-            if(aux != null && aux.derecho!=null){
-                this.graficarRamas(aux.derecho)
-            }
-            contador++;
-        }
-
-        return etiqueta
-    }
-
     //Metodo Graficar
     graficar(){
+        salida = ""
         if(this.raiz == null){
             console.log("No hay nada aun")
             return
@@ -482,7 +429,7 @@ class ArbolB{
         this.graficando(rama)
         salida+= "}"
         console.log(salida)
-        salida = ""
+        return salida
     }
 
     //SubMetodo Graficar
