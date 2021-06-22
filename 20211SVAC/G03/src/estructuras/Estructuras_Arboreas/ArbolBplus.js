@@ -7,7 +7,8 @@ class Nodo {
         this.rama_Der = null;
     }
 }
-
+var salida = "";
+var guia = [];
 class Rama {
     constructor() {
         this.hoja = true;
