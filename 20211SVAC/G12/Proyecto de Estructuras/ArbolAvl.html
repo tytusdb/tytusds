@@ -43,6 +43,15 @@
             prb.eliminarNodo(dato)
             prb.graficar()
         }
+        function dl(){
+            prb.toArray()
+            download()
+        }
+        function update(){
+           let a=document.getElementById("o")
+            let b=document.getElementById("n")
+            prb.update(a.value,b.value)
+        }
     </script>
 </head>
 <body onload="show()">
@@ -50,7 +59,11 @@
     <button onclick="nw()">Insert</button>
     <input type="file" id="loadedFile">
     <input type="text" id="b">
-    <button onclick="borrar()">Insert</button>
+    <button onclick="borrar()">Borrar</button>
+    <input type="text" id="o">
+    <input type="text" id="n">
+    <button onclick="update()">Update</button>
+    <button onclick="dl()">Download</button>
     <div id="result" style="display: table">
 
     </div>

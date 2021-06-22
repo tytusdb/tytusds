@@ -206,7 +206,31 @@ class AVL{
         }
         return nodo
     }
+
+    toArray(){
+        this.inOrden()
+    }
+
+    inOrden() {
+        this.in_orden(this.raiz);
+    }
+
+    in_orden(nodo) {
+        if (nodo != null) {
+            this.in_orden(nodo.izq);
+            avlarray.push(nodo.val)
+            this.in_orden(nodo.der);
+        }
+    }
+
+    update(a,b){
+        this.eliminarNodo(parseInt(a))
+        this.insertar(parseInt(b))
+        this.graficar()
+    }
 }
+let avlarray=[]
+
 
 function movexy(x, y, i, speed) {
     return new Promise(resolve => {
@@ -315,4 +339,23 @@ function connect(div1, div2, color, thickness) { // draw a line connecting eleme
     var angle = Math.atan2((y1-y2),(x1-x2))*(180/Math.PI);
     var htmlLine = "<div style='padding:0px; margin:0px; height:" + thickness + "px; background-color:" + color + "; line-height:1px; position:absolute; left:" + cx + "px; top:" + cy + "px; width:" + length + "px; -moz-transform:rotate(" + angle + "deg); -webkit-transform:rotate(" + angle + "deg); -o-transform:rotate(" + angle + "deg); -ms-transform:rotate(" + angle + "deg); transform:rotate(" + angle + "deg);' />";
     document.getElementById("result").innerHTML += htmlLine;
+}
+
+
+
+function download(){
+    file.valores=avlarray
+    var jsonB=new Blob([JSON.stringify(file,null,4)],{ type: 'application/javascript;charset=utf-8' })
+    var jsonlink=URL.createObjectURL(jsonB)
+    var link=document.createElement("a")
+    link.href=jsonlink
+    link.download="[AVL].json"
+    link.dispatchEvent(
+        new MouseEvent('click', {
+            bubbles: true,
+            cancelable: true,
+            view: window
+        })
+    );
+    document.body.removeChild(link);
 }
