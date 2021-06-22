@@ -1,4 +1,5 @@
-const Nodo = require('./Nodo.js');
+import Nodo from './Nodo.js'
+// const Nodo = require('./Nodo.js');
 
 class ColaPrioridad{
 	primero=null;
@@ -138,4 +139,5 @@ class ColaPrioridad{
 	}
 }
 
-module.exports = ColaPrioridad;
+export default ColaPrioridad;
+//module.exports = ColaPrioridad;

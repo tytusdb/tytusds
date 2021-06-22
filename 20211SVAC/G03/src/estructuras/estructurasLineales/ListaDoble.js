@@ -146,10 +146,10 @@ class ListaDoble {
         }
     }
 
-    cargar(arreglo,acccion) {
+    cargar(arreglo) {
         
         arreglo.map(elemento => {
-            this.agregar(elemento,acccion);
+            this.agregar(elemento);
         });
     }
 
