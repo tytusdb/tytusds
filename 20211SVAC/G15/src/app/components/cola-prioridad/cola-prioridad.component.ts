@@ -1,7 +1,10 @@
 import { Component, OnInit, ElementRef,ViewChild, Renderer2  } from '@angular/core';
 import {ColaP}from '../ColaPrioridad/ColaP'
 import Swal from 'sweetalert2'
-import { ColaPrioridad } from 'src/app/helpers/interfaz/colaPrioridad';
+
+import {ColaPrioridad} from "src/app/helpers/interfaz/colaPrioridad"
+
+
 @Component({
   selector: 'app-cola-prioridad',
   templateUrl: './cola-prioridad.component.html',
@@ -128,7 +131,6 @@ export class ColaPrioridadComponent implements OnInit {
     }
   }
 
-
   async processFile(file) {
     return new Promise((resolve, reject) => {
       let reader = new FileReader()
@@ -141,7 +143,6 @@ export class ColaPrioridadComponent implements OnInit {
     })
   }
 
-
   generarJSON() {
     let data = this.ColaPrioridad.generarJSON()
     var link = document.createElement("a");
@@ -151,7 +152,6 @@ export class ColaPrioridadComponent implements OnInit {
     link.click();
     link.remove()
   }
-
 
 
 }
