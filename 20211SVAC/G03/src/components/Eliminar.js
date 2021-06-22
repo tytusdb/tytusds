@@ -26,25 +26,20 @@ export default class Eliminar extends Component {
                 edd.eliminar(dato)
                 break
             case "Lista simplemente enlazada":
-    
-                /* edd = new Cola();
-                edd.cargar(datos) */
+                edd.eliminar(dato)
                 break
     
             case "Lista doblemente enlazada":
-    
-                edd.cargar(dato) 
+                edd.eliminar(dato)
                 break
     
             case "Lista circular simplemente enlazada":
     
-                /* edd = new Cola();
-                edd.cargar(datos) */
+                edd.eliminar(dato)
                 break
     
             case "Lista circular doblemente enlazada":
-    
-                
+                edd.eliminar(dato)
                 break
             case "Arbol ABB":
                 edd.eliminando(dato);

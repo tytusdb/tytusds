@@ -1,0 +1,100 @@
+.txt-cent{
+    text-align: center;
+}
+
+.listOrd{
+    background-color: navajowhite;
+    color: black;
+    margin: 0 auto;
+    padding: 15px;
+    max-width: 80%;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-gap: 10px;
+    grid-auto-rows: minmax(100px,auto);
+}
+
+.list-group{
+    
+    justify-content: space-between;  
+}
+
+.list-order{
+    background-color: navajowhite;
+    list-style-type: none;
+    list-style-position: inside;
+    overflow: auto;  
+}
+
+.list-added{
+    background-color: navajowhite;
+    list-style-type: none;
+    overflow: auto;  
+}
+
+.title{
+    text-align: center;
+    color: black;
+    font-size: 30px;
+    width: 100%;
+    height: 50px;
+    margin: 10px;
+    padding: 0 4px;
+}
+
+.list-group-item{
+    text-align: center;
+    background-color: indianred;
+    border: indianred 2px solid;
+    border-radius: 0%;
+    color: white;
+    font-size: 25px;
+    width: 100%;
+    height: 40px;
+    margin: 10px;
+    padding: 0 4px;
+}
+
+.containerOrd{
+    max-width: 100%;
+    margin: 20px;
+    display: block;
+}
+
+.input-groupOrd{
+    display: flex;
+    justify-content: center;
+    max-width: 100%;
+    margin: 10px;
+    padding: 15px;
+    
+}
+
+.txt{
+    font-size: 25px;
+    width: 500px;
+    height: 10px;
+    margin: 10px;
+    padding: 15px;
+}
+
+.input-groupOrd-append{
+    margin: 0;
+    padding: 10px;
+
+}
+
+.btn{
+    font-size: 18px;
+    width: 100px;
+    height: 40px;
+    background-color: white;
+    border: indianred 2px solid;
+    color: black;
+}
+
+.btn:hover{
+    background-color: indianred;
+    border: indianred 2px solid;
+    color: white;
+}

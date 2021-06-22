@@ -1,1 +1,53 @@
-<p>cola-prioridad works!</p>
+<head>
+<style type="text/css">
+ .boton {
+  color: #318aac !important;
+  font-size: 15px;
+  font-weight: 500;
+  padding-top:6px;
+  padding-bottom:6px;
+  padding-left:20px;
+  padding-right:20px;
+  background: rgba(0,0,0,0);
+  border: 3px solid;
+  border-color: #318aac;
+  transition: all 1s ease;
+  position: relative;
+}
+.boton:hover {
+  background: #318aac;
+  color: #fff !important;
+}
+</style>
+</head>
+
+<body class="rounded shadow-lg o-hidden border-0 my-5 text-white masthead" style="background:url('assets/Imagenes/fondo3.jpg'); background-size:cover;">
+<button class="btn btn-primary btn-block text-white" type="submit" onclick="add()">
+<em class="fas fa-list"></em>
+Cola
+</button>
+<br>
+<input type="text" #box placeholder="Ingrese Datos" name="username"/>&nbsp;
+<input type="text" #box1 placeholder="Ingrese Prioridad" name="username"/> 
+<button class="boton" (click)="getValueprioridad(box.value,box1.value)">Push</button> &nbsp; &nbsp;&nbsp; &nbsp;
+<input type="text" #box2 placeholder="Eliminar Datos" name="username"/> 
+<button class="boton" (click)="getValuelsimpleCircleDelete(box1.value)" >Eliminar</button>&nbsp; &nbsp;
+<br>
+<br>
+
+<input type="text" #box3 placeholder="Buscar Datos" name="username"/> 
+<button class="boton" (click)="getValue1(box3.value)" >Buscar</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="text" #box4 placeholder="Dato a Reemplazar" name="username"/>&nbsp;
+<input type="text" #box5 placeholder="Nuevo Dato" name="username1"/> 
+<button class="boton" (click)="getValue1(box2.value)" >Actualizar</button>
+<!--<p>La lista es: {{displayVal}}</p>-->
+<br>
+<br>
+<button class="btn btn-primary btn-block text-white" type="submit" onclick="downloadPrioridad('ColaPrioridad.js','hola')">Guardar Arreglo</button>
+<input type="file" onchange="AbrirPrioridad(event)">
+  <div id="divInsert" style="position: absolute;">
+    <div id="divInsert1" style="position: absolute; top: 0px; left: 0px;"></div>
+  <div id="divInsert">
+  </div>  
+
+

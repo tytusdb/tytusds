@@ -24,6 +24,7 @@
   			<div class="notification is-primary">
 				<input style='padding-right: 5%;'type='file' id='file' />
 				<input type='text' id ='nText' size='10'/>
+				<input type='text' id ='modText' size='10' placeholder='Modificar'/>
 				<input type='submit' id='nBtn' value='Agregar'/>
 				<input type='submit' id='sBtn' value='Buscar'/>
 				<span title='Edita el nodo seleccionado con el valor en el input'>
@@ -41,19 +42,26 @@
 							list=JSON.parse(read.result).valores;
 							rep=JSON.parse(read.result).repeticion;
 							document.getElementById('speed').value=JSON.parse(read.result).animacion;
-							console.log(list,rep);
 							cy.remove('node');
 							for(var i=0;i<list.length;i++){
 								if(!rep){
-									ls.add(list[i]);
+									if (isNumeric(list[i])){
+										ls.add(parseInt(list[i]))
+									}else{
+										ls.add(list[i]);
+									}
 								}else{
 									if(ls.search[i]==null){
-										ls.add(list[i]);
+										if (isNumeric(list[i])){
+											ls.add(parseInt(list[i]))
+										}else{
+											ls.add(list[i]);
+										}
 									}
 								}
 							}
 							addNodes(list[list.length-1]);
-							options={name:'dagre'};
+							var options={name:'dagre'};
 							cy.layout(options).run();
 							blink(recorrido);
 						}
@@ -99,19 +107,22 @@
 			ctx.font= '20px serif';
 			document.getElementById('nBtn').onclick = function(){
 				var input =document.getElementById('nText').value;
+				if (isNumeric(input)){
+					input=parseInt(input);
+				}
 				var spd = document.getElementById('speed').value;
 				ls.add(input);	
 				cy.remove('node');
-				var a=addNodes(input);
-				options={name:'dagre'};
+				addNodes(input);
+				var options={name:'dagre'};
 				cy.layout(options).run();
 				blink(recorrido);
 			}
 			
 			var recorrido=''
 			var dict={
-				'l':'>',
-				'r':'<'
+				'l':'L',
+				'r':'R'
 			}
 			function addNodes(newVal,node=ls.root,rec='0'){
 				if(node==ls.root){
@@ -138,24 +149,26 @@
 
 			}
 			
-			document.getElementById('dBtn').onclick = function(){	
-				var input=document.getElementById('nText').value		
-				//searchAni(ls.search(input)); de adelanta la eliminada jaja
-				ls.remove(input);
-				cy.remove('node');
-				addNodes(input);
-				options={name:'dagre'};
-				cy.layout(options).run();
-				console.log(ls);
+			document.getElementById('dBtn').onclick = function(){
+				var input=document.getElementById('nText').value
+				if (isNumeric(input)){
+					input=parseInt(input);
+				}
+				var ns = ls.search(input);
+				searchAni(ns,'del',input); 
+				//console.log(ls);
 			}
 			
 			document.getElementById('sBtn').onclick=function(){
 				var input = document.getElementById('nText').value;
+				if (isNumeric(input)){
+					input=parseInt(input);
+				}
 				var ns = ls.search(input);
 				searchAni(ns);
 			}
 
-			function searchAni(ns){
+			function searchAni(ns,action=null,input=null,input2=null){
 				var ns2=ns;
 				var spd = document.getElementById('speed').value;
 				const timer = ms => new Promise(res => setTimeout(res, ms));
@@ -174,7 +187,7 @@
 						i=i+ns2.charAt(0);
 				
 					}
-					blink(ns);
+					blink(ns,action,input,input2);
 				}
 				ani();
 
@@ -182,19 +195,19 @@
 
 			document.getElementById('uBtn').onclick=function(){
 				var input = document.getElementById('nText').value;
-				var pos=cy.$(':selected').data('name');
-				//var nd = ls.update(pos,input);
-				ls.remove(pos);
-				ls.add(input);
-				cy.remove('node');
-				addNodes(input);
-				options={name:'dagre'};
-				cy.layout(options).run();
-				blink(recorrido);
+				var input2 =document.getElementById('modText').value;
+				if (isNumeric(input)){
+					input=parseInt(input);
+				}
+				if (isNumeric(input2)){
+					input2=parseInt(input2);
+				}
+				var ns = ls.search(input);
+				searchAni(ns,'up',input,input2); 
 			}
 
 			const timer = ms => new Promise(res => setTimeout(res, ms));
-			async function blink(id){
+			async function blink(id,action=null,input=null,input2=null){
 					var spd = document.getElementById('speed').value;
 					r = cy.filter('#'+ id);
 					r.select();
@@ -206,7 +219,29 @@
 					r.unselect();
 					await timer(25*spd);
 					r.select();
+					await timer(25*spd);
+				if(action=='del'){
+					ls.remove(input);
+					cy.remove('node');
+					addNodes(input);
+					var options={name:'dagre'};
+					cy.layout(options).run();
+					cy.remove(r);
+					var options={name:'dagre'};
+					cy.layout(options).run();
+				}else if(action=='up'){
+					ls.remove(input);
+					ls.add(input2);
+					cy.remove('node')
+					addNodes(input2);
+					var options={name:'dagre'};
+					cy.layout(options).run();	
+				} 
 
+			}
+
+			function isNumeric(n) {
+  				return !isNaN(parseFloat(n)) && isFinite(n);
 			}
 
 		</script>

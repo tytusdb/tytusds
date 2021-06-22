@@ -349,15 +349,21 @@ export class Lista {
                return false; */
     }
 
-    async buscarAnimacion(dato: string | number, duration) {
+    async buscarAnimacion(dato, duration) {
         let aux = this.raiz
         let i = 0
         if (aux === null) return null
         do {
             await this.animateNode("nodo" + aux.getIdentificador(), 'bounceIn', duration);
-            if (aux.dato === dato) return { Nodo: aux, index: i };
-            aux = aux.siguiente
-            i++;
+            if (!isNaN(dato)) {
+                if (Number(aux.dato) === Number(dato)) return { nodo: aux, index: i };
+                aux = aux.siguiente
+                i++;
+            }else{
+                if (aux.dato=== dato) return { nodo: aux, index: i };
+                aux = aux.siguiente
+                i++;
+            }
             if (aux === null) break;
         } while (aux != this.raiz)
 
@@ -618,6 +624,24 @@ export class Lista {
 
         }
     }
+    generarJSON() {
+        let data = {
+            categoria: "Estructura Lineal",
+            nombre: "Lista Doble Enlazada",
+            valores: []
+        }
+
+        let temp = this.raiz
+
+        do {
+            data.valores.push(temp.dato)
+            temp = temp.siguiente
+            if (temp === null) break;
+        } while (temp != this.raiz)
+
+        return JSON.stringify(data)
+    }
+
 
 
 }

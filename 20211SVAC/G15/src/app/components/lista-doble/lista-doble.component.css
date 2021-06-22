@@ -1,11 +1,9 @@
 @import url(https://fonts.googleapis.com/css?family=Montserrat); 
 
 body {
-  min-height: 100vh;
-/*background-color: #FAFAFA; */
-  /* background: #030321;   */
-  background-color: #263238;
-  font-family: Arial; 
+   min-height: 100vh;
+    min-width: 100%;
+    background: #063f6d; 
   text-align: center; 
 }
   
@@ -14,10 +12,10 @@ body {
   z-index: 9999;
   
 }
-
-.opciones{
-  /* background-color:#B43E60; */
+.file-input{
+  display: none;
 }
+
 
 .arrow {
   stroke: rgb(0, 0, 0);

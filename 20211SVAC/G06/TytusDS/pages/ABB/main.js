@@ -57,9 +57,14 @@ $('#pruebita').on('click', () => prueba())
 $('#cargar').on('click', () => cargarJson())
 $('#guardar').on('click', () => guardarJson())
 
+function prueba(){
+  arbolito.preorden()
+  console.log(arbolito.root)
+}
+
 async function cargarJson(){
   network = new vis.Network(container, data, options);
-  listita = new ListaSimple()
+  arbolito = new ABB()
   var objeto = null
   //Obtenemos el archivo 
   let upload = document.getElementById('formFileSm');
@@ -80,45 +85,43 @@ async function cargarJson(){
     for(let i = 0; i < objeto.valores.length; i++){
         //VERIFICAMOS SI VIENEN REPETIDOS
         if(objeto.repeticion == false){
-          let encontrado = listita.search(objeto.valores[i])
-          if(encontrado != null){
+          let encontrado = arbolito.exist(objeto.valores[i])
+          if(encontrado == true){
             continue
           }
         }
-      let array = listita.toArray()
-      var beforeId
-      if (array.length < 1){
-        beforeId = -1
-      } else {
-        beforeId = (array[array.length - 1]).id
-      }
-      let valor = {
-        id: cont,
-        value: (objeto.valores[i]).toString()
-      }
-      updatedIds = nodes.add([{
-        id: cont,
-        label:(listita.add(valor)).value,
-        shape: "star",
-        color:"#72EDC0"
-      }]);
-      updatedIds = edges.add([
-        {from: beforeId, to: cont, arrows:'to', color:"#17202A"}
-      ])
-      cont++
+        //let inputValue = objeto.valores[i]
+        var nuevoValor = {
+          id: cont,
+          value: objeto.valores[i]
+        }
+        let array = arbolito.add(nuevoValor)
+        //Ahora ingresamos el valor en el canvas
+        let beforeId = -1
+        if(array.length > 0){
+          beforeId = array[array.length-1].id
+        }
+        updatedIds = nodes.add([{
+          id: cont,
+          label:(objeto.valores[i]).toString()
+        }]);
+        updatedIds = edges.add([
+        {from: beforeId, to: cont}
+        ])
+        cont++
     }
+    //console.log(updatedIds)
     network.selectNodes([updatedIds[0]]);
     network.editNode();
-    //await new Promise(resolve => setTimeout(resolve, 500)); // 3 sec
   }
 }
 
 function guardarJson(){
-  var categoria = "Estructura Lineal"
-  var nombre = "Lista Simplemente Enlazada"
+  var categoria = "Estructuras Arboreas"
+  var nombre = "ABB"
   var repetir = document.getElementById("flexSwitchCheckDefault").checked;
   var speed = document.getElementById("formControlRange").value;
-  let array = listita.toArray()
+  let array = arbolito.preorden()
   let valores = []
   for(let i = 0; i < array.length; i++){
     valores.push(array[i].value)
@@ -131,8 +134,7 @@ function guardarJson(){
     valores: valores
   }
   var JsonString = JSON.stringify(objeto);
-  console.log(JsonString)
-  download("ListaSimple.json",JsonString);
+  download("ABB.json",JsonString);
 }
 
 function download(filename, text) {
@@ -148,11 +150,6 @@ function download(filename, text) {
   document.body.removeChild(element);
 }
 
-
-function prueba(){
-  console.log(listita.print())
-}
-
 function convertir(porcentaje){
   let result = (100 - porcentaje)*10
   if (result == 0){
@@ -160,8 +157,6 @@ function convertir(porcentaje){
   }
   return result
 }
-
-
 
 async function agregar(){
   let inputValue = document.getElementById("valor").value;
@@ -187,7 +182,7 @@ async function agregar(){
   }
   /*******************************************/
   //Verificamos si el valor es un numero o string
-  if(parseInt(inputValue) != NaN){
+  if(!isNaN(parseInt(inputValue))){
     inputValue = parseInt(inputValue)
   }
   /*AHORA INGRESAMOS EL VALOR Y RECORREMOS EL ARRAY*/
@@ -238,13 +233,12 @@ async function search(){
     }
   }
 
-  let input = document.getElementById("valor").value;
   //Verificamos si el valor es un numero o string
-  if(parseInt(inputValue) != NaN){
+  if(!isNaN(parseInt(inputValue))){
     inputValue = parseInt(inputValue)
   }
   //Obtenemos el recorrido del arbol y recorremos
-  let array = arbolito.search(input)
+  let array = arbolito.search(inputValue)
   for(let i = 0; i < array.recorrido.length; i++){
     let currentId = array.recorrido[i].id
     network.selectNodes([currentId])
@@ -261,7 +255,11 @@ async function search(){
   network.fit()
 }
 
-/*async function update(){
+async function update(){
+  var speed = document.getElementById("formControlRange").value;
+  //Obtenemos la velocidad para la animacion
+  let inputValue = document.getElementById("valor").value;
+  let input = document.getElementById("nuevoValor").value;
   var speed = document.getElementById("formControlRange").value;
   speed = convertir(speed)
   var animation = {
@@ -271,37 +269,80 @@ async function search(){
       easingFunction: "linear"
     }
   }
-  let input = document.getElementById("valor").value;
-  let inputUpdate = document.getElementById("nuevoValor").value;
-  let nodo = listita.update(input, inputUpdate)
-  let array = listita.toArray()
-  if(nodo != null){
-    for(let i = 0; i < nodes.length; i++){
-      let currentId = array[i].id
-      network.selectNodes([currentId])
-      network.focus(currentId, animation)
-      await new Promise(resolve => setTimeout(resolve, speed+10)); // 3 sec
-      if(currentId == nodo.valor.id){
-        network.fit()
-        await new Promise(resolve => setTimeout(resolve, speed/2));
-        nodes.update({id:currentId, label:inputUpdate});
-        break
-      }
-    }
+
+  //Verificamos si el valor es un numero o string
+  if(!isNaN(parseInt(inputValue))){
+    inputValue = parseInt(inputValue)
+  }
+  if(!isNaN(parseInt(input))){
+    input = parseInt(input)
+  }
+  //Obtenemos el recorrido del arbol y recorremos
+  let array = arbolito.search(inputValue)
+  for(let i = 0; i < array.recorrido.length; i++){
+    let currentId = array.recorrido[i].id
+    network.selectNodes([currentId])
+    network.focus(currentId, animation)
+    await new Promise(resolve => setTimeout(resolve, speed+10))
+  }
+  //Si encontro o no el valor
+  if(array.encontrado == true){
+    //PROCEDEMOS A HACER TODO EL PROCESO
+    /******PROCESO PARA ELMINAR EL VALOR QUE ESTAMOS ACTUALIZANDO*******/
     network.fit()
+    await new Promise(resolve => setTimeout(resolve, speed/2));
+    //Eliminamos el nodo papi
+    let arbolitoNuevo = arbolito.delete(inputValue)
+    //Verificamos si hay nodo para eliminar
+    if(arbolitoNuevo.eliminado != null){
+      network.selectNodes([arbolitoNuevo.eliminado.valor.id])
+      network.deleteSelected();
+    }
+    //Verificamos si hay que actualizar un nodo
+    console.log(arbolitoNuevo.actualizado)
+    if(arbolitoNuevo.actualizado != null){
+      nodes.update({id:(arbolitoNuevo.actualizado.valor.id), label:(arbolitoNuevo.actualizado.valor.value).toString()});
+    }
+    /******PROCESO PARA INGRESAR EL NUEVO VALOR ACTUALIZADO*****/
+    var nuevoValor = {
+      id: cont,
+      value: input
+    }
+    let array = arbolito.add(nuevoValor)
+    let beforeId = -1
+    var position = 0
+    if(array.length > 0){
+      beforeId = array[array.length-1].id
+      position = network.getPosition(beforeId)
+    }
+    var updatedIds = nodes.add([{
+      id: cont,
+      label:(input).toString(),
+      x: position.x-100
+    }]);
+    if(arbolitoNuevo.nuevoPadre != null && arbolitoNuevo.nuevoHijo != null){
+      updatedIds = edges.add([
+        {from: beforeId, to: cont},
+        {from: arbolitoNuevo.nuevoPadre.valor.id, to: arbolitoNuevo.nuevoHijo.valor.id}
+      ])
+    } else {
+      updatedIds = edges.add([
+        {from: beforeId, to: cont}
+      ])
+    }
+    cont++
+    network.selectNodes([updatedIds[0]]);
+    network.editNode();
   } else {
-    for(let i = 0; i < array.length; i++){
-      network.selectNodes([array[i].id])
-      network.focus(array[i].id, animation)
-      await new Promise(resolve => setTimeout(resolve, speed+10));
-    }
     network.selectEdges([])
-    network.fit()
     alert("No se ha encontrado el valor!");
   }
+  network.fit()
 }
 
 async function remove(){
+  //Obtenemos la velocidad para la animacion
+  let inputValue = document.getElementById("valor").value;
   var speed = document.getElementById("formControlRange").value;
   speed = convertir(speed)
   var animation = {
@@ -311,38 +352,46 @@ async function remove(){
       easingFunction: "linear"
     }
   }
-  let input = document.getElementById("valor").value;
-  let array = listita.toArray()
-  let nodo = listita.delete(input)
-  if(nodo != null){
-    for(let i = 0; i < array.length; i++){
-      let currentId = array[i].id
-      /*Esto es lo de la animacion*/
-      /*network.selectNodes([currentId])
-      network.focus(currentId, animation)
-      await new Promise(resolve => setTimeout(resolve, speed+10)); // 3 sec
-      /*Termina lo de la animacion*/
-      /*if(currentId == nodo.valor.id){
-        network.fit()
-        await new Promise(resolve => setTimeout(resolve, speed/2)); // 3 sec
-        network.deleteSelected();
+
+  //Verificamos si el valor es un numero o string
+  if(!isNaN(parseInt(inputValue))){
+    inputValue = parseInt(inputValue)
+  }
+  //Obtenemos el recorrido del arbol y recorremos
+  let array = arbolito.search(inputValue)
+  for(let i = 0; i < array.recorrido.length; i++){
+    let currentId = array.recorrido[i].id
+    network.selectNodes([currentId])
+    network.focus(currentId, animation)
+    await new Promise(resolve => setTimeout(resolve, speed+10))
+  }
+  //Si encontro o no el valor
+  if(array.encontrado == true){
+    network.fit()
+    await new Promise(resolve => setTimeout(resolve, speed/2));
+    //Eliminamos el nodo papi
+    let arbolitoNuevo = arbolito.delete(inputValue)
+    //Verificamos si hay nodo para eliminar
+    if(arbolitoNuevo.eliminado != null){
+      network.selectNodes([arbolitoNuevo.eliminado.valor.id])
+      network.deleteSelected();
+    }
+    //Verificamos si hay que actualizar un nodo
+    console.log(arbolitoNuevo.actualizado)
+    if(arbolitoNuevo.actualizado != null){
+      nodes.update({id:(arbolitoNuevo.actualizado.valor.id), label:(arbolitoNuevo.actualizado.valor.value).toString()});
+    }
+    //Verificamos si hay nodoPadre y nodo Hijo
+    if(arbolitoNuevo.nuevoPadre != null && arbolitoNuevo.nuevoHijo != null){
         var updatedIds = edges.add([
-          {from: array[i-1].id, to: array[i+1].id, arrows:'to', color:"#17202A"}
+          {from: arbolitoNuevo.nuevoPadre.valor.id, to: arbolitoNuevo.nuevoHijo.valor.id}
         ])
         network.selectNodes([updatedIds[0]]);
         network.editNode();
-        break
-      }
     }
-    network.fit()
   } else {
-    for(let i = 0; i < array.length; i++){
-      network.selectNodes([array[i].id])
-      network.focus(array[i].id, animation)
-      await new Promise(resolve => setTimeout(resolve, speed+10)); // 3 sec
-    }
-    network.selectEdges([])
     network.fit()
+    network.selectEdges([])
     alert("No se ha encontrado el valor!");
   }
-}*/
+}

@@ -18,7 +18,7 @@ export default function GraficaListas(props) {
         
       }
 
-      if(props.nombre == "Lista doblemente"){
+      if(props.nombre == "Lista doblemente enlazada"){
           let contador = nodosAfuera.length-1
           for (let i = 0; i < nodosAfuera.length-1; i++) {
               let edge = {from:i+1, to:i}

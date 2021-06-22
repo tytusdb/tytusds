@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="vis/vis-network.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="vis/vis.css">
+    <title>Lista Simple</title>
+</head>
+<body>
+    <div id="controles">
+        <div class="grupo">
+            <input type="file" id="fileInput" size="50" onchange="processFiles(this.files)">
+            <button onclick="leerDatosArchivo()">Cargar Datos</button>
+        </div>
+
+        <div class="grupo">
+            <label>Tipo de ingreso</label>
+            <select id="tipo_de_ingreso">
+                <option value="1">Agregar Al Inicio</option>
+                <option value="2">Agregar Al Final</option>
+                <option value="3">Agregar de Forma Ordenada</option>
+            </select>
+        </div>
+
+        <div class="grupo">
+            <input type="text" id="agregar">
+        <button onclick="agregarDato()">Agregar</button>
+        </div>
+        
+
+        <div class="grupo">
+            <input type="text" id="eliminar">
+            <button onclick="eliminarDato()">Eliminar</button>
+        </div>
+        
+
+        <div class="grupo">
+            <input type="text" id="anterior" placeholder="Valor">
+            <input type="text" id="nuevo" placeholder="Nuevo Valor">  
+            <button onclick="actualizarDato()">Actualizar</button>
+        </div>
+        
+        <div class="grupo">
+            <input type="text" id="buscar">
+            <button onclick="buscarDato()">Buscar</button> 
+            <p id="encontrado"></p>
+        </div>
+        
+
+    </div>
+    <div id="grafo"></div>
+    <div id="configuracion"></div>
+    <script type="text/javascript" src="js/estructuras/lineales/listasimple.js"></script>
+</body>
+</html>

@@ -87,6 +87,8 @@ function agregar() {
     }
     var updatedIds = nodes.add([{
         id: cont,
+        shape: "diamond",
+        color: "#ba76ff",
         label: dato.dato,
     }]);
     updatedIds = edges.add([
@@ -150,9 +152,20 @@ async function view() {
     //cont2++
 }
 
-function deleteEdgeMode(nodeId) {
+async function deleteEdgeMode(nodeId) {
+    var speed = document.getElementById("formControlRange").value;
+    speed = convertir(speed)
     var valor = array2.indexOf(nodeId) //pos en arreglo
-    let animacion = document.getElementById("formControlRange").value;
+    var animation = {
+        scale: 4,
+        animation: {
+            duration: speed,
+            easingFunction: "linear"
+        }
+    }
+    network.selectNodes([array[valor].id])
+    network.focus(array[valor].id, animation)
+    await new Promise(resolve => setTimeout(resolve, speed + 10));
     network.selectNodes([array[valor].id]);
     let posAnterior = 0
     let posSiguiente = 0
@@ -246,6 +259,8 @@ function cargarJson() {
             }
             var updatedIds = nodes.add([{
                 id: i,
+                shape: "diamond",
+                color: "#ba76ff",
                 label: dato.dato,
             }]);
             updatedIds = edges.add([

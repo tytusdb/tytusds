@@ -16,6 +16,7 @@ class bst{
 		var nd = new node(elem);
 		if (this.root==null){
 			this.root = nd;
+			return this.root;
 		}else{
 			this.insert(this.root, nd)
 		}
@@ -37,9 +38,6 @@ class bst{
 
 	}
 
-	remove(elem){
-		this.root=this.removeNode(elem,this.root);
-	}
 
 	removeNode(elem,node){
 		if (node==null){
@@ -119,3 +117,4 @@ class bst{
 	}
 
 }
+

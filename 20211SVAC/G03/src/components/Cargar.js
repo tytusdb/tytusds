@@ -3,9 +3,15 @@ import { Button, Header, Icon, Modal,Menu,Input } from 'semantic-ui-react'
 
 import Cola from '../estructuras/EstructurasLineales/Cola'
 import ColaPrioridad from '../estructuras/EstructurasLineales/ColaPrioridad'
+
+import ArbolAVL from '../estructuras/Estructuras_Arboreas/AVL'
 import ABB from '../estructuras/Estructuras_Arboreas/ABB'
+
 import Pila from '../estructuras/EstructurasLineales/Pila'
 import ListaCirD from '../estructuras/EstructurasLineales/ListaCirD'
+import ListaCS from '../estructuras/EstructurasLineales/ListaCirS'
+import ListaSimple from '../estructuras/EstructurasLineales/ListaSimple'
+import ListaDoble from '../estructuras/EstructurasLineales/ListaDoble'
 
 let propsG
 function onChange(e){
@@ -43,22 +49,26 @@ function structW(nombre,datos,edd){ // FUNCION PARA SABER QUE TIPO DE ESTRUCTURA
             break
         case "Lista simplemente enlazada":
 
-            /* edd = new Cola();
-            edd.cargar(datos) */
+            if(edd == null){
+                edd = new ListaSimple();
+            }
+            edd.cargar(datos)
             break
 
         case "Lista doblemente enlazada":
 
-             edd = new Cola();
+            if(edd == null){
+                edd = new ListaDoble();
+            }
             edd.cargar(datos) 
             break
 
         case "Lista circular simplemente enlazada":
 
-            /* if(edd == null){
-                edd = new ListaCirD();
+            if(edd == null){
+                edd = new ListaCS();
             }
-            edd.cargar(datos) */
+            edd.cargar(datos)
             break
 
         case "Lista circular doblemente enlazada":
@@ -88,6 +98,14 @@ function structW(nombre,datos,edd){ // FUNCION PARA SABER QUE TIPO DE ESTRUCTURA
 
             edd = new ABB();
             edd.cargar(datos)
+            console.log(edd.obtenerNodos())
+            console.log(edd.obtenerAputadores())
+            break
+        case "Arbol AVL":
+
+            edd = new ArbolAVL();
+            edd.cargar(datos)
+            edd.preOrden(edd.raiz);
             console.log(edd.obtenerNodos())
             console.log(edd.obtenerAputadores())
             break
