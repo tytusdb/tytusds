@@ -1,7 +1,9 @@
 import { nodo } from './nodo'
+import { Network, DataSet, Node, Edge, IdType } from 'vis';
 
 export class AVL{
     private root=nodo;
+     
 
     constructor() {
 		this.root = null
@@ -22,8 +24,12 @@ export class AVL{
     }
 
     agregar(dato, aux) {
-		if (aux == null) return new nodo(dato)//datoraix
-		else if (dato < aux.dato) { //menorixquierda
+		if (aux == null){
+            
+             return new nodo(dato)       
+        }
+       else{
+        if (dato < aux.dato) { //menorixquierda
 			aux.left = this.agregar(dato, aux.right)
 			if ((this.altura(aux.left)-this.altura(aux.right))==2) {
 				if (dato < aux.left.dato) {
@@ -41,6 +47,8 @@ export class AVL{
                 }
 			} 
 		}
+       }
+		 
 		
 		var derecha = this.altura(aux.right)
 		var izquierda = this.altura(aux.left)		
@@ -64,7 +72,7 @@ export class AVL{
         var aux = nodoaux.left
         nodoaux.left = aux.right  
         aux.right = nodoaux 
-        nodoaux.altura = this.max(this.altura(nodoaux.left), this.altura(nodoaux.right))+1
+        nodoaux.altura = this.max(this.altura(nodoaux.right), this.altura(nodoaux.right))+1
         aux.altura = this.max(this.altura(aux.left), nodoaux.altura) +1
         return aux
     }
@@ -73,7 +81,7 @@ export class AVL{
         var aux = nodoaux.right
         nodoaux.right = aux.left  
         aux.left = nodoaux 
-        nodoaux.altura = this.max(this.altura(nodoaux.left), this.altura(nodoaux.right))+1
+        nodoaux.altura = this.max(this.altura(nodoaux.right), this.altura(nodoaux.right))+1
         aux.altura = this.max(this.altura(aux.right), nodoaux.altura) +1
         return aux
 
