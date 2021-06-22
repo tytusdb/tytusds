@@ -78,6 +78,44 @@ class ColaPrioridad{
         }
     }
 
+    eliminar(dato){
+        dato = parseFloat(dato);
+        let actual = this.top;
+        let eliminado = false;
+        while(actual != null && !eliminado){
+            if(actual.valor == dato){
+                if(actual.arriba != null){
+                    if(actual.abajo != null){//nodo tiene datos arriba y abajo.
+                        actual.arriba.abajo = actual.abajo;
+                        actual.abajo.arriba = actual.arriba;
+                        eliminado = true;
+                    }else{  //nodo tiene datos solo arriba
+                        actual.arriba.abajo = null;
+                        this.top = actual.arriba;
+                        eliminado = true;
+                    }
+                }else{  //nodo tiene datos solo abajo
+                    if(actual.abajo != null){
+                        actual.abajo.arriba = null;
+                        this.top = actual.abajo;
+                        eliminado = true;
+                    }else{  //nodo no tiene ningun otro dato
+                        this.top = null;
+                        this.bottom = null;
+                        eliminado = true;
+                    }
+                }
+            }else{
+                actual = actual.abajo;
+            }
+        }
+        if(eliminado){
+            this.length--;
+        }else{
+            console.log('No se encontró el dato.');
+        }
+    }
+
     actualizar(existente, nuevo){
         let nodo = this.top;
         let encontrado = false;
@@ -136,6 +174,14 @@ class ColaPrioridad{
         }
     }
 
+    elementos(nodo = this.top, lista = []){
+        if(nodo != null){
+            lista[lista.length] = nodo.valor.toString()+","+nodo.prioridad.toString();
+            lista = this.elementos(nodo.abajo, lista);
+        }
+        return lista;
+    }
+
     devolverNodosAristas(nodoarista, nodo = this.top, numnodo = 0){
         if(nodo != null){
             nodoarista.nodos.push({id:numnodo,label:nodo.valor.toString()+"|P"+nodo.prioridad.toString()});
@@ -190,7 +236,11 @@ agregar.addEventListener("click", (e) =>{
 
 eliminar.addEventListener("click", (e) =>{
     e.preventDefault
-    cola.pop();
+    if(dato.value != ''){
+        cola.eliminar(dato.value);
+    }else{
+        cola.pop();
+    }
     graficaCola(cola);
     
 })
@@ -198,7 +248,9 @@ eliminar.addEventListener("click", (e) =>{
 actualizar.addEventListener("click", (e) =>{
     e.preventDefault
     if(dato.value != ''){
-        
+        let lista = dato.value.split(',')
+        cola.actualizar(lista[0],lista[1]);
+        graficaCola(cola);
     }
 })
 
@@ -229,14 +281,41 @@ archivo.addEventListener('change', () => {
 
 cargar.addEventListener("click", (e) => {
     e.preventDefault()
-    let valores = entrada["valores"]
+    let valores = entrada["valores"];
+    let entrada = [];
     for (let i = 0; i < valores.length; i++) {
-        cola.push(valores[i])
+        entrada = valores[i].split(',');
+        cola.push(entrada[0],entrada[1]);
         graficaCola(cola);
     }
     document.getElementById('mensaje').innerText = ''
     archivo.setAttribute('disabled', '')
 })
+
+const salida ={
+    operacion: 'Pila',
+    valores: []
+}
+
+guardar.addEventListener("click", (e) => {
+    e.preventDefault()
+    salida.valores = pila.elementos();
+    let texto = JSON.stringify(salida);
+    download('ColaPrioridad.json', texto);
+})
+
+function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+  
+    element.style.display = 'none';
+    document.body.appendChild(element);
+  
+    element.click();
+  
+    document.body.removeChild(element);
+}
 
 function graficaCola(cola){
     let lista = new NodoArista();

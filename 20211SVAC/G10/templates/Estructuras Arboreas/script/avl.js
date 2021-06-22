@@ -55,17 +55,11 @@ class AVL{
 
     actualiz(nodo){   //metodo que actualiza la altura y balance del nodo al agregarlo o rotarlo.
         let alturaL = (nodo.izquierda == null) ? -1 : nodo.izquierda.altura;
-        console.log(alturaL);
         let alturaR = (nodo.derecha == null) ? -1 : nodo.derecha.altura;
-        console.log(alturaR);
+
         nodo.altura = 1 + this.max(alturaR,alturaL);
-        console.log('max: ',this.max(alturaR,alturaL));
 
         nodo.factorB = alturaR - alturaL;
-        console.log('Nodo: ',nodo.valor);
-        console.log('altura:',nodo.altura);
-        console.log('factor:',nodo.factorB);
-        console.log('')
     }
 
     balancear(nodo){    //revisa el factor de balance del nodo y hace la rotacion necesaria segun el caso.
@@ -87,7 +81,6 @@ class AVL{
     }
 
     rotacionL(nodo){
-        console.log(nodo.valor);
         let nuevoP = nodo.derecha;
 
         nodo.derecha = nuevoP.izquierda;
@@ -106,7 +99,6 @@ class AVL{
     }
 
     rotacionR(nodo){
-        console.log(nodo.valor);
         let nuevoP = nodo.izquierda;
 
         nodo.izquierda = nuevoP.derecha;
@@ -248,18 +240,14 @@ class AVL{
     }
 
     actualizar(existente, nuevo){
+        existente = parseFloat(existente);
+        nuevo = parseFloat(nuevo);
         if(this.buscar(existente)){
             this.eliminar(existente);
-            this.insertar(nuevo);
+            this.agregar(nuevo);
+        }else{
+            console.log('el dato ingresado no está en el árbol.')
         }
-    }
-
-    cargar(){
-        console.log('leyendo json.');
-    }
-
-    guardar(){
-        console.log('guardando en json.')
     }
 
     preorden(nodo = this.root){
@@ -284,6 +272,15 @@ class AVL{
             this.postorden(nodo.derecha);
             console.log('Valor: ',nodo.valor);
         }
+    }
+
+    elementos(nodo = this.root, lista = []){
+        if(nodo != null){
+            lista = this.elementos(nodo.izquierda, lista);
+            lista[lista.length] = nodo.valor;
+            lista = this.elementos(nodo.derecha, lista);
+        }
+        return lista;
     }
 
     devolverNodosAristas(nodoarista, nodo = this.root, numnodo = 0){
@@ -356,16 +353,17 @@ eliminar.addEventListener("click", (e) =>{
     e.preventDefault
     if(dato.value != ''){
         arbolVL.eliminar(dato.value);
-
+        console.log('Recorridos:');
         console.log('Preorden:');
         arbolVL.preorden();
-        console.log('')
+        console.log('');
         console.log('Inorden:');
         arbolVL.inorden();
-        console.log('')
+        console.log('');
         console.log('Postorden:');
         arbolVL.postorden();
-        console.log('')
+        console.log('');
+        console.log('');
         graficaArbol(arbolVL);
     }
 })
@@ -373,7 +371,9 @@ eliminar.addEventListener("click", (e) =>{
 actualizar.addEventListener("click", (e) =>{
     e.preventDefault
     if(dato.value != ''){
-        
+        let lista = dato.value.split(',')
+        arbolVL.actualizar(lista[0],lista[1]);
+        graficaArbol(arbolVL);
     }
 })
 
@@ -414,16 +414,35 @@ cargar.addEventListener("click", (e) => {
     archivo.setAttribute('disabled', '')
 })
 
+const salida ={
+    operacion: 'AVL',
+    valores: []
+}
+
+guardar.addEventListener("click", (e) => {
+    e.preventDefault()
+    salida.valores = arbolVL.elementos();
+    let texto = JSON.stringify(salida);
+    download('AVL.json', texto);
+})
+
+function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+  
+    element.style.display = 'none';
+    document.body.appendChild(element);
+  
+    element.click();
+  
+    document.body.removeChild(element);
+}
+
 function graficaArbol(binario){
     let lista = new NodoArista();
 
-    console.log(lista.nodos);
-    console.log(lista.aristas);
-
     lista = binario.devolverNodosAristas(lista);
-
-    console.log(lista.nodos);
-    console.log(lista.aristas);
 
     let nodos = new vis.DataSet(lista.nodos);
     let aristas = new vis.DataSet(lista.aristas);

@@ -34,14 +34,15 @@ class NodoB{
                 }else{  //dato nuevo es menor o igual
                     if(actual != this.primero){ //nodo actual no es el primero
                         let nuevo = new Llave(dato, this);
-                        actual.anterior = actual.anterior.siguiente = nuevo;
                         nuevo.anterior = actual.anterior;
+                        actual.anterior = actual.anterior.siguiente = nuevo;
                         nuevo.siguiente = actual;
                         agregado = true;
                     }else{  //nodo actual es el primero
                         let nuevo = new Llave(dato, this);
                         actual.anterior = nuevo;
                         nuevo.siguiente = actual;
+                        this.primero = nuevo;
                         agregado = true;
                     }
                 }
@@ -82,6 +83,7 @@ class NodoB{
                         let nuevo = new Llave(llave.valor, this);
                         actual.anterior = nuevo;
                         nuevo.siguiente = actual;
+                        this.primero = nuevo;
                         agregado = true;
                     }
                 }
@@ -202,6 +204,7 @@ class ArbolB{
     }
 
     update(nodo, isDerecha = null){
+        console.log('update');
         if(nodo.size > this.maxLlaves()){
             let mid = nodo.llaveMid(this.minHijos());
             let llaveL = mid.anterior;
@@ -232,6 +235,7 @@ class ArbolB{
                 llaveP.derecha = nodoR;
 
                 while(llaveR != null){
+                    console.log('aca');
                     nodoR.agregarLlave(llaveR);
 
                     nueva = nodoR.llave(llaveR.valor);
@@ -255,6 +259,7 @@ class ArbolB{
                 
                 let nueva = null;
                 while(llaveL != null){  //agregando al nodo hijo L todas las llaves L
+                    console.log('otro');
                     nodoL.agregarLlave(llaveL); //agrega nuevo valor
 
                     nueva = nodoL.llave(llaveL.valor);  //recibe la llave y le asigna los hijos de la anterior
@@ -271,6 +276,7 @@ class ArbolB{
                 }
 
                 while(llaveR != null){  //lo mismo para llave derecha
+                    console.log('ultimo');
                     nodoR.agregarLlave(llaveR);
 
                     nueva = nodoR.llave(llaveR.valor);
@@ -514,7 +520,9 @@ eliminar.addEventListener("click", (e) =>{
 actualizar.addEventListener("click", (e) =>{
     e.preventDefault
     if(dato.value != ''){
-        
+        let lista = dato.value.split(',')
+        arbolBB.actualizar(lista[0],lista[1]);
+        graficaArbol(arbolBB);
     }
 })
 
@@ -552,6 +560,31 @@ cargar.addEventListener("click", (e) => {
     document.getElementById('mensaje').innerText = ''
     archivo.setAttribute('disabled', '')
 })
+
+const salida ={
+    operacion: 'Arbol B',
+    valores: []
+}
+
+guardar.addEventListener("click", (e) => {
+    e.preventDefault()
+    salida.valores = arbolBB.elementos();
+    let texto = JSON.stringify(salida);
+    download('ArbolB.json', texto);
+})
+
+function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+  
+    element.style.display = 'none';
+    document.body.appendChild(element);
+  
+    element.click();
+  
+    document.body.removeChild(element);
+}
 
 function graficaArbol(arbolB){
     let lista = new NodoArista();
