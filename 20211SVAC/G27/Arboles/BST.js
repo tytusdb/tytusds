@@ -145,6 +145,7 @@ class Node {
             return right + 1;
         };
     }
+
     inOrder() {
       if (this.root == null) {
         return null;
@@ -208,11 +209,112 @@ class Node {
             return null;
         };
     };
+
+    createData(raiz){ 
+      if (raiz != null) {
+        nodes.push({id: raiz.data, label: "Valor: " + raiz.data});
+          if (raiz.left != null){
+            edges.push({
+              from: raiz.data,
+              to: raiz.left.data,
+              arrows: "to",
+              physics: false,
+              smooth: {type: "cubicBezier"},
+            });
+            //contador++;
+          }
+          if (raiz.right != null) {
+            contador++;
+            edges.push({
+              from: raiz.data,
+              to: raiz.right.data,
+              arrows: "to",
+              physics: false,
+              smooth: {type: "cubicBezier"},
+            });
+          }
+          this.createData(raiz.left)
+          this.createData(raiz.right)
+      }
+  }
+  }
+
+  const bst = new BST();
+  var nodes = [];
+  var edges = [];
+  var contador = 0;
+  function graficar(){
+    var x_pos = -150;
+    var y_pos = 0;
+    var contador = 0;       
+    // creating an array with nodes
+    var root = bst.root;
+    bst.createData(root)
+    // creating an array with edges 
+    // create a network
+    var container = document.getElementById("miRed");
+    var data = {
+      nodes: nodes,
+      edges: edges,
+    };
+  
+    const options = {
+  
+      nodes: {
+        shape: "box",
+      },
+  
+      physics: {
+        hierarchicalRepulsion: {
+          nodeDistance: 110,
+        },
+      },
+      layout: {
+        hierarchical: {
+            levelSeparation: 100,
+            nodeSpacing: 100,
+            parentCentralization: true,
+            direction: 'UD',        // UD, DU, LR, RL
+            sortMethod: 'directed',  // hubsize, directed
+            shakeTowards: 'roots'  // roots, leaves                        
+        },
+      }, 
+    };
+    var network = new vis.Network(container, data, options);
+  
   }
   
+
+  function agregarValor(){
+    var x = document.getElementById("newValue").value;
+    document.getElementById("newValue").value = "";
+    bst.add(x);
+    document.getElementById("newValue").focus();
+    graficar();
+  }
+
+  function eliminar(){
+    var x = document.getElementById("newValue").value;
+    document.getElementById("newValue").value = "";
+    bst.remove(x);
+    document.getElementById("newValue").focus();
+    document.getElementById('GFG').innerHTML = 'Removido!';
+    graficar();
+  }
+
+  function buscar(){
+    var x = document.getElementById("newValue").value;
+    document.getElementById("newValue").value = "";
+    console.log(bst.find(x))
+    /*  document.getElementById('GFG').innerHTML = 'Encontrado!';
+    }else{
+      document.getElementById('GFG').innerHTML = 'No Encontrado!';
+    }
+    document.getElementById("newValue").focus();
+  }*/
   
-  
-  const bst = new BST();
+  }
+
   /*
   bst.add(9);
   bst.add(4);
@@ -248,13 +350,23 @@ function AbrirArchivo(files){
     for (let index = 0; index < count; index++) {
       bst.add(json.valores[index]); 
     }
-    console.log('inOrder: ' + bst.inOrder());
-    console.log('preOrder: ' + bst.preOrder());
-    console.log('postOrder: ' + bst.postOrder());
+    graficar();
   };
   reader.onerror = function(event) {
     console.error("File could not be read! Code " + event.target.error.code);
 };
   reader.readAsText(file);
+}
+
+function inorden(){
+  document.getElementById('GFG').innerHTML = 'inOrden: ' + bst.inOrder();
+}
+
+function preorden(){
+  document.getElementById('GFG').innerHTML = 'preOrden: ' + bst.preOrder();
+}
+
+function postorden(){
+  document.getElementById('GFG').innerHTML = 'postOrden: ' + bst.postOrder();
 }
 
