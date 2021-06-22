@@ -1,5 +1,5 @@
 let archivoCargado;
-
+let valores,categoria,nombre,animacion,repeticion;
 let nodoInicio= null;
 
 let nodoSimple=class{
@@ -235,7 +235,9 @@ function ingresoColaPrioridad(dato,prioridad){
 		}
 	}
 }
-function ordenamientoBurbuja(arreglo){
+function ordenamientoBurbuja(){
+	arreglo=valores;
+	let imprecion=null;
 	for (let nBusqueda1 = 0; nBusqueda1 < arreglo.length-1; nBusqueda1++) {
 		for (let nBusqueda2 = 0; nBusqueda2 < arreglo.length- nBusqueda1-1 ; nBusqueda2++) {
 			if (arreglo[nBusqueda2]>arreglo[nBusqueda2+1]){
@@ -243,12 +245,19 @@ function ordenamientoBurbuja(arreglo){
 				arreglo[nBusqueda2]=arreglo[nBusqueda2+1];
 				arreglo[nBusqueda2+1]=aux;
 			}
-
+		}
+		if (imprecion==null){
+			imprecion=arreglo.toString()+"\n"
+		}else{
+			imprecion+=arreglo.toString()+"\n"
 		}
 	}
+	mostrarContenido(imprecion)
 	return arreglo;
 }
-function ordenamientoSeleccion(arreglo){
+function ordenamientoSeleccion(){
+	arreglo=valores;
+	let imprecion=null;
 	for (let nBusqueda1=0;nBusqueda1<arreglo.length;nBusqueda1++){
 		let menor=nBusqueda1;
 		for(let nBusqueda2=nBusqueda1+1;nBusqueda2<arreglo.length;nBusqueda2++){
@@ -259,10 +268,18 @@ function ordenamientoSeleccion(arreglo){
 		let aux=arreglo[nBusqueda1];
 		arreglo[nBusqueda1]=arreglo[menor];
 		arreglo[menor]=aux;
+		if (imprecion==null){
+			imprecion=arreglo.toString()+"\n"
+		}else{
+			imprecion+=arreglo.toString()+"\n"
+		}
 	}
+	mostrarContenido(imprecion)
 	return arreglo;
 }
-function ordenamientoInsercion(arreglo){
+function ordenamientoInsercion(){
+	arreglo=valores;
+	let imprecion;
 	for(let nBusqueda1=0;nBusqueda1<arreglo.length-1;nBusqueda1++){
 		if (arreglo[nBusqueda1]>arreglo[nBusqueda1+1]){
 			for (let nBusqueda2Inversa = nBusqueda1+1;nBusqueda2Inversa>-1;nBusqueda2Inversa--){
@@ -275,10 +292,17 @@ function ordenamientoInsercion(arreglo){
 				}
 			}
 		}
+		if (imprecion==null){
+			imprecion=arreglo.toString()+"\n"
+		}else{
+			imprecion+=arreglo.toString()+"\n"
+		}
 	}
+	mostrarContenido(imprecion)
 	return arreglo;
 }
-function ordenamientoRapido(arreglo){
+function ordenamientoRapido(){
+	arreglo=valores;
 	let anterior=[];
 	let siguiente=[];
 	for(let nBusqueda=1;nBusqueda<arreglo.length;nBusqueda++){
@@ -313,8 +337,9 @@ function leerArchivo(e) {
   }
   let lector = new FileReader();
   lector.onload = function(e) {
-    archivoCargado = e.target.result;
-    console.log(archivoCargado);
+    let contenido = e.target.result;
+    archivoCargado=JSON.parse(contenido)
+    obtenerDatos()
   };
   lector.readAsText(archivo);
 }
@@ -325,7 +350,13 @@ function mostrarContenido(contenido) {
   var elemento = document.getElementById('despliegue');
   elemento.innerHTML = contenido;
 }
-
+function obtenerDatos(){
+	valores=archivoCargado["valores"];
+	categoria=archivoCargado["categoria"];
+	nombre=archivoCargado["nombre"];
+	animacion=archivoCargado["animacion"];
+	repeticion=archivoCargado["repeticion"];
+}
 /*function ingresarABB(dato){
 	if(nodoInicio==null){
 		nodoinicio = new nodoArbolBinario(dato,null,null);

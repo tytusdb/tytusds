@@ -3,7 +3,6 @@ class NodoABB{
 		this.valor = _valor
 		this.izq = null
 		this.der = null
-		this.array = []
 	}
 }
 
@@ -12,6 +11,12 @@ class ABB{
 		this.root = null
 		this.repeat = _repeat
 		this.level = 0
+		this.array = []
+		this.aux = null
+		this.eliminado = null
+		this.nuevoPadre = null
+		this.nuevoHijo = null
+		this.actualizado = null
 	}
 
 	add(valor){
@@ -39,12 +44,15 @@ class ABB{
 	}
 
 	preorden(nodo){
+		this.array = []
 		this.pre_orden(this.root)
+		return this.array
 	}
 
 	pre_orden(nodo){
 		if(nodo != null){
-			console.log(nodo.valor.value)
+			this.array.push(nodo.valor)
+			console.log(nodo.valor)
 			this.pre_orden(nodo.izq)
 			this.pre_orden(nodo.der)
 		}
@@ -114,22 +122,88 @@ class ABB{
 		}
 		return false
 	}
+
+	delete(valor){
+		this.eliminado = null
+		this.nuevoPadre = null
+		this.nuevoHijo = null
+		this.actualizado = null
+		this.root = this.remove(null, this.root, valor)
+		return {
+			eliminado: this.eliminado,
+			nuevoHijo: this.nuevoHijo,
+			nuevoPadre: this.nuevoPadre,
+			actualizado: this.actualizado
+		}
+	}
+
+	remove(padre, nodo, valor){
+		if(nodo != null){
+			if(nodo.valor.value == valor){
+				/********Encontramos el nodo*********/
+				//Caso uno para eliminar
+				if(nodo.izq  == null && nodo.der != null){
+					console.log("Caso 1")
+					this.eliminado = nodo
+					this.nuevoPadre = padre
+					this.nuevoHijo = nodo.der
+					return nodo = nodo.der
+				}
+				//Caso dos para eliminar
+				if(nodo.izq != null && nodo.der == null){
+					console.log("Caso 2")
+					this.eliminado = nodo
+					this.nuevoPadre = padre
+					this.nuevoHijo = nodo.izq
+					return nodo = nodo.izq
+				}
+				//Caso tres para eliminar
+				if(nodo.izq == null && nodo.der == null){
+					console.log("Caso 3")
+					this.eliminado = nodo
+					return nodo = null
+				}
+				//Caso cuatro para eliminar
+				if(nodo.izq != null && nodo.der != null){
+					console.log("Caso 4")
+					//function devulve el valor mas pequenio
+					nodo.der = this.deleteMin(nodo.der)
+					nodo.valor.value = this.aux.valor.value
+					this.actualizado = nodo
+					return nodo
+				}
+			} else {
+				if(valor <= nodo.valor.value){
+					nodo.izq = this.remove(nodo, nodo.izq, valor)
+				} else {
+					nodo.der = this.remove(nodo, nodo.der, valor)
+				}
+			}
+		}
+		return nodo
+	}
+
+	deleteMin(padre){
+		if(padre.izq != null){
+			if(padre.izq.izq == null){
+				this.eliminado = padre.izq
+				this.aux = padre.izq
+				//En este caso el padre.izq es el minimo
+				if(padre.izq.der == null){
+					padre.izq = null
+					return padre
+				} else {
+					this.nuevoPadre = padre
+					this.nuevoHijo = padre.izq.der
+					padre.izq = padre.izq.der
+					return padre
+				}
+			} else {
+				return this.deleteMin2(padre.izq)
+			}
+		}
+		this.eliminado = padre
+		this.aux = padre
+		return null
+	}
 }
-
-function bb(){
-	let arbolito = new ABB(false)
-	let prueba = arbolito.add({id:1,value:5})
-	arbolito.add({id:1,value:3})
-	arbolito.add({id:1,value:8})
-	arbolito.add({id:1,value:7})
-	arbolito.add({id:1,value:9})
-	arbolito.add({id:1,value:1})
-	arbolito.add({id:1,value:2})
-
-	console.log(prueba)
-	arbolito.inorden()
-
-	console.log(arbolito.search(0))
-}
-
-bb()

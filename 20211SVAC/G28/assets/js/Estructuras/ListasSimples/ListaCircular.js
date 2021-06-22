@@ -1,5 +1,17 @@
-const Nodo = require("./Nodo");
-const datos = require("./datos");
+class datos {
+    constructor(dato1, prioridad){
+        this.dato1 = dato1; //dato
+        this.prioridad = prioridad; //prioridad para cola de prioridad
+    }
+}
+
+class Nodo {
+    constructor(datos = null){
+        this.datos = datos;
+        this.siguiente = null;
+   }
+}
+
 
 class ListaCircular {
     constructor(){
@@ -86,11 +98,13 @@ class ListaCircular {
             var verificador = this.primero;
             while(verificador.siguiente != this.primero){
                 if (verificador.datos.dato1 == dato){
+                    console.log("VALOR ENCONTRADO");
                     return true;
                 }
                 verificador = verificador.siguiente;
             }
             if (verificador.datos.dato1 == dato){
+                console.log("VALOR ENCONTRADO");
                 return true;
             }
         }
@@ -104,12 +118,9 @@ class ListaCircular {
                 console.log("el nuevo valor ya existe en la lista");
             }else{
             var actual = this.primero;
-            var continuar = true;
-            while(continuar==true){
+            while(true){
                 if (actual.datos.dato1 == antiguo){
-                    var nuevos = new datos(nuevo,null);
-                    actual.datos = nuevos;
-                    continuar = false;
+                    actual.datos.dato1 = nuevo;
                     break;
                     //actualizar solo el primero que coincida
                 }
@@ -139,5 +150,53 @@ class ListaCircular {
         }
     }
 }
+var listaC = new ListaCircular();
+console.log("Lista vacia creada");
 
-module.exports = ListaCircular;
+function addDLC (){
+    var obtenerC =  document.getElementById("ddnodeC").value;
+    var dataC = new datos(obtenerC,null);
+    var repitenciaDC = document.getElementById("DadmitRC").checked;
+    var DinsertaC = document.getElementById("DstartORendC").value;
+    if (DinsertaC == "Cinicio"){
+        listaC.agregar_inicio(dataC,repitenciaDC);
+        console.log("Lista nueva")
+        listaC.imprimir();
+    }
+    else if(DinsertaC == "Cfinal"){
+        listaC.agregar_final(dataC,repitenciaDC);
+        console.log("Lista nueva")
+        listaC.imprimir();
+    }
+    document.getElementById("ddnodeC").value="";
+}
+
+function searchNodeDC(){
+    var DtoFindC = document.getElementById("DnodeSearchC").value;
+    console.log("el valor que se desea buscar es");
+    console.log(DtoFindC);
+    console.log("")
+    listaC.buscar(DtoFindC);
+    document.getElementById("DnodeSearchC").value=""; 
+}
+
+function deleteDDC(){
+    var borrarDatoC =  document.getElementById("ddnodeDelC").value;
+    listaC.eliminar(borrarDatoC);
+    console.log("El valor eliminado es: ")
+    console.log(borrarDatoC);
+    console.log("Lista nueva")
+    listaC.imprimir();
+    document.getElementById("ddnodeDelC").value="";
+}
+
+function updateNodeDC(){
+    var DantiguoC=document.getElementById("DupdateAC").value;
+    var DnuevoC = document.getElementById("DupdateNC").value;
+    var DrepitenciaC = document.getElementById("DadmitRC").checked;
+    
+    listaC.actualizar(DantiguoC,DnuevoC,DrepitenciaC);
+    listaC.imprimir();
+    document.getElementById("DupdateAC").value="";
+    document.getElementById("DupdateNC").value="";
+}

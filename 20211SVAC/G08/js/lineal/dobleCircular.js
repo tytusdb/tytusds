@@ -61,7 +61,17 @@ document.addEventListener('DOMContentLoaded', function() {
         let tamano = 0;
         limpiar(tamano);
     });
+
+    //----------------GUARDAR JSON----------------
+    document.getElementById('cargar').addEventListener('click', function() {
+        guardar();
+    });
 });
+
+//----------------REPETIR----------------
+const btn_Repetir = document.getElementById('repeticion');
+btn_Repetir.addEventListener('click', repetir);
+
 
 
 
@@ -72,6 +82,7 @@ let flechas = document.getElementById('flechas');
 let nodes = document.getElementsByClassName('node');
 let pointers = document.getElementsByClassName('pointer');
 let error = document.getElementById('error');
+var tipoDato;
 
 //----------------TIEMPO ANIMACION----------------
 let tiempo_animacion;
@@ -182,12 +193,8 @@ async function agregar(i, data) {
 
     let agrandar = document.getElementById('semi');
     if(agrandar && agrandar.style) {
-        let largo = agrandar.style.width;
-        let ancho = agrandar.style.height;
-        console.log(largo);
-        console.log(ancho);
-        agrandar.style.width = largo * 50;
-        agrandar.style.height = ancho * 30;
+        agrandar.style.width = '200px';
+        agrandar.style.height = '100px';
     }
     
     
@@ -283,5 +290,105 @@ async function limpiar(tam) {
         await borrar_nodos(i);
         await animacion_despues(i)
         limpiar(i);
+    }
+
+    let agrandar = document.getElementById('semi');
+    if(agrandar && agrandar.style) {
+        agrandar.style.width = '0px';
+        agrandar.style.height = '0px';
+    }
+}
+
+//----------------JSON----------------
+function readFile(evento){ // lectura del archivo .json
+    
+    let archivo = evento.target.files[0];
+    if (archivo){
+        let reader = new FileReader();
+        reader.onload = function(e){
+            contenido = e.target.result;
+            // console.log(contenido)
+            console.log("-----------")
+            convert = JSON.parse(contenido);
+            console.log("VALORES")
+            listaValores = convert.valores;
+            tipoDato = typeof(listaValores[0]);
+            agregarFile();
+
+                      
+            //generateElements(listaValores, tipoDato);
+
+        };
+        reader.readAsText(archivo); 
+
+    } else {
+        alert("No se ha seleccionado ningun archivo");
+    }
+}
+
+window.addEventListener('load', ()=>{ // cada vez que cambie 
+    document.getElementById('file').addEventListener('change',readFile)
+});
+
+//----------------AGREGAR ELEMENTOS - JSON----------------
+async function agregarFile(){
+    velocidad = 10;
+    var chek_Repe = btn_Repetir.checked;
+    
+    for(let i = 0; i < listaValores.length; i++){
+        
+        if(chek_Repe == true ){
+            console.log("Repetido") 
+        } else {
+            // Insertando elemento en la cola
+            agregar(nodes.length, listaValores[i]);
+            await new Promise((resolve) =>
+                setTimeout(() =>{
+                resolve();
+                }, (velocidad*200)) //delay
+            ); 
+        } 
+    }
+}
+
+function listaNums(numso){
+    let hola = [];
+    for (let i = 0; i < numso.length; i++){
+        hola.push(parseInt(numso[i]));
+
+    }
+    return hola;
+}
+
+//----------------GUARDAR JSON----------------
+function guardar(){
+    var repetic = btn_Repetir.checked;
+    velocidad = 10;
+    var content = list.innerText.split("\n\n");
+    if (tipoDato == 'number'){
+        content = listaNums(content);
+    } 
+    
+    var fileJ = {
+        "categoria": "Estructura Lineal",
+        "nombre": "Lista circular doblemente enlazada:",
+        "repeticion": repetic,
+        "animacion": velocidad,
+        "valores": content
+    }
+
+    let saveArchivo = new Blob([JSON.stringify(fileJ)],{type:"application/json"});
+    let a = document.createElement("a");
+    a.href = URL.createObjectURL(saveArchivo);
+    a.download = "listaCircularDoble.json";
+    a.click();
+}
+
+//----------------REPETIR ELEMENTOS----------------
+function repetir(){
+    if(btn_Repetir.value == 'on'){
+        console.log("Repeticion encendida");
+    } else {
+        console.log("Repeticion apagada")
     }
 }

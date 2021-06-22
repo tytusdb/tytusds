@@ -13,5 +13,31 @@
     font-weight: bold;
 }
 .cuadroAnim{
-    margin-left: 330px;
+    border: none;
+    padding-left: 50px;
+}
+#espacio{
+    margin-bottom: -25px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 1em 0em;
+}
+
+.cuadrito{
+    width: 6em;
+    height: 2em;
+    background-color: #28DF0B;
+    border: 1px solid black;
+    margin: 1em 2em 0em ;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 3px;
+    font-size: 15px;
+    font-weight: bold;
+    box-shadow: 1px 1px 2px 1px black;
+    float: left;
+    
+    animation: flip;
+    animation-duration: 1s; 
+    
 }

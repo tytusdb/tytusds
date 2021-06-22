@@ -21,7 +21,8 @@ import { BinaryTreeComponent } from './components/binary-tree/binary-tree.compon
 import { EstructuraArboreaComponent } from './components/estructura-arborea/estructura-arborea.component'
 
 import { InsertionSortComponent } from './components/insertion-sort/insertion-sort.component';
-import { AVLComponent } from './components/avl/avl.component'
+import { AVLComponent } from './components/avl/avl.component';
+import { MetodorapidoComponent } from './components/metodorapido/metodorapido.component'
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { AVLComponent } from './components/avl/avl.component'
     EstructuraArboreaComponent,
     InsertionSortComponent,
     AVLComponent,
+    MetodorapidoComponent,
   ],
   imports: [
     BrowserModule,

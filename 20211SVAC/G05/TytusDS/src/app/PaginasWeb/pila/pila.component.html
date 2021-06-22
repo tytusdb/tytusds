@@ -1,33 +1,32 @@
-
-<app-opciones (opcionesEvento)="getOpciones($event)"></app-opciones>
-<div class="container mt-3">
-    <h1 class="fw-light">Pila</h1>
+<div class="container">
+  <app-opciones (opcionesEvento)="getOpciones($event)"></app-opciones>
+    <h1 class="fw-light text-white">Pila</h1>
     <hr>
     <div class="row">
       <div ><input #agregar type="text"  placeholder="Valor" >
         <button id="Agregar" class="btn btn-primary" style="margin: 5px" (click)="Add(agregar.value)">Agregar</button>
         <button id="Eliminar" class="btn btn-danger" style="margin: 10px" (click)="delete()">Eliminar</button>
-        <input #actual type="text" style="margin: 5px" placeholder="Valor Actual"> 
-        <input #nuevo_valor type="text" style="margin: 5px" placeholder="Nuevo Valor"> 
+        <input #actual type="text" style="margin: 5px" placeholder="Valor Actual">
+        <input #nuevo_valor type="text" style="margin: 5px" placeholder="Nuevo Valor">
         <button id="Modificar" class="btn btn-primary" style="margin: 5px" (click)="modi(actual.value,nuevo_valor.value)" >Modificar</button>
       </div>
 
       <div  >
         <input  style="margin: 5px" type="file" id="formFile" (change)="getDocumento($event.target)" >
         <button id="Guardar" class="btn btn-primary" style="margin: 5px" (click)="guardar()"  >Guardar json <span class=".glyphicon-search"></span></button>
-        <input #buscar type="text"  placeholder="Buscar"> 
+        <input #buscar type="text"  placeholder="Buscar">
         <button id="Buscar" class="btn btn-primary" style="margin: 5px" (click)="bus(buscar.value)"  >Buscar  <span class=".glyphicon-search"></span></button>
         <button id="Actualizar" class="btn btn-primary" style="margin: 5px" (click)="actualizar()"  >Actualizar  <span class=".glyphicon-search"></span></button>
-        
+
       </div>
       <div  id="myDiv1"   style="color: blue;"> </div>
-      
-        
-    
+
+
+
 
     <hr>
-    
-    
+
+
 </div>
 <br>
 <br>

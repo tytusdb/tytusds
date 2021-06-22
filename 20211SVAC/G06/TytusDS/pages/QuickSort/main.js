@@ -80,16 +80,28 @@ async function QuickSortT(arreglo, izq, der) {
     var speed = document.getElementById("formControlRange").value;
     speed = convertir(speed)
     let medio = Math.round((izq + der) / 2)
-    let pivote = arreglo.labels[medio]
+    let pivote = 0
+    for (k = 0; k < arreglo.labels[medio].length; k++) {
+        pivote += arreglo.labels[medio].toString().charCodeAt(k)
+    }
+    console.log(pivote)
     let i = izq
     let j = der
     let aux, aux2
     do {
-        while (arreglo.labels[i] < pivote) i++;
-        console.log(arreglo.labels[i])
-        while (arreglo.labels[j] > pivote) j--;
-        console.log(arreglo.labels[j])
-        console.log(pivote)
+        let seg = 0
+        let pri = 0
+        for (k = 0; k < arreglo.labels[i].length; k++) {
+            seg += arreglo.labels[i].toString().charCodeAt(k)
+        }
+        console.log(seg)
+        for (k = 0; k < arreglo.labels[j].length; k++) {
+            pri += arreglo.labels[j].toString().charCodeAt(k)
+        }
+        console.log(pri)
+        while (seg < pivote) i++;
+        while (pri > pivote) j--;
+        console.log("d")
         await new Promise(resolve => setTimeout(resolve, speed)); // 3 sec
         if (i <= j) {
             MyChart.data.datasets[0].backgroundColor[i] = '#030106'
@@ -111,10 +123,10 @@ async function QuickSortT(arreglo, izq, der) {
         }
     } while (i <= j);
     if (izq < j) {
-        QuickSortN(arreglo.labels, izq, j)
+        QuickSortT(arreglo, izq, j)
     }
     if (i < der) {
-        QuickSortN(arreglo.labels, i, der)
+        QuickSortT(arreglo, i, der)
     }
     MyChart.data.datasets[0].backgroundColor[i] = '#78d7d7'
     MyChart.data.datasets[0].backgroundColor[j] = '#78d7d7'

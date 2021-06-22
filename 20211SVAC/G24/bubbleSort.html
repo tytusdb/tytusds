@@ -13,6 +13,7 @@
 				<input style='padding-right: 5%;'type='file' id='file' />
 				<input type='button' id='play' value='Ordenar' />
 				<input style='margin-left: 1%;' id='speed' type='range' min='0' max='9' step='1' value='4'/>
+				<input type='submit' id='downBtn' value='Guardar'/>
 				<script>
 					var list=[];
 					var auxList=[];
@@ -20,7 +21,13 @@
 						var fil = document.getElementById('file').files[0];
 						const read= new FileReader();
 						read.onload=function(){
-							list=JSON.parse(read.result).valores
+							list=JSON.parse(read.result).valores;
+							rep=JSON.parse(read.result).repeticion;
+							document.getElementById('speed').value=JSON.parse(read.result).animacion;
+							if(!rep){
+								list=list.filter((item,index)=>list.indexOf(item)===index);
+							}
+
 							if(isNumeric(list[1])){
 								auxList=[...list];
 							}else{
@@ -32,6 +39,7 @@
 						read.readAsText(fil)
 					}
 
+			
 					function Ascii2Number(string){
 						val=0
 						for(var i=0; i<string.length;i++){
@@ -46,7 +54,7 @@
 							if (max > canvas.width){	
 								var heightProportionBar=canvas.height / max;
 							}else{
-								var heightProportionBar=max / canvas.height;	
+								var heightProportionBar=max/canvas.height;	
 							}
 
 							const barList = auxList.map((v,i)=>{
@@ -81,7 +89,7 @@
 					comp : 'comp',
 					swap : 'swap',
 				};
-
+				var rep=false;
 				const actionsM ={
 					[actions.sort] : (action, bars) => bars[action.data].sort(),
 					[actions.swap] : (action, bars) => {
@@ -122,7 +130,6 @@
 				};
 				
 				function bar(x,y,w,h,c='gray'){
-					//console.log(x,y,w,h)
 					this.x=x;
 					this.y=y;
 					this.w=w;
@@ -157,6 +164,28 @@
 			function isNumeric(n) {
   				return !isNaN(parseFloat(n)) && isFinite(n);
 			}
+
+			document.getElementById('downBtn').onclick=function(){
+				var obj = new Object();
+				obj.categoria="Estructura Lineal";
+				obj.nombre="Ordenamiento";
+				obj.repeticion=rep;
+				obj.animacion= document.getElementById('speed').value;
+				obj.valores=list;
+				var jsonString=JSON.stringify(obj,undefined,2);
+				console.log(jsonString);
+				download(jsonString, "bubbleSort.json", "text/plain");
+			
+			}
+
+			function download(content, fileName, contentType) {
+				const a = document.createElement("a");
+				const file = new Blob([content], { type: contentType });
+				a.href = URL.createObjectURL(file);
+				a.download = fileName;
+				a.click();
+			}
+
 
 			</script>
 

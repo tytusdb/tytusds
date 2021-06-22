@@ -50,12 +50,12 @@ export class CpComponent implements OnInit {
           //this.lista.insertar2(valor);
           }
           ); 
-          setInterval(this.lista.buscarespecial(),1000);});  
+          this.lista.buscarespecial(this.opciones['velocidadLineales'])});  
     }else{
       this.documentoService.getDocumento(documento).then( contenido => {
         contenido['valores'].forEach(valor => { 
-          this.lista.guardar2(valor);
-          });setInterval(this.lista.buscarespecial(),1000); });
+          this.lista.guardar2(valor['prioridad'],valor['valor']);
+          });this.lista.buscarespecial(this.opciones['velocidadLineales']) });
     }
     //this.lista.buscarespecial();
     
@@ -79,7 +79,7 @@ export class CpComponent implements OnInit {
     if(this.opciones['repeticionLineales']===true){
       //this.lista.repeat=true;
       this.lista.guardar(valor,valor1);
-      this.lista.buscarespecial()
+      this.lista.buscarespecial(this.opciones['velocidadLineales'])
       this.ag = '';
       this.ag0 = '';
       this.agx = '';
@@ -87,8 +87,8 @@ export class CpComponent implements OnInit {
     }
     else{
       //this.lista.repeat=false;
-      this.lista.guardar2(valor,valor1);
-      this.lista.buscarespecial()
+      this.lista.guardar21(valor,valor1,this.opciones['velocidadLineales']);
+      //this.lista.buscarespecial(this.opciones['velocidadLineales'])
       this.ag = '';
       this.agx = '';
       return;
@@ -104,7 +104,7 @@ export class CpComponent implements OnInit {
   //
 
   bus(valor){
-     this.lista.buscar(valor);
+     this.lista.buscar(valor,this.opciones['velocidadLineales']);
     this.ag3 = '';
       return;
   }
