@@ -24,6 +24,9 @@ import { OrdenamientoInsercionComponent } from './componentes/ordenamiento-inser
 import { OrdenamientoRapidoComponent } from './componentes/ordenamiento-rapido/ordenamiento-rapido.component';
 import { ArbolAvlComponent } from './componentes/arbol-avl/arbol-avl.component';
 import { ArbolBinarioComponent } from './componentes/arbol-binario/arbol-binario.component';
+import { ArbolBComponent } from './componentes/arbol-b/arbol-b.component';
+import { ArbolBMasComponent } from './componentes/arbol-bmas/arbol-bmas.component';
+import { ArbolMerkleComponent } from './componentes/arbol-merkle/arbol-merkle.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +48,10 @@ import { ArbolBinarioComponent } from './componentes/arbol-binario/arbol-binario
     OrdenamientoInsercionComponent,
     OrdenamientoRapidoComponent,
     ArbolAvlComponent,
-    ArbolBinarioComponent
+    ArbolBinarioComponent,
+    ArbolBComponent,
+    ArbolBMasComponent,
+    ArbolMerkleComponent
   ],
   imports: [
     BrowserModule,

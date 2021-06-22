@@ -12,17 +12,20 @@ export class ArbolBinarioComponent implements OnInit {
     
   }
   getValuePila(val:string){
-    addValuePila(val)
+    
   }
+
   getValuePilaDelet(){
-    getValuePilaDelet()
+    
 
   }
+  
   getValueBuscarPila(val:string){
-    getValueBuscar(val)
+    
   }
+
   getValueReemplzarPila(val:string,val2:string){
-    getActualizar(val,val2)
+    
 
   }
 
