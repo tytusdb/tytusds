@@ -82,6 +82,7 @@ let flechas = document.getElementById('flechas');
 let nodes = document.getElementsByClassName('node');
 let pointers = document.getElementsByClassName('pointer');
 let error = document.getElementById('error');
+var tipoDato;
 
 //----------------TIEMPO ANIMACION----------------
 let tiempo_animacion;
