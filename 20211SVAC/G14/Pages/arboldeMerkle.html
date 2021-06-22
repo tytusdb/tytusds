@@ -1,51 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" type="text/css" href="../CSS/header.css">
-  <link rel="stylesheet" type="text/css" href="../CSS/ddNavBar.css">
-
+    <link rel="stylesheet" type="text/css" href="../CSS/header.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/ddNavBar.css">
     <meta charset="UTF-8">
-    <title>Árbol de Merkle</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BST</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 </head>
 <body>
+    <script type="text/javascript">
+        const MerkelTree = require("./MerkelTree");
+        const TransactionList = require("./TransactionList");
+        const Transaction = require("./Transaction");
+        const util = require("util");
 
-<h1>Árbol de Merkle</h1>
+        let transactionList = new TransactionList();
 
-<ul>
-  <li><a class="active" href="../index.html">Home</a></li>
-  <li class="dropdown">
-    <a href="javascript:void(0)" class="dropbtn">Estructura lineales</a>
-    <div class="dropdown-content">
-      <a href="listaSimplementeEnlazada.html">Lista simplemente enlazada</a>
-      <a href="listaDoblementeEnlazada.html">Lista doblemente enlazada</a>
-      <a href="listaCircularSimplementeEnlazada.html">Lista circular simplemente enlazada</a>
-      <a href="listaCircularDoblementeEnlazada.html">Lista circular doblemente enlazada</a>
-      <a href="pila.html">Pila</a>
-      <a href="cola.html">Cola</a>
-      <a href="colaDePrioridad.html">Cola de prioridad</a>
-    </div>
-  </li>
-  <li class="dropdown">
-    <a href="javascript:void(0)" class="dropbtn">Ordenamientos</a>
-    <div class="dropdown-content">
-      <a href="burbuja.html">Burbuja</a>
-      <a href="seleccion.html">Selección</a>
-      <a href="insercion.html">Inserción</a>
-      <a href="rapido.html">Rápido</a>
-    </div>
-  </li>
-  </li>
-  <li class="dropdown">
-    <a href="javascript:void(0)" class="dropbtn">Estructuras arbóreas</a>
-    <div class="dropdown-content">
-      <a href="arbolBinarioDeBusqueda.html">Árbol binario de búsqueda</a>
-      <a href="avl.html">AVL</a>
-      <a href="arbolB.html">Árbol B</a>
-      <a href="arbolB+.html">Árbol B+</a>
-      <a href="arboldeMerkle.html">Árbol de Merkle</a>
-    </div>
-  </li>
+        /*for (let index = 0; index < 5; index++) {
+            transactionList.add(new Transaction(Math.random(), Math.random(), Math.random()));
+        }*/
+
+        const tree = new MerkelTree();
+
+        tree.crearArbol(transactionList.list);
+
+        console.log(util.inspect(tree, false, null, true /* enable colors */));
+        tree.verify(transactionList.list[2]);
+
+        // Lets tamper the data
+
+        transactionList.list[2].to = "kashish";
+        console.log(util.inspect(transactionList, false, null, true /* enable colors */));
+        tree.verify(transactionList.list[2]);
+
+
+    </script>
+    <div class="text-center">
+        <h1>Merkel Tree</h1>
+        <ul>
+    <li><a class="active" href="../index.html">Home</a></li>
+    <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Estructura lineales</a>
+        <div class="dropdown-content">
+            <a href="listaSimplementeEnlazada.html">Lista simplemente enlazada</a>
+            <a href="listaDoblementeEnlazada.html">Lista doblemente enlazada</a>
+            <a href="listaCircularSimplementeEnlazada.html">Lista circular simplemente enlazada</a>
+            <a href="listaCircularDoblementeEnlazada.html">Lista circular doblemente enlazada</a>
+            <a href="pila.html">Pila</a>
+            <a href="cola.html">Cola</a>
+            <a href="colaDePrioridad.html">Cola de prioridad</a>
+        </div>
+    </li>
+    <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Ordenamientos</a>
+        <div class="dropdown-content">
+            <a href="burbuja.html">Burbuja</a>
+            <a href="seleccion.html">Selección</a>
+            <a href="insercion.html">Inserción</a>
+            <a href="rapido.html">Rápido</a>
+        </div>
+    </li>
+    </li>
+    <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Estructuras arbóreas</a>
+        <div class="dropdown-content">
+            <a href="arbolBinarioDeBusqueda.html">Árbol binario de búsqueda</a>
+            <a href="avl.html">AVL</a>
+            <a href="arbolB.html">Árbol B</a>
+            <a href="arbolB+.html">Árbol B+</a>
+            <a href="arboldeMerkle.html">Árbol de Merkle</a>
+        </div>
+    </li>
 </ul>
+
+<br>
+        <div class="container ">
+            <!--<label>Valor del nodo: </label></br>
+            <input type="number" id="txtKey"/></br></br>-->
+            <input type="button" value="Insertar" onclick="transactionList.add(new Transaction(Math.random(), Math.random(), Math.random()));"/>
+            <input type="button" value="Mostrar" onclick=""/>
+            <input type="button" value="Buscar" onclick=""/>
+            <input type="button" value="Limpiar" onclick="document.getElementById('texto').innerHTML='';"/>
+            <input type="button" value="Eliminar" onclick=""/>
+        </div>
+        </br>
+        <h5 id="ResultadoBusqueda">...</h5>
+        
+        </br>
+        <h2>Arbol:</h2>
+        <div class="container">
+            <p id="texto">
+                
+            </p>
+        </div>
+        
+    
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 
 </body>
 </html>

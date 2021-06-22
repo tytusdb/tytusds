@@ -20,7 +20,8 @@ import { ListasimpleComponent } from './components/listasimple/listasimple.compo
 import { BinaryTreeComponent } from './components/binary-tree/binary-tree.component';
 import { EstructuraArboreaComponent } from './components/estructura-arborea/estructura-arborea.component'
 
-import { InsertionSortComponent } from './components/insertion-sort/insertion-sort.component'
+import { InsertionSortComponent } from './components/insertion-sort/insertion-sort.component';
+import { AVLComponent } from './components/avl/avl.component'
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { InsertionSortComponent } from './components/insertion-sort/insertion-so
     BinaryTreeComponent,
     EstructuraArboreaComponent,
     InsertionSortComponent,
+    AVLComponent,
   ],
   imports: [
     BrowserModule,

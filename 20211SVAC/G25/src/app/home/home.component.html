@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <!-- CSS only -->
+
+    <title>Algoritmos </title>
+  </head>
+  <body>
+<div>
+  <table>
+    <tr>
+      <td>Seleccione tipo de algoritmo</td>
+      <td>
+<select [(ngModel)]="optionSelect" (change)="mostAlg()">
+<option value="1">Estructuras Lineales</option>
+<option value="2">Ordenamientos</option>
+<option value="3">Estructuras arboreas</option>
+</select>
+      </td>
+    </tr>
+    <tr>
+      <td>Seleccione un algoritmo</td>
+      <td>
+<select [(ngModel)]="algoSelect" (change)="reiniciarLista()">
+  <option [value]="i.valor" *ngFor="let i of filtrados">{{i.nombre}}</option>
+</select>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+    </tr>
+  </table>
+</div>
+
+<!--cola-->
+<div  *ngIf="algoSelect==6&&optionSelect==1">
+  <table>
+<tbody>
+      <tr>
+        <td>
+        <input autofocus type="text" [(ngModel)]="valorLista">
+        </td>
+        <td>
+      <button  type="button" (click)="agrCola()" >Agregar</button>
+        </td>
+        <td>
+      <button  type="button" (click)="eliCola()">Eliminar</button>
+        </td>
+          <td>
+        <button  type="button" >Actualizar</button>
+          </td>
+            <td>
+          <button  type="button" >Buscar</button>
+            </td>
+      </tr>
+</tbody>
+  </table>
+
+<table border="1">
+  <tbody>
+    <tr *ngFor="let i of nodoTemp">
+      <td>{{i.label}}</td>
+
+
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+<!--pila-->
+<div  *ngIf="algoSelect==5&&optionSelect==1">
+  <table>
+<tbody>
+      <tr>
+        <td>
+        <input autofocus type="text" [(ngModel)]="valorLista">
+        </td>
+        <td>
+      <button  type="button" (click)="agrPila()" >Agregar</button>
+        </td>
+        <td>Apilar</td>
+        <td>
+<input type="checkbox" [(ngModel)]="chekeado">
+        </td>
+        <td>
+      <button  type="button" (click)="eliPila()">Eliminar</button>
+        </td>
+          <td>
+        <button  type="button" >Actualizar</button>
+          </td>
+            <td>
+          <button  type="button" >Buscar</button>
+            </td>
+      </tr>
+</tbody>
+  </table>
+
+<table border="1">
+  <tbody>
+    <tr *ngFor="let i of nodoTemp">
+      <td>{{i.label}}</td>
+
+
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<!--lista circular doblemente enlazada-->
+<div *ngIf="algoSelect==4&&optionSelect==1">
+  <table>
+<tbody>
+      <tr>
+        <td>
+        <input autofocus type="text" [(ngModel)]="valorLista">
+        </td>
+        <td>
+      <button  type="button" (click)="agrCircular()" >Agregar</button>
+        </td>
+        <td>
+      <button  type="button" (click)="eliCircular()">Eliminar</button>
+        </td>
+          <td>
+        <button  type="button" >Actualizar</button>
+          </td>
+            <td>
+          <button  type="button" >Buscar</button>
+            </td>
+      </tr>
+</tbody>
+  </table>
+
+<table>
+  <tbody>
+    <td *ngFor="let i of nodoTemp; let indice = index;let primero = first; let ultimo=last;">
+      <tr>{{i}} <--> </tr>
+
+      <tr *ngIf="indice==0">^---------<tr>
+      <tr *ngIf="indice>0">----------<tr>
+
+    </td>
+  </tbody>
+</table>
+</div>
+
+
+<!--lista circular simplemente enlazada-->
+<div *ngIf="algoSelect==3&&optionSelect==1">
+  <table>
+<tbody>
+      <tr>
+        <td>
+        <input autofocus type="text" [(ngModel)]="valorLista">
+        </td>
+        <td>
+      <button  type="button" (click)="agrCircular()" >Agregar</button>
+        </td>
+        <td>
+      <button  type="button" (click)="eliCircular()">Eliminar</button>
+        </td>
+          <td>
+        <button  type="button" >Actualizar</button>
+          </td>
+            <td>
+          <button  type="button" >Buscar</button>
+            </td>
+      </tr>
+</tbody>
+  </table>
+
+<table>
+  <tbody>
+    <td *ngFor="let i of nodoTemp; let indice=index">
+      <tr>{{i}} --> </tr>
+
+      <tr *ngIf="indice==0">^---------<tr>
+      <tr *ngIf="indice>0">----------<tr>
+    </td>
+  </tbody>
+</table>
+</div>
+
+
+<!--lista doblemente enlazada-->
+<div *ngIf="algoSelect==2&&optionSelect==1">
+  <table>
+<tbody>
+      <tr>
+        <td>
+        <input autofocus type="text" [(ngModel)]="valorLista">
+        </td>
+        <td>
+      <button  type="button" (click)="agrListaDoble()" >Agregar</button>
+        </td>
+        <td>
+      <button  type="button" >Eliminar</button>
+        </td>
+          <td>
+        <button  type="button" >Actualizar</button>
+          </td>
+            <td>
+          <button  type="button" >Buscar</button>
+            </td>
+      </tr>
+</tbody>
+  </table>
+
+<table>
+  <tbody>
+    <td *ngFor="let i of nodoTemp">
+      <tr>{{i}} <--> </tr>
+    </td>
+  </tbody>
+</table>
+</div>
+
+
+
+<!--lista simplemente enlazada-->
+<div *ngIf="algoSelect==1&&optionSelect==1">
+  <table>
+<tbody>
+      <tr>
+        <td>
+        <input autofocus type="text" [(ngModel)]="valorLista">
+        </td>
+        <td>
+      <button  type="button" (click)="agrLista()" >Agregar</button>
+        </td>
+        <td>
+      <button  type="button" (click)="eliLista()" >Eliminar</button>
+        </td>
+          <td>
+        <button  type="button">Actualizar</button>
+          </td>
+            <td>
+          <button  type="button" >Buscar</button>
+            </td>
+      </tr>
+</tbody>
+  </table>
+
+<table>
+  <tbody>
+    <td *ngFor="let i of nodoTemp">
+      <tr>{{i}} --> </tr>
+    </td>
+  </tbody>
+</table>
+</div>
+
+  </body>
+</html>

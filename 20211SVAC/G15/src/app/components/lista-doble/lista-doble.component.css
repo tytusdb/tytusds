@@ -12,6 +12,9 @@ body {
   z-index: 9999;
   
 }
+.file-input{
+  display: none;
+}
 
 
 .arrow {

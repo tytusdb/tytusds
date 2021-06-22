@@ -1,6 +1,7 @@
 var contador = 2
 var arrayNodes = []
 var edges = []
+var arregloaux = []
 var clickedNode
 var clickedNodoValue
 var network = null
@@ -180,6 +181,18 @@ class ArbolBMas{
             }
             if(temp.hijos.length > 0){
                 return this.buscarNodo(valor, temp.hijos[temp.claves.length])
+            }
+        }
+    }
+
+    recorrerGuardar(temp){
+        if(temp != null){
+            var i
+            for(i = 0; i<temp.claves.length; i++){
+                arregloaux.push(temp.claves[i])
+            }
+            for(i = 0; i<temp.hijos.length; i++){
+                this.recorrerGuardar(temp.hijos[i])
             }
         }
     }
@@ -422,5 +435,34 @@ function read(){
                 }
                 break;
         }
+    }
+}
+
+function descargar(){
+    arbol.recorrerGuardar(arbol.raiz)
+    let array = {
+        categoria: "Estructura Arboreas",
+        nombre: "Arbol B/B+",
+        grado:arbol.grado,
+        repeticion: switchToggle.checked,
+        animacion: parseInt(slider.value),
+        valores: arregloaux
+    }
+    arregloaux = []
+    var json = JSON.stringify(array, null, "\t");
+    json = [json];
+    var blob1 = new Blob(json, { type: "text/json;charset=utf-8" });
+    var isIE = false || !!document.documentMode;
+    if (isIE) {
+        window.navigator.msSaveBlob(blob1, "data.json");
+    } else {
+        var url = window.URL || window.webkitURL;
+        link = url.createObjectURL(blob1);
+        var a = document.createElement("a");
+        a.download = "dataArbolB+.json";
+        a.href = link;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
     }
 }

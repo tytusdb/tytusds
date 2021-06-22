@@ -1,6 +1,7 @@
 import { analyzeNgModules, NullTemplateVisitor } from "@angular/compiler";
 import { toInteger } from "@ng-bootstrap/ng-bootstrap/util/util";
 import { NodoP } from "./NodoP";
+import { Draw } from "src/app/helpers/Draw/Draw";
 
 export class ColaP {
 
@@ -8,11 +9,13 @@ export class ColaP {
     raiz: NodoP;
     fondo: NodoP;
     identificador: number;
+    draw: Draw
 
     constructor() {
         this.raiz = null;
         this.fondo = null;
         this.identificador = 0;
+        this.draw= new Draw()
     }
 
     empty() {
@@ -31,14 +34,11 @@ export class ColaP {
         return div
     }
 
-    async insertarInicio(dato, prioridad, svg, dibujo, duracion) {
+    async insertarInicio(dato, prioridad, dibujo, duracion) {
         let NewNodo: NodoP = new NodoP(dato, prioridad, this.identificador);
         if (this.raiz === null) {
             this.raiz = NewNodo;
             this.fondo = NewNodo;
-            //    NewNodo.anterior = null
-            //    NewNodo.siguiente = null
-            //codigo nuevo 
             let div: any = this.crearNodo(dato,prioridad, this.identificador)
             dibujo.appendChild(div)
             this.identificador++
@@ -65,31 +65,10 @@ export class ColaP {
         this.fondo.sigueinte = NewNodo
         NewNodo.anterior = this.fondo
         this.raiz = NewNodo
-
-        // }}
-
-
-
-
-        // if (this.raiz.siguiente !== this.cola && this.raiz.siguiente !== null) {
-        //     this.removerElemento("arrowprimero-ultimo")
-       
-        //     this.removerElemento("arrowultimo-primero")
-
-        // }
-
-
-
-
-        // NewNodo.siguiente = this.raiz; // al inicio nuestro nuevo nodo apunta a la raiz
-        // this.raiz.anterior = NewNodo;
-        // this.raiz = NewNodo;
-
-        //this.corregirPaths(svg, this.raiz);
         return NewNodo.identificador;
     }
 
-    async add(dato: number | string, prioridad: number, svg, dibujo, duracion) {
+    async add(dato: number | string, prioridad: number,  dibujo, duracion) {
         let NewNodo: NodoP = new NodoP(dato,prioridad, this.identificador) //creamos un nuevo nodo
         if (this.raiz == null) {
             this.raiz = NewNodo
@@ -111,7 +90,7 @@ export class ColaP {
         }
 
         if (Number(prioridad) > Number(this.raiz.prioridad)) {
-            this.insertarInicio(dato, prioridad,svg,dibujo,duracion)
+            this.insertarInicio(dato, prioridad,dibujo,duracion)
         } else {
             let index =0 
             let aux= this.raiz
@@ -132,7 +111,6 @@ export class ColaP {
                     dibujo.insertBefore(div, dibujo.children[index + 1]);
                     await this.animateNode("nodo" + NewNodo.identificador, "zoomIn", duracion)
 
-                   // this.corregirPaths(svg, this.raiz)
                     return;
                 }
                 index++
@@ -140,12 +118,12 @@ export class ColaP {
                 if (aux === this.fondo) break
                     if(aux=== null)break
             }
-            this.insertarFinal(dato,prioridad,svg,dibujo,duracion)
+            this.insertarFinal(dato,prioridad,dibujo,duracion)
                 return 1
         }
     }
 
-    async insertarFinal(dato: number | string, prioridad: number,svg, dibujo, duracion) {
+    async insertarFinal(dato: number | string, prioridad: number, dibujo, duracion) {
         let NewNodo: NodoP = new NodoP(dato, prioridad,this.identificador) //creamos un nuevo nodo
         if (this.raiz == null) {
             this.raiz = NewNodo
@@ -198,7 +176,6 @@ export class ColaP {
 
             node.addEventListener('animationend', handleAnimationEnd, { once: true });
 
-            //resolve('Animation ended');
         });
     }
 
@@ -208,7 +185,7 @@ export class ColaP {
         if (aux === null) return null
         do {
             await this.animateNode("nodo" + aux.identificador, 'bounceIn', duration);
-            if (aux.dato === dato) return { Nodo: aux, index: i };
+            if (aux.dato === dato) return { NodoP: aux, index: i };
             aux = aux.sigueinte
             i++;
             if (aux === null) break;
@@ -247,8 +224,6 @@ export class ColaP {
             this.removerElemento("arrow" + id2 + "-" + id1)
 
             this.raiz = aux.sigueinte;
-            //aux = aux.siguiente
-           // this.corregirPaths(svg, this.raiz)
             return 1
         }
         do {
@@ -301,5 +276,27 @@ export class ColaP {
         console.log("")
     }
 
+    generarJSON() {
+        let data = {
+            categoria: "Estructura Lineal",
+            nombre: "Cola Prioridad",
+            valores: {
+                valor : [],
+                prioridad : []
+            }
+        }
 
+        let temp = this.raiz
+
+        do {
+            data.valores.valor.push(temp.dato)
+            data.valores.prioridad.push(temp.prioridad)
+            temp = temp.sigueinte
+            if (temp === null) break;
+        } while (temp != this.raiz)
+
+        return JSON.stringify(data)
+    }
+
+    
 }

@@ -1,6 +1,6 @@
 .cuadrito{
 
-    width: 6em;
+    width: 8em;
     height: 2em;
     background-color: white;
     
@@ -12,12 +12,17 @@
     font-size: 15px;
     font-weight: bold;
     box-shadow: 1px 1px 2px 1px black;
-    animation: fadeInUp; 
+    animation: backInUp; 
     animation-duration: 1s; 
     
     /*animation-name: entrada;
     animation-duration: 1s;*/
 
+}
+.cuadroAnim{
+    
+    padding-left: 90px;
+    border: none;
 }
 .eliminado{
     animation: flipOutX; 

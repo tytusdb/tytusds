@@ -32,6 +32,7 @@
     "rxjs": "~6.5.4",
     "sweetalert2": "^11.0.17",
     "tslib": "^1.10.0",
+    "vis": "^4.21.0-EOL",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
