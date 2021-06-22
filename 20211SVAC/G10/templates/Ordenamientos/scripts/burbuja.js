@@ -10,9 +10,25 @@ const velocidad = document.getElementById("velocidad")
 
 let nuevo = []
 let original = []
-let color = []
 
 let num_velocidad;
+
+let data = {}
+let options = {}
+
+var grafica = new Chart(document.getElementById("lienzo"), {
+    typer: 'bar',
+    data: data,
+    options: {
+        legend: {display: false},
+        title: {
+          display: true
+        },
+        scales: {
+            yAxes: [{ticks: {min: 0, max:1000}}]
+        }
+    }
+})
 
 velocidad.oninput = () => {
     document.getElementById('numero').innerHTML = velocidad.value
@@ -30,11 +46,10 @@ agregar.addEventListener("click", (e) => {
         nuevo = dato.value.split(', ')
         original = nuevo
     }
-
     for(let i = 0; i < original.length; i ++) {
         color.push('rgb(240, 84, 84)')
     }
-    animacion(original)
+
 })
 
 ordenar.addEventListener("click", (e) => {
@@ -42,14 +57,12 @@ ordenar.addEventListener("click", (e) => {
     if(dato.value != '' || nuevo.length > 0){  
         salida.lista = burbuja(nuevo, nuevo.length)   
     }
-    animacion(nuevo)
 })
 
-function burbuja (lista, size){
+async function burbuja (lista, size){
     let aux;
     for (let i = 0; i<size-1; i ++) {
         for (let j = i+1; j < size; j++) {
-
             if(lista[i] > lista[j]) {
                 aux = lista[i];
                 lista[i] = lista[j];
@@ -75,17 +88,33 @@ archivo.addEventListener('change', () => {
 
 cargar.addEventListener("click", (e) => {
     e.preventDefault()
+
+    let labels = []
+    let color = []
+
     let lista_ingresada = []
     let valores = entrada["valores"]
 
     for (let i = 0; i < valores.length; i++) {
         lista_ingresada.push(valores[i])
+        labels.push(valores[i])
+        color.push('rgb(240, 84, 84)')
     }
-    animacion(lista_ingresada)
+
     nuevo = lista_ingresada
 
     document.getElementById('mensaje').innerText = ''
     archivo.setAttribute('disabled', '')
+
+    grafica.data = {
+        labels: labels,
+        datasets: [{
+            backgroundColor: color,
+            data: labels
+        }]
+    }
+
+    grafica.update()
 })
 
 guardar.addEventListener("click", (e) => {
@@ -96,22 +125,22 @@ guardar.addEventListener("click", (e) => {
 //nuevo
 
 //rgb(48, 71, 94)
-
-function animacion(lista) {
-    new Chart(document.getElementById("lienzo"), {
-        type: 'bar',
-        data: {
-            labels: lista,
-            datasets: [{
-                backgroundColor: color,
-                data: lista
-            }]
-        },
-        options: {
-            legend: {display: false},
-            title: {
-              display: true
-            }
+/**
+var grafica = new Chart(document.getElementById("lienzo"), {
+    type: 'bar',
+    data: {
+        labels: original,
+        datasets: [{
+            backgroundColor: color,
+            data: original
+        }]
+    },
+    options: {
+        legend: {display: false},
+        title: {
+          display: true
         }
-    })
-}
+    }
+})
+ 
+*/
