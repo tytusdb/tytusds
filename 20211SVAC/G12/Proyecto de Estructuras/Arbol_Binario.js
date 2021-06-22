@@ -79,9 +79,25 @@ class Arbol_Binario{
         }
     }
 
+    buscar_nodo(dato){
+        var aux = this.raiz;
+        while(aux.valor != dato){
+            if(dato < aux.valor){
+                aux = aux.izquierdo;
+            }else{
+                aux = aux.derecho;
+            }
+            if(aux == null){
+                console.log("no se encontro");
+            }
+        }
+        console.log("dato encontrado");
+        console.log(aux)
+    }
+
     graficar(){
         let tx=(150*this.valores)/2
-        let ty=1
+        let ty=3
         let temp=[this.raiz.altura]
         console.log(temp)
         this.graficarNodo(this.raiz,tx,ty,150*(this.raiz.altura+1))
@@ -116,20 +132,11 @@ let abb = new Arbol_Binario();
 
 function insertar_nodo(){
     var dato = document.getElementById('dato_pag').value;
-    var dato=parseInt(dato)
+    var dato = parseInt(dato);
+
     document.getElementById("result").innerHTML="";
 
     abb.insertar(dato);
-    /*abb.insertar(1)
-    abb.insertar(10)
-    abb.insertar(5)
-    abb.insertar(3)
-    abb.insertar(14)
-    abb.insertar(6)
-    abb.insertar(7)
-    abb.insertar(11)
-    abb.insertar(0)
-    abb.insertar(17)*/
     abb.graficar();
 }
 
