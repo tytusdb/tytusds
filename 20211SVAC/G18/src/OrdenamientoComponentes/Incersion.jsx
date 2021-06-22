@@ -169,11 +169,11 @@ export class Incersion extends Component {
 
                 listaIncersion[j + 1] = listaIncersion[j];
                 j--;
-                this.ordenamientoAnimacion(++contador, listaIncersion,true)
+                this.ordenamientoAnimacion(++contador, [...listaIncersion],true)
             }
 
             listaIncersion[j + 1] = elemento;
-            this.ordenamientoAnimacion(++contador, listaIncersion,true)
+            this.ordenamientoAnimacion(++contador, [...listaIncersion],true)
         }
 
 
@@ -193,11 +193,11 @@ export class Incersion extends Component {
     
                     listaIncersion[j + 1] = listaIncersion[j];
                     j--;
-                    this.ordenamientoAnimacion(++contador, listaIncersion,false)
+                    this.ordenamientoAnimacion(++contador, [...listaIncersion],false)
                 }
     
                 listaIncersion[j + 1] = elemento;
-                this.ordenamientoAnimacion(++contador, listaIncersion,false)
+                this.ordenamientoAnimacion(++contador, [...listaIncersion],false)
             }
         }
 
