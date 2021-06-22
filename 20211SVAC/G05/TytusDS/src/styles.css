@@ -1,5 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
-
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 .animacion {
     height: 400px;
+}
+.Cmenu{
+  background: linear-gradient(to right,#1C1C1C,#E6E6E6);
 }

@@ -40,13 +40,13 @@ export class PilaComponent implements OnInit {
         console.log(contenido);
         contenido['valores'].forEach(valor => { 
           this.lista.guardar2(valor);
-          });this.lista.pintar2(); });
+          }); this.lista.pintar2(this.opciones['velocidadLineales']); });
     }
     else{
       this.documentoService.getDocumento(documento).then( contenido => {
         console.log(contenido);
         contenido['valores'].forEach(valor => { 
-          this.lista.guardarg(valor);
+          this.lista.guardarg2(valor);
           }); this.lista.pintar2(); });
     }
     
@@ -72,11 +72,11 @@ export class PilaComponent implements OnInit {
   Add(valor){
     if(this.opciones['repeticionLineales']===true){
       //this.lista.repeat=true;
-      this.lista.guardar(valor);
+      this.lista.guardar(valor,this.opciones['velocidadLineales']);
     }
     else{
       //this.lista.repeat=false;
-      this.lista.guardarg(valor);
+      this.lista.guardarg(valor,this.opciones['velocidadLineales']);
       console.log("gg");
     }
 
@@ -92,8 +92,8 @@ export class PilaComponent implements OnInit {
     
 
   }
- bus(valor){
-    let bus= this.lista.buscar(valor);
+ bus(valor,){
+    let bus= this.lista.buscar(valor,this.opciones['velocidadLineales']);
     if (bus!==null){
     }else{
       alert("Dicho nodo no ha sido ingresado")

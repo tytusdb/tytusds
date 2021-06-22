@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef,ViewChild, Renderer2  } from '@angular/core';
 import {ColaP}from '../ColaPrioridad/ColaP'
 import Swal from 'sweetalert2'
-
+import { ColaPrioridad } from 'src/app/helpers/interfaz/colaPrioridad';
 @Component({
   selector: 'app-cola-prioridad',
   templateUrl: './cola-prioridad.component.html',
@@ -116,28 +116,18 @@ export class ColaPrioridadComponent implements OnInit {
 
 
   async onFileSelected(event) {
-    console.log("hola")
     const file = event.target.files[0];
     if (file) {
-
       this.fileName = file.name;
       let data: any = await this.processFile(file)
-      data = JSON.parse(data)
-      data = data.valores
-      for (let i = 0; i < data.length; i++) {
-        //for(let j = 0 ; j < data1.length; j++){
-         // await this.add(data[i],this.prioridad)
-          if (!isNaN(data[i])) {
-            console.log("es numero")
-            console.log("mi dato es: " + data[i] + " y mi prioridad es: " )
-          }
-    //  }
-       
-      }
-
-
+      data =<ColaPrioridad> JSON.parse(data)
+      //ColaPrioridad es la interfaz utilizada. se puede cambiar por otra para cargar el archivo
+      data.valores.forEach(async nodo => {
+        await this.add(nodo.valor,nodo.prioridad)
+      });
     }
   }
+
 
   async processFile(file) {
     return new Promise((resolve, reject) => {
@@ -151,6 +141,7 @@ export class ColaPrioridadComponent implements OnInit {
     })
   }
 
+
   generarJSON() {
     let data = this.ColaPrioridad.generarJSON()
     var link = document.createElement("a");
@@ -160,6 +151,7 @@ export class ColaPrioridadComponent implements OnInit {
     link.click();
     link.remove()
   }
+
 
 
 }
