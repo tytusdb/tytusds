@@ -1,3 +1,4 @@
+let hola = [];
 class NodoBinaryTree {
     constructor (value) {
       this.value = value
@@ -152,12 +153,15 @@ class NodoBinaryTree {
         return node
       }
     }
+    
     imprimir (node = this.raiz) {
+      
       if (!node) {
         return
       }
       this.imprimir(node.izquierda);
-      console.log(node.value);
+      console.log(node.value)
+      hola.push(node.value)
       this.imprimir(node.derecha);
     }
     /**
@@ -173,6 +177,7 @@ class NodoBinaryTree {
       }
       this.inOrder(node.izquierda)
       console.log(node.value)
+      hola.push(node.value)
       this.inOrder(node.derecha)
     }
     /**
@@ -285,12 +290,12 @@ function AbrirBinario(event) {
   reader.readAsText(file);
 }//guardar archivo
 
-function downloadBinary(filename, text) {
+function downloadBinario(filename, text) {
   
-lista = binary.imprimir()
+
 
 var element = document.createElement('a');
-let doc = JSON.stringify({ "categoria": categoriaBinario , 'nombre': nombreBinario, 'repeticion':repeticionBinario, 'animacion':animacionBinario, 'valores': lista });
+let doc = JSON.stringify({ "categoria": categoriaBinario , 'nombre': nombreBinario, 'repeticion':repeticionBinario, 'animacion':animacionBinario, 'valores': hola });
 
 //console.log(listSimple.imprimir())
 element.setAttribute('href', 'data:json,' + doc);
