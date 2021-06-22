@@ -15,6 +15,7 @@ export class Seleccion extends Component {
             tamañoAscci: 0
 
         }
+        this.leerJson = this.leerJson.bind(this)
     }
 
 
@@ -33,7 +34,7 @@ export class Seleccion extends Component {
 
 
     handleSubmit = (e) => {
-        e.preventDefault();
+        e?.preventDefault();
        
         let numero = parseInt(this.state.valorSeleccion);
         let palabra = this.state.valorSeleccion;
@@ -239,7 +240,9 @@ export class Seleccion extends Component {
                             <div className="col-sm-2 d-grid gap-2">
                                 <button type="button" className="btn btn-success" onClick={this.ordenamiento} >Ordenar</button>
                             </div>
-
+                            <div className="col-sm-2 d-grid gap-2"> 
+                                <input type="file" class="form-control" onChange={this.leerJson} />    
+                                </div>
                         </div>
 
                     </div>
