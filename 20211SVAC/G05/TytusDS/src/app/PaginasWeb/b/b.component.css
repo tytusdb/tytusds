@@ -45,5 +45,6 @@ input{
   height: 500;
   margin:0px auto;
   position:relative;
+  overflow: scroll;
 }
 
