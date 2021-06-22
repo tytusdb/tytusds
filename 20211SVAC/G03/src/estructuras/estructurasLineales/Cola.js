@@ -125,10 +125,21 @@ class Cola {
         })
     }
 
-    guardar(arr){
-        var archivoJSON = JSON.stringify(arr)
+    guardar(){
+        let arreglo = []
+        let nodoActual = this.primero
 
-        fs.writeFile("Cola.json", archivoJSON)
+        while (nodoActual != null){
+            arreglo.push(nodoActual.dato)
+            if(nodoActual.siguiente != null){
+                nodoActual = nodoActual.siguiente
+            }else{
+                nodoActual = null
+            }
+            
+        }
+
+        return arreglo
     }
 	
 	Recorrido(datoBuscar){

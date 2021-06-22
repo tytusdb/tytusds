@@ -9,7 +9,7 @@ export default function ordRapido(arreglo){
     const partDer = []
     //Iterador
     for (const el of arreglo.slice(0, arreglo.length - 1)){
-        el<pivote ? partIzq.push(el) : partDer.push(el)
+        el.ASCII<pivote.ASCII ? partIzq.push(el) : partDer.push(el)
     }
     //Construccion de salida
     if(partIzq.length>0 && partDer.length > 0){
