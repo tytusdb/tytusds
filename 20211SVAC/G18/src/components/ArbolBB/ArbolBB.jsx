@@ -41,7 +41,7 @@ class ArbolBinariodeB extends React.Component {
     }
 
     BuscarElemento() {
-        this.state.Arbol.seek();
+        this.state.Arbol.seek(this.state.elemento);
     }
 
 
@@ -143,12 +143,12 @@ class ArbolBinariodeB extends React.Component {
                         >
                             <TreeNode label={<StyledNode>Child 1</StyledNode>}>
                                 <TreeNode label={<StyledNode>Grand</StyledNode>} />
+                            </TreeNode>
+                            <TreeNode label={<StyledNode>Child 2</StyledNode>}>
+                                <TreeNode label={<StyledNode>Grand</StyledNode>} />
                                 <TreeNode label={<StyledNode>Grand</StyledNode>} />
                             </TreeNode>
-                            <TreeNode label={<StyledNode>Child 1</StyledNode>}>
-                                <TreeNode label={<StyledNode>Grand</StyledNode>} />
-                                <TreeNode label={<StyledNode>Grand</StyledNode>} />
-                            </TreeNode>
+                            
                             
                         </Tree>
 

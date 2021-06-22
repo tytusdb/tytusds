@@ -291,6 +291,12 @@ async function limpiar(tam) {
         await animacion_despues(i)
         limpiar(i);
     }
+
+    let agrandar = document.getElementById('semi');
+    if(agrandar && agrandar.style) {
+        agrandar.style.width = '0px';
+        agrandar.style.height = '0px';
+    }
 }
 
 //----------------JSON----------------

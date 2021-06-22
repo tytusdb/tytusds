@@ -23,6 +23,7 @@ btn_velocidad.addEventListener("click", datoVelocidad)
 
 
 // F  U  N  C  I  O  N  E  S  -  E  V  E  N  T  O  S
+var datOrden = [];
 
 // ***** LIMPIAR PANTALLA *****
 function limpiar(){
@@ -35,7 +36,7 @@ function saveFile(){
     var fileJ = {
         "categoria": `${convert.categoria}`,
         "nombre": `${convert.nombre}`,
-        "valores": listaValores
+        "valores": datOrden
     }
 
     let saveArchivo = new Blob([JSON.stringify(fileJ)],{type:"application/json"});
@@ -166,15 +167,18 @@ function imprimir(datosFile, typeDa){
 function infoFile(){ // metodo que convierte la cadena obtenida del archivo en json y permite leerlo
    
 
-    var datOrden = rapido(listaValores);
+    datOrden = rapido(listaValores);
     console.log("PRUEBAS----------");
 
+
+    // Mostrar todo ordenado
     console.log(datOrden);
     finalResult(datOrden);
 
     
 
 }
+
 
 async function finalResult(values){
     for(let i = 0; i < values.length; i++){
