@@ -425,7 +425,7 @@ function listaNums(numso){
 function guardar(){
     var repetic = btn_Repetir.checked;
     var velocidad = 10;
-    var content = stack.imprimir().split(",");
+    var content = stack.imprimir().split(",").reverse();
     
     if (tipoDato == 'number'){
         content = listaNums(content);
