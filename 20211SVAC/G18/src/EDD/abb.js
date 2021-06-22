@@ -202,3 +202,5 @@ console.log("");
 abb.update(8,40);
 abb.inOrden();
 console.log("");
+
+export default ABB;

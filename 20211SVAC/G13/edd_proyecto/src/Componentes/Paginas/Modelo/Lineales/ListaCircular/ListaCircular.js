@@ -59,9 +59,12 @@ class ListaCircular{
                     this.size --;
                     return console.log("Delete!");
                 }else{
+                    this.set_primero.set_siguiente(null)
+                    this.set_ultimo.set_siguiente(null)
                     this.set_primero(null)
                     this.set_ultimo(null)
                     this.size --;
+                    return console.log("Delete!");
                 }
 
             }else if (this.get_ultimo().get_dato() == dato){  //Condicion cuando hay 2 nodos -> eliminando al ultimo
@@ -83,12 +86,14 @@ class ListaCircular{
                     }
 
                     
-                    this.get_ultimo().set_siguiente(null)
+                    nodo_actual.set_siguiente(null)
                     anterior.set_siguiente(this.get_primero())
                     this.set_ultimo(anterior)
                     this.size --;
                     return console.log("Delete!");
                 }else{
+                    this.set_primero.set_siguiente(null)
+                    this.set_ultimo.set_siguiente(null)
                     this.set_primero(null)
                     this.set_ultimo(null)
                     this.size --;

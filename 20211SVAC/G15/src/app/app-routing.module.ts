@@ -18,7 +18,11 @@ import { InsertionSortComponent } from './components/insertion-sort/insertion-so
 
 import { BinaryTreeComponent } from './components/binary-tree/binary-tree.component'
 import { EstructuraArboreaComponent } from './components/estructura-arborea/estructura-arborea.component';
+
 import { AVLComponent } from './components/avl/avl.component';
+
+import { SeleccionComponent } from './components/seleccion/seleccion.component';
+
 const routes: Routes = [
   {path: 'binaryTree', component: BinaryTreeComponent, pathMatch: 'full'},
   {path: 'listaDobleCircular', component: ListaDobleCircularComponent, pathMatch: 'full'},
@@ -33,7 +37,11 @@ const routes: Routes = [
   {path: 'listaSimple', component: ListasimpleComponent, pathMatch: 'full'},
   {path: 'estructuraArborea', component: EstructuraArboreaComponent, pathMatch: 'full'},
   {path: 'ordenamiento/insercion', component: InsertionSortComponent, pathMatch: 'full'},
+
   {path: 'AVL', component: AVLComponent, pathMatch: 'full'},
+
+  {path: 'seleccion',component:SeleccionComponent,pathMatch:'full'},
+
   {path: '', component: HomeComponent, pathMatch: 'full'}
   
 ];
