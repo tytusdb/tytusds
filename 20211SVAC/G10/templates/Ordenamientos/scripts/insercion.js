@@ -49,7 +49,7 @@ velocidad.oninput = () => {
 }
 
 const salida ={
-    operasion: 'Ordenamiento burbuja',
+    operasion: 'Ordenamiento insercion',
     lista: []
 }
 
@@ -144,5 +144,19 @@ cargar.addEventListener("click", (e) => {
 
 guardar.addEventListener("click", (e) => {
     e.preventDefault()
-    console.log(salida)
+    let texto = JSON.stringify(salida)
+    download('Insercion.json', texto)
 })
+
+function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+  
+    element.style.display = 'none';
+    document.body.appendChild(element);
+  
+    element.click();
+  
+    document.body.removeChild(element);
+}

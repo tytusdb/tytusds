@@ -229,6 +229,8 @@ let x_texto_aux
 
 guardar.addEventListener("click", (e) => {
     e.preventDefault()
+    let texto = JSON.stringify(salida)
+    download('ListaSimple.json', texto)
 })
 
 function download(filename, text) {
