@@ -109,124 +109,6 @@ class Nodo {
 }
 var prioridad = new Prioridad();
 
-/*
-class Cola{
-    constructor(){
-        this.front = null;
-        this.back = null;
-        this.longitud = 0;
-    }
-
-    agregar(elemento, prioridad){
-        const nodo = new Nodo(elemento, prioridad);
-
-        if(this.front){ // primer nodo
-            this.front= nodo;
-            this.back = nodo;
-        } else { // si todavia no hay nodos en la cola
-            nodo.siguiente = this.front;
-            this.front = nodo;
-
-            let actual = this.front;
-            let next = nodo.siguiente;
-            while(actual.siguiente != null){
-                if(nodo.prioridad > next.prioridad){
-                    let auxe = actual.value;
-                    let auxp = actual.prioridad;
-                    actual.value = siguiente.value;
-                    actual.prioridad = siguiente.prioridad;
-                    siguiente.value = auxe;
-                    siguiente.prioridad = auxp;
-                    actual = actual.siguiente;
-                    siguiente = siguiente.siguiente;
-
-                } else {
-                    actual = actual.siguiente;
-                    siguiente = siguiente.siguiente;
-                }
-            } 
-
-           
-        }
-        this.longitud++;
-    }
-    eliminar(){
-        const actual = this.front;
-        this.front = this.front.siguiente; // mueve el enlace front al siguientenodo
-        this.longitud--;
-
-        return actual.value;
-
-    }
-    mostrar(){
-        let actual = this.front;
-
-        while(actual){
-            console.log(actual.value);
-            actual = actual.siguiente; // mueve el enlace al siguiente nodo
-            
-        }
-    }
-    len(){
-        return this.longitud;
-    }
-    verificar(elemento){
-        let aux = this.front;
-        while(aux != null){
-            if(aux.value == elemento){
-                return true;
-            }
-            aux = aux.siguiente;
-        }
-        return false;
-    }
-    indiceVerificar(elemento){
-        let aux = this.front;
-        let contador = 0;
-        while(aux != null){
-            if (aux.value == elemento){
-                return contador;
-            }
-            aux = aux.siguiente;
-            contador++;
-        }
-        return null;
-    }
-    actualizar(viejo, nuevo){
-        let aux = this.front;
-        while(aux != null){
-            if(aux.value == viejo){
-                aux.value = nuevo;
-                break;
-            }
-            aux = aux.siguiente;
-        }
-    }
-
-}
-
-class Nodo{
-    constructor(elemento, prioridad){
-        this.value = elemento;
-        this.prioridad = prioridad;
-        this.siguiente = null;
-
-    }
-}
-*/
-//var cola = new Cola();
-
-/*
-cola.agregar(2);
-cola.agregar(4);
-cola.agregar(54);
-cola.agregar(2);
-cola.agregar(123);
-cola.agregar(8);
-
-cola.mostrar();
-*/
-
 // E  V  E  N  T  O  S
 // ----- AGREGAR -----
 const btn_Agregar = document.getElementById('agregar');
@@ -265,7 +147,8 @@ btn_Guardar.addEventListener('click', guardar);
 
 
 // V  A  R  I  A  B  L  E  S  -  G  L  O  B  A  L  E  S
-
+var ordenDato = [];
+var ordenPrior = [];
 
 // F  U  N  C  I  O  N  E  S  -  E  V  E  N  T  O  S
 
@@ -293,23 +176,107 @@ function agregar(){
 function agregar2(box, dato, box2, prior){
     // Insertando elemento en la cola de prioridad
     prioridad.agregar(dato, prior);
+
+    ordenDato.push(dato);
+    ordenPrior.push(prior);
     // Creando los cuadros y agregandole el elemento ingresado
     const div = document.createElement("div");
     const div2 = document.createElement("div");
 
     div.classList.add('cuadrito');
-    div.textContent = dato;
+    div.textContent = dato+"  ||  "+prior;
+    /*
     div2.classList.add('cuadrito2');
-    div2.textContent = prior;
+    div2.textContent = prior;*/
     
     container.appendChild(div);
-    container.appendChild(div2);
+    //container.appendChild(div2);
+
+    ordenarCuadros();
 
     console.log(prioridad.mostrar())
     box.value ="";
     box.focus();
     box2.value ="";
     
+}
+
+// ***** ORDENAMIENTO DE ELEMENTOS *****
+async function ordenarCuadros(){
+    var bloques1 = document.querySelectorAll(".cuadrito");
+    //var bloques2 = document.querySelectorAll(".cuadrito2");
+
+    for(var v = 0; v < ordenPrior.length; v+=1){
+        for (var c = 0; c < ordenPrior.length - v - 1; c +=1){
+        
+            // color de bloques seleccionados
+            //bloques2[c].style.backgroundColor = "#FF4949";
+            //bloques2[c + 1].style.backgroundColor = "#FF4949";
+
+            // delay de 0.1 segundo para que se entienda
+            await new Promise((resolve) =>
+                setTimeout(() =>{
+                    resolve();
+                }, (100)) //delay
+            );
+
+            console.log("ejecutando");
+
+
+
+            // comparar los valores para ordenarlos 
+            if (ordenPrior[c] >= ordenPrior[c + 1] ){
+                console.log("Cambiando");
+                await cambiar(bloques1[c], bloques1[c + 1]);
+                await new Promise((resolve) =>
+                setTimeout(() =>{
+                    resolve();
+                }, (100)) //delay
+            );
+                //await cambiar(bloques2[c], bloques2[c + 1]);
+                
+                bloques1 = document.querySelectorAll(".cuadrito");
+                //bloques2 = document.querySelectorAll(".cuadrito2");
+                var auxa = ordenPrior[c];
+                ordenPrior[c] = ordenPrior[c+1];
+                ordenPrior[c+1] = auxa;
+
+                var auxb = ordenDato[c];
+                ordenDato[c] = ordenDato[c+1];
+                ordenDato[c+1] = auxb;
+
+                
+
+                
+
+            }
+            //bloques[c].style.backgroundColor = "#6b5b95";
+            //bloques[c + 1].style.backgroundColor = "#6b5b95";
+        }
+        // cambiando el color del elemento mayor
+        //bloques[bloques.length - v - 1].style.backgroundColor ="#13CE66";
+    }
+}
+
+function cambiar(bloque1, bloque2){
+    return new Promise((resolve) =>{
+
+        // cambiar el estilo de los bloques
+        var bloque_tmp = bloque1.style.transform;
+        bloque1.style.transform = bloque2.style.transform;
+        bloque2.style.transform = bloque_tmp;
+
+        window.requestAnimationFrame(function(){
+            setTimeout(() =>{
+                container.insertBefore(bloque2, bloque1);
+                resolve();
+
+            }, 1000); // velocidad de animacion
+
+        });
+        
+    });
+
 }
 
 // ***** ELIMINAR ELEMENTO *****
