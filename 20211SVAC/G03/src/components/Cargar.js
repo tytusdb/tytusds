@@ -6,6 +6,7 @@ import ColaPrioridad from '../estructuras/EstructurasLineales/ColaPrioridad'
 
 import ArbolAVL from '../estructuras/Estructuras_Arboreas/AVL'
 import ABB from '../estructuras/Estructuras_Arboreas/ABB'
+import MerkleTree from '../estructuras/Estructuras_Arboreas/merkleTree'
 
 import Pila from '../estructuras/EstructurasLineales/Pila'
 import ListaCirD from '../estructuras/EstructurasLineales/ListaCirD'
@@ -14,6 +15,7 @@ import ListaSimple from '../estructuras/EstructurasLineales/ListaSimple'
 import ListaDoble from '../estructuras/EstructurasLineales/ListaDoble'
 
 import ArbolB from '../estructuras/Estructuras_Arboreas/ArbolB'
+import ArbolBplus from '../estructuras/Estructuras_Arboreas/ArbolBplus'
 
 let propsG
 function onChange(e){
@@ -24,11 +26,11 @@ function onChange(e){
         const text = reader.result.toString().trim();
         console.log(text)
         let data = JSON.parse(text); //parseo de archivo JSON
-        structW(propsG.nombre, data.valores, propsG.edd) 
+        structW(propsG.nombre, data.valores, propsG.edd,data.grado,data.posicion) 
     }
     reader.readAsText(files);
 }
-function structW(nombre,datos,edd){ // FUNCION PARA SABER QUE TIPO DE ESTRUCTURA ES.
+function structW(nombre,datos,edd,grado,posicion){ // FUNCION PARA SABER QUE TIPO DE ESTRUCTURA ES.
     switch(nombre){
         case "Pila" :
             if(edd == null){
@@ -54,7 +56,7 @@ function structW(nombre,datos,edd){ // FUNCION PARA SABER QUE TIPO DE ESTRUCTURA
             if(edd == null){
                 edd = new ListaSimple();
             }
-            edd.cargar(datos)
+            edd.cargar(datos,posicion)
             break
 
         case "Lista doblemente enlazada":
@@ -62,7 +64,7 @@ function structW(nombre,datos,edd){ // FUNCION PARA SABER QUE TIPO DE ESTRUCTURA
             if(edd == null){
                 edd = new ListaDoble();
             }
-            edd.cargar(datos) 
+            edd.cargar(datos,posicion) 
             break
 
         case "Lista circular simplemente enlazada":
@@ -70,7 +72,7 @@ function structW(nombre,datos,edd){ // FUNCION PARA SABER QUE TIPO DE ESTRUCTURA
             if(edd == null){
                 edd = new ListaCS();
             }
-            edd.cargar(datos)
+            edd.cargar(datos,posicion)
             break
 
         case "Lista circular doblemente enlazada":
@@ -78,7 +80,7 @@ function structW(nombre,datos,edd){ // FUNCION PARA SABER QUE TIPO DE ESTRUCTURA
             if(edd == null){
                 edd = new ListaCirD();
             }
-            edd.cargar(datos)
+            edd.cargar(datos,posicion)
             break
         case "Ordenamiento Selección":
 
@@ -112,7 +114,18 @@ function structW(nombre,datos,edd){ // FUNCION PARA SABER QUE TIPO DE ESTRUCTURA
             break
         case "Arbol B":
 
-            edd = new ArbolB(3);
+            edd = new ArbolB(grado);
+            edd.cargar(datos)
+            console.log(edd.graficar())
+            break
+        case "Arbol Merkle":
+
+            edd = new MerkleTree();
+            edd.cargar(datos)
+            break
+         case "Arbol B+":
+
+            edd = new ArbolBplus(grado);
             edd.cargar(datos)
             console.log(edd.graficar())
             break

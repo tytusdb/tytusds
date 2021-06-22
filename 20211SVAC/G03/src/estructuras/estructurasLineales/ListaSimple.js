@@ -141,9 +141,9 @@ class ListaSimple{
     }
 
 
-    cargar(arreglo) {        
+    cargar(arreglo,accion) {        
         arreglo.map(elemento => {
-            this.agregar(elemento);
+            this.agregar(elemento, accion);
         });
         
 

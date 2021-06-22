@@ -225,7 +225,8 @@ export default class NavbarInter extends Component {
             </div>
           )
         }else if(this.state.nombre == "Arbol B"
-        ||this.state.nombre == "Arbol B+"){
+        ||this.state.nombre == "Arbol B+"
+        ){
     return (
       <div>
           <Menu className="ui tpo inverted attached menu">

@@ -171,9 +171,9 @@ class ListaCS{ //Clase Lista Circular Simple
     }
 
     //Metodo Cargar
-    cargar(arreglo) {
+    cargar(arreglo,accion) {
         arreglo.map(elemento => {
-            this.insert(elemento)
+            this.agregar(elemento,accion)
         })
     }
 

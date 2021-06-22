@@ -278,7 +278,7 @@ reacomodo sus hijos en los espacios de las divisiones*/
 
     cargar(arreglo) {
         let arreglo1 = arreglo;
-        arreglo1.forEach(elemento => {
+        arreglo1.map(elemento => {
             this.agregar(elemento);
         });
 }
@@ -307,7 +307,11 @@ reacomodo sus hijos en los espacios de las divisiones*/
 
 
 
-    guardar(){}
+    guardar(){
+        let arreglo = [];
+        this._recorrer(arreglo,this.raiz)
+       return arreglo
+    }
 
 }
-module.exports.ArbolBplus = ArbolBplus;
+export default ArbolBplus;

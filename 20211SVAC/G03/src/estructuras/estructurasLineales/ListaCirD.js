@@ -180,9 +180,9 @@ class ListaCD{  //Clase Lista Circular doble
     }
 
     //Metodo Carga
-    cargar(arreglo) {
+    cargar(arreglo,accion) {
         arreglo.map(elemento => {
-            this.insert(elemento)
+            this.agregar(elemento,accion)
         })
     }
 

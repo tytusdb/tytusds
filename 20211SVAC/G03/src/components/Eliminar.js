@@ -47,6 +47,9 @@ export default class Eliminar extends Component {
             case "Arbol AVL":
                 edd.eliminar(dato)
                 break
+             case "Arbol B":
+                edd.eliminar(dato)
+                break
             default:
                 break;
         }
