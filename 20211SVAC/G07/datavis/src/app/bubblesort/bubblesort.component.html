@@ -21,7 +21,7 @@
     <nav class="navbar navbar-dark bg-primary">
 
       <form class="form-inline" >
-        <input class="form-control mr-sm-2 " type="text" placeholder="Agregar" aria-label="Agregar" #addlabel>
+        <input class="form-control mr-sm-2 " type="text" placeholder="Agregar" aria-label="Agregar" #addlabel id='add'>
         <button class="btn btn-outline-light mr-sm-2" type="submit" (click)="AddData(addlabel.value)">Agregar</button>
 
           <input class="form-control mr-sm-2" type="text" placeholder="Eliminar" aria-label="Eliminar">
@@ -33,8 +33,10 @@
           <input class="form-control mr-sm-2" type="text" placeholder="Buscar" aria-label="Buscar">
         <button class="btn btn-outline-light mr-sm-2" type="submit">Buscar</button>
 
-        <button class="btn btn-outline-light mr-sm-2" type="submit">Cargar</button>
-        <button class="btn btn-outline-light mr-sm-2" type="submit">Guardar</button>
+        <input style="display:none;" type="file" (change)="abrir($event)" #archivo>
+        <button (click)="archivo.click()" class="btn btn-outline-light mr-sm-2" type="button">Cargar</button>
+
+        <button (click)="descargarContenido()" class="btn btn-outline-light mr-sm-2"   type="button">Guardar</button>
 
 
       </form>

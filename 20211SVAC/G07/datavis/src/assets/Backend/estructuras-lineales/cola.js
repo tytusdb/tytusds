@@ -41,4 +41,3 @@ class Node {
   
   
 
-export default cola;
