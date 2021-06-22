@@ -4,13 +4,184 @@
     <link rel="stylesheet" type="text/css" href="../CSS/header.css">
     <link rel="stylesheet" type="text/css" href="../CSS/ddNavBar.css">
     <meta charset="UTF-8">
-    <title>Árbol Binario de Búsqueda</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BST</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 </head>
 <body>
+    <script type="text/javascript">
+        class Nodo{
+            constructor(value){
+                this.value = value;
+                this.childIzq = null;
+                this.childDer = null;
+            }
+        }
+        class BST{
+            constructor(){
+                this.root = null;
+            }
 
-<h1>Árbol Binario de Búsqueda</h1>
+            ////////////////INSERTAR/////////////
+            insertar(value){
+                var nuevoNodo = new Nodo(value);
 
-<ul>
+                //Si la raiz apunta a nulo, el nuevo nodo es la raiz
+                if(this.root === null){
+                    this.root = nuevoNodo;
+                }else{
+                    this.insertarEnArbol(this.root, nuevoNodo); //Metodo recursivo
+                }
+            }
+            
+            insertarEnArbol(nodo, nuevoNodo){
+                //evaluar si es mayor o menor para insertar a derecha o izquierda
+                if(nuevoNodo.value < nodo.value)
+                {
+
+                    if(nodo.childIzq === null)
+                    nodo.childIzq = nuevoNodo;
+                    else{
+            
+
+                        this.insertarEnArbol(nodo.childIzq, nuevoNodo); 
+                    }
+                }
+                else{ //Si es mayor
+                    if(nodo.childDer === null){
+                        nodo.childDer = nuevoNodo;
+                    }else
+
+                        this.insertarEnArbol(nodo.childDer, nuevoNodo);
+                    
+                }
+            }
+            ///////////////ELIMINAR/////////////////
+            eliminar(value){
+                this.root = this.eliminarNodo(this.root, value);
+            }
+            eliminarNodo(nodo, val){
+                if(nodo === null){
+                    //Si es null es porque el arbol esta vacio
+                    //console.log("Nodo vacio");
+                    return null;
+                }else if(val < nodo.value){
+                    nodo.childIzq = this.eliminarNodo(nodo.childIzq, val); 
+                    return nodo;
+                }else if (val > nodo.value){
+                    nodo.childDer = this.eliminarNodo(nodo.childDer, val);
+                    return nodo;
+                }else{
+                    //eliminacion sin hijo y con hijos
+                    if(nodo.childIzq === null && nodo.childDer === null){
+                        nodo = null;
+                        return nodo;
+                    }
+
+                    if(nodo.childIzq === null){
+                        nodo = nodo.childDer;
+                        return nodo;
+                    }
+
+                    if(nodo.childDer === null){
+                        nodo = nodo.childIzq;
+                        return nodo;
+                    }
+
+                    var tmp  = this.BuscarMinimo(nodo.childDer);
+                    nodo.value = tmp.value;
+
+                    nodo.childDer = this.eliminarNodo(nodo.childDer, tmp.value);
+                    return nodo;
+
+
+
+                }
+
+            }
+            ////////////BUSQUEDA//////////////
+            BuscarMinimo(nodo){
+                if(nodo.childIzq === null){
+                    return nodo;
+                }else{
+                    return this.BuscarMinimo(nodo.childIzq);
+                }
+            }
+            Buscar(nodo, value){
+                if(nodo === null){
+                    return null;
+                }else if(value < nodo.value){
+                    return this.Buscar(nodo.childIzq, value);
+                }else if(value > nodo.value){
+                    return this.Buscar(nodo.childDer, value);
+                }else{
+                    return nodo;
+                }
+
+            }
+            ////////////RECORRIDOS////////////////
+            preOrder(nodo){
+                if(nodo !== null){
+                    document.getElementById("texto").append("[" + nodo.value + "]->");
+                    this.preOrder(nodo.childIzq);
+                    this.preOrder(nodo.childDer);
+                }
+            }
+            inOrder(nodo){
+                if(nodo !== null){
+                    this.inOrder(nodo.childIzq);
+                    document.getElementById("texto2").append("[" + nodo.value + "]->");
+                    this.inOrder(nodo.childDer);
+                }
+            }
+            postOrder(nodo){
+                if(nodo !== null){
+                    this.postOrder(nodo.childIzq);
+                    this.postOrder(nodo.childDer);
+                    document.getElementById("texto3").append("[" + nodo.value + "]->");
+                }
+            }
+            ///////////////////////////////////////
+            getRoot(){
+                return this.root;
+            }
+            mostrar(nodo){
+                this.limpiar();
+                this.preOrder(nodo);
+                this.inOrder(nodo);
+                this.postOrder(nodo);
+            }
+            limpiar(nodo){
+                document.getElementById('texto').innerHTML='';
+                document.getElementById('texto2').innerHTML='';
+                document.getElementById('texto3').innerHTML='';
+            }
+
+        }
+
+
+        var arbol = new BST();
+        arbol.insertar(15);
+        /*arbol.insertar(25);
+        arbol.insertar(10);
+        arbol.insertar(7);
+        arbol.insertar(22);
+        arbol.insertar(17);
+        arbol.insertar(13);
+        arbol.insertar(5);
+        arbol.insertar(9);
+        arbol.insertar(27);*/
+
+
+        var root = arbol.getRoot();
+        //arbol.inOrder(root);
+
+
+    </script>
+    <div class="text-center">
+        <h1>Arbol BST</h1>
+        <ul>
     <li><a class="active" href="../index.html">Home</a></li>
     <li class="dropdown">
         <a href="javascript:void(0)" class="dropbtn">Estructura lineales</a>
@@ -45,6 +216,46 @@
         </div>
     </li>
 </ul>
+
+<br>
+        <div class="container ">
+            <label>Valor del nodo: </label></br>
+            <input type="number" id="txtKey"/></br></br>
+            <input type="button" value="Insertar" onclick="arbol.insertar(Number(document.getElementById('txtKey').value)); arbol.mostrar(root);"/>
+            <input type="button" value="Mostrar" onclick=" arbol.mostrar(root);"/>
+            <input type="button" value="Buscar" onclick="document.getElementById('ResultadoBusqueda').innerHTML = arbol.Buscar(Number(document.getElementById('txtKey').value)).value;"/>
+            <input type="button" value="Limpiar" onclick="arbol.limpiar();"/>
+            <input type="button" value="Eliminar" onclick="arbol.eliminar(Number(document.getElementById('txtKey').value)); arbol.mostrar(root);"/>
+        </div>
+        </br>
+        <h5 id="ResultadoBusqueda">...</h5>
+        
+        </br>
+        <h2>PreOrder</h2>
+        <div class="container">
+            <p id="texto">
+                
+            </p>
+        </div>
+        <h2>InOrder</h2>
+        <div class="container">
+            <p id="texto2">
+                
+            </p>
+        </div>
+        <h2>PostOrder</h2>
+        <div class="container">
+            <p id="texto3">
+                
+            </p>
+        </div>
+        
+    
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 
 </body>
 </html>
