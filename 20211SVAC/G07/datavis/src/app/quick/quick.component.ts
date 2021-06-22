@@ -1,3 +1,4 @@
+import { logging } from 'protractor';
 import { Component, OnInit,ElementRef,ViewChild } from '@angular/core';
 import * as vis from 'vis';
 
@@ -69,12 +70,12 @@ export class QuickComponent implements OnInit {
         this.arr.forEach(el => console.log(el))
         let l=0;
         let w = this.arr.length-1;
-        this.quicksort(this.arr,l,k);
+        this.QuickSort(this.arr,0,this.arr.length-1);
         console.log("Ordenado \n")
         this.arr.forEach(el => console.log(el))
         for (var k=0; k<this.arr.length; k++){
           let valors = this.arr[k]
-          console.log(valors)
+          //console.log(valors)
           nodes.add(
             {id: i, label:String(valors)}
           );
@@ -88,48 +89,44 @@ export class QuickComponent implements OnInit {
       }
       reader.readAsText(a)
     }
-
-    
   }
 
-  quicksort(arreglo,i,j){
-    var index;
-    
-    if(arreglo.length >1){
-        index = this.particion(arreglo,i,j);
-        if(i<index - 1){
-            this.quicksort(arreglo,i, index - 1);
-        }
-        if(index<j){
-            this.quicksort(arreglo,index, j);
-        }
+  QuickSort(arr, left, right) {
+    let len = arr.length,
+        index
+    if(len > 1) {
+      index = this.partition(arr, left, right)
+      if(left < index - 1) {
+        this.QuickSort(arr, left, index - 1)
+      } 
+      if(index < right) {
+        this.QuickSort(arr, index, right)
+      }
     }
-    return arreglo;
-}
+    return arr
+  }
 
-intercambiar(arreglo, i, j){
-    var temp = arreglo[i];
-    arreglo[i]=arreglo[j];
-    arreglo[j]=temp;
-}
-
-particion(arreglo, i ,j){
-
-    var pivot = arreglo[Math.floor((j + i)/2)]
-
-    while(i<=j){
-        while(arreglo[i]<pivot){
-            i++;
-        }
-        while(arreglo[j]>pivot){
-            j--;
-        }
-        if (i>=j)   return j;
-        this.intercambiar(arreglo,i,j)
-        i++;
-        j--;
+  partition(arr, left, right) {
+    let middle = Math.floor((right + left) / 2),
+        pivot = arr[middle],
+        i = left,                 
+        j = right                 
+  
+    while(i <= j) {
+      while(arr[i] < pivot) {
+        i++
+      }
+     
+      while(arr[j] > pivot) {
+        j--
+      }
+  
+      if(i <= j) {
+        [arr[i], arr[j]] = [arr[j], arr[i]]  
+        i++
+        j--
+      }
     }
-    return i;
-}
-
+    return i
+  }
 }

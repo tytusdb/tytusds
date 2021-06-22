@@ -100,6 +100,17 @@ export class PilaComponent implements OnInit {
   @ViewChild('mynetwork', {static: false}) el: ElementRef;
   public network: any;
   constructor() { }
+  contenido = "{ valores :\n";
+
+  generador(){
+    this.array.forEach(valor => this.contenido += valor +",\n");
+  }
+
+  descargarContenido(){
+    this.generador();
+    this.contenido += "}";
+    console.log(this.contenido)
+  }
 
   ngOnInit(): void {
   }
@@ -108,21 +119,24 @@ export class PilaComponent implements OnInit {
     this.network = new vis.Network(container, listaData, options);
   }
   code = '';
+  array = [];
+  texto="";
   lista = new Pila();
   abrir(eve:any)
   {
     let a =eve.target.files[0]
     let text=""
-    let arr = [];
     if(a){
       let reader=new FileReader()
         reader.onload=ev=>{
         const resultado=ev.target?.result
         text=String(resultado)
-        console.log(resultado)
-        console.log(text)
-        arr = text.replace("{","").replace("}","").split(",");
-        arr.forEach(el => console.log(el))
+        var data = JSON.parse(text)
+        data.valores.forEach(element => {
+          this.array.push(element)
+        });
+        
+        this.array.forEach(el => this.lista.addPrimero(el.toString()))
         this.code=text.toString();
       }
       reader.readAsText(a)
