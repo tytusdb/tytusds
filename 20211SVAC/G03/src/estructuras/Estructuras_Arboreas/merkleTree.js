@@ -314,6 +314,10 @@ class MerkleTree{
         this.modificando(hasheo, nuevodato, nodo)
     }
 
+
+
+
+    
     //SubMetodo modificar
     modificando(hasheo, nuevodato, nodo){
         if(nodo!= null){

@@ -161,6 +161,9 @@ export default class NavbarInter extends Component {
             
           </div>
         )
+
+
+        
       }else{
         if(this.state.nombre == "Ordenamiento Selección" ||
            this.state.nombre == "Ordenamiento Inserción" ||

@@ -82,6 +82,11 @@ export default class Agregar extends Component {
                 }
                 edd.insert(dato)
                 break
+
+
+
+
+                
     
             case "Lista circular doblemente enlazada":
     
