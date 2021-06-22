@@ -22,28 +22,17 @@ class ListaCD{  //Clase Lista Circular doble
     }
 
     //Metodo opcion de insertados
-    lugarInsertar(dato){
-        let opcion = ""
-        if(this.cabeza == null){
-            this.insertFinal(dato)
-            return
-        }else if(dato >= this.cabeza.dato && dato <= this.cola.dato){
-            opcion = "Ordenado"
-        }else if(dato > this.cola.dato){
-            opcion = "Final"
-        }else if(dato < this.cabeza.dato){
-            opcion = "Inicio"
-        }
+    agregar(dato, opcion){       
         switch (opcion) {
             case "Inicio":
                 this.insertarInicio(dato)
-                return
+                break;
             case "Ordenado":
                 this.insertOrdenado(dato)
-                return
+                break;
             case "Final":
                 this.insertFinal(dato)
-                return      
+                break;     
         }
     }
 

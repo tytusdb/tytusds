@@ -12,9 +12,58 @@ class ListaSimple{
        this.primero = null;             
     }  
 
-    
 
-    agregar(elemento) {
+    agregar(elemento, accion){        
+        switch(accion){
+            case "Ordenado":
+                this.agregarOrdenado(elemento);
+                break;
+            case "Final":
+                this.agregarFinal(elemento);
+                break;
+            case "Inicio":
+                this.agregarInicio(elemento);
+                break;   
+        }
+    }
+
+
+    agregarInicio(elemento){
+        let nodo = new Nodo(elemento);
+        if(this.primero == null){
+            this.primero = nodo;
+        }else{
+            nodo.siguiente = this.primero;
+            this.primero = nodo;
+        }
+    }
+    
+    agregarOrdenado(elemento){
+        let nodo = new Nodo(elemento)
+        if(this.primero == null){
+            this.primero = nodo;
+        }else{
+            let temporal = this.primero;
+            while(temporal.siguiente != null ){
+                if(temporal.valor <= elemento && temporal.siguiente.valor >= elemento){
+                    nodo.siguiente = temporal.siguiente;
+                    temporal.siguiente = nodo;   
+                    break;                 
+                }else if(temporal == this.primero && temporal.valor >= elemento){
+                    nodo.siguiente = this.primero;
+                    this.primero = nodo;
+                    break;
+                }                                
+                temporal = temporal.siguiente;
+
+            }if(temporal.siguiente == null && temporal.valor <= elemento){
+                temporal.siguiente = nodo; 
+            }
+        }
+    }
+
+
+    agregarFinal(elemento) {
         //crear un nodo para agregar a la lista
         let nodo = new Nodo(elemento)        
         if (this.primero == null) {
@@ -111,6 +160,14 @@ class ListaSimple{
         
     }
 
+    imprimir(){
+        let temporal = this.primero;
+        while(temporal != null){
+            console.log(temporal.valor)
+            temporal = temporal.siguiente;
+        }
+    }
+
     Recorrido(datoBuscar){
 
         let arreglo = []
@@ -134,4 +191,5 @@ class ListaSimple{
     }
   
 }
+//module.exports.ListaSimple = ListaSimple;
 export default ListaSimple;
