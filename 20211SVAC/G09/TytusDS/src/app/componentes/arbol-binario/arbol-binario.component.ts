@@ -6,6 +6,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./arbol-binario.component.css']
 })
 export class ArbolBinarioComponent implements OnInit {
+  displayVal='';
+  getValue1(val:string){
+    console.warn(val)
+    
+  }
+  getValuePila(val:string){
+    addValuePila(val)
+  }
+  getValuePilaDelet(){
+    getValuePilaDelet()
+
+  }
+  getValueBuscarPila(val:string){
+    getValueBuscar(val)
+  }
+  getValueReemplzarPila(val:string,val2:string){
+    getActualizar(val,val2)
+
+  }
 
   constructor() { }
 
