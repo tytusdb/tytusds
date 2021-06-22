@@ -1,1 +1,40 @@
-<p>ordenamiento-insercion works!</p>
+<head>
+<style type="text/css">
+ .boton {
+  color: #318aac !important;
+  font-size: 15px;
+  font-weight: 500;
+  padding-top:6px;
+  padding-bottom:6px;
+  padding-left:20px;
+  padding-right:20px;
+  background: rgba(0,0,0,0);
+  border: 3px solid;
+  border-color: #318aac;
+  transition: all 1s ease;
+  position: relative;
+}
+.boton:hover {
+  background: #318aac;
+  color: #fff !important;
+}
+</style>
+</head>
+
+<body class="rounded shadow-lg o-hidden border-0 my-5 text-white masthead" style="background:url('assets/Imagenes/fondo3.jpg'); background-size:cover;">
+<button class="btn btn-primary btn-block text-white" type="submit" onclick="add()">
+<em class="fas fa-bar-chart-o"></em>
+Ordenamiento Insercion
+</button>
+<br>
+<label><font color="#000000">Velocidad<input type="range" id="Velocidad" min="1" max="5"></font></label> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<label><font color="#000000"><input type="checkbox" id="check" onclick="checkBoxInsercion()">Presiona aqui si usaras letras</font></label> 
+<br>
+<br>
+<button class="btn boton btn-block text-white" type="submit" onclick="downloadInsercion('OrdenamientoInsercion.js','hola')">Guardar Arreglo</button>
+<input class="boton" type="file" onchange="AbrirInsercion(event)">
+  <div id="divInsert" style="position: absolute;">
+    <div id="divInsert1" style="position: absolute; top: 0px; left: 0px;"></div>
+  <div id="divInsert">
+  </div>  
+

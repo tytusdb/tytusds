@@ -191,11 +191,123 @@ class ArbolAVL {
         }
         return node
     }
+
+    createData(raiz){ 
+        if (raiz != null) {
+          nodes.push({id: raiz.value, label: "value: " + raiz.value});
+            if (raiz.left != null){
+              edges.push({
+                from: raiz.value,
+                to: raiz.left.value,
+                arrows: "to",
+                physics: false,
+                smooth: {type: "cubicBezier"},
+              });
+              //contador++;
+            }
+            if (raiz.right != null) {
+              contador++;
+              edges.push({
+                from: raiz.value,
+                to: raiz.right.value,
+                arrows: "to",
+                physics: false,
+                smooth: {type: "cubicBezier"},
+              });
+            }
+            this.createData(raiz.left)
+            this.createData(raiz.right)
+        }
+    }
 }
+
+
+const avl = new ArbolAVL();
+
+function eliminar(){
+    var x = document.getElementById("newValue").value;
+    document.getElementById("newValue").value = "";
+    avl.delete(x);
+    document.getElementById("newValue").focus();
+    document.getElementById('GFG').innerHTML = 'Removido!';
+    graficar();
+  }
+
+function buscar(){
+    var x = document.getElementById("newValue").value;
+    document.getElementById("newValue").value = "";
+    var found = avl.search(x);
+    if(found){
+        document.getElementById('GFG').innerHTML = 'Encontrado!';
+    }else{
+      document.getElementById('GFG').innerHTML = 'No Encontrado!';
+    }
+    document.getElementById("newValue").focus();
+  }
+
+function AbrirArchivo(files){
+    var file = files[0];
+    var reader = new FileReader();
+    reader.onload = function(event){
+      var contents = event.target.result;
+      var json = JSON.parse(contents);
+      var count = Object.keys(json.valores).length;
+      for (let index = 0; index < count; index++) {
+        avl.add(json.valores[index]); 
+      }
+      graficar();
+    };
+    reader.onerror = function(event) {
+      console.error("File could not be read! Code " + event.target.error.code);
+  };
+    reader.readAsText(file);
+  }
+
+  var nodes = [];
+  var edges = [];
+  var contador = 0;
+  function graficar(){
+    var x_pos = -150;
+    var y_pos = 0;
+    var contador = 0;       
+    // creating an array with nodes
+    var root = avl.root;
+    avl.createData(root)
+    // creating an array with edges 
+    // create a network
+    var container = document.getElementById("miRed");
+    var value = {
+      nodes: nodes,
+      edges: edges,
+    };
+  
+    const options = {
+  
+      nodes: {
+        shape: "box",
+      },
+  
+      physics: {
+        hierarchicalRepulsion: {
+          nodeDistance: 110,
+        },
+      },
+      layout: {
+        hierarchical: {
+            levelSeparation: 100,
+            nodeSpacing: 100,
+            parentCentralization: true,
+            direction: 'UD',        // UD, DU, LR, RL
+            sortMethod: 'directed',  // hubsize, directed
+            shakeTowards: 'roots'  // roots, leaves                        
+        },
+      }, 
+    };
+    var network = new vis.Network(container, value, options);
+  
+  }
   
 
-  
-  
   
   
   

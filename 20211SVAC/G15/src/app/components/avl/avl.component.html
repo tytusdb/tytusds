@@ -15,7 +15,7 @@
                 <div class="input-group">
                     <input class="form-control" id="dato" name="dato" [(ngModel)]="nombre" type="text" placeholder="Ingresar Dato" >
                     <div class="input-group-append">
-                        <button class="btn btn-secondary " type="button"(click)="insertanButton()" >Guardar</button>
+                        <button class="btn btn-secondary " type="button"(click)="insertardato()" >Guardar</button>
                     </div>
                 </div>
             </div>
@@ -24,7 +24,7 @@
                 <div class="input-group">
                     <input class="form-control" id="dato" name="dato" [(ngModel)]="datoBuscar" type="text" placeholder="Ingresar Dato" >
                     <div class="input-group-append">
-                        <button class="btn btn-success" type="button" (click)="buscar()">Buscar</button>
+                        <button class="btn btn-success" type="button" >Buscar</button>
                     </div>
                 </div>
             </div>
@@ -33,7 +33,7 @@
                     <input class="form-control" id="dato" name="dato" [(ngModel)]="datoAntiguo" type="text" placeholder="Antiguo" >
                     <input class="form-control" id="dato" name="dato" [(ngModel)]="datoNuevo" type="text" placeholder="Nuevo" >
                     <div class="input-group-append">
-                        <button class="btn btn-warning" type="button" (click)="modificar()" >Actualizar</button>
+                        <button class="btn btn-warning" type="button"  >Actualizar</button>
                     </div>
                 </div>
             </div>
@@ -41,7 +41,7 @@
                 <div class="input-group">
                     <input class="form-control" id="dato" name="dato" [(ngModel)]="datoEliminar" type="text" placeholder="Ingresar Dato" >
                     <div class="input-group-append">
-                        <button class="btn btn-danger" type="button" (click)="eliminar()">Eliminar</button>
+                        <button class="btn btn-danger" type="button" >Eliminar</button>
                     </div>
                 </div>
             </div>
@@ -50,12 +50,12 @@
 
             <div class="col-12 col-sm-12 col-lg-3 text-left mt-2 text-white mt-1">
                 <div class="input-group">
-                    <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+                    <input type="file" class="file-input"  #fileUpload>
                     <div class="file-upload">
 
                         {{fileName || "No ha seleccionado archivo."}}
 
-                        <button class="btn btn-primary" (click)="fileUpload.click()">
+                        <button class="btn btn-primary" >
                             <i class="fas fa-upload"></i>
                         </button>
                     </div>

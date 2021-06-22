@@ -177,7 +177,7 @@ class ListaSimple{
 
     }
 
-    generateJSON(){
+    generateJSON = () => {
 
         var dic = {};
 
@@ -204,7 +204,7 @@ class ListaSimple{
         console.log(dic)
         var dictstring = JSON.stringify(dic);
         console.log(dictstring)
-        var fs = require('fs');
+        var fs = require('fs')
         fs.writeFile("thing.json", dictstring, function(err, result) {
             if(err) console.log('error', err);
         });

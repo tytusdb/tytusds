@@ -36,7 +36,7 @@ export class seleccion {
 
         let data = {
             categoria: "Estructura Lineal",
-            nombre: "ordenamiento",
+            nombre: "Ordenamiento",
             valores: []
         }
 

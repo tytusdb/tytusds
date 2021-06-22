@@ -33,8 +33,9 @@
           <input class="form-control mr-sm-2" type="text" placeholder="Buscar" aria-label="Buscar">
         <button class="btn btn-outline-light mr-sm-2" type="submit">Buscar</button>
 
-        <button class="btn btn-outline-light mr-sm-2" type="submit">Cargar</button>
-        <button class="btn btn-outline-light mr-sm-2" type="submit">Guardar</button>
+        <input style="display:none;" type="file" (change)="abrir($event)" #archivo>
+        <button (click)="archivo.click()" class="btn btn-outline-light mr-sm-2" type="button">Cargar</button>
+        <button (click)="descargarContenido()" class="btn btn-outline-light mr-sm-2" type="button">Guardar</button>
 
 
       </form>
@@ -42,11 +43,15 @@
     <!-- Navbar -->
 
     <!-- Jumbotron -->
-    <div class="p-5 text-center bg-light">
-      <h1 class="mb-3">Heading</h1>
-      <h4 class="mb-3">Subheading</h4>
-      <a class="btn btn-primary" href="" role="button">Call to action</a>
+    <div id="mynetwork" #mynetwork>
     </div>
+        <style type="text/css">
+          #mynetwork {
+        width: 100%;
+        height: 700px;
+        border: 1px solid lightgray;
+    }
+      </style>
     <!-- Jumbotron -->
 
 

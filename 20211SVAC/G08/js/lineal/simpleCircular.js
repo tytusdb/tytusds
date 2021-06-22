@@ -80,6 +80,7 @@ let flechas = document.getElementById('flechas');
 let nodes = document.getElementsByClassName('node');
 let pointers = document.getElementsByClassName('pointer');
 let error = document.getElementById('error');
+var tipoDato;
 
 //----------------TIEMPO ANIMACION----------------
 let tiempo_animacion;
@@ -188,33 +189,16 @@ async function agregar(i, data) {
     img.src = "../../img/flecha_sola.png";
     pointer.appendChild(img);
 
-    let flecha = document.createElement('div');
-    flecha.classList.add('flecha');
-    flecha.style.opacity = "0";
-    
-    let img1 = document.createElement('img');
-    img1.src = "../../img/flecha_cabeza.png";
-    
-    let img2 = document.createElement('img');
-    img2.src = "../../img/pedazo.jpg";
-
-    let img3 = document.createElement('img');
-    img3.src = "../../img/abajo.jpg";
-    
-    let nodnum = nodes.length - 1;
-    
-    if (i === 0){
-        flecha.appendChild(img1);
-    }
-    else if ( i === nodes.length && i !=0){
-        flecha.appendChild(img3);
+    let agrandar = document.getElementById('semi');
+    if(agrandar && agrandar.style) {
+        agrandar.style.width = '200px';
+        agrandar.style.height = '100px';
     }
     
     if (i === nodes.length) {
         await animacion_nodos(0, nodes.length - 1);
         list.appendChild(node);
         list.appendChild(pointer);
-        flechas.appendChild(flecha);
     }
     else {
         await animacion_nodos(0, i - 1);
@@ -228,8 +212,6 @@ async function agregar(i, data) {
     setTimeout(() => {
         pointer.style.opacity = 1;
         pointer.style.animation = "slide " + tiempo_animacion + "s ease";
-        flecha.style.opacity =1;
-        flecha.style.animation = "slide " + tiempo_animacion + "s ease";
     }, tiempo_animacion);
 
     console.log(list);
@@ -355,6 +337,12 @@ async function limpiar(tam) {
         await borrar_nodos(i);
         await animacion_despues(i)
         limpiar(i);
+    }
+
+    let agrandar = document.getElementById('semi');
+    if(agrandar && agrandar.style) {
+        agrandar.style.width = '0px';
+        agrandar.style.height = '0px';
     }
 }
 

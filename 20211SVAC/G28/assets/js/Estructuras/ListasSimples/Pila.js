@@ -1,5 +1,16 @@
-const Nodo = require("./Nodo");
-const datos = require("./datos");
+class Nodo {
+    constructor(datos = null){
+        this.datos = datos;
+        this.siguiente = null;
+   }
+}
+
+class datos {
+    constructor(dato1, prioridad){
+        this.dato1 = dato1; //dato
+        this.prioridad = prioridad; //prioridad para cola de prioridad
+    }
+}
 
 class Pila {
     constructor(){
@@ -33,7 +44,7 @@ class Pila {
         } else {
             var retorno = this.primero;
             this.primero = this.primero.siguiente;
-            return retorno.datos;
+            return retorno.datos.dato1;
         }
     }
 
@@ -86,4 +97,36 @@ class Pila {
     }
 }
 
-module.exports = Pila;
+var JPILA = new Pila();
+console.log("PILA VACIA CREADA");
+
+function PILAadd(){
+    var aux = document.getElementById("PILAagregar").value;
+    var cond = document.getElementById("PILArepetidos").checked;
+    var temp = new datos(aux, null);
+    JPILA.agregar(temp, cond);
+    document.getElementById("PILAagregar").value="";
+    JPILA.imprimir();
+    console.log("##########------###########");
+}
+
+function PILAdelete(){
+    console.log("elemento eliminado: "+JPILA.eliminar());
+}
+
+function PILAsearch(){
+    var aux = document.getElementById("PILAbuscar").value;
+    console.log("ENCONTRADO: "+JPILA.buscar(aux));
+    document.getElementById("PILAbuscar").value="";
+}
+
+function PILAactualizar(){
+    var previo = document.getElementById("PILAantiguo").value;
+    var now = document.getElementById("PILAnuevo").value;
+    var cond = document.getElementById("PILArepetidos").checked
+    JPILA.actualizar(previo, now, cond);
+    document.getElementById("PILAantiguo").value="";
+    document.getElementById("PILAnuevo").value="";
+}
+
+

@@ -1,4 +1,3 @@
-<p>seleccion works!</p>
 <body>
     <div >
         <p>
@@ -10,7 +9,7 @@
         </p>
     </div >   
     <br><br><br><br><br><br><br><br><br><br><br>
-    <div class="container mt-2">
+    <div class="container mt-2" ID="form-modal">
         <div class="row opciones p-2">
 
             <div class="col-lg-3 col-sm-12 col-12 mt-1">
@@ -48,19 +47,11 @@
 
 
         </div>
-
-        <br><br><br><br><br><br>
-        <div id="contenido" style=" background:#efefef; height:30px; padding:10px;"></div>
-        <button class="btn btn-secondary " id="boton" type="button" (click)="mostrarBarras()">Seleccion</button>
-
+    
         <div style="display: block">
-            <canvas baseChart
-              [datasets]="barChartData"
-              [labels]="barChartLabels"
-              [options]="barChartOptions"
-              [legend]="barChartLegend"
-              [chartType]="barChartType">
-            </canvas>
+            
+            <canvas #myChart id="myChart" height="90" >
+          </canvas>
           </div>
 
         

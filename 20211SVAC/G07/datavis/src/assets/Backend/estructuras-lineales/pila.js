@@ -1,31 +1,40 @@
-class pila {
-    constructor(){
-        this.item = {};
-        this.top = 0;
+class Node {
+    constructor(data, next){
+        this.data = data;
+        this.next = next;
     }
-
-    push(data){
-        this.top++;
-        this.item[this.top] = data;
+  }
+  class Pila {
+   constructor() {
+       this.head = null;
+       this.size = 0;
+   }
+   addPrimero(data){
+    const newNode = new Node(data, null);
+    if ( !this.head ) {
+      this.head = newNode
     }
-
-    pop(){
-        let eliminado;
-
-        if (this.top){
-            eliminado = this.item[this.top];
-            delete this.item[this.top];
-            this.top--;
-            return eliminado;
-        }
+    else {
+      newNode.next = this.head
+      this.head = newNode
     }
-
-    print(){
-        let result = '';
-        for (let i = this.top; i > 0; i--){
-            result += this.itemm[i] + ' '
-        }
-        return result
+    this.size++
+  }
+  
+   removeData(){
+    if (this.size<0){
+      return null;
+    }else{
+      let actual = this.head;
+      this.head = actual.next;
+      this.size--;
+      return actual.data;
     }
-}
+  
+  
+  }
+  }
+  
+  
+  
 export default pila;

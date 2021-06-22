@@ -119,31 +119,116 @@ class NodoListaCircularDoble{
     }
     this.size++
     }
+
+    selecObject(id, x, y){
+      const p = document.getElementById(id)
+      p.classList="animate__animated animate__zoomInDown"
+      const sClone = p.cloneNode(true)
+      p.parentNode.replaceChild(sClone, p) 
+      sClone.style.posicion="absolute" 
+      sClone.style.top=(y).toString()+"px"
+      sClone.style.left=(x).toString()+"px"
+  }
+
   delete(data){
     let aux = this.head
     let aux2 = this.head
     if(data==aux.data){//Comprobando si la cabeza es igual al data
       if(this.head.sig == this.head){
         this.head=null
+        this.borrarObjeto("btn"+aux.animate.id)
         return
       }
       this.head=aux.sig
+      this.borrarObjeto("btn"+aux.animate.id)
+      this.borrarObjeto("flecha"+aux.sig.animate.id)//Eliminando la flecha del siguiente elemento
+
       while(aux.sig != aux2){
         aux = aux.sig
       }
       aux.sig = this.head
       this.head.ant=aux
+      this.head.animate.x=this.head.animate.heightBtn +10
+      this.head.animate.y=10
+      console.log(this.head.data+"    "+this.head.sig.data)
+
+      this.selecObject("btn"+this.head.animate.id,this.head.animate.x,this.head.animate.y)
+      this.reOrdenar(this.head)
       return}
-    while(aux.sig != null){
+      
+    do{
       if(aux.data==data){
+        this.borrarObjeto("btn"+aux.animate.id)
+        this.borrarObjeto("flecha"+aux.animate.id)
+        if(aux.sig!=this.head){
+          aux.sig.animate.x=aux.animate.x
+          aux.sig.animate.y=aux.animate.y
+          this.selecObject("btn"+aux.sig.animate.id,aux.animate.x,aux.animate.y)
+          this.selecObject("flecha"+aux.sig.animate.id,aux.sig.animate.x-(aux.sig.animate.heightBtn*0.93)-10,aux.sig.animate.y+5)
+        }
         aux.ant.sig =aux.sig
         aux.sig.ant=aux.ant
         this.size--
+        this.reOrdenar(this.head)
         return
-      }
-    else{
+      }else{
       aux=aux.sig}
+    }while(aux.sig != null)
+  }
+  borrarObjeto(id){
+    const selecBtn = document.getElementById(id)
+    selecBtn.classList="animate__animated animate__hinge"
+    const sClone = selecBtn.cloneNode(true)
+    selecBtn.parentNode.replaceChild(sClone, selecBtn)
+
+    const a2= setInterval(function(){
+        //Eliminando el botón y Flecha siguiente
+        const padre = sClone.parentNode
+        padre.removeChild(sClone)
+        clearInterval(a2)
+    },2000)    
+  }
+  reOrdenar(aux){
+    const boton=document.getElementById("b1")
+    while(aux.sig != this.head){
+        aux.sig.animate.x= aux.animate.x + aux.animate.disBtn + (aux.animate.heightBtn*0.93) +20
+        if(this.hMax<aux.sig.animate.heightBtn){ this.hMax=aux.sig.animate.heightBtn}
+        
+        if(boton.offsetWidth-100>aux.sig.animate.x){
+            aux.sig.animate.y=aux.animate.y
+        }//Definiendo el valor de y
+        else{
+            aux.sig.animate.y=aux.animate.y + this.hMax +20
+            aux.sig.animate.x=this.head.animate.x +45
+            this.hMax=0
+        }
+        
+        const p = document.getElementById("btn"+(aux.sig.animate.id))
+        const posicion = p.cloneNode(true)
+        p.parentNode.replaceChild(posicion, p)
+        posicion.style.left = (aux.sig.animate.x).toString()+"px" //El + 50 es para incluir a la misma flecha
+        posicion.style.top =(aux.sig.animate.y).toString()+"px"
+        posicion.classList="animate__animated animate__slideInRight"
+        
+        const sF = document.getElementById("flecha"+(aux.sig.animate.id))
+        const selecFlecha = sF.cloneNode(true)
+        sF.parentNode.replaceChild(selecFlecha, sF)
+        selecFlecha.style.position="absolute"
+        selecFlecha.classList="animate__animated animate__slideInRight"
+        selecFlecha.style.left = (aux.sig.animate.x-(aux.sig.animate.heightBtn*0.93)-10).toString()+"px"
+        selecFlecha.style.top = (aux.sig.animate.y+5).toString()+"px"
+        aux=aux.sig
+        //console.log(aux.data+" == "+this.head.data)
+        //return
     }
+    //aux=aux.sig
+  
+    const iF=document.getElementById("indexFinal")
+    const indFinal = iF.cloneNode(true)
+    iF.parentNode.replaceChild(indFinal, iF)
+    indFinal.style.left=(aux.animate.x+aux.animate.disBtn).toString()+"px"
+    indFinal.style.top=(aux.animate.y).toString()+"px"
+    indFinal.classList='animate__animated animate__slideInRight'
   }
   refresh(dataActual,dataFinal){
     if(this.head!=null){

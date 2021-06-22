@@ -77,7 +77,26 @@ class ListaCircular{
 
                     while (i < this.size){
                         if(nodo_actual.get_dato()==dato){
-                            break
+                            if ((i+1) == this.size){
+
+                                let temp = this.get_ultimo().get_siguiente()
+                                this.get_ultimo().set_siguiente(null)
+                                anterior.set_siguiente(temp)
+                                this.set_ultimo(anterior)
+                                this.size --;
+                                return console.log("Delete!");
+
+                            }else{
+
+                                let temp = nodo_actual.get_siguiente()
+                                nodo_actual.set_siguiente(null)
+                                anterior.set_siguiente(temp)
+                                this.set_ultimo(anterior)
+                                this.size --;
+                                return console.log("Delete!");
+
+                            }
+
                         }
                         nodo_actual = nodo_actual.get_siguiente()
                         anterior = anterior.get_siguiente()
@@ -86,10 +105,7 @@ class ListaCircular{
                     }
 
                     
-                    nodo_actual.set_siguiente(null)
-                    anterior.set_siguiente(this.get_primero())
-                    this.set_ultimo(anterior)
-                    this.size --;
+                    
                     return console.log("Delete!");
                 }else{
                     this.set_primero.set_siguiente(null)
@@ -102,23 +118,43 @@ class ListaCircular{
 
 
             }else{ //Condicion cuando hay mas de 3 nodos -> eliminando al de en medio
-                let nodo_actual = this.get_primero().get_siguiente();
-                let anterior = this.get_primero();
-                
-                let i = 0;
-                while (i<this.size){
+                if (this.get_primero().get_siguiente()!= null){
+                    let nodo_actual = this.get_primero().get_siguiente()
+                    let anterior = this.get_primero()
 
-                    if (nodo_actual.get_dato() == dato){
-                        let temp = nodo_actual.get_siguiente()
-                        nodo_actual.set_siguiente(null)
-                        anterior.set_siguiente(temp)
-                        this.size --;
-                        return console.log("Delete!");
-                     
+                    let i = 0
+
+                    while (i < this.size){
+                        if(nodo_actual.get_dato()==dato){
+                            if ((i+1) == this.size){
+
+                                let temp = this.get_ultimo().get_siguiente()
+                                this.get_ultimo().set_siguiente(null)
+                                anterior.set_siguiente(temp)
+                                this.set_ultimo(anterior)
+                                this.size --;
+                                return console.log("Delete!");
+
+                            }else{
+
+                                let temp = nodo_actual.get_siguiente()
+                                nodo_actual.set_siguiente(null)
+                                anterior.set_siguiente(temp)
+                                this.set_ultimo(anterior)
+                                this.size --;
+                                return console.log("Delete!");
+
+                            }
+
+                        }
+                        nodo_actual = nodo_actual.get_siguiente()
+                        anterior = anterior.get_siguiente()
+
+                        i ++;
                     }
-                    nodo_actual = nodo_actual.get_siguiente();
-                    anterior = anterior.get_siguiente();
-                    i++;
+
+                    
+                    return console.log("Delete!");
                 }
             }
 
