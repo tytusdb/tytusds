@@ -16,7 +16,7 @@
                 <div class="input-group">
                     
                     <div class="input-group-append">
-                        <button class="btn btn-secondary " type="button" (click)="mostrarBarras()">Ordenamiento Seleccion</button>
+                        <button class="btn btn-secondary " type="button" (click)="mostrarBarras()">Ordenamiento Burbuja</button>
                     </div>
                 </div>
             </div>
@@ -50,14 +50,16 @@
     
         <div style="display: block">
             
-            <canvas #myChart id="myChart" height="90" baseChart
-             [datasets]="barChartData"
-             [labels]="barChartLabels"
-             [options]="barChartOptions"
-             [legend]="barChartLegend"
-             [chartType]="barChartType">
-           </canvas>
-         </div>
+             <canvas #myChart id="myChart" height="90" baseChart
+              [datasets]="barChartData"
+              [labels]="barChartLabels"
+              [options]="barChartOptions"
+              [legend]="barChartLegend"
+              [chartType]="barChartType">
+              
+            </canvas>
+            
+          </div>
 
         
 

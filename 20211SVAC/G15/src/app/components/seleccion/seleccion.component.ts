@@ -85,7 +85,7 @@ public barChartOptions: ChartOptions = {
        let data:any = await this.processFile(file)
        data = JSON.parse(data)
        data = data.valores
-       console.log(data)
+       console.log("Estos son valores primero"+data)
        let datos2 = [];
       for(let i = 0; i < data.length; i++){
         //await this.addData(data[i])
@@ -100,9 +100,9 @@ public barChartOptions: ChartOptions = {
        
       }
        
-       this.seleccion.ordenamientoSeleccion(datos2);
-       this.datos=datos2
-       console.log(datos2)
+       
+    //   this.datos=this.seleccion.ordenamientoSeleccion(datos2);
+      // console.log(datos2)
        if (this.numero===true) {
          this.barChartLabels = data;
          this.barChartData[0].data=data
