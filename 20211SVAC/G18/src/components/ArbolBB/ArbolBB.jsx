@@ -54,7 +54,7 @@ class ArbolBinariodeB extends React.Component {
 
 
     ImprimirArbol() {
-        this.state.Arbol.imprimir();
+        this.state.Arbol.inOrden();
     }
 
     ModificarElemento() {
@@ -79,7 +79,7 @@ class ArbolBinariodeB extends React.Component {
                     this.setState({
                         elemento: element,
                     }, () => {
-                        this.InsertarContenidoFinal()
+                        this.InsertarContenidoInicio()
                     })
 
                 }, index * 1000)
@@ -127,6 +127,10 @@ class ArbolBinariodeB extends React.Component {
                         <button className="btn btn-warning" onClick={this.ModificarElemento}>Modificar</button>
                     </div>
 
+                    <div className="col-sm-2 d-grid gap-2">
+                        <button className="btn btn-success" onClick={this.ImprimirArbol} >Imprimir</button>
+                    </div>
+
                 </div>
 
                 <div className="card mt-2">
@@ -145,6 +149,7 @@ class ArbolBinariodeB extends React.Component {
                                 <TreeNode label={<StyledNode>Grand</StyledNode>} />
                                 <TreeNode label={<StyledNode>Grand</StyledNode>} />
                             </TreeNode>
+                            
                         </Tree>
 
                     </div>

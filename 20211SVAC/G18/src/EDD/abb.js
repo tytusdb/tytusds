@@ -41,6 +41,7 @@ class ABB {
     }
 
     inOrden() {
+        console.log("Recorrido inOrden: ");
         this.in_orden(this.raiz);
     }
 
@@ -59,7 +60,7 @@ class ABB {
         if (raiz == true) {
             console.log("Valor encontrado: " + valor);
         } else {
-            console.log("No esta paps: " + valor);
+            console.log("Valor no existe: " + valor);
         }
     }
 
@@ -78,18 +79,6 @@ class ABB {
         }
     }
 
-    /* update(valor, nValor){
-        let raiz = this.raiz;
-        raiz = this.existe(raiz, valor);
-        if(raiz == valor){
-          console.log("Valor encontrado: " +  valor);
-          raiz == nValor;
-          console.log(valor +" reemplazado por: " +  nValor);
-
-        }else{
-          console.log("No esta paps: " +  valor);
-        }
-      } */
 
     delete(valorEliminar) {
         let aux = this.raiz;
@@ -143,6 +132,7 @@ class ABB {
             }
             reemplazo.izquierdo = aux.izquierdo;
         }
+        console.log("Nodo: " + valorEliminar + " eliminado correctamente");
         return true
     }
 
@@ -167,8 +157,9 @@ class ABB {
     update(valor, nvalor) {
         if (this.delete(valor) == true) {
             this.insertar(nvalor);
+            console.log("Nodo: " + valor + " , modificado por: " + nvalor);
         } else {
-            console.log("No existe el nodo a eliminar");
+            console.log("No existe el nodo a modificar");
         }
     }
 
