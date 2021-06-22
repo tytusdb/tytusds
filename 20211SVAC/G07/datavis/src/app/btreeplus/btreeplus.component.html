@@ -21,17 +21,17 @@
     <nav class="navbar navbar-dark bg-primary">
 
       <form class="form-inline" >
-        <input class="form-control mr-sm-2 " type="text" placeholder="Agregar" aria-label="Agregar">
-        <button class="btn btn-outline-light mr-sm-2" type="submit">Agregar</button>
+        <input class="form-control mr-sm-2 " type="text" placeholder="Agregar" aria-label="Agregar"#addvalue>
+        <button (click)="add(addvalue.value)"class="btn btn-outline-light mr-sm-2" type="submit">Agregar</button>
 
-          <input class="form-control mr-sm-2" type="text" placeholder="Eliminar" aria-label="Eliminar">
-        <button class="btn btn-outline-light mr-sm-2" type="submit">Eliminar</button>
+          <input class="form-control mr-sm-2" type="text" placeholder="Eliminar" aria-label="Eliminar"#eliminarvalue>
+        <button (click)="eliminar(eliminarvalue.value)" class="btn btn-outline-light mr-sm-2" type="submit">Eliminar</button>
 
-          <input class="form-control mr-sm-2" type="text" placeholder="Actualizar" aria-label="Actulizar">
-        <button class="btn btn-outline-light mr-sm-2" type="submit">Actualizar</button>
+          <input #printvalue class="form-control mr-sm-2" type="text" placeholder="Visualizar" aria-label="Actulizar">
+        <button (click)="visualizar()" class="btn btn-outline-light mr-sm-2" type="submit">Visualizar</button>
 
-          <input class="form-control mr-sm-2" type="text" placeholder="Buscar" aria-label="Buscar">
-        <button class="btn btn-outline-light mr-sm-2" type="submit">Buscar</button>
+          <input #ordenvalue class="form-control mr-sm-2" type="text" placeholder="Orden" aria-label="Buscar">
+        <button (click)="orden(ordenvalue.value)" class="btn btn-outline-light mr-sm-2" type="submit">Orden</button>
 
         <button class="btn btn-outline-light mr-sm-2" type="submit">Cargar</button>
         <button class="btn btn-outline-light mr-sm-2" type="submit">Guardar</button>
@@ -42,11 +42,7 @@
     <!-- Navbar -->
 
     <!-- Jumbotron -->
-    <div class="p-5 text-center bg-light">
-      <h1 class="mb-3">Heading</h1>
-      <h4 class="mb-3">Subheading</h4>
-      <a class="btn btn-primary" href="" role="button">Call to action</a>
-    </div>
+    
     <!-- Jumbotron -->
 
 
