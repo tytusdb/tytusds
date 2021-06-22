@@ -1,3 +1,4 @@
+import { logging } from 'protractor';
 import { Component, OnInit,ElementRef,ViewChild } from '@angular/core';
 import * as vis from 'vis';
 
@@ -69,7 +70,7 @@ export class QuickComponent implements OnInit {
         this.arr.forEach(el => console.log(el))
         let l=0;
         let w = this.arr.length-1;
-        this.quicksort(this.arr,l,k);
+        this.quicksort(this.arr);
         console.log("Ordenado \n")
         this.arr.forEach(el => console.log(el))
         for (var k=0; k<this.arr.length; k++){
@@ -88,48 +89,28 @@ export class QuickComponent implements OnInit {
       }
       reader.readAsText(a)
     }
-
-    
   }
-
-  quicksort(arreglo,i,j){
-    var index;
-    
-    if(arreglo.length >1){
-        index = this.particion(arreglo,i,j);
-        if(i<index - 1){
-            this.quicksort(arreglo,i, index - 1);
-        }
-        if(index<j){
-            this.quicksort(arreglo,index, j);
-        }
+  quicksort(arreglo: any){
+    if(arreglo.length == 0){
+      return []
     }
-    return arreglo;
-}
-
-intercambiar(arreglo, i, j){
-    var temp = arreglo[i];
-    arreglo[i]=arreglo[j];
-    arreglo[j]=temp;
-}
-
-particion(arreglo, i ,j){
-
-    var pivot = arreglo[Math.floor((j + i)/2)]
-
-    while(i<=j){
-        while(arreglo[i]<pivot){
-            i++;
+    let mediumInd = Math.floor(arreglo.length / 2)
+    let pivot = arreglo[mediumInd]
+    let left = []
+    let rigth = []
+    for(let ins = 0; ins<arreglo.length; ins++){
+      if(ins != mediumInd){
+        if(arreglo[ins] > pivot){
+          rigth.push(arreglo[ins])
         }
-        while(arreglo[j]>pivot){
-            j--;
+        else{
+          left.push(arreglo[ins])
         }
-        if (i>=j)   return j;
-        this.intercambiar(arreglo,i,j)
-        i++;
-        j--;
+      }
     }
-    return i;
-}
-
+    left = this.quicksort(left)
+    rigth = this.quicksort(rigth)
+    let hola = left.concat(pivot).concat(rigth);
+    return hola
+  }
 }
