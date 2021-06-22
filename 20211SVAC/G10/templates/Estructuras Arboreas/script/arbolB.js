@@ -157,6 +157,7 @@ class ArbolB{
     }
 
     agregar(dato){
+        dato = parseFloat(dato);
         this.root = this.insertar(dato, this.root);
     }
 
