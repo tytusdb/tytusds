@@ -5,6 +5,7 @@ class Nodo {
         this.siguiente = null;
         this.rama_Izq = null;
         this.rama_Der = null;
+	this.id = null;
     }
 }
 var salida = "";
@@ -63,6 +64,7 @@ class ArbolBplus {
         this.orden = orden;
         this.NodoAux = null;
         this.raiz = null;
+	this.cuentaNodos = 0;
 
     }
 /*-----------------------------------------------
