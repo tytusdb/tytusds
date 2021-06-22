@@ -70,12 +70,12 @@ export class QuickComponent implements OnInit {
         this.arr.forEach(el => console.log(el))
         let l=0;
         let w = this.arr.length-1;
-        this.quicksort(this.arr);
+        this.QuickSort(this.arr,0,this.arr.length-1);
         console.log("Ordenado \n")
         this.arr.forEach(el => console.log(el))
         for (var k=0; k<this.arr.length; k++){
           let valors = this.arr[k]
-          console.log(valors)
+          //console.log(valors)
           nodes.add(
             {id: i, label:String(valors)}
           );
@@ -90,27 +90,43 @@ export class QuickComponent implements OnInit {
       reader.readAsText(a)
     }
   }
-  quicksort(arreglo: any){
-    if(arreglo.length == 0){
-      return []
-    }
-    let mediumInd = Math.floor(arreglo.length / 2)
-    let pivot = arreglo[mediumInd]
-    let left = []
-    let rigth = []
-    for(let ins = 0; ins<arreglo.length; ins++){
-      if(ins != mediumInd){
-        if(arreglo[ins] > pivot){
-          rigth.push(arreglo[ins])
-        }
-        else{
-          left.push(arreglo[ins])
-        }
+
+  QuickSort(arr, left, right) {
+    let len = arr.length,
+        index
+    if(len > 1) {
+      index = this.partition(arr, left, right)
+      if(left < index - 1) {
+        this.QuickSort(arr, left, index - 1)
+      } 
+      if(index < right) {
+        this.QuickSort(arr, index, right)
       }
     }
-    left = this.quicksort(left)
-    rigth = this.quicksort(rigth)
-    let hola = left.concat(pivot).concat(rigth);
-    return hola
+    return arr
+  }
+
+  partition(arr, left, right) {
+    let middle = Math.floor((right + left) / 2),
+        pivot = arr[middle],
+        i = left,                 
+        j = right                 
+  
+    while(i <= j) {
+      while(arr[i] < pivot) {
+        i++
+      }
+     
+      while(arr[j] > pivot) {
+        j--
+      }
+  
+      if(i <= j) {
+        [arr[i], arr[j]] = [arr[j], arr[i]]  
+        i++
+        j--
+      }
+    }
+    return i
   }
 }
