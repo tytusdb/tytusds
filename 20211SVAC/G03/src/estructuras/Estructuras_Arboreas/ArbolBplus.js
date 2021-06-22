@@ -8,7 +8,8 @@ class Nodo {
         this.id = null; // id nuevo 
     }
 }
-
+var salida = ""
+var guia ;
 class Rama {
     constructor() {
         this.hoja = true;

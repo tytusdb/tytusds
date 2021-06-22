@@ -28,7 +28,7 @@ class ListaCD{  //Clase Lista Circular doble
                 this.insertarInicio(dato)
                 break;
             case "Ordenado":
-                this.insertOrdenado(dato)
+                this.agregarOrdenado(dato)
                 break;
             case "Final":
                 this.insertFinal(dato)

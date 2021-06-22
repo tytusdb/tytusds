@@ -418,7 +418,7 @@ class ArbolB{
     }
 
     //Metodo Graficar
-    graficar(){
+    graficar(datoBuscar){
         salida = ""
         if(this.raiz == null){
             console.log("No hay nada aun")
@@ -426,27 +426,31 @@ class ArbolB{
         }
         let rama = this.raiz
         salida+= "digraph G{\nnode[shape=record]\nedge[color=\"green\"]\n"
-        this.graficando(rama)
+        this.graficando(rama,datoBuscar)
         salida+= "}"
         console.log(salida)
         return salida
     }
 
     //SubMetodo Graficar
-    graficando(rama){
+    graficando(rama,datoBuscar){
         if (rama.raiz == null){
             console.log("no hay nodos")
             return 
         }
         let aux = rama.raiz
         if(aux.izquierdo != null){
-            this.graficando(aux.izquierdo)
+            this.graficando(aux.izquierdo,datoBuscar)
         }
         if(aux.derecho!=null){
-            this.graficando(aux.derecho)
+            this.graficando(aux.derecho,datoBuscar)
         }
         if(aux.siguiente == null){
-            salida += "node"+aux.dato+" [label = \" iz| "+aux.dato+" |de \"]; \n"
+            if(datoBuscar == aux.dato){
+                salida += "node"+aux.dato+" [color=\"green\" label = \" iz| "+aux.dato+" |de \"]; \n"
+            }else{
+                salida += "node"+aux.dato+" [label = \" iz| "+aux.dato+" |de \"]; \n"
+            }
             if(aux.derecho != null){
                 salida+= "node"+aux.dato + " -> node" + aux.derecho.raiz.dato + "\n"
             }
@@ -457,18 +461,35 @@ class ArbolB{
         if(aux.siguiente != null){
             if(aux.izquierdo==null && aux.derecho == null){
                 salida += "node"+aux.dato+" [label = \" iz| "
+                let encuetra = false
                 while(aux!=null){
+                    if(datoBuscar == aux.dato){
+                        encuetra = true
+                    }
                     salida += aux.dato+ " | "
                     aux = aux.siguiente
                 }
-                salida += "de \"]; \n"
+                if(encuetra== true){
+                    salida += "de \"color = \"green\"] ; \n"
+                }else{
+                    salida += "de \"]; \n"
+                }
+                
             }else if(aux.izquierdo!=null && aux.derecho != null){
                 salida += "node"+aux.dato+" [label = \" iz| "
+                let encuetra = false
                 while(aux!=null){
+                    if(datoBuscar == aux.dato){
+                        encuetra = true
+                    }
                     salida += aux.dato+ " | "
                     aux = aux.siguiente
                 }
-                salida += "de \"]; \n"
+                if(encuetra== true){
+                    salida += "de \"  color = \"green\"]; \n"
+                }else{
+                    salida += "de \"]; \n"
+                }
                 aux = rama.raiz
                 if(aux.derecho != null){
                     salida+= "node"+rama.raiz.dato + " -> node" + rama.raiz.derecho.raiz.dato + "\n"
@@ -487,7 +508,7 @@ class ArbolB{
             aux = aux.siguiente
             while(aux !=null){
                 if(aux != null && aux.derecho!=null){
-                    this.graficando(aux.derecho)
+                    this.graficando(aux.derecho,datoBuscar)
                 }
                 aux = aux.siguiente
             }

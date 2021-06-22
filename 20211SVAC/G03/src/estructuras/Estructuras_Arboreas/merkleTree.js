@@ -444,7 +444,9 @@ class MerkleTree{
     }
 
     //Metodo Graficar
-    graficar(){
+    graficar(valorBuscar){
+        
+        salida = ""
         if(this.raiz == null){
             console.log("No hay nada aun")
             return
@@ -452,17 +454,22 @@ class MerkleTree{
         let nodo = this.raiz
         let contador = 0
         salida+= "digraph G{\nnode[shape=record]\nedge[color=\"green\"]\n"
-        this.graficando(nodo)
+        this.graficando(nodo,valorBuscar)
         salida+= "}"
         console.log(salida)
-        salida = ""
         contador = 0
+
+        return salida
     }
 
     //SubMetodo Buscar
-    graficando(nodo){
+    graficando(nodo,valorBuscar){
         if(nodo!= null){
-            salida += "node"+nodo.id+" [label = \" iz| "+nodo.dato+" |de \"]; \n"
+            if(valorBuscar == nodo.dato){
+                salida += "node"+nodo.id+" [color=\"green\" label = \" iz| "+nodo.dato+"|"+nodo.hash.hex()+" |de \"]; \n"
+            }else{
+                salida += "node"+nodo.id+" [label = \" iz| "+nodo.dato+"|"+nodo.hash.hex()+" |de \"]; \n"
+            }
             if(nodo.derecha != null){
                 salida += "node"+nodo.id + " -> node" +nodo.derecha.id + "\n"
             }
@@ -470,10 +477,10 @@ class MerkleTree{
                 salida+= "node"+nodo.id + " -> node" + nodo.izquierda.id + "\n"
             }
             if(nodo.izquierda!=null){
-                this.graficando(nodo.izquierda)
+                this.graficando(nodo.izquierda,valorBuscar)
             }
             if(nodo.derecha != null){
-                this.graficando(nodo.derecha)
+                this.graficando(nodo.derecha,valorBuscar)
             }
         }
     }

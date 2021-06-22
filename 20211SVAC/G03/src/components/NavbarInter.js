@@ -163,7 +163,7 @@ export default class NavbarInter extends Component {
         )
 
 
-        
+
       }else{
         if(this.state.nombre == "Ordenamiento Selección" ||
            this.state.nombre == "Ordenamiento Inserción" ||
@@ -229,6 +229,7 @@ export default class NavbarInter extends Component {
           )
         }else if(this.state.nombre == "Arbol B"
         ||this.state.nombre == "Arbol B+"
+        ||this.state.nombre == "Arbol Merkle"
         ){
     return (
       <div>

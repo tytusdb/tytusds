@@ -15,7 +15,10 @@ import ListaCS from '../estructuras/EstructurasLineales/ListaCirS'
 import ListaSimple from '../estructuras/EstructurasLineales/ListaSimple'
 import ListaDoble from '../estructuras/EstructurasLineales/ListaDoble'
 
+import MerkleTree from '../estructuras/Estructuras_Arboreas/merkleTree'
 import ArbolB from '../estructuras/Estructuras_Arboreas/ArbolB'
+
+import ArbolBplus from '../estructuras/Estructuras_Arboreas/ArbolBplus'
 
 const countryOptions = [
     { key: 'ini', value: 'Inicio', text: 'Inicio' },
@@ -112,6 +115,20 @@ export default class Agregar extends Component {
                 }
                 edd.insertar(dato) 
                 break
+            case "Arbol B+":
+
+                if(edd == null){
+                    edd = new ArbolBplus(this.state.opciones);
+                }
+                edd.agregar(dato)
+            break
+            case "Arbol Merkle":
+
+                if(edd == null){
+                    edd = new MerkleTree(this.state.opciones);
+                }
+            edd.insertar(dato)
+            break
             default:
                 break;
         }
