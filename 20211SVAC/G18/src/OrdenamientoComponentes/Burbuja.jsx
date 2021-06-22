@@ -9,9 +9,13 @@ export class Burbuja extends Component {
         super(props)
 
         this.state = {
-            valorBurbuja: "",
+            valorBurbuja: 0,
             burbuja: [],
-        
+            arregloPalabra: [],
+            valoresAscci: [],
+            arregloPalabraOrdenado: [],
+            tamañoAscci: 0
+
         }
         this.leerJson = this.leerJson.bind(this)
     }
@@ -23,11 +27,6 @@ export class Burbuja extends Component {
     };
 
     handleChange = (e) => {
-        // console.log({
-        //     name: e.target.name,
-        //     value: e.target.value
-
-        // });
 
         this.setState({
             valorBurbuja: e.target.value
@@ -37,13 +36,27 @@ export class Burbuja extends Component {
 
     handleSubmit = (e) => {
         e?.preventDefault();
-        // console.log("Formulario Subido")
-        // console.log(this.state.valorBurbuja)
-        this.state.burbuja.push(parseInt(this.state.valorBurbuja))
+
+
+        let numero = parseInt(this.state.valorBurbuja)
+        let palabra = this.state.valorBurbuja
+
+        if (Number.isNaN(numero)) {
+
+            this.state.arregloPalabra.push(palabra)
+
+        } else {
+
+            this.state.burbuja.push(numero)
+        }
+
+
 
         this.setState({
             burbuja: this.state.burbuja
         })
+
+        this.letrasAnumeros(this.state.arregloPalabra)
     };
 
 
@@ -74,35 +87,114 @@ export class Burbuja extends Component {
         reader.readAsText(input.files[0], "UTF-8")
     }
 
-    ordenamientoAnimacion = (contador, listaBurbuja) => {
+    ordenamientoAnimacion = (contador, listaBurbuja, siesTexto) => {
         setTimeout(() => {
             this.setState({
-                burbuja: listaBurbuja
+                burbuja: siesTexto ? [] : listaBurbuja,
+                arregloPalabraOrdenado: siesTexto ? listaBurbuja : []
             })
-        }, 800*contador)
+        }, 500 * contador)
     }
 
-    ordenamiento = () => {
+    sumaAscii = (cadena) => {
 
-        const tamañoLista = this.state.burbuja.length
-        const listaBurbuja = this.state.burbuja
-        let contador = 0
+        for (let i = 0; i < cadena.length; i++) {
+            // console.log(`El carácter ascci en el índice ${i} es '` + cadena.charCodeAt(i) + "'")
+            this.state.tamañoAscci = this.state.tamañoAscci + parseInt(cadena.charCodeAt(i))
+        }
+    }
+
+    letrasAnumeros = (arreglo) => {
 
 
-        for (var i = 1; i < tamañoLista; i++) {
-            for (var j = 0; j < (tamañoLista - i ); j++) {
+        var nombres = {
+            nombre: "",
+            tamañoAscci: 0
+        }
+        this.state.valoresAscci = []
+        for (let i = 0; i < arreglo.length; i++) {
+            let tmp = arreglo[i]
+            this.sumaAscii(tmp)
+            // console.log(tmp)
+            this.state.valoresAscci.push(this.state.tamañoAscci)
+            this.state.tamañoAscci = 0
 
-                if (listaBurbuja[j] > listaBurbuja[j + 1]) {
-                    var aux = listaBurbuja[j];
-                    listaBurbuja[j] = listaBurbuja[j + 1];
-                    listaBurbuja[j + 1] = aux
+        }
+
+        this.state.arregloPalabraOrdenado = []
+
+        for (let x = 0; x < this.state.valoresAscci.length; x++) {
+
+            this.state.arregloPalabraOrdenado.push(
+                {
+                    palabra: {
+                        string: this.state.arregloPalabra[x],
+                        tamañoAscci: this.state.valoresAscci[x]
+                    }
+
 
                 }
+            )
 
-                this.ordenamientoAnimacion(++contador, [...listaBurbuja])
+
+        }
+
+        this.setState({
+            arregloPalabra: arreglo
+        })
+    }
+    ordenamiento = () => {
+
+
+
+        let valor = parseInt(this.state.burbuja[0])
+
+        if (Number.isNaN(valor)) {
+
+
+            const tamañoLista = this.state.arregloPalabraOrdenado.length
+            const listaBurbuja = this.state.arregloPalabraOrdenado
+            let contador = 0
+            
+            for (var i = 1; i < tamañoLista; i++) {
+                for (var j = 0; j < (tamañoLista - i); j++) {
+
+                    if (listaBurbuja[j]['palabra']['tamañoAscci'] > listaBurbuja[j + 1]['palabra']['tamañoAscci']) {
+                        var aux = listaBurbuja[j];
+                        listaBurbuja[j] = listaBurbuja[j + 1]
+                        listaBurbuja[j + 1] = aux
+
+                    }
+                    this.ordenamientoAnimacion(++contador, [...listaBurbuja], true)
+
+                }
+                this.ordenamientoAnimacion(++contador, [...listaBurbuja], true)
+
             }
 
-            this.ordenamientoAnimacion(++contador, [...listaBurbuja])
+        } else {
+
+            const tamañoLista = this.state.burbuja.length
+            const listaBurbuja = this.state.burbuja
+            let contador = 0
+
+
+            for (var i = 1; i < tamañoLista; i++) {
+                for (var j = 0; j < (tamañoLista - i); j++) {
+
+                    if (listaBurbuja[j] > listaBurbuja[j + 1]) {
+                        var aux = listaBurbuja[j];
+                        listaBurbuja[j] = listaBurbuja[j + 1];
+                        listaBurbuja[j + 1] = aux
+
+                    }
+
+                    this.ordenamientoAnimacion(++contador, [...listaBurbuja], false)
+                }
+
+                this.ordenamientoAnimacion(++contador, [...listaBurbuja], false)
+            }
+
         }
 
     }
@@ -110,7 +202,10 @@ export class Burbuja extends Component {
 
 
     render() {
-        console.log(this.state.burbuja)
+        console.log(this.state.arregloPalabra)
+
+        console.log(this.state.arregloPalabraOrdenado)
+        console.log(this.state.valoresAscci)
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
@@ -129,11 +224,11 @@ export class Burbuja extends Component {
                             </div>
 
                             <div className="col-sm-2 d-grid gap-2">
-                                <button type="submit" className="btn btn-outline-success" onClick={this.handleClick} >Agregar elemento</button>
+                                <button type="submit" className="btn btn-success" onClick={this.handleClick} >Agregar elemento</button>
                             </div>
 
                             <div className="col-sm-2 d-grid gap-2">
-                                <button type="button" className="btn btn-outline-success" onClick={this.ordenamiento} >Ordenar</button>
+                                <button type="button" className="btn btn-success" onClick={this.ordenamiento} >Ordenar</button>
                             </div>
 
                             <div className="col-sm-2 d-grid gap-2">
@@ -149,14 +244,14 @@ export class Burbuja extends Component {
 
                 <div className="container">
                     <div className="card mt-4">
-                     
-                    <Bar
+
+                        <Bar
                             data={{
-                                labels: this.state.burbuja,
+                                labels: this.state.burbuja.length > 0 ? this.state.burbuja : this.state.arregloPalabraOrdenado.map((palabra) => palabra.palabra.string),
                                 datasets: [
                                     {
-                                        label: 'ordenamiento de burbuja ',
-                                        data: this.state.burbuja,
+                                        label: 'ordenamiento de burbujaaaa ',
+                                        data: this.state.burbuja.length > 0 ? this.state.burbuja : this.state.arregloPalabraOrdenado.map((palabra) => palabra.palabra.tamañoAscci),
                                         backgroundColor: [
                                             'rgba(255, 99, 132, 0.2)',
                                             'rgba(54, 162, 235, 0.2)',
@@ -203,13 +298,13 @@ export class Burbuja extends Component {
                                 },
                             }}
                         />
-                 
+
 
                     </div>
 
-                    
+
                     <div className="">
-                  
+
                     </div>
                 </div>
 

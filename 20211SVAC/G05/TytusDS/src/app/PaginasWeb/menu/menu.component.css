@@ -8,7 +8,7 @@
   position: absolute;
   height: 170px;
   width: 170px;
-  top: 10px;
+  top: -7px;
   right: 120px;
   background-image: url("../../Componentes/Imagenes/usac_icono.png");
   background-size: 100%;
@@ -45,4 +45,121 @@
 
 #movMenu{
   position: relative;
+}
+
+.Cmenu{
+  background: linear-gradient(to right,#1C1C1C,#E6E6E6);
+}
+
+.burbuja{
+  width: 80px;
+  height: 80px;
+  background-color: #BDBDBD;
+  opacity: 0.3;
+  position: absolute;
+  bottom: -1500px;
+  left: 5%;
+  border-radius: 50%;
+  animation: burbujas 3s linear infinite;
+}
+.burbuja:nth-child(1){
+    width: 80px;
+    height: 80px;
+    left: 5%;
+    animation-duration: 3s;
+}
+.burbuja:nth-child(2){
+  width: 10px;
+  height: 10px;
+  left: 15%;
+  animation-duration: 3s;
+  animation-delay: 2s;
+  z-index: 1;
+}
+.burbuja:nth-child(3){
+  width: 100px;
+  height: 100px;
+  left: 30%;
+  animation-duration: 3s;
+  animation-delay: 7s;
+}
+.burbuja:nth-child(4){
+  width: 65px;
+  height: 65px;
+  left: 45%;
+  animation-duration: 3s;
+  animation-delay: 3s;
+}
+.burbuja:nth-child(5){
+  width: 65px;
+  height: 65px;
+  left: 50%;
+  animation-duration: 3s;
+  animation-delay: 5s;
+}
+.burbuja:nth-child(6){
+  width: 10px;
+  height: 10px;
+  left: 65%;
+  animation-duration: 3s;
+  animation-delay: 8s;
+}
+.burbuja:nth-child(7){
+  width: 65px;
+  height: 65px;
+  left: 80%;
+  animation-duration: 3s;
+  animation-delay: 2s;
+}
+.burbuja:nth-child(8){
+  width: 100px;
+  height: 100px;
+  left: 90%;
+  animation-duration: 3s;
+  animation-delay: 5s;
+}
+.burbuja:nth-child(9){
+  width: 10px;
+  height: 10px;
+  left: 95%;
+  animation-duration: 3s;
+  animation-delay: 5s;
+}
+.burbuja:nth-child(10){
+  width: 65px;
+  height: 65px;
+  right: 5%;
+  animation-duration: 3s;
+  animation-delay: 2s;
+}
+@keyframes burbujas {
+  0%{
+    bottom: -1500px;
+    opacity: 0;
+  }
+  30%{
+    opacity: 0.2;
+    transform: translateX(50px);
+  }
+  50%{
+      opacity: 0.4;
+    transform: translateX(20px);
+  }
+  75%{
+    opacity: 0.4;
+    transform: translateX(35px);
+  }
+  80%{
+    opacity: 0.4;
+    transform: translateX(45px);
+  }
+  85%{
+    opacity: 0.4;
+    transform: translateX(35px);
+  }
+  100%{
+    bottom: 100vh;
+    opacity: 0;
+  }
+
 }

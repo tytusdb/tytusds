@@ -1,6 +1,6 @@
 import React from "react";
 
-class Pila {
+class pila {
     constructor() {
         this.objetos = {}
         this.arriba = 0
@@ -47,18 +47,19 @@ class Pila {
     }
 }
 
-const pila = new Pila()
-console.log(pila.vacia())
-pila.push('Plato #1')
-pila.push('Plato #2')
-pila.push('Plato #3')
-console.log(pila.pop())
-console.log(pila.peek())
-console.log(pila.obtenerCantidad())
-console.log(pila.vacia())
-console.log(pila.imprimir())
+
 
 const Pila = () =>{
+    const newpila = new pila()
+console.log(newpila.vacia())
+newpila.push('Plato #1')
+newpila.push('Plato #2')
+newpila.push('Plato #3')
+console.log(newpila.pop())
+console.log(newpila.peek())
+console.log(newpila.obtenerCantidad())
+console.log(newpila.vacia())
+console.log(newpila.imprimir())
     return (
         <div id={"contenido"}>
             <div id={"contol"}>

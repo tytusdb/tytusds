@@ -31,8 +31,9 @@ export class ABinarioComponent implements OnInit {
   getOpciones(opciones: any): void {
     this.opciones = opciones;
   }
+  //AÑADIR NODOS DEPENDIENDO SI SON DIGITOS O LETRAS
   Add(valor,valorNum){
-    if(this.opciones['repeticionArboles']==true){
+      this.opcionesRep();
       if(valor!=""){
         this.bst.append(valor);
         this.graficar();
@@ -40,10 +41,13 @@ export class ABinarioComponent implements OnInit {
         this.bst.append(parseInt(valorNum));
         this.graficar();
       }
-    }else if( this.opciones['repeticionArboles']==false && this.bst.buscar(valor)==null){
-      this.graficar();
-    }else if( this.opciones['repeticionArboles']==false && this.bst.buscar(valor)!=null){
-      alert('Ese valor ya ha sido ingresado, active la opcion de repetir');
+  }
+  //REESTABLECER LA PROPIEDAD DE SI DEBE DE HABER O NO REPETICIÓN ENTRE NODOS
+  opcionesRep(){
+    if(this.opciones['repeticionArboles']==true){
+      this.bst.repeat=true;
+    }else{
+      this.bst.repeat=false;
     }
   }
   delete(valor){
@@ -60,7 +64,6 @@ export class ABinarioComponent implements OnInit {
     let Nodos=datos[0];
     let Edges=datos[1];
     let data={nodes:Nodos,edges:Edges};
-    console.log(data);
 
     //OPCIONES PARA LOS NODOS----------------------------------------------------------
     let opciones={
@@ -98,8 +101,8 @@ export class ABinarioComponent implements OnInit {
   //LEER ARCHIVOS DE ENTRADA--------------------------------
   getDocumento(documento: any): void{
     this.documentoService.getDocumento(documento).then( contenido => {
-      console.log(contenido);
       contenido['valores'].forEach(valor => {
+          this.opcionesRep();
           this.bst.append(valor);
       });
       this.graficar();

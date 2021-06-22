@@ -1,0 +1,35 @@
+<div [@routerTransition]>
+    <div class="row">
+        <div class="col-xl-6 text-xs-center">
+            <fieldset class="form-group">
+                <label>JSON a cargar</label>
+                <textarea class="form-control" rows="2" [(ngModel)]="strCarga"></textarea>
+                <button class="btn btn-secondary" type="submit" (click)="clickCargar()">Cargar datos</button>
+            </fieldset>
+        </div>
+        <div class="col-xl-6 text-xs-center">
+            <fieldset class="form-group">
+                <label>JSON salida</label>
+                <textarea class="form-control" rows="2">{{strOrdenamientoJson}}</textarea>
+                <button class="btn btn-secondary" type="submit" (click)="clickGuardar()">Guardar</button>
+            </fieldset>
+        </div>
+    </div>   
+    <div class="row">
+        <div class="col-xl-10">
+            <div class="card-header">
+                <button (click)="clickOrdenar()" class="btn btn-info btn-sm">Ordenar por método {{tituloOrdenamiento}}</button>
+            </div>
+                    <canvas 
+                        [chartType]="barChartType"
+                        [datasets]="barChartData"
+                        [labels]="barChartLabels"
+                        [legend]="barChartLegend"
+                        [options]="barChartOptions"
+                        baseChart
+                    >
+                    </canvas>
+                
+            </div>
+    </div>
+</div>

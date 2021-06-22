@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ES">
+
+  <head>
+    <meta charset="utf-8">
+    <title>TytusDS</title>
+
+    <!-- Estilos CSS -->
+    <link rel="stylesheet" type="text/css" href="./styles/style.css">
+
+    <!-- Scripts -->
+    <script src="./scripts/script.js"></script>
+    <script src="./scripts/fabric.min.js"></script>
+
+  </head>
+
+  <body onload="Iniciar()">
+
+    <section>
+
+      <div class="acceso-data">
+
+        <h1>Ingresa Datos</h1>
+
+        <!-- Ingreso De Texto -->
+        <input type="text" id="txt_input"/>
+
+        <!-- Botón Insertar -->
+        <button type="button" onclick="Insertar()">Insertar</button>
+
+        <!-- Botón Actualizar -->
+        <button type="button" onclick="Update()">Actualizar</button>
+
+        <!-- Botón Carga Masiva -->
+        <input type="file" accept=".json" id="upload"/>
+
+        <!-- PRUEBAS -->
+        <p id="demo"></p>
+        <p id="demo2"></p>
+        <button type="button" onclick="VerLista()">Mostrar Lista</button>
+
+      </div>
+
+      <div class="Lienzo">
+
+        <!-- Iniciar Canvas Y Crear Lienzo -->
+        <canvas id="c" width="1350" height="525"></canvas>
+        <script> var canvas = new fabric.Canvas('c'); </script>
+
+      </div>
+
+    </section>
+
+  </body>
+
+</html>

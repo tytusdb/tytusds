@@ -4,7 +4,7 @@ body {
     min-height: 100vh;
   /*background-color: #FAFAFA; */
     /* background: #030321;   */
-    background: #090d00; 
+    background: #063f6d; 
 	color: rgba(255,255,255,.25); 
    
     font-family: Arial; 
@@ -30,6 +30,10 @@ body {
     width: "100%";
     height: "100vh";
     z-index: "0";
+  }
+  
+  .file-input{
+    display: none;
   }
 
   p {
