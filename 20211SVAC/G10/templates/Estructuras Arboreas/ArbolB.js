@@ -1,5 +1,3 @@
-const ArbolBinario = require("./Binario");
-
 class NodoB{
     constructor(valor = null, padre = null){
         if(valor != null){
@@ -188,24 +186,20 @@ class ArbolB{
                 }
             }else{  //si el nodo no tiene hijos, agrega una llave y aumenta el tamano
                 nodo.agregar(dato);
+                this.size++;
             }
         }
         if(isDerecha != null){
-            if(isDerecha){
-                nodo = this.update(nodo, true)    //actualiza el nodo
-            }else{
-                nodo = this.update(nodo, false)    //actualiza el nodo
-            }
+            nodo = this.update(nodo, isDerecha);    //actualiza el nodo
+            
             
         }else{
-            nodo = this.update(nodo)    //actualiza el nodo
+            nodo = this.update(nodo);    //actualiza el nodo
         }
         return nodo;
     }
 
     update(nodo, isDerecha = null){
-        console.log(this.maxLlaves());
-        console.log(nodo.size);
         if(nodo.size > this.maxLlaves()){
             let mid = nodo.llaveMid(this.minHijos());
             let llaveL = mid.anterior;
@@ -313,7 +307,6 @@ class ArbolB{
                 llave = llave.siguiente;
             }
         }
-        console.log(a);
         return a;
     }
 
@@ -322,11 +315,19 @@ class ArbolB{
         if(this.buscar(dato)){
             let elementos = this.elementos();
             this.root = null;
+            let borrado = false;
             for(let i = 0; i < elementos.length; i++){
-                if(elementos[i] != dato){
+                if(!borrado){
+                    if(elementos[i] != dato){
+                        this.agregar(elementos[i]);
+                    }else{
+                        borrado = true;
+                    }
+                }else{
                     this.agregar(elementos[i]);
                 }
             }
+            this.size--;
         }else{
             console.log('Este dato no existe el dato en el arbol.')
         }
@@ -426,11 +427,11 @@ class ArbolB{
     }
 
     cargar(ruta){
-        console.log('leyendo json');
+        console.log('Leyendo json');
     }
 
     guardar(ruta){
-        console.log('guardando en json');
+        console.log('Guardando en json');
     }
 }
 
