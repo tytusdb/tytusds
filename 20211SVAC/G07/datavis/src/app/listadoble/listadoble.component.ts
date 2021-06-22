@@ -7,6 +7,7 @@ var options = {
   layout:{
     hierarchical:{
       enabled: true,
+      direction: 'LR',
     },
   },
   physics: {
