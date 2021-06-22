@@ -49,19 +49,12 @@ export class BubblesortComponent implements OnInit {
 
   descargarContenido(){
     this.generador();
-    
-    
-    
     let downloadfile = "data: text/json;charset=utf-8,"+encodeURIComponent(this.contenido);
     console.log(downloadfile);
-    
     var downloader = document.createElement('a');
-
     downloader.setAttribute('href', downloadfile);
     downloader.setAttribute('download', 'data.json');
     downloader.click();
-    
-
   }
 
 
