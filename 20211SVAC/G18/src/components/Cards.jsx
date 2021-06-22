@@ -108,7 +108,7 @@ const arboles = [
         id: 11,
         title: 'Arbol binario de busqueda',
         image: abb,
-        url: '/'
+        url: '/abb'
     },
 
     {
