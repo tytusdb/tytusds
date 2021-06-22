@@ -11,7 +11,9 @@ class Abinario{
     this.L_edges=[]
     this.nNulls=0;
   }
-
+  set Repeat(repeat){
+    this.repeat=repeat
+  }
   Dot(){
     this.L_edges=[]
     this.L_nodos=[]
@@ -23,7 +25,12 @@ class Abinario{
     return ldata
   }
   append(valor){
-    this.raiz=this._append(valor,this.raiz,null);
+    let existe=this.buscar(valor)
+    if (this.repeat==true) {
+      this.raiz = this._append(valor, this.raiz, null);
+    }else if(this.repeat==false && existe==null ){
+      this.raiz = this._append(valor, this.raiz, null);
+    }
   }
   _append(valor,nodo,padre){
     //si se repite mandar a la derecha
@@ -168,6 +175,7 @@ class Abinario{
   in_orden(nodo){
     if (nodo!=null){
       this.in_orden(nodo.left);
+      console.log(`${nodo.valor} padre: ${nodo.padre}`);
       this.in_orden(nodo.right);
     }
 
@@ -180,6 +188,7 @@ class Abinario{
       if(nodo!=null){
         this.post_orden(nodo.left);
         this.post_orden(nodo.right);
+        console.log(`${nodo.valor} padre: ${nodo.padre}`);
       }
   }
   Dotgen(){
@@ -210,9 +219,6 @@ class Abinario{
       //Restar siempre -1 para que los nodos esten conectaos si no se crearian nodos en posiciones aleatorias
       let apostrofe=this.listaaux.buscar(nodo.valor).apostrofe-1;
       //la raiz es la unica posicion donde no se debe de restar ese valor, como se realizo se le coloco 0
-      if (apostrofe==-1){
-        apostrofe=0
-      }
       let nodoraiz=nodo.valor+`(${apostrofe})`;
       //INGRESO DE OBJETOS NODO
       this.Lnodos(nodoraiz,nodo.valor);
@@ -291,15 +297,15 @@ class Abinario{
   /////////----------------------------------------------------
   //Retornar Json
   Rjson(){
-    this.json=[]
+    this.json=[];
     this._Rjson(this.raiz);
     return this.json;
   }
   _Rjson(nodo){
     if(nodo!=null){
       this.json.push(nodo.valor);
-      this._Rjson(nodo.left);
-      this._Rjson(nodo.right);
+    this._Rjson(nodo.left);
+    this._Rjson(nodo.right);
     }
   }
 

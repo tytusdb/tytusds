@@ -9,7 +9,12 @@ export class Incersion extends Component {
         this.state = {
             valorincersion: "",
             incersion: [],
-          
+            arregloPalabra: [],
+            valoresAscci: [],
+            arregloPalabraOrdenado: [],
+            tamañoAscci: 0
+
+
         }
         this.leerJson = this.leerJson.bind(this)
     }
@@ -21,11 +26,7 @@ export class Incersion extends Component {
     };
 
     handleChange = (e) => {
-        // console.log({
-        //     name: e.target.name,
-        //     value: e.target.value
 
-        // });
 
         this.setState({
             valorincersion: e.target.value
@@ -35,13 +36,28 @@ export class Incersion extends Component {
 
     handleSubmit = (e) => {
         e?.preventDefault();
-        // console.log("Formulario Subido")
-        // console.log(this.state.valorBurbuja)
-        this.state.incersion.push(parseInt(this.state.valorincersion))
+        
+        
+        let numero = parseInt(this.state.valorincersion);
+        let palabra = this.state.valorincersion;
 
+        if (Number.isNaN(numero)) {
+
+            this.state.arregloPalabra.push(palabra);
+
+        } else {
+
+            this.state.incersion.push(numero);
+        };
+
+
+
+        
         this.setState({
             incersion: this.state.incersion
-        })
+        });
+
+        this.letrasAnumeros(this.state.arregloPalabra);
     };
 
 
@@ -74,50 +90,125 @@ export class Incersion extends Component {
 
 
 
-    ordenamientoAnimacion = (contador, listaIncersion) => {
+    ordenamientoAnimacion = (contador, listaIncersion,siesTexto) => {
 
 
         setTimeout(() => {
             this.setState({
-                incersion: listaIncersion
+                incersion: siesTexto ? []:  listaIncersion,
+                arregloPalabraOrdenado: siesTexto ? listaIncersion : []
             })
-        }, contador*1000)
+        }, contador * 1000)
+    }
+
+
+
+    sumaAscii = (cadena) => {
+
+        for (let i = 0; i < cadena.length; i++) {
+
+            this.state.tamañoAscci = this.state.tamañoAscci + parseInt(cadena.charCodeAt(i))
+        }
+    }
+
+    letrasAnumeros = (arreglo) => {
+
+
+     
+        this.state.valoresAscci = []
+        for (let i = 0; i < arreglo.length; i++) {
+            let tmp = arreglo[i]
+            this.sumaAscii(tmp)
+
+            this.state.valoresAscci.push(this.state.tamañoAscci)
+            this.state.tamañoAscci = 0
+
+        }
+
+        this.state.arregloPalabraOrdenado = []
+
+        for (let x = 0; x < this.state.valoresAscci.length; x++) {
+
+            this.state.arregloPalabraOrdenado.push(
+                {
+                    palabra: {
+                        string: this.state.arregloPalabra[x],
+                        tamañoAscci: this.state.valoresAscci[x]
+                    }
+
+
+                }
+            )
+
+
+        }
+
+        this.setState({
+            arregloPalabra: arreglo
+        })
     }
 
 
 
     ordenamiento = () => {
 
-        const tamañoLista = this.state.incersion.length
-        const listaIncersion = this.state.incersion
-        let contador = 0
 
-        setTimeout (()=>{
+        let valor = parseInt(this.state.incersion[0])
 
-        },)
+        if (Number.isNaN(valor)) {
+            const tamañoLista = this.state.arregloPalabraOrdenado.length
+            const listaIncersion = this.state.arregloPalabraOrdenado
+            let contador = 0
 
-        for(let i = 1; i<tamañoLista; i++){
-            let elemento = listaIncersion[i];
-            let j = i-1;
+            
+        for (let i = 1; i < tamañoLista; i++) {
+            let elemento = listaIncersion[i]
+            let j = i - 1;
 
-            while( j> -1 && elemento < listaIncersion[j] ){
+            while (j > -1 && elemento['palabra']['tamañoAscci'] < listaIncersion[j]['palabra']['tamañoAscci']) {
 
                 listaIncersion[j + 1] = listaIncersion[j];
                 j--;
-                this.ordenamientoAnimacion(++contador,listaIncersion )
+                this.ordenamientoAnimacion(++contador, listaIncersion,true)
             }
 
-            listaIncersion[j+1] = elemento; 
-            this.ordenamientoAnimacion(++contador,listaIncersion )
-        }   
-        
-       console.log(listaIncersion)
+            listaIncersion[j + 1] = elemento;
+            this.ordenamientoAnimacion(++contador, listaIncersion,true)
+        }
+
+
+
+
+        } else {
+            const tamañoLista = this.state.incersion.length
+            const listaIncersion = this.state.incersion
+            let contador = 0
+    
+          
+            for (let i = 1; i < tamañoLista; i++) {
+                let elemento = listaIncersion[i];
+                let j = i - 1;
+    
+                while (j > -1 && elemento < listaIncersion[j]) {
+    
+                    listaIncersion[j + 1] = listaIncersion[j];
+                    j--;
+                    this.ordenamientoAnimacion(++contador, listaIncersion,false)
+                }
+    
+                listaIncersion[j + 1] = elemento;
+                this.ordenamientoAnimacion(++contador, listaIncersion,false)
+            }
+        }
+
+
     }
 
 
 
     render() {
-        
+        console.log(this.state.arregloPalabra)
+        console.log(this.state.arregloPalabraOrdenado)
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
@@ -136,11 +227,11 @@ export class Incersion extends Component {
                             </div>
 
                             <div className="col-sm-2 d-grid gap-2">
-                                <button type="submit" className="btn btn-outline-success" onClick={this.handleClick} >Agregar elemento</button>
+                                <button type="submit" className="btn btn-success" onClick={this.handleClick} >Agregar elemento</button>
                             </div>
 
                             <div className="col-sm-2 d-grid gap-2">
-                                <button type="button" className="btn btn-outline-success" onClick={this.ordenamiento} >Ordenar</button>
+                                <button type="button" className="btn btn-success" onClick={this.ordenamiento} >Ordenar</button>
                             </div>
 
                             <div className="col-sm-2 d-grid gap-2">
@@ -156,14 +247,14 @@ export class Incersion extends Component {
 
                 <div className="container">
                     <div className="card mt-4">
-                     
-                    <Bar
+
+                        <Bar
                             data={{
-                                labels: this.state.incersion,
+                                labels:  this.state.incersion.length > 0 ? this.state.incersion : this.state.arregloPalabraOrdenado.map((palabra) => palabra.palabra.string),
                                 datasets: [
                                     {
                                         label: 'ordenamiento de insercion ',
-                                        data: this.state.incersion,
+                                        data:  this.state.incersion.length > 0 ? this.state.incersion : this.state.arregloPalabraOrdenado.map((palabra) => palabra.palabra.tamañoAscci),
                                         backgroundColor: [
                                             'rgba(255, 99, 132, 0.2)',
                                             'rgba(54, 162, 235, 0.2)',
@@ -210,13 +301,13 @@ export class Incersion extends Component {
                                 },
                             }}
                         />
-                 
+
 
                     </div>
 
-                    
+
                     <div className="">
-                  
+
                     </div>
                 </div>
             </div>

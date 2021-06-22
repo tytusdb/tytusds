@@ -132,12 +132,7 @@ eliminar(){
     let actual = this.uno;
     let anterior = null;
     if (this.uno!=null){
-            if(actual==this.fin){
-                if(actual==this.uno){
-                  this.uno=this.uno.post;
-            }else{
-                this.uno=this.uno.post;
-              }} 
+        this.uno= this.uno.post;
             
               var puntero=document.getElementById("myDiv1");
               if (puntero.childNodes.length>0) {
@@ -404,7 +399,11 @@ leer(){
     let aux = this.uno;
     if (this.uno!=null){
         do{
-            ldatos.push([aux.dato.toString(),aux.dato1.toString()]);
+            var ob =new Object();
+            
+            ob.valor=aux.dato1.toString();
+            ob.prioridad=aux.dato.toString();
+            ldatos.push(ob);
             aux=aux.post;
             }while(aux!=null);}
     else{console.log("sin datos"); }

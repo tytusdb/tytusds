@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef,ViewChild  } from '@angular/core';
+import { Component, OnInit, ElementRef,ViewChild, Renderer2  } from '@angular/core';
 import {ColaP}from '../ColaPrioridad/ColaP'
 import Swal from 'sweetalert2'
 
@@ -9,15 +9,15 @@ import Swal from 'sweetalert2'
 })
 export class ColaPrioridadComponent implements OnInit {
 
-  dato: any
-  prioridad:any
+  dato: number|string
+  prioridad: any
   datoBuscar: any
   datoEliminar: any
   datoModificar: any
   datoModificado: any
   ColaPrioridad: ColaP
   svg1
-
+  fileName=""
   repetidos: boolean = false
   velocidad: number = 0.5
   alfinal: boolean = true
@@ -30,43 +30,31 @@ export class ColaPrioridadComponent implements OnInit {
 
   ngOnInit(): void {
     this.ColaPrioridad = new ColaP()
-    this.svg1 = document.getElementById("svg")
-    this.svg1.style.position = 'absolute';
-    this.svg1.style.top = '0';
-    this.svg1.style.left = '0';
-    this.svg1.style.width = '100%';
-    this.svg1.style.height = '100vh';
-    this.svg1.style.zIndex = '0';
   }
 
-  addLast() {
+  async pushbutton() {
+    await this.add(this.dato,this.prioridad)
+    this.dato = ""
+  }
+
+  async add(dato, prioridad) {
     if (!this.repetidos) {
       let temp = this.ColaPrioridad.search(this.dato)
       if (temp !== null) {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: `El dato ${this.dato} ya existe en la lista`
+          text: `El dato ${this.dato} ya existe en la Cola`
         })
-        return;
+        this.dato=""
+        return -1;
       }
     }
-    if (this.alfinal) {
-      let dibujo = document.getElementById("cuerpoDraw")
-      this.ColaPrioridad.add(this.dato,this.prioridad, this.svg1,dibujo,this.velocidad)
-    }
-
-    if (this.alinicio) {
-      let dibujo = document.getElementById("cuerpoDraw")
-     this.ColaPrioridad.insertarInicio(this.dato, this.prioridad, this.svg1, dibujo, `${this.velocidad}s`)
-    }
-
-    if (this.ordenado) {
-      let dibujo = document.getElementById("cuerpoDraw")
-    //  this.CreacionCola.insertarOrden(this.dato, this.svg1, dibujo, `${this.velocidad}s`)
-    }
+    let dibujo = document.getElementById("cuerpoDraw")
+    await this.ColaPrioridad.add(dato, prioridad, dibujo, `${this.velocidad}s`)
     this.dato = ""
     this.prioridad = ""
+    return 1
   }
 
   async search() {
@@ -117,8 +105,8 @@ export class ColaPrioridadComponent implements OnInit {
       return;
     }
     else {
-      result.Nodo.dato = this.datoModificado
-      document.getElementById("nodo" + result.Nodo.identificador).innerHTML = "" + this.datoModificado
+      result.NodoP.dato = this.datoModificado
+      document.getElementById("nodo" + result.NodoP.identificador).innerHTML = "" + this.datoModificado
       this.datoModificar = ""
       this.datoModificado = ""
     }
@@ -127,28 +115,51 @@ export class ColaPrioridadComponent implements OnInit {
   }
 
 
-  changeAlFinal() {
-    if (this.alfinal) {
-      this.alinicio = false
-      this.ordenado = false
-    }
+  async onFileSelected(event) {
+    console.log("hola")
+    const file = event.target.files[0];
+    if (file) {
 
+      this.fileName = file.name;
+      let data: any = await this.processFile(file)
+      data = JSON.parse(data)
+      data = data.valores
+      for (let i = 0; i < data.length; i++) {
+        //for(let j = 0 ; j < data1.length; j++){
+         // await this.add(data[i],this.prioridad)
+          if (!isNaN(data[i])) {
+            console.log("es numero")
+            console.log("mi dato es: " + data[i] + " y mi prioridad es: " )
+          }
+    //  }
+       
+      }
+
+
+    }
+  }
+
+  async processFile(file) {
+    return new Promise((resolve, reject) => {
+      let reader = new FileReader()
+      reader.onload = (event) => {
+        resolve(event.target.result.toString())
+      }
+      reader.onerror = reject;
+
+      reader.readAsText(file);
+    })
+  }
+
+  generarJSON() {
+    let data = this.ColaPrioridad.generarJSON()
+    var link = document.createElement("a");
+    link.download = "ColaDePrioridad.json";
+    var info = "text/json;charset=utf-8," + encodeURIComponent(data);
+    link.href = "data:" + info;
+    link.click();
+    link.remove()
   }
 
 
-  changeAlInicio() {
-    if (this.alinicio) {
-      this.alfinal = false
-      this.ordenado = false
-    }
-
-  }
-
-  changeOrdenado() {
-    if (this.ordenado) {
-      this.alfinal = false
-      this.alinicio = false
-    }
-
-  }
 }

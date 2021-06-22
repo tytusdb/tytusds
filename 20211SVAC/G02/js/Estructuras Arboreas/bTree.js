@@ -343,6 +343,7 @@ function insertarNodo(){
     }else{
         arbol.agregar(valor)
     }
+    document.getElementById("valueNodo").value = ""
     actualizarTablero()
 }
 

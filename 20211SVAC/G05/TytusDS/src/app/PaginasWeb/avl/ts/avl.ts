@@ -85,12 +85,15 @@ export class Avl {
 
     private _preorden(temp: any): void {
         if (temp) {
-            console.log(`${temp.valor} `);
+            console.log(temp.valor);
             this._preorden(temp.izquierda);
             this._preorden(temp.derecha);
         }
     }
 
-
+    getNodos(): any {
+        let nodos: any = [];
+        
+    }
 
 }

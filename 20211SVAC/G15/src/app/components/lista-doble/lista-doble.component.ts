@@ -16,7 +16,7 @@ export class ListaDobleComponent implements OnInit {
   datoModificado: any
   ListaDobleEnlazada: Lista
   svg1
-
+  fileName= ""
   repetidos: boolean = false
   velocidad: number = 0.5
   alfinal: boolean = true
@@ -38,32 +38,36 @@ export class ListaDobleComponent implements OnInit {
     this.svg1.style.zIndex = '0';
 
   }
-
-  addLast() {
+  async insertanButton(){
+    await this.addLast(this.dato)
+    this.dato = ""
+  }
+  addLast(dato) {
     if (!this.repetidos) {
-      let temp = this.ListaDobleEnlazada.buscarDato(this.dato)
+      let temp = this.ListaDobleEnlazada.buscarDato(dato)
       if (temp !== null) {
         Swal.fire({
+          target: document.getElementById('form-modal'),
           icon: 'error',
           title: 'Oops...',
-          text: `El dato ${this.dato} ya existe en la lista`
+          text: `El dato ${dato} ya existe en la lista`
         })
         return;
       }
     }
     if (this.alfinal) {
       let dibujo = document.getElementById("cuerpoDraw")
-      this.ListaDobleEnlazada.insertarFinal(this.dato, this.svg1, dibujo, `${this.velocidad}s`)
+      this.ListaDobleEnlazada.insertarFinal(dato, this.svg1, dibujo, `${this.velocidad}s`)
     }
 
     if (this.alinicio) {
       let dibujo = document.getElementById("cuerpoDraw")
-      this.ListaDobleEnlazada.insertarInicio(this.dato, this.svg1, dibujo, `${this.velocidad}s`)
+      this.ListaDobleEnlazada.insertarInicio(dato, this.svg1, dibujo, `${this.velocidad}s`)
     }
 
     if (this.ordenado) {
       let dibujo = document.getElementById("cuerpoDraw")
-      this.ListaDobleEnlazada.insertarOrden(this.dato, this.svg1, dibujo, `${this.velocidad}s`)
+      this.ListaDobleEnlazada.insertarOrden(dato, this.svg1, dibujo, `${this.velocidad}s`)
     }
     this.dato = ""
   }
@@ -74,6 +78,7 @@ export class ListaDobleComponent implements OnInit {
     console.log("mi numero no esta ")
     if (result === null) {
       Swal.fire({
+        target: document.getElementById('form-modal'),
         icon: 'error',
         title: 'Oops...',
         text: `El dato ${this.datoBuscar} no existe en la lista`
@@ -81,6 +86,7 @@ export class ListaDobleComponent implements OnInit {
       return;
     } else {
       Swal.fire({
+        target: document.getElementById('form-modal'),
         icon: 'success',
         title: ':)',
         text: `Se econtro el dato ${this.datoBuscar} en la posicion ${result.index}`
@@ -96,6 +102,7 @@ export class ListaDobleComponent implements OnInit {
     let result = await this.ListaDobleEnlazada.eliminarDato(this.datoEliminar, `${this.velocidad}s`, this.svg1)
     if (result === -1) {
       Swal.fire({
+        target: document.getElementById('form-modal'),
         icon: 'error',
         title: 'Oops...',
         text: `El dato ${this.datoEliminar} no existe en la lista`
@@ -110,6 +117,7 @@ export class ListaDobleComponent implements OnInit {
     let result = await this.ListaDobleEnlazada.buscarAnimacion(this.datoModificar, `${this.velocidad}s`)
     if (result === null) {
       Swal.fire({
+        target: document.getElementById('form-modal'),
         icon: 'error',
         title: 'Oops...',
         text: `El dato ${this.datoModificar} no existe en la lista`
@@ -117,8 +125,8 @@ export class ListaDobleComponent implements OnInit {
       return;
     }
     else {
-      result.Nodo.dato = this.datoModificado
-      document.getElementById("nodo" + result.Nodo.getIdentificador()).innerHTML = "" + this.datoModificado
+      result.nodo.dato = this.datoModificado
+      document.getElementById("nodo" + result.nodo.getIdentificador()).innerHTML = "" + this.datoModificado
       this.datoModificar = ""
       this.datoModificado = ""
     }
@@ -151,6 +159,48 @@ export class ListaDobleComponent implements OnInit {
     }
 
   }
+
+  async onFileSelected(event) {
+    const file = event.target.files[0];
+    if (file) {
+
+      this.fileName = file.name;
+      let data: any = await this.processFile(file)
+      data = JSON.parse(data)
+      data = data.valores
+      for (let i = 0; i < data.length; i++) {
+        await this.addLast(data[i])
+        if (!isNaN(data[i])) {
+          console.log("es numero")
+        }
+      }
+
+
+    }
+  }
+
+  async processFile(file) {
+    return new Promise((resolve, reject) => {
+      let reader = new FileReader()
+      reader.onload = (event) => {
+        resolve(event.target.result.toString())
+      }
+      reader.onerror = reject;
+
+      reader.readAsText(file);
+    })
+  }
+
+  generarJSON() {
+    let data = this.ListaDobleEnlazada.generarJSON()
+    var link = document.createElement("a");
+    link.download = "ListaDobleEnlazada.json";
+    var info = "text/json;charset=utf-8," + encodeURIComponent(data);
+    link.href = "data:" + info;
+    link.click();
+    link.remove()
+  }
+
 
 }
 

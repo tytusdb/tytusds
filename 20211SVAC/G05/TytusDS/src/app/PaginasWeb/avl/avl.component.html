@@ -4,31 +4,31 @@
     <h1 class="fw-light">Árbol AVL</h1>
     <hr>
     <div class="row">
-        <div class="col-lg-1">
+        <div class="col-md-1">
             <input type="text" class="form-control" placeholder="valor" [(ngModel)]="valorAgregar">
         </div>
-        <div class="col-lg-1">
+        <div class="col-md-1">
             <button class="btn btn-primary" (click)="agregar()">Agregar</button>
         </div>
-        <div class="col-lg-1">
+        <div class="col-md-1">
             <input type="number" class="form-control" placeholder="valor" [(ngModel)]="valorEliminar">
         </div>
-        <div class="col-lg-1">
+        <div class="col-md-1">
             <button class="btn btn-primary" (click)="eliminar()">Eliminar</button>
         </div>
         <div class="col-md-2">
-            <input type="text" class="form-control" placeholder="nodo" [(ngModel)]="nodoActualizar">
+            <input type="text" class="form-control" placeholder="valor actual" [(ngModel)]="nodoActualizar">
         </div>
         <div class="col-md-2">
             <input type="text" class="form-control" placeholder="nuevo valor" [(ngModel)]="valorActualizar">
         </div>
-        <div class="col-lg-1">
+        <div class="col-md-1">
             <button class="btn btn-primary" (click)="actualizar()">Actualizar</button>
         </div>
-        <div class="col-lg-1">
+        <div class="col-md-1">
             <input type="text" class="form-control" placeholder="nodo" [(ngModel)]="valorBuscar">
         </div>
-        <div class="col-lg-1">
+        <div class="col-md-1">
             <button class="btn btn-primary" (click)="buscar()">Buscar</button>
         </div>
     </div>
@@ -42,5 +42,7 @@
                 <button class="btn btn-success" (click)="guardar()">Guardar</button>
             </div>
         </div>
+    </div>
+    <div class="bg-light animacion mt-5" id="contenedor">
     </div>
 </div>
