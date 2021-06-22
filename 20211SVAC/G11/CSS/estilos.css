@@ -1,0 +1,320 @@
+* {
+	padding:0px;
+	margin:0px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+body {
+	background:#0E6655;
+}
+
+div.cont{
+	max-width: 1000px;
+	display: flex;
+	flex-wrap: wrap;
+	border: 1px solid #ccc;
+	
+}
+
+div#contenedor{
+	max-width: 1250px;
+	flex-wrap: wrap;
+	align-items: center;
+	border: 1px solid #ccc;
+}
+
+#listaAgregar{
+	display: flex;
+	width: 1000px;
+	left:30px;
+	flex-wrap: wrap;
+}
+
+#listaOrdenar{
+	
+}
+
+#listaOrdenar ul{
+	display: flex;
+	border: solid;
+	width: 1000px;
+	left:30px;
+	flex-wrap: wrap;
+}
+
+.sad{
+	background-color: hsl(122, 39%, 49%); /* Green */
+  	border: #011826;
+	color: white;
+  	padding: 10px 20px;
+  	text-align: center;
+  	text-decoration: none;	
+  	width: auto;
+  	font-size: 16px;
+  	cursor: pointer;
+	margin:1px;
+}
+
+.est{
+	background-color: hsl(122, 39%, 49%); /* Green */
+  	border: #011826;
+	color: white;
+  	padding: 10px 20px;
+  	text-align: center;
+  	text-decoration: none;	
+  	width: auto;
+  	font-size: 16px;
+  	cursor: pointer;
+	margin:1px;
+}
+
+.ord{
+	background-color: #2E86C1; /* Green */
+  	border: #011826;
+	color: white;
+  	padding: 10px 20px;
+  	text-align: center;
+  	text-decoration: none;	
+  	width: auto;
+  	font-size: 16px;
+  	cursor: pointer;
+	margin:1px;
+}
+
+.btn-Ingrese{
+	background-color: #4CAF50; /* Green */
+  	border: none;
+	width: 120px;
+  	color: white;
+  	padding: 10px 20px;
+  	text-align: center;
+  	text-decoration: none;	
+  	display: inline-block;
+  	font-size: 16px;
+  	cursor: pointer;
+	margin:10px;	
+}
+
+.btn-Elimina{
+	background-color: #E74C3C; 
+  	border: none;
+  	color: white;
+	width: 120px;
+  	padding: 10px 20px;
+  	text-align: center;
+  	text-decoration: none;	
+  	display: inline-block;
+  	font-size: 16px;
+  	cursor: pointer;
+	margin:10px;	
+}
+
+.btn-Actualizar{
+	background-color: #2E86C1; /* Green */
+  	border: none;
+	width: 120px;
+  	color: white;
+  	padding: 10px 20px;
+  	text-align: center;
+  	text-decoration: none;	
+  	display: inline-block;
+  	font-size: 16px;
+  	cursor: pointer;
+	margin:10px;	
+}
+
+.btn-Buscar{
+	background-color: #F4D03F; /* Green */
+  	border: none;
+	width: 120px;
+  	color: white;
+  	padding: 10px 20px;
+  	text-align: center;
+  	text-decoration: none;	
+  	display: inline-block;
+  	font-size: 16px;
+  	cursor: pointer;
+	margin:10px;	
+}
+
+.btn-Guardar{
+	background-color: #839192; /* Green */
+  	border: none;
+	width: 120px;
+  	color: white;
+  	padding: 10px 20px;
+  	text-align: center;
+  	text-decoration: none;	
+  	display: inline-block;
+  	font-size: 16px;
+  	cursor: pointer;
+	margin:10px;	
+}
+input#btn_Cargar{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+}
+
+div#div_file{
+	position: relative;
+	/*margin: 50px;*/
+	padding: 10px;
+	width: 150px;
+	height: 40px;
+	background-color: #0E6655;
+}
+
+p#texto{
+	text-align: center;
+	color:white;
+}
+
+
+.menu_bar {
+	display:none;
+}
+
+header {
+	width: 100%;
+}
+
+header nav {
+	background:#023859;
+	/*z-index:1000;*/
+	max-width: 100%;
+	/*width:95%;*/
+	/*margin:20px auto;*/
+}
+
+header nav ul {
+	list-style:none;
+}
+
+header nav ul li {
+	display:inline-block;
+	position: relative;
+}
+
+header nav ul li:hover {
+	background:#E6344A;
+}
+
+header nav ul li a {
+	color:#fff;
+	display:block;
+	text-decoration:none;
+	padding: 20px;
+}
+
+header nav ul li a span {
+	margin-right:10px;
+}
+
+header nav ul li:hover .children {
+	display:block;
+}
+
+header nav ul li .children {
+	display: none;
+	background:#011826;
+	position: absolute;
+	width: 150%;
+	z-index:1000;
+}
+
+header nav ul li .children li {
+	display:block;
+	overflow: hidden;
+	border-bottom: 1px solid rgba(255,255,255,.5);
+}
+
+header nav ul li .children li a {
+	display: block;
+}
+
+header nav ul li .children li a span {
+	float: right;
+	position: relative;
+	top:3px;
+	margin-right:0;
+	margin-left:10px;
+}
+
+header nav ul li .caret {
+	position: relative;
+	top:3px;
+	margin-left:10px;
+	margin-right:0px;
+}
+/*
+@media screen and (max-width: 1250px) {
+	body {
+		padding-top:80px;
+	}
+
+	.menu_bar {
+		display:block;
+		width:100%;
+		position: fixed;
+		top:0;
+		background:#E6344A;
+	}
+
+	.menu_bar .bt-menu {
+		display: block;
+		padding: 20px;
+		color: #fff;
+		overflow: hidden;
+		font-size: 25px;
+		font-weight: bold;
+		text-decoration: none;
+	}
+
+	.menu_bar span {
+		float: right;
+		font-size: 40px;
+	}
+
+	header nav {
+		width: 80%;
+		height: calc(100% - 80px);
+		position: fixed;
+		right:100%;
+		margin: 0;
+		overflow: scroll;
+	}
+
+	header nav ul li {
+		display: block;
+		border-bottom:1px solid rgba(255,255,255,.5);
+	}
+
+	header nav ul li a {
+		display: block;
+	}
+
+	header nav ul li:hover .children {
+		display: none;
+	}
+
+	header nav ul li .children {
+		width: 100%;
+		position: relative;
+	}
+
+	header nav ul li .children li a {
+		margin-left:20px;
+	}
+
+	header nav ul li .caret {
+		float: right;
+	}
+}*/

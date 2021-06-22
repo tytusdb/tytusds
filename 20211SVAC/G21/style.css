@@ -1,0 +1,13 @@
+body, html, h1 {
+  margin: 0;
+}
+
+.acceso-data {
+  background: blue;
+  min-height: 15vh;
+}
+
+.Lienzo {
+  background: yellow;
+  min-height: 85vh;
+}

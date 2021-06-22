@@ -1,0 +1,22 @@
+
+.contenedor{
+
+    width: 1080px;
+    margin: auto;
+    background:#dddee2;
+    color: rgb(219, 219, 219);
+    padding: 20px 15px 50px 50px;
+    border-radius: 10px;
+    box-shadow: 0 10px 10px 0px rgba(22, 22, 22, 0.8);
+}
+
+.a-label{
+    text-align: left;
+    color: rgba(34, 33, 33, 0.8)
+}
+
+.contenedor h1{
+    text-align: center;
+    color:rgba(34, 33, 33, 0.8)
+}
+
