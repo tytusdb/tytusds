@@ -43,7 +43,8 @@
               "src/app/Structures/cola.js",
               "src/app/Structures/colaPrioridad.js",
               "src/app/Ordenamientos/Ordenamientos.js",
-              "src/app/Structures/BinaryTree.js"
+              "src/app/Structures/BinaryTree.js",
+              "src/app/Structures/AVLTree.js"
                          ]
           },
           "configurations": {
@@ -117,7 +118,8 @@
               "src/app/Structures/cola.js",
               "src/app/Structures/colaPrioridad.js",
               "src/app/Ordenamientos/Ordenamientos.js",
-              "src/app/Structures/BinaryTree.js"
+              "src/app/Structures/BinaryTree.js",
+              "src/app/Structures/AVLTree.js"
             ]
           }
         },

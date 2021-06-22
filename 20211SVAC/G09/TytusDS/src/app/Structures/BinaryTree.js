@@ -153,9 +153,9 @@ class NodoBinaryTree {
       if (!node) {
         return
       }
-      this.print(node.izquierda)
-      console.log(node.value)
-      this.print(node.derecha)
+      this.print(node.izquierda);
+      console.log(node.value);
+      this.print(node.derecha);
     }
     /**
       * recorre primero toda la rama izquierda
@@ -200,8 +200,12 @@ class NodoBinaryTree {
     }
   }
   
-  var binary = new Tree()
-  //var arr = [5,2,3,-4,12,9,21,19,25]
+  var binary= new Tree()
+  var categoriaBinario  = "Arboles";
+  var nombreBinario  = 'Arbol Binario';
+  var repeticionBinario  = "True";
+  var animacionBinario  = "0";
+ 
   function agregarBinary(data){
     console.log("******************")
     binary.addBinary(data)
@@ -230,3 +234,63 @@ class NodoBinaryTree {
   //t.delete(12)
  
  // t.print();
+function AbrirBinario(event) {
+  var file = event.target.files[0];
+  var reader = new FileReader();
+  reader.onload = function(event) {
+    // El texto del archivo se mostrará por consola aquí
+   // console.log(event.target.result)
+    let doc = JSON.parse(event.target.result);
+    //console.log(doc)
+
+    for (var key in doc) {
+      //console.log('name=' + key + ' value=' + doc[key]);
+      if(key=='categoria'){
+          categoria = doc[key]
+          console.log(categoria)
+      }
+      if(key=='nombre'){
+          nombre = doc[key]
+          console.log(nombre)
+      }
+      if(key=='repeticion'){
+          repeticion = doc[key]
+          console.log(repeticion)
+      }
+      if(key=='animacion'){
+          animacion = doc[key]
+          console.log(animacion)
+      }
+      if(key=='valores'){
+          //console.log(doc[key].length)
+          for (var k in doc[key]){
+            binary.addBinary(doc[key][k])
+            
+          }binary.print()
+      }
+   }
+   
+
+  };
+
+  reader.readAsText(file);
+}//guardar archivo
+
+function downloadBinary(filename, text) {
+  
+lista = binary.print()
+
+var element = document.createElement('a');
+let doc = JSON.stringify({ "categoria": categoriaBinario , 'nombre': nombreBinario, 'repeticion':repeticionBinario, 'animacion':animacionBinario, 'valores': lista });
+
+//console.log(listSimple.print())
+element.setAttribute('href', 'data:json,' + doc);
+element.setAttribute('download', filename);
+
+element.style.display = 'none';
+document.body.appendChild(element);
+
+element.click();
+
+document.body.removeChild(element);
+}
