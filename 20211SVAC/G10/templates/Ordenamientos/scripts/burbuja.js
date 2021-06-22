@@ -13,23 +13,37 @@ let original = []
 
 let num_velocidad;
 
-let data = {}
-let options = {}
-
-var grafica = new Chart(document.getElementById("lienzo"), {
-    typer: 'bar',
-    data: data,
-    options: {
-        legend: {display: false},
-        title: {
-          display: true
+var options = {
+    legend: { display: false },
+    scales: {
+      yAxes: [{
+        afterBuildTicks: (x) => {
+          console.log(x)
         },
-        scales: {
-            yAxes: [{ticks: {min: 0, max:1000}}]
-        }
+        ticks: {
+          callback: (value) => {
+            console.log(value)
+            return value
+          },
+          beginAtZero: true
+        },
+      }]
     }
-})
+};
+var ctx = document.getElementById("lienzo").getContext('2d')
+var grafica = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['1', '2', '3'],
+        datasets: [{
+            data: [1, 2, 3],
+            backgroundColor: 'rgb(240, 84, 84)',
+        }]
+    },
+    options: options,
+});
 
+  
 velocidad.oninput = () => {
     document.getElementById('numero').innerHTML = velocidad.value
     num_velocidad = velocidad.value
@@ -42,6 +56,8 @@ const salida ={
 
 agregar.addEventListener("click", (e) => {
     e.preventDefault()
+    let color = []
+
     if(dato.value != ''){ 
         nuevo = dato.value.split(', ')
         original = nuevo
@@ -49,7 +65,10 @@ agregar.addEventListener("click", (e) => {
     for(let i = 0; i < original.length; i ++) {
         color.push('rgb(240, 84, 84)')
     }
-
+    grafica.data.labels = original
+    grafica.data.datasets[0].data = original
+    grafica.data.datasets[0].backgroundColor = color
+    grafica.update()
 })
 
 ordenar.addEventListener("click", (e) => {
@@ -62,14 +81,26 @@ ordenar.addEventListener("click", (e) => {
 async function burbuja (lista, size){
     let aux;
     for (let i = 0; i<size-1; i ++) {
+        grafica.data.datasets[0].backgroundColor[i] = 'rgb(48, 71, 94)'
+        grafica.update()
+        await new Promise(resolve => setTimeout(resolve, 500))
+
         for (let j = i+1; j < size; j++) {
             if(lista[i] > lista[j]) {
                 aux = lista[i];
                 lista[i] = lista[j];
                 lista[j] = aux;
             }
+            grafica.data.labels = lista
+            grafica.data.datasets[0].data = lista
+            grafica.data.datasets[0].backgroundColor[j] = 'rgb(48, 71, 94)'
+            grafica.update()
+            await new Promise(resolve => setTimeout(resolve, 500))
+            grafica.data.datasets[0].backgroundColor[j] = 'rgb(240, 84, 84)'
         }
+        grafica.data.datasets[0].backgroundColor[i] = 'rgb(240, 84, 84)'
     }
+    grafica.update()
     return lista
 }
 
@@ -106,14 +137,9 @@ cargar.addEventListener("click", (e) => {
     document.getElementById('mensaje').innerText = ''
     archivo.setAttribute('disabled', '')
 
-    grafica.data = {
-        labels: labels,
-        datasets: [{
-            backgroundColor: color,
-            data: labels
-        }]
-    }
-
+    grafica.data.labels = labels
+    grafica.data.datasets[0].data = labels
+    grafica.data.datasets[0].backgroundColor = color
     grafica.update()
 })
 
@@ -121,26 +147,3 @@ guardar.addEventListener("click", (e) => {
     e.preventDefault()
     console.log(salida)
 })
-
-//nuevo
-
-//rgb(48, 71, 94)
-/**
-var grafica = new Chart(document.getElementById("lienzo"), {
-    type: 'bar',
-    data: {
-        labels: original,
-        datasets: [{
-            backgroundColor: color,
-            data: original
-        }]
-    },
-    options: {
-        legend: {display: false},
-        title: {
-          display: true
-        }
-    }
-})
- 
-*/
