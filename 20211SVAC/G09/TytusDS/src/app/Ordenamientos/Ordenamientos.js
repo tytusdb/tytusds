@@ -292,6 +292,7 @@ function AbrirOrdenamientoBurbuja(event) {
            if(chekString == false){ //si el check de String esta desactivado hace esto 
                 for (var k in doc[key]){
                     ListaSinOrdenar.push(doc[key][k]) //recorro todos los *valores de el archivo* y los meto en una lista ListaSinOrdenar
+<<<<<<< HEAD
                 }
 
                 var ListBoton = ListaSinOrdenar
@@ -300,6 +301,11 @@ function AbrirOrdenamientoBurbuja(event) {
                 ListaOrdenada = ordBurburja(ListaSinOrdenar)
                 crearColocar(ListaOrdenada,ListaOrdenada[Ls.length-1])
                 console.log("Es la lista ordenada")
+=======
+                    
+                }console.log(ListaSinOrdenar);
+                ListaOrdenada = ordBurburja(ListaSinOrdenar); // La lista SIn ordenar la envio a el ordenamiento correspondiente//
+>>>>>>> daec2a7c544e49457c1b12a8dbf3841c1761e6c0
                 console.log(ListaOrdenada);
                  // La lista SIn ordenar la envio a el ordenamiento correspondiente//
                 clearInterval(a)
