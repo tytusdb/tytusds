@@ -131,6 +131,7 @@ function PCOLAadd(){
     var temp = new datos(aux, priori);
     PCOLA.agregar(temp, cond);
     document.getElementById("PCOLAagregar").value="";
+    document.getElementById("PCOLAaprioridad").value="";
     PCOLA.imprimir();
     console.log("##########------###########");
 }
@@ -157,6 +158,3 @@ function PCOLAactualizar(){
     PCOLA.imprimir();
     console.log("##########------###########");
 }
-
-
-
