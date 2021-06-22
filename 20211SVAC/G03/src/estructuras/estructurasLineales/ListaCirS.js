@@ -34,44 +34,68 @@ class ListaCS{ //Clase Lista Circular Simple
     }
 
 
-
     agregarInicio(dato){
         let nodo = new Nodo(dato);
         if(this.cabeza == null){
             this.cabeza = nodo;
             this.cola = nodo;
-        }else if(this.cabeza != null){
-            nodo.siguiente = this.cabeza;            
-            this.cabeza = nodo;
+            this.size++
+            return
+        }else if(this.cabeza != null  && this.cola != null){
+            this.cabeza.anterior = nodo;
+            nodo.siguiente = this.cabeza
+            nodo.anterior = this.cola
+            this.cola.siguiente = nodo
+            this.cabeza = nodo
+            this.size++
+            return
         }
     }
-
-    agregarOrdenado(elemento){
-        let nodo = new Nodo(elemento)
+    
+    //Metodo Insertar
+    agregarOrdenado(dato){
+        let nodo = new Nodo(dato)
+        let aux = this.cabeza
         if(this.cabeza == null){
             this.cabeza = nodo;
             this.cola = nodo;
-        }else{
-            let temporal = this.cabeza;
-            while(temporal != this.cola ){
-                if(temporal.dato <= elemento && temporal.siguiente.dato >= elemento){
-                    nodo.siguiente = temporal.siguiente;
-                    temporal.siguiente = nodo;   
-                    break;                 
-                }                               
-                temporal = temporal.siguiente;
-
-            }if(temporal== this.cola && temporal.dato <= elemento){
-                temporal.siguiente = nodo;
-                nodo.siguiente = this.cabeza;
-                this.cola = nodo;
-            }else if(temporal == this.cabeza && temporal.dato >= elemento){
-                nodo.siguiente = this.cabeza;
-                this.cabeza = nodo;
-                
-            } 
+            this.size++;
+            return
         }
-
+        if(dato < this.cabeza.dato){
+            //Insercion de Nodos no primeros
+            this.cabeza.anterior = nodo;
+            nodo.siguiente = this.cabeza;
+            nodo.anterior = this.cola;
+            this.cola.siguiente = nodo
+            this.cabeza = nodo;
+            this.size++;
+            return
+        }else if(dato >= this.cabeza.dato && dato <= this.cola.dato){
+            while(aux != this.cola){
+                if(dato >= aux.dato && dato <= aux.siguiente.dato){
+                    let tmp = aux.siguiente
+                    tmp.anterior = nodo
+                    aux.siguiente = nodo
+                    nodo.siguiente = tmp
+                    nodo.anterior = aux
+                    this.size++;
+                    return
+                }
+                aux = aux.siguiente
+            }
+        }else if(dato > this.cola.dato){
+            //Insercion de Nodos no primeros
+            let aux = this.cola;
+            aux.siguiente = nodo;
+            nodo.anterior = aux;
+            nodo.siguiente = this.cabeza;
+            this.cabeza.anterior = nodo;
+            this.cola = nodo;
+            this.size++;
+            return
+        }
+        
     }
 
     //Metodo Insertar
