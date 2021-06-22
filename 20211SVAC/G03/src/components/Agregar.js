@@ -5,7 +5,7 @@ import React, { Component } from 'react'
 import Cola from '../estructuras/EstructurasLineales/Cola'
 import ColaPrioridad from '../estructuras/EstructurasLineales/ColaPrioridad'
 import ABB from '../estructuras/Estructuras_Arboreas/ABB'
-
+import ArbolAVL from '../estructuras/Estructuras_Arboreas/AVL'
 
 import Pila from '../estructuras/EstructurasLineales/Pila'
 import ListaCirD from '../estructuras/EstructurasLineales/ListaCirD'
@@ -85,6 +85,14 @@ export default class Agregar extends Component {
                     edd = new ABB();
                 }
                 edd.insertar(dato) 
+                break
+            case "Arbol AVL":
+    
+                if(edd == null){
+                    edd = new ArbolAVL();
+                }
+                edd.agregar(dato) 
+                edd.recorridoPre(edd.raiz)
                 break
             default:
                 break;

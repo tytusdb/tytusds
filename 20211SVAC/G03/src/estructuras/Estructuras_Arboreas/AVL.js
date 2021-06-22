@@ -49,7 +49,7 @@ class ArbolAVL {
  si es mayor, se desplaza hacia la derecha*/
             if (valor < temporal.valor) {
                 temporal.izquierda = this._agregar(valor, temporal.izquierda);
-                if ((this.altura(temporal.izquierda) - this.altura(temporal.derecha)) == -2) {
+                if ((this.altura(temporal.derecha) - this.altura(temporal.izquierda)) == -2) {
                     if (valor < temporal.izquierda.valor) {
                         temporal = this.r_izquierda(temporal);
                     } else {
@@ -86,8 +86,8 @@ class ArbolAVL {
         aux = nodo.izquierda;
         nodo.izquierda = aux.derecha;
         aux.derecha = nodo;
-        nodo.altura = this.MAX(this.altura(nodo.derecha), this.altura(aux.izquierda)) +1;
-        aux.altura = this.MAX(this.altura(aux.izquierda),nodo.altura) + 1;
+        nodo.altura = this.MAX(this.altura(nodo.derecha), this.altura(nodo.izquierda)) +1;
+        aux.altura = this.MAX(this.altura(nodo.izquierda),nodo.altura) + 1;
         return aux;
 
     }
@@ -99,7 +99,7 @@ class ArbolAVL {
         nodo.derecha = aux.izquierda;
         aux.izquierda = nodo;
         nodo.altura = this.MAX(this.altura(nodo.derecha), this.altura(nodo.izquierda))+ 1;
-        aux.altura = this.MAX(this.altura(aux.derecha), aux.altura) + 1;
+        aux.altura = this.MAX(this.altura(nodo.derecha), nodo.altura) + 1;
         return aux;
 
     }
@@ -289,6 +289,14 @@ class ArbolAVL {
         this.preOrden(nodo.derecha,vector)
         }
         return vector
+    }
+
+    recorridoPre(nodo){
+        if(nodo != null){
+        console.log(nodo.valor)
+        this.recorridoPre(nodo.izquierda)
+        this.recorridoPre(nodo.derecha)
+        }
     }
 
     graficarNodos(nodo,vector,datoBuscar){
