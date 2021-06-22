@@ -470,6 +470,82 @@ class ArbolB{
 
         return etiqueta
     }
+
+    //Metodo Graficar
+    graficar(){
+        if(this.raiz == null){
+            console.log("No hay nada aun")
+            return
+        }
+        let rama = this.raiz
+        salida+= "digraph G{\nnode[shape=record]\nedge[color=\"green\"]\n"
+        this.graficando(rama)
+        salida+= "}"
+        console.log(salida)
+        salida = ""
+    }
+
+    //SubMetodo Graficar
+    graficando(rama){
+        if (rama.raiz == null){
+            console.log("no hay nodos")
+            return 
+        }
+        let aux = rama.raiz
+        if(aux.izquierdo != null){
+            this.graficando(aux.izquierdo)
+        }
+        if(aux.derecho!=null){
+            this.graficando(aux.derecho)
+        }
+        if(aux.siguiente == null){
+            salida += "node"+aux.dato+" [label = \" iz| "+aux.dato+" |de \"]; \n"
+            if(aux.derecho != null){
+                salida+= "node"+aux.dato + " -> node" + aux.derecho.raiz.dato + "\n"
+            }
+            if(aux.izquierdo != null){
+                salida+= "node"+aux.dato + " -> node" + aux.izquierdo.raiz.dato + "\n"
+            }
+        }
+        if(aux.siguiente != null){
+            if(aux.izquierdo==null && aux.derecho == null){
+                salida += "node"+aux.dato+" [label = \" iz| "
+                while(aux!=null){
+                    salida += aux.dato+ " | "
+                    aux = aux.siguiente
+                }
+                salida += "de \"]; \n"
+            }else if(aux.izquierdo!=null && aux.derecho != null){
+                salida += "node"+aux.dato+" [label = \" iz| "
+                while(aux!=null){
+                    salida += aux.dato+ " | "
+                    aux = aux.siguiente
+                }
+                salida += "de \"]; \n"
+                aux = rama.raiz
+                if(aux.derecho != null){
+                    salida+= "node"+rama.raiz.dato + " -> node" + rama.raiz.derecho.raiz.dato + "\n"
+                }
+                if(aux.izquierdo != null){
+                    salida+= "node"+rama.raiz.dato + " -> node" + rama.raiz.izquierdo.raiz.dato + "\n"
+                }
+                aux = rama.raiz
+                aux = aux.siguiente
+                while(aux!=null){
+                    salida += "node"+rama.raiz.dato + " -> node" + aux.derecho.raiz.dato + "\n"
+                    aux = aux.siguiente
+                }
+            }
+            aux = rama.raiz
+            aux = aux.siguiente
+            while(aux !=null){
+                if(aux != null && aux.derecho!=null){
+                    this.graficando(aux.derecho)
+                }
+                aux = aux.siguiente
+            }
+        }    
+    }
     
 }
 
