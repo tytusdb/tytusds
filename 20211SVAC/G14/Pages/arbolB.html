@@ -4,13 +4,430 @@
     <link rel="stylesheet" type="text/css" href="../CSS/header.css">
     <link rel="stylesheet" type="text/css" href="../CSS/ddNavBar.css">
     <meta charset="UTF-8">
-    <title>Árbol B</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BST</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 </head>
 <body>
+    <script type="text/javascript">
+        const NKEYS = 4;
 
-<h1>Árbol B</h1>
+        function ar_SizeOf(size) {
+            var x = Array(size);
+            for (var i = 0; i < size; i += 1)
+                x[i] = null;
 
-<ul>
+            return x;
+        }
+
+        function Nodo() {
+            this._cantKeys = 0;
+            this._keys = ar_SizeOf(NKEYS);
+            this._childs = ar_SizeOf(NKEYS+1);
+        }
+
+        Nodo.prototype.esHoja = function() {
+            return (this._childs[0] === null);
+        };
+
+        Nodo.prototype.llena = function() {
+            return (this._cantKeys === NKEYS);
+        };
+
+        Nodo.prototype.cantKeys = function() {
+            return this._cantKeys;
+        };
+        ////////////////////INSERTAR P///////////////////////
+        Nodo.prototype.insert = function(key) {
+            if (this.esHoja()) {
+                if (this.llena()) {
+                    return this.split(key, null);
+                }
+                else {
+                    this.insertarEnArbol(key);
+                    return null;
+                }
+            }
+            else {
+                var child = this.getHijosContenidos(key);
+                var split = child.insert(key);
+                if (!split) return null;
+
+                if (this.llena()) {
+                    // split this node
+                    return this.split(split.key, split.childDer);
+                }
+                else {
+                    this.insertarSplit(split);
+                    return null;
+                }
+            }
+        };
+
+        Nodo.prototype.insertarEnArbol = function(key) {
+            console.assert( this.esHoja() );
+            var pos = this.cantKeys();
+            var keys = this._keys;
+            while (pos > 0 && keys[pos-1] > key) {
+                keys[pos] = keys[pos-1];
+                pos--;
+            }
+            keys[pos] = key;
+            this._cantKeys += 1;
+        };
+
+        Nodo.prototype.insertarSplit = function(split) {
+            var child = split.childIzq;
+            //CASO A
+            if (child === this._childs[0]) {
+                for (var i = this._cantKeys; i > 0; i--)
+                    this._keys[i] = this._keys[i-1];
+                this._keys[0] = split.key;
+
+                for (var i = this._cantKeys+1; i > 1; i--)
+                    this._childs[i] = this._childs[i-1];
+                this._childs[0] = child;
+                this._childs[1] = split.childDer;
+            }
+            //CASO B
+            else {
+                var pos = this._cantKeys;
+                while (pos > 0 && this._childs[pos] !== child) {
+                    this._keys[pos] = this._keys[pos-1];
+                    this._childs[pos+1] = this._childs[pos];
+                    pos--;
+                }
+                this._keys[pos] = split.key;
+                this._childs[pos+1] = split.childDer;
+            }
+
+            this._cantKeys += 1;
+
+
+        };
+        ///////////////////////////////////////////
+        Nodo.prototype.getHijosContenidos = function(key) {
+            for (var i = 0; i < this.cantKeys(); i += 1) {
+
+
+                if (key <= this._keys[i]) {
+                    return this._childs[i];
+                }
+            }
+
+            return this._childs[this.cantKeys()];
+        };
+
+        Nodo.prototype.split = function(key, keychildDerChild) {
+            var childIzq = this;
+            var childDer = new Nodo();
+            var keys = this._keys.slice();
+            keys.push(null);
+
+            var childs = this._childs.slice();
+            childs.push(null);
+            var pos = keys.length-1;
+
+
+            while (pos > 0 && keys[pos-1] > key) {
+                keys[pos] = keys[pos-1];
+                childs[pos+1] = childs[pos];
+                pos--;
+            }
+
+            keys[pos] = key;
+            childs[pos+1] = keychildDerChild;
+            var mediaIndice = Math.floor(keys.length / 2);
+            var mediaKey = this._keys[mediaIndice];
+            var i;
+
+
+
+            for (i = 0; i < keys.length; i++) {
+                if (i < mediaIndice) {
+                    childIzq._childs[i] = childs[i];
+                    childIzq._keys[i] = keys[i];
+                }
+
+                else if (i === mediaIndice) {
+                    childIzq._childs[i] = childs[i];
+                    childIzq._keys[i] = null;
+                }
+
+                else {
+                    childIzq._childs[i] = this._keys[i] = null;
+                }
+
+            }
+            childIzq._cantKeys = mediaIndice;
+            for (i = 0; i < keys.length; i++) {
+                if (i > mediaIndice) {
+                    childDer._keys[i-mediaIndice-1] = keys[i];
+                    childDer._childs[i-mediaIndice-1] = childs[i];
+                    childDer._cantKeys += 1;
+                }
+            }
+
+            childDer._childs[keys.length-mediaIndice-1] = childs[keys.length];
+
+
+            return ({ childIzq:childIzq, key:mediaKey, childDer:childDer });
+        };
+        ////////////////////ELIMINAR///////////////////////
+        Nodo.prototype.eliminar = function(key) {
+            if (this.esHoja()) {
+                return this.eliminarKey(key);
+            }
+
+            else {
+                var keyIndice = this.indiceKey(key);
+                var child;
+
+
+                if (keyIndice === (-1)) {
+                    child = this.getHijosContenidos(key);
+                    var res = child.eliminar(key);
+                    this.rebalancear(this._childs.indexOf(child));
+                    return res;
+                }
+
+                else {
+                    //sustituir llave con la llave mayor del hijo izquierdo
+                    child = this._childs[keyIndice];
+                    this._keys[keyIndice] = child.getMax();
+                    this.rebalancear(keyIndice);
+                    return true;
+                }
+            }
+        };
+
+        Nodo.prototype.rebalancear = function(childIndice) {
+            const MIN_NKEYS = (NKEYS/2);
+            var child = this._childs[childIndice];
+            if (child.cantKeys() >= MIN_NKEYS) {
+                return;
+            }
+
+            if (childIndice) {
+                var childIzqChild = this._childs[childIndice-1];
+
+                if (childIzqChild.cantKeys() > MIN_NKEYS) {
+                    var lastKey = childIzqChild._keys[childIzqChild.cantKeys()-1];
+                    var lastChild = childIzqChild._child[childIzqChild.cantKeys()];
+                    childIzqChild._cantKeys--;
+                    var key = this._keys[childIndice-1];
+                    this._keys[childIndice-1] = lastKey;
+
+
+
+                    for (var i = child._cantKeys-1; i >= 0; i--) {
+                        child._keys[i+1] = child._keys[i];
+                    }
+
+                    child._keys[0] = key;
+
+                    for (var i = child._cantKeys; i >= 0; i--) {
+                        child._childs[i+1] = child._childs[i];
+                    }
+
+
+                    child._childs[0] = lastChild;
+                    child._cantKeys++;
+
+                    return;
+                }
+            }
+            
+            if (childIndice < this.cantKeys()) {
+                var childDerChild = this._childs[childIndice+1];
+                if (childDerChild.cantKeys() > MIN_NKEYS) {
+                    var firstKey = childDerChild._keys[0];
+                    var firstChild = childDerChild._childs[0];
+
+                    for (var i = 0; i < childDerChild.cantKeys()-1; i++) {
+                        childDerChild._keys[i] = childDerChild._keys[i+1];
+                    }
+
+                    for (var i = 0; i < childDerChild.cantKeys(); i++) {
+                        childDerChild._childs[i] = childDerChild._childs[i+1];
+                    }
+
+                    childDerChild._cantKeys--;
+
+                    child._keys[child.cantKeys()] = this._keys[childIndice];
+                    this._keys[childIndice] = firstKey;
+                    child._childs[child.cantKeys()+1] = firstChild;
+                    child._cantKeys++;
+
+                    return;
+                }
+            }
+            //unir
+            if (childIndice) {
+                //hijo izquierdo con el de indice
+                childIndice -= 1;
+            }    
+
+            var mer = this.unirHijos(childIndice);
+            for (var i = childIndice; i < this._cantKeys-1; i += 1) {
+                this._keys[i] = this._keys[i+1];
+            }
+
+            for (var i = childIndice; i < this._cantKeys; i += 1) {
+                this._childs[i] = this._childs[i+1];
+            }
+
+            this._cantKeys--;
+            this._childs[childIndice] = mer;
+        };
+
+        Nodo.prototype.unirHijos = function(childIzqIndex) {
+            var key = this._keys[childIzqIndex];
+            var childIzq = this._childs[childIzqIndex];
+            var childDer = this._childs[childIzqIndex+1];
+
+            childIzq._keys[childIzq._cantKeys] = key;
+            childIzq._cantKeys++;
+
+            //se copia childDer en childIzq (keys)
+            for (var i = 0; i < childDer._cantKeys; i++) {
+                childIzq._childs[childIzq._cantKeys] = childDer._childs[i];
+                childIzq._keys[childIzq._cantKeys] = childDer._keys[i];
+                childIzq._cantKeys += 1;
+            }
+
+            childIzq._childs[childIzq._cantKeys] = childDer._childs[childDer._cantKeys];
+
+            return childIzq;
+        };
+
+        Nodo.prototype.getMax = function() {
+            var key;
+            if (this.esHoja()) {
+                key = this._keys[this._cantKeys-1];
+                this._cantKeys--;
+            }
+            else {
+                var child = this._childs[this._cantKeys];
+                key = child.getMax();
+
+                this.rebalancear(this._cantKeys);
+            }
+            return key;
+        };
+
+        Nodo.prototype.indiceKey = function(key) {
+            for (var i = 0; i < this._cantKeys; i += 1) {
+                if (this._keys[i] === key) {
+                    return i;
+                }
+            }
+
+            return (-1);
+        };
+
+        Nodo.prototype.eliminarKey = function(key) {
+            console.assert( this.esHoja() );
+        
+            var keyIndice = this.indiceKey(key);
+            if (keyIndice === (-1))
+                return false;
+
+
+
+            for (var i = keyIndice+1; i < this._cantKeys; i += 1) {
+                this._keys[i-1] = this._keys[i];
+            }
+            this._cantKeys--;
+            return true;
+
+        };
+
+        Nodo.prototype.toString = function(opt) {
+            opt = opt || '';
+
+            if (this.esHoja()) {
+                return opt + '[' + 
+                    this._keys.slice(0, this.cantKeys()).join(', ') + 
+                    ']';
+            }
+
+
+
+            var str = '';
+            var childInd = opt + '  ';
+            var childStrings = this._childs.
+                slice(0, this.cantKeys()+1).
+                map(function(child) {
+                    return child.toString(childInd);
+                });
+
+
+
+            str = opt + '[' + childStrings[0] + '';
+            for (var i = 1; i < childStrings.length; i += 1) {
+                str += childInd + this._keys[i-1].toString() + '' + 
+                    childStrings[i] + '';
+            }
+            str += opt + ']';
+
+
+            return str;
+        };
+
+        Nodo.f_split = function(split) {
+            var node = new Nodo();
+
+            node._cantKeys = 1;
+            node._keys[0] = split.key;
+            node._childs[0] = split.childIzq;
+            node._childs[1] = split.childDer;
+
+            return node;
+        };
+
+        ///////////////////////BTREE///////////////////
+        function BTree() {
+            this._root = new Nodo();   
+        }
+
+
+        ///////////////INSERT EN BTREE/////////////////////
+        BTree.prototype.insert = function(key) {
+            var actual = this._root;
+
+            var split = actual.insert(key);
+            if (!split) {
+                return;
+            }
+            this._root = Nodo.f_split(split);
+        };
+
+        BTree.prototype.eliminar = function(key) {
+            var eliminard = this._root.eliminar(key);
+
+            if (this._root.cantKeys() === 0 && this._root._childs[0]) {
+                this._root = this._root._childs[0];
+            }
+
+            return eliminard;
+        };
+
+        BTree.prototype.mostrar = function() {
+            return this._root.toString();
+        };
+
+        var arbol = new BTree();
+        //arbol.insert(1);
+
+
+
+
+    </script>
+    <div class="text-center">
+        <h1>Btree</h1>
+        <ul>
     <li><a class="active" href="../index.html">Home</a></li>
     <li class="dropdown">
         <a href="javascript:void(0)" class="dropbtn">Estructura lineales</a>
@@ -45,6 +462,35 @@
         </div>
     </li>
 </ul>
+
+<br>
+        <div class="container ">
+            <label>Valor del nodo: </label></br>
+            <input type="number" id="txtKey"/></br></br>
+            <input type="button" value="Insertar" onclick="arbol.insert(Number(document.getElementById('txtKey').value)); document.getElementById('texto').innerHTML= arbol.mostrar();"/>
+            <input type="button" value="Mostrar" onclick="document.getElementById('texto').innerHTML= arbol.mostrar();"/>
+            <input type="button" value="Buscar" onclick=""/>
+            <input type="button" value="Limpiar" onclick="document.getElementById('texto').innerHTML='';"/>
+            <input type="button" value="Eliminar" onclick="arbol.eliminar(Number(document.getElementById('txtKey').value)); document.getElementById('texto').innerHTML=arbol.mostrar();"/>
+        </div>
+        </br>
+        <h5 id="ResultadoBusqueda">...</h5>
+        
+        </br>
+        <h2>Arbol</h2>
+        <div class="container">
+            <p id="texto">
+                
+            </p>
+        </div>
+
+        
+    
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 
 </body>
 </html>
