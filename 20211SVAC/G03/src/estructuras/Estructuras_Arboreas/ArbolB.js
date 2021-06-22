@@ -14,6 +14,8 @@ class Nodo{
 var salida = ""
 //Arreglo de uso unico
 var arr = []
+//VariableGlobal
+var idRama = 0
 
 //Clase Rama
 class Rama{
@@ -22,6 +24,7 @@ class Rama{
         this.contador = 0
         this.hoja = true
         this.raiz = null
+        this.id = 0
     }
 
     //Metodo Insertar en Rama
@@ -83,6 +86,8 @@ class ArbolB{
         if(this.raiz == null){
             this.raiz = new Rama()
             this.raiz.insertar(nodo)
+            this.raiz.id = idRama
+            idRama++
             return
         }else{
             //Insercion para arbol no vacio
@@ -164,8 +169,12 @@ class ArbolB{
                 der.insertar(nodo)
             }
         }
+        izq.id = idRama+1
+        der.id = idRama+2
+        mitad.id = idRama
         mitad.izquierdo = izq
         mitad.derecho = der
+        idRama = idRama + 3
         return mitad
     }
 
@@ -317,6 +326,7 @@ class ArbolB{
                 }else if(aux2.anterior == null && aux2.siguiente == null){
                     if(aux2.izquierdo == null && aux2.derecho == null){
                         this.raiz = null
+                        idRama = 0
                         console.log("eliminado unico nodo")
                     }
                 }
@@ -366,6 +376,7 @@ class ArbolB{
     //Metodo de reestructuracion de arbol
     creando(){
         this.raiz = null
+        idRama = 0
         for(let i = 0; i<arr.length;i++){
             let dat = arr[i]
             this.insertar(dat)
@@ -514,6 +525,83 @@ class ArbolB{
             }
         }    
     }
+
+    //Metodo Graficar
+    graficar(){
+        if(this.raiz == null){
+            console.log("No hay nada aun")
+            return
+        }
+        let rama = this.raiz
+        salida+= "digraph G{\nnode[shape=record]\nedge[color=\"green\"]\n"
+        this.graficando(rama)
+        salida+= "}"
+        console.log(salida)
+        salida = ""
+    }
+
+    //SubMetodo Graficar
+    graficando(rama){
+        if (rama.raiz == null){
+            console.log("no hay nodos")
+            return 
+        }
+        let aux = rama.raiz
+        if(aux.izquierdo != null){
+            this.graficando(aux.izquierdo)
+        }
+        if(aux.derecho!=null){
+            this.graficando(aux.derecho)
+        }
+        if(aux.siguiente == null){
+            salida += "node"+rama.id+" [label = \" iz| "+aux.dato+" |de \"]; \n"
+            if(aux.derecho != null){
+                salida+= "node"+rama.id + " -> node" + aux.derecho.id + "\n"
+            }
+            if(aux.izquierdo != null){
+                salida+= "node"+rama.id + " -> node" + aux.izquierdo.id + "\n"
+            }
+        }
+        if(aux.siguiente != null){
+            if(aux.izquierdo==null && aux.derecho == null){
+                salida += "node"+rama.id+" [label = \" iz| "
+                while(aux!=null){
+                    salida += aux.dato+ " | "
+                    aux = aux.siguiente
+                }
+                salida += "de \"]; \n"
+            }else if(aux.izquierdo!=null && aux.derecho != null){
+                salida += "node"+rama.id+" [label = \" iz| "
+                while(aux!=null){
+                    salida += aux.dato+ " | "
+                    aux = aux.siguiente
+                }
+                salida += "de \"]; \n"
+                aux = rama.raiz
+                if(aux.derecho != null){
+                    salida+= "node"+rama.id + " -> node" + rama.raiz.derecho.id + "\n"
+                }
+                if(aux.izquierdo != null){
+                    salida+= "node"+rama.id + " -> node" + rama.raiz.izquierdo.id + "\n"
+                }
+                aux = rama.raiz
+                aux = aux.siguiente
+                while(aux!=null){
+                    salida += "node"+rama.id + " -> node" + aux.derecho.id + "\n"
+                    aux = aux.siguiente
+                }
+            }
+            aux = rama.raiz
+            aux = aux.siguiente
+            while(aux !=null){
+                if(aux != null && aux.derecho!=null){
+                    this.graficando(aux.derecho)
+                }
+                aux = aux.siguiente
+            }
+        }    
+    }
+
     
 }
 
