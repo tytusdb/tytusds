@@ -32,6 +32,8 @@
 				</span>
 				<input style='margin-right: 1%;margin-left: 3%;' type='submit' id='dBtn' value='Eliminar'/>
 				<input style='margin-left: 3%;' id='speed' type='range' min='0' max='10' step='1' value='4'/>
+				<input type='submit' id='downBtn' value='Guardar'/>
+
 				<script>
 					document.getElementById('file').onchange = function(){
 						var fil = document.getElementById('file').files[0];
@@ -41,8 +43,9 @@
 						read.onload=function(){
 							list=JSON.parse(read.result).valores;
 							rep=JSON.parse(read.result).repeticion;
-							document.getElementById('speed').value=JSON.parse(read.result).animacion;
 							cy.remove('node');
+							ls=new bst();
+							document.getElementById('speed').value=JSON.parse(read.result).animacion;
 							for(var i=0;i<list.length;i++){
 								if(!rep){
 									if (isNumeric(list[i])){
@@ -242,6 +245,28 @@
 
 			function isNumeric(n) {
   				return !isNaN(parseFloat(n)) && isFinite(n);
+			}
+
+			document.getElementById('downBtn').onclick=function(){
+				var nodos=ls.getNodes();
+				var obj = new Object();
+				obj.categoria="Estructura Lineal";
+				obj.nombre="BST";
+				obj.repeticion=rep;
+				obj.animacion= document.getElementById('speed').value;
+				obj.valores=nodos;
+				var jsonString=JSON.stringify(obj,undefined,2);
+				console.log(jsonString);
+				download(jsonString, "BST.json", "text/plain");
+			
+			}
+
+			function download(content, fileName, contentType) {
+				const a = document.createElement("a");
+				const file = new Blob([content], { type: contentType });
+				a.href = URL.createObjectURL(file);
+				a.download = fileName;
+				a.click();
 			}
 
 		</script>

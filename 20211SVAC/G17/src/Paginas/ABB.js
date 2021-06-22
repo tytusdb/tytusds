@@ -11,7 +11,7 @@ class TreeNode {
 const {
     defaultCompare,
     Compare
-} = require ('function')
+} = require ('./function')
 
 class ABB {
     constructor(comparar = defaultCompare) {

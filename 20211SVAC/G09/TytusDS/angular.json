@@ -42,8 +42,10 @@
               "src/app/Structures/pila.js",
               "src/app/Structures/cola.js",
               "src/app/Structures/colaPrioridad.js",
-              "src/app/Ordenamientos/Ordenamientos.js"
-              ]
+              "src/app/Ordenamientos/Ordenamientos.js",
+              "src/app/Structures/BinaryTree.js",
+              "src/app/Structures/AVLTree.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -115,7 +117,9 @@
               "src/app/Structures/pila.js",
               "src/app/Structures/cola.js",
               "src/app/Structures/colaPrioridad.js",
-              "src/app/Ordenamientos/Ordenamientos.js"
+              "src/app/Ordenamientos/Ordenamientos.js",
+              "src/app/Structures/BinaryTree.js",
+              "src/app/Structures/AVLTree.js"
             ]
           }
         },

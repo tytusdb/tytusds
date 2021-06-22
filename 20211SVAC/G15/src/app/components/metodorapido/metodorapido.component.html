@@ -3,7 +3,7 @@
         <p>
             <!-- UNIVERSIDAD DE SAN CARLOS DE GUATEMALA -->
             <span>
-                Ordenamiento Rapido
+                Ordenamiento de Rapido
             </span>
             &mdash; ESTRUCTURA DE DATOS &mdash;
         </p>
@@ -16,25 +16,48 @@
                 <div class="input-group">
                     
                     <div class="input-group-append">
-                        <button class="btn btn-secondary " type="button" >Ordenamiento Burbuja</button>
+                        <button class="btn btn-secondary " type="button" (click)="mostrarBarras()">Ordenamiento Rapido</button>
                     </div>
                 </div>
             </div>
 
 
-            
+            <div class="col-12 col-sm-12 col-lg-3 text-left mt-2 text-white mt-1">
+                <div class="input-group">
+                    <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+                    <div class="file-upload">
+
+                        {{fileName || "No ha seleccionado Archivo."}}
+
+                        <button class="btn btn-primary" (click)="fileUpload.click()">
+                            <i class="fas fa-upload"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
 
 
-        
+            <div class="col-12 col-sm-12 col-lg-3 text-left mt-2 text-white mt-1">
+                <div class="input-group">
+                    <button class="btn btn-primary" (click)="generarJSON()">
+                        Generar JSON
+                    </button>
+                </div>
+            </div>
 
 
         </div>
     
         <div style="display: block">
             
-             <canvas #myChart id="myChart" height="90">
-            </canvas>
-          </div>
+            <canvas #myChart id="myChart" height="90" baseChart
+             [datasets]="barChartData"
+             [labels]="barChartLabels"
+             [options]="barChartOptions"
+             [legend]="barChartLegend"
+             [chartType]="barChartType">
+           </canvas>
+         </div>
 
         
 
