@@ -32,7 +32,8 @@ class circularDoublyLinkedList{
 		this.size++;
 	}
 
-	del(){
+
+	del(pos){
 		if (this.head==null){
 			return;
 		}
@@ -84,6 +85,18 @@ class circularDoublyLinkedList{
 			curr=curr.next
 		}
 		return;
+	}
+
+	getNodes(){
+		var curr=this.head;
+		var list=[];
+		list.push(curr.data);
+		curr=curr.next;
+		while (curr!=this.head){
+			list.push(curr.data);
+			curr=curr.next;
+		}
+		return list;
 	}
 
 }

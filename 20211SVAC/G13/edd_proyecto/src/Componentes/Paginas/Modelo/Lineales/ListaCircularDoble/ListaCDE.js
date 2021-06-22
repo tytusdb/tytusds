@@ -1,4 +1,5 @@
-const Nodo = require('./Nodo.js');
+import Nodo from './Nodo.js'
+// const Nodo = require('./Nodo.js');
 
 class ListaCircularDE{
 	primero=null;
@@ -219,4 +220,5 @@ class ListaCircularDE{
     }
 }
 
-module.exports = ListaCircularDE;
+export default ListaCircularDE;
+//module.exports = ListaCircularDE;

@@ -120,7 +120,14 @@ class AnimationSCircular{
       const sClone = selecBtn.cloneNode(true)
       selecBtn.parentNode.replaceChild(sClone, selecBtn)
 
-      const selecFlechaSiguiente = document.getElementById("flecha"+aux.sig.animate.id)
+      if(this.head.sig==this.head)
+      {
+        this.head=null
+        return
+      }
+
+      else{
+        const selecFlechaSiguiente = document.getElementById("flecha"+aux.sig.animate.id)
       selecFlechaSiguiente.classList="animate__animated animate__hinge"
       const sClone2 = selecFlechaSiguiente.cloneNode(true)
       selecFlechaSiguiente.parentNode.replaceChild(sClone2, selecFlechaSiguiente)
@@ -134,48 +141,43 @@ class AnimationSCircular{
 
           clearInterval(a1)
       },2000)
-      let ejecutareOrdenar=true
-      if(this.head.sig==this.head)
-      {
-        this.head=null
-        ejecutareOrdenar=false
-      }
-      else{
       this.head=aux.sig
       aux=this.head //Reiniciando aux, para que recorra hasta el último valor y cambiarle su cabecera
 
       while (aux.sig.sig!=this.head) { //Se recorre el siguiente del siguienta para que valide la nueva cabecera
         aux=aux.sig
       }
+      console.log("Cabera ="+aux.sig.data)
       aux.sig=this.head}
+      console.log("Cabecera2 ="+aux.sig.data)
 
       this.head.animate.x=this.head.animate.heightBtn +10
       this.head.animate.y=10
       //Iria el posicionamiento de la actual cabeza
-      if (ejecutareOrdenar) {
+      //if (ejecutareOrdenar) {
       const selecBtnNuevo = document.getElementById("btn"+this.head.animate.id)
       selecBtnNuevo.classList="animate__animated animate__slideInRight"
       const sClone3 = selecBtnNuevo.cloneNode(true)
       selecBtnNuevo.parentNode.replaceChild(sClone3, selecBtnNuevo)
       sClone3.style.left =(this.head.animate.x).toString()+"px"
       sClone3.style.top =(this.head.animate.y).toString()+"px"
-        this.reOrdenar(this.head) 
-      }
+      this.reOrdenar(this.head) 
+      //}
       this.size--
       return
     }
-
     do{
-      aux2=aux.sig;
-      
-      if(aux2.data==data){  
+      aux2=aux.sig
 
-        const selecBtn = document.getElementById("btn"+aux.animate.id)
+      //console.log(aux2.data+" !!!!= "+data)
+      if(aux2.data==data){  
+        //console.log(aux2.data+" = "+data)
+        const selecBtn = document.getElementById("btn"+aux2.animate.id)
         selecBtn.classList="animate__animated animate__hinge"
         const sClone = selecBtn.cloneNode(true)
         selecBtn.parentNode.replaceChild(sClone, selecBtn)
   
-        const selecFlechaSiguiente = document.getElementById("flecha"+aux.sig.animate.id)
+        const selecFlechaSiguiente = document.getElementById("flecha"+aux2.animate.id)
         selecFlechaSiguiente.classList="animate__animated animate__hinge"
         const sClone2 = selecFlechaSiguiente.cloneNode(true)
         selecFlechaSiguiente.parentNode.replaceChild(sClone2, selecFlechaSiguiente)
@@ -189,33 +191,46 @@ class AnimationSCircular{
   
             clearInterval(a2)
         },2000)
-        if(aux2.sig!=null){
-          aux2.sig.x=aux2.x
-          aux2.sig.y=aux2.y
+        if(aux2.sig!=this.head){
+          aux2.sig.animate.x=aux2.animate.x
+          aux2.sig.animate.y=aux2.animate.y
           //Iria el posicionamiento de la actual cabeza
-          const selecBtnNuevo = document.getElementById("btn"+aux2.sig.id)
+          console.log(aux2.sig.animate.id)
+          const selecBtnNuevo = document.getElementById("btn"+aux2.sig.animate.id)
           selecBtnNuevo.classList="animate__animated animate__slideInRight"
           const sClone3 = selecBtnNuevo.cloneNode(true)
           selecBtnNuevo.parentNode.replaceChild(sClone3, selecBtnNuevo)
-          sClone3.style.left =(aux2.sig.x).toString()+"px"
-          sClone3.style.top =(aux2.sig.y).toString()+"px"
+          sClone3.style.left =(aux2.sig.animate.x).toString()+"px"
+          sClone3.style.top =(aux2.sig.animate.y).toString()+"px"
+          const selecBtnNuevo1 = document.getElementById("flecha"+aux2.sig.animate.id)
+          selecBtnNuevo1.classList="animate__animated animate__slideInRight"
+          const sClone31 = selecBtnNuevo1.cloneNode(true)
+          selecBtnNuevo1.parentNode.replaceChild(sClone31, selecBtnNuevo1)
+          sClone31.style.left =(aux2.sig.animate.x-(aux2.sig.animate.heightBtn*0.93)-10).toString()+"px"
+          sClone31.style.top =(aux2.sig.animate.y+5).toString()+"px"
           }
-
+        
         aux2=aux2.sig
         aux.sig=aux2
-          
+        console.log(aux.sig.data+" valor a mandar "+aux.data+ "hEAD"+this.head.data)
+        //if(aux.sig.sig!=this.head){
+        this.reOrdenar(aux)
+        //}
+        break
+      }else{
+        aux=aux.sig
+        //aux2=aux.sig
+      }
+          this.size--
+          //this.reOrdenar(aux)
+        }while(aux2 != null)/*
         if(aux.sig!=this.head){
           this.reOrdenar(aux)}
-          this.size--
-          break
-      }
-    else{
-      aux=aux.sig}
-    }while(aux != this.head)
+          this.size--*/
   }
 reOrdenar(aux){
   const boton=document.getElementById("b1")
-  do{
+  while(aux.sig != this.head){
       aux.sig.animate.x= aux.animate.x + aux.animate.disBtn + (aux.animate.heightBtn*0.93) +20
       if(this.hMax<aux.sig.animate.heightBtn){ this.hMax=aux.sig.animate.heightBtn}
       
@@ -243,9 +258,11 @@ reOrdenar(aux){
       selecFlecha.style.left = (aux.sig.animate.x-(aux.sig.animate.heightBtn*0.93)-10).toString()+"px"
       selecFlecha.style.top = (aux.sig.animate.y+5).toString()+"px"
       aux=aux.sig
+      //console.log(aux.data+" == "+this.head.data)
       //return
-  }while(aux.sig != this.head)
-//  aux=aux
+  }
+  //aux=aux.sig
+
   const iF=document.getElementById("indexFinal")
   const indFinal = iF.cloneNode(true)
   iF.parentNode.replaceChild(indFinal, iF)

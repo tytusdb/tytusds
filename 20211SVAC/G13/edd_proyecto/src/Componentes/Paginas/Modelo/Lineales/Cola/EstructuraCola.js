@@ -1,4 +1,4 @@
-const Nodo = require('./Nodo.js');
+import Nodo from './Nodo.js';
 
 class EstructuraCola{
 	primero=null;
@@ -49,7 +49,18 @@ class EstructuraCola{
 		}
 		return false;
 	}
+	Actualizar = (dato, cambio) =>{
+        let nodo_actual = this.get_primero();
+        if (this.get_vacia() == false){
+            do{
+                if (nodo_actual.get_valor() == dato){
+                    nodo_actual.set_valor(cambio);
+                }
+                nodo_actual = nodo_actual.get_siguiente()
+            }while(nodo_actual != null);
+        }
 
+    }
 	Imprimir = () => {
 		let nodo = this.get_primero();
 		do{
@@ -94,4 +105,5 @@ class EstructuraCola{
 	}
 }
 
-module.exports = EstructuraCola;
+export default EstructuraCola;
+//module.exports = EstructuraCola;

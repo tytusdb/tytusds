@@ -41,7 +41,11 @@ class ArbolBinariodeB extends React.Component {
     }
 
     BuscarElemento() {
-        this.state.Arbol.seek(this.state.elemento);
+        if (this.state.Arbol.seek(this.state.elemento) != null){
+            alert("Elemento encontrado: " + this.state.elemento)
+        }else{
+            alert("Elemento "+ this.state.elemento +  ", inexistente")
+        }
     }
 
 
@@ -130,6 +134,7 @@ class ArbolBinariodeB extends React.Component {
                     <div className="col-sm-2 d-grid gap-2">
                         <button className="btn btn-success" onClick={this.ImprimirArbol} >Imprimir</button>
                     </div>
+
 
                 </div>
 

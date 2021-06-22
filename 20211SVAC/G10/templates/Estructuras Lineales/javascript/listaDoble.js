@@ -122,11 +122,12 @@ const guardar = document.getElementById('guardar')
 const cargar = document.getElementById('cargar')
 
 const velocidad = document.getElementById("velocidad")
-let num_velocidad;
+let time = 2.5
 
 velocidad.oninput = () => {
     document.getElementById('numero').innerHTML = velocidad.value
-    num_velocidad = velocidad.value
+    if (velocidad.value == 3 ) time = 2.5
+    else time = parseInt(velocidad.value)
 }
 
 const salida ={
@@ -218,7 +219,22 @@ cargar.addEventListener("click", (e) => {
 
 guardar.addEventListener("click", (e) => {
     e.preventDefault()
+    let texto = JSON.stringify(salida)
+    download('ListaDoble.json', texto)
 })
+
+function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+  
+    element.style.display = 'none';
+    document.body.appendChild(element);
+  
+    element.click();
+  
+    document.body.removeChild(element);
+}
 
 // ---------Animaciones------------------------------------------------------------------------------------
 var canvas = document.getElementById('lienzo')
@@ -343,8 +359,8 @@ function animar() {
     window.requestAnimationFrame(function loop() {
 
         if (x_start != x_figura) {
-            x_start += 5 
-            x_start_text += 5
+            x_start += time 
+            x_start_text += time
 
             context.clearRect(0, 0, canvas.width, 220)
             context.beginPath()
@@ -357,8 +373,8 @@ function animar() {
             context.fillText(dato.value, x_start_text, 60, 60)
 
             if (x_start == x_figura) {
-                y_start += 5
-                y_start_text += 5
+                y_start += time
+                y_start_text += time
 
                 context.clearRect(0, 0, canvas.width, 220)
                 context.beginPath()
@@ -377,8 +393,8 @@ function animar() {
             }
             window.requestAnimationFrame(loop)
         } else {
-            y_start += 5
-            y_start_text += 5
+            y_start += time
+            y_start_text += time
 
             context.clearRect(0, 0, canvas.width, 220)
             context.beginPath()

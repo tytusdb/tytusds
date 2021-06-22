@@ -126,7 +126,7 @@ class linkedList{
 		if(this.isNumber(string)){
 			return parseInt(string);
 		}else{
-			val=0
+			var val=0
 			for(var i=0; i<string.length;i++){
 				val=val+string.charCodeAt(i);
 			}

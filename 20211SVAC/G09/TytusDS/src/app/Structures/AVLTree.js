@@ -412,11 +412,72 @@ class BST {
       this.#printNode(node.left, spaceCount + 2, 'L: ');
     };
   }
+  function onChange(event) {
+    var file = event.target.files[0];
+    var reader = new FileReader();
+    reader.onload = function(event) {
+      // El texto del archivo se mostrará por consola aquí
+     // console.log(event.target.result)
+      let doc = JSON.parse(event.target.result);
+      //console.log(doc)
+
+      for (var key in doc) {
+        //console.log('name=' + key + ' value=' + doc[key]);
+        if(key=='categoria'){
+            categoria = doc[key]
+            console.log(categoria)
+        }
+        if(key=='nombre'){
+            nombre = doc[key]
+            console.log(nombre)
+        }
+        if(key=='repeticion'){
+            repeticion = doc[key]
+            console.log(repeticion)
+        }
+        if(key=='animacion'){
+            animacion = doc[key]
+            console.log(animacion)
+        }
+        if(key=='valores'){
+            //console.log(doc[key].length)
+            for (var k in doc[key]){
+                listSimple.add(doc[key][k])
+            }
+        }
+     }
+     
+
+    };
+
+    reader.readAsText(file);
+}//guardar archivo
+
+function download(filename, text) {
+    
+  lista = listSimple.print()
+
+  var element = document.createElement('a');
+  let doc = JSON.stringify({ "categoria": categoria, 'nombre': nombre, 'repeticion':repeticion, 'animacion':animacion, 'valores': lista });
+  
+  //console.log(listSimple.print())
+  element.setAttribute('href', 'data:json,' + doc);
+  element.setAttribute('download', filename);
+
+  element.style.display = 'none';
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
+}
+
 
   const tree = new AVLTree();
-  tree.insert(70)
-  tree.insert(50)
-  tree.insert(80)
-  tree.insert(90)
-  tree.insert(40)
-  tree.print()
+  //tree.insert(70)
+ // tree.insert(50)
+ // tree.insert(80)
+ // tree.insert(90)
+ // tree.insert(40)
+ // tree.remove(40)
+ // tree.print()

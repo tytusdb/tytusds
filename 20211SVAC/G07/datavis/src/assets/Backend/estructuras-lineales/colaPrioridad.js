@@ -1,3 +1,12 @@
+class Nodo {
+    constructor(data,next){
+        this.data = data;
+        this.next = next;
+    }
+
+
+}
+
 class colaPrioridad {
     constructor(){
         this.pqueue = [[],[]];

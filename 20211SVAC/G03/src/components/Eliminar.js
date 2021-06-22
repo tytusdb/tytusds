@@ -50,6 +50,12 @@ export default class Eliminar extends Component {
              case "Arbol B":
                 edd.eliminar(dato)
                 break
+            case "Arbol B+":
+                edd.eliminar(dato)
+                break
+             case "Arbol Merkle":
+                edd.Eliminar(dato)
+                break
             default:
                 break;
         }

@@ -15,5 +15,5 @@ class Nodo{
     get_anterior(){ return this.anterior; }
     set_anterior(anterior){ this.anterior = anterior; }
 }
-
-module.exports = Nodo;
+export default Nodo;
+// module.exports = Nodo;

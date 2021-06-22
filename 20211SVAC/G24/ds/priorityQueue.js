@@ -106,4 +106,16 @@ class priorityQueue{
 		}
 	}
 
+	getNodes(){
+		var curr=this.front;
+		var list=[];
+		list.push([curr.data,curr.priority,curr.pos]);
+		curr=curr.prev;
+		while (curr!=null){
+			list.push([curr.data,curr.priority,curr.pos]);
+			curr=curr.prev;
+		}
+		return list;
+	}
+
 }

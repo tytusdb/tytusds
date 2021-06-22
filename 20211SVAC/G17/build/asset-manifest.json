@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "./static/css/main.24c37f45.chunk.css",
-    "main.js": "./static/js/main.b72968c1.chunk.js",
-    "main.js.map": "./static/js/main.b72968c1.chunk.js.map",
+    "main.js": "./static/js/main.a76182ce.chunk.js",
+    "main.js.map": "./static/js/main.a76182ce.chunk.js.map",
     "runtime-main.js": "./static/js/runtime-main.5b9bd3a1.js",
     "runtime-main.js.map": "./static/js/runtime-main.5b9bd3a1.js.map",
-    "static/js/2.cfb6b6f1.chunk.js": "./static/js/2.cfb6b6f1.chunk.js",
-    "static/js/2.cfb6b6f1.chunk.js.map": "./static/js/2.cfb6b6f1.chunk.js.map",
+    "static/js/2.a1143f92.chunk.js": "./static/js/2.a1143f92.chunk.js",
+    "static/js/2.a1143f92.chunk.js.map": "./static/js/2.a1143f92.chunk.js.map",
     "index.html": "./index.html",
     "static/css/main.24c37f45.chunk.css.map": "./static/css/main.24c37f45.chunk.css.map",
-    "static/js/2.cfb6b6f1.chunk.js.LICENSE.txt": "./static/js/2.cfb6b6f1.chunk.js.LICENSE.txt",
+    "static/js/2.a1143f92.chunk.js.LICENSE.txt": "./static/js/2.a1143f92.chunk.js.LICENSE.txt",
     "static/media/Usac_Logo.png": "./static/media/Usac_Logo.1eb9f308.png",
     "static/media/logo-fiusac.e9c919d6.png": "./static/media/logo-fiusac.e9c919d6.png"
   },
   "entrypoints": [
     "static/js/runtime-main.5b9bd3a1.js",
-    "static/js/2.cfb6b6f1.chunk.js",
+    "static/js/2.a1143f92.chunk.js",
     "static/css/main.24c37f45.chunk.css",
-    "static/js/main.b72968c1.chunk.js"
+    "static/js/main.a76182ce.chunk.js"
   ]
 }

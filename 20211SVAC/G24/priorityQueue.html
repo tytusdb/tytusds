@@ -32,12 +32,33 @@
 				</span>
 				<input style='margin-right: 1%;margin-left: 3%;' type='submit' id='dBtn' value='Eliminar'/>
 				<input style='margin-left: 3%;' id='speed' type='range' min='0' max='9' step='1' value='4'/>
+				<input type='submit' id='downBtn' value='Guardar'/>
+
 				<script>
 					document.getElementById('file').onchange = function(){
 						var fil = document.getElementById('file').files[0];
 						const read= new FileReader();
 						read.onload=function(){
+							list=JSON.parse(read.result).valores;
+							rep=JSON.parse(read.result).repeticion;
+							document.getElementById('speed').value=JSON.parse(read.result).animacion;
+							cy.remove('node');
+							ls=new priorityQueue();
+
+							pos=JSON.parse(read.result).posicion;
+							for(var i=0;i<list.length;i++){
+								console.log(list[i].valor,list[i].prioridad)
+								if(isNumeric(list[i].valor)){
+									ls.enqueue(parseInt(list[i].valor),list[i].prioridad);
+								}else{
+									ls.enqueue(list[i].valor,list[i].prioridad);
+								}
+							}
+
 							console.log(JSON.parse(read.result))
+							lstNode=ls.getNodes()
+							console.log(lstNode);
+							addNodes(lstNode);
 						}
 						read.readAsText(fil)
 
@@ -48,6 +69,8 @@
 		
 		<div id='cy'></div>
     	<script>
+			list=[];
+			var rep=true;
 			var ls=new priorityQueue();
       		var cy = cytoscape({
 				container: document.getElementById('cy'),
@@ -76,6 +99,22 @@
 			const canvas = document.createElement('canvas');
 			const ctx = canvas.getContext('2d');
 			ctx.font= '20px serif';
+
+			async function addNodes(n,anim=true){
+				const timer = ms => new Promise(res => setTimeout(res, ms));
+				for(var i =0; i<n.length;i++){
+					var spd = document.getElementById('speed').value;
+
+					if (i==0){
+						cy.add([{data:{id:n[i][2],name:n[i][0]+'|'+n[i][1]}}]).style({width:ctx.measureText(n[i][0]+'|'+n[i][1]).width});
+					}else{
+						cy.add([{data:{id:n[i][2],name:n[i][0]+'|'+n[i][1]}}]).style({width:ctx.measureText(n[i][0]+'|'+n[i][1]).width});
+						cy.add({data:{source:n[i-1][2],target:n[i][2]}});
+					}
+						var options={name:'dagre',rankDir:'BT',spacingFactor:'0.4'};
+						cy.layout(options).run();
+				}
+			}
 				
 			document.getElementById('nBtn').onclick = function(){
 				var input =parseInt(document.getElementById('nText').value);
@@ -95,25 +134,29 @@
 					}
 					nd=nd.prev;
 				}
-				options={name:'dagre',rankDir:'RL',spacingFactor:'0.6'};
+				options={name:'dagre',rankDir:'BT',spacingFactor:'0.4'};
 				cy.layout(options).run();
 				blink(newNode.pos);
 			}
 			
 			document.getElementById('dBtn').onclick = function(){
-				var r = cy.filter('#'+ String(ls.size - 1));
+				var r = cy.filter('#'+ String(0));
 				var spd = document.getElementById('speed').value;
 				ls.dequeue();
 				cy.remove(r);
-				var options={name:'dagre',rankDir:'RL',spacingFactor:'0.6',animate:'end',animationDuration: 100*spd};
-				cy.layout(options).run();
+				cy.remove('node');
+				addNodes(ls.getNodes());
+				//var options={name:'dagre',rankDir:'BT',spacingFactor:'0.4',animate:'end',animationDuration: 100*spd};
+				//cy.layout(options).run();
 			}
 			
 			document.getElementById('sBtn').onclick=function(){
 				var input = document.getElementById('nText').value;
+				if (isNumeric(input)){
+					input=parseInt(input);
+				}
 				var ns = ls.search(input);
 				var r;
-				var estilo=cy.style().json();
 				var spd = document.getElementById('speed').value;
 				const timer = ms => new Promise(res => setTimeout(res, ms));
 				async function ani(){
@@ -150,6 +193,41 @@
 					await timer(25*spd);
 					r.select();
 
+			}
+
+			function isNumeric(n) {
+  				return !isNaN(parseFloat(n)) && isFinite(n);
+			}
+
+			document.getElementById('downBtn').onclick=function(){
+				var nodos=ls.getNodes();
+				var obj = new Object();
+				obj.categoria="Estructura Lineal";
+				obj.nombre="Cola de prioridad";
+				obj.repeticion=rep;
+				obj.animacion= document.getElementById('speed').value;
+				var objects=ls.getNodes();
+				var vals=[];
+
+				for (var i=0;i<objects.length;i++){
+					var nuevo=new Object
+					nuevo.valor = objects[i][0];
+					nuevo.prioridad=objects[i][1];
+					vals.push(nuevo);
+				}
+				obj.valores=vals;
+				var jsonString=JSON.stringify(obj,undefined,2);
+				console.log(jsonString);
+				download(jsonString, "ColaPrioridad.json", "text/plain");
+			
+			}
+
+			function download(content, fileName, contentType) {
+				const a = document.createElement("a");
+				const file = new Blob([content], { type: contentType });
+				a.href = URL.createObjectURL(file);
+				a.download = fileName;
+				a.click();
 			}
 
 		</script>

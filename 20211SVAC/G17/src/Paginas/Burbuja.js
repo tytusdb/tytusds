@@ -1,7 +1,11 @@
-import React, {Component} from "react";
+import React, {Component}from "react";
 import {Bar} from "react-chartjs-2";
+import {useState,useEffect} from "react";
+import axios from 'axios';
 
-var arreglo =[4025,
+
+var arreglo =[
+    4025,
     7677,
     3875,
     8107,
@@ -52,12 +56,37 @@ var arreglo =[4025,
     2499,
     8546]
 
+
+
+
+
 class Burbuja extends Component {
+    onFileChange = event =>{
+        this.setState({
+            selectedFile: event.target.files[0]
+        });
+    }
+
+
+    onFileUpload = ()=>{
+        const formData = new FormData();
+        formData.append(
+            "myfile",
+            this.state.selectedFile,
+            this.state.selectedFile.name
+        );
+        console.log(this.state.selectedFile)
+        axios.post("burbuja", formData)
+    }
+
+
+
 
     constructor() {
         super();
         this.state={
-            barChartData:[]
+            barChartData:[],
+            selectedFile:null
 
         }
         this.change1= this.change1.bind(this);
@@ -76,6 +105,29 @@ class Burbuja extends Component {
                 ]}
         })
     }
+    fileData=()=>{
+        if (this.state.selectedFile) {
+
+            return (
+                <div>
+                    <h2>File Details:</h2>
+                    <p>File Name: {this.state.selectedFile.name}</p>
+                    <p>File Type: {this.state.selectedFile.type}</p>
+                    <p>
+                        Last Modified:{" "}
+                        {this.state.selectedFile.lastModifiedDate.toDateString()}
+                    </p>
+                </div>
+            );
+        } else {
+            return (
+                <div>
+                    <br />
+                    <h4>Escoge un archivo.json luego presiona en subir</h4>
+                </div>
+            );
+        }
+    };
 
 
     change1(){
@@ -116,12 +168,26 @@ class Burbuja extends Component {
         return (
             <div>
                 <Bar data = {this.state.barChartData}/>
-                <button onClick={this.change1}>Ordenar</button>
-                <h3>Ver en consola :3 Arreglo: {arreglo.toString()}</h3>
+                <center><button onClick={this.change1}>Ordenar</button></center>
+                <h3>Ver en consola :3</h3>
+                <center>Arreglo:</center>
+                <h4> [{arreglo.toString()}]</h4>
+                <div>
+                    <input type="file" onChange={this.onFileChange} />
+                    <button onClick={this.onFileUpload}>
+                        Subir!
+                    </button>
+                </div>
+                {this.fileData()}
+
             </div>
         )
     }
 
 }
 
-export default Burbuja;
+
+export default (Burbuja);
+
+
+

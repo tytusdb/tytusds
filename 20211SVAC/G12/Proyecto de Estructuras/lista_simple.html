@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="index.css"/>
-    <title>Document</title>
+    <title>Lista Simple</title>
 </head>
 <body>
     <header class="header">
@@ -26,6 +26,13 @@
         <input type="button" onClick="velocidad_max()" value="Velocidad" />
     </center>
     <br>
+    </form>
+    <form><center>
+        <input type="text" id="inicio" placeholder="Dato para el inicio" required/>
+        <input type="text" id="prioridad" placeholder="Posicion" required/>
+        <input type="button" onClick="nuevo_insert()" value="Al Inicio" />
+        <input type="button" onClick="insertar_por_orden()" value="Por Orden" />
+    </center>
     </form>
     <section class = "lista" id="lista"></section>
     <script type="text/javascript" src="lista_simple.js"></script>   
