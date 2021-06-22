@@ -444,7 +444,7 @@ function listaNums(numso){
 function guardar(){
     var repetic = btn_Repetir.checked;
     var velocidad = 10;
-    var content = stack.imprimir().split(",").reverse();
+    var content = stack.imprimir().split(",");
     
     if (tipoDato == 'number'){
         content = listaNums(content);

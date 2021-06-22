@@ -128,6 +128,16 @@ class Prioridad {
         return actual.elemento;
 
     }
+    actualizar(viejo, nuevo){
+        let aux = this.front;
+        while(aux != null){
+            if(aux.elemento == viejo){
+                aux.elemento = nuevo;
+                break;
+            }
+            aux = aux.siguiente;
+        }
+    }
 }
 
 class Nodo {
@@ -241,94 +251,7 @@ function ordenarCuadros(div_){
 
     }
 }
-/*
-// ***** ORDENAMIENTO DE ELEMENTOS *****
-async function ordenarCuadros(){
-    var bloques1 = document.querySelectorAll(".cuadrito");
-    //var bloques2 = document.querySelectorAll(".cuadrito2");
 
-    for(var v = 0; v < ordenPrior.length; v+=1){
-        for (var c = 0; c < ordenPrior.length - v - 1; c +=1){
-        
-            // color de bloques seleccionados
-            //bloques2[c].style.backgroundColor = "#FF4949";
-            //bloques2[c + 1].style.backgroundColor = "#FF4949";
-
-            // delay de 0.1 segundo para que se entienda
-            await new Promise((resolve) =>
-                setTimeout(() =>{
-                    resolve();
-                }, (100)) //delay
-            );
-
-            console.log("ejecutando");
-
-
-
-            // comparar los valores para ordenarlos 
-            if (ordenPrior[c] > ordenPrior[c + 1] ){
-                console.log("Cambiando");
-                await cambiar(bloques1[c], bloques1[c + 1]);
-                await new Promise((resolve) =>
-                setTimeout(() =>{
-                    resolve();
-                }, (100)) //delay
-            );
-                //await cambiar(bloques2[c], bloques2[c + 1]);
-                
-                bloques1 = document.querySelectorAll(".cuadrito");
-                //bloques2 = document.querySelectorAll(".cuadrito2");
-                var auxa = ordenPrior[c];
-                ordenPrior[c] = ordenPrior[c+1];
-                ordenPrior[c+1] = auxa;
-
-                var auxb = ordenDato[c];
-                ordenDato[c] = ordenDato[c+1];
-                ordenDato[c+1] = auxb;
-            } 
-            if (ordenPrior[c] == ordenPrior[c + 1]){
-                bloques1 = document.querySelectorAll(".cuadrito");
-                //bloques2 = document.querySelectorAll(".cuadrito2");
-                var auxa = ordenPrior[c];
-                ordenPrior[c] = ordenPrior[c+1];
-                ordenPrior[c+1] = auxa;
-
-                var auxb = ordenDato[c];
-                ordenDato[c] = ordenDato[c+1];
-                ordenDato[c+1] = auxb;
-
-            }
-
-
-            //bloques[c].style.backgroundColor = "#6b5b95";
-            //bloques[c + 1].style.backgroundColor = "#6b5b95";
-        }
-        // cambiando el color del elemento mayor
-        //bloques[bloques.length - v - 1].style.backgroundColor ="#13CE66";
-    }
-}
-
-function cambiar(bloque1, bloque2){
-    return new Promise((resolve) =>{
-
-        // cambiar el estilo de los bloques
-        var bloque_tmp = bloque1.style.transform;
-        bloque1.style.transform = bloque2.style.transform;
-        bloque2.style.transform = bloque_tmp;
-
-        window.requestAnimationFrame(function(){
-            setTimeout(() =>{
-                container.insertBefore(bloque2, bloque1);
-                resolve();
-
-            }, 1000); // velocidad de animacion
-
-        });
-        
-    });
-
-}
-*/
 // ***** ELIMINAR ELEMENTO *****
 async function eliminar(){
     var bloques = document.querySelectorAll(".cuadrito");
@@ -344,11 +267,20 @@ async function eliminar(){
 
     // Pintando el cuadro a eliminar 
     bloques[0].style.backgroundColor = "#DC143C";
+    
     //bloques2[0].style.backgroundColor = "#DC143C";
     await new Promise((resolve) =>
         setTimeout(() =>{
         resolve();
         }, (10*100)) //delay
+    );
+
+    // Animacion de eliminado
+    bloques[0].classList.add('eliminado');
+    await new Promise((resolve) =>
+        setTimeout(() =>{
+        resolve();
+        }, (1500)) //delay
     );
     // Eliminando de la pantalla
     container.removeChild(bloques[0]);
@@ -358,10 +290,10 @@ async function eliminar(){
 // ***** BUSCAR ELEMENTO *****
 function buscar(){
     var elementoF = document.getElementById('elemento');
-    var busqueda = cola.verificar(elementoF.value); 
+    var busqueda = prioridad.verificar(elementoF.value); 
     console.log("--> "+busqueda);
     if(busqueda == true){
-        var posicion = cola.indiceVerificar(elementoF.value);
+        var posicion = prioridad.indiceVerificar(elementoF.value);
         console.log(" Posicion: "+posicion);
         pathBloques(posicion);
     } else {
@@ -375,10 +307,11 @@ async function pathBloques(pos){
     for (let i = 0; i < bloques.length; i++){
         if( i == pos){
             bloques[i].style.backgroundColor = "#13CE66";
+            bloques[i].classList.add("busqueda");
             await new Promise((resolve) =>
             setTimeout(() =>{
             resolve();
-            }, (4000)) //delay
+            }, (2000)) //delay
             );
             bloques[i].style.backgroundColor = 	"#FFFFFF";
             break;
@@ -414,16 +347,16 @@ function actualizar(){
     var oldElemento = document.getElementById('elemento').value;
     var newElemento = document.getElementById('nuevoElemento').value;
 
-    var posElemento = cola.indiceVerificar(oldElemento);
+    var posElemento = prioridad.indiceVerificar(oldElemento);
     
 
-    var busqueda = cola.verificar(oldElemento); 
+    var busqueda = prioridad.verificar(oldElemento); 
    
     if(busqueda == true){
         // cambio el contenido por el nuevo elemento
         pathActualizar(posElemento, newElemento);
         // actualizo la cola
-        cola.actualizar(oldElemento, newElemento);
+        prioridad.actualizar(oldElemento, newElemento);
 
     } else {
         pathBloques2();
@@ -433,16 +366,18 @@ function actualizar(){
 async function pathActualizar(posi, nuevo){
     var bloques = document.querySelectorAll(".cuadrito");
     velocidad = 10;
+    var numPriori = prioridad.imprimirNivel().split(",");
     
     for (let i = 0; i < bloques.length; i++){
         if( i == posi){
             bloques[i].style.backgroundColor = "#617EEC";
+            bloques[i].classList.add("actualizar");
             await new Promise((resolve) =>
             setTimeout(() =>{
             resolve();
             }, (2000)) //delay
             );
-            bloques[posi].textContent = nuevo;
+            bloques[posi].textContent = nuevo + " || "+numPriori[posi];
             bloques[i].style.backgroundColor = 	"#FFFFFF";
             break;
         } else {
@@ -471,12 +406,13 @@ function readFile(evento){ // lectura del archivo .json
     
             console.log("VALORES")
             listaValores = convert.valores;
-            tipoDato = typeof(listaValores[0]);
-            console.log(convert.valores);
+            //tipoDato = typeof(listaValores[0]);
+            console.log(listaValores);
+            agregarFile(listaValores);
+            tipoDato = typeof(listaValores.valor[0]);
 
                       
-            //generateElements(listaValores, tipoDato);
-
+           
         };
         reader.readAsText(archivo); 
 
@@ -489,9 +425,73 @@ window.addEventListener('load', ()=>{ // cada vez que cambie
     document.getElementById('file').addEventListener('change',readFile)
 });
 
+// ***** AGREGAR - FILE *****
+async function agregarFile(listaDatos){
+    velocidad = 10;
+    var chek_Repe = btn_Repetir.checked;
+    
+    for(let i = 0; i < listaDatos.length; i++){
+        let verLista = prioridad.verificar(listaDatos[i]);
+        
+        if(chek_Repe == true && verLista == true){
+            console.log("Repetido") 
+        } else {
+            // Insertando elemento en la cola
+            prioridad.agregar(listaDatos[i].valor, listaDatos[i].prioridad);
+            // Creando los cuadros y agregandole el elemento ingresado
+            const div = document.createElement("div");
+            div.classList.add('cuadrito');
+            div.textContent = listaDatos[i].valor +" || "+listaDatos[i].prioridad;
+            container.appendChild(div);
+            await new Promise((resolve) =>
+                setTimeout(() =>{
+                resolve();
+                }, (velocidad*200)) //delay
+            ); 
+            ordenarCuadros2(div);
+            
+
+        } 
+    }
+}
+
+function ordenarCuadros2(square){
+    var contenido = prioridad.imprimir().split(",");
+    var contenidoP = prioridad.imprimirNivel().split(",");
+    var bloques = document.querySelectorAll(".cuadrito");
+
+    for(let i = 0; i < bloques.length; i++){
+        bloques[i].textContent = contenido[i] + " || "+contenidoP[i];
+
+    }
+
+
+}
+
 // ***** GUARDAR JSON *****
 function guardar(){
-    console.log("Guardando JSON");
+    var repetic = btn_Repetir.checked;
+    var velocidad = 10;
+    var contenido = prioridad.imprimir().split(",");
+    var contenidoP = prioridad.imprimirNivel().split(",");
+    
+    if (tipoDato == 'number'){
+        content = listaNums(content);
+    } 
+    
+    var fileJ = {
+        "categoria": "Estructura Lineal",
+        "nombre": "Pila",
+        "repeticion": repetic,
+        "animacion": velocidad,
+        "valores": content
+    }
+
+    let saveArchivo = new Blob([JSON.stringify(fileJ)],{type:"application/json"});
+    let a = document.createElement("a");
+    a.href = URL.createObjectURL(saveArchivo);
+    a.download = "pila.json";
+    a.click();
 }
 
 // ***** LIMPIAR PANTALLA *****
