@@ -35,6 +35,7 @@ class Cola extends Component {
     super(props);
     this.state = {
       agregar: '',
+      dato_actualizado: '',
       valoreliminar:'',
       valorbuscar: '',
       rango: '1',
@@ -68,6 +69,13 @@ class Cola extends Component {
     datos = {nodes:nodos, edges:flechas,};
     this.network = new Network(this.appRef.current, datos, options);
   }
+  ActualizarDato = () => {
+    estructuracola.Actualizar(this.state.agregar, this.state.dato_actualizado);
+    nodos = new DataSet(estructuracola.GenerarNodosDOT());
+    flechas = new DataSet(estructuracola.GenerarEdgesDOT());
+    datos = {nodes:nodos, edges:flechas,};
+    this.network = new Network(this.appRef.current, datos, options);
+  }
   BuscarDato = () => {
     let dato = estructuracola.Buscar(this.state.agregar);
     if (0 <= dato){
@@ -91,11 +99,17 @@ class Cola extends Component {
         </div>
       </div>
       <div className="row">
-        <div className="col-md-3" style={{marginLeft: 1 + 'em'}}>
+        <div className="col-md-2" style={{marginLeft: 1 + 'em'}}>
           <input type="text" name="agregar" className="form-control" placeholder="Dato" id="InputCola" value={this.state.agregar} onChange={this.handleInputChange}></input>
         </div>
         <div className="col-md-1">
           <button type="button" className="btn btn-primary" onClick={() => this.AgregarDato()}>Agregar</button>
+        </div>
+        <div className="col-md-2" style={{marginLeft: 1 + 'em'}}>
+          <input type="text" name="dato_actualizado" className="form-control" placeholder="Dato a Actualizar" id="InputCola" value={this.state.dato_actualizado} onChange={this.handleInputChange} ></input>
+        </div>
+        <div className="col-md-1">
+          <button type="button" className="btn btn-warning" onClick={() => this.ActualizarDato()}>Actualizar Dato</button>
         </div>
         <div className="col-md-1">
           <button type="button" className="btn btn-danger" onClick={() => this.EliminarDato()}>Eliminar</button>
@@ -103,7 +117,7 @@ class Cola extends Component {
         <div className="col-md-1" style={{marginLeft: 2 + 'em'}}>
           <button type="button" className="btn btn-dark" onClick={() => this.BuscarDato()}>Buscar</button>
         </div>
-        <div className="col-md-3">
+        <div className="col-md-2">
           <input className="form-control" type="file" id="formFile"></input>
         </div>
         <div className="col-md-1">
