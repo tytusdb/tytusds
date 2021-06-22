@@ -78,7 +78,7 @@
     </header>
 
     <main class="mt-3">
-        <h3 class="mx-3 px-4 pb-2">Cola</h3>
+        <h3 class="mx-3 px-4 pb-2">Cola de prioridad</h3>
         <div class="row mx-auto px-4">
             <div class="col-md-3 mb-3">
                 <section>
@@ -86,34 +86,35 @@
                         <div class="p-6">
                             <div class="form-group ">
                                 <label for="">Agregar</label>
-                                <input type="text" class="form-control form-control-sm mb-1" id="COLAagregar">
+                                <input type="text" placeholder="Valor" class="form-control form-control-sm mb-1" id="PCOLAagregar">
+                                <input type="text" placeholder="prioridad" class="form-control form-control-sm mb-1" id="PCOLAaprioridad">
                                 <button type="submit" id="btnsubmit" class="btn btn-success mt-2"
-                                    onclick="COLAadd()">Agregar
+                                    onclick="PCOLAadd()">Agregar
                                 </button>
                             </div>
 
                             <div class="form-group ">
                                 <button type="submit" class="btn btn-danger mt-2"
-                                    onclick="COLAdelete()">Desencolar</button>
+                                    onclick="PCOLAdelete()">Desencolar</button>
                             </div>
                             <div class="form-group ">
                                 <label for="">Buscar</label>
-                                <input type="text" class="form-control form-control-sm" id="COLAbuscar">
+                                <input type="text" class="form-control form-control-sm" id="PCOLAbuscar">
                                 <button type="submit" class="btn btn-primary mt-2"
-                                    onclick="COLAsearch()">Buscar</button>
+                                    onclick="PCOLAsearch()">Buscar</button>
                             </div>
                             <div class="form-group ">
                                 <label for="">Actualizar</label>
-                                <input type="text" class="form-control form-control-sm" id="COLAantiguo"
+                                <input type="text" class="form-control form-control-sm" id="PCOLAantiguo"
                                     placeholder="Valor antiguo">
-                                <input type="text" class="form-control form-control-sm" id="COLAnuevo"
+                                <input type="text" class="form-control form-control-sm" id="PCOLAnuevo"
                                     placeholder="Valor nuevo">
                                 <button type="submit" class="btn btn-secondary mt-2"
-                                    onclick="COLAactualizar()">Actualizar</button>
+                                    onclick="PCOLAactualizar()">Actualizar</button>
                             </div>
 
                             <div class="form-check">
-                                <input type="checkbox" class="form-check-input form-control-sm" id="COLArepetidos">
+                                <input type="checkbox" class="form-check-input form-control-sm" id="PCOLArepetidos">
                                 <label class="form-check-label" for="admitR">
                                     Admitir repetidos
                                 </label>
@@ -150,7 +151,7 @@
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js@3.0/dist/svg.min.js"></script>
 
-    <script src="./assets/js/Estructuras/ListasSimples/Cola.js"></script>
+    <script src="./assets/js/Estructuras/ListasSimples/ColaPrioridad.js"></script>
 
 </body>
 
