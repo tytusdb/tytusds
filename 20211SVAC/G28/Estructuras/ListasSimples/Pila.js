@@ -1,5 +1,5 @@
-const Nodo = require("./Nodo");
 
+const datos = require("./datos");
 class Pila {
     constructor(){
         this.primero = null;
@@ -58,6 +58,10 @@ class Pila {
             var actual = this.primero;
             while(true){
                 if (actual.datos.dato1 == antiguo){
+
+                    var nuevos = new datos(nuevo,null);
+                    actual.datos = nuevos;
+
                     actual.datos.dato1 = nuevo;
                     break;
                     //actualizar solo el primero que coincida

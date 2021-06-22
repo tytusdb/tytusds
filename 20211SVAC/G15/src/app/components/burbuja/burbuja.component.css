@@ -23,6 +23,7 @@ body {
     display: none;
   }
 
+
   p {
     /*text-transform: uppercase;*/ /* para colocar todo el texto en mayuscula  */
     color: rgba(255,255,255,.25); 

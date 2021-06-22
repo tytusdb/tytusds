@@ -51,10 +51,10 @@
 				Ordenamientos
 			  </a>
 			  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-				<a class="dropdown-item" href="bubleSort.html" id="Lista_Simple">Ordenamiento Burbuja<span class="sr-only">(current)</span></a>
-                <a class="dropdown-item" href="insertionSort.html" id="Lista_Doble">Ordenamiento Insercion<span class="sr-only">(current)</span></a>
-                <a class="dropdown-item" href="Rapido.html" id="Lista_Doble">Ordenamiento Rapido<span class="sr-only">(current)</span></a>
-                <a class="dropdown-item" href="Seleccion.html" id="selection">Ordenamiento Rapido<span class="sr-only">(current)</span></a>
+				<a class="dropdown-item" href="../ordenamientos/bubleSort.html" id="Lista_Simple">Ordenamiento Burbuja<span class="sr-only">(current)</span></a>
+                <a class="dropdown-item" href="../ordenamientos/insertionSort.html" id="Lista_Doble">Ordenamiento Insercion<span class="sr-only">(current)</span></a>
+                <a class="dropdown-item" href="../ordenamientos/Rapido.html" id="Lista_Doble">Ordenamiento Rapido<span class="sr-only">(current)</span></a>
+                <a class="dropdown-item" href="../ordenamientos/Seleccion.html" id="selection">Ordenamiento Rapido<span class="sr-only">(current)</span></a>
 			  </div>
 		  </li>
 		</ul>
@@ -69,8 +69,9 @@
             </div>
             <body>
                 <div id="contenidoventanas">
-					<button onclick="agregarValor();" title="Encolar" id="btn4" class="btn btn-primary">Insertar</button>
-					<button onclick="eliminarValor();" title="Desencolar" id="btn4" class="btn btn-primary">Eliminar</button>
+					<button onclick="agregarValor();" title="agregar" id="btn4" class="btn btn-primary">Insertar</button>
+					<button onclick="eliminar();" title="eliminar" id="btn4" class="btn btn-primary">Eliminar</button>
+					<button onclick="buscar();" title="encontrar" id="btn4" class="btn btn-primary">Buscar</button>
                     <button onclick="inorden();" title="Desencolar" id="btn4" class="btn btn-primary">Inorden</button>
                     <button onclick="preorden();" title="Desencolar" id="btn4" class="btn btn-primary">Preorden</button>
                     <button onclick="postorden();" title="Desencolar" id="btn4" class="btn btn-primary">Postorden</button>
@@ -79,7 +80,8 @@
 				<div>
 					<ul>
                         <li>
-                          <br><a class="a-label">Valor </a><input type="text" id="newValue" name="newValue">
+                          <br><a class="a-label">Valor </a><input type="text" id="newValue" name="newValue"><br>
+						  <br><label style="text-align:center; color: rgba(34, 33, 33, 0.8);" id = "GFG">Recorridos</label>
                         </li>
                       </ul>
 				</div>

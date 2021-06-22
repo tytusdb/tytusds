@@ -1,4 +1,5 @@
 const datos = require("./datos");
+
 // const ListaSimple = require("./ListaSimple");
 const Cola = require("./Cola");
  var lista = new Cola();
@@ -29,33 +30,4 @@ console.log("-----FASE 1----------");
 lista.imprimir();
 console.log("######### COMPROBANDO ########");
 lista.actualizar(3,9,false);
-lista.imprimir
-
-lista.eliminar();
-//revisar el eliminar, porque no encontro el 5 y si esta
-//revisar lo de permitir repetidos no esta funcionand
-
-console.log("------FASE 4--------");
-
 lista.imprimir();
-
-console.log("-------FASE 5--------");
-lista.eliminar();
-lista.imprimir();
-
-console.log("-------FASE 5.2--------");
-lista.eliminar();
-lista.imprimir();
-
-lista.eliminar();
-
-console.log("-------FASE 6--------");
-console.log(lista.buscar(1));
-
-console.log("-------FASE 7--------");
-lista.actualizar(5, 8, false);
-lista.imprimir();
-//no esta funcionando el buscar, retorna no encontraod y si hay varios 1
-
-//listas circular si esta eliminando, pero no borra la cabeza cuando esta ahi el dago a eliminar
-//arreglar eso
