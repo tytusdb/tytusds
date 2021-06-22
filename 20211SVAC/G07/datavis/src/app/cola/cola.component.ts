@@ -69,6 +69,26 @@ class Cola {
     }
     this.size++
     }
+    removeData(){
+      if (this.size<0){
+        return null;
+      }else{
+        let actual = this.head;
+        this.head = actual.next;
+        this.size--;
+        var id = nodes.get({
+          fields:['id', 'label']
+        });
+        let primer: number;
+        for (var val of id){
+          if(val.label == actual.data){
+            primer = val.id;
+          }
+        }
+        nodes.remove(primer);
+        return actual.data;
+      }
+    }
   }
 @Component({
   selector: 'app-cola',
@@ -115,9 +135,8 @@ export class ColaComponent implements OnInit {
     console.log(this.lista);
 
   }
-  Eliminar(valor: any){
-    console.log('valor ' + valor)
-    //this.lista.eliminar(valor)
+  Eliminar(){
+    this.lista.removeData()
     console.log("this.lista");
     console.log(this.lista);
   }

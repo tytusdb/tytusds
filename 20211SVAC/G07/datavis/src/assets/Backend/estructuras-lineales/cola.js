@@ -23,7 +23,7 @@ class Node {
        }
        this.size++
    }
-  
+
    removeData(){
     if (this.size<0){
       return null;
@@ -33,11 +33,11 @@ class Node {
       this.size--;
       return actual.data;
     }
-  
-  
+
+
   }
   }
-  
-  
-  
+
+
+
 
