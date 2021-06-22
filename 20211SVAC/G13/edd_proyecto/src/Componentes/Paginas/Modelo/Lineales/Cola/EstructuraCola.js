@@ -1,4 +1,4 @@
-const Nodo = require('./Nodo.js');
+import Nodo from './Nodo.js';
 
 class EstructuraCola{
 	primero=null;
@@ -105,4 +105,5 @@ class EstructuraCola{
 	}
 }
 
-module.exports = EstructuraCola;
+export default EstructuraCola;
+//module.exports = EstructuraCola;

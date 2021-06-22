@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import AnimacionArbolMerkle from './Animaciones/AnimacionArbolMerkle';
 
 export default function ArbolMerkle(){
 	const [valor,setValor] = useState("");
@@ -54,7 +53,6 @@ export default function ArbolMerkle(){
 			<div className="row">
 
 			</div>
-				<AnimacionArbolMerkle />
 		</>
 	);
 }
