@@ -4,13 +4,633 @@
     <link rel="stylesheet" type="text/css" href="../CSS/header.css">
     <link rel="stylesheet" type="text/css" href="../CSS/ddNavBar.css">
     <meta charset="UTF-8">
-    <title>Árbol B+</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BST</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 </head>
 <body>
+    <script type="text/javascript">
 
-<h1>Árbol B+</h1>
+        hoja = function () {
+            this.keyval = [];
+            this.recnum = [];
+            this.hojaAnterior = null;
+            this.hojaSiguiente = null;
+        };
 
-<ul>
+        nodo = function () {
+            this.keyval = [];
+            this.nodptr = [];
+        };
+
+        tree = function (order) {
+
+            this.root = new hoja();
+            this.maxkey = order-1;
+            this.minkyl = Math.floor(order/2);
+            this.minkyn = Math.floor(this.maxkey/2);
+            this.hoja = null;
+            this.item = -1;
+
+            this.keyval = '';
+            this.recnum = -1;
+            this.length = 0;
+            this.eof = true;
+            this.found = false;
+        };
+
+        //////////////HOJA//////////////////
+
+        hoja.prototype.esHoja = function() {return true;};
+
+        hoja.prototype.getLlave = function (key,near) {
+            var vals = this.keyval;
+            if (near) {
+                for (var i=0, len=vals.length; i<len; i++) {
+                    if (key <= vals[i]) return i;
+                }
+            } else {
+                for (var i=0, len=vals.length; i<len; i++) {
+                    if (key === vals[i]) return i;
+                }
+            }
+            return -1;
+        };
+
+        hoja.prototype.XgetLlave = function (key,near) {
+            var vals = this.keyval;
+            var L=0, M, R=vals.length-1;
+            if (key > vals[R])
+                return -1;
+            else if (key <= vals[L])
+                M = 0;
+            else {
+                while (true) {
+                    M = Math.floor((R-L)/2);
+                    if (M === 0) {
+                        M = R;
+                        break;
+                    }
+                    M += L;
+                    if (key === vals[M]) break;
+                    if (vals[M] > key) R = M;
+                    else               L = M;
+                }
+            }
+            if (vals[M] != key && !near) return -1;
+            return M;
+        };
+
+        hoja.prototype.agregarKey = function (key,rec) {
+            var vals = this.keyval;
+            var len = vals.length;
+            for (var i=0, len=len; i<len; i++) {
+                if (key === vals[i]) {
+                    len = -1;
+                    break;
+                }
+                if (key <= vals[i]) {
+                    len = i;
+                    break;
+                }
+            }
+            if (len != -1) {
+                for (var i=vals.length; i>len; i--) {
+                    vals[i] = vals[i-1];
+                    this.recnum[i] = this.recnum[i-1];
+                }
+                vals[len] = key;
+                this.recnum[len] = rec;
+            }
+            return len;
+        };
+
+        hoja.prototype.split = function () {
+            var mov = Math.floor(this.keyval.length/2);
+            var nuevaHoja = new hoja();
+            for (var i=mov-1; i>=0; i--) {
+                nuevaHoja.keyval[i] = this.keyval.pop();
+                nuevaHoja.recnum[i] = this.recnum.pop();
+            }
+            nuevaHoja.hojaAnterior = this;
+            nuevaHoja.hojaSiguiente = this.hojaSiguiente;
+            if (this.hojaSiguiente !== null) this.hojaSiguiente.hojaAnterior = nuevaHoja;
+            this.hojaSiguiente = nuevaHoja;
+            return nuevaHoja;
+        };
+
+        hoja.prototype.unir = function (frNod, paNod, frKey) {
+            for (var i=0, len=frNod.keyval.length; i<len; i++) {
+                this.keyval.push(frNod.keyval[i]);
+                this.recnum.push(frNod.recnum[i]);
+            }
+            this.hojaSiguiente = frNod.hojaSiguiente;
+            if (frNod.hojaSiguiente !== null) frNod.hojaSiguiente.hojaAnterior = this;
+            frNod.hojaAnterior = null;
+            frNod.hojaSiguiente = null;
+            var len = paNod.keyval.length-1;
+            for (var i=len; i>=0; i--) {
+                if (paNod.keyval[i] == frKey) {
+                    len = i;
+                    break;
+                }
+            }
+            for (var i=len, len=paNod.keyval.length-1; i<len; i++) {
+                paNod.keyval[i] = paNod.keyval[i+1];
+                paNod.nodptr[i+1] = paNod.nodptr[i+2];
+            }
+            paNod.keyval.pop();
+            paNod.nodptr.pop();
+        };
+
+
+        ///////////////////NODO/////////////////
+
+        nodo.prototype.esHoja = function() {return false;};
+
+        nodo.prototype.getLlave = function (key) {
+            var vals = this.keyval;
+            for (var i=0, len=vals.length; i<len; i++) {
+                if (key < vals[i]) return i;
+            }
+            return vals.length;
+        };
+
+        nodo.prototype.agregarKey = function (key,ptrL,ptrR) {
+            var vals = this.keyval;
+            var len = vals.length;
+            for (var i=0, len=vals.length; i<len; i++) {
+                if (key <= vals[i]) {
+                    len = i;
+                    break;
+                }
+            }
+            for (var i=vals.length; i>len; i--) {
+                vals[i] = vals[i-1];
+                this.nodptr[i+1] = this.nodptr[i];
+            }
+            vals[len] = key;
+            this.nodptr[len] = ptrL;
+            this.nodptr[len+1] = ptrR;
+        };
+
+        nodo.prototype.split = function () {
+            var mov = Math.ceil(this.keyval.length/2) - 1;
+            var newN = new nodo();
+            newN.nodptr[mov] = this.nodptr.pop();
+            for (var i=mov-1; i>=0; i--) {
+                newN.keyval[i] = this.keyval.pop();
+                newN.nodptr[i] = this.nodptr.pop();
+            }
+            return newN;
+        };
+
+        nodo.prototype.unir = function (frNod, paNod, palen) {
+            var del = paNod.keyval[palen];
+            this.keyval.push(del);
+            for (var i=0, len=frNod.keyval.length; i<len; i++) {
+                this.keyval.push(frNod.keyval[i]);
+                this.nodptr.push(frNod.nodptr[i]);
+            }
+            this.nodptr.push(frNod.nodptr[frNod.nodptr.length-1]);
+            for (var i=palen, len=paNod.keyval.length-1; i<len; i++) {
+                paNod.keyval[i] = paNod.keyval[i+1];
+                paNod.nodptr[i+1] = paNod.nodptr[i+2];
+            }
+            paNod.keyval.pop();
+            paNod.nodptr.pop();
+            return del;
+        };
+        ////////////////BTREE +////////////////////////
+
+        tree.prototype.insertar = function (key,rec) {
+            var stack = [];
+            this.hoja = this.root;
+            while (!this.hoja.esHoja()) {
+                stack.push(this.hoja);
+                this.item = this.hoja.getLlave(key);
+                this.hoja = this.hoja.nodptr[this.item];
+            }
+
+            this.item = this.hoja.agregarKey(key,rec);
+            this.keyval = key;
+            this.eof = false;
+
+            if (this.item === -1) {
+                this.found = true;
+                this.item = this.hoja.getLlave(key,false);
+                this.recnum = this.hoja.recnum[this.item];
+            } else {
+                this.found = false;
+                this.recnum = rec;
+                this.length++;
+                if (this.hoja.keyval.length > this.maxkey) {
+                    var pL = this.hoja;
+                    var pR = this.hoja.split();
+                    var ky = pR.keyval[0];
+                    this.item = this.hoja.getLlave(key,false);
+                    if (this.item === -1) {
+                        this.hoja = this.hoja.hojaSiguiente;
+                        this.item = this.hoja.getLlave(key,false);
+                    }
+                    while (true) {
+                        if (stack.length === 0) {
+                            var newN = new nodo();
+                            newN.keyval[0] = ky;
+                            newN.nodptr[0] = pL;
+                            newN.nodptr[1] = pR;
+                            this.root = newN;
+                            break;
+                        }
+                        var nod = stack.pop();
+                        nod.agregarKey(ky,pL,pR);
+                        if (nod.keyval.length <= this.maxkey) break;
+                        pL = nod;
+                        pR = nod.split();
+                        ky = nod.keyval.pop();
+                    }
+                }
+            }
+            return (!this.found);
+        };
+
+        tree.prototype.eliminar = function (key) {
+            if (typeof key == 'undefined') {
+                if (this.item === -1) {
+                    this.eof = true;
+                    this.found = false;
+                    return false;
+                }
+                key = this.hoja.keyval[this.item];
+            }
+            this._eliminar(key);
+            if (!this.found) {
+                this.item = -1;
+                this.eof = true;
+                this.keyval = '';
+                this.recnum = -1;
+            } else {
+                this.buscar(key,true);
+                this.found = true;
+            }
+            return (this.found);
+        };
+
+        tree.prototype.buscar = function (key,near) {
+            if (typeof near != 'boolean') near = false;
+            this.hoja = this.root;
+            while (!this.hoja.esHoja()) {
+                this.item = this.hoja.getLlave(key);
+                this.hoja = this.hoja.nodptr[this.item];
+            }
+            this.item = this.hoja.getLlave(key,near);
+            if (near && this.item ==-1 && this.hoja.hojaSiguiente!==null) {
+                this.hoja = this.hoja.hojaSiguiente;
+                this.item = 0;
+            }
+            if (this.item === -1) {
+                this.eof = true;
+                this.keyval = '';
+                this.found = false;
+                this.recnum = -1;
+            } else {
+                this.eof = false;
+                this.found = (this.hoja.keyval[this.item] === key);
+                this.keyval = this.hoja.keyval[this.item];
+                this.recnum = this.hoja.recnum[this.item];
+            }
+            return (!this.eof);
+        };
+
+        tree.prototype.saltar = function (cnt) {
+            if (typeof cnt != 'number') cnt = 1;
+            if (this.item==-1 || this.hoja===null) this.eof = true;
+            if (cnt > 0) {
+                while (!this.eof && this.hoja.keyval.length - this.item - 1 < cnt) {
+                    cnt = cnt - this.hoja.keyval.length + this.item;
+                    this.hoja = this.hoja.hojaSiguiente;
+                    if (this.hoja === null) this.eof = true;
+                    else                    this.item = 0;
+                }
+                if (!this.eof) this.item = this.item + cnt;
+            } else {
+                cnt = -cnt;
+                while (!this.eof && this.item < cnt) {
+                    cnt = cnt - this.item - 1;
+                    this.hoja = this.hoja.hojaAnterior;
+                    if (this.hoja === null) this.eof = true;
+                    else                    this.item = this.hoja.keyval.length-1;
+                }
+                if (!this.eof) this.item = this.item - cnt;
+            }
+            if (this.eof) {
+                this.item = -1;
+                this.found = false;
+                this.keyval = '';
+                this.recnum = -1;
+            } else {
+                this.found = true;
+                this.keyval = this.hoja.keyval[this.item];
+                this.recnum = this.hoja.recnum[this.item];
+            }
+            return (this.found);
+        };
+
+        tree.prototype.irA = function (cnt) {
+            if (cnt < 0) {
+                this.irBottom();
+                if (!this.eof) this.saltar(cnt+1);
+            } else {
+                this.irArriba();
+                if (!this.eof) this.saltar(cnt-1);
+            }
+            return (this.found);
+        };
+
+        tree.prototype.keynum = function () {
+            if (this.hoja === null || this.item === -1) return -1;
+            var cnt = this.item + 1;
+            var ptr = this.hoja;
+            while (ptr.hojaAnterior !== null) {
+                ptr = ptr.hojaAnterior;
+                cnt += ptr.keyval.length;
+            }
+            return cnt;
+        };
+
+        tree.prototype.irArriba = function () {
+            this.hoja = this.root;
+            while (!this.hoja.esHoja()) {
+                this.hoja = this.hoja.nodptr[0];
+            }
+            if (this.hoja.keyval.length === 0) {
+                this.item = -1;
+                this.eof = true;
+                this.found = false;
+                this.keyval = '';
+                this.recnum = -1;
+            } else {
+                this.item = 0;
+                this.eof = false;
+                this.found = true;
+                this.keyval = this.hoja.keyval[0];
+                this.recnum = this.hoja.recnum[0];
+            }
+            return (this.found);
+        };
+
+        tree.prototype.irBottom = function () {
+            this.hoja = this.root;
+            while (!this.hoja.esHoja()) {
+                this.hoja = this.hoja.nodptr[this.hoja.nodptr.length-1];
+            }
+            if (this.hoja.keyval.length === 0) {
+                this.item = -1;
+                this.eof = true;
+                this.found = false;
+                this.keyval = '';
+                this.recnum = -1;
+            } else {
+                this.item = this.hoja.keyval.length-1;
+                this.eof = false;
+                this.found = true;
+                this.keyval = this.hoja.keyval[this.item];
+                this.recnum = this.hoja.recnum[this.item];
+            }
+            return (this.found);
+        };
+
+        tree.prototype.pack = function () {
+            this.irArriba(0);
+            if (this.hoja == this.root) return;
+
+            var toN = new hoja();
+            var toI = 0;
+            var frN = this.hoja;
+            var frI = 0;
+            var parKey = [];
+            var prNodo = [];
+            while (true) {
+                toN.keyval[toI] = frN.keyval[frI];
+                toN.recnum[toI] = frN.recnum[frI];
+                if (toI === 0) prNodo.push(toN);
+                if (frI == frN.keyval.length-1) {
+                    if (frN.hojaSiguiente === null) break;
+                    frN = frN.hojaSiguiente;
+                    frI = 0;
+                } else {
+                    frI++;
+                }
+                if (toI == this.maxkey-1) {
+                    var tmp = new hoja();
+                    toN.hojaSiguiente = tmp;
+                    tmp.hojaAnterior = toN;
+                    toN = tmp;
+                    toI = 0;
+                } else {
+                    toI++;
+                }
+            }
+            var mov = this.minkyl - toN.keyval.length;
+            frN = toN.hojaAnterior;
+            if (mov > 0 && frN !== null) {
+                for (var i=toN.keyval.length-1; i>=0; i--) {
+                    toN.keyval[i+mov] = toN.keyval[i];
+                    toN.recnum[i+mov] = toN.recnum[i];
+                }
+                for (var i=mov-1; i>=0; i--) {
+                    toN.keyval[i] = frN.keyval.pop();
+                    toN.recnum[i] = frN.recnum.pop();
+                }
+            }
+            for (i=1, len=prNodo.length; i<len; i++) {
+                parKey.push(prNodo[i].keyval[0]);
+            }
+            parKey[parKey.length] = null;
+
+            var kidKey, kidNod;
+            while (parKey[0] !== null) {
+                kidKey = parKey;
+                kidNod = prNodo;
+                parKey = [];
+                prNodo = [];
+                var toI = this.maxkey+1;
+                for (var i=0, len=kidKey.length; i<len; i++) {
+                    if (toI > this.maxkey) {
+                        toN = new nodo();
+                        toI = 0;
+                        prNodo.push(toN);
+                    }
+                    toN.keyval[toI] = kidKey[i];
+                    toN.nodptr[toI] = kidNod[i];
+                    toI++;
+                }
+                mov = this.minkyn - toN.keyval.length + 1;
+                if (mov > 0 && prNodo.length > 1) {
+                    for (var i=toN.keyval.length-1; i>=0; i--) {
+                        toN.keyval[i+mov] = toN.keyval[i];
+                        toN.nodptr[i+mov] = toN.nodptr[i];
+                    }
+                    frN = prNodo[prNodo.length-2];
+                    for (var i=mov-1; i>=0; i--) {
+                        toN.keyval[i] = frN.keyval.pop();
+                        toN.nodptr[i] = frN.nodptr.pop();
+                    }
+                }
+                for (var i=0, len=prNodo.length; i<len; i++) {
+                    parKey.push(prNodo[i].keyval.pop());
+                }
+            }
+            this.root = prNodo[0];
+            this.irArriba();
+            return (this.found);
+        };
+
+        ///////////////eliminacion////////////////
+
+        tree.prototype._eliminar = function (key) {
+            var stack = [];
+            var prNodo = null;
+            var prPuntero = -1;
+            this.hoja = this.root;
+            while (!this.hoja.esHoja()) {
+                stack.push(this.hoja);
+                prNodo = this.hoja;
+                prPuntero = this.hoja.getLlave(key);
+                this.hoja = this.hoja.nodptr[prPuntero];
+            }
+            this.item = this.hoja.getLlave(key,false);
+
+            if (this.item === -1) {
+                this.found = false;
+                return;
+            }
+            this.found = true;
+
+            for (var i=this.item, len=this.hoja.keyval.length-1; i<len; i++) {
+                this.hoja.keyval[i] = this.hoja.keyval[i+1];
+                this.hoja.recnum[i] = this.hoja.recnum[i+1];
+            }
+            this.hoja.keyval.pop();
+            this.hoja.recnum.pop();
+            this.length--;
+
+            if (this.hoja == this.root) return;
+            if (this.hoja.keyval.length >= this.minkyl) {
+                if (this.item === 0) this._arreglarNodos(stack, key, this.hoja.keyval[0]);
+                return;
+            }
+            var delKey;
+
+            var sibHoja = (prPuntero === 0) ? null : prNodo.nodptr[prPuntero-1];
+            if (sibHoja !== null && sibHoja.keyval.length > this.minkyl) {
+                delKey = (this.item === 0) ? key : this.hoja.keyval[0];
+                for (var i=this.hoja.keyval.length; i>0; i--) {
+                    this.hoja.keyval[i] = this.hoja.keyval[i-1];
+                    this.hoja.recnum[i] = this.hoja.recnum[i-1];
+                }
+                this.hoja.keyval[0] = sibHoja.keyval.pop();
+                this.hoja.recnum[0] = sibHoja.recnum.pop();
+                this._arreglarNodos(stack, delKey, this.hoja.keyval[0]);
+                return;
+            }
+
+            var sibR = (prPuntero == prNodo.keyval.length) ? null : prNodo.nodptr[prPuntero+1];
+            if (sibR !== null && sibR.keyval.length > this.minkyl) {
+                this.hoja.keyval.push(sibR.keyval.shift());
+                this.hoja.recnum.push(sibR.recnum.shift());
+                if (this.item === 0) this._arreglarNodos(stack, key, this.hoja.keyval[0]);
+                this._arreglarNodos(stack, this.hoja.keyval[this.hoja.keyval.length-1], sibR.keyval[0]);
+                return;
+            }
+
+            if (sibHoja !== null) {
+                delKey = (this.item === 0) ? key : this.hoja.keyval[0];
+                sibHoja.unir(this.hoja, prNodo, delKey);
+                this.hoja = sibHoja;
+            } else {
+                delKey = sibR.keyval[0];
+                this.hoja.unir(sibR, prNodo, delKey);
+                if (this.item === 0) this._arreglarNodos(stack, key, this.hoja.keyval[0]);
+            }
+
+            if (stack.length === 1 && prNodo.keyval.length === 0) {
+                this.root = this.hoja;
+                return;
+            }
+
+            var nodoActual = stack.pop();
+            var prLen;
+
+            while (nodoActual.keyval.length < this.minkyn && stack.length > 0) {
+
+                prNodo = stack.pop();
+                prLen = prNodo.getLlave(delKey);
+
+                sibR = (prLen == prNodo.keyval.length) ? null : prNodo.nodptr[prLen+1];
+                if (sibR !== null && sibR.keyval.length > this.minkyn) {
+                    nodoActual.keyval.push(prNodo.keyval[prLen]);
+                    prNodo.keyval[prLen] = sibR.keyval.shift();
+                    nodoActual.nodptr.push(sibR.nodptr.shift());
+                    break;
+                }
+
+                sibHoja = (prLen === 0) ? null : prNodo.nodptr[prLen-1];
+                if (sibHoja !== null && sibHoja.keyval.length > this.minkyn) {
+                    for (var i=nodoActual.keyval.length; i>0; i--) {
+                        nodoActual.keyval[i] = nodoActual.keyval[i-1];
+                    }
+                    for (var i=nodoActual.nodptr.length; i>0; i--) {
+                        nodoActual.nodptr[i] = nodoActual.nodptr[i-1];
+                    }
+                    nodoActual.keyval[0] = prNodo.keyval[prLen-1];
+                    prNodo.keyval[prLen-1] = sibHoja.keyval.pop();
+                    nodoActual.nodptr[0] = sibHoja.nodptr.pop();
+                    break;
+                }
+
+                if (sibHoja !== null) {
+                    delKey = sibHoja.unir(nodoActual, prNodo, prLen-1);
+                    nodoActual = sibHoja;
+                } else if (sibR !== null) {
+                    delKey = nodoActual.unir(sibR, prNodo, prLen);
+                }
+
+                if (stack.length === 0 && prNodo.keyval.length === 0) {
+                    this.root = nodoActual;
+                    break;
+                }
+                nodoActual = prNodo;
+            }
+        };
+
+        tree.prototype._arreglarNodos = function (stk, frKey, toKey) {
+            var vals, lvl=stk.length, mor=true;
+            do {
+                lvl--;
+                vals = stk[lvl].keyval;
+                for (var i=vals.length-1; i>=0; i--) {
+                    if (vals[i] == frKey) {
+                        vals[i] = toKey;
+                        mor = false;
+                        break;
+                    }
+                }
+            } while (mor && lvl>0);
+        };
+
+
+        var arbol = new tree();
+        //arbol.insert(1);
+
+
+
+
+    </script>
+    <div class="text-center">
+        <h1>Btree</h1>
+        <ul>
     <li><a class="active" href="../index.html">Home</a></li>
     <li class="dropdown">
         <a href="javascript:void(0)" class="dropbtn">Estructura lineales</a>
@@ -45,6 +665,35 @@
         </div>
     </li>
 </ul>
+
+<br>
+        <div class="container ">
+            <label>Valor del nodo: </label></br>
+            <input type="number" id="txtKey"/></br></br>
+            <input type="button" value="Insertar" onclick="arbol.insertar(Number(document.getElementById('txtKey').value)); console.log('Insercion hecha');"/>
+            <input type="button" value="Mostrar" onclick=""/>
+            <input type="button" value="Buscar" onclick=""/>
+            <input type="button" value="Limpiar" onclick="document.getElementById('texto').innerHTML='';"/>
+            <input type="button" value="Eliminar" onclick="arbol.eliminar(Number(document.getElementById('txtKey').value)); console.log('Insercion hecha');"/>
+        </div>
+        </br>
+        <h5 id="ResultadoBusqueda">...</h5>
+        
+        </br>
+        <h2>Arbol</h2>
+        <div class="container">
+            <p id="texto">
+                
+            </p>
+        </div>
+
+        
+    
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 
 </body>
 </html>
