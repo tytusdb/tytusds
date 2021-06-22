@@ -104,20 +104,16 @@ class ListaDoble {
         });
     }
 
-    guardar(){
-        let contadorListas
-        contadorListas ++;
-        let archivojs;
+    guardar() {
+        let archivojs= [];
         let temporal = this.primero;
         while (temporal != null){
-            archivojs[temporal.id] = temporal.valor;
+            archivojs.push(temporal.valor);
             temporal = temporal.siguiente;
             
         }
-        let json = JSON.stringify(archivojs)
-        let nombre = "ListaSimple" + contadorListas;
-        fs.writeFile(nombre, json)
-
+        return archivojs;
+        
     }
 
     Recorrido(datoBuscar){

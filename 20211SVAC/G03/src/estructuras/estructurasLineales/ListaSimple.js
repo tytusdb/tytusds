@@ -100,19 +100,14 @@ class ListaSimple{
 
     }
     guardar() {
-        
-        let contadorListas
-        contadorListas ++;
-        let archivojs;
+        let archivojs= [];
         let temporal = this.primero;
         while (temporal != null){
-            archivojs[temporal.id] = temporal.valor;
+            archivojs.push(temporal.valor);
             temporal = temporal.siguiente;
             
         }
-        let json = JSON.stringify(archivojs)
-        let nombre = "ListaSimple";
-        fs.writeFile(nombre, json)
+        return archivojs;
         
     }
 

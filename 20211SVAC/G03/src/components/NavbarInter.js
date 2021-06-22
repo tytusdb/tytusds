@@ -15,6 +15,11 @@ import Ordenamiento from '../estructuras/Ordenamientos/OrdBurbuja'
 
 import GraficarArboles from './GraficarArboles'
 import GraficarArbol from './GraficarArbol'
+
+
+import './NavbarInter.css'
+
+
 let count = 0;
 export default class NavbarInter extends Component {
     state = {
@@ -110,6 +115,22 @@ export default class NavbarInter extends Component {
 
   }
 
+  guardarEstructuras=(event) =>{
+
+    event.preventDefault();
+     let archivoJSON = JSON.stringify({nombre:this.state.nombre,valores: this.state.estrutura.guardar()}, null,4)
+     const blob = new Blob([archivoJSON])
+
+     const fileDownloadUrl = URL.createObjectURL(blob);
+     this.setState ({fileDownloadUrl: fileDownloadUrl}, 
+       () => {
+         this.dofileDownload.click(); 
+         URL.revokeObjectURL(fileDownloadUrl);  // free up storage--no longer needed.
+         this.setState({fileDownloadUrl: ""})
+     })    
+
+ }
+
     render() {
       const { activeItem } = this.state
   
@@ -126,11 +147,16 @@ export default class NavbarInter extends Component {
                 <Actualizar obtenerDatos={this.obtenerDatos} nombre={this.state.nombre} edd={this.state.estrutura} key={count++}/>
                 <Buscar  busqueda={this.obtenerBusqueda}  key={count++}/>
               <Menu.Menu position='right'>
-                <Menu.Item name="Guardar" icon='save'>
+                <Menu.Item name="Guardar" icon='save'  onClick={this.handleItemClick, this.guardarEstructuras}>
                 </Menu.Item>
                 
               </Menu.Menu>
             </Menu>
+            <a className="hidden"
+              download={this.state.nombre+".json"}
+              href={this.state.fileDownloadUrl}
+              ref={e=>this.dofileDownload = e}
+              >download it</a>
             <h1 style={{ color: 'white' }}>{this.state.nombre}</h1>
             
           </div>
@@ -182,12 +208,17 @@ export default class NavbarInter extends Component {
                   <Actualizar obtenerDatos={this.obtenerDatos} nombre={this.state.nombre} edd={this.state.estrutura} key={count++}/>
                   <Buscar busqueda={this.obtenerBusqueda} key={count++}/>
                 <Menu.Menu position='right'>
-                  <Menu.Item name="Guardar" icon='save'>
+                  <Menu.Item name="Guardar" icon='save'  onClick={this.handleItemClick, this.guardarEstructuras}>
                   </Menu.Item>
                   
                 </Menu.Menu>
               </Menu>
               <br/>
+              <a className="hidden"
+              download={this.state.nombre+".json"}
+              href={this.state.fileDownloadUrl}
+              ref={e=>this.dofileDownload = e}
+              >download it</a>
                <h1 style={{ color: 'white' }}>{this.state.nombre}</h1>
                {/* <h3>{this.state.estructura.Imprimir()}</h3> */}
                <GraficarArbol nombre={this.state.nombre} estructura={this.state.estrutura} valorBusqueda={this.state.busqueda} key={count++}/>
@@ -207,12 +238,17 @@ export default class NavbarInter extends Component {
             <Actualizar obtenerDatos={this.obtenerDatos} nombre={this.state.nombre} edd={this.state.estrutura} key={count++}/>
             <Buscar busqueda={this.obtenerBusqueda} key={count++}/>
           <Menu.Menu position='right'>
-            <Menu.Item name="Guardar" icon='save'>
+            <Menu.Item name="Guardar" icon='save'  onClick={this.handleItemClick, this.guardarEstructuras}>
             </Menu.Item>
             
           </Menu.Menu>
         </Menu>
         <br/>
+        <a className="hidden"
+              download={this.state.nombre+".json"}
+              href={this.state.fileDownloadUrl}
+              ref={e=>this.dofileDownload = e}
+              >download it</a>
          <h1 style={{ color: 'white' }}>{this.state.nombre}</h1>
          {/* <h3>{this.state.estructura.Imprimir()}</h3> */}
          <GraficarArboles nombre={this.state.nombre} estructura={this.state.estrutura} valorBusqueda={this.state.busqueda} key={count++}/>
@@ -236,12 +272,18 @@ export default class NavbarInter extends Component {
                     onClick={this.handleItemClick, this.desencolar}>
                   </Menu.Item>
                 <Menu.Menu position='right'>
-                  <Menu.Item name="Guardar" icon='save'>
+                  <Menu.Item name="Guardar" icon='save'  onClick={this.handleItemClick, this.guardarEstructuras}>
                   </Menu.Item>
                   
                 </Menu.Menu>
               </Menu>
               <br/>
+              <a className="hidden"
+              download={this.state.nombre+".json"}
+              href={this.state.fileDownloadUrl}
+              ref={e=>this.dofileDownload = e}
+              >download it</a>
+
                <h1 style={{ color: 'white' }}>{this.state.nombre}</h1>
                {/* <h3>{this.state.estructura.Imprimir()}</h3> */}
               <Dibujar nombre={this.state.nombre} estructura={this.state.estrutura} valorBusqueda={this.state.busqueda} key={count++}/>
@@ -260,12 +302,18 @@ export default class NavbarInter extends Component {
                   <Actualizar obtenerDatos={this.obtenerDatos} nombre={this.state.nombre} edd={this.state.estrutura} key={count++}/>
                   <Buscar busqueda={this.obtenerBusqueda} key={count++}/>
                 <Menu.Menu position='right'>
-                  <Menu.Item name="Guardar" icon='save'>
+                  <Menu.Item name="Guardar" icon='save'  onClick={this.handleItemClick, this.guardarEstructuras}>
                   </Menu.Item>
                   
                 </Menu.Menu>
               </Menu>
               <br/>
+              <a className="hidden"
+              download={this.state.nombre+".json"}
+              href={this.state.fileDownloadUrl}
+              ref={e=>this.dofileDownload = e}
+              >download it</a>
+            
                <h1 style={{ color: 'white' }}>{this.state.nombre}</h1>
                {/* <h3>{this.state.estructura.Imprimir()}</h3> */}
               <Dibujar nombre={this.state.nombre} estructura={this.state.estrutura} valorBusqueda={this.state.busqueda} key={count++}/>

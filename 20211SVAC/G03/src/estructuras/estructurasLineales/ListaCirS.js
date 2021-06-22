@@ -131,9 +131,8 @@ class ListaCS{ //Clase Lista Circular Simple
             archivojs.push(temporal.dato)
             temporal = temporal.siguiente
         }
-        let json = JSON.stringify(archivojs)
-        let nombre = "ListaCircularSimple"
-        fs.writeFile(nombre, json)  
+        
+        return archivojs
     }
 
     Recorrido(datoBuscar){

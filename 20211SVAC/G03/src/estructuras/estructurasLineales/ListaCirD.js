@@ -143,9 +143,7 @@ class ListaCD{  //Clase Lista Circular doble
             archivojs.push(temporal.dato)
             temporal = temporal.siguiente
         }
-        let json = JSON.stringify(archivojs)
-        let nombre = "ListaCircularDoble"
-        fs.writeFile(nombre, json)  
+        return archivojs
     }
 
 
