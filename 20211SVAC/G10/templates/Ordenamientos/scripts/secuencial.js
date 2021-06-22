@@ -8,7 +8,7 @@ const guardar = document.getElementById('guardar')
 const cargar = document.getElementById('cargar')
 
 const velocidad = document.getElementById("velocidad")
-let num_velocidad;
+let tiempo = 700;
 
 var options = {
     legend: { display: false },
@@ -42,7 +42,11 @@ var grafica = new Chart(ctx, {
 
 velocidad.oninput = () => {
     document.getElementById('numero').innerHTML = velocidad.value
-    num_velocidad = velocidad.value
+    if(velocidad.value == 1) tiempo = 1000
+    if(velocidad.value == 2) tiempo = 800
+    if(velocidad.value == 3) tiempo = 700
+    if(velocidad.value == 4) tiempo = 600
+    if(velocidad.value == 5) tiempo = 500
 }
 
 const salida ={
@@ -74,27 +78,33 @@ ordenar.addEventListener("click", (e) => {
 })
 
 async function secuencial (lista, size) {
-    let aux, menor;
+    let aux;
     for (let i = 0; i < size - 1; i++) {
-        menor = i
-        
-        grafica.data.datasets[0].backgroundColor[menor] = 'rgb(48, 71, 94)'
+        grafica.data.datasets[0].backgroundColor[i] = 'rgb(48, 71, 94)'
         grafica.update()
-        await new Promise(resolve => setTimeout(resolve, 500))
+        await new Promise(resolve => setTimeout(resolve, tiempo))
 
         for (let j = i + 1; j < size; j++) {
-            if(lista[menor] > lista[j]) {
+            if(parseInt(lista[i]) > parseInt(lista[j])) {
                 menor = j
+
+                aux = lista[i]
+                lista[i] = lista[j]
+                lista[j] = aux
+
+                grafica.data.labels = lista
+                grafica.data.datasets[0].data = lista
+                grafica.update()
             }
             grafica.data.datasets[0].backgroundColor[j] = 'rgb(48, 71, 94)'
             grafica.update()
-            await new Promise(resolve => setTimeout(resolve, 500))
+            await new Promise(resolve => setTimeout(resolve, tiempo))
             grafica.data.datasets[0].backgroundColor[j] = 'rgb(240, 84, 84)'
         }
-        aux = lista[i]
-        lista[i] = lista[menor]
-        lista[menor] = aux
+        
         this.interacion += 1
+
+        
 
         grafica.data.datasets[0].backgroundColor[i] = 'rgb(240, 84, 84)'
     }

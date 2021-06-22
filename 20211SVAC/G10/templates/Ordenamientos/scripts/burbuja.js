@@ -11,7 +11,7 @@ const velocidad = document.getElementById("velocidad")
 let nuevo = []
 let original = []
 
-let num_velocidad;
+let tiempo = 700;
 
 var options = {
     legend: { display: false },
@@ -46,7 +46,11 @@ var grafica = new Chart(ctx, {
   
 velocidad.oninput = () => {
     document.getElementById('numero').innerHTML = velocidad.value
-    num_velocidad = velocidad.value
+    if(velocidad.value == 1) tiempo = 1000
+    if(velocidad.value == 2) tiempo = 800
+    if(velocidad.value == 3) tiempo = 700
+    if(velocidad.value == 4) tiempo = 600
+    if(velocidad.value == 5) tiempo = 500
 }
 
 const salida ={
@@ -83,10 +87,10 @@ async function burbuja (lista, size){
     for (let i = 0; i<size-1; i ++) {
         grafica.data.datasets[0].backgroundColor[i] = 'rgb(48, 71, 94)'
         grafica.update()
-        await new Promise(resolve => setTimeout(resolve, 500))
+        await new Promise(resolve => setTimeout(resolve, tiempo))
 
         for (let j = i+1; j < size; j++) {
-            if(lista[i] > lista[j]) {
+            if(parseInt(lista[i]) > parseInt(lista[j])) {
                 aux = lista[i];
                 lista[i] = lista[j];
                 lista[j] = aux;
@@ -95,7 +99,7 @@ async function burbuja (lista, size){
             grafica.data.datasets[0].data = lista
             grafica.data.datasets[0].backgroundColor[j] = 'rgb(48, 71, 94)'
             grafica.update()
-            await new Promise(resolve => setTimeout(resolve, 500))
+            await new Promise(resolve => setTimeout(resolve, tiempo))
             grafica.data.datasets[0].backgroundColor[j] = 'rgb(240, 84, 84)'
         }
         grafica.data.datasets[0].backgroundColor[i] = 'rgb(240, 84, 84)'

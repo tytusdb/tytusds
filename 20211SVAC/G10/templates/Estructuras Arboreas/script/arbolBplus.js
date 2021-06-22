@@ -36,14 +36,15 @@ class NodoBPlus{
                 }else{  //dato nuevo es menor o igual
                     if(actual != this.primero){ //nodo actual no es el primero
                         let nuevo = new Llave(dato, this);
-                        actual.anterior = actual.anterior.siguiente = nuevo;
                         nuevo.anterior = actual.anterior;
+                        actual.anterior = actual.anterior.siguiente = nuevo;
                         nuevo.siguiente = actual;
                         agregado = true;
                     }else{  //nodo actual es el primero
                         let nuevo = new Llave(dato, this);
                         actual.anterior = nuevo;
                         nuevo.siguiente = actual;
+                        this.primero = nuevo;
                         agregado = true;
                     }
                 }
@@ -83,6 +84,7 @@ class NodoBPlus{
                         let nuevo = new Llave(llave.valor, this);
                         actual.anterior = nuevo;
                         nuevo.siguiente = actual;
+                        this.primero = nuevo;
                         agregado = true;
                     }
                 }
@@ -157,12 +159,12 @@ class ArbolBPlus{
     }
 
     agregar(dato){
+        dato = parseFloat(dato);
         this.root = this.insertar(dato);
     }
 
     insertar(dato, nodo = this.root, isDerecha = null){
         if(nodo == null){
-            console.log('a');
             this.size++;
             return new NodoBPlus(dato);
         }else{
@@ -171,37 +173,30 @@ class ArbolBPlus{
                 let actual = nodo.primero;
                 while(!encontrado){
                     if(actual.valor < dato){
-                        console.log('c');
                         if(actual.siguiente != null){
                             actual = actual.siguiente;
                         }else{  //inserta un dato en el nodo hijo a la derecha
-                            console.log('d');
                             actual.derecha = this.insertar(dato, actual.derecha, true);
                             encontrado = true;
                         }
                     }else{  //cuando valor de actual es mayor al dato nuevo
                         if(actual != nodo.primero){ //insertando en el nodo hijo de un llave que no es primero
-                            console.log('e');
                             actual.izquierda = actual.anterior.derecha = this.insertar(dato, actual.izquierda, false);
                             encontrado = true;
                         }else{  //insertando a la izquierda de la primera llave
-                            console.log('f');
                             actual.izquierda = this.insertar(dato, actual.izquierda, false);
                             encontrado = true;
                         }
                     }
                 }
             }else{
-                console.log('b');
                 nodo.agregar(dato); //si el nodo no tiene hijos, agrega dato al nodo.
                 this.size++;
             }
         }
         if(isDerecha != null){
-            console.log('isd');
             nodo = this.update(nodo,isDerecha);
         }else{
-            console.log('asd');
             nodo = this.update(nodo);
         }
         return nodo;
@@ -209,7 +204,7 @@ class ArbolBPlus{
 
     update(nodo, isDerecha = null){
         if(nodo.size > this.maxLlaves()){ //solo se actualiza si el tamaño es mayor al max
-            let mid = nodo.llaveMid(this.minHijos());
+            let mid = nodo.llaveMid(this.minHijos()+1);
             let premid = mid.anterior;
             let padre = null;
             let llaveP = null;
@@ -436,6 +431,7 @@ class ArbolBPlus{
             if(nodo.siguienteNodo != null){
                 a = a.concat(this.elementos(nodo.siguienteNodo));
             }
+            console.log(a);
             return a;
         }else{
             let llave = nodo.primero;
@@ -453,6 +449,7 @@ class ArbolBPlus{
     }
 
     eliminar(dato){
+        dato = parseFloat(dato);
         if(this.buscar(dato)){
             let elementos = this.elementos();
             this.root = null;
@@ -535,35 +532,36 @@ class ArbolBPlus{
     }
 
     devolverNodosAristas(nodoarista, nodo = this.root, numnodo = 0){
-        
-        let llave = nodo.primero;
-        let etiqueta = llave.valor.toString();
-        llave = llave.siguiente;
-        while(llave != null){
-            etiqueta += " | "+llave.valor.toString();
+        if(nodo != null){
+            let llave = nodo.primero;
+            let etiqueta = llave.valor.toString();
             llave = llave.siguiente;
-            console.log('a')
-        }
-        console.log(etiqueta)
-        nodoarista.nodos.push({id:numnodo,label:etiqueta})
-
-        llave = nodo.primero;
-        let num = 1
-
-        if(llave.izquierda != null){
-            nodoarista.aristas.push({from:numnodo, to:numnodo*100+num})
-            nodoarista =  this.devolverNodosAristas(nodoarista, llave.izquierda, numnodo*100+num);
-        }
-        num++;
-
-        while(llave != null){
-            if(llave.derecha != null){
-                nodoarista.aristas.push({from:numnodo, to:numnodo*100+num})
-                nodoarista = this.devolverNodosAristas(nodoarista, llave.derecha, numnodo*100+num);
-                num++;
+            while(llave != null){
+                etiqueta += " | "+llave.valor.toString();
+                llave = llave.siguiente;
+                console.log('a')
             }
-            llave = llave.siguiente;
-            console.log(llave);
+            console.log(etiqueta)
+            nodoarista.nodos.push({id:numnodo,label:etiqueta})
+
+            llave = nodo.primero;
+            let num = 1
+
+            if(llave.izquierda != null){
+                nodoarista.aristas.push({from:numnodo, to:numnodo*100+num})
+                nodoarista =  this.devolverNodosAristas(nodoarista, llave.izquierda, numnodo*100+num);
+            }
+            num++;
+
+            while(llave != null){
+                if(llave.derecha != null){
+                    nodoarista.aristas.push({from:numnodo, to:numnodo*100+num})
+                    nodoarista = this.devolverNodosAristas(nodoarista, llave.derecha, numnodo*100+num);
+                    num++;
+                }
+                llave = llave.siguiente;
+                console.log(llave);
+            }
         }
 
         return nodoarista;
@@ -604,6 +602,8 @@ agregar.addEventListener("click", (e) =>{
     if(dato.value != ''){
         arbolBP.agregar(dato.value);
         graficaArbol(arbolBP);
+        console.log("elementos:")
+        console.log(arbolBP.elementos());
     }
 })
 
@@ -618,7 +618,9 @@ eliminar.addEventListener("click", (e) =>{
 actualizar.addEventListener("click", (e) =>{
     e.preventDefault
     if(dato.value != ''){
-        
+        let lista = dato.value.split(',')
+        arbolBP.actualizar(lista[0],lista[1]);
+        graficaArbol(arbolBP);
     }
 })
 
@@ -655,6 +657,18 @@ cargar.addEventListener("click", (e) => {
     }
     document.getElementById('mensaje').innerText = ''
     archivo.setAttribute('disabled', '')
+})
+
+const salida ={
+    operacion: 'Arbol B',
+    valores: []
+}
+
+guardar.addEventListener("click", (e) => {
+    e.preventDefault()
+    salida.valores = arbolBP.elementos();
+    let texto = JSON.stringify(salida);
+    download('ArbolBPlus.json', texto);
 })
 
 function graficaArbol(arbolBP){
