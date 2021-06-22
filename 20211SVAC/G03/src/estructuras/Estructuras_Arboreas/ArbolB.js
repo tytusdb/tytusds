@@ -202,6 +202,43 @@ class ArbolB{
         }
     }
 
+    guardar(){
+        let arreglo = []
+        if (this.raiz == null){
+            console.log("no existe arbol")
+            return 
+        }
+       return this.recorrido(this.raiz,arreglo) 
+    }
+
+    //Sub metodo de impresion de arbol
+    recorrido(rama,arreglo){
+        if (rama.raiz == null){
+            console.log("no hay nodos")
+            return 
+        }
+        let aux = rama.raiz
+        if(aux.izquierdo != null){
+            this.recorrido(aux.izquierdo,arreglo)
+        }
+        if(aux.derecho!=null){
+            this.recorrido(aux.derecho,arreglo)
+        }
+        if(aux.anterior == null && aux.siguiente == null){
+            arreglo.push(aux.dato)
+            return
+        }
+        while(aux!= null){
+            arreglo.push(aux.dato)
+            aux = aux.siguiente
+            if(aux != null && aux.derecho!=null){
+                this.recorrido(aux.derecho,arreglo)
+            }
+        }
+
+        return arreglo
+    }
+
     //Metodo de busqueda
     buscarArbol(dato){
         if (this.raiz == null){

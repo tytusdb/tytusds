@@ -277,21 +277,18 @@ class ArbolAVL {
 
     }
 
+    guardar(){
+        let vector = []
+        return this.preOrden(this.raiz, vector);
+    }
 
-
-
-
-
-
-
-
-
-    preOrden(nodo){
+    preOrden(nodo,vector){
         if(nodo != null){
-        console.log(nodo.valor)
-        this.preOrden(nodo.izquierda)
-        this.preOrden(nodo.derecha)
+        vector.push(nodo.valor)
+        this.preOrden(nodo.izquierda,vector)
+        this.preOrden(nodo.derecha,vector)
         }
+        return vector
     }
 
     graficarNodos(nodo,vector,datoBuscar){

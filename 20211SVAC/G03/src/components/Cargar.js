@@ -107,7 +107,6 @@ function structW(nombre,datos,edd){ // FUNCION PARA SABER QUE TIPO DE ESTRUCTURA
 
             edd = new ArbolAVL();
             edd.cargar(datos)
-            edd.preOrden(edd.raiz);
             console.log(edd.obtenerNodos())
             console.log(edd.obtenerAputadores())
             break
