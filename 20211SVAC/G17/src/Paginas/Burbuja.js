@@ -1,7 +1,8 @@
 import React, {Component}from "react";
 import {Bar} from "react-chartjs-2";
 import {useState,useEffect} from "react";
-import axios from 'axios'
+import axios from 'axios';
+
 
 var arreglo =[
     4025,
@@ -77,6 +78,8 @@ class Burbuja extends Component {
         console.log(this.state.selectedFile)
         axios.post("burbuja", formData)
     }
+
+
 
 
     constructor() {
