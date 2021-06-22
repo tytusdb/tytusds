@@ -70,6 +70,8 @@ class ArbolBplus {
 -----------------------------------------------*/
     agregar(valor) {
         let nodo = new Nodo(valor);
+        this.cuentaNodos++;
+        nodo.id = this.cuentaNodos;
         this._agregar(nodo, this.raiz)
 
     }
@@ -189,8 +191,10 @@ reacomodo sus hijos en los espacios de las divisiones*/
 
         if (nuevaRaiz != null) {       
             rama_derAux.ramaPadre = nuevaRaiz;
-            rama_izAux.ramaPadre = nuevaRaiz;                
-            nuevaRaiz.agregarNodo(medio);           
+            rama_izAux.ramaPadre = nuevaRaiz; 
+	    this.cuentaNodos ++;
+            medio.id = this.cuentaNodos;               
+            nuevaRaiz.agregarNodo(medio);// ContadorNodoRamaPadre           
             //nuevaRaiz.indice.rama_Izq = rama_izAux;
             //nuevaRaiz.indice.rama_Der = rama_derAux;
             if (hoja) {
@@ -201,6 +205,8 @@ reacomodo sus hijos en los espacios de las divisiones*/
         } else {
             medio.rama_Izq.ramaPadre = ramaAux.ramaPadre;
             medio.rama_Der.ramaPadre = ramaAux.ramaPadre;
+            this.cuentaNodos ++;
+            medio.id = this.cuentaNodos; //Contador nodo Rama Padre
             ramaAux.ramaPadre.agregarNodo(medio);
             if (hoja) {
                 medio.rama_Izq.ramaContinua = medio.rama_Der;
