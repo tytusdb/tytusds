@@ -70,7 +70,7 @@ class Cola extends Component {
   }
   BuscarDato = () => {
     let dato = estructuracola.Buscar(this.state.agregar);
-    if (dato != false){
+    if (0 <= dato){
       nodos = new DataSet(estructuracola.GenerarNodosDOT());
       flechas = new DataSet(estructuracola.GenerarEdgesDOT());
       datos = {
