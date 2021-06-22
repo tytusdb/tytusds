@@ -1,159 +1,284 @@
-import React from "react";
+import React, { useState, useRef } from "react";
+import Button from "@material-ui/core/Button";
+import SaveIcon from "@material-ui/icons/Save";
+import FirstPage from "@material-ui/icons/FirstPage";
+import LastPageIcon from "@material-ui/icons/LastPage";
+import CachedIcon from "@material-ui/icons/Cached";
+import SearchIcon from "@material-ui/icons/Search";
+import FormatListNumberedIcon from "@material-ui/icons/FormatListNumbered";
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import DeleteIcon from "@material-ui/icons/Delete";
+import { makeStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+import Tooltip from "@material-ui/core/Tooltip";
+import Fab from "@material-ui/core/Fab";
+import Graph from "react-graph-vis";
 
-class Nodo{
-    constructor(valor, siguiente){
-        this.valor = valor
-        this.siguiente = siguiente
-    }
+
+//clase nodo
+class Nodo {
+  constructor(valor, siguiente) {
+    this.value = valor;
+    this.next = siguiente;
+  }
 }
 
-class ListaSimple{
-    constructor(){
-        this.cabeza = null
-        this.cantidad = 0
+//classe lista simple
+class lista_simple {
+  constructor() {
+    this.root = null;
+    this.end = null;
+    this.size = 0;
+  }
+
+  add_fin(valor) {
+    let new_nodo = new Nodo(valor, null);
+
+    if (this.root === null) {
+      this.root = this.end = new_nodo;
+    } else {
+      this.end.next = new_nodo;
+      this.end = new_nodo;
     }
+    this.size++;
+  }
 
-    agregar(valor) {
-        const nuevoNodo = new Nodo(valor, null)
-        if (!this.cabeza) {
-            this.cabeza = nuevoNodo
-        } else {
-            let actual = this.cabeza
-            while (actual.siguiente) {
-                actual = actual.siguiente
-            }
-            actual.siguiente = nuevoNodo
-        }
-        this.cantidad++
+  add_ini(valor) {
+    let new_nodo = new Nodo(valor, null);
+    if (this.root === null) {
+      this.root = this.end = new_nodo;
+    } else {
+      new_nodo.next = this.root;
+      this.root = new_nodo;
     }
+    this.size++;
+  }
 
-    insertarEn(valor, indice) {
-        if (indice < 0 || indice > this.cantidad) {
-            return null
+  add_order(valor) {
+    let new_nodo = new Nodo(valor, null);
+    if (this.root === null) {
+      this.root = this.end = new_nodo;
+    } else {
+      var tmp = this.root;
+      if (this.root == null || this.root.value >= new_nodo.value) {
+        new_nodo.next = this.root;
+        this.root = new_nodo;
+      } else {
+        while (tmp.next != null && tmp.next.value < new_nodo.value)
+          tmp = tmp.next;
+        
+        new_nodo.next = tmp.next;
+        tmp.next = new_nodo;
+      }
+    }
+    this.size++;
+  }
+
+  delete_nod(valor) {
+    var temp_n = this.root;
+    if(this.root !== null){
+      if(this.size == 1){
+        if(temp_n.value == valor){
+          this.root = null;
         }
-
-        const nuevoNodo = new Nodo(valor)
-        let actual = this.cabeza
-        let anterior
-
-        if (indice === 0) {
-            nuevoNodo.siguiente = actual
-            this.cabeza = nuevoNodo
-        }else {
-          for (let i = 0; i < indice; i++) {
-              anterior = actual
-              actual = actual.siguiente
+        return;
+      }else{
+        while(temp_n.next != null){
+          if(temp_n.next.value == valor){
+            temp_n = temp_n.next.next
           }
-
-          nuevoNodo.siguiente = actual
-          anterior.siguiente = nuevoNodo
         }
-        this.cantidad++
+      }
     }
+  }
 
-    imprimir() {
-        if (!this.cantidad){
-            return null
-        }
-
-        let actual = this.cabeza
-        let resultado = ''
-        while (actual) {
-            resultado += actual.valor += ' => '
-            actual = actual.siguiente
-        }
-        resultado += 'X'
-        return resultado
+  ver_lista() {
+    var list_gra = [];
+    var tmp_Nod = this.root;
+    if (this.size === 0) {
+      return;
+    } else if (this.size === 1) {
+      list_gra.push(String(tmp_Nod.value)+"-> null");
+    } else {
+      while (tmp_Nod.next != null) {
+        list_gra.push(String(tmp_Nod.value)+" -> "+String(tmp_Nod.next.value));
+        tmp_Nod = tmp_Nod.next;
+      }
+      list_gra.push(String(tmp_Nod.value)+" ->  null");
     }
+    console.log(list_gra);
+    return list_gra;
+  }
 
-    borrar(valor) {
-        let actual = this.cabeza
-        let anterior = null
-
-        while (actual != null) {
-            if (actual.valor === valor) {
-                if (!anterior) {
-                    this.cabeza = actual.siguiente
-                } else {
-                    anterior.siguiente = actual.siguiente
-                }
-                this.cantidad--
-                return actual.valor
-            }
-            anterior = actual
-            actual = actual.siguiente
-        }
-        return null
+  nodes_list() {
+    var n_list = [];
+    let tmp_Nod = this.root;
+    if (this.size === 0) {
+      return;
+    } else if (this.size === 1) {
+      n_list.push({ id: tmp_Nod.value, label: "null" });
+    } else {
+      while (tmp_Nod !== this.end) {
+        n_list.push({ id: tmp_Nod.value, label: tmp_Nod.value });
+        tmp_Nod = tmp_Nod.next;
+      }
+      n_list.push({ id: tmp_Nod.value, label: tmp_Nod.value });
     }
+    return n_list;
+  }
 
-    borrarDe(indice) {
-        if (indice < 0 || indice > this.cantidad) {
-            return null
-        }
-
-        let actual = this.cabeza
-        let anterior = null
-
-        if (indice === 0) {
-            this.cabeza = actual.siguiente
-        } else {
-            for (let i = 0; i < indice; i++) {
-                anterior = actual
-                actual = actual.siguiente
-            }
-            anterior.siguiente = actual.siguiente
-        }
-        this.cantidad--
-        return actual.valor
+  edges_list() {
+    var e_list = [];
+    let tmp_Nod = this.root;
+    if (this.size === 0) {
+      return;
+    } else if (this.size === 1) {
+      e_list.push({ from: tmp_Nod.value, to: "null" });
+    } else {
+      while (tmp_Nod !== this.end) {
+        e_list.push({ from: tmp_Nod.value, to: tmp_Nod.next.value});
+        tmp_Nod = tmp_Nod.next;
+      }
+      e_list.push({ from: tmp_Nod.value, to: "null" });
     }
+    return e_list;
+  }
 
-    vacia() {
-        return this.cantidad === 0
-    }
-
-    obtenerCantidad() {
-        return this.cantidad
-    }
 }
 
-const listaSimple = new ListaSimple()
-listaSimple.agregar(12)
-listaSimple.insertarEn(10, 1)
-listaSimple.agregar(9)
-listaSimple.agregar(50)
-listaSimple.borrarDe(1)
-listaSimple.borrar(50)
-console.log(listaSimple.vacia())
-console.log(listaSimple.imprimir())
-console.log(listaSimple.obtenerCantidad())
+const useStyles = makeStyles((theme) => ({
+  Fab: {
+    margin: theme.spacing(3),
+    width: "10",
+    textAlign: "center",
+    justifyContent: "space-between",
+  },
+}));
 
-const ListaSimple = () =>{
+// opciones del grafo
+const options = {
+  layout: {
+    hierarchical: false,
+  },
+  edges: {
+    color: "#000000",
+  },
+};
 
-    return (
+const ListaSimple = () => {
+  const tmp_list = new lista_simple(); //inicialice una nueva lista
+  const classes = useStyles(); //esto venia con los botones
+  var Valueref = useRef(""); //para el textfield
+
+  const update_graph = () => {
+    setState(({ graph: { nodes, edges } }) => {
+      //const nodes_li = Object.values(tmp_list.nodes_list()) ;
+      //const edges_li = Object.values(tmp_list.edges_list());
+      return {
+        graph: {
+          nodes: [],
+          edges: [],
+        },
+      };
+    });
+  };
+
+  const [state, setState] = useState({
+    graph: {
+      nodes: [],
+      edges: [],
+    },
+  });
+
+  const { graph, events } = state;
+
+  // retorna el valor del texfield
+  const txtValue = () => {
+    return parseInt(Valueref.current.value);
+  };
+
+  return (
     <div id={"contenido"}>
-        <div id={"contol"}>
-            <table id={"controles"}>
-                <td>
-                    <input type={"text"} size={"10"}/>
-                </td>
-                <td>
-                    <input type={"Button"}value={"Agregar"}/>
-                </td>
-                <td>
-                    <input type={"Button"}value={"Eliminar"}/>
-                </td>
-                <td>
-                    <input type={"Button"}value={"Buscar"}/>
-                </td>
-            </table>
+      <div id={"contol"}>
+        <form className=" " noValidate autoComplete="off">
+          <div className="center-align  ">
+            <TextField id="txt_val" label="Valor" inputRef={Valueref} />
+            <Tooltip title="Agregar al inicio">
+              <Fab color="primary" onClick={()=>{tmp_list.add_ini(txtValue())}}>
+                <FirstPage />
+              </Fab>
+            </Tooltip>
+            <Tooltip title="Agregar al Final">
+              <Fab
+                color="primary"
+                onClick={() => {
+                  tmp_list.add_fin(txtValue())
+                }}
+              >
+                <LastPageIcon />
+              </Fab>
+            </Tooltip>
+            <Tooltip title="Agregar en orden">
+              <Fab
+                color="primary"
+                onClick={() => {
+                  tmp_list.add_order(txtValue())
+                }}
+              >
+                <FormatListNumberedIcon />
+              </Fab>
+            </Tooltip>
 
-        </div>
-        <div>
-            <h3>Aquí va la lista simple</h3>
-        </div>
+            <Tooltip title="Eliminar">
+              <Fab
+                color="secondary"
+                onClick={() => {
+                  tmp_list.delete_nod(txtValue());
+                }}
+              >
+                <DeleteIcon />
+              </Fab>
+            </Tooltip>
+            <Tooltip title="Buscar">
+              <Fab color="primary"onClick={()=>{tmp_list.ver_lista()}}>
+                <SearchIcon />
+              </Fab>
+            </Tooltip>
+            <Tooltip title="Cargar JSON">
+              <Fab color="primary">
+                <CloudUploadIcon />
+              </Fab>
+            </Tooltip>
+            <Tooltip title="Guardar JSON">
+              <Fab color="primary" aria-label="add">
+                <SaveIcon />
+              </Fab>
+            </Tooltip>
+            <TextField
+              id="txt_update"
+              label="Nuevo Valor"
+              inputRef={Valueref}
+            />
+
+            <Tooltip title="Actualizar">
+              <Fab
+                color="primary"
+                type="submit"
+                onClick={() => {
+                  tmp_list.add_fin(txtValue());
+                }}
+              >
+                <CachedIcon />
+              </Fab>
+            </Tooltip>
+          </div>
+        </form>
+      </div>
+      <div className=""> </div>
+      <p>Lista Simple : </p>
+      <Graph graph={graph} options={options} style={{ height: "640px" }} />
     </div>
-
-    );
-}
+  );
+};
 
 export default ListaSimple;

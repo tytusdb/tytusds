@@ -4,7 +4,8 @@ var contador = 1
 var seReordena = false
 var arrayNodes = []
 var edges = []
-var clickedNode //
+var arregloaux = []
+var clickedNode
 var clickedNodoValue
 var network = null
 var switchToggle = document.getElementById("flexSwitchCheckDefault")
@@ -194,9 +195,9 @@ class ArbolBB{
     //Imprime los valores en pre orden
     enPreOrden(temp){
         if(temp != null){
-            console.log(temp.dato)
-            this.enOrden(temp.izq)
-            this.enOrden(temp.der)
+            arregloaux.push(temp.dato)
+            this.enPreOrden(temp.izq)
+            this.enPreOrden(temp.der)
         }
     }
 
@@ -408,5 +409,33 @@ function read(){
                 }
                 break;
         }
+    }
+}
+
+function descargar(){
+    arbolbb.enPreOrden(arbolbb.raiz)
+    let array = {
+        categoria: "Estructura Arboreas",
+        nombre: "ABB/AVL",
+        repeticion: switchToggle.checked,
+        animacion: parseInt(slider.value),
+        valores: arregloaux
+    }
+    arregloaux = []
+    var json = JSON.stringify(array, null, "\t");
+    json = [json];
+    var blob1 = new Blob(json, { type: "text/json;charset=utf-8" });
+    var isIE = false || !!document.documentMode;
+    if (isIE) {
+        window.navigator.msSaveBlob(blob1, "data.json");
+    } else {
+        var url = window.URL || window.webkitURL;
+        link = url.createObjectURL(blob1);
+        var a = document.createElement("a");
+        a.download = "dataArbolBinarioDeBusqueda.json";
+        a.href = link;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
     }
 }

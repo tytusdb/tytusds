@@ -61,6 +61,8 @@ function agregar() {
     var updatedIds = nodes.add([{
         id: cont,
         label: listita.agregar(inputValue),
+        shape: "hexagon",
+        color: "#7BE141"
     }]);
     array.push(valor)
     array2.push(valor.label)
@@ -138,8 +140,20 @@ async function view2(nodo) {
 
 }
 
-function deleteEdgeMode(nodeId) {
+async function deleteEdgeMode(nodeId) {
+    var speed = document.getElementById("formControlRange").value;
+    speed = convertir(speed)
     var valor = array2.indexOf(nodeId)
+    var animation = {
+        scale: 4,
+        animation: {
+            duration: speed,
+            easingFunction: "linear"
+        }
+    }
+    network.selectNodes([array[valor].id])
+    network.focus(array[valor].id, animation)
+    await new Promise(resolve => setTimeout(resolve, speed + 10));
     network.selectNodes([array[valor].id]);
     array.splice(valor, 1)
     array2.splice(valor, 1)
@@ -188,6 +202,8 @@ function cargarJson() {
             updatedIds = nodes.add([{
                 id: i,
                 label: listita.agregar(obj.valores[i].toString()),
+                shape: "hexagon",
+                color: "#7BE141"
             }]);
             array.push(valor)
             array2.push(valor.label)

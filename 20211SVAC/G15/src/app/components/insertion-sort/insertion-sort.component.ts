@@ -118,6 +118,7 @@ export class InsertionSortComponent implements OnInit {
     }
 
     Swal.fire({
+      target: document.getElementById('form-modal'),
       icon: 'success',
       title: ':)',
       text: `Arreglo ordenado con exito`

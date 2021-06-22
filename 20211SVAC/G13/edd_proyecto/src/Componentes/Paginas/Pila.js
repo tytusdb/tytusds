@@ -39,6 +39,8 @@ class Pila extends Component {
 
 			text: '',
 			dato_actualizado: '',
+			fileName: '',
+			fileContent: '',
 		};
 		this.network = {};
 	  	this.appRef = createRef();
@@ -55,7 +57,16 @@ class Pila extends Component {
 		this.setState({
 		  [name]: value
 		});
-	  }
+	}
+	
+	handleFileChange = (e) => {
+		const file = e.target.files[0];
+		const reader = new FileReader();
+		reader.readAsText(file);
+		reader.onload = () => {
+			this.setState({fileName: file.name, fileContent: reader.result})
+		}
+	}
 
 	handleAdd = () => {
 		pila.push(this.state.text);
@@ -111,6 +122,35 @@ class Pila extends Component {
 	}
 
 
+	handleOpenFile = () => {
+
+		const dataJson = JSON.parse(this.state.fileContent);
+
+		if (dataJson.categoria == "Estructura Lineal" && dataJson.nombre == "Pila"){
+
+			
+			for (var i=0; i < dataJson.valores.length; i++) {
+				console.log(dataJson.valores[i]);
+				pila.push(dataJson.valores[i].toString());
+				
+			}
+			getNodes = new DataSet(pila.setNodesDataSet());
+			getEdges = new DataSet(pila.setEdgesDataSet());
+			data = {
+				nodes: getNodes,
+				edges: getEdges
+			}
+			
+			this.network = new Network(this.appRef.current, data, options);
+
+
+		}else {
+
+			alert("No es un Archivo de ESTRUCTURA LINEAL - PIla!! ")
+		}
+	
+	}
+
 	render() {
 	  return (
 		<>
@@ -129,17 +169,20 @@ class Pila extends Component {
 				<div className="col-md-1">
 					<button type="button" className="btn btn-danger" onClick={() => this.handleDelete()} >Eliminar</button>
 				</div>
-				<div className="col-md-2" style={{marginLeft: 1 + 'em'}}>
-					<input type="text" name="dato_actualizado" className="form-control" placeholder="Dato a Actualizar" id="InputCola" value={this.state.dato_actualizado} onChange={this.handleInputChange} ></input>
+				<div className="col-md-1" style={{marginLeft: 0 + 'em'}}>
+					<input type="text" name="dato_actualizado" className="form-control" placeholder="Update" id="InputCola" value={this.state.dato_actualizado} onChange={this.handleInputChange} ></input>
 				</div>
 				<div className="col-md-1">
 					<button type="button" className="btn btn-warning" onClick={() => this.handleUpdate()}>Actualizar</button>
 				</div>
-				<div className="col-md-1" style={{marginLeft: 1 + 'em'}}>
+				<div className="col-md-1" style={{marginLeft: 0 + 'em'}}>
 					<button type="button" className="btn btn-dark" onClick={() => this.handleSearch()}>Buscar</button>
 				</div>
-				<div className="col-md-3">
-					<input className="form-control" type="file" id="formFile"></input>
+				<div className="col-md-2" style={{marginLeft: 0 + 'em'}}>
+					<button type="button" className="btn btn-dark" onClick={() => this.handleOpenFile()}>Leer JSON</button>
+				</div>
+				<div className="col-md-2">
+					<input className="form-control" type="file" id="formFile" onChange={this.handleFileChange}></input>
 				</div>
 				<div className="col-md-1">
 					<button type="button" class="btn btn-success">Guardar</button>

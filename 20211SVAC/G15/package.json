@@ -32,6 +32,7 @@
     "rxjs": "~6.5.4",
     "sweetalert2": "^11.0.17",
     "tslib": "^1.10.0",
+    "vis": "^4.21.0-EOL",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
@@ -41,6 +42,7 @@
     "@angular/language-service": "~9.1.4",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
+    "@types/jquery": "^3.5.5",
     "@types/node": "^12.11.1",
     "codelyzer": "^5.1.2",
     "jasmine-core": "~3.5.0",

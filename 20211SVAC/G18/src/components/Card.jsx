@@ -17,7 +17,7 @@ function Card({title,imageSource,text, url}) {
                 
                     <p className="card-text text-secondary">
                         {
-                            text ? text:"Lorem Ipsum when an unkno make a  also the leap in c typesetting, remaining essentially unchanged"
+                            text ? text:""
                         }
                     </p>
                     <Link to={url} className="btn btn-outline-secondary">

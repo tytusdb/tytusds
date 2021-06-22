@@ -9,6 +9,8 @@ var fileInput = document.querySelector('input[type="file"]');
 var switchToggle = document.getElementById("flexSwitchCheckDefault");
 var slider = document.getElementById("customRange2");
 
+let dataDowloand = [];
+
 class Nodo {
     constructor(dato) {
         this.dato = dato;
@@ -76,6 +78,7 @@ class Cola {
     }
 
     imprimir(){
+        dataDowloand = [];
         let id = 0;
         let actual = this.primero;
         if (this.size != 0){
@@ -85,8 +88,10 @@ class Cola {
                 {
                     arrayNodes.push({id: id, label: actual.dato, shape: "box"})
                     edges.push({from: id - 1, to: id})
+                    dataDowloand.push(actual.dato);
                 }else{
                     arrayNodes.push({id: id, label: actual.dato, shape: "box"})
+                    dataDowloand.push(actual.dato);
                 }
                 actual = actual.siguiente;
                 id++;
@@ -239,7 +244,7 @@ function insertarNodos(array) {
         setTimeout(function (params) {
             cola.encolar(temp[i]);
             actualizarT();
-        },(1000)*Math.round(parseInt(slider.value)/2)*contador)
+        },(500)*(11-slider.value)*contador)
     }
 }
 
@@ -294,7 +299,7 @@ function focus() {
         scale: 5.0,
         offset: {x:0,y:0},
         animation: {
-            duration: (1000)*(slider.value),
+            duration: (1000)*(11 - slider.value),
             easingFunction: "easeOutQuint"
         }
     }
@@ -316,7 +321,7 @@ function desencolarNodo(){
 
 function buscarNodo(){
     focus();
-    setTimeout(zoomExtended, (1000)*(slider.value));
+    setTimeout(zoomExtended, (1000)*(11 - slider.value));
     document.getElementById("valueNodo").value="";
 }
 
@@ -330,4 +335,31 @@ function zoomExtended(){
     }
 
     network.moveTo(options);
+}
+
+function descargar(){
+
+    let arrayDescargado ={
+        categoria: "Estructura lineal",
+        nombre: "Cola",
+        valores: dataDowloand
+    }
+
+    var json = JSON.stringify(arrayDescargado, null, "\t");
+    json = [json];
+    var blob1 = new Blob(json, { type: "text/json;charset=utf-8" });
+    //Check the Browser.
+    var isIE = false || !!document.documentMode;
+    if (isIE) {
+        window.navigator.msSaveBlob(blob1, "data.json");
+    } else {
+        var url = window.URL || window.webkitURL;
+        link = url.createObjectURL(blob1);
+        var a = document.createElement("a");
+        a.download = "data_Cola.json";
+        a.href = link;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
 }

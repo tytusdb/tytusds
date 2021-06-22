@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { saveAs } from 'file-saver';
+
 import { DocumentoService } from '../../services/documento.service';
 declare var require: any;
 let Lista=require('./js/arbol_b');
@@ -39,6 +39,49 @@ export class BComponent implements OnInit {
   }
 
 
+  graficar(){
+    let contenedor= document.getElementById("myDiv1");
+    let datos=this.lista.as();
+    let Nodos=datos[0];
+    let Edges=datos[1];
+    let data={nodes:Nodos,edges:Edges};
+
+    //OPCIONES PARA LOS NODOS----------------------------------------------------------
+    let opciones={
+      edges:{
+        color:{
+          color:"#013ADF"
+        }
+      },
+      nodes:{
+        color:{
+          border:"white",background:"red"
+        },
+        font:{
+          color:"white"
+        }
+      }, physics:{
+        enabled: true,
+        barnesHut: {
+          gravitationalConstant: -1000,
+          centralGravity: 0.3,
+          springLength: 95
+        }},
+      layout:{
+        hierarchical: {
+          direction: "RL",
+          sortMethod: "directed",
+          nodeSpacing: 200,
+          treeSpacing: 400
+        }
+      }
+    };
+    //------------------------------------------------------------------------
+    let grafo= new vis.Network(contenedor,data,opciones);
+  }
+
+
+
 
   getDocumento(documento: any): void{
     if(this.opciones['repeticionLineales']===true){
@@ -58,31 +101,23 @@ export class BComponent implements OnInit {
     
   }
 
-  guardar(): void {
-    const contenido: any = {
-      categoria: "Estructura Lineal",
-      nombre: "Cola",
-      repeticion:true,
-      animacion:10,
-      valores: []
-    };
-    contenido.valores=contenido.valores.concat(this.lista.leer());
-    let blob = new Blob([JSON.stringify(contenido)], {type: 'json;charset=utf-8'});
-    saveAs(blob, 'Cola.json');
-  }
+
 
 
   Add(valor){
     if(this.opciones['repeticionLineales']===true){
       //this.lista.repeat=true;
-      //this.lista.crearArbol(3);
-      //this.lista.insertarNodo(valor);
+      this.lista.crearArbol(this.opciones['grado']);
+      this.lista.insertarNodo(valor);
+      this.graficar();
       this.ag = '';
       return;
     }
     else{
       //this.lista.repeat=false;
-      this.lista.insertar(valor);
+      this.lista.crearArbol(this.opciones['grado']);
+      this.lista.insertarNodo(valor);
+      this.graficar();
       this.ag = '';
       return;
       console.log("gg");

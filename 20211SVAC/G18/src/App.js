@@ -14,6 +14,7 @@ import ListaSimpleEnlazada from './components/EstructurasLineales/ListaSimpleEnl
 import ListaDobleEnlazada from './components/ListaDobleEnlazada/ListaDobleEnlazada';
 import ListaCircularSimple from './components/ListaCircularSimple/ListaCircularSimple';
 import ListaCircularDoble from './components/ListaCircularDoble/ListaCircularDoble';
+import abb from './components/ArbolBB/ArbolBB';
 
 function App() {
     return (
@@ -29,11 +30,11 @@ function App() {
             <Route path = "/insercion" component={Incersion}/>
             <Route path = "/rapido" component={Rapido}/>
             <Route path="/" exact component={Principal}/>
-         
             <Route path="/ListaSimpleEnlazada" component={ListaSimpleEnlazada} />
             <Route path="/ListaDobleEnlazada" component={ListaDobleEnlazada} />
             <Route path="/ListaCircularSimple" component={ListaCircularSimple} />
             <Route path="/ListaCircularDoble" component={ListaCircularDoble} />
+            <Route path="/abb" component={abb} />
 
         </Switch>
 
