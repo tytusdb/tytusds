@@ -125,6 +125,25 @@ class Cola extends Component {
         </div>
       </div>
       <div className="row">
+        <div className="col-md-12"  style={{marginLeft: 3 + 'em'}}>
+          <fieldset class="form-group">
+            <legend>Animacion</legend>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked=""></input>
+                Si
+              </label>
+            </div>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2"></input>
+                No
+              </label>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+      <div className="row">
         <div className="col-md-12">
           <table className="table table-hover"></table>
         </div>
