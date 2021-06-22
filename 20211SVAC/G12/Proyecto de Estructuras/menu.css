@@ -8,3 +8,21 @@
     top: 0;
     right: 0;
 }
+
+.item a{
+    color: black;
+}
+
+.item{
+    display: inline-block;
+    padding: 0.5rem 7rem;
+}
+
+.item a{
+    display: block;
+    padding: 0.5rem 7rem;
+}
+
+.item a:hover{
+    background: rgb(223, 219, 219);
+}

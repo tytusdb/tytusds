@@ -1,3 +1,5 @@
+var lista_ordenada = [];
+
 class Nodo{
     constructor(valor) {
     this.valor = valor;
@@ -25,9 +27,14 @@ class Arbol_Binario{
         return nodo.altura;
     }
 
-    insertar(valor){
-        this.raiz = this.add(valor, this.raiz);
-        this.valores++;
+    insertar(valor, repetido){
+        if(repetido == true){
+            this.raiz = this.add(valor, this.raiz);
+            this.valores++;
+        }else{
+            this.raiz = this.addr(valor, this.raiz);
+            this.valores++;
+        }
     }
 
     add(valor, nodo){
@@ -38,6 +45,22 @@ class Arbol_Binario{
                 nodo.derecho = this.add(valor, nodo.derecho);
             }else {
                 nodo.izquierdo = this.add(valor, nodo.izquierdo);
+            }
+        }
+        nodo.altura = this.MAXIMO(this.altura(nodo.izquierdo), this.altura(nodo.derecho)) + 1
+        return nodo;
+    }
+
+    addr(valor, nodo){
+        if (nodo == null){
+            return new Nodo(valor);
+        }else{
+            if ( valor > nodo.valor){
+                nodo.derecho = this.addr(valor, nodo.derecho);
+            }else if(valor < nodo.valor){
+                nodo.izquierdo = this.addr(valor, nodo.izquierdo);
+            } else if(valor == nodo.valor){
+                console.log("este dato esta repetido")
             }
         }
         nodo.altura = this.MAXIMO(this.altura(nodo.izquierdo), this.altura(nodo.derecho)) + 1
@@ -62,6 +85,7 @@ class Arbol_Binario{
 
     in_orden(nodo){
         if(nodo!=null){
+            lista_ordenada.push(nodo.valor);
             this.in_orden(nodo.izquierdo);
             console.log("Valor:",nodo.valor);
             this.in_orden(nodo.derecho);
@@ -77,22 +101,6 @@ class Arbol_Binario{
             this.post_orden(nodo.derecho);
             console.log("Valor:",nodo.valor);
         }
-    }
-
-    buscar_nodo(dato){
-        var aux = this.raiz;
-        while(aux.valor != dato){
-            if(dato < aux.valor){
-                aux = aux.izquierdo;
-            }else{
-                aux = aux.derecho;
-            }
-            if(aux == null){
-                console.log("no se encontro");
-            }
-        }
-        console.log("dato encontrado");
-        console.log(aux)
     }
 
     graficar(){
@@ -124,19 +132,172 @@ class Arbol_Binario{
             this.graficarNodo(nodo.derecho,(x+parseInt(d)/2),y+2,d/2) 
         }
     }
+
+    eliminarNodo(valor){
+        this.raiz=this.eliminar(this.raiz,valor)
+     }
+     eliminar(nodo,valor){
+         if (nodo!==null){
+            if (valor<nodo.valor){
+                nodo.izquierdo=this.eliminar(nodo.izquierdo,valor)
+            }else if (valor>nodo.valor){
+                nodo.derecho=this.eliminar(nodo.derecho,valor)
+            }else {
+                if (nodo.izquierdo !== null&& nodo.derecho !==null){
+                    let temp=nodo.izquierdo
+                    while (temp.derecho!==null){
+                        temp=temp.derecho
+                    }
+                    nodo.valor=temp.valor
+                    nodo.izquierdo=this.eliminarder(nodo.izquierdo)
+                }else if(nodo.izquierdo!==null){
+                    let temp=nodo.izquierdo
+                    while (temp.derecho!==null){
+                        temp=temp.derecho
+                    }
+                    nodo.valor=temp.valor
+                    nodo.izquierdo=this.eliminarder(nodo.izquierdo)
+                }else if(nodo.derecho!==null){
+                    let temp=nodo.derecho
+                    while (temp.izquierdo!==null){
+                        temp=temp.izquierdo
+                    }
+                    nodo.valor=temp.valor;
+                    nodo.derecho=this.eliminarizq(nodo.derecho)
+                }else{
+                    nodo=null
+                }
+            }
+         }
+         return nodo
+     }
+     eliminarizq(nodo){
+         if (nodo.izquierdo==null){
+             nodo=null
+         }else if (nodo.izquierdo!==null){
+             nodo.izquierdo=this.eliminarizq(nodo.izquierdo)
+         }
+        return nodo
+     }
+     eliminarder(nodo){
+         if (nodo.derecho==null){
+             nodo=null
+         }else if (nodo.derecho!==null){
+             nodo.derecho=this.eliminarder(nodo.derecho)
+         }
+         return nodo
+     }
+ 
 }
 
 /* Implementacion */
 
 let abb = new Arbol_Binario();
+var categoria = "";
+var tipo = "";
+var repeticion = "";
+var animacion = ""; 
 
 function insertar_nodo(){
     var dato = document.getElementById('dato_pag').value;
+    var checkbox = document.getElementById('checkbox').checked;
     var dato = parseInt(dato);
 
     document.getElementById("result").innerHTML="";
 
-    abb.insertar(dato);
-    abb.graficar();
+    if(dato === ''){
+        alert("Por favor ingrese un dato");
+        return false;
+    }else{
+        if(checkbox == true){
+            console.log("esta en true");
+            console.log(checkbox);
+            abb.insertar(dato, checkbox);
+            abb.graficar();
+        }else{
+            console.log("esta en falso");
+            console.log(checkbox);
+            abb.insertar(dato, checkbox);
+            abb.graficar();
+        }
+    }
 }
 
+async function abrirArchivo(evento){
+    let archivo = evento.target.files[0];
+
+    if(archivo){
+        let reader = new FileReader();
+        reader.onload = async function(e){
+            let contenido = e.target.result;
+            var mydata = JSON.parse(contenido);
+            //console.log(mydata.repeticion)
+            categoria = mydata.categoria;
+            tipo = mydata.nombre;
+            repeticion = mydata.repeticion;
+            animacion = mydata.animacion;
+            for(var i=0; i<(mydata.valores).length; i++){
+                if(mydata.repeticion == true){
+                    abb.insertar(mydata.valores[i], mydata.repeticion);
+                }else{
+                    abb.insertar(mydata.valores[i], mydata.repeticion);
+                }
+            }
+            abb.graficar();
+            console.log(mydata)
+        };
+        reader.readAsText(archivo);
+    }else{
+        alert("No se selecciono ningun archivo");
+    }
+}
+
+window.addEventListener('load', ()=>{
+    document.getElementById('Archivo').addEventListener('change', abrirArchivo);
+});
+
+function DescargarArchivo(){
+    abb.inOrden();
+
+    console.log(lista_ordenada);
+
+    var contenido = JSON.stringify({"categoria": categoria, "nombre": tipo, "repeticion": repeticion, "animacion": animacion, "valores":lista_ordenada});
+    console.log(contenido);
+    console.log(JSON.stringify(lista_ordenada));
+
+    //formato para guardar el archivo
+    var hoy=new Date();
+    var dd=hoy.getDate();
+    var mm=hoy.getMonth()+1;
+    var yyyy=hoy.getFullYear();
+    var HH=hoy.getHours();
+    var MM=hoy.getMinutes();
+    var formato = "Arbol_Binario"+"_"+dd+"_"+mm+"_"+yyyy+"_"+HH+"_"+MM;
+
+    var nombre= formato+".json";//nombre del archivo
+    var file=new Blob([contenido], {type: 'text/plain'});
+
+    if(window.navigator.msSaveOrOpenBlob){
+        window.navigator.msSaveOrOpenBlob(file, nombre);
+    }else{
+        var a=document.createElement("a"),url=URL.createObjectURL(file);
+        a.href=url;
+        a.download=nombre;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function(){
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);  
+        },0); 
+    }
+}
+
+
+function eliminar_nodo(){
+    var dato = document.getElementById('dato_pag').value;
+
+    document.getElementById("result").innerHTML="";
+
+    abb.eliminarNodo(dato);
+    abb.graficar();
+}
