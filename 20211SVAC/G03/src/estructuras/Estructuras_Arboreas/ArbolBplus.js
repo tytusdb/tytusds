@@ -283,6 +283,30 @@ reacomodo sus hijos en los espacios de las divisiones*/
         });
 }
 
+
+    recorrer(){
+        let arreglo = [];
+        this._recorrer(arreglo,this.raiz)
+        console.log(arreglo)
+    }
+
+    _recorrer(arreglo, ramaAux){
+        if(ramaAux.hoja == false){
+            this._recorrer(arreglo, ramaAux.indice.rama_Izq)
+        }else if(ramaAux.hoja == true){
+            let contador = 0;
+            while(ramaAux != null){
+                let nodotemp = ramaAux.indice;     
+                for(let i = 1; i <= ramaAux.contador; i ++,nodotemp = nodotemp.siguiente){                    
+                    arreglo[contador] = nodotemp.valor;
+                    contador ++;
+                }ramaAux = ramaAux.ramaContinua
+            }
+        }
+    }
+
+
+
     guardar(){}
 
 }
