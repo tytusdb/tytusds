@@ -21,7 +21,6 @@ class NodoBinaryTree {
         this.raiz = new NodoBinaryTree(value)
         return
       }
-  
       var aux = this.raiz
   
       while (aux) {
@@ -71,7 +70,9 @@ class NodoBinaryTree {
       }
   
       var aux = this.raiz
+      //console.log(aux)
       if (aux.value === value) {
+       
         return aux
       }
   
@@ -79,6 +80,8 @@ class NodoBinaryTree {
         // si encontramos el nodo con el valor
         // paramos de iterar.
         if (aux.value === value) {
+  
+          console.log(aux)
           break
         }
         // seguimos buscando a la derecha
@@ -149,13 +152,13 @@ class NodoBinaryTree {
         return node
       }
     }
-    print (node = this.raiz) {
+    imprimir (node = this.raiz) {
       if (!node) {
         return
       }
-      this.print(node.izquierda);
+      this.imprimir(node.izquierda);
       console.log(node.value);
-      this.print(node.derecha);
+      this.imprimir(node.derecha);
     }
     /**
       * recorre primero toda la rama izquierda
@@ -209,15 +212,21 @@ class NodoBinaryTree {
   function agregarBinary(data){
     console.log("******************")
     binary.addBinary(data)
-    binary.print()
+    binary.imprimir()
   }
   function eliminarBinario(data){
     console.log("******************")
     binary.delete(data)
-    binary.print()
+    binary.imprimir()
   }
   function buscarBinario(data){
     console.log(binary.find(data))
+  }
+  function actualizarBinario(data1,data2){
+    console.log("******************")
+    binary.delete(data1)
+    binary.addBinary(data2)
+    binary.imprimir()
   }
   
   //for (var i = 0; i < arr.length; i++) {
@@ -233,7 +242,7 @@ class NodoBinaryTree {
   //console.log(t.find(4))
   //t.delete(12)
  
- // t.print();
+ // t.imprimir();
 function AbrirBinario(event) {
   var file = event.target.files[0];
   var reader = new FileReader();
@@ -266,7 +275,7 @@ function AbrirBinario(event) {
           for (var k in doc[key]){
             binary.addBinary(doc[key][k])
             
-          }binary.print()
+          }binary.imprimir()
       }
    }
    
@@ -278,12 +287,12 @@ function AbrirBinario(event) {
 
 function downloadBinary(filename, text) {
   
-lista = binary.print()
+lista = binary.imprimir()
 
 var element = document.createElement('a');
 let doc = JSON.stringify({ "categoria": categoriaBinario , 'nombre': nombreBinario, 'repeticion':repeticionBinario, 'animacion':animacionBinario, 'valores': lista });
 
-//console.log(listSimple.print())
+//console.log(listSimple.imprimir())
 element.setAttribute('href', 'data:json,' + doc);
 element.setAttribute('download', filename);
 

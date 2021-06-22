@@ -412,6 +412,32 @@ class BST {
       this.#printNode(node.left, spaceCount + 2, 'L: ');
     };
   }
+  
+  const tree = new AVLTree();
+  function insertarAvl(data){
+    console.log("**************************")
+    tree.insert(data);
+    tree.print();
+  }
+  function removerAvl(data){
+    console.log("**************************")
+    tree.remove(data);
+    tree.print();
+  }
+
+  function buscarAvl(data){
+    console.log("**************************")
+    console.log(tree.search(data));
+    
+  }
+  function actualizarAvl(data){
+    console.log("**************************")
+    tree.remove(data);
+    tree.print();
+    //tree.insert(data2);
+    //tree.print();
+
+  }
   function onChange(event) {
     var file = event.target.files[0];
     var reader = new FileReader();
@@ -473,7 +499,6 @@ function download(filename, text) {
 }
 
 
-  const tree = new AVLTree();
   //tree.insert(70)
  // tree.insert(50)
  // tree.insert(80)
