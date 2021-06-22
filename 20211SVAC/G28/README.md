@@ -1,2 +1,2 @@
-# TytusX
-Open Source Native XML Database with Query Languages XPath and XQuery in JavaScript
+# EDDprovisional
+repo privado para avances en proyecto de edd
