@@ -34,7 +34,6 @@ class ListaCS{ //Clase Lista Circular Simple
     }
 
 
-
     agregarInicio(dato){
         let nodo = new Nodo(dato);
         if(this.cabeza == null){
@@ -52,23 +51,51 @@ class ListaCS{ //Clase Lista Circular Simple
             return
         }
     }
-//CAMBIOS para listas
+    
+    //Metodo Insertar
     agregarOrdenado(dato){
         let nodo = new Nodo(dato)
         let aux = this.cabeza
-        while(aux != this.cola){
-            if(dato >= aux.dato && dato <= aux.siguiente.dato){
-                let tmp = aux.siguiente
-                tmp.anterior = aux
-                aux.siguiente = nodo
-                nodo.siguiente = tmp
-                nodo.anterior = aux
-                this.size++;
-                return
-            }
-            aux = aux.siguiente
+        if(this.cabeza == null){
+            this.cabeza = nodo;
+            this.cola = nodo;
+            this.size++;
+            return
         }
-
+        if(dato < this.cabeza.dato){
+            //Insercion de Nodos no primeros
+            this.cabeza.anterior = nodo;
+            nodo.siguiente = this.cabeza;
+            nodo.anterior = this.cola;
+            this.cola.siguiente = nodo
+            this.cabeza = nodo;
+            this.size++;
+            return
+        }else if(dato >= this.cabeza.dato && dato <= this.cola.dato){
+            while(aux != this.cola){
+                if(dato >= aux.dato && dato <= aux.siguiente.dato){
+                    let tmp = aux.siguiente
+                    tmp.anterior = nodo
+                    aux.siguiente = nodo
+                    nodo.siguiente = tmp
+                    nodo.anterior = aux
+                    this.size++;
+                    return
+                }
+                aux = aux.siguiente
+            }
+        }else if(dato > this.cola.dato){
+            //Insercion de Nodos no primeros
+            let aux = this.cola;
+            aux.siguiente = nodo;
+            nodo.anterior = aux;
+            nodo.siguiente = this.cabeza;
+            this.cabeza.anterior = nodo;
+            this.cola = nodo;
+            this.size++;
+            return
+        }
+        
     }
 
     //Metodo Insertar
