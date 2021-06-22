@@ -88,7 +88,8 @@ async function insercion(lista, size) {
         while (j > 0 && lista[j-1] > aux) {
             lista[j] = lista[j - 1]
             j--
-            
+            grafica.data.labels = lista
+            grafica.data.datasets[0].data = lista
             grafica.data.datasets[0].backgroundColor[j] = 'rgb(48, 71, 94)'
             grafica.update()
             await new Promise(resolve => setTimeout(resolve, 500))
