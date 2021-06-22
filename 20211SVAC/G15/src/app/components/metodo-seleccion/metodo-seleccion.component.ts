@@ -16,6 +16,7 @@ export class MetodoSeleccionComponent implements OnInit {
     numero:boolean;
     letra:boolean;
     private selectionSort: any
+    ordenamientoS: []
 
     
     public barChartOptions: ChartOptions = {
@@ -61,15 +62,15 @@ export class MetodoSeleccionComponent implements OnInit {
 
     async mostrarBarras(){
       this.ordenamientoSeleccion(this.datos);
-      let contador=0;
+   
+       let contador=0;
       if(contador!==500){
         setTimeout(() => {
         this.mostrarBarras();
         contador++;
-        }, 1000);
+        }, 500);
       }
-      
-      
+
     }
 
     async onFileSelected(event) {
@@ -83,7 +84,7 @@ export class MetodoSeleccionComponent implements OnInit {
         data = data.valores
         let datos2 = [];
         for(let i = 0; i < data.length; i++){
-          //await this.addData(data[i])
+        
           datos2.push(data[i])
           if (!isNaN(data[i])) {
             this.letra=false;
@@ -114,7 +115,7 @@ export class MetodoSeleccionComponent implements OnInit {
 
 
     generarJSON(){
-      let data = this.ordenamiento.generarJSON()
+      let data = this.generarJSON1()
       var link = document.createElement("a");
       link.download = "OrdenamientoSeleccion.json";
       var info = "text/json;charset=utf-8," + encodeURIComponent(data);
@@ -123,6 +124,23 @@ export class MetodoSeleccionComponent implements OnInit {
       link.remove()
     
     }
+    generarJSON1() {
+
+      let data = {
+          categoria: "Estructura Lineal",
+          nombre: "Ordenamiento ",
+          valores: []
+      }
+
+      for (let index = 0; index < this.ordenamientoS.length; index++) {
+          data.valores.push(this.ordenamientoS[index])
+
+      }
+
+
+
+      return JSON.stringify(data)
+  }
     graficar(data){
       if (this.numero===true) {
         this.barChartLabels = data;
@@ -146,24 +164,26 @@ export class MetodoSeleccionComponent implements OnInit {
       return selectionSort
   }
 
-  ordenamientoSeleccion(arregloEnviado) {
-
-      this.selectionSort = arregloEnviado.slice();
-      var size = this.selectionSort.length
+  ordenamientoSeleccion(selectionSort) {
+    let delay=false;
+      var size = selectionSort.length
       for (var slot = 0; slot < size - 1; slot++) {
+        if(delay){slot=slot-1;break;}
           var smallest = slot;
           for (var check = slot + 1; check < size; check++) {
-              if (this.selectionSort[check] < this.selectionSort[smallest]) {
+              if (selectionSort[check] < selectionSort[smallest]) {
                   smallest = check
+                  delay=true;
+                  setTimeout(() => {
+                    this.graficar(selectionSort)
+                    delay=false;
+                  }, 100);
               }
 
           }
-          this.swap(this.selectionSort, smallest, slot)
-         // clearInterval(this.interaccion)
+          this.swap(selectionSort, smallest, slot)
       }
-     // console.log(this.selectionSort)
-     // this.imprimirArreglo()
-      return this.selectionSort
+      this.ordenamientoS=selectionSort;
+   
   }
-
 }

@@ -21,7 +21,6 @@ import { EstructuraArboreaComponent } from './components/estructura-arborea/estr
 
 import { AVLComponent } from './components/avl/avl.component';
 
-import { SeleccionComponent } from './components/seleccion/seleccion.component';
 import { MetodorapidoComponent } from './components/metodorapido/metodorapido.component';
 import { MetodoSeleccionComponent } from './components/metodo-seleccion/metodo-seleccion.component';
 

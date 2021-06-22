@@ -120,7 +120,7 @@ public barChartOptions: ChartOptions = {
    }
  
    generarJSON(){
-     let data = this.rapido.generarJSON(this.datos)
+     let data = this.generarJSON1(this.datos2)
      var link = document.createElement("a");
      link.download = "OrdenamientoRapido.json";
      var info = "text/json;charset=utf-8," + encodeURIComponent(data);
@@ -128,6 +128,15 @@ public barChartOptions: ChartOptions = {
      link.click();
      link.remove()
    
+
+   }
+   generarJSON1(array) {
+    let data = {
+        categoria: "Estructura Lineal",
+        nombre: "Ordenamiento",
+        valores: array
+    }
+    return JSON.stringify(data)
    }
    partition(items, low, high) {
     var pivot = items[high]

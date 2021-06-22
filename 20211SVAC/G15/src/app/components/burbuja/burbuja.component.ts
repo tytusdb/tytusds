@@ -16,6 +16,7 @@ export class BurbujaComponent implements OnInit {
   datos:any []
   numero:boolean;
   letra:boolean;
+  ordenamientoburbuja:[]
 
   
   public barChartOptions: ChartOptions = {
@@ -114,7 +115,7 @@ export class BurbujaComponent implements OnInit {
 
 
   generarJSON(){
-    let data = this.burbuja.generarJSON()
+    let data = this.generarJSON1()
     var link = document.createElement("a");
     link.download = "OrdenamientoBurbuja.json";
     var info = "text/json;charset=utf-8," + encodeURIComponent(data);
@@ -123,6 +124,25 @@ export class BurbujaComponent implements OnInit {
     link.remove()
   
   }
+
+  generarJSON1() {
+    
+    let data = {
+        categoria: "Estructura Lineal",
+        nombre: "ordenamiento",
+        valores: []
+    }
+    
+    for (let index = 0; index < this.ordenamientoburbuja.length; index++) {
+        data.valores.push(this.ordenamientoburbuja[index])
+        
+    }
+
+
+
+    return JSON.stringify(data)
+}
+   
   graficar(data){
     if (this.numero===true) {
       this.barChartLabels = data;
@@ -157,6 +177,7 @@ export class BurbujaComponent implements OnInit {
             }
         }
     }
+    this.ordenamientoburbuja=arregloBurbuja;
 
 }
 
