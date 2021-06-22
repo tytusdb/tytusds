@@ -31,12 +31,32 @@
 				</span>
 				<input style='margin-right: 1%;margin-left: 3%;' type='submit' id='dBtn' value='Eliminar'/>
 				<input style='margin-left: 3%;' id='speed' type='range' min='0' max='9' step='1' value='4'/>
+				<input type='submit' id='downBtn' value='Guardar'/>
+
 				<script>
 					document.getElementById('file').onchange = function(){
 						var fil = document.getElementById('file').files[0];
 						const read= new FileReader();
 						read.onload=function(){
+							list=JSON.parse(read.result).valores;
+							rep=JSON.parse(read.result).repeticion;
+							cy.remove('node');
+							ls=new queue();
+							document.getElementById('speed').value=JSON.parse(read.result).animacion;
+							if(!rep){
+								list=list.filter((item,index)=>list.indexOf(item)===index);
+							}
+							for(var i=0;i<list.length;i++){
+								if(isNumeric(list[i])){
+									ls.enqueue(parseInt(list[i]));
+								}else{
+									ls.enqueue(list[i]);
+								}
+							}
+
 							console.log(JSON.parse(read.result))
+							lstNode=ls.getNodes()
+							addNodes(lstNode);
 						}
 						read.readAsText(fil)
 
@@ -47,6 +67,8 @@
 		
 		<div id='cy'></div>
     	<script>
+			list=[];
+			var rep=true;
 			var ls=new queue();
       		var cy = cytoscape({
 				container: document.getElementById('cy'),
@@ -71,10 +93,37 @@
 						}
 					]
 				});
-				
+
+			list=[];
+			var rep=true;
+
 			const canvas = document.createElement('canvas');
 			const ctx = canvas.getContext('2d');
 			ctx.font= '20px serif';
+
+			async function addNodes(n,anim=true){
+				const timer = ms => new Promise(res => setTimeout(res, ms));
+				for(var i =0; i<n.length;i++){
+					var spd = document.getElementById('speed').value;
+
+					if (i==0){
+						cy.add([{data:{id:0,name:n[i]}}]).style({width:ctx.measureText(n[i]).width});
+					}else{
+						cy.add({data:{id:i,name:n[i]}}).style({width:ctx.measureText(n[i]).width});;
+						cy.add({data:{source:i-1,target:i}});
+					}
+					if (anim){
+						var options={name:'dagre',rankDir:'BT',spacingFactor:'0.35',animate:'end',animationDuration: 100*spd};
+						cy.layout(options).run();
+						await timer(100*spd);
+					}else{
+						var options={name:'dagre',rankDir:'BT',spacingFactor:'0.35'}
+						cy.layout(options).run();
+					}
+
+				}
+			}
+
 			document.getElementById('nBtn').onclick = function(){
 				var input = document.getElementById('nText').value;
 				var spd = document.getElementById('speed').value;
@@ -87,17 +136,21 @@
 					cy.add({data:{source:n1,target:n2}});
 				}
 				ls.enqueue(input);
-				var options={name:'dagre',rankDir:'RL',animate:'end',animationDuration: 100*spd};
+				var options={name:'dagre',rankDir:'BT',spacingFactor:'0.35',animate:'end',animationDuration: 100*spd};
 				cy.layout(options).run();
+				blink(ls.size-1)
+
 			}
 			
 			document.getElementById('dBtn').onclick = function(){
-				var r = cy.filter('#'+ String(ls.size - 1));
+				var r = cy.filter('#'+ String(0));
 				var spd = document.getElementById('speed').value;
 				ls.dequeue();
 				cy.remove(r);
-				var options={name:'dagre',rankDir:'RL',animate:'end',animationDuration: 100*spd};
+				var options={name:'dagre',rankDir:'BT',spacingFactor:'0.35',animate:'end',animationDuration: 100*spd};
 				cy.layout(options).run();
+				cy.remove('node');
+				addNodes(ls.getNodes(),false);
 			}
 			
 			document.getElementById('sBtn').onclick=function(){
@@ -138,6 +191,50 @@
 				var pos=cy.$(':selected').data('id');
 				ls.update(pos,input);
 				cy.$(':selected').data('name',input).style({width:ctx.measureText(input).width});
+			}
+
+			function isNumeric(n) {
+  				return !isNaN(parseFloat(n)) && isFinite(n);
+			}
+
+			document.getElementById('downBtn').onclick=function(){
+				var nodos=ls.getNodes();
+				var obj = new Object();
+				obj.categoria="Estructura Lineal";
+				obj.nombre="Cola";
+				obj.repeticion=rep;
+				obj.animacion= document.getElementById('speed').value;
+				obj.valores=nodos;
+				var jsonString=JSON.stringify(obj,undefined,2);
+				console.log(jsonString);
+				download(jsonString, "Cola.json", "text/plain");
+			
+			}
+
+			function download(content, fileName, contentType) {
+				const a = document.createElement("a");
+				const file = new Blob([content], { type: contentType });
+				a.href = URL.createObjectURL(file);
+				a.download = fileName;
+				a.click();
+			}
+
+			const timer = ms => new Promise(res => setTimeout(res, ms));
+			async function blink(id){
+				cy.$(':selected').unselect();
+					var spd = document.getElementById('speed').value;
+					r = cy.filter('#'+ id);
+					console.log(r);
+					r.select();
+					await timer(25*spd);
+					r.unselect();
+					await timer(25*spd);
+					r.select();
+					await timer(25*spd);
+					r.unselect();
+					await timer(25*spd);
+					r.select();
+
 			}
 
 		</script>
