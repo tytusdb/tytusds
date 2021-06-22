@@ -6,6 +6,7 @@ var edges = []
 var clickedNode
 var clickedNodoValue
 var network = null
+var dataDownload = []
 var switchToggle = document.getElementById("flexSwitchCheckDefault")
 var slider = document.getElementById("customRange2")
 
@@ -104,12 +105,13 @@ class Lista{
     }
 
     recorrer(){
+        dataDownload= []
         var aux = this.primero;
         if(this.tamanio!= 0){
             while(aux != null){
                 console.log(aux.id + ", " + aux.dato)
                 arrayNodes.push({id: aux.id, label: aux.dato, shape: "box"})  
-                
+                dataDownload.push(aux.dato)
                 if(aux.siguiente != null){
                     edges.push({from: aux.id, to: aux.siguiente.id, arrows: "to, from"})
                 }
@@ -366,6 +368,34 @@ function zoomExtended(){
     }
 
     network.moveTo(options);
+}
+
+
+function guardarLista(){
+    
+    let arrayDescargado ={
+        categoria: "Estructura lineal",
+        nombre: "Lista Doble",
+        valores: dataDownload
+    }
+      
+    var json = JSON.stringify(arrayDescargado, null, "\t");
+    json = [json];
+    var blob1 = new Blob(json, { type: "text/json;charset=utf-8" });
+    //Check the Browser.
+    var isIE = false || !!document.documentMode;
+    if (isIE) {
+        window.navigator.msSaveBlob(blob1, "data.json");
+    } else {
+        var url = window.URL || window.webkitURL;
+        link = url.createObjectURL(blob1);
+        var a = document.createElement("a");
+        a.download = "dataListaDoble.json";
+        a.href = link;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
 }
 
 

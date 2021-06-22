@@ -151,30 +151,11 @@ var listaValores = []
 
 // F  U  N  C  I  O  N  E  S  -  E  V  E  N  T  O  S
 // ***** AGREGAR ELEMENTO *****
-/*
-function agregar(){
-    // Elemento ingresado en el textbox
-    const spc_elemento = document.getElementById('elemento');
-    console.log("Elemento: "+spc_elemento.value);
-    // Insertando elemento en la pila
-    stack.agregar(spc_elemento.value)
-    // Creando los cuadros y agregandole el elemento ingresado
-    const div = document.createElement("div");
-    div.classList.add('cuadrito');
-    div.textContent = spc_elemento.value;
-    container.appendChild(div);
-    console.log(stack.mostrar())
-
-    spc_elemento.value ="";
-    spc_elemento.focus();
-    // prueba 
-    hola(spc_elemento.value);
-
-}
-*/
 function agregar(){
     // Elemento ingresado en el textbox
     var spc_elemento = document.getElementById('elemento');
+
+    //tipoDato = typeof(spc_elemento.value);
    
     // Verificacion de repeticion de valores
     var repe = stack.verificar(spc_elemento.value);
@@ -444,7 +425,7 @@ function listaNums(numso){
 function guardar(){
     var repetic = btn_Repetir.checked;
     var velocidad = 10;
-    var content = stack.imprimir().split(",").reverse();
+    var content = stack.imprimir().split(",");
     
     if (tipoDato == 'number'){
         content = listaNums(content);

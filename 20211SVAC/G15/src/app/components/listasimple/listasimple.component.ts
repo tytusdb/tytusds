@@ -39,6 +39,20 @@ export class ListasimpleComponent implements OnInit {
     this.nombre = ""
   }
 
+  async eliminar() {
+    let result = await this.lista.Delete(this.datoEliminar, `${this.velocidad}s`, this.svg1)
+    if (result === -1) {
+      Swal.fire({
+        target: document.getElementById('form-modal'),
+        icon: 'error',
+        title: 'Oops...',
+        text: `El Dato ${this.datoEliminar} no existe en la lista`
+      })
+      return;
+    }
+    this.datoEliminar = ""
+  }
+
   async insertar(dato) {
     if (!this.repetidos) {
       let temp = this.lista.search(dato)
@@ -103,7 +117,7 @@ export class ListasimpleComponent implements OnInit {
         target: document.getElementById('form-modal'),
         icon: 'error',
         title: 'Oops...',
-        text: `El dato ${this.datoBuscar} no existe en la pila`
+        text: `El dato ${this.datoBuscar} no existe en la Lista`
       })
       this.datoBuscar = ""
       return;
@@ -117,6 +131,38 @@ export class ListasimpleComponent implements OnInit {
     this.datoBuscar = ""
     return;
 
+  }
+
+  async modificar() {
+    let datomodificar = await this.lista.searchAnimation(this.datoAntiguo, `${this.velocidad}s`)
+    if (datomodificar === null) {
+      Swal.fire({
+        target: document.getElementById('form-modal'),
+        icon: 'error',
+        title: 'Oops...',
+        text: `El dato ${this.datoAntiguo} no existe en la Lista`
+      })
+      return;
+    }
+    if (!this.repetidos) {
+      let temp = this.lista.search(this.datoNuevo)
+      if (temp !== null) {
+        Swal.fire({
+          target: document.getElementById('form-modal'),
+          icon: 'error',
+          title: 'Oops...',
+          text: `El dato ${this.datoNuevo} ya existe en la Lista`
+        })
+        this.datoNuevo=""
+        this.datoAntiguo=""
+        return -1;
+      }
+    }
+
+    datomodificar.nodo.setDato(this.datoNuevo)
+    document.getElementById("nodo" + datomodificar.nodo.getId()).innerHTML = "" + this.datoNuevo
+    this.datoAntiguo = ""
+    this.datoNuevo = ""
   }
 
   async onFileSelected(event) {
@@ -148,6 +194,16 @@ export class ListasimpleComponent implements OnInit {
 
       reader.readAsText(file);
     })
+  }
+
+  generarJSON() {
+    let data = this.lista.generarJSON()
+    var link = document.createElement("a");
+    link.download = "ListaSimple.json";
+    var info = "text/json;charset=utf-8," + encodeURIComponent(data);
+    link.href = "data:" + info;
+    link.click();
+    link.remove()
   }
 
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef,ViewChild  } from '@angular/core';
+import { Component, OnInit, ElementRef,ViewChild , Renderer2 } from '@angular/core';
 import {Cola}from '../CreacionCola/Cola'
 import Swal from 'sweetalert2'
 
@@ -7,15 +7,19 @@ import Swal from 'sweetalert2'
   templateUrl: './cola.component.html',
   styleUrls: ['./cola.component.css']
 })
+
 export class ColaComponent implements OnInit {
 
-  dato: any
+  dato: number|string
   datoBuscar: any
   datoEliminar: any
   datoModificar: any
   datoModificado: any
   CreacionCola: Cola
   svg1
+  prioridad: number
+
+fileName = ""
 
   repetidos: boolean = false
   velocidad: number = 0.5
@@ -25,46 +29,34 @@ export class ColaComponent implements OnInit {
 
   @ViewChild('cuerpoDraw') cuerpoDraw: ElementRef;
 
-  constructor() { }
+  constructor(private renderer:Renderer2) { }
 
   ngOnInit(): void {
     this.CreacionCola = new Cola()
-    this.svg1 = document.getElementById("svg")
-    this.svg1.style.position = 'absolute';
-    this.svg1.style.top = '0';
-    this.svg1.style.left = '0';
-    this.svg1.style.width = '100%';
-    this.svg1.style.height = '100vh';
-    this.svg1.style.zIndex = '0';
   }
 
-  addLast() {
+  async pushbutton() {
+    await this.add(this.dato)
+    this.dato = ""
+  }
+
+  async add(dato) {
     if (!this.repetidos) {
       let temp = this.CreacionCola.search(this.dato)
       if (temp !== null) {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: `El dato ${this.dato} ya existe en la lista`
+          text: `El dato ${this.dato} ya existe en la cola`
         })
-        return;
+        this.dato=""
+        return -1;
       }
     }
-    if (this.alfinal) {
       let dibujo = document.getElementById("cuerpoDraw")
-      this.CreacionCola.add(this.dato, this.svg1,dibujo,this.velocidad)
-    }
-
-    if (this.alinicio) {
-      let dibujo = document.getElementById("cuerpoDraw")
-     // this.CreacionCola.insertarInicio(this.dato, this.svg1, dibujo, `${this.velocidad}s`)
-    }
-
-    if (this.ordenado) {
-      let dibujo = document.getElementById("cuerpoDraw")
-    //  this.CreacionCola.insertarOrden(this.dato, this.svg1, dibujo, `${this.velocidad}s`)
-    }
-    this.dato = ""
+      await this.CreacionCola.add(dato, dibujo, `${this.velocidad}s`)
+      this.dato=""
+    return 1;
   }
 
   async search() {
@@ -76,6 +68,7 @@ export class ColaComponent implements OnInit {
         title: 'Oops...',
         text: `El dato ${this.datoBuscar} no existe en la lista`
       })
+      this.datoBuscar = ""
       return;
     } else {
       Swal.fire({
@@ -86,6 +79,7 @@ export class ColaComponent implements OnInit {
     }
 
     this.datoBuscar = ""
+    return
 
   }
 
@@ -103,7 +97,6 @@ export class ColaComponent implements OnInit {
     this.datoEliminar = ""
   }
 
-
   async actualizar() {
     let result = await this.CreacionCola.buscarAnimacion(this.datoModificar, `${this.velocidad}s`)
     if (result === null) {
@@ -115,8 +108,8 @@ export class ColaComponent implements OnInit {
       return;
     }
     else {
-      result.Nodo.dato = this.datoModificado
-      document.getElementById("nodo" + result.Nodo.identificador).innerHTML = "" + this.datoModificado
+      result.NodoCola.dato = this.datoModificado
+      document.getElementById("nodo" + result.NodoCola.identificador).innerHTML = "" + this.datoModificado
       this.datoModificar = ""
       this.datoModificado = ""
     }
@@ -124,30 +117,46 @@ export class ColaComponent implements OnInit {
     this.datoModificado = ""
   }
 
+  async onFileSelected(event) {
+    const file = event.target.files[0];
+    if (file) {
 
-  changeAlFinal() {
-    if (this.alfinal) {
-      this.alinicio = false
-      this.ordenado = false
+      this.fileName = file.name;
+      let data: any = await this.processFile(file)
+      data = JSON.parse(data)
+      data = data.valores
+      for (let i = 0; i < data.length; i++) {
+        await this.add(data[i])
+        if (!isNaN(data[i])) {
+          console.log("es numero")
+        }
+      }
+
+
     }
-
   }
 
+  async processFile(file) {
+    return new Promise((resolve, reject) => {
+      let reader = new FileReader()
+      reader.onload = (event) => {
+        resolve(event.target.result.toString())
+      }
+      reader.onerror = reject;
 
-  changeAlInicio() {
-    if (this.alinicio) {
-      this.alfinal = false
-      this.ordenado = false
-    }
-
+      reader.readAsText(file);
+    })
   }
 
-  changeOrdenado() {
-    if (this.ordenado) {
-      this.alfinal = false
-      this.alinicio = false
-    }
-
+  generarJSON() {
+    let data = this.CreacionCola.generarJSON()
+    var link = document.createElement("a");
+    link.download = "Cola.json";
+    var info = "text/json;charset=utf-8," + encodeURIComponent(data);
+    link.href = "data:" + info;
+    link.click();
+    link.remove()
   }
+
 
 }

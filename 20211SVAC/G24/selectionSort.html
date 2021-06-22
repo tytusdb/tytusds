@@ -14,27 +14,43 @@
 				<input type='button' id='play' value='Ordenar' />
 				<input style='margin-left: 1%;' id='speed' type='range' min='0' max='9' step='1' value='4'/>
 				<script>
-					var list=[]
+					var list=[];
+					var auxList=[];
 					document.getElementById('file').onchange = function(){
 						var fil = document.getElementById('file').files[0];
 						const read= new FileReader();
 						read.onload=function(){
 							list=JSON.parse(read.result).valores
+							if(isNumeric(list[1])){
+								auxList=[...list];
+							}else{
+								for (var i=0;i<list.length;i++){
+									auxList.push(Ascii2Number(list[i]));	
+								}
+							}
 						}
 						read.readAsText(fil)
-
 					}
+
+					function Ascii2Number(string){
+						val=0
+						for(var i=0; i<string.length;i++){
+							val=val+string.charCodeAt(i);
+						}
+						return val;
+					}
+
 						document.getElementById('play').onclick=function(){
 							var n=list.length;
-							var max= Math.max(...list);
+							var max= Math.max(...auxList);
 							var lengthBar = Math.floor(canvas.width / n);
 							if (max > canvas.width){	
 								var heightProportionBar=canvas.height / max;
 							}else{
-								var heightProportionBar=1;	
+								var heightProportionBar=max / canvas.height;	
 							}
 
-							const barList = list.map((v,i)=>{
+							const barList = auxList.map((v,i)=>{
 								return new bar(lengthBar*i,0,lengthBar,Math.floor(v*heightProportionBar));
 							});
 					
@@ -42,7 +58,7 @@
 							drawA();
 							
 							var queue=0;
-							selectionSort(list, (action) => {
+							selectionSort(list,auxList, (action) => {
 								var spd = document.getElementById('speed').value;
 								queue++;
 								setTimeout(() =>{
@@ -92,22 +108,22 @@
 				canvas.width = div.clientWidth;
 				const ctx = canvas.getContext("2d");
 
-				const selectionSort= (list, onAction) =>{
+				const selectionSort= (list,auxList, onAction) =>{
 					for(var i=0; i<list.length;i++){
 						let min=i;
 						for(var j=i+1; j<list.length;j++){
 							onAction({type:actions.comp,data:[min,j]});
-							if (list[j]<list[min]){
+							if (auxList[j]<auxList[min]){
 								min=j;
 							}
 						}
 						onAction({type:actions.comp,data:[i,min]});
 						if (i!==min){
-							let tmp=list[i];
+							let tmp=list[i];let auxtmp=auxList[i];
 							onAction({type:actions.swap,data:[i,min]});
 							
-							list[i]=list[min];
-							list[min]=tmp;
+							list[i]=list[min];auxList[i]=auxList[min];
+							list[min]=tmp;auxList[min]=auxtmp;
 						}
 						onAction({type:actions.sort,data:i});
 					}
@@ -145,6 +161,10 @@
 					};
 
 					this.getVal = (v) => this.h;
+				}
+				
+				function isNumeric(n) {
+  					return !isNaN(parseFloat(n)) && isFinite(n);
 				}
 
 			</script>

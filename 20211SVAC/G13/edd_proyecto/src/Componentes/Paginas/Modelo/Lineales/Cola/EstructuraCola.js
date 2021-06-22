@@ -1,76 +1,97 @@
-import Nodo from './Nodo';
+const Nodo = require('./Nodo.js');
 
 class EstructuraCola{
 	primero=null;
-	ultimo=null;
 
-	Encolar = (valor) => {
-		const nodo = new Nodo(valor);
-		if(this.primero==null){
-			this.primero = nodo;
-			this.ultimo = nodo;
-			return;
+	Constructor(){
+		this.primero= null;
+		this.ultimo=null;
+	}
+	get_primero = () => {return this.primero;}
+	set_primero = (primero) => {this.primero = primero;}
+	get_ultimo = () => {return this.ultimo;}
+	set_ultimo = (ultimo) => {this.ultimo = ultimo;}
+	get_vacia = () => {
+		if(this.get_primero()==null){
+			return true;
 		}else{
-			this.ultimo.siguiente = nodo;
-			this.ultimo= nodo;
+			return false;
+		}
+	}
+	Encolar = (valor) => {
+		let nodo = new Nodo(valor);
+		if(this.get_vacia()==true){
+			this.set_primero(nodo);
+			this.set_ultimo(nodo);
+		}else{
+			this.get_ultimo().set_siguiente(nodo);
+			this.set_ultimo(nodo);
 		}
 	}
 	Desencolar = () => {
 		let nodo = this.primero;
 		let seguir = true;
-		while(seguir==true){
-			if(nodo.siguiente==this.ultimo){
-				this.ultimo = nodo;
-				nodo.siguiente = null;
-				seguir=false;
-			}else{
-				nodo = nodo.siguiente;
-			}
+		this.set_primero(this.get_primero().get_siguiente());
+	}
+	Buscar = (dato) =>{
+		let nodo = this.get_primero();
+		let i=0;
+		if(this.get_vacia() == false){
+			do{
+				if(nodo.get_valor() == dato){
+					return i;
+				}
+				i++;
+				nodo = nodo.get_siguiente();
+			}while(nodo != null);
+		}else{
+			return false;
 		}
+		return false;
 	}
 
 	Imprimir = () => {
-		let nodo = this.primero;
+		let nodo = this.get_primero();
 		do{
-			console.log(nodo.valor);
-			nodo=nodo.siguiente;
+			console.log(nodo.get_valor());
+			nodo=nodo.get_siguiente();
 		}while(nodo!=null)
-
 	}
 	GenerarNodosDOT = () => {
-		let nodo = this.primero;
+		let nodo = this.get_primero();
 		var dot = [];
-		if(nodo!=null){
-			if (nodo.siguiente!=null) {
-				while(nodo!=this.ultimo){
-					var label1 = "" + nodo.valor
-					dot.push({id:nodo.valor, label: label1});
-					nodo = nodo.siguiente;
-				}
-			}else{
-				var label2 = "" + nodo.valor;
-				dot.push({id:nodo.valor, label: label2});
-			}
-		}else{
-			dot.push({id:0, Label: "Null"});
+		if(this.get_vacia()==false){
+			let id = 0;
+			do{
+				dot.push({id: id, label: nodo.get_valor()});
+				nodo=nodo.get_siguiente();
+				id++;
+			}while(nodo != null);
 		}
 		return dot;
 	}
 	GenerarEdgesDOT = () => {
-		let nodo = this.primero;
+		let nodo = this.get_primero();
 		var dot = [];
-		if(nodo!=null){
-		if (nodo.siguiente!=null) {
-				while(nodo!=this.ultimo){
-					dot.push({from:nodo.valor, to:nodo.siguiente.valor, arrows: "to"});
-					nodo = nodo.siguiente;
+		if(this.get_vacia()==false){
+			let i = 0;
+			do{
+				if ( nodo.get_siguiente() != null) {
+					let nodoactual=parseInt(i)
+					let nodosiguiente = parseInt(nodoactual) + parseInt(1)
+					if(i==0){
+						dot.push({from:0, to:1, arrows: "to"});
+					}
+					if(nodoactual != false && nodosiguiente != false){
+						dot.push({from:parseInt(nodoactual), to:parseInt(nodosiguiente), arrows: "to"});
+					}
 				}
-			}else{
-				dot.push({from:nodo.valor, to:nodo.valor, arrows: "to"});
-			}
+				nodo = nodo.get_siguiente();
+				i++;
+			}while(nodo != null);
 		}
 		return dot;
 	}
 }
 
-export default EstructuraCola;
+module.exports = EstructuraCola;

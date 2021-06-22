@@ -1,6 +1,6 @@
 import React from "react";
 
-class Cola{
+class cola{
     constructor() {
         this.valores = {}
         this.inicio = 0
@@ -23,15 +23,16 @@ class Cola{
     }
 }
 
-const cola = new Cola()
-cola.enqueue(1)
-cola.enqueue(2)
-cola.enqueue(3)
-cola.enqueue(4)
-console.log(cola.dequeue())
-console.log(cola)
 
 const Cola = () =>{
+const newcola = new cola()
+newcola.enqueue(1)
+newcola.enqueue(2)
+newcola.enqueue(3)
+newcola.enqueue(4)
+console.log(newcola.dequeue())
+console.log(newcola)
+
     return (
         <div id={"contenido"}>
             <div id={"contol"}>

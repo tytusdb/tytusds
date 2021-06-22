@@ -63,7 +63,7 @@ function AbrirArchivo(files){
   var file = files[0];
   var reader = new FileReader();
   reader.onload = function(event){
-    var contents = event.target.result;
+    contents = event.target.result;
     var json = JSON.parse(contents);
     var count = Object.keys(json.valores).length;
     arreglo = json.valores;
@@ -156,6 +156,34 @@ var graph2d = new vis.Graph2d(container, dataset, groups, options);
   function loadDataIntoVis(nuevos) {
       dataset.clear();
       dataset.add(nuevos);
+  }
+
+  var contents;
+
+    function DescargarArchivo(){
+      var json = JSON.parse(contents);
+      json.valores = arreglo;
+      const myJSON = JSON.stringify(json);
+      //console.log(json);
+      //texto de vent actual
+  
+      //formato para guardar el archivo
+      var nombre="RapidoOrdenado.json";//nombre del archivo
+      var file=new Blob([myJSON], {type: 'text/plain'});
+  
+      if(window.navigator.msSaveOrOpenBlob){
+          window.navigator.msSaveOrOpenBlob(file, nombre);
+      }else{
+          var a=document.createElement("a"),url=URL.createObjectURL(file);
+          a.href=url;
+          a.download=nombre;
+          document.body.appendChild(a);
+          a.click();
+          setTimeout(function(){
+              document.body.removeChild(a);
+              window.URL.revokeObjectURL(url);  
+          },0); 
+      }
   }
 
 /* metodo numero 2 por si el uno no funciona
