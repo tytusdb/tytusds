@@ -24,15 +24,12 @@ const EstructurasLineales = [
         title: 'Lista simple enlazada',
         image: ListaEnlazadaED,
         url: '/ListaSimpleEnlazada',
-        text:'hola perro'
     },
 
     {
         id: 2,
         title: 'Lista doblemente enlazada',
         image: dobleEnlazada,
-        url: "/",
-        text: 'Sebas gay',
         url: '/ListaDobleEnlazada'
     },
     {
@@ -89,7 +86,6 @@ const Ordenamientos = [
         title: 'Seleccion',
         image: seleccion,
         url: "/Seleccion",
-        text: ''
     },
     {
         id: 9,
@@ -120,7 +116,6 @@ const arboles = [
         title: 'AVL',
         image: avl,
         url: "/",
-        text: 'Árbol B'
     },
     {
         id: 13,

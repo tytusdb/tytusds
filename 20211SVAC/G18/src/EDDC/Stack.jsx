@@ -116,7 +116,7 @@ class StackComponent extends Component {
                             </div>
 
                             <div className="col-sm-2 d-grid gap-2">
-                                <button type="button" className="btn btn-danger" onClick={this.borrar} >borrar</button>
+                                <button type="button" className="btn btn-danger" onClick={this.borrar} >Borrar</button>
                             </div>
 
                             <div className="col-sm-2 d-grid gap-2">

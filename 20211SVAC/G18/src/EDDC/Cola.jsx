@@ -109,7 +109,7 @@ export class Cola extends Component {
                             </div>
 
                             <div className="col-sm-2 d-grid gap-2">
-                                <button type="button" className="btn btn-danger" onClick={this.salirDecola} >borrar</button>
+                                <button type="button" className="btn btn-danger" onClick={this.salirDecola} >Borrar</button>
                             </div>
 
                             <div className="col-sm-2 d-grid gap-2">
