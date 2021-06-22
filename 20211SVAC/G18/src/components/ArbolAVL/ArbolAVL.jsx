@@ -1,18 +1,18 @@
 import React from 'react';
-import './ArbolBB.css';
-import arbolBB from '../../EDD/abb';
+import './ArvolAVL.css';
+import arbolAVL from '../../EDD/avl';
 import StyledNode from '../ListaCircularSimple/StyledNode'
 import { Tree, TreeNode } from 'react-organizational-chart';
 
 
-class ArbolBinariodeB extends React.Component {
+class ArbolitoAVL extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             elemento: '',
             reemplazado: '',
             data: null,
-            Arbol: new arbolBB()
+            Arbol: new arbolAVL()
         };
 
         this.ContenidoElemento = this.ContenidoElemento.bind(this);
@@ -143,12 +143,12 @@ class ArbolBinariodeB extends React.Component {
                         >
                             <TreeNode label={<StyledNode>Child 1</StyledNode>}>
                                 <TreeNode label={<StyledNode>Grand</StyledNode>} />
+                                <TreeNode label={<StyledNode>Grand</StyledNode>} />
                             </TreeNode>
                             <TreeNode label={<StyledNode>Child 2</StyledNode>}>
                                 <TreeNode label={<StyledNode>Grand</StyledNode>} />
                                 <TreeNode label={<StyledNode>Grand</StyledNode>} />
                             </TreeNode>
-                            
                             
                         </Tree>
 
@@ -160,4 +160,4 @@ class ArbolBinariodeB extends React.Component {
     }
 }
 
-export default ArbolBinariodeB;
+export default ArbolitoAVL;

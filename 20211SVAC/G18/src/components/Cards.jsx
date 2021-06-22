@@ -115,7 +115,7 @@ const arboles = [
         id: 12,
         title: 'AVL',
         image: avl,
-        url: "/",
+        url: "/avl",
     },
     {
         id: 13,
