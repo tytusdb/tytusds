@@ -25,22 +25,22 @@ function App() {
     <Router>
       <Navbar />
       <Switch>
-        <Route path='/' exact component={Home} />
-        <Route path='/Listasimplementeenlazada' component={ListaSE} />
-        <Route path='/Listadoblementeenlazada' component={ListaDE} />
-        <Route path='/Listacircularsimplementeenlazada' component={ListaCSE} />
-        <Route path='/Listacirculardoblementeenlazada' component={ListaCDE} />
-        <Route path='/Pila' component={Pila} />
-        <Route path='/Cola' component={Cola} />
-        <Route path='/Colaprioridad' component={ColaPrioridad} />
-        <Route path='/Burbuja' component={Burbuja} />
-        <Route path='/Seleccion' component={Seleccion} />
-        <Route path='/Insercion' component={Insercion} />
-        <Route path='/Rapido' component={Rapido} />
-        <Route path='/AVL' component={AVL} />
-        <Route path='/Arbolb' component={ArbolB} />
-        <Route path='/Arbolbplus' component={ArbolBPlus} />
-        <Route path='/Arbolmerkle' component={ArbolMerkle} />
+        <Route path='./' exact component={Home} />
+        <Route path='./Listasimplementeenlazada' component={ListaSE} />
+        <Route path='./Listadoblementeenlazada' component={ListaDE} />
+        <Route path='./Listacircularsimplementeenlazada' component={ListaCSE} />
+        <Route path='./Listacirculardoblementeenlazada' component={ListaCDE} />
+        <Route path='./Pila' component={Pila} />
+        <Route path='./Cola' component={Cola} />
+        <Route path='./Colaprioridad' component={ColaPrioridad} />
+        <Route path='./Burbuja' component={Burbuja} />
+        <Route path='./Seleccion' component={Seleccion} />
+        <Route path='./Insercion' component={Insercion} />
+        <Route path='./Rapido' component={Rapido} />
+        <Route path='./AVL' component={AVL} />
+        <Route path='./Arbolb' component={ArbolB} />
+        <Route path='./Arbolbplus' component={ArbolBPlus} />
+        <Route path='./Arbolmerkle' component={ArbolMerkle} />
       </Switch>
     </Router>
   );
