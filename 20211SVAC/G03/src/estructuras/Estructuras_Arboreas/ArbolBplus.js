@@ -9,7 +9,7 @@ class Nodo {
     }
 }
 var salida = ""
-var guia ;
+
 class Rama {
     constructor() {
         this.hoja = true;
@@ -230,11 +230,10 @@ reacomodo sus hijos en los espacios de las divisiones*/
 ---------------Fin bloque Agregar ---------------
 -----------------------------------------------*/
 
-eliminar(valor){    
-    let arbolAux  = this.raiz;
-    this._eliminar(valor, arbolAux);
-
-}
+    eliminar(valor){    
+        let arbolAux  = this.raiz;
+        this._eliminar(valor, arbolAux);
+    }
 
 _eliminar(valor, ramaAux){
     if(ramaAux.hoja != true){
@@ -351,25 +350,24 @@ graficando(rama){
         this.graficando(aux.rama_Der)
     }
     if(aux.siguiente == null){
-        salida += "node"+aux.valor+" [label = \" iz| "+aux.valor+" |de \"]; \n"
-        guia.push(aux.valor)
+        salida += "node"+rama.idRama+" [label = \" iz| "+aux.valor+" |de \"]; \n"
         if(aux.rama_Der != null){
-            salida+= "node"+aux.valor + " -> node" + aux.rama_Der.indice.valor + "\n"
+            salida+= "node"+rama.idRama + " -> node" + aux.rama_Der.idRama + "\n"
         }
         if(aux.rama_Izq != null){
-            salida+= "node"+aux.valor + " -> node" + aux.rama_Izq.indice.valor + "\n"
+            salida+= "node"+rama.idRama + " -> node" + aux.rama_Izq.idRama + "\n"
         }
     }
     if(aux.siguiente != null){
         if(aux.rama_Izq==null && aux.rama_Der == null){
-            salida += "node"+aux.valor+" [label = \" iz| "
+            salida += "node"+rama.idRama+" [label = \" iz| "
             while(aux!=null){
                 salida += aux.valor+ " | "
                 aux = aux.siguiente
             }
             salida += "de \"]; \n"
         }else if(aux.rama_Izq!=null && aux.rama_Der != null){
-            salida += "node"+aux.valor+" [label = \" iz| "
+            salida += "node"+rama.idRama+" [label = \" iz| "
             while(aux!=null){
                 salida += aux.valor+ " | "
                 aux = aux.siguiente
@@ -377,15 +375,15 @@ graficando(rama){
             salida += "de \"]; \n"
             aux = rama.indice
             if(aux.rama_Der != null){
-                salida+= "node"+rama.indice.valor + " -> node" + rama.indice.rama_Der.indice.valor + "\n"
+                salida+= "node"+rama.idRama + " -> node" + rama.indice.rama_Der.idRama + "\n"
             }
             if(aux.izquierdo != null){
-                salida+= "node"+rama.indice.valor + " -> node" + rama.indice.rama_Izq.indice.valor + "\n"
+                salida+= "node"+rama.idRama + " -> node" + rama.indice.rama_Izq.idRama + "\n"
             }
             aux = rama.indice
             aux = aux.siguiente
             while(aux!=null){
-                salida += "node"+rama.indice.valor + " -> node" + aux.rama_Der.indice.valor + "\n"
+                salida += "node"+rama.idRama + " -> node" + aux.rama_Der.idRama + "\n"
                 aux = aux.siguiente
             }
         }
@@ -397,12 +395,16 @@ graficando(rama){
             }
             aux = aux.siguiente
         }
-    }    
-    /*if(rama.hoja == true){
-        if(rama.ramaContinua != null){
-            salida += "node"+rama.indice.valor + " -> node" + rama.ramaContinua.indice.valor + "\n"
+        if(rama.hoja == true){
+            while(rama.ramaContinua != null){
+                if(rama.ramaContinua != null){
+                    salida += "node"+rama.idRama + " -> node" + rama.ramaContinua.idRama + "\n"
+                }
+                rama = rama.ramaContinua
+            }
         }
-    }*/
+    }    
+    
 }
 
 
