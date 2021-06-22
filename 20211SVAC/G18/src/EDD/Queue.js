@@ -50,6 +50,57 @@ class Node {
         }
         return nodo
     }
+
+
+    modificar(valor, nuevo) {
+      if (this.first != null) {
+        if (this.first.value == valor) {
+          this.first.value = nuevo
+        } else {
+          let aux = this.first
+          while (aux != null) {
+            if (aux.value == valor) {
+              aux.value = nuevo
+              break
+            }
+            aux = aux.next
+          }
+        }
+      }
+    }
+  
+      buscar(valor) {
+      if (this.first != null) {
+        let aux = this.first
+        while (aux != null) {
+          if (aux.value == valor.toString() ) {
+            return aux
+          }
+          aux = aux.next
+        }
+      }
+      return null
+    }
+  
+  
+      obtenerIndice(valor) {
+      let nodo = this.first
+      let indice = 0
+  
+      for (let i = 0; i < this.length; i++) {
+        if (nodo.value.toString() === valor.toString()) {
+          indice = i
+          break
+        }
+        nodo = nodo.next
+      }
+  
+      return indice
+    }
+  
+  
+
+
     
   }
 
