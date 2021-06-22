@@ -64,7 +64,7 @@ export default class Agregar extends Component {
                 if(edd == null){
                     edd = new ListaSimple();
                 }
-                edd.agregar(dato)
+                edd.agregar(dato,opciones)
                 break
     
             case "Lista doblemente enlazada":
@@ -72,7 +72,7 @@ export default class Agregar extends Component {
                 if(edd == null){
                     edd = new ListaDoble();
                 }
-                edd.agregar(dato)
+                edd.agregar(dato,opciones)
                 break
     
             case "Lista circular simplemente enlazada":
@@ -80,13 +80,8 @@ export default class Agregar extends Component {
                 if(edd == null){
                     edd = new ListaCS();
                 }
-                edd.insert(dato)
+                edd.insert(dato,opciones)
                 break
-
-
-
-
-                
     
             case "Lista circular doblemente enlazada":
     
