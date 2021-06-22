@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ArbolAvlComponent } from './arbol-avl.component';
+import { ArbolBinarioComponent } from './arbol-binario.component';
 
-describe('ArbolAvlComponent', () => {
-  let component: ArbolAvlComponent;
-  let fixture: ComponentFixture<ArbolAvlComponent>;
+describe('ArbolBinarioComponent', () => {
+  let component: ArbolBinarioComponent;
+  let fixture: ComponentFixture<ArbolBinarioComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ArbolAvlComponent ]
+      declarations: [ ArbolBinarioComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ArbolAvlComponent);
+    fixture = TestBed.createComponent(ArbolBinarioComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

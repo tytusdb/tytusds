@@ -23,6 +23,7 @@ import { OrdenamientoSeleccionComponent } from './componentes/ordenamiento-selec
 import { OrdenamientoInsercionComponent } from './componentes/ordenamiento-insercion/ordenamiento-insercion.component';
 import { OrdenamientoRapidoComponent } from './componentes/ordenamiento-rapido/ordenamiento-rapido.component';
 import { ArbolAvlComponent } from './componentes/arbol-avl/arbol-avl.component';
+import { ArbolBinarioComponent } from './componentes/arbol-binario/arbol-binario.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +44,8 @@ import { ArbolAvlComponent } from './componentes/arbol-avl/arbol-avl.component';
     OrdenamientoSeleccionComponent,
     OrdenamientoInsercionComponent,
     OrdenamientoRapidoComponent,
-    ArbolAvlComponent
+    ArbolAvlComponent,
+    ArbolBinarioComponent
   ],
   imports: [
     BrowserModule,
