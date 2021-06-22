@@ -80,7 +80,7 @@ export default class Agregar extends Component {
                 if(edd == null){
                     edd = new ListaCS();
                 }
-                edd.insert(dato,opciones)
+                edd.agregar(dato,opciones)
                 break
     
             case "Lista circular doblemente enlazada":
@@ -88,7 +88,7 @@ export default class Agregar extends Component {
                 if(edd == null){
                     edd = new ListaCirD();
                 }
-                edd.insert(dato) 
+                edd.agregar(dato,opciones) 
                 break
             case "Arbol ABB":
     

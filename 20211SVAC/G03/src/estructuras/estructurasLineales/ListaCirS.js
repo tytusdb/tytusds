@@ -40,36 +40,33 @@ class ListaCS{ //Clase Lista Circular Simple
         if(this.cabeza == null){
             this.cabeza = nodo;
             this.cola = nodo;
-        }else if(this.cabeza != null){
-            nodo.siguiente = this.cabeza;            
-            this.cabeza = nodo;
+            this.size++
+            return
+        }else if(this.cabeza != null  && this.cola != null){
+            this.cabeza.anterior = nodo;
+            nodo.siguiente = this.cabeza
+            nodo.anterior = this.cola
+            this.cola.siguiente = nodo
+            this.cabeza = nodo
+            this.size++
+            return
         }
     }
 //CAMBIOS para listas
-    agregarOrdenado(elemento){
-        let nodo = new Nodo(elemento)
-        if(this.cabeza == null){
-            this.cabeza = nodo;
-            this.cola = nodo;
-        }else{
-            let temporal = this.cabeza;
-            while(temporal != this.cola ){
-                if(temporal.dato <= elemento && temporal.siguiente.dato >= elemento){
-                    nodo.siguiente = temporal.siguiente;
-                    temporal.siguiente = nodo;   
-                    break;                 
-                }                               
-                temporal = temporal.siguiente;
-
-            }if(temporal== this.cola && temporal.dato <= elemento){
-                temporal.siguiente = nodo;
-                nodo.siguiente = this.cabeza;
-                this.cola = nodo;
-            }else if(temporal == this.cabeza && temporal.dato >= elemento){
-                nodo.siguiente = this.cabeza;
-                this.cabeza = nodo;
-                
-            } 
+    agregarOrdenado(dato){
+        let nodo = new Nodo(dato)
+        let aux = this.cabeza
+        while(aux != this.cola){
+            if(dato >= aux.dato && dato <= aux.siguiente.dato){
+                let tmp = aux.siguiente
+                tmp.anterior = aux
+                aux.siguiente = nodo
+                nodo.siguiente = tmp
+                nodo.anterior = aux
+                this.size++;
+                return
+            }
+            aux = aux.siguiente
         }
 
     }
