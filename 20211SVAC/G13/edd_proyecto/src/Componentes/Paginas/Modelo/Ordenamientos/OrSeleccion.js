@@ -63,7 +63,8 @@ class OrSeleccion{
     }
 }
 
-module.exports = OrSeleccion;
+export default OrSeleccion;
+//module.exports = OrSeleccion;
 
 
 

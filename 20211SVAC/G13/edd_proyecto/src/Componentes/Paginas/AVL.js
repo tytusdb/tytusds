@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import AnimacionAVL from './Animaciones/AnimacionAVL';
 
 export default function AVL(){
 	const [valor,setValor] = useState("");
@@ -54,7 +53,6 @@ export default function AVL(){
 			<div className="row">
 
 			</div>
-				<AnimacionAVL />
 		</>
 	);
 }
