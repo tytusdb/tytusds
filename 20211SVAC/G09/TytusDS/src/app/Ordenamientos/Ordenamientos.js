@@ -184,53 +184,50 @@ function AbrirOrdenamientoBurbuja(event) {
     var reader = new FileReader();
     
     reader.onload = function(event) {
-      // El texto del archivo se mostrará por consola aquí
-     // console.log(event.target.result)
-      let doc = JSON.parse(event.target.result);
-      //console.log(doc)
+      let doc = JSON.parse(event.target.result); //convierto en Json el archivo
+     
 
-      for (var key in doc) {
-        //console.log('name=' + key + ' value=' + doc[key]);
+      for (var key in doc) { // con este FOR recorro los valores que trae el JSON que abri en el archivo
         if(key=='categoria'){
-            categoria = doc[key]
+            categoria = doc[key] //lleno la variable categoria
             console.log(categoria)
         }
         if(key=='nombre'){
-            nombre = doc[key]
+            nombre = doc[key] //lleno la variable nombre
             console.log(nombre)
         }
         if(key=='repeticion'){
-            repeticion = doc[key]
+            repeticion = doc[key] //lleno la variable repeticion
             console.log(repeticion)
         }
-        if(key=='animacion'){
+        if(key=='animacion'){ //lleno la variable animacion
             animacion = doc[key]
             console.log(animacion)
         }
-        if(key=='valores'){
+        if(key=='valores'){ // leno la variable valores
             ListaSinOrdenar = [];
             ListaOrdenada = [];
-           if(chekString == false){
+           if(chekString == false){ //si el check de String esta desactivado hace esto 
                 for (var k in doc[key]){
-                    // console.log(doc[key][k])
-                    ListaSinOrdenar.push(doc[key][k])
+                    ListaSinOrdenar.push(doc[key][k]) //recorro todos los *valores de el archivo* y los meto en una lista ListaSinOrdenar
                 }
-                ListaOrdenada = ordBurburja(ListaSinOrdenar);
+                ListaOrdenada = ordBurburja(ListaSinOrdenar); // La lista SIn ordenar la envio a el ordenamiento correspondiente//
                 console.log(ListaOrdenada);
             }
-            if(chekString == true){
+            if(chekString == true){ //si el check de String esta *activado** hace esto
                 console.log("check es true")
-                for (var k in doc[key]){
+                for (var k in doc[key]){ 
                     // console.log(doc[key][k])
-                    ListaSinOrdenar.push(doc[key][k])
+                    ListaSinOrdenar.push(doc[key][k]) //recorro todos los *valores de el archivo* y los meto en una lista ListaSinOrdenar
                 }
-                //1ro  obtengo ascci desordenado 
-                NombresAscci = ObtenerString(ListaSinOrdenar);
-                //2do ordeno Ascci
-                NombresAscciOrdenados = ordBurburja(NombresAscci);
+                //1ro  obtengo ascci desordenado osea los codigos de los nombres
+               NombresAscci = ObtenerString(ListaSinOrdenar);//1er paso// 
+                //2do ordeno Ascci --- ordeno los codigos con el el ordenamiento correspondiente //
+                NombresAscciOrdenados = ordBurburja(NombresAscci);//2do paso// 
                 //3ro  ordeno las 2 listas
-                accion = compararString(NombresAscciOrdenados,ListaSinOrdenar);
-                console.log(accion)
+                accion = compararString(NombresAscciOrdenados,ListaSinOrdenar); //con este metodo enlazo el codigo ASSCI 
+                                                                            //ya ordenado y lo enlazo con su nombre
+                console.log(accion) //imprimo la lista ya ordenada y enlazada
             }
         }
      } 
