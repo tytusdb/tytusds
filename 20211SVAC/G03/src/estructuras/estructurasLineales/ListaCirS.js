@@ -45,7 +45,7 @@ class ListaCS{ //Clase Lista Circular Simple
             this.cabeza = nodo;
         }
     }
-
+//CAMBIOS para listas
     agregarOrdenado(elemento){
         let nodo = new Nodo(elemento)
         if(this.cabeza == null){
