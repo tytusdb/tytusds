@@ -10,7 +10,7 @@
             <button class="btn btn-primary" (click)="agregar()">Agregar</button>
         </div>
         <div class="col-lg-1">
-            <input type="number" class="form-control" placeholder="valor" [(ngModel)]="valorEliminar">
+            <input type="number" class="form-control" placeholder="nodo" [(ngModel)]="valorEliminar">
         </div>
         <div class="col-lg-1">
             <button class="btn btn-primary" (click)="eliminar()">Eliminar</button>
@@ -25,7 +25,7 @@
             <button class="btn btn-primary" (click)="actualizar()">Actualizar</button>
         </div>
         <div class="col-lg-1">
-            <input type="text" class="form-control" placeholder="nodo" [(ngModel)]="valorBuscar">
+            <input type="text" class="form-control" placeholder="valor" [(ngModel)]="valorBuscar">
         </div>
         <div class="col-lg-1">
             <button class="btn btn-primary" (click)="buscar()">Buscar</button>
@@ -35,21 +35,13 @@
         <div class="col-md-6">
             <input class="form-control" type="file" id="formFile" (change)="getDocumento($event.target)">
         </div>
-    </div>
-    <div class="bg-light animacion mt-5" id="contenedor">
-    </div>
-    <div class="row">
+        <div class="col-md-4"></div>
         <div class="col-md-2">
             <div class="d-grid gap-2 mt-3">
                 <button class="btn btn-success" (click)="guardar()">Guardar</button>
             </div>
         </div>
-        <div class="col-md-8">
-        </div>
-        <div class="col-md-2">
-            <div class="d-grid gap-2 mt-3">
-                <button class="btn btn-secondary" routerLink="..">Regresar</button>
-            </div>
-        </div>
+    </div>
+    <div class="bg-light animacion mt-5" id="contenedor">
     </div>
 </div>

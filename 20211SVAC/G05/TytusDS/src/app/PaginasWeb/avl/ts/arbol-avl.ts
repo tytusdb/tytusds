@@ -151,6 +151,17 @@ export class ArbolAvl {
         return nodo;
     }
 
+    actualizar(nodo: NodoAvl, valor: any, nuevoValor: any): void {
+        if (nodo !== null) {
+            if (nodo.valor === valor) {
+                nodo.valor = nuevoValor;
+                return;
+            }
+            this.actualizar(nodo.izquierda, valor, nuevoValor);
+            this.actualizar(nodo.derecha, valor, nuevoValor);
+        }
+    }
+
     preorden(nodo: NodoAvl): void {
         if (nodo !== null) {
             let encontrado = false;
