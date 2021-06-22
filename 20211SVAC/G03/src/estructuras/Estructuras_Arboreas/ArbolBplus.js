@@ -305,6 +305,88 @@ reacomodo sus hijos en los espacios de las divisiones*/
         }
     }
 
+     //Metodo Graficar
+     graficar(){
+        salida = ""
+        if(this.raiz == null){
+            console.log("No hay nada aun")
+            return
+        }
+        let rama = this.raiz
+        salida+= "digraph G{\nnode[shape=record]\nedge[color=\"green\"]\n"
+        this.graficando(rama)
+        salida+= "}"
+        console.log(salida)
+        return salida
+    }
+
+    //SubMetodo Graficar
+    graficando(rama){
+        if (rama.indice == null){
+            console.log("no hay nodos")
+            return 
+        }
+        let aux = rama.indice
+        if(aux.rama_Izq != null){
+            this.graficando(aux.rama_Izq)
+        }
+        if(aux.rama_Der!=null){
+            this.graficando(aux.rama_Der)
+        }
+        if(aux.siguiente == null){
+            salida += "node"+aux.valor+" [label = \" iz| "+aux.valor+" |de \"]; \n"
+            guia.push(aux.valor)
+            if(aux.rama_Der != null){
+                salida+= "node"+aux.valor + " -> node" + aux.rama_Der.indice.valor + "\n"
+            }
+            if(aux.rama_Izq != null){
+                salida+= "node"+aux.valor + " -> node" + aux.rama_Izq.indice.valor + "\n"
+            }
+        }
+        if(aux.siguiente != null){
+            if(aux.rama_Izq==null && aux.rama_Der == null){
+                salida += "node"+aux.valor+" [label = \" iz| "
+                while(aux!=null){
+                    salida += aux.valor+ " | "
+                    aux = aux.siguiente
+                }
+                salida += "de \"]; \n"
+            }else if(aux.rama_Izq!=null && aux.rama_Der != null){
+                salida += "node"+aux.valor+" [label = \" iz| "
+                while(aux!=null){
+                    salida += aux.valor+ " | "
+                    aux = aux.siguiente
+                }
+                salida += "de \"]; \n"
+                aux = rama.indice
+                if(aux.rama_Der != null){
+                    salida+= "node"+rama.indice.valor + " -> node" + rama.indice.rama_Der.indice.valor + "\n"
+                }
+                if(aux.izquierdo != null){
+                    salida+= "node"+rama.indice.valor + " -> node" + rama.indice.rama_Izq.indice.valor + "\n"
+                }
+                aux = rama.indice
+                aux = aux.siguiente
+                while(aux!=null){
+                    salida += "node"+rama.indice.valor + " -> node" + aux.rama_Der.indice.valor + "\n"
+                    aux = aux.siguiente
+                }
+            }
+            aux = rama.indice
+            aux = aux.siguiente
+            while(aux !=null){
+                if(aux != null && aux.rama_Der!=null){
+                    this.graficando(aux.rama_Der)
+                }
+                aux = aux.siguiente
+            }
+        }    
+        /*if(rama.hoja == true){
+            if(rama.ramaContinua != null){
+                salida += "node"+rama.indice.valor + " -> node" + rama.ramaContinua.indice.valor + "\n"
+            }
+        }*/
+    }
 
 
     guardar(){
