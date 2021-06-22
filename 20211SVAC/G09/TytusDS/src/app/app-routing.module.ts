@@ -19,6 +19,7 @@ import { OrdenamientoBurbujaComponent } from './componentes/ordenamiento-burbuja
 import { OrdenamientoSeleccionComponent } from './componentes/ordenamiento-seleccion/ordenamiento-seleccion.component';
 import { OrdenamientoInsercionComponent } from './componentes/ordenamiento-insercion/ordenamiento-insercion.component';
 import { OrdenamientoRapidoComponent } from './componentes/ordenamiento-rapido/ordenamiento-rapido.component';
+import { ArbolBinarioComponent } from './componentes/arbol-binario/arbol-binario.component';
 const routes: Routes = [
   {path: "EstructurasLineales",    component: EstructurasLinealesComponent},
   {path: "Inicio",    component: InicioComponent},
@@ -35,7 +36,8 @@ const routes: Routes = [
   {path:"burbuja", component:OrdenamientoBurbujaComponent},
   {path:"seleccion", component:OrdenamientoSeleccionComponent},
   {path:"insercion", component:OrdenamientoInsercionComponent},
-  {path:"rapido", component:OrdenamientoRapidoComponent}
+  {path:"rapido", component:OrdenamientoRapidoComponent},
+  {path:"binario", component:ArbolBinarioComponent}
 
 ];
 
