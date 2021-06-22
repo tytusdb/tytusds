@@ -12,7 +12,7 @@ body{
     background: #005C97;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #363795, #005C97);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #363795, #005C97); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    --nodes-size: 70px;
+    --nodes-size: 80px;
 }
 
 .header{
@@ -32,7 +32,7 @@ body{
 section.lista {
     width: 95%;
     padding-left: 5%;
-    padding-top: 40px;
+    padding-top: 120px;
     padding-bottom: 35px;
     margin-bottom: 0;
     display: flex;
@@ -47,7 +47,7 @@ section.lista > div {
     vertical-align: top;
 }
 
-::-webkit-scrollbar {
+/*::-webkit-scrollbar {
     height: 10px;
 }
 
@@ -59,7 +59,7 @@ section.lista > div {
 ::-webkit-scrollbar-thumb {
     border-radius: 15px;
     background: #7e7eed;
-}
+}*/
 
 /* ----------------------------------------------------------------- */
 /* Nodo */
@@ -77,12 +77,23 @@ div.node {
 }
 
 div.node p.number {
-    margin: 0;
-    line-height: var(--nodes-size);
+    margin: auto auto;
+    /*line-height: var(--nodes-size);*/
     font-family: 'Oswald', sans-serif;
     font-size: 1.6rem;
     font-weight: bold;
     color: #fff;
+}
+
+div.node p.set {
+    display: none;
+}
+
+p{
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
 }
 
 /* ----------------------------------------------------------------- */
@@ -103,3 +114,31 @@ div.pointer img {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+/* ----------------------------------------------------------------- */
+/* Lista Circular */
+/* ----------------------------------------------------------------- */
+
+:root{
+    --tamaño: 380px;
+    --posicion: 48%;
+}
+
+section.lista_circular >*{
+    position: absolute;
+    top: var(--tamaño);
+    left: var(--posicion);
+    /*90*/
+    width: 70px;
+    height: 70px;
+}
+
+section.lista_circular>* > div {
+    flex: 0 0 auto;
+    display: inline-block;
+    vertical-align: top;
+}
+
+
+
+

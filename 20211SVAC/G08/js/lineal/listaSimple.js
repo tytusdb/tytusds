@@ -213,15 +213,13 @@ async function agregar(i, data) {
 //----------------ACTUALIZAR----------------
 async function actualizar(data, i) {
 
-    let tiempo_animacion = 1;
-
     await animacion_nodos(0, i - 1);
 
-    nodes[i].firstChild.style.animation = "fadeNumberOut " + tiempo_animacion + "s ease";
+    nodes[i].classList.add("actualizar");
 
     setTimeout(() => {
         nodes[i].firstChild.innerHTML = data;
-        nodes[i].firstChild.style.animation = "fadeNumberIn " + tiempo_animacion + "s ease";
+        nodes[i].classList.add("actualizar");
     }, tiempo_animacion);
 
     setTimeout(() => {
@@ -240,6 +238,19 @@ async function quitar(i, data) {
         return;
     }
     else if (nodes[i].firstChild.innerHTML == data) {
+        nodes[i].style.backgroundColor = "#DC143C";
+        await new Promise((resolve) =>
+            setTimeout(() =>{
+                resolve();
+            }, (10*100)) //delay
+        );
+        nodes[i].classList.add("eliminado");
+
+        await new Promise((resolve) =>
+            setTimeout(() =>{
+                resolve();
+            }, (1500)) //delay
+        );
         await borrar_nodos(i);
         await animacion_despues(i)
         quitar(i, data);
@@ -262,16 +273,57 @@ async function encontrar(i, data) {
         return;
     }
     else if (nodes[i].firstChild.innerHTML == data) {
-        let inputError = false;
-        error.innerHTML =  errorCircle + "El dato " + data + " esta en el nodo numero " + i;
-        inputError = true;
+        pathnodes(i);
     }
     else {
-        await nodo_animado(i);
-		await flecha_animacion(i);
+        pathnodes2();
 		encontrar(i + 1, data);
     }
 }
+
+async function pathnodes(pos){
+    var nodes = document.querySelectorAll(".node");
+    velocidad = 10;
+    for (let i = 0; i < nodes.length; i++){
+        if( i == pos){
+            nodes[i].style.backgroundColor = "#13CE66";
+            
+            nodes[i].classList.add("busqueda");
+    
+            await new Promise((resolve) =>
+                setTimeout(() =>{
+                    resolve();
+                }, (1800)) //delay
+            );
+            nodes[i].style.backgroundColor = 	"#2e1e75";
+            break;
+        } else {
+            nodes[i].style.backgroundColor = "#FF4949";
+            await new Promise((resolve) =>
+                setTimeout(() =>{
+                    resolve();
+                }, (velocidad*200)) //delay
+            );                 
+        }
+        nodes[i].style.backgroundColor = 	"#2e1e75";   
+    }
+}
+
+async function pathnodes2(){
+    var nodes = document.querySelectorAll(".node");
+    velocidad = 10;
+    for (let i = 0; i < nodes.length; i++){
+        nodes[i].style.backgroundColor = "#FF4949";
+            await new Promise((resolve) =>
+                setTimeout(() =>{
+                    resolve();
+                }, (velocidad*200)) //delay
+            );  
+        nodes[i].style.backgroundColor = 	"#2e1e75";   
+    }
+    alert("No se encuentra el elemento")
+}
+
 
 //----------------LIMPIAR----------------
 async function limpiar(tam) {
@@ -325,12 +377,6 @@ async function agregarFile(){
         } else {
             // Insertando elemento en la cola
             agregar(nodes.length, listaValores[i]);
-            /* Creando los cuadros y agregandole el elemento ingresado
-            const div = document.createElement("div");
-            div.classList.add('cuadrito');
-            div.textContent = listaValores[i];
-            container.appendChild(div);
-            */
             await new Promise((resolve) =>
                 setTimeout(() =>{
                 resolve();

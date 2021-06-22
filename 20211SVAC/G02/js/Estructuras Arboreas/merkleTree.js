@@ -131,10 +131,10 @@ class ArbolDeMerkle{
             this.recorrerGraficar(temp.izq)
             arrayNodes.push({id: temp.id, label: temp.valor.toString(), shape: "box"})
             if(temp.izq != null){
-                edges.push({from: temp.id, to: temp.izq.id})
+                edges.push({from: temp.id, to: temp.izq.id, arrows: "from"})
             }
             if(temp.der != null){
-                edges.push({from: temp.id, to: temp.der.id})
+                edges.push({from: temp.id, to: temp.der.id, arrows: "from"})
             }
             this.recorrerGraficar(temp.der)
         }
@@ -155,8 +155,10 @@ function actualizarTablero(){
         layout: {
             hierarchical: {
                 direction: 'UD',
-                nodeSpacing: 150,
-                sortMethod : 'directed'
+                nodeSpacing: 250,
+                sortMethod : 'directed',
+                shakeTowards: 'roots'
+
               }
         } 
     };
@@ -251,7 +253,7 @@ function focus() {
         scale: 3.0,
         offset: {x:0,y:0},
         animation: {
-            duration: 2500,
+            duration: (1000)*(slider.value),
             easingFunction: "easeOutQuint"
         }
     }

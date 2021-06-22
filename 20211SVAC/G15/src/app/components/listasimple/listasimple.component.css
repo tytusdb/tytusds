@@ -9,7 +9,8 @@ body {
     min-height: 100vh;
   /*background-color: #FAFAFA; */
     /* background: #030321;   */
-    background-color: #263238;
+    background: #063f6d; 
+   	color: rgba(218, 45, 45, 0.25); 
     font-family: Arial; 
     text-align: center; 
   }

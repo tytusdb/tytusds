@@ -14,6 +14,7 @@ import {OrdBurbujaComponent} from './PaginasWeb/ord-burbuja/ord-burbuja.componen
 import { AvlComponent } from './PaginasWeb/avl/avl.component';
 import {ABinarioComponent} from './PaginasWeb/a-binario/a-binario.component';
 import {InserccionComponent} from './PaginasWeb/inserccion/inserccion.component';
+import {BComponent} from './PaginasWeb/b/b.component';
 
 const routes: Routes = [
   {path:'menu', component: MenuComponent},
@@ -30,13 +31,14 @@ const routes: Routes = [
   {path:'OQuicksort', component:OrdQuicksortComponent},
   {path:'Abinario', component:ABinarioComponent},
   {path:'Inserccion', component:InserccionComponent},
+  {path:'B', component:BComponent},
   {path:'**', redirectTo: 'menu'},
 
 
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{useHash: true, relativeLinkResolution: 'legacy'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

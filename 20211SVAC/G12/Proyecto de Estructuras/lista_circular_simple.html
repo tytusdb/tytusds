@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="index.css"/>
+    <title>Document</title>
+</head>
+<body>
+    <header class="header">
+        <center><h1>Lista Circular Simple Enlazada</h1></center>
+        <input type="file" id="Archivo">
+        Repetidos<input type="checkbox" id="checkbox"/>
+        <input type="button" onClick="DescargarArchivo()" value="Descargar" />
+    </header>
+    <form><center>
+        <input type="text" id="dato_pag" placeholder="Dato" required/>
+        <input type="button" onClick="insertar_nodo()" value="Insertar" />
+        <input type="button" onClick="buscar()" value="Buscar" />
+        <input type="button" onClick="eliminar_nodo()" value="Eliminar" />
+        <input type="button" onClick="actualizar_nodo()" value="Actualizar" />
+        <input type="text" id="dato_viejo" placeholder="Dato Antiguo" required/>
+        <input type="text" id="dato_nuevo" placeholder="Dato Nuevo" required/>
+        <input type="number" id="velocidad" placeholder="0.5 seg" required/>
+        <input type="button" onClick="velocidad_max()" value="Velocidad" />
+    </center>
+    <br>
+    </form>
+    <section class = "lista_circular" id="lista_circular"></section>
+    <script type="text/javascript" src="lista_circular_simple.js"></script>
+</body>
+</html>

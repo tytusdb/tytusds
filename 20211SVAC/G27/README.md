@@ -7,9 +7,10 @@
 ### [Lista Circular Doble](https://tytusdb.github.io/tytusds/20211SVAC/G27/Lineal_Structures/ListaCirDoble.html)
 ### [Pila](https://tytusdb.github.io/tytusds/20211SVAC/G27/Lineal_Structures/Pila.html)
 ### [Cola](https://tytusdb.github.io/tytusds/20211SVAC/G27/Lineal_Structures/Cola.html)
+### [Cola De Prioridad](https://tytusdb.github.io/tytusds/20211SVAC/G27/Lineal_Structures/ColaP.html)
 
 ## ORDENAMIENTOS
 ### [Ordenamiento Burbuja](https://tytusdb.github.io/tytusds/20211SVAC/G27/ordenamientos/bubleSort.html)
 ### [Ordenamiento Insercion](https://tytusdb.github.io/tytusds/20211SVAC/G27/ordenamientos/insertionSort.html)
-### [Ordenamiento Insercion](https://tytusdb.github.io/tytusds/20211SVAC/G27/ordenamientos/Rapido.html)
-### [Ordenamiento Insercion](https://tytusdb.github.io/tytusds/20211SVAC/G27/ordenamientos/Seleccion.html)
+### [Ordenamiento Rapido](https://tytusdb.github.io/tytusds/20211SVAC/G27/ordenamientos/Rapido.html)
+### [Ordenamiento Seleccion](https://tytusdb.github.io/tytusds/20211SVAC/G27/ordenamientos/Seleccion.html)

@@ -11,6 +11,7 @@ import Buscar from './Buscar'
 import Seleccion from '../estructuras/Ordenamientos/Seleccion'
 import Insercion from '../estructuras/Ordenamientos/Insercion'
 import ordRapido from '../estructuras/Ordenamientos/OrdRapido'
+import Ordenamiento from '../estructuras/Ordenamientos/OrdBurbuja'
 
 import Grafica from './GraficaListas'
 import GraficarArbol from './GraficarArbol'
@@ -53,8 +54,8 @@ export default class NavbarInter extends Component {
             arregloOrdenado = Insercion(this.state.estrutura);
             break;
           case "Ordenamiento Burbuja":
-            
-            console.log("estoy ordenando Burbuja")
+            let burbuja = new Ordenamiento()
+            arregloOrdenado = burbuja.ordenar(this.state.estrutura); 
             break;
           case "Ordenamiento Rapido":
               arregloOrdenado = ordRapido(this.state.estrutura);
@@ -149,7 +150,8 @@ export default class NavbarInter extends Component {
               <Dibujar nombre={this.state.nombre} estructura={this.state.estrutura}  key={count++}/>
             </div>
           )
-        }else if(this.state.nombre == "Arbol ABB"){
+        }else if(this.state.nombre == "Arbol ABB"
+              ||this.state.nombre == "Arbol AVL"){
           return (
             <div>
                 <Menu className="ui tpo inverted attached menu">

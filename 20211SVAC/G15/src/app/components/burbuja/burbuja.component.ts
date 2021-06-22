@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { Label } from 'ng2-charts';
@@ -9,6 +9,7 @@ import { Burbuja } from 'src/app/helpers/Burbuja/Burbuja';
   templateUrl: './burbuja.component.html',
   styleUrls: ['./burbuja.component.css']
 })
+
 export class BurbujaComponent implements OnInit {
   fileName = '';
   burbuja:Burbuja
@@ -51,14 +52,17 @@ export class BurbujaComponent implements OnInit {
   public barChartData:ChartDataSets[]= [
     { data: [], label: 'METODO BURBUJA'}
   ];
-  constructor() { }
+  @ViewChild('myChart') cuerpoDraw: ElementRef;
+  constructor(private renderer: Renderer2) { }
 
   ngOnInit(): void {
     this.burbuja = new Burbuja()
   }
+
   async mostrarBarras(){
-    //console.log(this.datos)
-      if (this.numero===true) {
+   // this.burbuja.bubbleSort();
+    console.log(this.datos)
+     if (this.numero===true) {
         this.barChartLabels = this.datos;
         this.barChartData[0].data=this.datos
       }else{
@@ -97,6 +101,8 @@ export class BurbujaComponent implements OnInit {
         }
        
       }
+
+      
      // console.log(datos2)
       this.burbuja.ordenamiento_burbuja(datos2);
       this.datos=this.burbuja.ordenamiento_burbuja(datos2);

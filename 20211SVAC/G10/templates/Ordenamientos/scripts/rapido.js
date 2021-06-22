@@ -97,3 +97,22 @@ guardar.addEventListener("click", (e) => {
     e.preventDefault()
     console.log(salida)
 })
+
+function animacion(lista) {
+    new Chart(document.getElementById("lienzo"), {
+        type: 'bar',
+        data: {
+            labels: lista,
+            datasets: [{
+                backgroundColor: color,
+                data: lista
+            }]
+        },
+        options: {
+            legend: {display: false},
+            title: {
+              display: true
+            }
+        }
+    })
+}

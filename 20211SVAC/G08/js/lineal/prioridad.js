@@ -1,58 +1,88 @@
 // C  O  D  I  G  O
 // C  L  A  S  E  S
-// Programando la cola
-class Cola{
+// Programando la Cola de Prioridad
+
+class Prioridad {
     constructor(){
-        this.front = null;
+        this.front = null; 
         this.back = null;
         this.longitud = 0;
     }
-    agregar(elemento){
-        const nodo = new Nodo(elemento);
-        if(this.front){ // primer nodo
-            this.back.siguiente = nodo;
-            this.back = nodo;
-        } else { // si todavia no hay nodos en la cola
-            this.front = nodo;
-            this.back = nodo;
+    agregar(elemento, prioridad){ // importante pasar ambos datos
+        let nuevoN = new Nodo(elemento, prioridad); 
+        
+        if(this.empty()){ 
+            // si la cola de prioridad esta vacia lleno con la informacion
+            this.front = nuevoN;
+            this.back = nuevoN;
+        } else {  // si ya tiene datos hago esto
+            // guardo la informacion para la comparacion necesaria
+            nuevoN.siguiente = this.front;
+            this.front = nuevoN;
+            // guardo para que no se pierdan los datos en el intercambios
+            let presente = this.front;
+            let futuro = presente.siguiente;
+            while(presente.siguiente != null){ // hasta que la cola no este vacia
+                if(presente.prioridad > futuro.prioridad){ // aplico metodo burbuja para ordenar
+                    // guardo info para intercambiar
+                    let auxe = presente.elemento; // dato 
+                    let auxp = presente.prioridad; // prioridad
+                    presente.elemento = futuro.elemento;
+                    presente.prioridad = futuro.prioridad;
+                    futuro.elemento = auxe;
+                    futuro.prioridad = auxp;
+                    // para ir evaluando con los siguientes elementos
+                    presente = presente.siguiente;
+                    futuro = futuro.siguiente;
+                } else {
+                    presente = presente.siguiente;
+                    futuro = futuro.siguiente;
+                }
+
+            }
+
         }
         this.longitud++;
     }
-    eliminar(){
-        const actual = this.front;
-        this.front = this.front.siguiente; // mueve el enlace front al siguientenodo
-        this.longitud--;
-
-        return actual.value;
-
-    }
     mostrar(){
-        let actual = this.front;
+        let cadena = "";
+        let nodoActual = this.front;
+        while(nodoActual != null){
+            cadena += nodoActual.elemento +"-";
+            if(nodoActual.siguiente != null){
+                nodoActual = nodoActual.siguiente;
 
-        while(actual){
-            console.log(actual.value);
-            actual = actual.siguiente; // mueve el enlace al siguiente nodo
-            
+            } else {
+                nodoActual = null;
+            }
         }
+        cadena += "null";
+        console.log(cadena);
     }
-    len(){
-        return this.longitud;
+    empty(){
+        if(this.front == null){
+            return true;
+        }
+        return false;
     }
     verificar(elemento){
         let aux = this.front;
         while(aux != null){
-            if(aux.value == elemento){
+            if(aux.elemento == elemento){
                 return true;
             }
             aux = aux.siguiente;
         }
         return false;
     }
+    len(){
+        return this.longitud;
+    }
     indiceVerificar(elemento){
         let aux = this.front;
         let contador = 0;
         while(aux != null){
-            if (aux.value == elemento){
+            if (aux.elemento == elemento){
                 return contador;
             }
             aux = aux.siguiente;
@@ -60,39 +90,24 @@ class Cola{
         }
         return null;
     }
-    actualizar(viejo, nuevo){
-        let aux = this.front;
-        while(aux != null){
-            if(aux.value == viejo){
-                aux.value = nuevo;
-                break;
-            }
-            aux = aux.siguiente;
-        }
-    }
+    eliminar(){
+        const actual = this.front;
+        this.front = this.front.siguiente; // mueve el enlace front al siguientenodo
+        this.longitud--;
 
-}
-
-class Nodo{
-    constructor(elemento){
-        this.value = elemento;
-        this.siguiente = null;
+        return actual.elemento;
 
     }
 }
 
-var cola = new Cola();
-
-/*
-cola.agregar(2);
-cola.agregar(4);
-cola.agregar(54);
-cola.agregar(2);
-cola.agregar(123);
-cola.agregar(8);
-
-cola.mostrar();
-*/
+class Nodo {
+    constructor(elemento, prioridad){
+        this.elemento = elemento;
+        this.prioridad = prioridad; 
+        this.siguiente = null
+    }
+}
+var prioridad = new Prioridad();
 
 // E  V  E  N  T  O  S
 // ----- AGREGAR -----
@@ -132,7 +147,8 @@ btn_Guardar.addEventListener('click', guardar);
 
 
 // V  A  R  I  A  B  L  E  S  -  G  L  O  B  A  L  E  S
-
+var ordenDato = [];
+var ordenPrior = [];
 
 // F  U  N  C  I  O  N  E  S  -  E  V  E  N  T  O  S
 
@@ -142,9 +158,10 @@ function agregar(){
     var val_prioridad = document.getElementById('prioridad');
 
     // Verificacion de repeticion de valores
-    var repe = cola.verificar(spc_elemento.value);
+    var repe = prioridad.verificar(spc_elemento.value);
+    console.log("Valor repetido: "+repe);
     var chek_Repe = btn_Repetir.checked;
-
+    
     if (repe == true && chek_Repe == true){
         
         alert("No se pueden repetir valores");
@@ -157,25 +174,109 @@ function agregar(){
 }
 
 function agregar2(box, dato, box2, prior){
-    // Insertando elemento en la pila
-    cola.agregar(dato)
+    // Insertando elemento en la cola de prioridad
+    prioridad.agregar(dato, prior);
+
+    ordenDato.push(dato);
+    ordenPrior.push(prior);
     // Creando los cuadros y agregandole el elemento ingresado
     const div = document.createElement("div");
     const div2 = document.createElement("div");
 
     div.classList.add('cuadrito');
-    div.textContent = dato;
+    div.textContent = dato+"  ||  "+prior;
+    /*
     div2.classList.add('cuadrito2');
-    div2.textContent = prior;
+    div2.textContent = prior;*/
     
     container.appendChild(div);
-    container.appendChild(div2);
+    //container.appendChild(div2);
 
-    console.log(cola.mostrar())
+    ordenarCuadros();
+
+    console.log(prioridad.mostrar())
     box.value ="";
     box.focus();
     box2.value ="";
     
+}
+
+// ***** ORDENAMIENTO DE ELEMENTOS *****
+async function ordenarCuadros(){
+    var bloques1 = document.querySelectorAll(".cuadrito");
+    //var bloques2 = document.querySelectorAll(".cuadrito2");
+
+    for(var v = 0; v < ordenPrior.length; v+=1){
+        for (var c = 0; c < ordenPrior.length - v - 1; c +=1){
+        
+            // color de bloques seleccionados
+            //bloques2[c].style.backgroundColor = "#FF4949";
+            //bloques2[c + 1].style.backgroundColor = "#FF4949";
+
+            // delay de 0.1 segundo para que se entienda
+            await new Promise((resolve) =>
+                setTimeout(() =>{
+                    resolve();
+                }, (100)) //delay
+            );
+
+            console.log("ejecutando");
+
+
+
+            // comparar los valores para ordenarlos 
+            if (ordenPrior[c] >= ordenPrior[c + 1] ){
+                console.log("Cambiando");
+                await cambiar(bloques1[c], bloques1[c + 1]);
+                await new Promise((resolve) =>
+                setTimeout(() =>{
+                    resolve();
+                }, (100)) //delay
+            );
+                //await cambiar(bloques2[c], bloques2[c + 1]);
+                
+                bloques1 = document.querySelectorAll(".cuadrito");
+                //bloques2 = document.querySelectorAll(".cuadrito2");
+                var auxa = ordenPrior[c];
+                ordenPrior[c] = ordenPrior[c+1];
+                ordenPrior[c+1] = auxa;
+
+                var auxb = ordenDato[c];
+                ordenDato[c] = ordenDato[c+1];
+                ordenDato[c+1] = auxb;
+
+                
+
+                
+
+            }
+            //bloques[c].style.backgroundColor = "#6b5b95";
+            //bloques[c + 1].style.backgroundColor = "#6b5b95";
+        }
+        // cambiando el color del elemento mayor
+        //bloques[bloques.length - v - 1].style.backgroundColor ="#13CE66";
+    }
+}
+
+function cambiar(bloque1, bloque2){
+    return new Promise((resolve) =>{
+
+        // cambiar el estilo de los bloques
+        var bloque_tmp = bloque1.style.transform;
+        bloque1.style.transform = bloque2.style.transform;
+        bloque2.style.transform = bloque_tmp;
+
+        window.requestAnimationFrame(function(){
+            setTimeout(() =>{
+                container.insertBefore(bloque2, bloque1);
+                resolve();
+
+            }, 1000); // velocidad de animacion
+
+        });
+        
+    });
+
 }
 
 // ***** ELIMINAR ELEMENTO *****
@@ -185,10 +286,11 @@ async function eliminar(){
     console.log("Eliminando");
 
     // Longitud de la lista 
-    let iDelete = cola.len();
+    let iDelete = prioridad.len();
 
-    // Eliminando de la lista 
-    cola.eliminar();
+    // Eliminando de la cola de prioridad
+    prioridad.eliminar();
+    prioridad.mostrar();
 
     // Pintando el cuadro a eliminar 
     bloques[0].style.backgroundColor = "#DC143C";

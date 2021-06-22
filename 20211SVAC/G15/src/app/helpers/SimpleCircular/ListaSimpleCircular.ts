@@ -206,7 +206,7 @@ export class ListaSimpleCircular {
         return null
     }
 
-    async searchAnimation(numero, duration) {
+    async searchAnimation(numero:number|string, duration) {
         let temp = this.primero
         let i = 0
         if (temp === null) return null

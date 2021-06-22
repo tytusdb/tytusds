@@ -1,141 +1,135 @@
-class Nodo {
-    constructor(dato) {
-        this.dato = dato;
-        this.izquierdo = null;
-        this.derecho = null;
-        this.altura = 0;
-    }
-}
 
-class AVLTree {
-    constructor() {
-        this.raiz = null;
-    }
+    //             [10      20]
+    //      [5, 7]   [15, 18]   [25, 30]
+    //     [] [] []  [] [] []   [] [] []
 
-    MAX(primerValor, SegundoValor) {
-        if (primerValor > SegundoValor) return primerValor;
-        return SegundoValor;
-    }
 
-    altura(nodoTree) {
-        if (nodoTree == null) return -1;
-        return nodoTree.altura;
-    }
+    var order = 3;
 
-    insertar(dato) {
-        this.raiz = this.add(dato, this.raiz);
+     window.root = null;
+    
+    var BTreeNode = function(keys, children, parent){
+      var newNode = Object.create(BTreeNode.prototype);
+      newNode.keys = keys || [];
+      newNode.children = children || new Array(order);
+      newNode.parent = parent || null;
+      newNode.id = null;
+    
+      // if(newNode.parent)
+      //   newNode.parent.children.push(newNode);
+    
+    
+      /*
+      1. Find leaf where value should go
+      2. Insert the value into leaf, then sort
+      3. If overflow
+        * push value to parent
+        * split node into left and right
+    
+      */
+    
+    
+      return newNode;
     }
-
-    add(dato, nodoTree) {
-        if (nodoTree == null) return new Nodo(dato);
-        else {
-            if (dato < nodoTree.dato) {
-                nodoTree.izquierdo = this.add(dato, nodoTree.izquierdo)
-                if (this.altura(nodoTree.derecho) - this.altura(nodoTree.izquierdo) == -2) {
-                    if (dato < nodoTree.izquierdo.dato) {
-                        nodoTree = this.LeftRotation(nodoTree);
-                    } else {
-                        nodoTree = this.DoubleRotationLeft(nodoTree);
-                    }
-                }
-            } else if (dato > nodoTree.dato) {
-                nodoTree.derecho = this.add(dato, nodoTree.derecho);
-                if (this.altura(nodoTree.derecho) - this.altura(nodoTree.izquierdo) == 2) {
-                    if (dato > nodoTree.derecho.dato) {
-                        nodoTree = this.RightRotation(nodoTree);
-                    } else {
-                        nodoTree = this.DoubleRotationRight(nodoTree);
-                    }
-                }
-            } else {
-                nodoTree.dato = dato;
-            }
+    
+    // Search helper function that returns the leaf node to insert into
+    BTreeNode.prototype.search = function(value){
+    
+      var emptyChildren = this.children.reduce(function(accum, e){
+        return accum && !e;
+      }, true);
+    
+      if(emptyChildren) {
+        return this;
+      } else {
+        for(var i = 0; i < this.keys.length; i++){
+          if(value < this.keys[i]){
+            return this.children[i].search(value);
+          }
         }
-        nodoTree.altura = this.MAX(this.altura(nodoTree.izquierdo), this.altura(nodoTree.derecho)) + 1
-        return nodoTree;
+        return this.children[this.keys.length];
+      }
     }
-
-    _
-
-    LeftRotation(nodoTree) {
-        let aux = nodoTree.izquierdo;
-        nodoTree.izquierdo = aux.derecho;
-        aux.derecho = nodoTree;
-        nodoTree.altura = this.MAX(this.altura(nodoTree.derecho), this.altura(nodoTree.izquierdo)) + 1;
-        aux.altura = this.MAX(this.altura(nodoTree.izquierdo), nodoTree.altura) + 1;
-        return aux;
+    
+    BTreeNode.prototype.insert = function(value, callerIndex){
+      var target = callerIndex >= 0 ? this : this.search(value); // leaf
+    
+      if (callerIndex >= 0) {
+        target.children[callerIndex] = undefined;
+      }
+      target.keys.push(value);
+      target.keys.sort(function(a,b){
+        if(a > b) return 1;
+        else if(a < b) return -1;
+        else return 0;
+      })
+    
+      if(target.keys.length === order)
+        target.handleOverflow();
     }
-
-    DoubleRotationLeft(nodoTree) {
-        nodoTree.izquierdo = this.RightRotation(nodoTree.izquierdo);
-        return this.LeftRotation(nodoTree);
+    
+    BTreeNode.prototype.handleOverflow = function() {
+      var overflowNode = this;
+    
+      var median_index = 1;
+      var median = overflowNode.keys[median_index];
+    
+      var leftKeys = overflowNode.keys.slice(0,median_index);
+      // var leftChildren = overflowNode.children
+      var left = BTreeNode(leftKeys, overflowNode.children, overflowNode.parent);
+    
+      var rightKeys = overflowNode.keys.slice(median_index+1, overflowNode.keys.length);
+      var right = BTreeNode(rightKeys, overflowNode.children, overflowNode.parent);
+    
+      if(overflowNode.parent === null){
+        window.root = BTreeNode([median], [left, right])
+        left.parent = window.root;
+        right.parent = window.root;
+      } else {
+        var overFlowIndex = overflowNode.parent.children.indexOf(overflowNode)
+    
+        overflowNode.parent.insert(median, overFlowIndex);
+    
+        overflowNode.parent.children[overFlowIndex] = left;
+        overflowNode.parent.children[overFlowIndex+1] = right;
+      }
+    
     }
-
-    RightRotation(nodoTree) {
-        var aux = nodoTree.derecho;
-        nodoTree.derecho = aux.izquierdo;
-        aux.izquierdo = nodoTree;
-        nodoTree.altura = this.MAX(this.altura(nodoTree.derecho), this.altura(nodoTree.izquierdo)) + 1;
-        aux.altura = this.MAX(this.altura(nodoTree.derecho), nodoTree.altura) + 1;
-        return aux;
+    
+    
+    printKeys = function() {
+      // debugger;
+      console.log(window.root.keys.toString());
+    
+      var childString = "";
+      var grandchildString = "";
+      root.children.forEach(function(child, index){
+        if(child === undefined) return;
+        if (child.keys)
+          childString += child.keys.toString() + " ";
+    
+        if(child.children)
+          child.children.forEach(function(child){
+            if(child === undefined) return;
+            if (child.keys)
+              grandchildString += child.keys.toString() + ' ';
+          })
+      });
+      console.log(childString);
+      console.log(grandchildString);
     }
-
-    DoubleRotationRight(nodoTree) {
-        nodoTree.derecho = this.LeftRotation(nodoTree.derecho);
-        return this.RightRotation(nodoTree);
-    }
-
-
-    preOrden() {
-        this.pre_orden(this.raiz);
-    }
-
-    pre_orden(nodoTree) {
-        if (nodoTree != null) {
-            console.log("Valor:", nodoTree.dato);
-            this.pre_orden(nodoTree.izquierdo);
-            this.pre_orden(nodoTree.derecho);
-        }
-    }
-
-    inOrden() {
-        this.in_orden(this.raiz);
-    }
-
-    in_orden(nodoTree) {
-        if (nodoTree != null) {
-            this.in_orden(nodoTree.izquierdo);
-            console.log("Valor:", nodoTree.dato);
-            this.in_orden(nodoTree.derecho);
-        }
-    }
-
-    postOrden() {
-        this.post_orden(this.raiz);
-    }
-
-    post_orden(nodoTree) {
-        if (nodoTree != null) {
-            this.post_orden(nodoTree.izquierdo);
-            this.post_orden(nodoTree.derecho);
-            console.log("Valor:", nodoTree.dato);
-        }
-    }
-}
-
-var avl = new AVLTree();
-avl.insertar(1)
-avl.insertar(2)
-avl.insertar(3)
-avl.insertar(4)
-avl.insertar(5)
-avl.insertar(6)
-avl.insertar(7)
-avl.insertar(8)
-avl.insertar(9)
-avl.inOrden()
-
-//
-// preorden = 4,2,1,3,8,6,5,7,10,9,11
-// inorden = 1,2,3,4,5,6,7,8,9,10,11
-// postorden = 1,3,2,5,7,6,9,11,10,8,4
+    
+    root = BTreeNode();
+    root.insert(5);
+    root.insert(30);
+    root.insert(10);
+    root.insert(50);
+    root.insert(22);
+    root.insert(78);
+    root.insert(29);
+    root.insert(7);
+    // debugger;
+    // root.insert(100);
+    
+    printKeys();
+    
