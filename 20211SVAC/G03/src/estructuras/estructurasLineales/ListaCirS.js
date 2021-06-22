@@ -1,7 +1,8 @@
 //Forma de insercion: Desordenada
 //Eliminacion Unica de primer dato encontrado
 //Busqueda de primer metodo encontrado
-var fs = require('fs')
+var fs = require('fs');
+const { ListaSimple } = require('./ListaSimple');
 class Nodo{ //Clase Nodo
     //Constructor
     constructor(dato){
@@ -18,8 +19,63 @@ class ListaCS{ //Clase Lista Circular Simple
         this.size = 0;
     }
 
+    agregar(elemento, accion){        
+        switch(accion){
+            case "Ordenado":
+                this.agregarOrdenado(elemento);
+                break;
+            case "Final":
+                this.agregarFinal(elemento);
+                break;
+            case "Inicio":
+                this.agregarInicio(elemento);
+                break;   
+        }
+    }
+
+
+
+    agregarInicio(dato){
+        let nodo = new Nodo(dato);
+        if(this.cabeza == null){
+            this.cabeza = nodo;
+            this.cola = nodo;
+        }else if(this.cabeza != null){
+            nodo.siguiente = this.cabeza;            
+            this.cabeza = nodo;
+        }
+    }
+
+    agregarOrdenado(elemento){
+        let nodo = new Nodo(elemento)
+        if(this.cabeza == null){
+            this.cabeza = nodo;
+            this.cola = nodo;
+        }else{
+            let temporal = this.cabeza;
+            while(temporal != this.cola ){
+                if(temporal.dato <= elemento && temporal.siguiente.dato >= elemento){
+                    nodo.siguiente = temporal.siguiente;
+                    temporal.siguiente = nodo;   
+                    break;                 
+                }                               
+                temporal = temporal.siguiente;
+
+            }if(temporal== this.cola && temporal.dato <= elemento){
+                temporal.siguiente = nodo;
+                nodo.siguiente = this.cabeza;
+                this.cola = nodo;
+            }else if(temporal == this.cabeza && temporal.dato >= elemento){
+                nodo.siguiente = this.cabeza;
+                this.cabeza = nodo;
+                
+            } 
+        }
+
+    }
+
     //Metodo Insertar
-    insert(dato){
+    agregarFinal(dato){
         let nodo = new Nodo(dato);
         //Insercion de primer nodo
         if(this.cabeza == null){
@@ -115,9 +171,9 @@ class ListaCS{ //Clase Lista Circular Simple
     }
 
     //Metodo Cargar
-    cargar(arreglo) {
+    cargar(arreglo,accion) {
         arreglo.map(elemento => {
-            this.insert(elemento)
+            this.agregar(elemento,accion)
         })
     }
 
@@ -131,10 +187,11 @@ class ListaCS{ //Clase Lista Circular Simple
             archivojs.push(temporal.dato)
             temporal = temporal.siguiente
         }
-        let json = JSON.stringify(archivojs)
-        let nombre = "ListaCircularSimple"
-        fs.writeFile(nombre, json)  
+        
+        return archivojs
     }
+
+   
 
     Recorrido(datoBuscar){
         let aux = this.cabeza;
@@ -164,5 +221,5 @@ class ListaCS{ //Clase Lista Circular Simple
 }
 
 
-
+//module.exports.ListaCS = ListaCS;
 export default ListaCS;

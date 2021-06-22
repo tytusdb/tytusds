@@ -25,8 +25,9 @@
     <nav class="navbar navbar-dark bg-primary">
 
       <form class="form-inline" >
-      <input  class="form-control mr-sm-2 " type="text" #nombre placeholder="Agregar" aria-label="Agregar Inicio">
+        <input  class="form-control mr-sm-2 " type="text" #nombre placeholder="Agregar" aria-label="Agregar Inicio">
         <button (click)="AgregarNuevo(nombre.value)" class="btn btn-outline-light mr-sm-2" type="button">Agregar Inicio</button>
+
         <input  class="form-control mr-sm-2 " type="text" #nombref placeholder="Agregar" aria-label="Agregar Final">
         <button (click)="AgregarNuevoUltimo(nombref.value)" class="btn btn-outline-light mr-sm-2" type="button">Agregar Final</button>
 
