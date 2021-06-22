@@ -46,6 +46,9 @@ export default class Actualizar extends Component {
             case "Arbol ABB":
                 edd.actualizar(datoAnterior,datoNuevo)
                 break
+            case "Arbol AVL":
+                edd.actualizar(datoAnterior,datoNuevo)
+                break
             default:
                 break;
         }
