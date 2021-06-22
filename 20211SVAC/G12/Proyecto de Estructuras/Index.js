@@ -1,8 +1,8 @@
 var Matriz = require('./matriz');
 //var Lista_Doble = require('./lista_doble');
 //var Lista_Simple = require('./lista_simple');
-var Lista_Circular_Simple = require('./lista_circular_simple');
-var Lista_Circular_Doble = require('./lista_circular_doble');
+//var Lista_Circular_Simple = require('./lista_circular_simple');
+//var Lista_Circular_Doble = require('./lista_circular_doble');
 //var Pila = require('./pila');
 //var Cola = require('./cola')
 
@@ -87,7 +87,7 @@ lista_simple.print();*/
 
 /* Lista Circular Simple Enlazada */
 
-let lista_circular_simple = new Lista_Circular_Simple();
+/*let lista_circular_simple = new Lista_Circular_Simple();
 
 console.log("------Lista Circular Simple Enlazada---------");
 lista_circular_simple.insertar(1);
@@ -111,11 +111,11 @@ lista_circular_simple.eliminar(1);
 lista_circular_simple.eliminar(3);
 lista_circular_simple.eliminar(100);
 lista_circular_simple.eliminar(6);
-lista_circular_simple.print();
+lista_circular_simple.print();*/
 
 /* Lista Circular Simple Enlazada */
 
-let lista_circular_doble = new Lista_Circular_Doble();
+/*let lista_circular_doble = new Lista_Circular_Doble();
 
 console.log("------Lista Circular Doble Enlazada---------");
 lista_circular_doble.insertar(1);
@@ -134,7 +134,7 @@ lista_circular_doble.actualizar(4,100);
 lista_circular_doble.print();
 console.log("-------------------");
 lista_circular_doble.eliminar(5);
-lista_circular_doble.print();
+lista_circular_doble.print();*/
 
 /* Pila */
 

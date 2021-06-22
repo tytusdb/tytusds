@@ -95,7 +95,7 @@ class Pila extends Component {
 
 	handleSearch = () => {
 		let dato = pila.search(this.state.text);
-		if (dato != false){
+		if (0 <= parseInt(dato)){
 			console.log(dato+" ENCONTRADO")
             getNodes = new DataSet(pila.setNodesDataSet());
             getEdges = new DataSet(pila.setEdgesDataSet());

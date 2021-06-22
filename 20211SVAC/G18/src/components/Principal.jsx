@@ -16,7 +16,7 @@ function Principal() {
                         </div>
 
                         <div  className="contenedor_bienvenida__texto">
-                        <p>¿Sabias qué?... Una estructura de datos es una colección de valores, la relación que existe entre estos valores y las operaciones que podemos hacer sobre ellos; en pocas palabras se refiere a cómo los datos están organizados y cómo se pueden administrar.
+                        <p>¿Sabias qué?... Una estructura de datos, es una colección de valores, la relación que existe entre ellos y las operaciones que podemos realizar con los mismos; en pocas palabras se refiere a cómo los datos están organizados y cómo se pueden administrar.
                         </p>
                         <p>Desarrollamos este sitio web para que logres observar de manera grafica el funcionamiento de cada estructura. Por parte del grupo de desarrollo, esperamos te sea de mucha ayuda.</p>
                         </div>

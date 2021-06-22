@@ -23,15 +23,13 @@ const EstructurasLineales = [
         id: 1,
         title: 'Lista simple enlazada',
         image: ListaEnlazadaED,
-        url: '/ListaSimpleEnlazada'
+        url: '/ListaSimpleEnlazada',
     },
 
     {
         id: 2,
         title: 'Lista doblemente enlazada',
         image: dobleEnlazada,
-        url: "/",
-        text: 'Sebas gay',
         url: '/ListaDobleEnlazada'
     },
     {
@@ -87,14 +85,13 @@ const Ordenamientos = [
         id: 8,
         title: 'Seleccion',
         image: seleccion,
-        url: "/",
-        text: 'Sebas gay'
+        url: "/Seleccion",
     },
     {
         id: 9,
         title: 'Insercion',
         image: insercion,
-        url: "/",
+        url: "/insercion",
     },
     {
         id: 10,
@@ -119,7 +116,6 @@ const arboles = [
         title: 'AVL',
         image: avl,
         url: "/",
-        text: 'Árbol B'
     },
     {
         id: 13,

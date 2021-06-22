@@ -1,50 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <link rel="stylesheet" type="text/css" href="../CSS/header.css">
-    <link rel="stylesheet" type="text/css" href="../CSS/ddNavBar.css">
-    <meta charset="UTF-8">
-    <title>Rápido</title>
-</head>
-<body>
+    <head>
+        <link rel="stylesheet" type="text/css" href="../CSS/header.css">
+        <link rel="stylesheet" type="text/css" href="../CSS/ddNavBar.css">
+        <link rel="stylesheet" type="text/css" href="../CSS/ordenamiento.css">
+        <meta charset="UTF-8">
+        <title>Rápido</title>
+    </head>
+    <body>
 
-<h1>Rápido</h1>
+        <h1>Rápido</h1>
 
-<ul>
-    <li><a class="active" href="../index.html">Home</a></li>
-    <li class="dropdown">
-        <a href="javascript:void(0)" class="dropbtn">Estructura lineales</a>
-        <div class="dropdown-content">
-            <a href="listaSimplementeEnlazada.html">Lista simplemente enlazada</a>
-            <a href="listaDoblementeEnlazada.html">Lista doblemente enlazada</a>
-            <a href="listaCircularSimplementeEnlazada.html">Lista circular simplemente enlazada</a>
-            <a href="listaCircularDoblementeEnlazada.html">Lista circular doblemente enlazada</a>
-            <a href="pila.html">Pila</a>
-            <a href="cola.html">Cola</a>
-            <a href="colaDePrioridad.html">Cola de prioridad</a>
+        <ul>
+            <li><a class="active" href="../index.html">Home</a></li>
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">Estructura lineales</a>
+                <div class="dropdown-content">
+                    <a href="listaSimplementeEnlazada.html">Lista simplemente enlazada</a>
+                    <a href="listaDoblementeEnlazada.html">Lista doblemente enlazada</a>
+                    <a href="listaCircularSimplementeEnlazada.html">Lista circular simplemente enlazada</a>
+                    <a href="listaCircularDoblementeEnlazada.html">Lista circular doblemente enlazada</a>
+                    <a href="pila.html">Pila</a>
+                    <a href="cola.html">Cola</a>
+                    <a href="colaDePrioridad.html">Cola de prioridad</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">Ordenamientos</a>
+                <div class="dropdown-content">
+                    <a href="burbuja.html">Burbuja</a>
+                    <a href="seleccion.html">Selección</a>
+                    <a href="insercion.html">Inserción</a>
+                    <a href="rapido.html">Rápido</a>
+                </div>
+            </li>
+            </li>
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">Estructuras arbóreas</a>
+                <div class="dropdown-content">
+                    <a href="arbolBinarioDeBusqueda.html">Árbol binario de búsqueda</a>
+                    <a href="avl.html">AVL</a>
+                    <a href="arbolB.html">Árbol B</a>
+                    <a href="arbolB+.html">Árbol B+</a>
+                    <a href="arboldeMerkle.html">Árbol de Merkle</a>
+                </div>
+            </li>
+        </ul>
+        <div class="containerOrd">
+            <div class="input-groupOrd">
+                <input type="text" class="txt" placeholder="Ingrese un número" aria-label="Ingresar Números" aria-describedby="button-addon2" id="numero">
+                <div class="input-groupOrd-append">
+                    <button class="btn" type="button" id="btnAgregar">Agregar</button>
+                </div>
+                <div class="input-groupOrd-append">
+                    <button class="btn" type="button" id="btnOrdenar">Ordenar</button>
+                </div>
+                <div class="input-groupOrd-append">
+                    <button class="btn" type="button" id="btnLimpiar">Limpiar</button>
+                </div>
+            </div>
+            <div class="listOrd">
+                    <table class="list-added" id="listAgregado">
+                        <th class="title">AGREGADOS</th>
+                    </table>
+                
+                    <table class="list-order" id="listOrdenado">
+                        <th class="title">ORDENADOS</th>
+                    </table>
+            </div>
         </div>
-    </li>
-    <li class="dropdown">
-        <a href="javascript:void(0)" class="dropbtn">Ordenamientos</a>
-        <div class="dropdown-content">
-            <a href="burbuja.html">Burbuja</a>
-            <a href="seleccion.html">Selección</a>
-            <a href="insercion.html">Inserción</a>
-            <a href="rapido.html">Rápido</a>
-        </div>
-    </li>
-    </li>
-    <li class="dropdown">
-        <a href="javascript:void(0)" class="dropbtn">Estructuras arbóreas</a>
-        <div class="dropdown-content">
-            <a href="arbolBinarioDeBusqueda.html">Árbol binario de búsqueda</a>
-            <a href="avl.html">AVL</a>
-            <a href="arbolB.html">Árbol B</a>
-            <a href="arbolB+.html">Árbol B+</a>
-            <a href="arboldeMerkle.html">Árbol de Merkle</a>
-        </div>
-    </li>
-</ul>
-
-</body>
+        <script src="./JS/ordenamiento-rapido.js"></script>
+    </body>
 </html>

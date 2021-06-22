@@ -1,0 +1,70 @@
+.myDiv {
+    border: 5px outset black;
+    background-color: lightblue;
+    height: 75px;
+    width: 75px;
+    display: table-cell;
+    position: absolute;
+    animation-fill-mode: forwards;
+}
+
+@keyframes colorChangeRed {
+    50%{
+        border-color: black;
+    }
+    100%{
+        border-color: red;
+    }
+}
+
+@keyframes colorChangeGreen {
+    from {
+        border-color: black;
+    }
+    to {
+        border-color: lawngreen;
+    }
+}
+@keyframes colorChangeYellow {
+    from {
+        border-color: black;
+    }
+    to {
+        border-color: yellow;
+    }
+}
+
+.slidecontainer {
+    width: 100%;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 10%;
+    height: 25px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider:hover {
+    opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    background: #04AA6D;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: #04AA6D;
+    cursor: pointer;
+}

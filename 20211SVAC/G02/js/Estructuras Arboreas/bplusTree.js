@@ -129,9 +129,6 @@ class ArbolBMas{
                             temp.padre.hijos[index-1].hijos[temp.padre.hijos[index-1].hijos.length-1].siguiente = temp.padre.hijos[index].hijos[0]
                         }
                         temp.padre.hijos[index].hijos[temp.padre.hijos[index].hijos.length-1].siguiente = temp.padre.hijos[index+1].hijos[0]
-                        if(index <(temp.padre.hijos.length-1)){
-                            temp.padre.hijos[index+1].hijos[temp.padre.hijos[index-1].hijos.length-1].siguiente = temp.padre.hijos[index+2].hijos[0]
-                        }
                     }
                 }else{
                     if(index > 0){
@@ -274,8 +271,9 @@ function actualizarTablero(){
         layout: {
             hierarchical: {
                 direction: 'UD',
-                nodeSpacing: 150,
-                sortMethod : 'directed'
+                nodeSpacing: 250,
+                sortMethod : 'directed',
+                shakeTowards: 'roots'
               }
         },
         edges: {
@@ -354,13 +352,13 @@ function focus() {
     }else{
         valueNodo = document.getElementById("valueNodo").value
     }
-    nodeId = arbolbb.buscarNodo(valueNodo, arbolbb.raiz)
+    nodeId = arbol.buscarNodo(valueNodo, arbol.raiz)
     document.getElementById("valueNodo").value = ""
     var options = {
         scale: 3.0,
         offset: {x:0,y:0},
         animation: {
-            duration: 2500,
+            duration: (1000)*(slider.value),
             easingFunction: "easeOutQuint"
         }
     }

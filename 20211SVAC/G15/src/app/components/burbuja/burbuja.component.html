@@ -47,8 +47,10 @@
 
 
         </div>
+    
         <div style="display: block">
-            <canvas baseChart
+            
+             <canvas #myChart id="myChart" height="90" baseChart
               [datasets]="barChartData"
               [labels]="barChartLabels"
               [options]="barChartOptions"
