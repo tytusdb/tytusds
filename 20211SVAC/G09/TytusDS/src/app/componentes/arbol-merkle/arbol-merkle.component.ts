@@ -12,4 +12,8 @@ export class ArbolMerkleComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getValue(){
+
+  }
+
 }

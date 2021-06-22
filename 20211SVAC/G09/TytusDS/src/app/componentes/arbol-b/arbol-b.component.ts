@@ -12,4 +12,8 @@ export class ArbolBComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getValue(){
+
+  }
+
 }
