@@ -116,7 +116,7 @@ let abb = new Arbol_Binario();
 
 function insertar_nodo(){
     var dato = document.getElementById('dato_pag').value;
-
+    var dato=parseInt(dato)
     document.getElementById("result").innerHTML="";
 
     abb.insertar(dato);
