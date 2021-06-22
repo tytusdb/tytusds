@@ -1,10 +1,9 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
-import * as pluginDataLabels from 'chartjs-plugin-datalabels';
+
 import { Label } from 'ng2-charts';
 import { Burbuja } from 'src/app/helpers/Burbuja/Burbuja';
-import { delayWhen } from "rxjs/operators";
-import {  interval } from 'rxjs';
+
 @Component({
   selector: 'app-burbuja',
   templateUrl: './burbuja.component.html',
