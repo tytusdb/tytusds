@@ -1,11 +1,11 @@
 
-import { Button, Header, Icon, Modal,Menu,Input } from 'semantic-ui-react'
+import { Button, Header, Icon, Modal,Menu,Input,Select } from 'semantic-ui-react'
 import './modal.css'
 import React, { Component } from 'react'
 import Cola from '../estructuras/EstructurasLineales/Cola'
 import ColaPrioridad from '../estructuras/EstructurasLineales/ColaPrioridad'
 import ABB from '../estructuras/Estructuras_Arboreas/ABB'
-
+import ArbolAVL from '../estructuras/Estructuras_Arboreas/AVL'
 
 import Pila from '../estructuras/EstructurasLineales/Pila'
 import ListaCirD from '../estructuras/EstructurasLineales/ListaCirD'
@@ -15,12 +15,22 @@ import ListaCS from '../estructuras/EstructurasLineales/ListaCirS'
 import ListaSimple from '../estructuras/EstructurasLineales/ListaSimple'
 import ListaDoble from '../estructuras/EstructurasLineales/ListaDoble'
 
+import ArbolB from '../estructuras/Estructuras_Arboreas/ArbolB'
+
+const countryOptions = [
+    { key: 'ini', value: 'Inicio', text: 'Inicio' },
+    { key: 'fin', value: 'Final', text: 'Final' },
+    { key: 'ord', value: 'Ordenado', text: 'Ordenado' },
+    
+  ]
+
 export default class Agregar extends Component {
 
     state={
            open: false,
            textoDato: "" ,
-           prioridad: ""
+           prioridad: "",
+           opciones: null
     }
 
 
@@ -29,6 +39,7 @@ export default class Agregar extends Component {
         let edd = this.props.edd
         let dato = this.state.textoDato
         let prioridad = this.state.prioridad
+        let opciones = this.state.opciones
         switch(nombre){
             case "Pila" :
                 if(edd == null){
@@ -86,6 +97,21 @@ export default class Agregar extends Component {
                 }
                 edd.insertar(dato) 
                 break
+            case "Arbol AVL":
+    
+                if(edd == null){
+                    edd = new ArbolAVL();
+                }
+                edd.agregar(dato) 
+                edd.recorridoPre(edd.raiz)
+                break
+            case "Arbol B":
+    
+                if(edd == null){
+                    edd = new ArbolB(this.state.opciones);
+                }
+                edd.insertar(dato) 
+                break
             default:
                 break;
         }
@@ -129,6 +155,40 @@ export default class Agregar extends Component {
                 </Modal>
         )
 
+       }else if(this.props.nombre=== "Lista simplemente enlazada" ||
+                this.props.nombre=== "Lista doblemente enlazada" ||
+                this.props.nombre=== "Lista circular simplemente enlazada" ||
+                this.props.nombre=== "Lista circular doblemente enlazada" ||
+                this.props.nombre === "Arbol B"){
+        return (
+            <Modal
+                className="modalAgregar"
+                basic
+                onClose={() => this.setState({open: false})}
+                onOpen={() =>  this.setState({open: true})}
+                open={this.state.open}
+                size='small'
+                trigger={<Menu.Item>Agregar</Menu.Item>}
+                >
+                <Header icon>
+                    <Icon name='add' />
+                    Agregar Dato
+                </Header>
+                <Modal.Content>
+                <Input placeholder='Seleccionar' name="opciones" options={countryOptions} value={this.state.opciones} onChange={this.obtenerText} fluid/> 
+                <br/>
+                <Input className="inputAgregar" type="text" name="textoDato" value={this.state.textoDato}  fluid placeholder="agregar dato" onChange={this.obtenerText}/>
+                </Modal.Content>
+                <Modal.Actions>
+                    <Button basic color='red' inverted onClick={() =>  this.setState({open: false})}>
+                    <Icon name='remove' /> No
+                    </Button>
+                    <Button className="buttonAgregar" color='green' inverted onClick={this.swtEdd}>
+                    <Icon name='checkmark' /> Si
+                    </Button>
+                </Modal.Actions>
+                </Modal>
+        )
        }else{
         return (
             <Modal
@@ -145,7 +205,7 @@ export default class Agregar extends Component {
                     Agregar Dato
                 </Header>
                 <Modal.Content>
-                        <Input className="inputAgregar" type="text" name="textoDato" value={this.state.textoDato}  fluid placeholder="agregar dato" onChange={this.obtenerText}/>
+                <Input className="inputAgregar" type="text" name="textoDato" value={this.state.textoDato}  fluid placeholder="agregar dato" onChange={this.obtenerText}/>
                 </Modal.Content>
                 <Modal.Actions>
                     <Button basic color='red' inverted onClick={() =>  this.setState({open: false})}>

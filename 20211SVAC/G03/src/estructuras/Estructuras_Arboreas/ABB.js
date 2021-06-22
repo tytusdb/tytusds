@@ -407,27 +407,18 @@ class ABB{
     
 
     //Metodo Guardar
-    guardando(){
-        if(this.raiz==null){
-            console.log("no existe arbol")
-            return
-        }
-        let temporal = this.raiz;
-        this.guardar(temporal)
+    guardar(){
+        let vector = []
+        return this.preOrden(this.raiz, vector);
     }
 
-    guardar(nodo) {
-        let archivojs = [];
-        archivojs.push(nodo.dato);
-        if(nodo.izquierda!=null){
-            this.guardar(nodo.izquierda)
+    preOrden(nodo,vector){
+        if(nodo != null){
+        vector.push(nodo.dato)
+        this.preOrden(nodo.izquierda,vector)
+        this.preOrden(nodo.derecha,vector)
         }
-        if(nodo.derecha!=null){
-            this.guardar(nodo.derecha)
-        }
-        let json = JSON.stringify(archivojs)
-        let nombre = "ArbolBinarioBusqueda";
-        fs.writeFile(nombre, json) 
+        return vector
     }
 
     
@@ -491,6 +482,34 @@ class ABB{
         let vector = []
 
         return this.graficarApuntadores(this.raiz,vector)
+    }
+
+    graficar(nodo){
+        let etiqueta = ""
+
+        if(nodo.izquierda == null && nodo.derecha == null){
+            etiqueta = "nodo" + nodo.dato.toString() +" [ shape=circle, label=\"{" + nodo.dato.toString() +"}\"];\n"
+        }else{
+            etiqueta = "nodo" + nodo.dato.toString() +" [ shape=circle, label=\"{" + nodo.dato.toString() +"}\"];\n"
+        }
+
+        if(nodo.izquierda != null){
+            etiqueta = etiqueta + this.graficar(nodo.izquierda) + "nodo" + nodo.dato.toString() + " -> nodo" + nodo.izquierda.dato.toString() + "\n"
+        }
+        if(nodo.derecha != null){
+            etiqueta = etiqueta + this.graficar(nodo.derecha) + "nodo" + nodo.dato.toString() + " -> nodo" + nodo.derecha.dato.toString() + "\n"
+        }
+
+        return etiqueta
+
+    }
+
+    graficarArbol(){
+
+        let dot = "digraph{ size=\"6,6\"; 	node [color=lightblue2, style=filled];" + this.graficar(this.raiz) +"}"
+
+        return dot
+
     }
 }
 

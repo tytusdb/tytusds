@@ -11,7 +11,7 @@ function insertionSort( myArr ) {
       myArr[ slot + 1 ] = tmp;
     }
     return myArr;
-};
+}
 var myArr = ['d', 'f', 'd', 'c', 'a', 'e', 'b'];
 console.log( insertionSort( myArr ) ); // ["a", "b", "c", "d", "d", "e", "f"]
 export default insertionSort;

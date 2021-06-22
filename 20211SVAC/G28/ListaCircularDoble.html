@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="assets/css/resizable.css">
     <script src="https://unpkg.com/split.js/dist/split.min.js"></script>
 
-
 </head>
 
 <body class="features-boxed">
@@ -78,7 +77,7 @@
     </header>
 
     <main class="mt-3">
-        <h3 class="mx-3 px-4 pb-2">Lista circular simple</h3>
+        <h3 class="mx-3 px-4 pb-2">Lista circular doble</h3>
         <div class="row mx-auto px-4">
             <div class="col-md-3 mb-3">
                 <section>
@@ -86,40 +85,40 @@
                         <div class="p-6">
                             <div class="form-group ">
                                 <label for="">Agregar</label>
-                                <input type="text" class="form-control form-control-sm mb-1" id="ddnodeC">
-                                <select class="form-control" id="DstartORendC">
+                                <input type="text" class="form-control form-control-sm mb-1" id="LCDagregar">
+                                <select class="form-control" id="LCDubicacion">
                                     <option value="Cinicio">Agregar al inicio</option>
                                     <option value="Cfinal">Agregar al final</option>
                                 </select>
                                 <button type="submit" id="btnsubmit" class="btn btn-success mt-2"
-                                    onclick="addDLC()">Agregar
+                                    onclick="LCDagg()">Agregar
                                 </button>
                             </div>
 
                             <div class="form-group ">
                                 <label for="">Eliminar</label>
-                                <input type="text" class="form-control form-control-sm" id="ddnodeDelC">
+                                <input type="text" class="form-control form-control-sm" id="LCDeliminarr">
                                 <button type="submit" class="btn btn-danger mt-2"
-                                    onclick="deleteDDC()">Eliminar</button>
+                                    onclick="LCDAdelete()">Eliminar</button>
                             </div>
                             <div class="form-group ">
                                 <label for="">Buscar</label>
-                                <input type="text" class="form-control form-control-sm" id="DnodeSearchC">
+                                <input type="text" class="form-control form-control-sm" id="LCDbuscar">
                                 <button type="submit" class="btn btn-primary mt-2"
-                                    onclick="searchNodeDC()">Buscar</button>
+                                    onclick="LCDAsearch()">Buscar</button>
                             </div>
                             <div class="form-group ">
                                 <label for="">Actualizar</label>
-                                <input type="text" class="form-control form-control-sm" id="DupdateAC"
+                                <input type="text" class="form-control form-control-sm" id="LCDantiguo"
                                     placeholder="Valor antiguo">
-                                <input type="text" class="form-control form-control-sm" id="DupdateNC"
+                                <input type="text" class="form-control form-control-sm" id="LCDnuevo"
                                     placeholder="Valor nuevo">
                                 <button type="submit" class="btn btn-secondary mt-2"
-                                    onclick="updateNodeDC()">Actualizar</button>
+                                    onclick="LCDAactualizar()">Actualizar</button>
                             </div>
 
                             <div class="form-check">
-                                <input type="checkbox" class="form-check-input form-control-sm" id="DadmitRC">
+                                <input type="checkbox" class="form-check-input form-control-sm" id="LCDrepetidos">
                                 <label class="form-check-label" for="DadmitRC">
                                     Admitir repetidos
                                 </label>
@@ -156,7 +155,7 @@
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js@3.0/dist/svg.min.js"></script>
 
-    <script src="./assets/js/Estructuras/ListasSimples/ListaCircular.js"></script>
+    <script src="./assets/js/Estructuras/ListasDobles/ListaCIrcularDoble.js"></script>
 
 </body>
 
