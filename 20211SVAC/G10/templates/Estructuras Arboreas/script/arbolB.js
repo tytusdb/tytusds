@@ -16,6 +16,7 @@ class NodoB{
     agregar(dato){  //metodo para agregar llave a un nodo
         let agregado = false;
         let actual = this.primero;
+        dato = parseFloat(dato);
 
         if(this.primero == null){
             this.primero = new Llave(dato, this);
@@ -156,6 +157,7 @@ class ArbolB{
     }
 
     agregar(dato){
+        dato = parseFloat(dato);
         this.root = this.insertar(dato, this.root);
     }
 
@@ -426,12 +428,46 @@ class ArbolB{
         }
     }
 
-    cargar(ruta){
-        console.log('Leyendo json');
-    }
+    devolverNodosAristas(nodoarista, nodo = this.root, numnodo = 0){
+        
+        let llave = nodo.primero;
+        let etiqueta = llave.valor.toString();
+        llave = llave.siguiente;
+        while(llave != null){
+            etiqueta += " | "+llave.valor.toString();
+            llave = llave.siguiente;
+            console.log('a')
+        }
+        console.log(etiqueta)
+        nodoarista.nodos.push({id:numnodo,label:etiqueta})
 
-    guardar(ruta){
-        console.log('Guardando en json');
+        llave = nodo.primero;
+        let num = 1
+
+        if(llave.izquierda != null){
+            nodoarista.aristas.push({from:numnodo, to:numnodo*100+num})
+            nodoarista =  this.devolverNodosAristas(nodoarista, llave.izquierda, numnodo*100+num);
+        }
+        num++;
+
+        while(llave != null){
+            if(llave.derecha != null){
+                nodoarista.aristas.push({from:numnodo, to:numnodo*100+num})
+                nodoarista = this.devolverNodosAristas(nodoarista, llave.derecha, numnodo*100+num);
+                num++;
+            }
+            llave = llave.siguiente;
+            console.log(llave);
+        }
+
+        return nodoarista;
+    }
+}
+
+class NodoArista{
+    constructor(){
+        this.nodos = []
+        this.aristas = []
     }
 }
 
@@ -445,7 +481,7 @@ velocidad.oninput = () => {
     
 }
 
-const arbolBB = new ArbolB();
+const arbolBB = new ArbolB(4);
 
 const dato = document.getElementById('dato')
 
@@ -461,6 +497,7 @@ agregar.addEventListener("click", (e) =>{
     e.preventDefault
     if(dato.value != ''){
         arbolBB.agregar(dato.value);
+        graficaArbol(arbolBB);
         console.log();
     }
 })
@@ -469,6 +506,7 @@ eliminar.addEventListener("click", (e) =>{
     e.preventDefault
     if(dato.value != ''){
         arbolBB.eliminar(dato.value);
+        graficaArbol(arbolBB);
         console.log();
     }
 })
@@ -509,7 +547,31 @@ cargar.addEventListener("click", (e) => {
     salida.lista = valores
     for (let i = 0; i < valores.length; i++) {
         arbolBB.agregar(valores[i])
+        graficaArbol(arbolBB);
     }
     document.getElementById('mensaje').innerText = ''
     archivo.setAttribute('disabled', '')
 })
+
+function graficaArbol(arbolB){
+    let lista = new NodoArista();
+
+    lista = arbolB.devolverNodosAristas(lista);
+
+    let nodos = new vis.DataSet(lista.nodos);
+    let aristas = new vis.DataSet(lista.aristas);
+
+    let datos = {
+        nodes: nodos,
+        edges: aristas
+    }
+
+    let opciones = {layout:{
+        hierarchical:{
+            enabled:true,
+            sortMethod:'directed'
+        }
+    }};
+
+    let grafo = new vis.Network(lienzo,datos, opciones);
+}
