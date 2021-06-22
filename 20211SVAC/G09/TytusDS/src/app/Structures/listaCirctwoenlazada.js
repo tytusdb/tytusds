@@ -160,10 +160,16 @@ class NodoListaCircularDoble{
       if(aux.data==data){
         this.borrarObjeto("btn"+aux.animate.id)
         this.borrarObjeto("flecha"+aux.animate.id)
-        //me qued en la linea 194 de simple circular para validar el if
+        if(aux.sig!=this.head){
+          aux.sig.animate.x=aux.animate.x
+          aux.sig.animate.y=aux.animate.y
+          this.selecObject("btn"+aux.sig.animate.id,aux.animate.x,aux.animate.y)
+          this.selecObject("flecha"+aux.sig.animate.id,aux.sig.animate.x-(aux.sig.animate.heightBtn*0.93)-10,aux.sig.animate.y+5)
+        }
         aux.ant.sig =aux.sig
         aux.sig.ant=aux.ant
         this.size--
+        this.reOrdenar(this.head)
         return
       }else{
       aux=aux.sig}
