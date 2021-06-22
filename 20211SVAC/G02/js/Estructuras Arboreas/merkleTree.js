@@ -1,5 +1,6 @@
 var arrayNodes = []
 var edges = []
+var arregloaux = []
 var contador = 1
 var clickedNode
 var index
@@ -63,6 +64,13 @@ class ArbolDeMerkle{
             }
         }
         this.claves = arreglo
+    }
+
+    recorrerGuardar(){
+        this.reorganizar()
+        for(var i = 0; i<this.claves.length; i++){
+            arregloaux.push(this.claves[i].valor.toString(16))
+        }
     }
 
     eliminar(id, valor){
@@ -316,5 +324,33 @@ function read(){
                 }
                 break;
         }
+    }
+}
+
+function descargar(){
+    arbolbb.recorrerGuardar()
+    let array = {
+        categoria: "Estructura Arboreas",
+        nombre:  "Arbol de Merkle",
+        repeticion: switchToggle.checked,
+        animacion: parseInt(slider.value),
+        valores: arregloaux
+    }
+    arregloaux = []
+    var json = JSON.stringify(array, null, "\t");
+    json = [json];
+    var blob1 = new Blob(json, { type: "text/json;charset=utf-8" });
+    var isIE = false || !!document.documentMode;
+    if (isIE) {
+        window.navigator.msSaveBlob(blob1, "data.json");
+    } else {
+        var url = window.URL || window.webkitURL;
+        link = url.createObjectURL(blob1);
+        var a = document.createElement("a");
+        a.download = "dataArbolMerkle.json";
+        a.href = link;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
     }
 }

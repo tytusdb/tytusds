@@ -2,6 +2,7 @@ var valor = 0
 var arrayNodes = []
 var edges = []
 var contador = 1
+var arregloaux = []
 var seReordena = false
 var clickedNode
 var clickedNodoValue
@@ -276,7 +277,7 @@ class arbolAVL{
     //Método para impresión de valores en pre orden
     preOrden(temp){
         if(temp != null){
-            console.log(temp.dato)
+            arregloaux.push(temp.dato)
             this.preOrden(temp.izq)
             this.preOrden(temp.der)
         }
@@ -486,5 +487,33 @@ function read(){
                 }
                 break;
         }
+    }
+}
+
+function descargar(){
+    arbolbb.preOrden(arbolbb.raiz)
+    let array = {
+        categoria: "Estructura Arboreas",
+        nombre: "ABB/AVL",
+        repeticion: switchToggle.checked,
+        animacion: parseInt(slider.value),
+        valores: arregloaux
+    }
+    arregloaux = []
+    var json = JSON.stringify(array, null, "\t");
+    json = [json];
+    var blob1 = new Blob(json, { type: "text/json;charset=utf-8" });
+    var isIE = false || !!document.documentMode;
+    if (isIE) {
+        window.navigator.msSaveBlob(blob1, "data.json");
+    } else {
+        var url = window.URL || window.webkitURL;
+        link = url.createObjectURL(blob1);
+        var a = document.createElement("a");
+        a.download = "dataArbolAVL.json";
+        a.href = link;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
     }
 }
