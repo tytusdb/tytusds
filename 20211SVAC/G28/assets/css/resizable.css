@@ -1,8 +1,16 @@
+
 .split{
     width: 100%;
     height: 100%;
     background: #fff;
     padding: 10px;
+    
+}
+
+#split-0{
+    width: 58em; 
+    overflow-x: auto;
+	white-space: nowrap;
 }
 
 .gutter {
