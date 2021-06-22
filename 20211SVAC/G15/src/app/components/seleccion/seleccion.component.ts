@@ -13,7 +13,7 @@ export class SeleccionComponent implements OnInit {
 
   fileName = '';
   seleccion:seleccion
-  datos: []
+  datos= []
   numero:boolean;
   letra:boolean;
 
@@ -85,26 +85,24 @@ public barChartOptions: ChartOptions = {
        let data:any = await this.processFile(file)
        data = JSON.parse(data)
        data = data.valores
+       console.log(data)
        let datos2 = [];
-       for(let i = 0; i < data.length; i++){
-         //await this.addData(data[i])
-         datos2.push(data[i])
-         if (!isNaN(data[i])) {
-           this.letra=false;
-           this.numero=true;
-         }else{
-           this.numero=false;
-           this.letra=true;
-         }
-        
-       }
- 
+      for(let i = 0; i < data.length; i++){
+        //await this.addData(data[i])
+        datos2.push(data[i])
+        if (!isNaN(data[i])) {
+          this.letra=false;
+          this.numero=true;
+        }else{
+          this.numero=false;
+          this.letra=true;
+        }
        
-      // console.log(datos2)
-      // this.seleccion.ordenamientoSeleccion(datos2);
-       this.datos=this.seleccion.ordenamientoSeleccion(datos2);
-       console.log(this.datos)
-       //this.mostrarBarras(this.datos)
+      }
+       
+       this.seleccion.ordenamientoSeleccion(datos2);
+       this.datos=datos2
+       console.log(datos2)
        if (this.numero===true) {
          this.barChartLabels = data;
          this.barChartData[0].data=data
@@ -156,9 +154,9 @@ public barChartOptions: ChartOptions = {
  
  
    generarJSON(){
-     let data = this.seleccion.generarJSON()
+     let data = this.seleccion.ordenamientoSeleccion(this.datos)
      var link = document.createElement("a");
-     link.download = "OrdenamientoSeleccion.json";
+     link.download = "OrdenamientoSelelccion.json";
      var info = "text/json;charset=utf-8," + encodeURIComponent(data);
      link.href = "data:" + info;
      link.click();

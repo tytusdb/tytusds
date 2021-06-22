@@ -50,9 +50,14 @@
     
         <div style="display: block">
             
-            <canvas #myChart id="myChart" height="90" >
-          </canvas>
-          </div>
+            <canvas #myChart id="myChart" height="90" baseChart
+             [datasets]="barChartData"
+             [labels]="barChartLabels"
+             [options]="barChartOptions"
+             [legend]="barChartLegend"
+             [chartType]="barChartType">
+           </canvas>
+         </div>
 
         
 
