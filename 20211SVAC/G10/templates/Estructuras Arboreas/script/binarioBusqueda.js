@@ -302,13 +302,7 @@ cargar.addEventListener("click", (e) => {
 function graficaArbol(binario){
     let lista = new NodoArista();
 
-    console.log(lista.nodos);
-    console.log(lista.aristas);
-
     lista = binario.devolverNodosAristas(lista);
-
-    console.log(lista.nodos);
-    console.log(lista.aristas);
 
     let nodos = new vis.DataSet(lista.nodos);
     let aristas = new vis.DataSet(lista.aristas);
