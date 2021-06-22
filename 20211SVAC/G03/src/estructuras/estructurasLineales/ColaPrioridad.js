@@ -148,12 +148,24 @@ class ColaPrioridad {
         })
     }
 
-    guardar(arr){
-        var archivoJSON = JSON.stringify(arr)
+    guardar(){
+        let arreglo = []
+        let nodoActual = this.primero
 
-        fs.writeFile("Cola.json", archivoJSON)
+        while (nodoActual != null){
+            let colaP = {valor: nodoActual.dato, prioridad: nodoActual.prioridad}
+            arreglo.push(colaP)
+            if(nodoActual.siguiente != null){
+                nodoActual = nodoActual.siguiente
+            }else{
+                nodoActual = null
+            }
+            
+        }
+
+        return arreglo
     }
-	
+
 	Recorrido(datoBuscar){
         let arreglo = []
         let nodoActual = this.primero
