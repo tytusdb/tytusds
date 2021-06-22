@@ -1,4 +1,4 @@
-const Nodo = require('./Nodo.js');
+import Nodo from './Nodo.js';
 
 class EstructuraCola{
 	primero=null;

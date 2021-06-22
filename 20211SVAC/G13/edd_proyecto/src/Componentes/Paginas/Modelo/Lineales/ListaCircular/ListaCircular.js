@@ -1,4 +1,5 @@
-const Nodo = require('./Nodo.js')
+import Nodo from './Nodo.js'
+// const Nodo = require('./Nodo.js')
 class ListaCircular{
 
     constructor(){
