@@ -1,5 +1,16 @@
-const Nodo = require("./Nodo");
-const datos = require("./datos");
+class Nodo {
+    constructor(datos = null){
+        this.datos = datos;
+        this.siguiente = null;
+   }
+}
+
+class datos {
+    constructor(dato1, prioridad){
+        this.dato1 = dato1; //dato
+        this.prioridad = prioridad; //prioridad para cola de prioridad
+    }
+}
 
 class Cola {
     constructor(){
@@ -87,4 +98,38 @@ class Cola {
     }
 }
 
-module.exports = Cola;
+var JCOLA = new Cola();
+console.log("COLA VACIA CREADA");
+
+function COLAadd(){
+    var aux = document.getElementById("COLAagregar").value;
+    var cond = document.getElementById("COLArepetidos").checked;
+    var temp = new datos(aux, null);
+    JCOLA.agregar(temp, cond);
+    document.getElementById("COLAagregar").value="";
+    JCOLA.imprimir();
+    console.log("##########------###########");
+}
+
+function COLAdelete(){
+    console.log("elemento eliminado: "+JCOLA.eliminar());
+    JCOLA.imprimir();
+    console.log("##########------###########");
+}
+
+function COLAsearch(){
+    var aux = document.getElementById("COLAbuscar").value;
+    console.log("ENCONTRADO: "+JCOLA.buscar(aux));
+    document.getElementById("COLAbuscar").value="";
+}
+
+function COLAactualizar(){
+    var previo = document.getElementById("COLAantiguo").value;
+    var now = document.getElementById("COLAnuevo").value;
+    var cond = document.getElementById("COLArepetidos").checked
+    JCOLA.actualizar(previo, now, cond);
+    document.getElementById("COLAantiguo").value="";
+    document.getElementById("COLAnuevo").value="";
+    JCOLA.imprimir();
+    console.log("##########------###########");
+}
