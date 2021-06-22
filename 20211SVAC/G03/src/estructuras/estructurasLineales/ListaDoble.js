@@ -29,61 +29,91 @@ class ListaDoble {
         }
     }
 
-
-    agregarInicio(elemento){
-        let nodo = new Nodo(elemento);
-        let temporal = this.primero;
-        if(this.primero == null){
-            this.primero = nodo;
-        }else{
-            nodo.siguiente =this.primero;
-            this.primero.anterior = nodo;
-            this.primero = nodo;
+    //Metodo Insertar
+    agregarInicio(dato){
+        let nodo = new Nodo(dato);
+        //Insertcion de primer nodo 
+        if(this.cabeza == null){
+            this.cabeza = nodo;
+            this.cola = nodo;
+            this.size++;
+            return
+        }else if(this.cabeza != null && this.cola != null){
+            //Insercion de Nodos no primeros
+            this.cabeza.anterior = nodo;
+            nodo.siguiente = this.cabeza;
+            nodo.anterior = this.cola;
+            this.cola.siguiente = nodo
+            this.cabeza = nodo;
+            this.size++;
+            return
         }
-
     }
 
-    agregarOrdenado(elemento){
-        let nodo = new Nodo(elemento)
-        if(this.primero == null){
-            this.primero = nodo;
-        }else{
-            let temporal = this.primero;
-
-            while(temporal.siguiente != null ){
-                if(temporal.valor <= elemento && temporal.siguiente.valor >= elemento){
-                    nodo.siguiente = temporal.siguiente;
-                    temporal.siguiente.anterior = nodo;
-                    nodo.anterior = temporal;
-                    temporal.siguiente = nodo;   
-                    break;                 
-                }else if(temporal == this.primero && temporal.valor >= elemento){
-                    nodo.siguiente = this.primero;
-                    this.primero.anterior = nodo;
-                    this.primero = nodo;
-                    break;
-                }                                
-                temporal = temporal.siguiente;
-
-            }if(temporal.siguiente == null && temporal.valor <= elemento){
-                temporal.siguiente = nodo;
-                nodo.anterior = temporal; 
+    //Metodo Insertar
+    agregarOrdenado(dato){
+        let nodo = new Nodo(dato)
+        let aux = this.cabeza
+        if(this.cabeza == null){
+            this.cabeza = nodo;
+            this.cola = nodo;
+            this.size++;
+            return
+        }
+        if(dato < this.cabeza.dato){
+            //Insercion de Nodos no primeros
+            this.cabeza.anterior = nodo;
+            nodo.siguiente = this.cabeza;
+            nodo.anterior = this.cola;
+            this.cola.siguiente = nodo
+            this.cabeza = nodo;
+            this.size++;
+            return
+        }else if(dato >= this.cabeza.dato && dato <= this.cola.dato){
+            while(aux != this.cola){
+                if(dato >= aux.dato && dato <= aux.siguiente.dato){
+                    let tmp = aux.siguiente
+                    tmp.anterior = aux
+                    aux.siguiente = nodo
+                    nodo.siguiente = tmp
+                    nodo.anterior = aux
+                    this.size++;
+                    return
+                }
+                aux = aux.siguiente
             }
+        }else if(dato > this.cola.dato){
+            //Insercion de Nodos no primeros
+            let aux = this.cola;
+            aux.siguiente = nodo;
+            nodo.anterior = aux;
+            nodo.siguiente = this.cabeza;
+            this.cabeza.anterior = nodo;
+            this.cola = nodo;
+            this.size++;
+            return
         }
-
+        
     }
-    agregarFinal(elemento){        
-        var temporal = this.primero;
-        let nodo = new Nodo(elemento);
-        if(this.primero == null){            
-            this.primero = nodo;
-        }else {
-            
-            while(temporal.siguiente != null) {
-                temporal = temporal.siguiente;                
-            }            
-            temporal.siguiente = nodo;
-            nodo.anterior = temporal;
+
+    agregarFinal(dato){        
+        let nodo = new Nodo(dato);
+        //Insertcion de primer nodo 
+        if(this.cabeza == null){
+            this.cabeza = nodo;
+            this.cola = nodo;
+            this.size++;
+            return
+        }else if(this.cabeza != null && this.cola != null){
+            //Insercion de Nodos no primeros
+            let aux = this.cola;
+            aux.siguiente = nodo;
+            nodo.anterior = aux;
+            nodo.siguiente = this.cabeza;
+            this.cabeza.anterior = nodo;
+            this.cola = nodo;
+            this.size++;
+            return
         }
     }
 
