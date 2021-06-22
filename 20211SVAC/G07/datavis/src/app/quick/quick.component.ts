@@ -110,6 +110,7 @@ export class QuickComponent implements OnInit {
     }
     left = this.quicksort(left)
     rigth = this.quicksort(rigth)
-    return left.concat(pivot).concat(rigth);
+    let hola = left.concat(pivot).concat(rigth);
+    return hola
   }
 }
