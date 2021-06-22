@@ -1,3 +1,4 @@
+import { nullSafeIsEquivalent } from '@angular/compiler/src/output/output_ast';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import * as vis from 'vis';
 
@@ -280,12 +281,13 @@ export class ListadobleComponent implements OnInit {
   
   generador(){
     for(var j =0;j<this.array.length;j++){
-      if(j+1!=this.array.length){
-        this.contenido += this.array[j]+",\n";
-      }else{
-        this.contenido += this.array[j]+"\n";
+      if(this.array[j]!=null){
+        if(j+1!=this.array.length){
+          this.contenido += this.array[j]+",\n";
+        }else{
+          this.contenido += this.array[j]+"\n";
+        }
       }
-      
     }
     this.contenido += "]}";
   }
@@ -334,16 +336,28 @@ export class ListadobleComponent implements OnInit {
   }
   AgregarNuevo(valor: any){
     this.lista.addhead(valor);
+    this.array.unshift(valor);
     console.log(this.lista);
   }
   AgregarNuevoUltimo(valor: any){
     this.lista.addtail(valor);
+    this.array.push(valor);
     console.log(this.lista);
    }
   Eliminar(valor: any){
     console.log('valor ' + valor)
+    this.blankspace(valor);
     this.lista.delete(valor)
     console.log("this.lista");
     console.log(this.lista);
+  }
+  blankspace(value){
+    for(var j=0;j<this.array.length;j++){
+      if(this.array[j]==value){
+        this.array[j]=null;
+        return;
+      }
+    }
+
   }
 }

@@ -331,12 +331,13 @@ export class CirculardobleComponent implements OnInit {
    
   generador(){
     for(var j =0;j<this.array.length;j++){
-      if(j+1!=this.array.length){
-        this.contenido += this.array[j]+",\n";
-      }else{
-        this.contenido += this.array[j]+"\n";
+      if(this.array[j]!=null){
+        if(j+1!=this.array.length){
+          this.contenido += this.array[j]+",\n";
+        }else{
+          this.contenido += this.array[j]+"\n";
+        }
       }
-      
     }
     this.contenido += "]}";
   }
@@ -385,17 +386,30 @@ export class CirculardobleComponent implements OnInit {
   }
   AgregarNuevo(valor: any){
     this.lista.agregarInicio(valor);
+    this.array.unshift(valor);
     console.log(this.lista);
   }
   AgregarNuevoUltimo(valor: any){
     this.lista.agregarFinal(valor);
+    this.array.push(valor);
     console.log(this.lista);
    }
   Eliminar(valor: any){
     console.log('valor ' + valor)
     this.lista.eliminar(valor)
+    this.blankspace(valor);
     console.log("this.lista");
     console.log(this.lista);
+  }
+
+  blankspace(value){
+    for(var j=0;j<this.array.length;j++){
+      if(this.array[j]==value){
+        this.array[j]=null;
+        return;
+      }
+    }
+
   }
 
 }
