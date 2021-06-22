@@ -5,11 +5,17 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './btree.component.html',
   styleUrls: ['./btree.component.css']
 })
+
+
+
+
+
 export class BtreeComponent implements OnInit {
 
   constructor() { }
-
+  
   ngOnInit(): void {
   }
+  
 
 }
