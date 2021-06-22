@@ -165,7 +165,6 @@ function movexy(x, y, i, speed) {
     });
 }
 
-var prb = [20, 5, 3, 47, 2, 15,8]
 
 async function ordenamiento_burbuja(array, comp, speed) {
     var arreglo = array

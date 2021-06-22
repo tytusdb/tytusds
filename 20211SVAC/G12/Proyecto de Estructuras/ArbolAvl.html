@@ -1,10 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="ArbolAVL.js"></script>
+    <link rel="stylesheet" href="AVL.css">
+    <script>
+        /*prb.insertar(0)
+        prb.insertar(10)
+        prb.insertar(5)
+        prb.insertar(3)
+        prb.insertar(14)
+        prb.insertar(6)
+        prb.insertar(7)
+        prb.insertar(11)
+        prb.insertar(1)
+        prb.insertar(17)
+        prb.insertar(24)
+        prb.insertar(25)
+        prb.insertar(26)
+        prb.insertar(27)
+        prb.insertar(28)
+        prb.insertar(29)
+        prb.insertar(30)
+        prb.insertar(31)
+        prb.insertar(32)
+        prb.insertar(33)
+        prb.insertar(34)*/
+        function show(){
+            prb.graficar()
+        }
+
+        function nw(){
+            var dato=document.getElementById("i").value
+            dato=parseInt(dato)
+            prb.insertar(dato)
+            prb.graficar()
+        }
+        function borrar(){
+            var dato=document.getElementById("b").value
+            dato=parseInt(dato)
+            prb.eliminarNodo(dato)
+            prb.graficar()
+        }
+        function dl(){
+            prb.toArray()
+            download()
+        }
+        function update(){
+           let a=document.getElementById("o")
+            let b=document.getElementById("n")
+            prb.update(a.value,b.value)
+        }
+    </script>
 </head>
-<body>
-$END$
+<body onload="show()">
+    <input type="text" id="i">
+    <button onclick="nw()">Insert</button>
+    <input type="file" id="loadedFile">
+    <input type="text" id="b">
+    <button onclick="borrar()">Borrar</button>
+    <input type="text" id="o">
+    <input type="text" id="n">
+    <button onclick="update()">Update</button>
+    <button onclick="dl()">Download</button>
+    <div id="result" style="display: table">
+
+    </div>
 </body>
 </html>

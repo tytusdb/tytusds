@@ -41,7 +41,11 @@ class ArbolBinariodeB extends React.Component {
     }
 
     BuscarElemento() {
-        this.state.Arbol.seek();
+        if (this.state.Arbol.seek(this.state.elemento) != null){
+            alert("Elemento encontrado: " + this.state.elemento)
+        }else{
+            alert("Elemento "+ this.state.elemento +  ", inexistente")
+        }
     }
 
 
@@ -131,6 +135,7 @@ class ArbolBinariodeB extends React.Component {
                         <button className="btn btn-success" onClick={this.ImprimirArbol} >Imprimir</button>
                     </div>
 
+
                 </div>
 
                 <div className="card mt-2">
@@ -143,12 +148,12 @@ class ArbolBinariodeB extends React.Component {
                         >
                             <TreeNode label={<StyledNode>Child 1</StyledNode>}>
                                 <TreeNode label={<StyledNode>Grand</StyledNode>} />
+                            </TreeNode>
+                            <TreeNode label={<StyledNode>Child 2</StyledNode>}>
+                                <TreeNode label={<StyledNode>Grand</StyledNode>} />
                                 <TreeNode label={<StyledNode>Grand</StyledNode>} />
                             </TreeNode>
-                            <TreeNode label={<StyledNode>Child 1</StyledNode>}>
-                                <TreeNode label={<StyledNode>Grand</StyledNode>} />
-                                <TreeNode label={<StyledNode>Grand</StyledNode>} />
-                            </TreeNode>
+                            
                             
                         </Tree>
 

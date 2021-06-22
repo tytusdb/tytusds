@@ -22,6 +22,7 @@ class ListaSimpleEnlazada extends React.Component {
         this.EliminarElemento = this.EliminarElemento.bind(this);
         this.ModificarElemento = this.ModificarElemento.bind(this);
         this.leerJson = this.leerJson.bind(this);
+        this.BuscarElemento = this.BuscarElemento.bind(this);
     }
 
     ContenidoElemento(e) {
@@ -63,6 +64,14 @@ class ListaSimpleEnlazada extends React.Component {
         this.setState({
             lista: this.state.lista,
         });
+    }
+
+    BuscarElemento() {
+        if (this.state.lista.seek(this.state.elemento) != null){
+            alert("Elemento encontrado: " + this.state.elemento)
+        }else{
+            alert("Elemento "+ this.state.elemento +  ", inexistente")
+        }
     }
 
 
@@ -124,6 +133,10 @@ class ListaSimpleEnlazada extends React.Component {
 
                     <div className="col-sm-2 d-grid gap-2">
                         <button className="btn btn-warning" onClick={this.ModificarElemento}>Modificar</button>
+                    </div>
+
+                    <div className="col-sm-2 d-grid gap-2">
+                        <button className="btn btn-success" onClick={this.BuscarElemento} >Buscar</button>
                     </div>
 
 

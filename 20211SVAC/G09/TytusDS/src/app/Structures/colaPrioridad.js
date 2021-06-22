@@ -5,7 +5,7 @@ class ColaPrioridad{
 		this.priority = priority;
 	}
 }
-
+//import {colocarObject, createObject,Animation} from "../Structures/Animation"
 //controlador de la cola
 class PriorityQueue {
 	constructor()
@@ -16,6 +16,42 @@ class PriorityQueue {
 // agrega un elemento y lo ordena por prioridad
         enqueue(element, priority)
         {
+            const divInsert=document.getElementById("divInsert1");
+            const objeto=document.createElement("button"); //Creacion del botón
+            const texto=document.createTextNode(element);
+            objeto.appendChild(texto);
+            //Diseño del botón
+            objeto.style.backgroundColor='rgb(30,144,255)'
+            objeto.style.color='rgb(255,255,255)'
+            objeto.style.fontSize='15px'
+            objeto.style.borderRadius="5px"
+            objeto.id=priority+"_"+element
+            objeto.classList='animate__animated animate__rubberBand animate__slow'
+            divInsert.appendChild(objeto)//Insertando el div en el Div principal
+
+            if(!this.buscarPrioridad(priority)){
+                const bpriori=document.createElement("button"); //Creacion del botón
+                const text=document.createTextNode(priority);
+                bpriori.appendChild(text);
+                //Diseño del botón
+                bpriori.style.backgroundColor='rgb(30,144,255)'
+                bpriori.style.color='rgb(45,255,255)'
+                bpriori.style.fontSize='15px'
+                bpriori.style.borderRadius="5px"
+                bpriori.id=priority//+"_"+element
+                bpriori.classList='animate__animated animate__rubberBand animate__slow'
+                bpriori.style.position="absolute"
+                divInsert.appendChild(bpriori)//Insertando el div en el Div principal
+                console.log("La prioridad no existe")
+                //const posPriori=document.getElementById(bpriori.id)
+                              
+                /*posPriori.style.top="20px"
+                posPriori.style.left="10px"*/
+            }
+            const posicion=document.getElementById(objeto.id)
+            posicion.style.position="absolute"            
+            /*posicion.style.top="20px"
+            posicion.style.left="80px"*/
             // crea el nuevo elemento
             var ColaElemento= new ColaPrioridad(element, priority);
             var contain = false;
@@ -36,6 +72,7 @@ class PriorityQueue {
             if (!contain) {
                 this.items.push(ColaElemento);
             }
+            this.reOrdenarTodo()
         }
 
         //remover el dato de tipo FIFO
@@ -80,6 +117,59 @@ class PriorityQueue {
                 str += this.items[i].element + " -> Prioridad: " + this.items[i].priority+ "\n" ;
             return str;
         }
+
+        buscarPrioridad(element){
+            for (var j = 0; j < this.items.length; j++){
+                if(this.items[j].priority==element){
+                    return true
+                }
+            }
+            return false
+        }
+        reOrdenarTodo(){
+            let altPriori=1 , xElement=1,x,y, x2
+            for (var i = 0; i < this.items.length; i++){
+                if(i>0){
+                    if(this.items[i].priority!=this.items[i-1].priority)
+                    {
+                        xElement=1
+                        altPriori++
+                        x=10
+                        y=35*altPriori
+                        x2=40*xElement
+                    }else{
+                        xElement++
+                        x=10
+                        y=35*altPriori
+                        x2=40*xElement}
+                }
+                else{
+                    x=10
+                    y=35*altPriori
+                    x2=40*xElement
+                    console.log("Es falso i>1")
+                }
+                console.log("id= ",this.items[i].priority+" x= "+x+" y= "+y)
+
+                /*var Animation= require('../Structures/Animation')
+                let ani = new Animation()*/
+                //colocarObject(this.items[i].priority, x, y)
+                //colocarObject(this.items[i].priority, x, y)
+
+                this.selecObject(this.items[i].priority, x, y)
+                console.log("id= ",this.items[i].priority+"_"+this.items[i].element+" x= "+x2+" y= "+y)
+                this.selecObject(this.items[i].priority+"_"+this.items[i].element, x2, y)
+            }
+        }
+        selecObject(id, x, y){
+            const p = document.getElementById(id)
+            p.classList="animate__animated animate__zoomInDown"
+            const sClone = p.cloneNode(true)
+            p.parentNode.replaceChild(sClone, p) 
+            sClone.style.posicion="absolute" 
+            sClone.style.top=(y).toString()+"px"
+            sClone.style.left=(x).toString()+"px"
+        }
 }
 
 
@@ -113,10 +203,10 @@ function AbrirPrioridad(event) {
     reader.onload = function(event) {
       // El texto del archivo se mostrará por consola aquí
      // console.log(event.target.result)
-      let doc = JSON.parse(event.target.result);
+    let doc = JSON.parse(event.target.result);
       //console.log(doc)
 
-      for (var key in doc) {
+    for (var key in doc) {
         //console.log('name=' + key + ' value=' + doc[key]);
         if(key=='categoria'){
             categoriaPrio = doc[key]

@@ -77,18 +77,14 @@ class Pila{
     }
 
     guardar(){
-        let contadorPilas;
-        contadorPilas ++;
-        let archivojs;
-        let temporal = this.primero;
+        let archivojs=[];
+        let temporal = this.cabeza;
         while (temporal != null){
             archivojs[temporal.id] = temporal.valor;
             temporal = temporal.siguiente;
             
         }
-        let json = JSON.stringify(archivojs)
-        let nombre = "Pila" + contadorPilas;
-        fs.writeFile(nombre, json)
+       return archivojs
     }	
 
     Recorrido(datoBuscar){

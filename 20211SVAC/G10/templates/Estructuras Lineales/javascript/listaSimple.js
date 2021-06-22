@@ -152,8 +152,16 @@ agregar.addEventListener("click", (e) => {
 
 eliminar.addEventListener("click", (e) => {
     e.preventDefault()
+
+    context.clearRect(0, 0, canvas.width, canvas.height)
+    x_figura = 20
+    x_texto = 50
+
     if(dato.value != ''){
         lista.eliminar(dato.value)
+        for(let i = 0; i< lista.size; i++) {
+            cargar_grafica(lista.obtener(i))
+        }
         const indice = salida.lista.indexOf(dato.value)
         salida.lista.splice(indice, 1)
     }
@@ -174,12 +182,21 @@ buscar.addEventListener("click", (e) => {
 
 cambiar.addEventListener("click", (e) => {
     const nuevo = document.getElementById('dato2')
+
+    context.clearRect(0, 0, canvas.width, canvas.height)
+    x_figura = 20
+    x_texto = 50
+
     if(dato.value != '' && nuevo.value != ''){
         lista.actualizar(dato.value, nuevo.value)
         const indice = salida.lista.indexOf(dato.value)
         salida.lista[indice] = nuevo.value
+        for(let i = 0; i< lista.size; i++) {
+            cargar_grafica(lista.obtener(i))
+        }
     }
     document.getElementById('oculto').style.display = 'none'
+    
 })
 
 let archivo = document.getElementById('file')
@@ -196,6 +213,7 @@ archivo.addEventListener('change', () => {
 
 cargar.addEventListener("click", (e) => {
     e.preventDefault()
+
     let valores = entrada["valores"]
     salida.lista = valores
     for (let i = 0; i < valores.length; i++) {
@@ -211,6 +229,8 @@ let x_texto_aux
 
 guardar.addEventListener("click", (e) => {
     e.preventDefault()
+    let texto = JSON.stringify(salida)
+    download('ListaSimple.json', texto)
 })
 
 function download(filename, text) {
