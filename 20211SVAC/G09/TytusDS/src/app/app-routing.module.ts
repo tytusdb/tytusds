@@ -19,7 +19,11 @@ import { OrdenamientoBurbujaComponent } from './componentes/ordenamiento-burbuja
 import { OrdenamientoSeleccionComponent } from './componentes/ordenamiento-seleccion/ordenamiento-seleccion.component';
 import { OrdenamientoInsercionComponent } from './componentes/ordenamiento-insercion/ordenamiento-insercion.component';
 import { OrdenamientoRapidoComponent } from './componentes/ordenamiento-rapido/ordenamiento-rapido.component';
+import { ArbolAvlComponent } from './componentes/arbol-avl/arbol-avl.component';
 import { ArbolBinarioComponent } from './componentes/arbol-binario/arbol-binario.component';
+import { ArbolBComponent} from './componentes/arbol-b/arbol-b.component';
+import { ArbolBMasComponent} from './componentes/arbol-bmas/arbol-bmas.component';
+import { ArbolMerkleComponent } from './componentes/arbol-merkle/arbol-merkle.component';
 const routes: Routes = [
   {path: "EstructurasLineales",    component: EstructurasLinealesComponent},
   {path: "Inicio",    component: InicioComponent},
@@ -37,7 +41,12 @@ const routes: Routes = [
   {path:"seleccion", component:OrdenamientoSeleccionComponent},
   {path:"insercion", component:OrdenamientoInsercionComponent},
   {path:"rapido", component:OrdenamientoRapidoComponent},
-  {path:"binario", component:ArbolBinarioComponent}
+  {path:"avl", component:ArbolAvlComponent},
+  {path:"binario", component:ArbolBinarioComponent},
+  {path:"arbolB", component:ArbolBComponent},
+  {path:"arbolBMas", component:ArbolBMasComponent},
+  {path:"merkle", component:ArbolMerkleComponent}
+
 
 ];
 
