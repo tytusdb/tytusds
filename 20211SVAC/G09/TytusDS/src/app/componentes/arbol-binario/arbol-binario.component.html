@@ -40,9 +40,9 @@
   &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <input type="text" #box2 placeholder="Nuevo Dato" name="username"/> &nbsp;
-  <input type="text" #box21 placeholder="Dato a Reemplazar" name="username"/> 
-  <button class="boton" (click)="getValue(box21.value)" >Actualizar</button>&nbsp;&nbsp;&nbsp;
+  <input type="text" #box2 placeholder="Dato a Reemplazar" name="username"/> &nbsp;
+  <input type="text" #box4 placeholder="Dato Nuevo" name="username"/> 
+  <button class="boton" (click)="ActualizarBinario(box2.value,box4.value)" >Actualizar</button>&nbsp;&nbsp;&nbsp;
   <!--<p>La lista es: {{displayVal}}</p>!-->
   
   <br>

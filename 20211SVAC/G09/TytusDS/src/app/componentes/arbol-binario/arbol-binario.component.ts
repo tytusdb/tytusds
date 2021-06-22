@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 declare var agregarBinary:any;
 declare var buscarBinario:any;
 declare var eliminarBinario:any;
+declare var actualizarBinario:any;
 
 @Component({
   selector: 'app-arbol-binario',
@@ -20,9 +21,8 @@ export class ArbolBinarioComponent implements OnInit {
     eliminarBinario(val)
 
   }
-  getValue(val:string){
-    
-  
+  ActualizarBinario(val:string,val1:string){
+    actualizarBinario(val,val1)
   }
   getValuePila(val:string){
     
