@@ -86,7 +86,15 @@ async function BurbujaT() {
         MyChart.update()
         await new Promise(resolve => setTimeout(resolve, speed)); // 3 sec
         for (let j = 0; j < (MyChart.data.datasets[0].data.length - i - 1); j++) {
-            if (MyChart.data.labels[j + 1] < MyChart.data.labels[j]) {
+            let seg = 0
+            let pri = 0
+            for (k = 0; k < MyChart.data.labels[j + 1].length; k++) {
+                seg += MyChart.data.labels[j + 1].toString().charCodeAt(k)
+            }
+            for (k = 0; k < MyChart.data.labels[j].length; k++) {
+                pri += MyChart.data.labels[j].toString().charCodeAt(k)
+            }
+            if (seg < pri) {
                 aux2 = MyChart.data.labels[j + 1]
                 MyChart.data.labels[j + 1] = MyChart.data.labels[j]
                 MyChart.data.labels[j] = aux2
