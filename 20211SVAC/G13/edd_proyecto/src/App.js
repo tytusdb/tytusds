@@ -13,7 +13,6 @@ import Burbuja from './Componentes/Paginas/Burbuja';
 import Seleccion from './Componentes/Paginas/Seleccion';
 import Insercion from './Componentes/Paginas/Insercion';
 import Rapido from './Componentes/Paginas/Rapido';
-import ArbolBinario from './Componentes/Paginas/ArbolBinario';
 import AVL from './Componentes/Paginas/AVL';
 import ArbolB from './Componentes/Paginas/Arbolb';
 import ArbolBPlus from './Componentes/Paginas/Arbolbplus';
@@ -38,7 +37,6 @@ function App() {
         <Route path='/Seleccion' component={Seleccion} />
         <Route path='/Insercion' component={Insercion} />
         <Route path='/Rapido' component={Rapido} />
-        <Route path='/ArbolBinario' component={ArbolBinario} />
         <Route path='/AVL' component={AVL} />
         <Route path='/Arbolb' component={ArbolB} />
         <Route path='/Arbolbplus' component={ArbolBPlus} />
