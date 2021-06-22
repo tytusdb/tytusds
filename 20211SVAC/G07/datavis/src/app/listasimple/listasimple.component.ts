@@ -189,6 +189,17 @@ export class ListasimpleComponent implements OnInit {
   public network: any;
   constructor() { }
   contenido = "{ valores :\n";
+
+  
+  generador(){
+    this.array.forEach(valor => this.contenido += valor +",\n");
+  }
+
+  descargarContenido(){
+    this.generador();
+    this.contenido += "}";
+    console.log(this.contenido)
+  }
   ngOnInit(): void {
 
   }
@@ -214,7 +225,7 @@ export class ListasimpleComponent implements OnInit {
           this.array.push(element)
         });
         
-        this.array.forEach(el => this.lista.addPrimero(el)) // para ingresar los datos
+        this.array.forEach(el => this.lista.addPrimero(el.toString())) // para ingresar los datos
         this.code=text.toString();
       }
       reader.readAsText(a)
