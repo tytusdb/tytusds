@@ -9,11 +9,11 @@ leaf = function () {
     this.keyval = [];
     this.nodptr = [];};
  
- tree = function (order) {
+ tree = function (orderecha) {
     // Private
     this.root = new leaf();
-    this.maxkey = order-1;
-    this.minkyl = Math.floor(order/2);
+    this.maxkey = orderecha-1;
+    this.minkyl = Math.floor(orderecha/2);
     this.minkyn = Math.floor(this.maxkey/2);
     this.leaf = null;
     this.item = -1;
@@ -25,243 +25,262 @@ leaf = function () {
     this.found = false;};
  
  
- // ========== Method prototypes ==========
- 
- // ---------- Leaf nodes ----------
- 
- leaf.prototype.isLeaf = function() {return true;};
- 
- leaf.prototype.getItem = function (key,near) {
-    var vals = this.keyval;
-    if (near) {
-       for (var i=0, len=vals.length; i<len; i++) {
-          if (key <= vals[i]) return i;
-       }
-    } else {
-       for (var i=0, len=vals.length; i<len; i++) {
-          if (key === vals[i]) return i;
-       }
+class Nodo {
+ constructor(dato) {
+    this.dato = dato;
+    this.anterior = null;
+    this.siguiente = null;
+    this.derecha = null;
+    this.izquierda = null;
     }
-    return -1;
- };
- 
- leaf.prototype.addKey = function (key,rec) {
-    var vals = this.keyval;
-    var itm = vals.length;
-    for (var i=0, len=itm; i<len; i++) {
-       if (key === vals[i]) {
-          itm = -1;
-          break;
-       }
-       if (key <= vals[i]) {
-          itm = i;
-          break;
-       }
+}
+    
+    class Rama {
+        constructor(id) {
+            this.contador = 0;
+            this.leave = true;
+            this.root = null;
+            this.id = id
+        }
+    
+        insertar(nodo) {
+            if (this.root == null) {
+                this.root = nodo;
+                this.contador++;
+            } else {
+                let auxiliar = this.root;
+                do {
+                    if (nodo.dato <= auxiliar.dato) {
+                        this.contador++;
+                        if (auxiliar == this.root) {
+                            this.root.anterior = nodo;
+                            nodo.siguiente = this.root
+                            this.root.izquierda = nodo.derecha;
+                            this.root = nodo;
+                            break;
+                        } else {
+                            nodo.anterior = auxiliar.anterior;
+                            nodo.siguiente = auxiliar;
+                            auxiliar.anterior.siguiente = nodo;
+                            auxiliar.anterior.derecha = nodo.izquierda;
+                            auxiliar.anterior = nodo;
+                            auxiliar.izquierda = nodo.derecha;
+                            break;
+                        }
+                    } else if (auxiliar.siguiente == null) {
+                        this.contador++;
+                        auxiliar.siguiente = nodo;
+                        auxiliar.derecha = nodo.izquierda;
+                        nodo.anterior = auxiliar;
+                        nodo.siguiente = null;
+                        break;
+                    }
+                    auxiliar = auxiliar.siguiente;
+                }
+                while (auxiliar != null);
+            }
+        }
+    
+        print() {
+            let result = "";
+            let auxiliar = this.root;
+            let contador = 0;
+            while (auxiliar != null) {
+                if (this.contador == 0) {
+                    result = auxiliar.dato;
+                } else {
+                    result += "|" + auxiliar.dato;
+                }
+                auxiliar = auxiliar.siguiente;
+            }
+            return result;
+        }
     }
-    if (itm != -1) {
-       for (var i=vals.length; i>itm; i--) {
-          vals[i] = vals[i-1];
-          this.recnum[i] = this.recnum[i-1];
-       }
-       vals[itm] = key;
-       this.recnum[itm] = rec;
+    
+    class ArbolBMas {
+        constructor(orden) {
+            this.root = null;
+            this.orden = orden;
+            this.contadorAgregar = 1
+            this.contadorId = 0
+            this.nodoB = []
+            this.edges = []
+            this.data = []
+        }
+    
+        insertar(dato) {
+            let nodo = new Nodo(dato);
+            this.contadorAgregar++
+            if (this.root == null) {
+                this.contadorId++
+                this.root = new Rama(this.contadorId);
+                this.root.insertar(nodo);
+                return;
+            } else {
+                let auxiliar = this.Agregar(nodo, this.root);
+                if (auxiliar instanceof Nodo) {
+                    this.contadorId++
+                    this.root = new Rama(this.contadorId);
+                    this.root.insertar(auxiliar);
+                    this.root.leave = false;
+                }
+    
+            }
+        }
+    
+        Agregar(nodo, rama) {
+            if (rama.leave) {
+                rama.insertar(nodo);
+                if (rama.contador == this.orden) {
+                    return this.DividirRama(rama);
+                } else {
+                    return rama;
+                }
+            } else {
+                let auxiliar = rama.root;
+                do {
+                    if (nodo.dato == auxiliar.dato) {
+                        return rama;
+                    } else if (nodo.dato < auxiliar.dato) {
+                        let aux = this.Agregar(nodo, auxiliar.izquierda);
+                        if (aux instanceof Nodo) {
+                            rama.insertar(aux);
+                            if (rama.contador == this.orden) {
+                                return this.DividirRama(rama);
+                            }
+                        }
+                        return rama
+    
+                    } else if (auxiliar.siguiente == null) {
+                        let aux = this.Agregar(nodo, auxiliar.derecha);
+                        if (aux instanceof Nodo) {
+                            rama.insertar(aux);
+                            if (rama.contador == this.orden){
+                                 return this.DividirRama(rama);
+                            }
+                        }
+                        return rama
+                    }
+                    auxiliar = auxiliar.siguiente;
+                } while (auxiliar != null);
+            }
+            return rama;
+        }
+    
+        DividirRama(rama) {
+            this.contadorId++
+            let nodoDerecha = new Rama(this.contadorId);
+            this.contadorId++
+            let nodoIzquierda = new Rama(this.contadorId);
+            let medio = null;
+            let auxiliar = rama.root;
+    
+            let inicio = 1;
+            let datoMedio = parseInt(this.orden / 2) + 1;
+            let final = this.orden;
+            for (let i = 1; i < this.orden + 1; i++, auxiliar = auxiliar.siguiente) {
+                let nodo = new Nodo(auxiliar.dato);
+                nodo.izquierda = auxiliar.izquierda;
+                nodo.derecha = auxiliar.derecha;
+    
+                if (nodo.derecha != null && nodo.izquierda != null) {
+                    nodoIzquierda.leave = false;
+                    nodoDerecha.leave = false;
+                }
+    
+                if (i >= inicio && i < datoMedio) {
+                    nodoIzquierda.insertar(nodo);
+                } else if (i == datoMedio) {
+                    medio = nodo;
+                } else if (i <= final && i > datoMedio) {
+                    nodoDerecha.insertar(nodo);
+                }
+            }
+    
+            medio.izquierda = nodoIzquierda;
+            medio.derecha = nodoDerecha;
+            return medio;
+        }
+    
+        print(){
+            this.recorrer(this.root)
+        }
+    
+        recorrer(rama){
+            console.log(rama.print())
+        }
+    
+        ObtenerDatos(){
+            this.nodoB = []
+            this.edges = []
+            this.data = []
+            this.ObtenerRama(this.root)
+            return{nodoB: this.nodoB, edges: this.edges, array: this.data}
+        }
+    
+        ObtenerRama(rama){
+            let auxiliar = rama.root
+            let text = "| "
+            while(auxiliar != null){
+                this.data.push(auxiliar.dato)
+                text += auxiliar.dato + " | "
+                auxiliar = auxiliar.siguiente
+            }
+            this.nodoB.push({id: rama.id*this.contadorId, label: text})
+            auxiliar = rama.root
+            while(auxiliar != null){
+                if(auxiliar == rama.root){
+                    if(auxiliar.izquierda != null){
+                        this.edges.push({from: rama.id*this.contadorId, to: auxiliar.izquierda.id*this.contadorId})
+                        this.ObtenerRama(auxiliar.izquierda)
+                    }
+                }
+                if(auxiliar.derecha != null){
+                    this.edges.push({from: rama.id*this.contadorId, to: auxiliar.derecha.id*this.contadorId})
+                    this.ObtenerRama(auxiliar.derecha)
+                }
+                auxiliar = auxiliar.siguiente
+            }
+        }
+    
+        search(dato){
+            this.nodoB = []
+            let encontrado = this.buscar(this.root, dato)
+            return{recorrido: this.nodoB, encontrado: encontrado}
+        }
+    
+        buscar(rama, dato){
+            let encontrado = false
+            if(rama != null){
+                this.nodoB.push(rama.id*this.contadorId)
+                let auxiliar = rama.root
+                while(auxiliar != null){
+                    if(auxiliar.dato == dato){
+                        return true
+                    }
+                    auxiliar = auxiliar.siguiente
+                }
+                auxiliar = rama.root
+                while(auxiliar != null){
+                    if(dato < auxiliar.dato){
+                        encontrado = this.buscar(auxiliar.izquierda, dato)
+                        if(encontrado == true){
+                            return encontrado
+                        }
+                    } else if (dato > auxiliar.dato && dato < auxiliar.siguiente){
+                        encontrado = this.buscar(auxiliar.derecha, dato)
+                        if(encontrado == true){
+                            return encontrado
+                        }
+                    } else if (dato > auxiliar.dato && auxiliar.siguiente == null){
+                        encontrado = this.buscar(auxiliar.derecha, dato)
+                        if(encontrado == true){
+                            return encontrado
+                        }
+                    }
+                    auxiliar = auxiliar.siguiente
+                }
+            }
+            return encontrado
+        }
     }
-    return itm;
- };
- 
- leaf.prototype.split = function () {
-    var mov = Math.floor(this.keyval.length/2);
-    var newL = new leaf();
-    for (var i=mov-1; i>=0; i--) {
-       newL.keyval[i] = this.keyval.pop();
-       newL.recnum[i] = this.recnum.pop();
-    }
-    newL.prevLf = this;
-    newL.nextLf = this.nextLf;
-    if (this.nextLf !== null) this.nextLf.prevLf = newL;
-    this.nextLf = newL;
-    return newL;
- };
- 
- leaf.prototype.merge = function (frNod, paNod, frKey) {
-    for (var i=0, len=frNod.keyval.length; i<len; i++) {
-       this.keyval.push(frNod.keyval[i]);
-       this.recnum.push(frNod.recnum[i]);
-    }
-    this.nextLf = frNod.nextLf;
-    if (frNod.nextLf !== null) frNod.nextLf.prevLf = this;
-    frNod.prevLf = null;
-    frNod.nextLf = null;
-    var itm = paNod.keyval.length-1;
-    for (var i=itm; i>=0; i--) {
-       if (paNod.keyval[i] == frKey) {
-          itm = i;
-          break;
-       }
-    }
-    for (var i=itm, len=paNod.keyval.length-1; i<len; i++) {
-       paNod.keyval[i] = paNod.keyval[i+1];
-       paNod.nodptr[i+1] = paNod.nodptr[i+2];
-    }
-    paNod.keyval.pop();
-    paNod.nodptr.pop();
- };
- 
- 
- // ---------- Internal nodes ----------
- 
- node.prototype.isLeaf = function() {return false;};
- 
- node.prototype.getItem = function (key) {
-    var vals = this.keyval;
-    for (var i=0, len=vals.length; i<len; i++) {
-       if (key < vals[i]) return i;
-    }
-    return vals.length;
- };
- 
- node.prototype.addKey = function (key,ptrL,ptrR) {
-    var vals = this.keyval;
-    var itm = vals.length;
-    for (var i=0, len=vals.length; i<len; i++) {
-       if (key <= vals[i]) {
-          itm = i;
-          break;
-       }
-    }
-    for (var i=vals.length; i>itm; i--) {
-       vals[i] = vals[i-1];
-       this.nodptr[i+1] = this.nodptr[i];
-    }
-    vals[itm] = key;
-    this.nodptr[itm] = ptrL;
-    this.nodptr[itm+1] = ptrR;
- };
- 
- node.prototype.split = function () {
-    var mov = Math.ceil(this.keyval.length/2) - 1;
-    var newN = new node();
-    newN.nodptr[mov] = this.nodptr.pop();
-    for (var i=mov-1; i>=0; i--) {
-       newN.keyval[i] = this.keyval.pop();
-       newN.nodptr[i] = this.nodptr.pop();
-    }
-    return newN;
- };
- 
- node.prototype.merge = function (frNod, paNod, paItm) {
-    var del = paNod.keyval[paItm];
-    this.keyval.push(del);
-    for (var i=0, len=frNod.keyval.length; i<len; i++) {
-       this.keyval.push(frNod.keyval[i]);
-       this.nodptr.push(frNod.nodptr[i]);
-    }
-    this.nodptr.push(frNod.nodptr[frNod.nodptr.length-1]);
-    for (var i=paItm, len=paNod.keyval.length-1; i<len; i++) {
-       paNod.keyval[i] = paNod.keyval[i+1];
-       paNod.nodptr[i+1] = paNod.nodptr[i+2];
-    }
-    paNod.keyval.pop();
-    paNod.nodptr.pop();
-    return del;
- };
- 
- 
- // ---------- B+ Tree ----------
- 
- tree.prototype.insert = function (key,rec) {
-    var stack = [];
-    this.leaf = this.root;
-    while (!this.leaf.isLeaf()) {
-       stack.push(this.leaf);
-       this.item = this.leaf.getItem(key);
-       this.leaf = this.leaf.nodptr[this.item];
-    }
-    this.item = this.leaf.addKey(key,rec);
-    this.keyval = key;
-    this.eof = false;
-    if (this.item === -1) {
-       this.found = true;
-       this.item = this.leaf.getItem(key,false);
-       this.recnum = this.leaf.recnum[this.item];
-    } else {
-       this.found = false;
-       this.recnum = rec;
-       this.length++;
-       if (this.leaf.keyval.length > this.maxkey) {
-          var pL = this.leaf;
-          var pR = this.leaf.split();
-          var ky = pR.keyval[0];
-          this.item = this.leaf.getItem(key,false);
-          if (this.item === -1) {
-             this.leaf = this.leaf.nextLf;
-             this.item = this.leaf.getItem(key,false);
-          }
-          while (true) {
-             if (stack.length === 0) {
-                var newN = new node();
-                newN.keyval[0] = ky;
-                newN.nodptr[0] = pL;
-                newN.nodptr[1] = pR;
-                this.root = newN;
-                break;
-             }
-             var nod = stack.pop();
-             nod.addKey(ky,pL,pR);
-             if (nod.keyval.length <= this.maxkey) break;
-             pL = nod;
-             pR = nod.split();
-             ky = nod.keyval.pop();
-          }
-       }
-    }
-    return (!this.found);
- };
- 
- tree.prototype.remove = function (key) {
-    if (typeof key == 'undefined') {
-       if (this.item === -1) {
-          this.eof = true;
-          this.found = false;
-          return false;
-       }
-       key = this.leaf.keyval[this.item];
-    }
-    this._del(key);
-    if (!this.found) {
-       this.item = -1;
-       this.eof = true;
-       this.keyval = '';
-       this.recnum = -1;
-    } else {
-       this.seek(key,true);
-       this.found = true;
-    }
-    return (this.found);
- };
- 
- tree.prototype.seek = function (key,near) {
-    if (typeof near != 'boolean') near = false;
-    this.leaf = this.root;
-    while (!this.leaf.isLeaf()) {
-       this.item = this.leaf.getItem(key);
-       this.leaf = this.leaf.nodptr[this.item];
-    }
-    this.item = this.leaf.getItem(key,near);
-    if (near && this.item ==-1 && this.leaf.nextLf!==null) {
-       this.leaf = this.leaf.nextLf;
-       this.item = 0;
-    }
-    if (this.item === -1) {
-       this.eof = true;
-       this.keyval = '';
-       this.found = false;
-       this.recnum = -1;
-    } else {
-       this.eof = false;
-       this.found = (this.leaf.keyval[this.item] === key);
-       this.keyval = this.leaf.keyval[this.item];
-       this.recnum = this.leaf.recnum[this.item];
-    }
-    return (!this.eof);
- };
