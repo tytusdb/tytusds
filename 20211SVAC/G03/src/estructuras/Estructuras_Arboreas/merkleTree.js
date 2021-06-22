@@ -139,7 +139,7 @@ class MerkleTree{
     obtenerlista(lista, nodo){
         if(nodo != null){
             this.obtenerlista(lista, nodo.izquierda)
-            if(nodo != null && nodo.dato != -1){
+            if(nodo != null && nodo.dato != -1 && nodo.nodohijo == true){
                 lista.insertLista(nodo)
             }
             this.obtenerlista(lista, nodo.derecha)
