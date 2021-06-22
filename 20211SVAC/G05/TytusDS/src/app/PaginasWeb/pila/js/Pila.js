@@ -15,12 +15,14 @@ class Pila {
   
     
 
-    guardar(valor) {
+    guardar(valor,tiempo) {
     let nodo = new Nodo(valor)
     nodo.dato=valor;
     if (this.uno==null){
-        this.uno=nodo;}
-    else{nodo.post=this.uno;
+        this.uno=nodo;
+    this.fin=nodo;}
+    else{
+        nodo.post=this.uno;
         this.uno=nodo;}
     this.tamaño++; 
         var element=document.createElement("button");
@@ -46,7 +48,7 @@ class Pila {
           
           
           var pos = -30;
-          var id = setInterval(frame, 4);
+          var id = setInterval(frame, 3);
     function frame() {
         if (pos == 30) { clearInterval(id);} 
         else {
@@ -69,7 +71,7 @@ class Pila {
         var puntero=document.getElementById("myDiv1");
         puntero.removeChild(puntero.childNodes[0]); 
         };
-        setTimeout(eli,600);
+        setTimeout(eli,tiempo);
 
  }
   
@@ -83,12 +85,13 @@ class Pila {
         this.tamaño++; 
         this.tamaño2++; 
          }
-     guardarg(valor) {
+     guardarg(valor,tiempo) {
             let aux = this.uno;
             var bandera=true;
             if(aux!=null){
                 do{if (valor==aux.dato){
                     bandera=false;
+                    this.av=false;
                     break;}
                     aux=aux.post;
                 }while(aux!=null);}
@@ -123,13 +126,9 @@ class Pila {
                           element1.style.width="30px";
                           element1.style.height="30px";
                           myDiv1.insertBefore(element1, myDiv1.firstElementChild);
-                          window.scroll({
-                            top: 2000,
-                            left: 100,
-                            behavior: 'smooth'
-                          });
+                          
                           var pos = -30;
-                          var id = setInterval(frame, 4);
+                          var id = setInterval(frame, 3);
                     function frame() {
                         if (pos == 30) { clearInterval(id);} 
                         else {
@@ -147,21 +146,35 @@ class Pila {
                     element1.style.width="70px";
                     element1.style.height="30px";
                     myDiv1.insertBefore(element1, myDiv1.firstElementChild);
-                    window.scroll({
-                        top: 2000,
-                        left: 100,
-                        behavior: 'smooth'
-                      });
+                    
                     var eli=function(){
                         var puntero=document.getElementById("myDiv1");
                         puntero.removeChild(puntero.childNodes[0]); 
                         };
-                        setTimeout(eli,600);
-                }
-                else{
-                    alert("dato ya existe");
-                }
+                        setTimeout(eli,tiempo);
+                }  
              }
+
+    guardarg2(valor) {
+                let aux = this.uno;
+                var bandera=true;
+                if(aux!=null){
+                    do{if (valor==aux.dato){
+                        bandera=false;
+                        break;}
+                        aux=aux.post;
+                    }while(aux!=null);}
+    
+                    if (bandera==true){
+                        let nodo = new Nodo(valor)
+                        nodo.dato=valor;
+                        if (this.uno==null){
+                            this.uno=nodo;}
+                        else{nodo.post=this.uno;
+                            this.uno=nodo;}
+                        this.tamaño++;   } 
+                 }
+
 
 
     desapila(){
@@ -208,11 +221,7 @@ if (this.uno!=null){ do{
     element1.style.color='rgb(255,255,255)';
     element1.style.width="40px";
     myDiv1.appendChild(element1);
-    window.scroll({
-        top: 2000,
-        left: 100,
-        behavior: 'smooth'
-      });
+    
     //myDiv1.insertBefore(element1, myDiv1.firstElementChild);
 
     var element=document.createElement("button");
@@ -227,12 +236,6 @@ if (this.uno!=null){ do{
     element.style.width="400px";
     //myDiv.insertBefore(element, myDiv.firstElementChild);
     myDiv.appendChild(element);
-    window.scroll({
-        top: 2000,
-        left: 100,
-        behavior: 'smooth'
-      });
-
     
     aux=aux.post; }while(aux!=null);}
 else{
@@ -240,7 +243,7 @@ else{
 }
    }
 
-   pintar2(){
+   pintar2(tiempo){
     var ele= document.getElementById("myDiv1");
     while (ele.firstChild) {
         ele.removeChild(ele.firstChild);}   
@@ -288,18 +291,36 @@ else{
             
             aux=aux.post;
                 var pos = 0;
-                var id = setInterval(frame, 10);
+                var id = setInterval(frame, 3);
 function frame() { if (pos == 50) { clearInterval(id);} 
     else { pos++; myDiv.style.top = pos + 'px'; myDiv.style.left = 55 + 'px';}}
           
           if (aux==null){  
               clearInterval(intervalo);}
         };
-        var intervalo = setInterval(fun,1800);
+        var intervalo = setInterval(fun,tiempo);
     }
     if (this.uno==null){alert("Pila Vacia");}
 
     
+    let actual = this.uno;
+    let anterior = null;
+    if (this.uno!=null){
+        do{
+            if(actual==this.fin){
+                if(actual==this.uno){
+                  this.uno=this.uno.post;
+            }else{
+              anterior.post=null;
+              this.fin=anterior;
+              }} 
+            anterior=actual;
+            actual=actual.post;
+            }while(actual!=null);
+    }
+
+
+
 
 
 
@@ -321,7 +342,7 @@ function frame() { if (pos == 50) { clearInterval(id);}
     return ldatos;
   }
 
-    buscar(valor){
+    buscar(valor,tiempo){
     var ele= document.getElementById("myDiv1");
     while (ele.firstChild) {
         ele.removeChild(ele.firstChild);}   
@@ -329,6 +350,7 @@ function frame() { if (pos == 50) { clearInterval(id);}
     let aux = this.uno;
     var bandera=true;
     var bandera1=true;
+    var bandera3=false;
     if (this.uno!=null){
         //while(aux!=null){
         
@@ -336,6 +358,7 @@ function frame() { if (pos == 50) { clearInterval(id);}
                 bandera1=false;
                 if (valor==aux.dato){
                     bandera=false;
+                    bandera3=true;
                     var element1=document.createElement("button");
                     var myDiv1=document.getElementById("myDiv1");
                     var content1=document.createTextNode(contar);
@@ -409,7 +432,7 @@ function frame() { if (pos == 50) { clearInterval(id);}
                 }
                 aux=aux.post;
                     var pos = 0;
-                    var id = setInterval(frame, 10);
+                    var id = setInterval(frame, 4);
     function frame() { if (pos == 50) { clearInterval(id);} 
         else { pos++; myDiv.style.top = pos + 'px'; myDiv.style.left = 55 + 'px';}}
               
@@ -418,10 +441,13 @@ function frame() { if (pos == 50) { clearInterval(id);}
                   clearInterval(intervalo);}
             };
         
-        var intervalo = setInterval(fun,1000);
+        var intervalo = setInterval(fun,tiempo);
     }
         else{
             alert("Pila vacia"); 
+        }
+        if(bandera3==true) {
+            alert("Dato encontrado"); 
         }
     }
 
