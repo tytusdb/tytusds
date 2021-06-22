@@ -39,6 +39,8 @@ class ListaCSE extends Component {
 
 			text: '',
 			dato_actualizado: '',
+			fileName: '',
+			fileContent: '',
 		};
 		this.network = {};
 	  	this.appRef = createRef();
@@ -55,7 +57,18 @@ class ListaCSE extends Component {
 		this.setState({
 		  [name]: value
 		});
-	  }
+	}
+
+	
+	handleFileChange = (e) => {
+		const file = e.target.files[0];
+		const reader = new FileReader();
+		reader.readAsText(file);
+		reader.onload = () => {
+			this.setState({fileName: file.name, fileContent: reader.result})
+		}
+	}
+
 
 	handleAdd = () => {
 		listaCircular.insertar(this.state.text);
@@ -135,6 +148,36 @@ class ListaCSE extends Component {
 		this.network = new Network(this.appRef.current, data, options);
 	}
 
+	handleOpenFile = () => {
+
+		const dataJson = JSON.parse(this.state.fileContent);
+		let nombre = "Lista Simplemente/doblemente/circular simplemente/circular doblemente Enlazada"
+		if (dataJson.categoria == "Estructura Lineal" && dataJson.nombre == nombre){
+
+			
+			for (var i=0; i < dataJson.valores.length; i++) {
+				console.log(dataJson.valores[i]);
+				listaCircular.insertar(dataJson.valores[i].toString());
+				
+			}
+			getNodes = new DataSet(listaCircular.setNodesDataSet());
+			getEdges = new DataSet(listaCircular.setEdgesDataSet());
+			data = {
+				nodes: getNodes,
+				edges: getEdges
+			}
+			
+			this.network = new Network(this.appRef.current, data, options);
+
+		}else {
+
+			alert("No es un Archivo de ESTRUCTURA LINEAL!! ")
+		}
+
+		
+		
+	}
+
 
 	render() {
 	  return (
@@ -145,18 +188,13 @@ class ListaCSE extends Component {
 				</div>
 			</div>
 			<div className="row">
-				<div className="col-md-1" style={{marginLeft: 1 + 'em'}}>
-					<input type="text" name="text" className="form-control" placeholder="Dato" id="InputCola" value={this.state.text} onChange={this.handleInputChange}></input>
+				<div className="col-md-2" style={{marginLeft: 1 + 'em'}}>
+					<input type="text" name="text" className="form-control" placeholder="Ingresar Dato" id="InputCola" value={this.state.text} onChange={this.handleInputChange}></input>
 				</div>
 				<div className="col-md-1">
 					<button type="button" className="btn btn-primary" onClick={() => this.handleAdd()}>Agregar</button>
 				</div>
-				<div className="col-md-1">
-					<button type="button" className="btn btn-primary" onClick={() => this.handleAddTop()}>Inicio</button>
-				</div>
-				<div className="col-md-1">
-					<button type="button" className="btn btn-primary" onClick={() => this.handleAddLower()}>Fin</button>
-				</div>
+				
 				<div className="col-md-1">
 					<button type="button" className="btn btn-danger" onClick={() => this.handleDelete()} >Eliminar</button>
 				</div>
@@ -169,11 +207,8 @@ class ListaCSE extends Component {
 				<div className="col-md-1" style={{marginLeft: 1 + 'em'}}>
 					<button type="button" className="btn btn-dark" onClick={() => this.handleSearch()}>Buscar</button>
 				</div>
-				<div className="col-md-1">
-					<input className="form-control" type="file" id="formFile"></input>
-				</div>
-				<div className="col-md-1">
-					<button type="button" class="btn btn-success">Guardar</button>
+				<div className="col-md-3">
+					<input className="form-control" type="file" id="formFile" onChange={this.handleFileChange}></input>
 				</div>
 			</div>
 			<div className="row">
@@ -181,6 +216,34 @@ class ListaCSE extends Component {
 					<table className="table table-hover"></table>
 				</div>
 			</div>
+
+
+			<div className="row">
+				<div className="col-md-12">
+					<table className="table table-hover"></table>
+				</div>
+			</div>
+			<div className="row">
+				<div className="col-md-2" style={{marginLeft: 2 + 'em'}}>
+					<button type="button" className="btn btn-primary" onClick={() => this.handleAddTop()}>Agregar Dato Al Inicio</button>
+				</div>
+				<div className="col-md-5">
+					<button type="button" className="btn btn-primary" onClick={() => this.handleAddLower()}>Agregar Dato Al Final</button>
+				</div>
+				
+				<div className="col-md-2" style={{marginLeft: 1 + 'em'}}>
+					<button type="button" className="btn btn-dark" onClick={() => this.handleOpenFile()}>Generar Datos del JSON</button>
+				</div>
+				<div className="col-md-2">
+					<button type="button" class="btn btn-success">Guardar Datos</button>
+				</div>
+			</div>
+			<div className="row">
+				<div className="col-md-12">
+					<table className="table table-hover"></table>
+				</div>
+			</div>
+
 
 			<div className="row">
 				<div className="col-md-2" style={{marginLeft: 2 + 'em'}}>

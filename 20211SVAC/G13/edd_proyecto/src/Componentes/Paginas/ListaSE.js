@@ -22,7 +22,7 @@ var options = {
 	nodes:{
         borderWidth: 30,
         color: {
-            background: '#00F3B8',
+            background: '#FEFEFE',
             border:  '#FFF300',
             highlight: {
                 border: '#00F3B8',
@@ -61,7 +61,7 @@ class ListaSE extends Component {
 		});
 	  }
 	
-	  handleFileChange = (e) => {
+	handleFileChange = (e) => {
 		const file = e.target.files[0];
 		const reader = new FileReader();
 		reader.readAsText(file);
@@ -155,16 +155,16 @@ class ListaSE extends Component {
 
 	handleOpenFile = () => {
 
-		console.log("Ruta? -> " + this.state.fileName);
-		
-		console.log("Contenido? -> " + this.state.fileContent);
-
 		const dataJson = JSON.parse(this.state.fileContent);
-		console.log(dataJson.valores)
-		
-        for (var i=0; i < dataJson.valores.length; i++) {
-            console.log(dataJson.valores[i]);
-			listaSimple.insertar(dataJson.valores[i]);
+		let nombre = "Lista Simplemente/doblemente/circular simplemente/circular doblemente Enlazada"
+		if (dataJson.categoria == "Estructura Lineal" && dataJson.nombre == nombre){
+
+			
+			for (var i=0; i < dataJson.valores.length; i++) {
+				console.log(dataJson.valores[i]);
+				listaSimple.insertar(dataJson.valores[i].toString());
+				
+			}
 			getNodes = new DataSet(listaSimple.setNodesDataSet());
 			getEdges = new DataSet(listaSimple.setEdgesDataSet());
 			data = {
@@ -173,11 +173,20 @@ class ListaSE extends Component {
 			}
 			
 			this.network = new Network(this.appRef.current, data, options);
-			
-        }
-		// listaSimple.mostrar()
-		
+
+
+		}else {
+
+			alert("No es un Archivo de ESTRUCTURA LINEAL!! ")
+		}
+	
 	}
+
+	handleSaveFile = () => {
+
+		listaSimple.generateJSON(listaSimple)
+	}
+
 
 	render() {
 		
@@ -234,7 +243,7 @@ class ListaSE extends Component {
 					<button type="button" class="btn btn-dark" onClick={() => this.handleOpenFile()}>Leer Json</button>
 				</div>
 				<div className="col-md-1">
-					<button type="button" class="btn btn-success">Guardar</button>
+					<button type="button" class="btn btn-success" onClick={() => this.handleSaveFile()}>Guardar</button>
 				</div>
 				
 			</div>

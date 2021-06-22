@@ -7,6 +7,7 @@ const StyledNode = styled.div`
   border-radius: 8px;
   display: inline-block;
   border: 1px solid red;
+  color: black;
 `;
 
 export default StyledNode
