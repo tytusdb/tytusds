@@ -410,6 +410,7 @@ function readFile(evento){ // lectura del archivo .json
             console.log(listaValores);
             agregarFile(listaValores);
             tipoDato = typeof(listaValores.valor[0]);
+            
 
                       
            
@@ -467,30 +468,50 @@ function ordenarCuadros2(square){
 
 
 }
+// Creando objeto 
+function crearOb(ele, pri){
+    let info = [];
+    function Archivo(valor, prioridad){
+        this.valor = valor;
+        this.prioridad = prioridad;
+    }
+
+    for(let i = 0; i < ele.length-1; i++){
+        var nuevoDato = new Archivo(ele[i],parseInt(pri[i]));
+        info.push(nuevoDato);
+
+    }
+    return info;
+
+
+}
+
 
 // ***** GUARDAR JSON *****
 function guardar(){
     var repetic = btn_Repetir.checked;
     var velocidad = 10;
-    var contenido = prioridad.imprimir().split(",");
-    var contenidoP = prioridad.imprimirNivel().split(",");
-    
-    if (tipoDato == 'number'){
-        content = listaNums(content);
-    } 
+
+    var conD = prioridad.imprimir().split(",");
+    var conP = prioridad.imprimirNivel().split(",");
+
+    let final = crearOb(conD, conP);
+    console.log(final)
+
+
     
     var fileJ = {
         "categoria": "Estructura Lineal",
-        "nombre": "Pila",
+        "nombre": "Cola Prioridad",
         "repeticion": repetic,
         "animacion": velocidad,
-        "valores": content
+        "valores": final
     }
 
     let saveArchivo = new Blob([JSON.stringify(fileJ)],{type:"application/json"});
     let a = document.createElement("a");
     a.href = URL.createObjectURL(saveArchivo);
-    a.download = "pila.json";
+    a.download = "colaPrioridad.json";
     a.click();
 }
 
