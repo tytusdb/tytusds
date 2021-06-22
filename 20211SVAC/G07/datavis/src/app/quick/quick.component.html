@@ -33,8 +33,9 @@
           <input class="form-control mr-sm-2" type="text" placeholder="Buscar" aria-label="Buscar">
         <button class="btn btn-outline-light mr-sm-2" type="submit">Buscar</button>
 
-        <button class="btn btn-outline-light mr-sm-2" type="submit">Cargar</button>
-        <button class="btn btn-outline-light mr-sm-2" type="submit">Guardar</button>
+        <input style="display:none;" type="file" (change)="abrir($event)" #archivo>
+        <button (click)="archivo.click()" class="btn btn-outline-light mr-sm-2" type="button">Cargar</button>
+        <button (click)="descargarContenido()" class="btn btn-outline-light mr-sm-2" type="button">Guardar</button>
 
 
       </form>
