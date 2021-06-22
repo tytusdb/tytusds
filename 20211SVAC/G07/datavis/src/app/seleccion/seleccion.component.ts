@@ -1,4 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ElementRef,ViewChild } from '@angular/core';
+import * as vis from 'vis';
+
+var edges = new vis.DataSet([]);
+var nodes = new vis.DataSet([]);
+var options = {
+  layout:{
+    hierarchical:{
+      enabled: true,
+      direction: 'LR',
+    },
+  },
+  physics: {
+    enabled: false,
+  },
+}
+let listaData = { nodes: nodes,
+                edges: edges };
+var i = 0;
+var l = 1;
 
 @Component({
   selector: 'app-seleccion',
@@ -6,11 +25,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./seleccion.component.css']
 })
 export class SeleccionComponent implements OnInit {
-
+  @ViewChild('mynetwork', {static: false}) el: ElementRef;
+  public network: any;
   constructor() { }
   contenido = "{ valores: \n";
 
-  
+
   generador(){
     this.array.forEach(valor => this.contenido += valor +",\n");
   }
@@ -23,6 +43,10 @@ export class SeleccionComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  ngAfterViewInit(): void {
+    var container = this.el.nativeElement;
+    this.network = new vis.Network(container, listaData, options);
+  }
 
   code = '';
   array = [];
@@ -31,7 +55,7 @@ export class SeleccionComponent implements OnInit {
   {
     let a =eve.target.files[0]
     let text=""
-  
+
     if(a){
       let reader=new FileReader()
         reader.onload=ev=>{
@@ -41,10 +65,22 @@ export class SeleccionComponent implements OnInit {
         data.valores.forEach(element => { // se pasa a un arreglo
           this.array.push(element)
         });
-        this.array.forEach(el => console.log(el))
+        //this.array.forEach(el => console.log(el))
         this.selectionSort(this.array); //metood de ordenamiento
-        console.log("Ordenado \n")
-        this.array.forEach(el => console.log(el))
+        //console.log("Ordenado \n")
+        //this.array.forEach(el => console.log(el))
+        for (var k=0; k<this.array.length; k++){
+          let valors = this.array[k]
+          console.log(valors)
+          nodes.add(
+            {id: i, label:String(valors)}
+          );
+          edges.add(
+            {from: i, to: l, length: 20, arrows: 'to'}
+          );
+          i++;
+          l++
+        }
         this.code=text.toString();
       }
       reader.readAsText(a)

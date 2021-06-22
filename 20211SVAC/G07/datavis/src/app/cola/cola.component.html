@@ -21,13 +21,12 @@
     <nav class="navbar navbar-dark bg-primary">
 
       <form class="form-inline" >
-        <input  class="form-control mr-sm-2 " type="text" #nombre placeholder="Agregar" aria-label="Agregar Inicio">
-        <button (click)="AgregarNuevo(nombre.value)" class="btn btn-outline-light mr-sm-2" type="button">Agregar Inicio</button>
-        <input class="form-control mr-sm-2" type="text" #Eliminars placeholder="Eliminar" aria-label="Eliminar">
-        <button (click)="Eliminar(Eliminars.value)" class="btn btn-outline-light mr-sm-2" type="button">Eliminar</button>
+        <input  class="form-control mr-sm-2 " type="text" #nombre placeholder="Agregar" aria-label="Agregar">
+        <button (click)="AgregarNuevo(nombre.value)" class="btn btn-outline-light mr-sm-2" type="button">Agregar</button>
+        <button (click)="Eliminar()" class="btn btn-outline-light mr-sm-2" type="button">Eliminar</button>
 
-          <input class="form-control mr-sm-2" type="text" placeholder="Actualizar" aria-label="Actulizar">
-        <button class="btn btn-outline-light mr-sm-2" type="submit">Actualizar</button>
+          <input class="form-control mr-sm-2" type="text" #actu placeholder="Actualizar" aria-label="Actulizar">
+        <button class="btn btn-outline-light mr-sm-2" type="button">Actualizar</button>
 
           <input class="form-control mr-sm-2" type="text" placeholder="Buscar" aria-label="Buscar">
         <button class="btn btn-outline-light mr-sm-2" type="submit">Buscar</button>

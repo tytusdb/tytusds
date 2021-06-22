@@ -1,11 +1,23 @@
 import { Component, OnInit,ElementRef,ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import * as vis from 'vis';
 
-var datos = "";
-var items = new vis.DataSet([]);
-
-
+var edges = new vis.DataSet([]);
+var nodes = new vis.DataSet([]);
+var options = {
+  layout:{
+    hierarchical:{
+      enabled: true,
+      direction: 'LR',
+    },
+  },
+  physics: {
+    enabled: false,
+  },
+}
+let listaData = { nodes: nodes,
+                edges: edges };
+var i = 0;
+var l = 1;
 @Component({
   selector: 'app-bubblesort',
   templateUrl: './bubblesort.component.html',
@@ -13,11 +25,13 @@ var items = new vis.DataSet([]);
 })
 export class BubblesortComponent implements OnInit {
 
+  @ViewChild('mynetwork', {static: false}) el: ElementRef;
+  public network: any;
   constructor() { }
   contenido = "{ valores: \n";
 
-  
-  
+
+
   generador(){
     this.arr.forEach(valor => this.contenido += valor +",\n");
   }
@@ -28,32 +42,17 @@ export class BubblesortComponent implements OnInit {
     console.log(this.contenido)
   }
 
-  public network: any;
+
   ngOnInit(): void {
   }
 
-  
 
-  ngAfterViewInit(){
-    
-   
-    var options = {
-      //style: "bar",
-      drawPoints: false,
-      dataAxis: {
-        icons: true,
-      },
-      orientation: "top",
-      start: "2014-06-10",
-      end: "2014-06-18",
-    };
 
-    var container = document.getElementById('mychart');
-    var graph2d = new vis.Graph2d(container, items,options);
-    
-    
+  ngAfterViewInit(): void {
+    var container = this.el.nativeElement;
+    this.network = new vis.Network(container, listaData, options);
   }
-  
+
 
   code = '';
   arr = [];
@@ -62,7 +61,7 @@ export class BubblesortComponent implements OnInit {
   {
     let a =eve.target.files[0]
     let text=""
-  
+
     if(a){
       let reader=new FileReader()
         reader.onload=ev=>{
@@ -72,10 +71,22 @@ export class BubblesortComponent implements OnInit {
         data.valores.forEach(element => { // se pasa a un arreglo
           this.arr.push(element)
         });
-        this.arr.forEach(el => console.log(el))
+        //this.arr.forEach(el => console.log(el))
         this.burbuja(this.arr);
-        console.log("Ordenado \n")
-        this.arr.forEach(el => console.log(el))
+        //console.log("Ordenado \n")
+        //this.arr.forEach(el => console.log(el))
+        for (var k=0; k<this.arr.length; k++){
+          let valors = this.arr[k]
+          console.log(valors)
+          nodes.add(
+            {id: i, label:String(valors)}
+          );
+          edges.add(
+            {from: i, to: l, length: 20, arrows: 'to'}
+          );
+          i++;
+          l++
+        }
         this.code=text.toString();
       }
       reader.readAsText(a)
@@ -88,13 +99,10 @@ export class BubblesortComponent implements OnInit {
   AddData(value: any){
 
     this.data.push(value);
-    items.add({
-      x:this.i, y:+value
-    });
     this.i++;
 
   }
-  burbuja(arreglo){
+  burbuja(arreglo: any){
     let aux;
     for(let i=0;i<(arreglo.length-1);i++)
         for(let j=0;j<(arreglo.length-i);j++){
@@ -105,7 +113,7 @@ export class BubblesortComponent implements OnInit {
         }
     }
     return arreglo
-  } 
-  
+  }
+
 
 }
