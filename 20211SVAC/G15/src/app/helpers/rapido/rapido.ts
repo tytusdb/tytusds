@@ -1,53 +1,47 @@
 import { InjectSetupWrapper } from "@angular/core/testing";
 
-export class seleccion {
+export class rapido {
 
 
     private rapido: any
+ 
 
-    swap(items, leftIndex, rightIndex) {
-        var temp = items[leftIndex]
-        items[leftIndex] = items[rightIndex]
-    }
-
-    partition(items, left, rigth) {
-        var pivot = items[Math.floor((rigth + left) / 2)],
-            i = left,
-            j = rigth;
-        while (i <= j) {
-            while (items[i] < pivot) {
-                i++;
+    partition(items, low, high) {
+        var pivot = items[high]
+            let i = (low - 1);
+            for (let j = low; j <= high-1; j++)
+            {
+                if (items[j] < pivot)
+                {
+                    i++;   
+                    let temp = items[i]; 
+                    items[i] = items[j]; 
+                    items[j] = temp;
+              
+                }
             }
-            while (items[j] > pivot) {
-                j--;
-            }
-            if (i <= j) {
-                this.swap(items, i, j);
-                i++;
-                j--;
-            }
-        }
-        return i;
+        let temp = items[i+1]; 
+        items[i+1] = items[high]; 
+        items[high] = temp; 
+        return i+1;
     }
 
     quickSort(items, left, right) {
         var index;
-        if (items.length > 1) {
-            index = this.partition(items, left, right);
-            if (left < index - 1) {
-                this.quickSort(items, left, index - 1);
-            }
-            if (index < right) {
-                this.quickSort(items, index, right);
-            }
+        if(left < right){
+            let pi =this.partition(items, left, right);
+            this.quickSort(items, left, pi-1); 
+            this.quickSort(items, pi+1, right); 
         }
 
-        var array = this.quickSort(items,0,items.length-1)
-        array = 
-        console.log(array)
-        return items;
     }
 
-   // var array =quickSort(items,0,items.length-1);
-   // console.log(array)
+   generarJSON(array) {
+    let data = {
+        categoria: "Estructura Lineal",
+        nombre: "Ordenamiento",
+        valores: array
+    }
+    return JSON.stringify(data)
+}
 }
