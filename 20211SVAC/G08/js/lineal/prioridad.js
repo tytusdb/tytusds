@@ -48,7 +48,7 @@ class Prioridad {
         let cadena = "";
         let nodoActual = this.front;
         while(nodoActual != null){
-            cadena += nodoActual.elemento +"-";
+            cadena += nodoActual.elemento +",";
             if(nodoActual.siguiente != null){
                 nodoActual = nodoActual.siguiente;
 
@@ -56,8 +56,38 @@ class Prioridad {
                 nodoActual = null;
             }
         }
-        cadena += "null";
+        
         console.log(cadena);
+    }
+    imprimir(){
+        let cadena = "";
+        let nodoActual = this.front;
+        while(nodoActual != null){
+            cadena += nodoActual.elemento +",";
+            if(nodoActual.siguiente != null){
+                nodoActual = nodoActual.siguiente;
+
+            } else {
+                nodoActual = null;
+            }
+        }
+        
+        return cadena;
+    }
+    imprimirNivel(){
+        let cadena = "";
+        let nodoActual = this.front;
+        while(nodoActual != null){
+            cadena += nodoActual.prioridad +",";
+            if(nodoActual.siguiente != null){
+                nodoActual = nodoActual.siguiente;
+
+            } else {
+                nodoActual = null;
+            }
+        }
+        
+        return cadena;
     }
     empty(){
         if(this.front == null){
@@ -192,7 +222,7 @@ function agregar2(box, dato, box2, prior){
     container.appendChild(div);
     //container.appendChild(div2);
 
-    ordenarCuadros();
+    ordenarCuadros(div);
 
     console.log(prioridad.mostrar())
     box.value ="";
@@ -201,6 +231,17 @@ function agregar2(box, dato, box2, prior){
     
 }
 
+function ordenarCuadros(div_){
+    var contenido = prioridad.imprimir().split(",");
+    var contenidoP = prioridad.imprimirNivel().split(",");
+    var bloques = document.querySelectorAll(".cuadrito");
+
+    for(let i = 0; i < bloques.length; i++){
+        bloques[i].textContent = contenido[i] + " || "+contenidoP[i];
+
+    }
+}
+/*
 // ***** ORDENAMIENTO DE ELEMENTOS *****
 async function ordenarCuadros(){
     var bloques1 = document.querySelectorAll(".cuadrito");
@@ -225,7 +266,7 @@ async function ordenarCuadros(){
 
 
             // comparar los valores para ordenarlos 
-            if (ordenPrior[c] >= ordenPrior[c + 1] ){
+            if (ordenPrior[c] > ordenPrior[c + 1] ){
                 console.log("Cambiando");
                 await cambiar(bloques1[c], bloques1[c + 1]);
                 await new Promise((resolve) =>
@@ -244,12 +285,21 @@ async function ordenarCuadros(){
                 var auxb = ordenDato[c];
                 ordenDato[c] = ordenDato[c+1];
                 ordenDato[c+1] = auxb;
+            } 
+            if (ordenPrior[c] == ordenPrior[c + 1]){
+                bloques1 = document.querySelectorAll(".cuadrito");
+                //bloques2 = document.querySelectorAll(".cuadrito2");
+                var auxa = ordenPrior[c];
+                ordenPrior[c] = ordenPrior[c+1];
+                ordenPrior[c+1] = auxa;
 
-                
-
-                
+                var auxb = ordenDato[c];
+                ordenDato[c] = ordenDato[c+1];
+                ordenDato[c+1] = auxb;
 
             }
+
+
             //bloques[c].style.backgroundColor = "#6b5b95";
             //bloques[c + 1].style.backgroundColor = "#6b5b95";
         }
@@ -278,11 +328,11 @@ function cambiar(bloque1, bloque2){
     });
 
 }
-
+*/
 // ***** ELIMINAR ELEMENTO *****
 async function eliminar(){
     var bloques = document.querySelectorAll(".cuadrito");
-    var bloques2 = document.querySelectorAll(".cuadrito2");
+    //var bloques2 = document.querySelectorAll(".cuadrito2");
     console.log("Eliminando");
 
     // Longitud de la lista 
@@ -294,7 +344,7 @@ async function eliminar(){
 
     // Pintando el cuadro a eliminar 
     bloques[0].style.backgroundColor = "#DC143C";
-    bloques2[0].style.backgroundColor = "#DC143C";
+    //bloques2[0].style.backgroundColor = "#DC143C";
     await new Promise((resolve) =>
         setTimeout(() =>{
         resolve();
@@ -302,7 +352,7 @@ async function eliminar(){
     );
     // Eliminando de la pantalla
     container.removeChild(bloques[0]);
-    container.removeChild(bloques2[0]);
+    //container.removeChild(bloques2[0]);
 }
 
 // ***** BUSCAR ELEMENTO *****
