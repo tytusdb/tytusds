@@ -12,7 +12,7 @@ export default function GraficarArboles(props) {
 
     return (
         <div>
-            <Graphviz dot={dot} options={{zoom:true,height: 500,width: 500}} />
+            <Graphviz dot={dot} options={{zoom:true,height: 2000,width: 2000}} />
         </div>
     )
 }

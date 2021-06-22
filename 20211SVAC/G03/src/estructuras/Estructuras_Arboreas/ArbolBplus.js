@@ -8,6 +8,8 @@ class Nodo {
         this.id = null; // id nuevo 
     }
 }
+
+let permiso = false
 var salida = ""
 
 class Rama {
@@ -91,6 +93,7 @@ class ArbolBplus {
             ramaAux.agregarNodo(nodo);
             if (ramaAux.contador == this.orden) {
                 this.dividirRama(ramaAux);
+                this.raiz.idRama = this.raiz.indice.idRama;
             }
         } else if (ramaAux.hoja == false) {
             this.buscarInsercion(nodo, ramaAux);
@@ -117,9 +120,12 @@ class ArbolBplus {
         this.cuentaRamas ++;
         let rama_derAux = new Rama();
         rama_derAux.id = this.cuentaRamas;
+        rama_derAux.idRama = this.cuentaRamas;
         this.cuentaRamas++;
         let rama_izAux = new Rama();
-        rama_izAux.id = this.cuentaRamas ++;        
+        rama_izAux.id = this.cuentaRamas;  
+        rama_izAux.idRama = this.cuentaRamas; 
+        this.cuentaRamas ++;     
         let medio = null;
         let temp = ramaAux.indice;
         let hoja = false;
@@ -225,6 +231,7 @@ reacomodo sus hijos en los espacios de las divisiones*/
                 this.dividirRama(ramaAux.ramaPadre)
             }
         }
+        medio.idRama = this.cuentaRamas -2;
     }    
 /*-----------------------------------------------
 ---------------Fin bloque Agregar ---------------
@@ -377,7 +384,7 @@ graficando(rama){
             if(aux.rama_Der != null){
                 salida+= "node"+rama.idRama + " -> node" + rama.indice.rama_Der.idRama + "\n"
             }
-            if(aux.izquierdo != null){
+            if(aux.rama_Izq != null){
                 salida+= "node"+rama.idRama + " -> node" + rama.indice.rama_Izq.idRama + "\n"
             }
             aux = rama.indice
@@ -395,13 +402,14 @@ graficando(rama){
             }
             aux = aux.siguiente
         }
-        if(rama.hoja == true){
+        if(rama.hoja == true && permiso == false){
             while(rama.ramaContinua != null){
                 if(rama.ramaContinua != null){
                     salida += "node"+rama.idRama + " -> node" + rama.ramaContinua.idRama + "\n"
                 }
                 rama = rama.ramaContinua
             }
+            permiso = true
         }
     }    
     
