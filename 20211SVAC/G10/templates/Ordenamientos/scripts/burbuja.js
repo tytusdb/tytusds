@@ -11,7 +11,7 @@ const velocidad = document.getElementById("velocidad")
 let nuevo = []
 let original = []
 
-let tiempo = 500;
+let tiempo = 700;
 
 var options = {
     legend: { display: false },
@@ -90,7 +90,7 @@ async function burbuja (lista, size){
         await new Promise(resolve => setTimeout(resolve, tiempo))
 
         for (let j = i+1; j < size; j++) {
-            if(lista[i] > lista[j]) {
+            if(parseInt(lista[i]) > parseInt(lista[j])) {
                 aux = lista[i];
                 lista[i] = lista[j];
                 lista[j] = aux;

@@ -8,7 +8,7 @@ const guardar = document.getElementById('guardar')
 const cargar = document.getElementById('cargar')
 
 const velocidad = document.getElementById("velocidad")
-let tiempo = 500;
+let tiempo = 700;
 
 var options = {
     legend: { display: false },
