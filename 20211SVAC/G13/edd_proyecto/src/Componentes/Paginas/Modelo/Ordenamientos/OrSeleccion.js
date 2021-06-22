@@ -1,4 +1,4 @@
-class OrInsercion{
+class OrSeleccion{
 
 	constructor(){
 		this.array = []
@@ -9,19 +9,27 @@ class OrInsercion{
 	}
 
 
-	ordenamiento_insercion = () =>{
+    ordenamiento_seleccion = () =>{
 
-		var size = this.array.length, temp, aux;
-   
-		for ( var i = 0; i < this.array.length; i++ ) { // outer loop     
-		aux = this.array[i];
-			for ( temp = i - 1; temp >= 0 && this.array[temp] > aux; temp-- ){ // inner loop
-				this.array[ temp + 1 ] = this.array[temp];
+		for(var i = 1; i < this.array.length; i++){
+			var aux = this.array[i];
+			var temp = i - 1  ;
+			while(aux < this.array[temp] && temp >= 1){
+				this.array[temp+1] = this.array[temp];
+				temp = temp - 1;
+
 			}
-		this.array[ temp + 1 ] = aux;
+
+			if (this.array[temp] <= aux){
+					this.array[temp+1] = aux;
+			}else{
+				this.array[temp+1] = this.array[temp]
+				this.array[temp] = aux
+
+			}
+
 		}
 	}
-
 
 	
     setNodesDataSet = () => { // Esto Genera los nodos de Vis.
@@ -55,4 +63,7 @@ class OrInsercion{
     }
 }
 
-module.exports = OrInsercion;
+module.exports = OrSeleccion;
+
+
+
