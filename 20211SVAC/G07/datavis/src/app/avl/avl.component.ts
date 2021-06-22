@@ -73,6 +73,8 @@ export class AvlComponent implements OnInit {
     
       let conversion = Number(valor);
       this.insertar(conversion);
+      console.log("Valor ingresado: "+conversion)
+      this.preOrden();
   }
   insertar(valor:number) {
     this.avl.raiz = this.add(valor, this.avl.raiz);
@@ -149,48 +151,24 @@ export class AvlComponent implements OnInit {
 
 
   preOrden() {
-    console.log("Impresion \n")
+    console.log("Impresion")
     this.pre_orden(this.avl.raiz);
   }
 
   pre_orden(nodo) {
-   
     if (nodo != null) {
         
         console.log("Valor:", nodo.valor);
-        if(nodo.izquierdo != null || nodo.derecho != null){
-          let text = nodo.valor;
-          text = text.toString();
-          nodes.add(
-            {id:nodo.valor, label:text}
-          );
-
-          if(nodo.izquierdo!=null){
-            
+        if(nodo.izquierdo!=null){
             console.log("Iz "+nodo.izquierdo.valor)
-            nodes.add(
-              {id:nodo.izquierdo.valor, label:nodo.izquierdo.valor.toString()}
-            );
-            edges.add(
-              {from:nodo.valor, to: nodo.izquierdo.valor, length:10}
-            );
-          }
-          if(nodo.derecho!=null){
-            console.log("Der "+nodo.derecho.valor)
-            nodes.add(
-              {id:nodo.derecho.valor, label:nodo.derecho.valor.toString()}
-            );
-            edges.add(
-              {from:nodo.valor, to: nodo.derecho.valor, length:10}
-            );
-          }
         }
-        
+        if(nodo.derecho!=null){
+            console.log("Der "+nodo.derecho.valor)
+        }
         this.pre_orden(nodo.izquierdo);
         this.pre_orden(nodo.derecho);
-        
     }
-    
-  }
+  }  
+
 
 }
