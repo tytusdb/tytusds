@@ -1,21 +1,14 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat); 
+
 body {
     min-height: 100vh;
   /*background-color: #FAFAFA; */
     /* background: #030321;   */
-    background-color: #263238;
+    background: #090d00; 
+    color: rgba(255,255,255,.25); 
     font-family: Arial; 
     text-align: center; 
   }
-
-  .bloque{
-    float:left;
-    margin-left:5px;
-    width:20px;
-    height:20px;
-    text-align:center;
-    padding:5px;
-    background:#fff;
- }
 
 .container {
     position: relative;
@@ -29,6 +22,7 @@ body {
   .file-input{
     display: none;
   }
+
 
   p {
     /*text-transform: uppercase;*/ /* para colocar todo el texto en mayuscula  */
@@ -79,5 +73,3 @@ body {
     0% { background-position: 50% 50%; }
     100% { background-position: 100% 100%; }
   }
-
-  
