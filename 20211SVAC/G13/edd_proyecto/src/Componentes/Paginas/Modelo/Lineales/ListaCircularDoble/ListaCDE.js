@@ -219,4 +219,5 @@ class ListaCircularDE{
     }
 }
 
-module.exports = ListaCircularDE;
+export default ListaCircularDE;
+//module.exports = ListaCircularDE;

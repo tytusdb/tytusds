@@ -218,5 +218,6 @@ class ListaSimple{
     set_ultimo = (ultimo) => { this.ultimo = ultimo; }
 }
 
-module.exports = ListaSimple;
+export default ListaSimple;
+//module.exports = ListaSimple;
 

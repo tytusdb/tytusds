@@ -235,4 +235,5 @@ class ListaDoble{
 
 }
 
-module.exports = ListaDoble;
+export default ListaDoble;
+//module.exports = ListaDoble;

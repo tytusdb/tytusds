@@ -294,4 +294,5 @@ class ListaCircular{
 
 }
 
-module.exports = ListaCircular;
+export default ListaCircular;
+//module.exports = ListaCircular;

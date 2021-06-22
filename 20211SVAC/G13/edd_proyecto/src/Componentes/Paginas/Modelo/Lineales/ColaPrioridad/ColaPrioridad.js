@@ -138,4 +138,5 @@ class ColaPrioridad{
 	}
 }
 
-module.exports = ColaPrioridad;
+export default ColaPrioridad;
+//module.exports = ColaPrioridad;

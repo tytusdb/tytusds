@@ -105,4 +105,5 @@ class EstructuraCola{
 	}
 }
 
-module.exports = EstructuraCola;
+export default EstructuraCola;
+//module.exports = EstructuraCola;
