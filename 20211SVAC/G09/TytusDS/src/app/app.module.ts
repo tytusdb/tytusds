@@ -37,6 +37,13 @@ import { RecorridoBusquedaAnchuraGarfosComponent } from './ComponentesFaseDos/al
 import { RecorridoBusquedaAnchuraGrafosComponent } from './ComponentesFaseDos/algoritmos-de-codificacion/recorrido-busqueda-anchura-grafos/recorrido-busqueda-anchura-grafos.component';
 import { RecorridoBusquedaProfundidadGrafosComponent } from './ComponentesFaseDos/algoritmos-de-codificacion/recorrido-busqueda-profundidad-grafos/recorrido-busqueda-profundidad-grafos.component';
 import { AlgoritmoDeCostoUniformeComponent } from './ComponentesFaseDos/algoritmos-de-codificacion/algoritmo-de-costo-uniforme/algoritmo-de-costo-uniforme.component';
+import { ArbolRecubrimientoMinimoComponent } from './ComponentesFaseDos/algoritmos-de-codificacion/arbol-recubrimiento-minimo/arbol-recubrimiento-minimo.component';
+import { AlgoritmoCostoUniformeComponent } from './ComponentesFaseDos/estructuras-no-lineales/algoritmo-costo-uniforme/algoritmo-costo-uniforme.component';
+import { CodigoHammingComponent } from './ComponentesFaseDos/AlgoritmoDeCodificacion/codigo-hamming/codigo-hamming.component';
+import { AlgoritmoHuffmanComponent } from './ComponentesFaseDos/AlgoritmoDeCodificacion/algoritmo-huffman/algoritmo-huffman.component';
+import { AlgoritmoLZWComponent } from './ComponentesFaseDos/AlgoritmoDeCodificacion/algoritmo-lzw/algoritmo-lzw.component';
+import { CifradoFeistelComponent } from './ComponentesFaseDos/AlgoritmoDeCodificacion/cifrado-feistel/cifrado-feistel.component';
+import { CifradoRSAComponent } from './ComponentesFaseDos/AlgoritmoDeCodificacion/cifrado-rsa/cifrado-rsa.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -71,7 +78,14 @@ import { AlgoritmoDeCostoUniformeComponent } from './ComponentesFaseDos/algoritm
     RecorridoBusquedaAnchuraGarfosComponent,
     RecorridoBusquedaAnchuraGrafosComponent,
     RecorridoBusquedaProfundidadGrafosComponent,
-    AlgoritmoDeCostoUniformeComponent
+    AlgoritmoDeCostoUniformeComponent,
+    ArbolRecubrimientoMinimoComponent,
+    AlgoritmoCostoUniformeComponent,
+    CodigoHammingComponent,
+    AlgoritmoHuffmanComponent,
+    AlgoritmoLZWComponent,
+    CifradoFeistelComponent,
+    CifradoRSAComponent
   ],
   imports: [
     BrowserModule,
