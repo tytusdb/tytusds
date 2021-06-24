@@ -75,10 +75,6 @@ http://localhost:3000/tytusds/20211SVAC/G03/build
 
 _luego de dirigirte al puerto anterior con la ruta especificada, ya puedes hacer uso de la aplicación_
 
-## Despliegue 📦
-
-_Agrega notas adicionales sobre como hacer deploy_
-
 ## Construido con 🛠️
 
 * [React Js](https://es.reactjs.org/) - El framework web usado
