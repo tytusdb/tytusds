@@ -44,6 +44,8 @@ import { AlgoritmoHuffmanComponent } from './ComponentesFaseDos/AlgoritmoDeCodif
 import { AlgoritmoLZWComponent } from './ComponentesFaseDos/AlgoritmoDeCodificacion/algoritmo-lzw/algoritmo-lzw.component';
 import { CifradoFeistelComponent } from './ComponentesFaseDos/AlgoritmoDeCodificacion/cifrado-feistel/cifrado-feistel.component';
 import { CifradoRSAComponent } from './ComponentesFaseDos/AlgoritmoDeCodificacion/cifrado-rsa/cifrado-rsa.component';
+import { MatricesDispersasComponent } from './ComponentesFaseDos/EstructurasCompuestas/matrices-dispersas/matrices-dispersas.component';
+import { RowMajorComponent } from './ComponentesFaseDos/EstructurasCompuestas/row-major/row-major.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -85,7 +87,9 @@ import { CifradoRSAComponent } from './ComponentesFaseDos/AlgoritmoDeCodificacio
     AlgoritmoHuffmanComponent,
     AlgoritmoLZWComponent,
     CifradoFeistelComponent,
-    CifradoRSAComponent
+    CifradoRSAComponent,
+    MatricesDispersasComponent,
+    RowMajorComponent
   ],
   imports: [
     BrowserModule,
