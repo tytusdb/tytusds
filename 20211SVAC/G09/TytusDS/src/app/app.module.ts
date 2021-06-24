@@ -33,6 +33,10 @@ import { AlgoritmosDeCodificacionComponent } from './ComponentesFaseDos/algoritm
 import { EstructurasCompuestasComponent } from './ComponentesFaseDos/estructuras-compuestas/estructuras-compuestas.component';
 import { TablaHashAbiertaComponent } from './ComponentesFaseDos/algoritmos-de-codificacion/tabla-hash-abierta/tabla-hash-abierta.component';
 import { TablaHashCerradaComponent } from './ComponentesFaseDos/algoritmos-de-codificacion/tabla-hash-cerrada/tabla-hash-cerrada.component';
+import { RecorridoBusquedaAnchuraGarfosComponent } from './ComponentesFaseDos/algoritmos-de-codificacion/recorrido-busqueda-anchura-garfos/recorrido-busqueda-anchura-garfos.component';
+import { RecorridoBusquedaAnchuraGrafosComponent } from './ComponentesFaseDos/algoritmos-de-codificacion/recorrido-busqueda-anchura-grafos/recorrido-busqueda-anchura-grafos.component';
+import { RecorridoBusquedaProfundidadGrafosComponent } from './ComponentesFaseDos/algoritmos-de-codificacion/recorrido-busqueda-profundidad-grafos/recorrido-busqueda-profundidad-grafos.component';
+import { AlgoritmoDeCostoUniformeComponent } from './ComponentesFaseDos/algoritmos-de-codificacion/algoritmo-de-costo-uniforme/algoritmo-de-costo-uniforme.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,7 +67,11 @@ import { TablaHashCerradaComponent } from './ComponentesFaseDos/algoritmos-de-co
     AlgoritmosDeCodificacionComponent,
     EstructurasCompuestasComponent,
     TablaHashAbiertaComponent,
-    TablaHashCerradaComponent
+    TablaHashCerradaComponent,
+    RecorridoBusquedaAnchuraGarfosComponent,
+    RecorridoBusquedaAnchuraGrafosComponent,
+    RecorridoBusquedaProfundidadGrafosComponent,
+    AlgoritmoDeCostoUniformeComponent
   ],
   imports: [
     BrowserModule,
