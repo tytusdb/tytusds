@@ -36,4 +36,17 @@ export class OrdenamientoSeleccion {
         return iteraciones;
     }
 
+    ordenarLista(arreglo: any[]): any {
+        for (let x = 0; x < arreglo.length - 1; x++) {
+            let menor = x;
+            for(let j = x + 1; j < arreglo.length; j++) {
+                if (arreglo[menor] > arreglo[j]) menor = j;
+            }
+            let aux = arreglo[menor];
+            arreglo[menor] = arreglo[x];
+            arreglo[x] = aux;
+        }
+        return arreglo;
+    }
+
 }
