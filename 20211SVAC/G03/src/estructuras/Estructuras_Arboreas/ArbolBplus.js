@@ -9,7 +9,7 @@ class Nodo {
     }
 }
 
-let permiso = false
+var permiso = false
 var salida = ""
 
 class Rama {
@@ -331,6 +331,7 @@ _recorrer(arreglo, ramaAux){
  //Metodo Graficar
  graficar(){
     salida = ""
+    permiso = false
     if(this.raiz == null){
         console.log("No hay nada aun")
         return
@@ -401,17 +402,17 @@ graficando(rama){
                 this.graficando(aux.rama_Der)
             }
             aux = aux.siguiente
-        }
-        if(rama.hoja == true && permiso == false){
-            while(rama.ramaContinua != null){
-                if(rama.ramaContinua != null){
-                    salida += "node"+rama.idRama + " -> node" + rama.ramaContinua.idRama + "\n"
-                }
-                rama = rama.ramaContinua
+        }   
+    }   
+    if(rama.hoja == true && permiso == false){
+        while(rama.ramaContinua != null){
+            if(rama.ramaContinua != null){
+                salida += "node"+rama.idRama + " -> node" + rama.ramaContinua.idRama + "\n"
             }
-            permiso = true
+            rama = rama.ramaContinua
         }
-    }    
+        permiso = true
+    } 
     
 }
 
