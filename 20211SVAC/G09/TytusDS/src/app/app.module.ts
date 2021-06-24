@@ -30,6 +30,9 @@ import { ArbolMerkleComponent } from './componentes/arbol-merkle/arbol-merkle.co
 import { ComponentesFaseDosComponent } from './componentes-fase-dos/componentes-fase-dos.component';
 import { EstructurasNoLinealesComponent } from './ComponentesFaseDos/estructuras-no-lineales/estructuras-no-lineales.component';
 import { AlgoritmosDeCodificacionComponent } from './ComponentesFaseDos/algoritmos-de-codificacion/algoritmos-de-codificacion.component';
+import { EstructurasCompuestasComponent } from './ComponentesFaseDos/estructuras-compuestas/estructuras-compuestas.component';
+import { TablaHashAbiertaComponent } from './ComponentesFaseDos/algoritmos-de-codificacion/tabla-hash-abierta/tabla-hash-abierta.component';
+import { TablaHashCerradaComponent } from './ComponentesFaseDos/algoritmos-de-codificacion/tabla-hash-cerrada/tabla-hash-cerrada.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,7 +60,10 @@ import { AlgoritmosDeCodificacionComponent } from './ComponentesFaseDos/algoritm
     ArbolMerkleComponent,
     ComponentesFaseDosComponent,
     EstructurasNoLinealesComponent,
-    AlgoritmosDeCodificacionComponent
+    AlgoritmosDeCodificacionComponent,
+    EstructurasCompuestasComponent,
+    TablaHashAbiertaComponent,
+    TablaHashCerradaComponent
   ],
   imports: [
     BrowserModule,
