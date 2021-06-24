@@ -89,9 +89,9 @@ _Agrega notas adicionales sobre como hacer deploy_
 
 ## Autores ✒️
 
-* **Ariel Macario** - *Trabajo Inicial* - [Ariel Macario](https://github.com/Macario12)
-* **Mario Rodriguez** - *Documentación* - [Mario Rodriguez](https://github.com/Mariocrv208)
-* **Erick Mayorga** - *Documentación* - [Erick Mayorga](https://github.com/ErickMayorgaR)
+* **Ariel Macario** - [Ariel Macario](https://github.com/Macario12)
+* **Mario Rodriguez**  - [Mario Rodriguez](https://github.com/Mariocrv208)
+* **Erick Mayorga** - [Erick Mayorga](https://github.com/ErickMayorgaR)
 
 También puedes mirar la lista de todos los [contribuyentes](https://github.com/Macario12/tytusds/graphs/contributors) quíenes han participado en este proyecto. 
 
