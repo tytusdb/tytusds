@@ -15,12 +15,12 @@ _Estas instrucciones te permitirán obtener una copia del proyecto en funcionami
 _Que cosas necesitas para usar la aplicación y como instalarlas_
 
 ```
-Tener Node Js.
+- Node Js.
 ```
 
-### Instalación 🔧
+### Instalación de Node JS 🔧
 
-_Para obtener Node Js debes de dirigirte al siguiente enlace. https://nodejs.org/es/
+_Para obtener Node Js debes de dirigirte al siguiente enlace. https://nodejs.org/es/ _
 
 _Proceder a descargar y a ejecutar el ejecutable_
 
@@ -34,25 +34,46 @@ _Si todo marcha bien la consola debe de mostrar lo siguiente_
 
 ![img](https://i.ibb.co/RDfmYzK/Node-v-Macario.png)
 
+### Instalación de paquetes. 🔧
+
+_Para la instalación de los paquetes debemos usar el siguiente comando. _
+
+```
+npm install
+```
+
+_o_
+
+```
+npm i
+```
+
+_Lo que realiza este comando es instalar todos los paquetes y dependencias que se usaran para la creación de la aplicación_
+
+
+_Media vez instalado lo anterior ya podemos hacer uso de la aplicación_
+
 ## Ejecutando las pruebas ⚙️
 
-_Explica como ejecutar las pruebas automatizadas para este sistema_
-
-### Analice las pruebas end-to-end 🔩
-
-_Explica que verifican estas pruebas y por qué_
+_Para ejecutar las pruebas de la aplicación debemos de usar el siguiente comando_
 
 ```
-Da un ejemplo
+npm start
 ```
 
-### Y las pruebas de estilo de codificación ⌨️
-
-_Explica que verifican estas pruebas y por qué_
+_Lo que realiza es levantar la aplicación en un puerto para realiza las pruebas, el puerto por defecto es el siguiente_
 
 ```
-Da un ejemplo
+http://localhost:3000/
 ```
+
+_Se configuro una ruta para la pagina principal, la ruta a usar es la siguiente_
+
+```
+http://localhost:3000/tytusds/20211SVAC/G03/build
+```
+
+_luego de dirigirte al puerto anterior con la ruta especificada, ya puedes hacer uso de la aplicación_
 
 ## Despliegue 📦
 
@@ -60,45 +81,17 @@ _Agrega notas adicionales sobre como hacer deploy_
 
 ## Construido con 🛠️
 
-_Menciona las herramientas que utilizaste para crear tu proyecto_
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - El framework web usado
-* [Maven](https://maven.apache.org/) - Manejador de dependencias
-* [ROME](https://rometools.github.io/rome/) - Usado para generar RSS
-
-## Contribuyendo 🖇️
-
-Por favor lee el [CONTRIBUTING.md](https://gist.github.com/villanuevand/xxxxxx) para detalles de nuestro código de conducta, y el proceso para enviarnos pull requests.
-
-## Wiki 📖
-
-Puedes encontrar mucho más de cómo utilizar este proyecto en nuestra [Wiki](https://github.com/tu/proyecto/wiki)
-
-## Versionado 📌
-
-Usamos [SemVer](http://semver.org/) para el versionado. Para todas las versiones disponibles, mira los [tags en este repositorio](https://github.com/tu/proyecto/tags).
+* [React Js](https://es.reactjs.org/) - El framework web usado
+* [NPM](https://www.npmjs.com/) - Manejador de dependencias
+* [Semantic UI React](https://react.semantic-ui.com/) - El framework para crear diseño de la interfaz.
+* [vis.js](https://visjs.github.io/vis-network/docs/network/) - El framework para crear los graficos.
+* [Recharts](https://recharts.org/) - El framework para crear los graficos de barra.
 
 ## Autores ✒️
 
-_Menciona a todos aquellos que ayudaron a levantar el proyecto desde sus inicios_
+* **Ariel Macario** - *Trabajo Inicial* - [Ariel Macario](https://github.com/Macario12)
+* **Mario Rodriguez** - *Documentación* - [Mario Rodriguez](https://github.com/Mariocrv208)
+* **Erick Mayorga** - *Documentación* - [Erick Mayorga](https://github.com/ErickMayorgaR)
 
-* **Andrés Villanueva** - *Trabajo Inicial* - [villanuevand](https://github.com/villanuevand)
-* **Fulanito Detal** - *Documentación* - [fulanitodetal](#fulanito-de-tal)
+También puedes mirar la lista de todos los [contribuyentes](https://github.com/Macario12/tytusds/graphs/contributors) quíenes han participado en este proyecto. 
 
-También puedes mirar la lista de todos los [contribuyentes](https://github.com/your/project/contributors) quíenes han participado en este proyecto. 
-
-## Licencia 📄
-
-Este proyecto está bajo la Licencia (Tu Licencia) - mira el archivo [LICENSE.md](LICENSE.md) para detalles
-
-## Expresiones de Gratitud 🎁
-
-* Comenta a otros sobre este proyecto 📢
-* Invita una cerveza 🍺 o un café ☕ a alguien del equipo. 
-* Da las gracias públicamente 🤓.
-* etc.
-
-
-
----
-⌨️ con ❤️ por [Villanuevand](https://github.com/Villanuevand) 😊
