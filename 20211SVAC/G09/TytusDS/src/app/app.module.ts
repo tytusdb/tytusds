@@ -27,6 +27,9 @@ import { ArbolBinarioComponent } from './componentes/arbol-binario/arbol-binario
 import { ArbolBComponent } from './componentes/arbol-b/arbol-b.component';
 import { ArbolBMasComponent } from './componentes/arbol-bmas/arbol-bmas.component';
 import { ArbolMerkleComponent } from './componentes/arbol-merkle/arbol-merkle.component';
+import { ComponentesFaseDosComponent } from './componentes-fase-dos/componentes-fase-dos.component';
+import { EstructurasNoLinealesComponent } from './ComponentesFaseDos/estructuras-no-lineales/estructuras-no-lineales.component';
+import { AlgoritmosDeCodificacionComponent } from './ComponentesFaseDos/algoritmos-de-codificacion/algoritmos-de-codificacion.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,7 +54,10 @@ import { ArbolMerkleComponent } from './componentes/arbol-merkle/arbol-merkle.co
     ArbolBinarioComponent,
     ArbolBComponent,
     ArbolBMasComponent,
-    ArbolMerkleComponent
+    ArbolMerkleComponent,
+    ComponentesFaseDosComponent,
+    EstructurasNoLinealesComponent,
+    AlgoritmosDeCodificacionComponent
   ],
   imports: [
     BrowserModule,
