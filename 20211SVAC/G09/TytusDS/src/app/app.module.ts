@@ -46,6 +46,10 @@ import { CifradoFeistelComponent } from './ComponentesFaseDos/AlgoritmoDeCodific
 import { CifradoRSAComponent } from './ComponentesFaseDos/AlgoritmoDeCodificacion/cifrado-rsa/cifrado-rsa.component';
 import { MatricesDispersasComponent } from './ComponentesFaseDos/EstructurasCompuestas/matrices-dispersas/matrices-dispersas.component';
 import { RowMajorComponent } from './ComponentesFaseDos/EstructurasCompuestas/row-major/row-major.component';
+import { ColMajorComponent } from './ComponentesFaseDos/EstructurasCompuestas/col-major/col-major.component';
+import { ConstruccionEstructurasCompuestasComponent } from './ComponentesFaseDos/EstructurasCompuestas/construccion-estructuras-compuestas/construccion-estructuras-compuestas.component';
+import { RecorridoBusquedaAnchuraGrafoComponent } from './ComponentesFaseDos/EstructurasNoLineales/recorrido-busqueda-anchura-grafo/recorrido-busqueda-anchura-grafo.component';
+import { RecorridoBusquedaProfundidadGrafoComponent } from './ComponentesFaseDos/EstructurasNoLineales/recorrido-busqueda-profundidad-grafo/recorrido-busqueda-profundidad-grafo.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -89,7 +93,11 @@ import { RowMajorComponent } from './ComponentesFaseDos/EstructurasCompuestas/ro
     CifradoFeistelComponent,
     CifradoRSAComponent,
     MatricesDispersasComponent,
-    RowMajorComponent
+    RowMajorComponent,
+    ColMajorComponent,
+    ConstruccionEstructurasCompuestasComponent,
+    RecorridoBusquedaAnchuraGrafoComponent,
+    RecorridoBusquedaProfundidadGrafoComponent
   ],
   imports: [
     BrowserModule,
