@@ -13,7 +13,7 @@ class cola{
         this.fin=null;
         this.tamaño=0;
     }
-insertar(valor){
+insertar(valor,tiempo){
     let nodo = new Nodo(valor)
     nodo.dato=valor;
     if(this.uno==null){
@@ -30,17 +30,13 @@ insertar(valor){
           element.appendChild(content);
           element.style.backgroundColor='rgb(25, 25, 112)'; 
           element.style.color='rgb(255,255,255)';
-          element.style.fontSize='15px'; 
+          element.style.fontSize='10px'; 
           element.style.borderRadius="5px";
           element.style.boxShadow="0 9px black";
           element.style.width="125px";
           element.style.height="40px";
           myDiv.insertBefore(element, myDiv.firstElementChild);
-          window.scroll({
-            top: 2000,
-            left: 100,
-            behavior: 'smooth'
-          });
+          
           
           
           var pos = -30;
@@ -62,16 +58,12 @@ insertar(valor){
     element1.style.width="120px";
     element1.style.height="30px";
     myDiv1.insertBefore(element1, myDiv1.firstElementChild);
-    window.scroll({
-        top: 2000,
-        left: 100,
-        behavior: 'smooth'
-      });
+    
     var eli=function(){
         var puntero=document.getElementById("myDiv1");
         puntero.removeChild(puntero.childNodes[0]); 
         };
-        setTimeout(eli,600);
+        setTimeout(eli,tiempo);
 
 
 
@@ -96,7 +88,7 @@ this.tamaño++;
 
 }
 
-guardarg(valor) {
+guardarg(valor,tiempo) {
     let aux = this.uno;
     var bandera=true;
     if(aux!=null){
@@ -120,7 +112,7 @@ guardarg(valor) {
                   element.appendChild(content);
                   element.style.backgroundColor='rgb(25, 25, 112)'; 
                   element.style.color='rgb(255,255,255)';
-                  element.style.fontSize='15px'; 
+                  element.style.fontSize='10px'; 
                   element.style.borderRadius="5px";
                   element.style.boxShadow="0 9px black";
                   element.style.width="125px";
@@ -136,11 +128,7 @@ guardarg(valor) {
                   element1.style.width="30px";
                   element1.style.height="30px";
                   myDiv1.insertBefore(element1, myDiv1.firstElementChild);
-                  window.scroll({
-                    top: 2000,
-                    left: 100,
-                    behavior: 'smooth'
-                  });
+                  
                   
                   var pos = -30;
                   var id = setInterval(frame, 4);
@@ -161,21 +149,45 @@ guardarg(valor) {
             element1.style.width="70px";
             element1.style.height="30px";
             myDiv1.insertBefore(element1, myDiv1.firstElementChild);
-            window.scroll({
-                top: 2000,
-                left: 100,
-                behavior: 'smooth'
-              });
+            
             var eli=function(){
                 var puntero=document.getElementById("myDiv1");
                 puntero.removeChild(puntero.childNodes[0]); 
                 };
-                setTimeout(eli,600);
+                setTimeout(eli,tiempo);
         }
         else{
             alert("dato no valido");
         }
      }
+
+     guardar22(valor) {
+        let aux = this.uno;
+        var bandera=true;
+        if(aux!=null){
+            do{if (valor==aux.dato){
+                bandera=false;
+                break;}
+                aux=aux.post;
+            }while(aux!=null);}
+    
+            if (bandera==true){
+                let nodo = new Nodo(valor)
+                nodo.dato=valor;
+                if (this.uno==null){
+                    this.uno=nodo;}
+                else{nodo.post=this.uno;
+                    this.uno=nodo;}
+                this.tamaño++; 
+                    
+                
+            }
+            
+         }
+
+
+
+
 
 
 eliminar(){
@@ -224,7 +236,7 @@ eliminar(){
      }
 
 
-buscar(valor){
+buscar(valor,tiempo){
     var ele= document.getElementById("myDiv1");
     while (ele.firstChild) {
         ele.removeChild(ele.firstChild);}   
@@ -289,10 +301,10 @@ buscar(valor){
                   clearInterval(intervalo);}
             };
         
-        var intervalo = setInterval(fun,1000);
+        var intervalo = setInterval(fun,tiempo);
     }
         else{
-            alert("Pila vacia"); 
+            alert("Cola vacia"); 
         }
      }
     
@@ -356,6 +368,7 @@ leer(){
   }
 
 
+
   pintar(){
     var ele= document.getElementById("myDiv1");
     while (ele.firstChild) {ele.removeChild(ele.firstChild);}   
@@ -383,7 +396,7 @@ if (this.uno!=null){ do{
     
     aux=aux.post; }while(aux!=null);}
 else{
-    alert("Pila vacia"); 
+    alert("Cola vacia"); 
 }
    }
 
