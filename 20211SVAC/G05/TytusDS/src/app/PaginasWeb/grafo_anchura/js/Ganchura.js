@@ -1,4 +1,5 @@
-
+var nodos=[];
+var punteros=[];
 class nodolista{
     constructor(vertice){
         this.dato=vertice;
@@ -18,8 +19,8 @@ class lista {
    if (this.uno==null){
        this.uno=nodo;}
    else{nodo.post=this.uno;
-       this.uno=nodo;}}
-    
+       this.uno=nodo;}
+    }
 
        buscar1(vertice){ 
         let aux = this.uno;
@@ -35,6 +36,38 @@ class lista {
             this.guardar(vertice);
             }}
 
+    eliminar(vertice){
+    let actual = this.uno;
+    let anterior = null;
+    if (this.uno!=null){
+        do{
+            if(actual.dato==vertice){
+                if(actual==this.uno){
+                  this.uno=this.uno.post;
+                  break;
+            }else{
+              anterior.post=actual.post;
+              break;
+              }} 
+            anterior=actual;
+            actual=actual.post;
+            }while(actual!=null);
+    }
+
+    }
+
+    modificar(vertice,nuevo){
+        let aux = this.uno;
+    if (this.uno!=null){
+        do{
+            if(aux.dato==vertice ){
+                aux.dato=nuevo;
+            }
+            aux=aux.post;
+            }while(aux!=null);}
+    
+        }
+
 
      imprimir(){ 
         let aux = this.uno;
@@ -42,6 +75,7 @@ class lista {
         if (this.uno!=null){
             while(aux!=null){
                         console.log(aux.dato);
+                        nodos.push({id: aux.dato, label: aux.dato})
                     aux=aux.post;} }
             else{
                 console.log("sin datos");
@@ -51,12 +85,11 @@ class lista {
 }
 
 
-
-
 class nodolistaaux{
-    constructor(verticeo,verticef){
+    constructor(verticeo,verticef,peso){
         this.dato1=verticeo;
         this.dato2=verticef;
+        this.dato3=peso;
         this.sigui=null;
     }
 }
@@ -65,21 +98,58 @@ class listaaux{
     constructor() {
      this.inicio=null;}
  
-   guardar(verticeo,verticef) {
-   let nodo = new nodolistaaux(verticeo,verticef)
+   guardar(verticeo,verticef,peso) {
+   let nodo = new nodolistaaux(verticeo,verticef,peso)
    nodo.dato1=verticeo;
    nodo.dato2=verticef;
+   nodo.dato3=peso;
    if (this.inicio==null){
        this.inicio=nodo;}
    else{
        nodo.sigui=this.inicio;
-       this.inicio=nodo;}}
+       this.inicio=nodo;}
+    }
+
+    eliminar(vertice){
+        let actual = this.inicio;
+        let anterior = null;
+        if (this.inicio!=null){
+            do{
+                if(actual.dato1==vertice ||actual.dato2==vertice){
+                    if(actual==this.inicio){
+                      this.uno=this.inicio.sigui;
+                      
+                }else{
+                  anterior.sigui=actual.sigui;
+                  
+                  }} 
+                anterior=actual;
+                actual=actual.sigui;
+                }while(actual!=null);
+        }
+    
+        }
+
+        modificar(vertice,nuevo){
+            let aux = this.inicio;
+        if (this.inicio!=null){
+            do{
+                if(aux.dato1==vertice ){
+                    aux.dato1=nuevo;
+                }
+                if(aux.dato2==vertice){
+                    aux.dato2=nuevo;
+                }
+                aux=aux.sigui;
+                }while(aux!=null);}
+        
+            }
 
        imprimir(){
         let aux = this.inicio;
         if (this.inicio!=null){
             do{
-                console.log(aux.dato1+" "+aux.dato2);
+                punteros.push({from: aux.dato1, to: aux.dato2  ,label:aux.dato3});
                 aux=aux.sigui;
                 }while(aux!=null);
         }
@@ -109,34 +179,45 @@ insertar_vertices(vertice1){
         p.buscar1(vertice1);
 }
 
-guardar_vertices(vertice1,vertice2){
-    p1.guardar(vertice1,vertice2);
+isertar_aristas(vertice1,vertice2,peso){
+    p1.guardar(vertice1,vertice2,peso);
+}
+eliminar(vertice){
+    p.eliminar(vertice);
+    p1.eliminar(vertice);
+}
+modificar(vertice,nuevo){
+    p.modificar(vertice,nuevo);
+    p1.modificar(vertice,nuevo);
 }
 
 tamaño(){
     this.vertice=p.tamaño;
-    console.log("tamaño"+this.vertice);
     p.imprimir();
-    console.log("punteros");
     p1.imprimir();
 }
 
-
-
+as(){
+    nodos=[];
+    punteros=[];
+    p.imprimir();
+    p1.imprimir();
+    let ldata=[];
+    //this.nodos.push({id: aux.id, label: impre})
+    //this.punteros.push({from: aux.id, to: aux.hojitas[i].id});
+    ldata.push(nodos);
+    ldata.push(punteros);
+    console.log(ldata);
+    return ldata;
+    
+}
 
 
 }
 
 
 
-const stack = new Ganchura();
-  stack.insertar_vertices(1);
-  stack.insertar_vertices(2);
-  stack.insertar_vertices(3);
-  stack.insertar_vertices(4);
-  stack.insertar_vertices(4);
-  stack.insertar_vertices(2);
-  stack.guardar_vertices(2,1);
-  stack.guardar_vertices(1,1);
-  stack.guardar_vertices(4,3);
-  stack.tamaño();
+//const stack = new Ganchura();
+  //stack.insertar_vertices(1);
+  
+  module.exports = Ganchura;

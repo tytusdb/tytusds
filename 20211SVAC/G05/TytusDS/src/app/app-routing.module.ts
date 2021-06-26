@@ -16,6 +16,8 @@ import {InserccionComponent} from './PaginasWeb/inserccion/inserccion.component'
 import {BComponent} from './PaginasWeb/b/b.component';
 import { ColaComponent } from './PaginasWeb/Cola/cola.component';
 import { CpComponent } from './PaginasWeb/Cola-Prioridad/cp.component';
+import { AnchuraComponent } from './PaginasWeb/grafo_anchura/anchura.component';
+
 
 const routes: Routes = [
   {path:'menu', component: MenuComponent},
@@ -33,9 +35,10 @@ const routes: Routes = [
   {path:'Abinario', component:ABinarioComponent},
   {path:'Inserccion', component:InserccionComponent},
   {path:'B', component:BComponent},
+  {path:'Anchura', component:AnchuraComponent},
   {path:'**', redirectTo: 'menu'},
 
-
+  
 ];
 
 @NgModule({
