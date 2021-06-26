@@ -22,6 +22,7 @@ import { BComponent} from './PaginasWeb/b/b.component';
 import { CpComponent } from './PaginasWeb/Cola-Prioridad/cp.component';
 import { ColaComponent } from './PaginasWeb/Cola/cola.component';
 import { MDispersaComponent } from './PaginasWeb/mdispersa/mdispersa.component';
+import {AnchuraComponent} from './PaginasWeb/grafo_anchura/anchura.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { MDispersaComponent } from './PaginasWeb/mdispersa/mdispersa.component';
     ABinarioComponent,
     BComponent,
     InserccionComponent,
-    MDispersaComponent
+    MDispersaComponent,
+    AnchuraComponent
   ],
   imports: [
     BrowserModule,
