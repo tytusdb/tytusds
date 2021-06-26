@@ -50,7 +50,15 @@ class Lista{
     }
     return current;
   }
-
+  print(){
+    let l=[]
+    let current=this.head;
+    while (current!=null){
+      l.push(current.valor);
+      current=current.next
+    }
+    console.log(l);
+  }
 }
 
 module.exports = Lista;

@@ -19,6 +19,8 @@ import { CpComponent } from './PaginasWeb/Cola-Prioridad/cp.component';
 import { AnchuraComponent } from './PaginasWeb/grafo_anchura/anchura.component';
 
 
+import {MDispersaComponent} from './PaginasWeb/mdispersa/mdispersa.component';
+
 const routes: Routes = [
   {path:'menu', component: MenuComponent},
   {path:'ListasCirculares', component: ListasCircularesComponent},
@@ -36,9 +38,10 @@ const routes: Routes = [
   {path:'Inserccion', component:InserccionComponent},
   {path:'B', component:BComponent},
   {path:'Anchura', component:AnchuraComponent},
+  {path: 'MDispersa',component:MDispersaComponent},
   {path:'**', redirectTo: 'menu'},
 
-  
+
 ];
 
 @NgModule({

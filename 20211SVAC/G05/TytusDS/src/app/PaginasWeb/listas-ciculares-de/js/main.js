@@ -7,3 +7,4 @@ l.append_O(6);
 l.append_O(8);
 l.append_O(4);
 l.imprimir()
+
