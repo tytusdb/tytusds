@@ -14,13 +14,14 @@ li, a , button{
 
 .header{
     display: flex;
-    background: #254A69;  background-repeat: no-repeat;
+    background: #000033;  background-repeat: no-repeat;
     justify-content: space-between;
     align-items: center;
     height: 100px;
     width: auto;
     padding: 30px 10%;
     margin-bottom: 20px;
+    box-sizing: border-box;
 }
 
 .logo{
@@ -31,6 +32,7 @@ li, a , button{
 
 .nav__links{
     list-style: none;
+    margin-top: 15px;
 }
 
 .nav__links li {
@@ -48,7 +50,7 @@ li, a , button{
 
 button{
     padding: 9px 25px;
-    background-color: rgba(0,136,169,1);
+    background-color: #17A589 ;
     border:none;
     border-radius: 50px;
     cursor: pointer;
@@ -56,5 +58,5 @@ button{
 }
 
 button:hover{
-    background-color: rgba(0,136,169,0.8); 
+    background-color: rgba(0,136,169,0.8);
 }

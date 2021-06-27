@@ -9,6 +9,7 @@ class NodoSimple {
 class ListaSimple {
   constructor() {
     this.cabeza = null;
+    this.length = 0;
   }
 
   add_f(valor) {
@@ -22,6 +23,7 @@ class ListaSimple {
       }
       aux.siguiente = nuevo;
     }
+    this.length++;
   }
 
   add_i(valor) {
@@ -33,16 +35,19 @@ class ListaSimple {
       nuevo.siguiente = aux;
       this.cabeza = nuevo;
     }
+    this.length++;
   }
 
   delete(valor) {
     if (this.cabeza.valor == valor) {
       this.cabeza = this.cabeza.siguiente;
+      this.length--;
     } else {
       let aux = this.cabeza;
       while (aux.siguiente != null) {
         if (aux.siguiente.valor == valor) {
           aux.siguiente = aux.siguiente.siguiente;
+          this.length--;
           break
         }
         aux = aux.siguiente;
@@ -51,18 +56,19 @@ class ListaSimple {
   }
 
 
-  update(valor, nvalor){
-      let aux = this.cabeza;
-      while (aux != null) {
-        if (aux.valor == valor) {
-          aux.valor = nvalor;
-          console.log("se reemplazo: " + valor + ", por: "+ aux.valor);
-        }
-        aux = aux.siguiente;
+  update(valor, nvalor) {
+    let aux = this.cabeza;
+    while (aux != null) {
+      if (aux.valor == valor) {
+        aux.valor = nvalor;
+        console.log("se reemplazo: " + valor + ", por: " + aux.valor);
+        break;
+      }
+      aux = aux.siguiente;
     }
   }
 
-  seek(valor){
+  seek(valor) {
     let aux = this.cabeza;
     while (aux != null) {
       if (aux.valor == valor) {
@@ -70,9 +76,20 @@ class ListaSimple {
         return aux.valor;
       }
       aux = aux.siguiente;
-  }
-    console.log("se busco: "+ valor + " pero no esta paps");
+    }
+    console.log("se busco: " + valor + " pero no esta paps");
     return null;
+  }
+
+  get(index) {
+    let aux = this.cabeza;
+    for(let i =0; i<this.length; i++ ){
+      if(i==index){
+          break
+      }
+      aux = aux.siguiente;
+    }
+    return aux.valor
   }
 
 
@@ -92,15 +109,5 @@ class ListaSimple {
 }
 
 
-let lista = new ListaSimple();
-lista.add_f(1);
-lista.add_f(2);
-lista.add_f(3);
-lista.add_f(4);
-lista.add_f(5);
-lista.imprimir();
-console.log("");
-lista.update(2,10);
-lista.delete(5);
-lista.imprimir();
-lista.seek(8);
+
+export default ListaSimple;

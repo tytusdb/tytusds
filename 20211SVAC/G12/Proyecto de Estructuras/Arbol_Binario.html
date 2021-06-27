@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="Arbol_Binario.css"/>
+    <title>Arbol Binario de Busqueda</title>
+</head>
+<body>
+    <header class="header">
+        <center><h1>Arbol Binario de Busqueda</h1></center>
+    </header>
+    <form><center>
+        <input type="text" id="dato_pag" placeholder="Dato" required/>
+        <input type="button" onClick="insertar_nodo()" value="Insertar" />
+        Repetidos<input type="checkbox" id="checkbox"/>
+        <input type="file" id="Archivo"/>
+        <input type="button" onClick="DescargarArchivo()" value="Descargar" />
+        <input type="button" onClick="eliminar_nodo()" value="Eliminar" />
+    </center>
+    <br>
+    </form>
+    <div id="result" style="display: table">
+    </div>
+    <script type="text/javascript" src="Arbol_Binario.js"></script>   
+</body>
+</html>

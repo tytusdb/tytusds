@@ -1,0 +1,209 @@
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+  <a class="navbar-brand" href="#">Estructuras de Datos Visuales</a>
+</nav>
+<br>
+<h1>Estructuras lineales: </h1>
+<br>
+<div class="container .bg-secondary.bg-gradient ">
+
+  <div class="row">
+    <div class="col-sm">
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="assets/images/lista-simple.png" alt="lista-simple">
+        <div class="card-body">
+          <h5 class="card-title">Lista Simplemente enlazada</h5>
+          <p class="card-text">Estructura que consta de informacion y un apuntador al siguiente nodo.</p>
+          <a routerLink="/listasimple" routerLinkActive="active" class="btn btn-primary">Visualizar Lista</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm">
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="assets/images/lista-doble.jpg" alt="lista-doble">
+        <div class="card-body">
+          <h5 class="card-title">Lista Doblemente enlazada</h5>
+          <p class="card-text">Estructura que consta de informacion y apuntadores al nodo anterior y nodo siguiente.</p>
+          <a routerLink="/listadoble" routerLinkActive="active" class="btn btn-primary">Visualizar Lista Doble</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm">
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="assets/images/lista-circular.png" alt="lista-circular">
+          <div class="card-body">
+            <h5 class="card-title">Lista Circular Simplemente enlazada</h5>
+            <p class="card-text">Estructura que consta de informacion y un apuntador al siguiente nodo, la cola esta enlazada a la cabeza.</p>
+            <a routerLink="/circularsimpxd" routerLinkActive="active" class="btn btn-primary">Visualizar Lista Circular</a>
+          </div>
+        </div>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="row">
+      <div class="col-sm">
+        <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src="assets/images/lista-doble-circular.jpg" alt="lista-doble-circular">
+          <div class="card-body">
+            <h5 class="card-title">Lista Circular Doblemente enlazada</h5>
+            <p class="card-text">Estructura que consta de informacion y apuntadores al nodo anterior y nodo siguiente, la cola y la cabeza de la lista están enlazadas.</p>
+            <a routerLink="/circulardoblexd" routerLinkActive="active" class="btn btn-primary">Visualizar Lista</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm">
+        <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src="assets/images/pila.png" alt="pila">
+          <div class="card-body">
+            <h5 class="card-title">Pila</h5>
+            <p class="card-text">Estructura que sigue la dinámica LIFO.</p>
+            <a routerLink="/pilaxd" routerLinkActive="active" class="btn btn-primary">Visualizar Pila</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm">
+        <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src="assets/images/cola.png" alt="cola">
+          <div class="card-body">
+            <h5 class="card-title">Cola</h5>
+            <p class="card-text">Estructura que sigue la dinámica FIFO</p>
+            <a routerLink="/colaxd" routerLinkActive="active" class="btn btn-primary">Visualizar Cola</a>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div class="row">
+    <div class="card" style="width: 18rem;">
+      <img class="card-img-top" src="assets/images/cola-prioridad.png" alt="cola-prioridad">
+      <div class="card-body">
+        <h5 class="card-title">Cola de prioridad</h5>
+        <p class="card-text">Estructura similar a una cola pero con manejo de prioridades, en la que se desencolará el elemento con mayor prioridad.</p>
+        <a routerLink="/colapriorixd" routerLinkActive="active" class="btn btn-primary">Visualizar Ordenamiento</a>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<br>
+<h1>Ordenamientos:</h1>
+<div class="container">
+  <div class="row">
+
+    <div class="col-sm">
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="assets/images/burbuja.PNG" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Burbuja</h5>
+          <p class="card-text">Ordenamiento simple, Bubble Sort.</p>
+          <a routerLink="/burbujaxd" routerLinkActive="active" class="btn btn-primary">Visualizar Ordenamiento</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm">
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="assets/images/seleccion.PNG" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Selección</h5>
+          <p class="card-text">Ordenamiento simple, optimización del metodo Burbuja haciendo solo un intercambio por iteración.</p>
+          <a routerLink="/seleccionxd" routerLinkActive="active" class="btn btn-primary">Visualizar Ordenamiento</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm">
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="assets/images/insercion.PNG" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Inserción</h5>
+          <p class="card-text">Ordenamiento fácil de enternder, utiliza una lista secundaria en la que coloca un elemento menor desordenado.</p>
+          <a routerLink="/insercionxd" routerLinkActive="active" class="btn btn-primary">Visualizar Ordenamiento</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-sm">
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="assets/images/rapido.png" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Rapido</h5>
+          <p class="card-text">Ordenamiento súper eficaz, mejores tiempos de ejecución.</p>
+          <a routerLink="/rapidoxd" routerLinkActive="active" class="btn btn-primary">Visualizar Ordenamiento</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<br>
+<h1>Estructuras arbóreas:</h1>
+<div class="container">
+  <div class="row">
+
+    <div class="col-sm">
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="assets/images/binarios.jpg" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">ABB</h5>
+          <p class="card-text">Árbol binario de busqueda, ordena los datos ingresados segun son mayores o menores que cada uno de sus nodos.</p>
+          <a routerLink="/arbolbinxd" routerLinkActive="active" class="btn btn-primary">Visualizar Arbol</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm">
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="assets/images/avl.jpg" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">AVL</h5>
+          <p class="card-text">Una mejora al ABB, este se autobalancea para no caer en crear una lista en vez de un árbol.</p>
+          <a routerLink="/avlxd" routerLinkActive="active" class="btn btn-primary">Visualizar Arbol</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm">
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="assets/images/b-treesss.PNG" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Árbol B</h5>
+          <p class="card-text">Árbol de un grado N que en cada uno de sus nodos tiene listas de N longitud, las cuales se van ordenando de mayor a menor y creando mas listas de ser necesario. </p>
+          <a routerLink="/arbolbxd" routerLinkActive="active" class="btn btn-primary">Visualizar Arbol</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm">
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="assets/images/b-plus-tree.PNG" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Árbol B+</h5>
+          <p class="card-text">Similar al Árbol B, sin embargo sus listas tienen un puntero a la siguiente lista que este en su mismo grado.</p>
+          <a routerLink="/arbolbplusxd" routerLinkActive="active" class="btn btn-primary">Visualizar Arbol</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm">
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="assets/images/merkle.jpg" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Árbol de Merkle</h5>
+          <p class="card-text">Árbol Hash en el que cada nodo que no sea hoja esta etiquetado con la concatenación de los valores de los nodos hijos pasados por la función Hash.</p>
+          <a routerLink="/arbolmerklexd" routerLinkActive="active" class="btn btn-primary">Visualizar Arbol</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+

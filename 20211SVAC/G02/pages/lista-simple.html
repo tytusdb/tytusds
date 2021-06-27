@@ -30,18 +30,36 @@
               <div class="input-group mb-3">
                   <input type="text" id="valueNodo" name="valueNodo" class="form-control" placeholder="Valor del nodo">
               </div>
-              <button class="btn btn-primary" onclick="crearNodo()">Crear</button>
+              <!-- <button class="btn btn-primary" onclick="crearNodo()">Crear</button> -->
+              <div class="btn-group" role="group">
+                <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                  Crear
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                  <li><button class="dropdown-item" id="btn-inicio" onclick="crearNodoInicio()">Agregar Inicio</button></li>
+                  <li><button class="dropdown-item" id="btn-final" onclick="crearNodo()">Agregar Final</button></li>
+                </ul>
+              </div>
               <button class="btn btn-danger" onclick="eliminarNodo()">Eliminar</button>
               <button class="btn btn-success" onclick="modificarNodo()">Actualizar</button>
               <button class="btn btn-secondary" onclick="searchNode()">Buscar</button>
+              <br>
+              <button class="btn btn-dark" onclick="guardarLista()">Guardar</button>
+
             </div>
             <div class="col-sm-8">
               <div class="input-group mb-3">
-                <input type="file" class="form-control" id="inputGroupFile01">
+                <input type="file" class="form-control" id="inputGroupFile01" accept="application/JSON">
+                <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04" onclick="read()" >Cargar archivo</button>
               </div>
               <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
                 <label class="form-check-label" for="flexSwitchCheckDefault">Permitir elementos repetidos</label>
+              </div>
+              <br>
+              <div class="col-sm-8">
+                <label for="customRange2" class="form-label">Velocidad animacion</label>
+                <input type="range" class="form-range" min="1" max="10" id="customRange2">
               </div>
             </div>
         </div>
@@ -60,7 +78,7 @@
     <script src="https://visjs.github.io/vis-network/standalone/umd/vis-network.min.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis-network.min.css" type="text/css"></script>
 
-    <script src="/js/graphListaSimple.js"></script>
+    <script src="../js/graphListaSimple.js"></script>
 
      <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Promise,fetch"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" crossorigin="anonymous"></script>

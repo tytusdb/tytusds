@@ -1,30 +1,40 @@
 import { Component, OnInit } from '@angular/core';
-
-declare var Nodo:any; 
-declare var Lista:any;
-declare var f1:any;
-declare var add:any;
-declare var print:any;
+import { HttpClient } from "@angular/common/http";
+declare var lsimpleAdd:any;
+declare var lsimpleRefresh:any;
+declare var lsimpleSearch:any;
+declare var lsimpleDelete:any;
 @Component({
   selector: 'app-lista-simple',
-  templateUrl: './lista-simple.component.html',
+  templateUrl:'./lista-simple.component.html',
   styleUrls: ['./lista-simple.component.css']
 })
 export class ListaSimpleComponent implements OnInit {
+  displayVal='';
 
-  //constructor() { }
 
-  ngOnInit(): void {
-  }
-  onClick1(){
-    print()
-    //Lista.print()
-    //Lista.add("574");
-    //document.write("Imprime");
-    f1();
-    
-    //document.write(Lista.print());
-    
+  getValue(val:string){
+    console.warn(val)
+    var hola = lsimpleAdd(val)
+    this.displayVal=hola
   }
 
+  elementos: any=[]
+
+  constructor(private http: HttpClient) { }
+
+  ngOnInit(): void {}
+  
+  selectedFile = null;
+ 
+  getRefresh(valactual:string,valreplace:string){
+    lsimpleRefresh(valactual,valreplace)
+  }
+  getSearch(val:string){
+    lsimpleSearch(val)
+  }
+  getDelete(val:string){
+    lsimpleDelete(val)
+  }
 }
+

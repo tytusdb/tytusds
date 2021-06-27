@@ -6,6 +6,10 @@ var edges = []
 var clickedNode
 var clickedNodoValue
 var network = null
+var dataDownload = []
+var switchToggle = document.getElementById("flexSwitchCheckDefault")
+var slider = document.getElementById("customRange2")
+
 class Nodo{
     constructor(id,dato){
         this.dato = dato;
@@ -23,24 +27,55 @@ class Lista{
     }
 
     insertarAlFinal(dato){
-        var nuevo = new Nodo(this.id, dato)
-        nuevo.anterior = nuevo.siguiente = null
-        if(this.primero == null){
-            this.primero = nuevo
-            this.ultimo = this.primero
-            // arrayNodes.push({id: this.id, label: nuevo.dato, shape: "box"})
-            this.tamanio++
-            this.id++
-        }else{
-            this.ultimo.siguiente = nuevo
-            nuevo.anterior = this.ultimo
-            this.ultimo = nuevo
-            // arrayNodes.push({id: this.id, label: nuevo.dato, shape: "box"})
-            // edges.push({from: this.id-1, to: this.id, arrows: "to, from"})
-            this.tamanio++
-            this.id++
+        if(dato == ""){
+            alert("No se pueden agregar elementos vacios.")
+        }else {
+            if((this.buscar(dato) && (switchToggle.checked == false))){
+                alert("Este dato ya existe.")
+            }else{
+                var nuevo = new Nodo(this.id, dato)
+                nuevo.anterior = nuevo.siguiente = null
+                if(this.primero == null){
+                    this.primero = nuevo
+                    this.ultimo = this.primero
+                    // arrayNodes.push({id: this.id, label: nuevo.dato, shape: "box"})
+                    this.tamanio++
+                    this.id++
+                }else{
+                    this.ultimo.siguiente = nuevo
+                    nuevo.anterior = this.ultimo
+                    this.ultimo = nuevo
+                    // arrayNodes.push({id: this.id, label: nuevo.dato, shape: "box"})
+                    // edges.push({from: this.id-1, to: this.id, arrows: "to, from"})
+                    this.tamanio++
+                    this.id++
+                }
+            }
         }
+    }
 
+    insertarAlInicio(dato){
+        if(dato == ""){
+            alert("No se permiten agregar elementos vacios")
+        }else{
+            if((this.buscar(dato) && (switchToggle.checked == false))){
+                alert("Este dato ya existe.")
+            }else{
+                var nuevo = new Nodo(this.id, dato)
+                nuevo.anterior = nuevo.siguiente = null
+                if(this.primero == null){
+                    this.primero = nuevo
+                    this.ultimo = this.primero
+                }else{
+                    this.primero.anterior = nuevo
+                    nuevo.siguiente = this.primero
+                    this.primero = nuevo
+                }
+                this.tamanio++
+                this.id++
+            }
+        }
+  
     }
 
 
@@ -70,12 +105,13 @@ class Lista{
     }
 
     recorrer(){
+        dataDownload= []
         var aux = this.primero;
         if(this.tamanio!= 0){
             while(aux != null){
                 console.log(aux.id + ", " + aux.dato)
                 arrayNodes.push({id: aux.id, label: aux.dato, shape: "box"})  
-                
+                dataDownload.push(aux.dato)
                 if(aux.siguiente != null){
                     edges.push({from: aux.id, to: aux.siguiente.id, arrows: "to, from"})
                 }
@@ -129,31 +165,24 @@ class Lista{
         }
     }
 
-        //Metodo de sobrecarga para actualizar datos
+    //Metodo de sobrecarga para actualizar datos
     actualizar(datoActual, datoNuevo){
-        if(this.buscar(datoActual)){
-            if(this.buscar(datoNuevo) && !this.repetidos){
-                alert("No se aceptan valores repetidos")
-                return
-            }
-            if(datoActual == this.primero.dato && this.tamanio == 1){
-                this.primero.dato = datoNuevo
-                this.ultimo.dato = datoNuevo
-            }else if(datoActual == this.primero.dato){
-                this.primero.dato = datoNuevo
-            }else if(datoActual == this.ultimo.dato){
-                this.ultimo.dato = datoNuevo
-            }else{
-                this.primero = this._actualizar(datoActual, datoNuevo, this.primero)
-            }
+        if(datoActual == this.primero.id && this.tamanio == 1){
+            this.primero.dato = datoNuevo
+            this.ultimo.dato = datoNuevo
+        }else if(datoActual == this.primero.id){
+            this.primero.dato = datoNuevo
+        }else if(datoActual == this.ultimo.id){
+            this.ultimo.dato = datoNuevo
         }else{
-            alert("El valor no existe dentro de la lista")
+            this.primero = this._actualizar(datoActual, datoNuevo, this.primero)
         }
+       
     }
     
     //Metodo recursivo para la actualizacion de datos
     _actualizar(datoActual, datoNuevo, temp){
-        if(datoActual == temp.dato){
+        if(datoActual == temp.id){
             temp.dato = datoNuevo
         }else{
             temp.siguiente =  this._actualizar(datoActual, datoNuevo, temp.siguiente)
@@ -189,6 +218,56 @@ class Lista{
 
 let lista =  new Lista()
 
+function read(){
+    var fileInput = document.querySelector('input[type="file"]');
+
+    var file = fileInput.files.item(0);
+    var reader = new FileReader();
+
+    reader.readAsText(file);
+    
+    reader.onload = function() {
+        var obj = JSON.parse(reader.result)
+        let val = obj.valores
+        repetido = obj.repeticion
+        slider.value = obj.animacion
+        let contador = 0 
+        switch(repetido){
+            case true:
+                switchToggle.checked = true
+                for(let i=0; i<val.length; i++){
+                    contador = contador + 0.5
+                    setTimeout(function(){
+                        // agregar1(val, i)
+                        lista.insertarAlFinal(val[i].toString())
+                        actualizarTablero()
+                    },(500)*(11- slider.value)*contador)
+                    
+                }
+                break;
+            case false:
+                switchToggle.checked = false
+                for(let i=0; i<val.length; i++){
+                    contador = contador + 0.5
+                    setTimeout(function(){
+                        // agregar1(val, i)
+                        lista.insertarAlFinal(val[i].toString())
+                        actualizarTablero()
+                    },(500)*(11- slider.value)*contador)
+                }
+                break
+            default:
+                console.log("No hay indicador de repitencia.")
+                alert("No hay indicador de repitencia.")
+                break
+        }
+
+        
+    }
+    
+    
+}
+
 
 function actualizarTablero(){
     lista.recorrer()
@@ -212,10 +291,12 @@ function actualizarTablero(){
         var nodeID = properties.nodes[0];
         if (nodeID) {
             clickedNode = this.body.nodes[nodeID];
+            //ID DEL NODO
             clickedNode = clickedNode.options.id
             console.log('clicked node:', clickedNode);
             // console.log('pointer', properties.pointer);
             clickedNodoValue =  this.body.nodes[nodeID]
+            //VALOR DEL NODO
             clickedNodoValue = clickedNodoValue.options.label
             document.getElementById("valueNodo").value = clickedNodoValue;
         }
@@ -232,6 +313,13 @@ function crearNodo(){
     document.getElementById("valueNodo").value = "";
 }
 
+function crearNodoInicio(){
+    var valueNodo = document.getElementById('valueNodo').value
+    lista.insertarAlInicio(valueNodo) 
+    actualizarTablero()
+    document.getElementById("valueNodo").value = "";
+}
+
 function eliminarNodo(){
     // var valueNodo = document.getElementById('valueNodo').value
     lista.eliminar(clickedNode)
@@ -243,13 +331,13 @@ function eliminarNodo(){
 function modificarNodo(){
     // datoActual, dato nuevo
     var valueNodo = document.getElementById('valueNodo').value
-    lista.actualizar(clickedNodoValue, valueNodo)
+    lista.actualizar(clickedNode, valueNodo)
     actualizarTablero()
 }
 
 function searchNode(){
     focus()
-    setTimeout(zoomExtended, 2000)
+    setTimeout(zoomExtended, (1000)*(11-slider.value))
     
 }
 
@@ -263,7 +351,7 @@ function focus() {
         scale: 3.0,
         offset: {x:0,y:0},
         animation: {
-            duration: 2500,
+            duration: (1000)*(11-slider.value),
             easingFunction: "easeOutQuint"
         }
     }
@@ -280,6 +368,34 @@ function zoomExtended(){
     }
 
     network.moveTo(options);
+}
+
+
+function guardarLista(){
+    
+    let arrayDescargado ={
+        categoria: "Estructura lineal",
+        nombre: "Lista Doble",
+        valores: dataDownload
+    }
+      
+    var json = JSON.stringify(arrayDescargado, null, "\t");
+    json = [json];
+    var blob1 = new Blob(json, { type: "text/json;charset=utf-8" });
+    //Check the Browser.
+    var isIE = false || !!document.documentMode;
+    if (isIE) {
+        window.navigator.msSaveBlob(blob1, "data.json");
+    } else {
+        var url = window.URL || window.webkitURL;
+        link = url.createObjectURL(blob1);
+        var a = document.createElement("a");
+        a.download = "dataListaDoble.json";
+        a.href = link;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
 }
 
 

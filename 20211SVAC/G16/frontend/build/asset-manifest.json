@@ -1,0 +1,34 @@
+{
+  "files": {
+    "main.css": "/tytusds/20211SVAC/G16/frontend/build/static/css/main.d792c281.chunk.css",
+    "main.js": "/tytusds/20211SVAC/G16/frontend/build/static/js/main.0dd59503.chunk.js",
+    "main.js.map": "/tytusds/20211SVAC/G16/frontend/build/static/js/main.0dd59503.chunk.js.map",
+    "runtime-main.js": "/tytusds/20211SVAC/G16/frontend/build/static/js/runtime-main.a1cafcc3.js",
+    "runtime-main.js.map": "/tytusds/20211SVAC/G16/frontend/build/static/js/runtime-main.a1cafcc3.js.map",
+    "static/css/2.8a10c6cc.chunk.css": "/tytusds/20211SVAC/G16/frontend/build/static/css/2.8a10c6cc.chunk.css",
+    "static/js/2.52da0900.chunk.js": "/tytusds/20211SVAC/G16/frontend/build/static/js/2.52da0900.chunk.js",
+    "static/js/2.52da0900.chunk.js.map": "/tytusds/20211SVAC/G16/frontend/build/static/js/2.52da0900.chunk.js.map",
+    "index.html": "/tytusds/20211SVAC/G16/frontend/build/index.html",
+    "static/css/2.8a10c6cc.chunk.css.map": "/tytusds/20211SVAC/G16/frontend/build/static/css/2.8a10c6cc.chunk.css.map",
+    "static/css/main.d792c281.chunk.css.map": "/tytusds/20211SVAC/G16/frontend/build/static/css/main.d792c281.chunk.css.map",
+    "static/js/2.52da0900.chunk.js.LICENSE.txt": "/tytusds/20211SVAC/G16/frontend/build/static/js/2.52da0900.chunk.js.LICENSE.txt",
+    "static/media/AVL.99f1f4e3.png": "/tytusds/20211SVAC/G16/frontend/build/static/media/AVL.99f1f4e3.png",
+    "static/media/Arborea.de42e94f.png": "/tytusds/20211SVAC/G16/frontend/build/static/media/Arborea.de42e94f.png",
+    "static/media/B.d5cafe5b.png": "/tytusds/20211SVAC/G16/frontend/build/static/media/B.d5cafe5b.png",
+    "static/media/Binario.63f919fc.png": "/tytusds/20211SVAC/G16/frontend/build/static/media/Binario.63f919fc.png",
+    "static/media/Bm.f3490462.png": "/tytusds/20211SVAC/G16/frontend/build/static/media/Bm.f3490462.png",
+    "static/media/CircularD.577f5131.png": "/tytusds/20211SVAC/G16/frontend/build/static/media/CircularD.577f5131.png",
+    "static/media/CircularS.ea478902.png": "/tytusds/20211SVAC/G16/frontend/build/static/media/CircularS.ea478902.png",
+    "static/media/Cola.9fd2a4a7.png": "/tytusds/20211SVAC/G16/frontend/build/static/media/Cola.9fd2a4a7.png",
+    "static/media/Lineal.9fd2a4a7.png": "/tytusds/20211SVAC/G16/frontend/build/static/media/Lineal.9fd2a4a7.png",
+    "static/media/Merkle.8e66cd85.png": "/tytusds/20211SVAC/G16/frontend/build/static/media/Merkle.8e66cd85.png",
+    "static/media/Working.7e992599.png": "/tytusds/20211SVAC/G16/frontend/build/static/media/Working.7e992599.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.a1cafcc3.js",
+    "static/css/2.8a10c6cc.chunk.css",
+    "static/js/2.52da0900.chunk.js",
+    "static/css/main.d792c281.chunk.css",
+    "static/js/main.0dd59503.chunk.js"
+  ]
+}
