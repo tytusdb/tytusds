@@ -55,6 +55,14 @@ export class HammingComponent implements OnInit {
     if (this.entrada.length === 0) {
       return;
     }
+    let arr = this.entrada.split("");
+    let encontrado = false;
+    arr.forEach( e => {
+      if (e !== "1" && e !== "0") {
+        encontrado = true;
+      }
+    });
+    if (encontrado) return;
     this.cargado = false;
     console.log(this.entrada);
     this.bits = this.ham.calcularBitsRedundantes(this.entrada.length);
