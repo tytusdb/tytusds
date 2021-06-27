@@ -34,7 +34,7 @@ class Lista {
     }
     remove(dato) {
         let aux = this.primero
-        alert("remoce")
+        //alert("remoce")
         while(aux != null){
             if(aux.dato == dato){
                 let temp = aux.anterior;
@@ -80,12 +80,15 @@ class Lista {
             // ----------------- DOM JS ---------------------
             var capa5 = document.getElementById("capa1");
             var h1 = document.createElement("button");
+            var h2 = document.createElement('button');
             h1.className = "sad";
+            h2.className = "ord";
             h1.setAttribute("name","mails[]");
             h1.innerHTML = aux.dato;
+            h2.innerHTML = "<->";
             capa5.appendChild(h1);
+            capa5.appendChild(h2);
             // ----------------- DOM JS ---------------------
-            //console.log("Dato:", aux.dato);
             aux = aux.siguiente;
         }
 
@@ -227,12 +230,11 @@ function validarExt(){
 }
 // --------------------- Guardar Datos ---------------------
 function escritura(data, filename){
-let file = new Blob([JSON.stringify(data)],{type:'application/json'});
-let a = document.createElement('a');
-a.href = URL.createObjectURL(file);
-a.download = `${filename}.json`;
-a.click()
-//console.log(a)
+    let file = new Blob([JSON.stringify(data)],{type:'application/json'});
+    let a = document.createElement('a');
+    a.href = URL.createObjectURL(file);
+    a.download = `${filename}.json`;
+    a.click()
 }
 let objeto;
 // --------------------- Datos ---------------------

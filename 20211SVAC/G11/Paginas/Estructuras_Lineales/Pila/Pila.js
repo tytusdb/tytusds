@@ -20,23 +20,7 @@ class Pila {
 
     size = () => {
       return this.elementos.length;;
-    }
-
-    print = () =>{
-        console.log(this.elementos);
-        //aux = elementos;
-         // ----------------- DOM JS ---------------------
-         let capa = document.getElementById("capa");        
-         let capa2 = document.getElementById("capa1");
-         capa2.remove();
-         var c1 = document.createElement("div");
-         c1.setAttribute("id","capa1");
-         capa.appendChild(c1);
-         // ----------------- DOM JS ---------------------
-        //for(index = 0; index < elementos.length; index++){
-        //    console.log(elementos[index]);
-        //}
-    }
+    }    
 }
 //----------------------------------------------------------------
 let  json;
@@ -44,10 +28,9 @@ let pila = new Pila();
 axm = [];
 //--------------- Datos JSON ---------------------
 let categoria = "Estructura Lineal";
-let nombre = "Lista Simplemente/doblemente/circular_simplemente/circular doblemente Enlazada";
+let nombre = "Pila";
 let repetir = true;
 let animacion = 0;
-let pos = "INICIO/FIN/ORDENADO";
 //-------------------------------------------------
   function main () {
     
@@ -59,18 +42,23 @@ let pos = "INICIO/FIN/ORDENADO";
         // Limpiar input
         porId.value ="";
         porId.focus();
-        pila.print();
+        //pila.print();
+        imprimir()
         //console.log(pila.print());
 	});
 
     $('.btn-Elimina').click(function(){
-        
         alert("Se elimino el elemento: " + pila.pop())
-        pila.print()
+        imprimir()
 	});
 
   $('.btn-Actualizar').click(function(){
-    alert("Actualizar")
+    //alert("Actualizar")
+    let datoactualizado= prompt('Por cual numero desea cambiar',0);
+    alert("Se a actualizado");
+    var porId = document.getElementById("valor").value;
+    Actualizar(porId,datoactualizado);
+    imprimir();
   });
 
   $('.btn-Buscar').click(function(){
@@ -78,7 +66,7 @@ let pos = "INICIO/FIN/ORDENADO";
   });
 
   $('.btn-Guardar').click(function(){
-    alert("Guardar")
+    p_datos()
   });
    
 	// Mostramos y ocultamos submenus
@@ -88,10 +76,43 @@ let pos = "INICIO/FIN/ORDENADO";
 }
 
 //---------------------------------------------------------------------
+function imprimir(){
+    console.log('------------ imprimir ------------');
+
+    // ----------------- DOM JS ---------------------
+    let capa = document.getElementById("capa");        
+    let capa2 = document.getElementById("capa1");
+    capa2.remove();
+    var c1 = document.createElement("div");
+    c1.setAttribute("id","capa1");
+    capa.appendChild(c1);
+    // ----------------- DOM JS ---------------------    
+    
+    for(a = 0; a < pila.elementos.length;a++){
+        //console.log(pila.elementos[a]);
+        var capa5 = document.getElementById("capa1");
+        var h1 = document.createElement("button");
+        h1.className = "sad";
+        h1.setAttribute("name","mails[]");
+        h1.innerHTML = pila.elementos[a];
+        capa5.appendChild(h1);
+    }
+}
+
+function Actualizar(dato,nuevo){
+    for(a = 0; a < pila.elementos.length;a++){
+        if (pila.elementos[a]== dato){
+            pila.elementos[a] = nuevo;
+            return;
+        }        
+    }
+}
+//-------------------------------------
 
 // --------------------- Cargar Datos --------------------- 
 function validarExt(){
   var input = document.getElementById('btn_Cargar');
+  //------------------------------------------------------
   var file = input.files[0];
   var reader = new FileReader();
   reader.onload = function(e) {
@@ -106,36 +127,25 @@ function validarExt(){
   //--------------- Insertar Datos Masivos --------------------------
   console.log(json.repeticion);
   
-  //for(index = 0; index<json.valores.length;index++){
-  //    axm.push(json.valores[index]);
-  //}
-
   if (json.repeticion == true){
-      console.log('Verdader');
+      console.log('Verdadero');
       for(index = 0; index<json.valores.length;index++){
-          nuevo.add(json.valores[index]);
-          nuevo.print();
+        pila.push(json.valores[index]);
+        imprimir();
       }
-      //Datos_json(json.categoria,json.nombre,json.repeticion,json.animacion,json.posicion,json.valores);
   }else if (json.repeticion == false){
       console.log("-------------------falso---------------------");
       for(index = 0; index<json.valores.length;index++){
-          if(axm.includes(json.valores[index])== false){
-              axm.push(json.valores[index]);
-              nuevo.add(json.valores[index]);
-              nuevo.print();
+          if(pila.elementos.includes(json.valores[index])== false){
+              pila.push(json.valores[index]);
+              imprimir();
           }
           else{
-              console.log(json.valores[index])
+              console.log(json.valores[index]);
           }
       }
-      //for(let xm = 0; xm < axm.length;xm++){
-
-      //}
-      //Datos_json();
   }
 };
-  console.log(nuevo);
   reader.readAsText(file);
 }
 // --------------------- Guardar Datos ---------------------
@@ -151,16 +161,27 @@ function escritura(data, filename){
 
 let objeto;
 // --------------------- Datos ---------------------
-function Datos_json(c,n,r,a,p,v){
+function Datos_json(c,n,r,a,v){
 
   objeto = {
     "categoria": c,
     "nombre": n,
     "repeticion": r,
     "animacion": a,
-    "posicion": p,
     "valores": v
   }
   console.log(objeto);
-  escritura(objeto,'Lista_Simplemente_Enlazada');
+  escritura(objeto,'Pila');
+}
+// ------------------------------------------------------
+//--------------------------------Datos JSON -------------------
+function p_datos(){
+    //----------------------------------------------------
+    if (pila.elementos.length == 0){
+        alert("No se ha ingresado valores");
+    }else{
+        console.log('------------ Valores ------------');
+        imprimir();        
+        Datos_json(categoria,nombre,repetir,animacion,pila.elementos);
+    }            
 }

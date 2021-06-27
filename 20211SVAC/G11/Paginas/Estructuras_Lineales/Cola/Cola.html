@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista_Simplemente_enlazada</title>
+    <title>Cola</title>
     <link rel="stylesheet" href= "../../../CSS/Header.css">
     <link rel="stylesheet" href= "../../../CSS/estilos.css">
     <script src="http://code.jquery.com/jquery-latest.js"></script>
@@ -50,10 +50,17 @@
                     </div>
 
                 </div>
+                <!--  Cargar Archivos JSON -->
                 <div class="input-group mb-3">                    
                     <div id = "div_file">
                         <p id="texto">Cargar</p>
-                        <input type ="file" id="btn_Cargar">
+                        <input type ="file" id="btn_Cargar" accept="txt/json" onchange= "return validarExt()"/>
+                    </div>
+                </div>
+                <!--  Imprimir Elementos -->
+                <div class="input-group mb-3">
+                    <div id="capa" style="position: absolute; top: 20px; left: 10px; right: 20px;">
+                        <div id="capa1" style="position: absolute; top:30%; left: 10%;">    </div>
                     </div>
                 </div>
             </div>
