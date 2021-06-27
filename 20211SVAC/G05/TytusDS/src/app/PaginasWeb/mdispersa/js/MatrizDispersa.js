@@ -324,6 +324,79 @@ class MatrizDispersa{
     }
     return lista;
   }
+
+
+  //METODO PARA RETORNAR UNA LISTA DE OBJETOS DE NODOS Y APUNTADORES SIN LAS CABECERAS DE LA MATRIZ
+  LnodosSC(){
+    function NodoVis(id,label,shape,color="red",level=null){
+      this.id= id;
+      this.label= label;
+      this.shape=shape;
+      this.color=color
+      this.level=level;
+    }
+    let Lnodos=[];
+    let nodovis;
+
+    //llenar la lista de los nodos insertados en la matriz
+    let current=this.l_vertical.head;
+    let aux;
+    while (current!=null){
+      aux=current.der;
+      while (aux!=null){
+        //las cabeceras de las filas tendran un color rojo
+        nodovis= new NodoVis(`F${aux.x}C${aux.y}`,aux.valor.toString(),"box","purple",aux.x);
+        Lnodos.push(nodovis);
+        aux=aux.der;
+      }
+      current=current.next;
+    }
+    return Lnodos;
+  }
+  LedgesSC(){
+    function Edge(from,to,label=""){
+      this.from=from
+      this.to=to;
+      this.label=label;
+    }
+    let Ledges=[]
+    let edgevis;
+    let aux;
+
+    //QUE CADA NODO INSERTADO A PUNTE A SU NODO DERECHO
+    //acabar un nodo antes
+    let current=this.l_vertical.head;
+    let aux2;
+    while (current!=null){
+      aux=current.der;
+      if(aux!=null){
+        while(aux.der!=null){
+          aux2=aux.der;
+          edgevis= new Edge(`F${aux.x}C${aux.y}`,`F${aux2.x}C${aux2.y}`,"");
+          Ledges.push(edgevis);
+          aux=aux.der
+        }
+      }
+      current=current.next;
+    }
+    //QUE CADA NODO APUNTE A SU NODO DE ABAJO
+    current=this.l_horizontal.head;
+    while (current!=null){
+      aux=current.abajo;
+      if(aux!=null) {
+        while (aux.abajo != null) {
+          aux2 = aux.abajo;
+          edgevis = new Edge(`F${aux.x}C${aux.y}`, `F${aux2.x}C${aux2.y}`, "");
+          Ledges.push(edgevis);
+          aux = aux.abajo
+        }
+      }
+      current=current.next;
+    }
+    return Ledges;
+  }
+
+
   //METODOS PARA RETORNAR UNA LISTA DE OBJETOS DE NODOS Y APUNTADORES
   Lnodos(){
     function NodoVis(id,label,shape,color="red",level=null){

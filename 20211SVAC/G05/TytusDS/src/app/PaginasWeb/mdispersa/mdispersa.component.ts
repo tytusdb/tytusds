@@ -13,6 +13,7 @@ let vis=require('../../../../vis-4.21.0/dist/vis');
 export class MDispersaComponent implements OnInit {
   matriz=Matriz;
   grafo;
+  SC_Cabecera=true;
   opciones = {
     ingreso: 'final',
     velocidadLineales: 1000,
@@ -88,8 +89,14 @@ export class MDispersaComponent implements OnInit {
 
   graficar(){
     //Retorno de la lista con los objetos de nodos y edges
-    let Nodos=this.matriz.Lnodos();
-    let Edges=this.matriz.Ledges();
+    let Nodos,Edges;
+    if(this.SC_Cabecera==true){
+    Nodos=this.matriz.Lnodos();
+    Edges=this.matriz.Ledges();
+    } else{
+      Nodos=this.matriz.LnodosSC();
+      Edges=this.matriz.LedgesSC();
+    }
     //se escoge el div a utilizar como contenedor
     let contenedor= document.getElementById("contenedor");
     let datos={nodes:Nodos,edges:Edges};
@@ -162,6 +169,4 @@ export class MDispersaComponent implements OnInit {
     let blob = new Blob([JSON.stringify(contenido)], {type: 'json;charset=utf-8'});
     saveAs(blob, 'descarga.json');
   }
-
-
 }
