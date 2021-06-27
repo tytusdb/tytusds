@@ -18,7 +18,7 @@ import { ColaComponent } from './PaginasWeb/Cola/cola.component';
 import { CpComponent } from './PaginasWeb/Cola-Prioridad/cp.component';
 import { AnchuraComponent } from './PaginasWeb/grafo_anchura/anchura.component';
 
-
+import {LBSTComponent} from './PaginasWeb/lista-bst/l-bst.component';
 import {MDispersaComponent} from './PaginasWeb/mdispersa/mdispersa.component';
 
 const routes: Routes = [
@@ -39,6 +39,7 @@ const routes: Routes = [
   {path:'B', component:BComponent},
   {path:'Anchura', component:AnchuraComponent},
   {path: 'MDispersa',component:MDispersaComponent},
+  {path:'LBST',component:LBSTComponent},
   {path:'**', redirectTo: 'menu'},
 
 
