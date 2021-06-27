@@ -17,15 +17,21 @@
     <div class="row">
         <div class="col-3 columna1">
 
+            <div class="row configuracion">
+                <div class="col-3"><label for="size" >Tamaño:</label></div>
+                <div class="col-4"><input type="number" min="1" id="size"></div>
+                <div class="col-5"><button id="crear">Crear</button></div>
+            </div>
+
             <div class="row formulario">
-                <form action="#" method="POST" class="form" id="form">
+                <form action="#" method="POST" class="form" id="form1">
                     <div class="row">
                         <div class="col-1 col_label"><label for="dato" class="form_label">&plus;</label></div>
-                        <div class="col-8 col_input"><input type="text" name="" id="dato" placeholder="Dato"></div>
+                        <div class="col-9 col_input"><input type="text" name="" id="dato" placeholder="Dato"></div>
                     </div>
                 </form>
                 <div id="oculto">
-                    <form action="#" method="POST" class="form" id="form">
+                    <form action="#" method="POST" class="form" id="form2">
                         <div class="row">
                             <div class="col-1 col_label"><label for="dato" class="form_label labe">&lrhar;</label></div>
                             <div class="col-8 col_input"><input type="text" name="" id="dato2" placeholder="Nuevo dato"></div>
@@ -49,7 +55,7 @@
             
             <div class="row archivo">
                 <div class="row ">
-                    <form action="#" method="POST" class="form" id="form">
+                    <form action="#" method="POST" class="form" id="form3">
                         <div class="row formulario">
                             <div class="col-12"><label for="dato">Leer archivo JSON</label></div>
                             <div class="col-12 col_input">
@@ -66,8 +72,8 @@
                 <div class="row">
                     <table class="configuracion">
                         <tr>
-                            <td><label for="">Tamaño:</label></td>
-                            <td><input type="number" min="1"></td>
+                            <td></td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td><label for="">Función:</label></td>
@@ -99,6 +105,6 @@
             </div>
         </div>
     </div>
-    <script src="#"></script>
+    <script src="scripts/hashAbierta.js"></script>
 </body>
 </html>

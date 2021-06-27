@@ -108,7 +108,7 @@ nav h1 {
 }
 
 .configuracion label{
-    margin: 5px 0px;
+    margin: 10px 0px;
 }
 
 .configuracion input{
@@ -116,7 +116,7 @@ nav h1 {
     padding: 5px;
     border-radius: 5px;
     border: 1px solid rgb(221, 221, 221);
-    width: 55%;
+    width: 100%;
 }
 
 .configuracion select{
@@ -124,5 +124,13 @@ nav h1 {
     padding: 5px;
     border-radius: 5px;
     border: 1px solid rgb(221, 221, 221);
-    width: 55%;
+    width: 100%;
+}
+
+#crear {
+    margin: 5px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: rgb(221, 221, 221);
+    border: 1px solid rgb(240, 84, 84);
 }
