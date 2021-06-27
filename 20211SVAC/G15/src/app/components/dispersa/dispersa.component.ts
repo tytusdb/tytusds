@@ -12,10 +12,11 @@ export class DispersaComponent implements OnInit {
 
   ngOnInit(): void {
     this.dispersa = new Dispersa(Tipo.DOBLE)
-    this.dispersa.add(6,1,3)
-    this.dispersa.add(2,1,2)
-    this.dispersa.add(7,1,3)
-
+    this.dispersa.add("A",0,3)
+    this.dispersa.add("A",3,2)
+    this.dispersa.add("A",1,5)
+    this.dispersa.add("B",1,6)
+    this.dispersa.add("B",3,"nepe")
   }
 
 }

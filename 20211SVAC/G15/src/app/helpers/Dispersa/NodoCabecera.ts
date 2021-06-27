@@ -1,8 +1,13 @@
+import { Lista } from "./Lista";
+
 export class NodoCabecera {
     private id: number;
     private value: number | string;
     private siguiente: NodoCabecera;
     private anterior: NodoCabecera;
+    private lista: Lista
+
+
 
 
     constructor(id: number, value: number | string) {
@@ -10,7 +15,7 @@ export class NodoCabecera {
         this.value = value
         this.siguiente = null
         this.anterior = null
-
+        this.lista = new Lista()
     }
 
 
@@ -44,6 +49,14 @@ export class NodoCabecera {
 
     public setAnterior(anterior: NodoCabecera): void {
         this.anterior = anterior;
+    }
+
+    public getLista(): Lista {
+        return this.lista;
+    }
+
+    public setLista(lista: Lista): void {
+        this.lista = lista;
     }
 
 
