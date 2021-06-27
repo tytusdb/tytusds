@@ -24,6 +24,7 @@ import { ColaComponent } from './PaginasWeb/Cola/cola.component';
 import { MDispersaComponent } from './PaginasWeb/mdispersa/mdispersa.component';
 import {AnchuraComponent} from './PaginasWeb/grafo_anchura/anchura.component';
 import { HammingComponent } from './PaginasWeb/hamming/hamming.component';
+import { LBSTComponent } from './PaginasWeb/lista-bst/l-bst.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { HammingComponent } from './PaginasWeb/hamming/hamming.component';
     InserccionComponent,
     MDispersaComponent,
     AnchuraComponent,
-    HammingComponent
+    HammingComponent,
+    LBSTComponent
   ],
   imports: [
     BrowserModule,

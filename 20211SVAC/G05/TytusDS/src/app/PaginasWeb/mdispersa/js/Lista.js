@@ -12,9 +12,10 @@ class Lista{
     let nodo= new Nodo(valor);
     let current= this.head;
     //si no hay ningun nodo en la lista
-    if(current===null){
+    if(current==null){
       this.head=nodo;
       this.tail=nodo;
+      this.size+=1;
       return;
     }
     while (current != null) {
@@ -24,14 +25,15 @@ class Lista{
         if (current == this.head) {
           nodo.next = this.head;
           this.head.prev = nodo;
-          this.tail = this.head;
           this.head = nodo;
+          this.size+=1;
           return;
           } else {
             nodo.next=current.prev.next;
             nodo.prev=current.prev;
             current.prev.next=nodo;
             current.prev=nodo;
+            this.size+=1;
             return;
           }
         }
@@ -39,6 +41,28 @@ class Lista{
       this.tail.next=nodo;
       nodo.prev=this.tail;
       this.tail=nodo;
+      this.size+=1;
+  }
+  eliminar(valor){
+    let nodo=this.buscar(valor);
+    if(nodo!=null){
+      if(this.size==1){
+        this.head=null;
+        this.tail=null;
+      }else{
+        if(nodo==this.head){
+          this.head.next.prev=null;
+          this.head=this.head.next;
+        }else if(nodo==this.tail){
+          this.tail.prev.next=null;
+          this.tail=this.tail.prev;
+        }else{
+          nodo.prev.next=nodo.next;
+          nodo.next.prev=nodo.prev;
+        }
+      }
+      this.size-=1;
+    }
   }
   buscar(valor){
     let current=this.head;
@@ -58,6 +82,9 @@ class Lista{
       current=current.next
     }
     console.log(l);
+  }
+  Size(){
+    return this.size;
   }
 }
 
