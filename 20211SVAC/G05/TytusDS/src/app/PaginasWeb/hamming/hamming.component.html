@@ -1,0 +1,49 @@
+<app-opciones (opcionesEvento)="getOpciones($event)"></app-opciones>
+
+<div class="container mt-3">
+    <h1 class="fw-light text-white">Codigo de Hamming</h1>
+    <hr>
+    <div class="row my-3">
+        <div class="col-md-5">
+            <input type="text" class="form-control" placeholder="entrada" [(ngModel)]="entrada">
+        </div>
+        <div class="col-md-5">
+            <input type="text" class="form-control" placeholder="salida" [(ngModel)]="salida">
+        </div>
+        <div class="col-md">
+            <div class="d-grid gap-2">
+                <button class="btn btn-primary" (click)="procesar()">Procesar</button>
+            </div>
+        </div>
+    </div>
+    <div class="row my-3">
+        <div class="col-md-6">
+            <input class="form-control" type="file" id="formFile" (change)="getDocumento($event.target)">
+        </div>
+        <div class="col-md-4"></div>
+        <div class="col-md-2">
+            <div class="d-grid gap-2">
+                <button class="btn btn-success button1" (click)="guardar()">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-dark" *ngIf="cargado">
+        <thead>
+            <tr>
+                <th>Palabra</th>
+                <th *ngFor="let x of salida.split('')">{{x}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>Datos</th>
+                <td *ngFor="let dato of subtitulos">{{dato}}</td>
+            </tr>
+            <tr *ngFor="let paridad of paridades; let i = index;">
+                <th>p{{elevarCuadrado(i)}}</th>
+                <td *ngFor="let elemento of paridad">{{elemento}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

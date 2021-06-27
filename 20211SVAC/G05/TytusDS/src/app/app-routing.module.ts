@@ -20,6 +20,7 @@ import { AnchuraComponent } from './PaginasWeb/grafo_anchura/anchura.component';
 
 import {LBSTComponent} from './PaginasWeb/lista-bst/l-bst.component';
 import {MDispersaComponent} from './PaginasWeb/mdispersa/mdispersa.component';
+import { HammingComponent } from './PaginasWeb/hamming/hamming.component';
 
 const routes: Routes = [
   {path:'menu', component: MenuComponent},
@@ -33,13 +34,14 @@ const routes: Routes = [
   {path:'Seleccion', component: SeleccionComponent},
   {path:'OBurbuja', component: OrdBurbujaComponent},
   {path:'avl', component: AvlComponent},
-  {path:'OQuicksort', component:OrdQuicksortComponent},
-  {path:'Abinario', component:ABinarioComponent},
-  {path:'Inserccion', component:InserccionComponent},
-  {path:'B', component:BComponent},
-  {path:'Anchura', component:AnchuraComponent},
-  {path: 'MDispersa',component:MDispersaComponent},
-  {path:'LBST',component:LBSTComponent},
+  {path:'OQuicksort', component: OrdQuicksortComponent},
+  {path:'Abinario', component: ABinarioComponent},
+  {path:'Inserccion', component: InserccionComponent},
+  {path:'B', component: BComponent},
+  {path:'Anchura', component: AnchuraComponent},
+  {path: 'MDispersa',component: MDispersaComponent},
+  {path: 'CodigoHamming',component: HammingComponent},
+  {path:'LBST',component: LBSTComponent},
   {path:'**', redirectTo: 'menu'},
 
 
