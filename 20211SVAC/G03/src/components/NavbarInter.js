@@ -154,13 +154,16 @@ export default class NavbarInter extends Component {
                 
               </Menu.Menu>
             </Menu>
+            
+           
             <a className="hidden"
               download={this.state.nombre+".json"}
               href={this.state.fileDownloadUrl}
               ref={e=>this.dofileDownload = e}
               >download it</a>
             <h1 style={{ color: 'white' }}>{this.state.nombre}</h1>
-            
+
+            <GraficarTablaHash/> 
           </div>
         )
 
