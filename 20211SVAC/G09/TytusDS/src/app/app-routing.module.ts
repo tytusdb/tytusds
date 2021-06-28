@@ -74,7 +74,24 @@ const routes: Routes = [
   {path:"RecorridoBusquedaAnchuraGrafo", component:RecorridoBusquedaAnchuraGrafoComponent},
   {path:"RecorridoBusquedaProfundidadGrafo", component:RecorridoBusquedaProfundidadGrafoComponent},
   {path:"TablaHashAbierta", component:TablaHashAbiertaComponent},
-  {path:"TablaHashCerrada", component:TablaHashCerradaComponent}
+  {path:"TablaHashCerrada", component:TablaHashCerradaComponent},
+
+  //---------------------------------- Algoritmos De Codificacion --------------------------------------------
+  {path:"AlgoritmoHuffman", component:AlgoritmoHuffmanComponent},
+  {path:"AlgoritmoLZW", component:AlgoritmoLZWComponent},
+  {path:"CifradoFeistel", component:CifradoFeistelComponent},
+  {path:"CifradoRSA", component:CifradoRSAComponent},
+  {path:"CodigoHamming", component:CodigoHammingComponent},
+
+  //---------------------------------------- Estructuras Compuestas ----------------------------------------
+  {path:"ColMajor", component:ColMajorComponent},
+  {path:"RowMajor", component:RowMajorComponent},
+  {path:"MatricesDispersas", component:MatricesDispersasComponent},
+  {path:"ConstruccionEstructurasCompuestas", component:ConstruccionEstructurasCompuestasComponent}
+
+
+
+
 
 
 
