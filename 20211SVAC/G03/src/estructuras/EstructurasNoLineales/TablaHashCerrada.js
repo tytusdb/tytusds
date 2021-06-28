@@ -66,4 +66,17 @@ class TablaHashCerrada {
 
         return hash
     }
+
+    agregar(dato){
+        let posicion =this.funcion_Hash(dato, this.funcion)
+        let i = 1;
+        while(this.tabla[posicion] !== -1 && posicion < this.tamaño){
+            posicion = this.colisiones(dato, i, "DobleHash", this.funcion_Hash(dato, this.funcion))
+            i++;
+            
+        }
+        this.tabla[posicion] = dato;
+        this.datosAgregados++;
+        this.rehashing();
+    }
 }
