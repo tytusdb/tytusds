@@ -32,6 +32,7 @@ import { RecorridoBusquedaAnchuraGrafoComponent } from './ComponentesFaseDos/Est
 import { RecorridoBusquedaProfundidadGrafoComponent } from './ComponentesFaseDos/EstructurasNoLineales/recorrido-busqueda-profundidad-grafo/recorrido-busqueda-profundidad-grafo.component';
 import { TablaHashAbiertaComponent } from './ComponentesFaseDos/EstructurasNoLineales/tabla-hash-abierta/tabla-hash-abierta.component';
 import { TablaHashCerradaComponent } from './ComponentesFaseDos/EstructurasNoLineales/tabla-hash-cerrada/tabla-hash-cerrada.component';
+import { EstructuraNoLinealComponent } from './ComponentesFaseDos/estructura-no-lineal/estructura-no-lineal.component';
 
 //---------------------------------- Algoritmos De Codificacion --------------------------------------------
 import { AlgoritmoHuffmanComponent } from './ComponentesFaseDos/AlgoritmoDeCodificacion/algoritmo-huffman/algoritmo-huffman.component';
@@ -39,12 +40,14 @@ import { AlgoritmoLZWComponent } from './ComponentesFaseDos/AlgoritmoDeCodificac
 import { CifradoFeistelComponent } from './ComponentesFaseDos/AlgoritmoDeCodificacion/cifrado-feistel/cifrado-feistel.component';
 import { CifradoRSAComponent } from './ComponentesFaseDos/AlgoritmoDeCodificacion/cifrado-rsa/cifrado-rsa.component';
 import { CodigoHammingComponent } from './ComponentesFaseDos/AlgoritmoDeCodificacion/codigo-hamming/codigo-hamming.component';
+import { AlgoritmoCodificacionComponent } from './ComponentesFaseDos/algoritmo-codificacion/algoritmo-codificacion.component';
 
 //---------------------------------------- Estructuras Compuestas ----------------------------------------
 import { ColMajorComponent } from './ComponentesFaseDos/EstructurasCompuestas/col-major/col-major.component';
 import { RowMajorComponent } from './ComponentesFaseDos/EstructurasCompuestas/row-major/row-major.component';
 import { MatricesDispersasComponent } from './ComponentesFaseDos/EstructurasCompuestas/matrices-dispersas/matrices-dispersas.component';
 import { ConstruccionEstructurasCompuestasComponent } from './ComponentesFaseDos/EstructurasCompuestas/construccion-estructuras-compuestas/construccion-estructuras-compuestas.component';
+import { EstructuraCompuestaComponent } from './ComponentesFaseDos/estructura-compuesta/estructura-compuesta.component';
 const routes: Routes = [
   {path: "EstructurasLineales",    component: EstructurasLinealesComponent},
   {path: "Inicio",    component: InicioComponent},
@@ -75,6 +78,7 @@ const routes: Routes = [
   {path:"RecorridoBusquedaProfundidadGrafo", component:RecorridoBusquedaProfundidadGrafoComponent},
   {path:"TablaHashAbierta", component:TablaHashAbiertaComponent},
   {path:"TablaHashCerrada", component:TablaHashCerradaComponent},
+  {path:"EstructuraNoLineal", component:EstructuraNoLinealComponent},
 
   //---------------------------------- Algoritmos De Codificacion --------------------------------------------
   {path:"AlgoritmoHuffman", component:AlgoritmoHuffmanComponent},
@@ -82,12 +86,14 @@ const routes: Routes = [
   {path:"CifradoFeistel", component:CifradoFeistelComponent},
   {path:"CifradoRSA", component:CifradoRSAComponent},
   {path:"CodigoHamming", component:CodigoHammingComponent},
+  {path:"AlgoritmoCodificacion", component:AlgoritmoCodificacionComponent},
 
   //---------------------------------------- Estructuras Compuestas ----------------------------------------
   {path:"ColMajor", component:ColMajorComponent},
   {path:"RowMajor", component:RowMajorComponent},
   {path:"MatricesDispersas", component:MatricesDispersasComponent},
-  {path:"ConstruccionEstructurasCompuestas", component:ConstruccionEstructurasCompuestasComponent}
+  {path:"ConstruccionEstructurasCompuestas", component:ConstruccionEstructurasCompuestasComponent},
+  {path:"EstructuraCompuesta", component:EstructuraCompuestaComponent}
 
 
 
