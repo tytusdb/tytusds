@@ -7,7 +7,7 @@
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 		<link href="../../styles/pages.css" rel="stylesheet" />
 		<link href="../../styles/global.css" rel="stylesheet" />
-		<link href="../../styles/linearPages.css" rel="stylesheet" />
+		<link href="../../styles/tree.css" rel="stylesheet" />
 		<link href="../../icons/style.css" rel="stylesheet" />
 		<link href="../../styles/normalize.css" rel="stylesheet" />
 	</head>
@@ -23,7 +23,7 @@
 							type="button"
 							aria-label="Home"
 							><i class="icon-home"></i></a
-						>Árbol Binario
+						>Árbol Binario de Busqueda
 					</h1>
 					<ul>
 						<li>
@@ -54,7 +54,7 @@
 										/>
 									</li>
 									<li>
-										<button onclick="hideNavMenu(0)">
+										<button onclick="saveJSONTreeFile()">
 											<i class="icon-save"></i>Guardar
 										</button>
 									</li>
@@ -121,7 +121,7 @@
 									<li>
 										<button
 											type="button"
-											onclick="findNode()"
+											onclick="findNodeOnTree()"
 											aria-label="Buscar"
 										>
 											<i class="icon-search"></i>Buscar
@@ -143,47 +143,6 @@
 							<div class="settings-menu-container">
 								<ul>
 									<li>
-										<button>
-											<i class="icon-plus-circle"></i> Agregar en:
-										</button>
-										<ul>
-											<li>
-												<label for="addAtStart">Inicio</label>
-												<input
-													onchange="changeInsertMode(event)"
-													type="radio"
-													id="addAtStart"
-													name="addAt"
-													value="start"
-												/>
-											</li>
-
-											<li>
-												<label for="addAtEnd">Final</label>
-												<input
-													type="radio"
-													checked="true"
-													id="addAtEnd"
-													onchange="changeInsertMode(event)"
-													name="addAt"
-													value="end"
-												/>
-											</li>
-
-											<li>
-												<label for="addAtOrder">Orden</label>
-												<input
-													type="radio"
-													id="addAtOrder"
-													onchange="changeInsertMode(event)"
-													name="addAt"
-													value="order"
-												/>
-											</li>
-										</ul>
-									</li>
-
-									<li>
 										<label class="btn" type="button" aria-label="Agregar">
 											<i class="icon-repeat"></i>Repetición<input
 												checked="true"
@@ -201,8 +160,10 @@
 										<div class="range-container">
 											<input
 												type="range"
-												min="50"
-												max="800"
+												min="5"
+												step="5"
+												max="30"
+												value="5"
 												id="velocity"
 												onchange="onChangeSortVelocity(event)"
 											/>
@@ -215,7 +176,7 @@
 							<input
 								type="checkbox"
 								style="display: none"
-								checked='true'
+								checked="true"
 								id="show-code-menu"
 							/>
 							<label class="btn" for="show-code-menu" type="button">
@@ -223,13 +184,15 @@
 								<i class="icon-chevron-down"></i>
 							</label>
 							<div class="editor">
-								<pre><code><strong style="color:var(--monoConstIce)">const</strong> data <i style='color:var(--graySoda)'>=</i> <strong style='color:var(--keywordSoda)'>new</strong> <strong style="color:var(--monoClassIce)">ListaSimple</strong><strong style="color:var(--gray)">&#x3c;</strong><strong style="color:var(--monoNumberIce)">number</strong><strong style="color:var(--gray)">&#x3e;</strong>()
+								<pre><code><strong style="color:var(--monoConstIce)">const</strong> data <i style='color:var(--graySoda)'>=</i> <strong style='color:var(--keywordSoda)'>new</strong> <strong style="color:var(--monoClassIce)">ArbolBST</strong><strong style="color:var(--gray)">&#x3c;</strong><strong style="color:var(--monoNumberIce)">number</strong><strong style="color:var(--gray)">&#x3e;</strong>()
 
-data.<strong style="color: var(--monoFuncGreen)">insertar</strong>(<strong style="color: var(--lightPurple)">1</strong>)
-data.<strong style="color: var(--monoFuncGreen)">insertar</strong>(<strong style="color: var(--lightPurple)">2</strong>)
-data.<strong style="color: var(--monoFuncGreen)">insertar</strong>(<strong style="color: var(--lightPurple)">3</strong>)
 data.<strong style="color: var(--monoFuncGreen)">insertar</strong>(<strong style="color: var(--lightPurple)">4</strong>)
-data.<strong style="color: var(--monoFuncGreen)">insertar</strong>(<strong style="color: var(--lightPurple)">5</strong>)</code></pre>
+data.<strong style="color: var(--monoFuncGreen)">insertar</strong>(<strong style="color: var(--lightPurple)">8</strong>)
+data.<strong style="color: var(--monoFuncGreen)">insertar</strong>(<strong style="color: var(--lightPurple)">2</strong>)
+data.<strong style="color: var(--monoFuncGreen)">insertar</strong>(<strong style="color: var(--lightPurple)">1</strong>)
+data.<strong style="color: var(--monoFuncGreen)">insertar</strong>(<strong style="color: var(--lightPurple)">3</strong>)
+data.<strong style="color: var(--monoFuncGreen)">insertar</strong>(<strong style="color: var(--lightPurple)">9</strong>)
+data.<strong style="color: var(--monoFuncGreen)">insertar</strong>(<strong style="color: var(--lightPurple)">7</strong>)</code></pre>
 								<ul>
 									<li>
 										<button class="reset" onclick="resetCanvas()" type="button">
@@ -238,8 +201,8 @@ data.<strong style="color: var(--monoFuncGreen)">insertar</strong>(<strong style
 									</li>
 									<li>
 										<label
-										class="btn"
-										for='show-code-menu'
+											class="btn"
+											for="show-code-menu"
 											id="start-btn"
 											type="button"
 											onclick="startSorting()"
@@ -252,7 +215,7 @@ data.<strong style="color: var(--monoFuncGreen)">insertar</strong>(<strong style
 							<div class="sort-banner">
 								<img
 									id="sort-banner"
-									src="../../images/pages/list.png"
+									src="../../images/pages/tree.png"
 									alt="Bot"
 								/>
 							</div>
@@ -313,7 +276,6 @@ data.<strong style="color: var(--monoFuncGreen)">insertar</strong>(<strong style
 		<script src="../../../scripts/utils/colors.js"></script>
 		<script src="../../../scripts/utils/canvas.js"></script>
 		<script src="../../../scripts/structures/binarytree/index.js"></script>
-		<script src="../../../scripts/structures/avltree/index.js"></script>
 		<script src="../../../scripts/visualizer/index.js"></script>
 		<script src="../../../scripts/visualizer/tree.js"></script>
 		<script src="../../../scripts/pages/binarytree/index.js"></script>

@@ -6,6 +6,10 @@ const startButton = document.getElementById('start-btn')
 const sortBanner = document.getElementById('sort-banner')
 const navBtns = document.querySelectorAll('.nav-btn')
 
+// GLOBAL
+let globalJSONInput: JSONInputFile | null = null
+
+// CONFIGURACIÓN
 let canvasBannerDif: number = 20
 let repeatValues: boolean = true
 let newNodeValue: string = ''
@@ -56,11 +60,32 @@ const onChangeUploadInput = (ev: Event): void => {
 		const json = JSON.parse(
 			typeof text === 'string' ? text : '{}',
 		) as JSONInputFile
+		globalJSONInput = json
+		if (globalJSONInput.repeticion) repeatValues = globalJSONInput.repeticion
+		if (globalJSONInput.animacion)
+			ANIMATION_VELOCITY = globalJSONInput.animacion
 		fileUploadCallback(json)
 	}
 
 	// LEER
-	if (file) reader.readAsText(file)
+	if (file) {
+		reader.readAsText(file)
+		input.value = ''
+	}
+}
+
+// GUARDAR UN ARCHIVO
+const saveJSONFile = (valores: (string | number)[]) => {
+	const strJSON = JSON.stringify({ ...globalJSONInput, valores })
+	const uriData = `data:text/json;charset=utf-8,${encodeURIComponent(strJSON)}`
+
+	const a = document.createElement('a')
+	a.href = uriData
+	a.download = 'data.json'
+	a.innerHTML = 'download JSON'
+	a.click()
+
+	hideNavMenu(0)
 }
 
 // CAMBIAR VELOCIDAD

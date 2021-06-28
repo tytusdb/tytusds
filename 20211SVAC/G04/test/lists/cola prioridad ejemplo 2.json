@@ -1,0 +1,208 @@
+{
+  "categoria": "Estructura Lineal",
+  "nombre": "Cola Prioridad",
+  "repeticion": false,
+  "animacion":5,
+  "valores": [
+    {
+      "valor": 1019,
+      "prioridad": 1
+    },
+    {
+      "valor": 8471,
+      "prioridad": 1
+    },
+    {
+      "valor": 1016,
+      "prioridad": 1
+    },
+    {
+      "valor": 7498,
+      "prioridad": 4
+    },
+    {
+      "valor": 4903,
+      "prioridad": 1
+    },
+    {
+      "valor": 5836,
+      "prioridad": 4
+    },
+    {
+      "valor": 4888,
+      "prioridad": 5
+    },
+    {
+      "valor": 6814,
+      "prioridad": 2
+    },
+    {
+      "valor": 9578,
+      "prioridad": 5
+    },
+    {
+      "valor": 1157,
+      "prioridad": 2
+    },
+    {
+      "valor": 554,
+      "prioridad": 2
+    },
+    {
+      "valor": 8104,
+      "prioridad": 1
+    },
+    {
+      "valor": 4034,
+      "prioridad": 1
+    },
+    {
+      "valor": 2327,
+      "prioridad": 5
+    },
+    {
+      "valor": 1626,
+      "prioridad": 4
+    },
+    {
+      "valor": 1092,
+      "prioridad": 2
+    },
+    {
+      "valor": 351,
+      "prioridad": 1
+    },
+    {
+      "valor": 4178,
+      "prioridad": 3
+    },
+    {
+      "valor": 3706,
+      "prioridad": 1
+    },
+    {
+      "valor": 4462,
+      "prioridad": 2
+    },
+    {
+      "valor": 2427,
+      "prioridad": 5
+    },
+    {
+      "valor": 5958,
+      "prioridad": 2
+    },
+    {
+      "valor": 7873,
+      "prioridad": 4
+    },
+    {
+      "valor": 6131,
+      "prioridad": 5
+    },
+    {
+      "valor": 4336,
+      "prioridad": 4
+    },
+    {
+      "valor": 6805,
+      "prioridad": 4
+    },
+    {
+      "valor": 2537,
+      "prioridad": 4
+    },
+    {
+      "valor": 473,
+      "prioridad": 1
+    },
+    {
+      "valor": 8490,
+      "prioridad": 5
+    },
+    {
+      "valor": 8675,
+      "prioridad": 3
+    },
+    {
+      "valor": 8198,
+      "prioridad": 5
+    },
+    {
+      "valor": 6669,
+      "prioridad": 5
+    },
+    {
+      "valor": 1570,
+      "prioridad": 3
+    },
+    {
+      "valor": 8469,
+      "prioridad": 3
+    },
+    {
+      "valor": 6180,
+      "prioridad": 1
+    },
+    {
+      "valor": 6824,
+      "prioridad": 2
+    },
+    {
+      "valor": 3827,
+      "prioridad": 1
+    },
+    {
+      "valor": 2836,
+      "prioridad": 4
+    },
+    {
+      "valor": 2679,
+      "prioridad": 4
+    },
+    {
+      "valor": 7924,
+      "prioridad": 3
+    },
+    {
+      "valor": 7103,
+      "prioridad": 5
+    },
+    {
+      "valor": 1544,
+      "prioridad": 1
+    },
+    {
+      "valor": 6488,
+      "prioridad": 2
+    },
+    {
+      "valor": 5353,
+      "prioridad": 5
+    },
+    {
+      "valor": 5433,
+      "prioridad": 3
+    },
+    {
+      "valor": 6048,
+      "prioridad": 1
+    },
+    {
+      "valor": 7475,
+      "prioridad": 2
+    },
+    {
+      "valor": 9731,
+      "prioridad": 1
+    },
+    {
+      "valor": 7898,
+      "prioridad": 1
+    },
+    {
+      "valor": 95,
+      "prioridad": 4
+    }
+  ]
+}

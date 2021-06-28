@@ -181,14 +181,16 @@ nav > div > ul > li > .settings-menu-container > ul > li > .range-container {
 	width: 155px;
 }
 
-nav > div > ul > li > .nodes-menu-container > .input {
+nav > div > ul > li > .nodes-menu-container > .input,
+nav > div > ul > li > .settings-menu-container > .input {
 	margin-bottom: 0px;
 	width: 155px;
 	font-size: 0.9em;
 	padding: 0 10px;
 }
 
-nav > div > ul > li > .nodes-menu-container > .input > label {
+nav > div > ul > li > .nodes-menu-container > .input > label,
+nav > div > ul > li > .settings-menu-container > .input > label {
 	width: 15px;
 	margin-right: 10px;
 }
@@ -334,8 +336,8 @@ canvas {
 }
 
 footer {
-	position: relative;
-	top: -5px;
+	position: absolute;
+	bottom: 0;
 	width: 100%;
 	height: 50px;
 	background-color: var(--whiteDark);
@@ -359,4 +361,14 @@ footer > span > i {
 
 footer > span > strong {
 	margin-left: 5px;
+}
+
+nav > div > ul > li > .range-container,
+nav > div > ul > li > .files-menu-container,
+nav > div > ul > li > .nodes-menu-container,
+nav > div > ul > li > .settings-menu-container {
+	padding: 0 10px;
+	width: max-content;
+	top: 53px;
+	border-radius: var(--radius);
 }

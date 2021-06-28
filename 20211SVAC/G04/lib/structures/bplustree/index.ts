@@ -130,6 +130,39 @@ class ArbolBplus{
         this.raiz= this.insertarNodo(valor, this.raiz)
     }
 
+    obtener(valor: any) {
+		let searchNode = null
+		if (this.raiz !== null) {
+			const stack = [this.raiz]
+			while (stack.length > 0) {
+				const node = stack.shift()
+				if (node.valores.map((value:any) => value.toString()).includes(valor)) {
+					searchNode = node
+				} else {
+					node.hijos.forEach((hijo:any) => stack.push(hijo))
+				}
+			}
+		}
+
+		return searchNode
+	}
+
+
+    toArray() {
+		if (this.raiz !== null) {
+			let stack = [this.raiz]
+			let stackCopy = [...this.raiz.valores]
+
+			while (stack.length > 0) {
+				const node = stack.shift()
+				if(node.valores)  stackCopy = [...stackCopy, ...node.valores]
+                if(node.hijos) stack = [...stack, ...node.hijos]
+			}
+
+			return stackCopy
+		} else return []
+	}
+
     private insertarNodo(valor:any, raiz:any){
         if(raiz == null){
             raiz = new NodoBplus(this.grado, true)
