@@ -69,4 +69,20 @@ class TablaHashAbierta {
 
         return hash
     }
+
+    agregar(dato){
+        let posicionTabla = this.tabla[this.funcion_Hash(dato, this.funcion)]
+        if(posicionTabla === -1){
+            this.tabla[posicionTabla] =  new Cola()
+            this.tabla[posicionTabla].Agregar(dato)
+        }else{
+            
+            this.tabla[posicionTabla].Agregar(dato)
+        }
+
+        this.datosAgregados++;
+
+        this.rehashing();
+        
+    }
 }
