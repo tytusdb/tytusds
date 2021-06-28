@@ -17,9 +17,12 @@ import {BComponent} from './PaginasWeb/b/b.component';
 import { ColaComponent } from './PaginasWeb/Cola/cola.component';
 import { CpComponent } from './PaginasWeb/Cola-Prioridad/cp.component';
 import { AnchuraComponent } from './PaginasWeb/grafo_anchura/anchura.component';
-
-
+import {LZWComponent} from './PaginasWeb/lzw/lzw.component';
+import {LBSTComponent} from './PaginasWeb/lista-bst/l-bst.component';
 import {MDispersaComponent} from './PaginasWeb/mdispersa/mdispersa.component';
+import { HammingComponent } from './PaginasWeb/hamming/hamming.component';
+import { HuffmanComponent } from './PaginasWeb/huffman/huffman.component';
+
 
 const routes: Routes = [
   {path:'menu', component: MenuComponent},
@@ -33,14 +36,17 @@ const routes: Routes = [
   {path:'Seleccion', component: SeleccionComponent},
   {path:'OBurbuja', component: OrdBurbujaComponent},
   {path:'avl', component: AvlComponent},
-  {path:'OQuicksort', component:OrdQuicksortComponent},
-  {path:'Abinario', component:ABinarioComponent},
-  {path:'Inserccion', component:InserccionComponent},
-  {path:'B', component:BComponent},
-  {path:'Anchura', component:AnchuraComponent},
-  {path: 'MDispersa',component:MDispersaComponent},
+  {path:'OQuicksort', component: OrdQuicksortComponent},
+  {path:'Abinario', component: ABinarioComponent},
+  {path:'Inserccion', component: InserccionComponent},
+  {path:'B', component: BComponent},
+  {path:'Anchura', component: AnchuraComponent},
+  {path: 'MDispersa',component: MDispersaComponent},
+  {path: 'CodigoHamming',component: HammingComponent},
+  {path:'LBST',component: LBSTComponent},
+  {path:'AlgoritmoHuffman',component: HuffmanComponent},
+  {path:'lzw', component: LZWComponent},
   {path:'**', redirectTo: 'menu'},
-
 
 ];
 

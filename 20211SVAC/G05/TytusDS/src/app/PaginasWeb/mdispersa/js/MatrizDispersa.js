@@ -18,6 +18,10 @@ class MatrizDispersa{
     }else{
       this.caso4(valor,x,y);
     }
+    console.log("append")
+    console.log(this.l_vertical.Size());
+    console.log(this.l_horizontal.Size());
+
   }
   //no existe cabecera en x ni y para colocar el nuevo nodo en la posicion en la que se quiere
   caso1(valor,x,y){
@@ -174,7 +178,9 @@ class MatrizDispersa{
     }
 
   }
-  //BUSCAR VALOR
+
+
+  //BUSCAR
   buscar(valor,x,y){
     let current=this.l_vertical.head;
     let aux;
@@ -188,7 +194,9 @@ class MatrizDispersa{
     }
     return null;
   }
-  //ELIMINAR:
+  //ELIMINAR: ELIMINA EL PRIMER VALOR QUE ENCUENTRA
+
+  //
   delete(valor,x,y){
     let current=this.l_vertical.head;
     let aux;
@@ -218,6 +226,90 @@ class MatrizDispersa{
     let nodo= this.buscar(valor,x,y);
     nodo.valor=new_valor;
   }
+  //P--------------------------------------------------------------------------------------------------------
+  updateP(valor,new_valor){
+    let nodo= this.buscarP(valor);
+    if (nodo==null){
+      return false;
+    }
+    nodo.valor=new_valor;
+    return true;
+
+  }
+  //BUSCAR PRIMER NODO CON LA POSICION BUSCADA
+  buscarP(valor){
+    let current=this.l_vertical.head;
+    let aux;
+    while (current!=null){
+      aux=current.der;
+      while (aux!=null){
+        if(aux.valor==valor) return aux;
+        aux=aux.der;
+      }
+      current=current.next;
+    }
+    return null;
+  }
+  deleteP(valor){
+    let current=this.l_vertical.head;
+    let aux;
+    while (current!=null){
+      aux=current.der;
+      while (aux!=null){
+        if(aux.valor==valor){
+          if (this.l_horizontal.Size()==1 && this.l_vertical.Size()==1){
+            this.l_horizontal.eliminar(aux.arriba.valor);
+            this.l_vertical.eliminar(aux.izq.valor);
+          }else{
+          //eliminar arriba----------------------------------------------------------------
+          aux.arriba.abajo=aux.abajo;
+          //SI LA COLUMNA YA NO TIENE NODOS SE PASA A ELIMINAR
+          if(aux.abajo==null){
+            //LOS NEXT Y PREV SOLO LOS POSEEN LOS CABECALES
+            if (aux.arriba.prev!=null || aux.arriba.next!=null){
+              this.l_horizontal.eliminar(aux.arriba.valor);
+            }
+          }
+          if(aux.abajo!=null){
+            aux.abajo.arriba=aux.arriba;
+          }
+          //eliminar a los lados-----------------------------------------------------------
+          aux.izq.der=aux.der;
+          if(aux.der==null){
+            //LOS NEXT Y PREV SOLO LOS POSEEN LOS CABECALES
+            if (aux.izq.prev!=null || aux.izq.next!=null){
+              this.l_vertical.eliminar(aux.izq.valor);
+            }
+          }
+          if(aux.der!=null){
+            aux.der.izq=aux.izq;
+          }
+          //SI SOLO EXISTE UN UNICO VALOR INGRESADO Y SE DESEA ELIMINAR:
+          console.log(this.l_horizontal.Size());
+          console.log(this.l_vertical.Size());}
+
+          return;
+        }
+        aux=aux.der;
+      }
+      current=current.next;
+    }
+    alert("No existe tal valor en dicha posicion");
+  }
+  BPosicion(x,y){
+    let current=this.l_vertical.head;
+    let aux;
+    while (current!=null){
+      aux=current.der;
+      while (aux!=null){
+        if(aux.x==x && aux.y==y) return aux;
+        aux=aux.der;
+      }
+      current=current.next;
+    }
+    return null;
+  }
+  //----------------------------------------------------------------------------------------------------------------
   guardar(){
     let lista=[];
     let current=this.l_vertical.head;
@@ -232,13 +324,87 @@ class MatrizDispersa{
     }
     return lista;
   }
-  //METODOS PARA RETORNAR UNA LISTA DE OBJETOS DE NODOS Y APUNTADORES
-  Lnodos(){
-    function NodoVis(id,label,shape,color="red"){
+
+
+  //METODO PARA RETORNAR UNA LISTA DE OBJETOS DE NODOS Y APUNTADORES SIN LAS CABECERAS DE LA MATRIZ
+  LnodosSC(){
+    function NodoVis(id,label,shape,color="red",level=null){
       this.id= id;
       this.label= label;
       this.shape=shape;
       this.color=color
+      this.level=level;
+    }
+    let Lnodos=[];
+    let nodovis;
+
+    //llenar la lista de los nodos insertados en la matriz
+    let current=this.l_vertical.head;
+    let aux;
+    while (current!=null){
+      aux=current.der;
+      while (aux!=null){
+        //las cabeceras de las filas tendran un color rojo
+        nodovis= new NodoVis(`F${aux.x}C${aux.y}`,aux.valor.toString(),"box","purple",aux.x);
+        Lnodos.push(nodovis);
+        aux=aux.der;
+      }
+      current=current.next;
+    }
+    return Lnodos;
+  }
+  LedgesSC(){
+    function Edge(from,to,label=""){
+      this.from=from
+      this.to=to;
+      this.label=label;
+    }
+    let Ledges=[]
+    let edgevis;
+    let aux;
+
+    //QUE CADA NODO INSERTADO A PUNTE A SU NODO DERECHO
+    //acabar un nodo antes
+    let current=this.l_vertical.head;
+    let aux2;
+    while (current!=null){
+      aux=current.der;
+      if(aux!=null){
+        while(aux.der!=null){
+          aux2=aux.der;
+          edgevis= new Edge(`F${aux.x}C${aux.y}`,`F${aux2.x}C${aux2.y}`,"");
+          Ledges.push(edgevis);
+          aux=aux.der
+        }
+      }
+      current=current.next;
+    }
+    //QUE CADA NODO APUNTE A SU NODO DE ABAJO
+    current=this.l_horizontal.head;
+    while (current!=null){
+      aux=current.abajo;
+      if(aux!=null) {
+        while (aux.abajo != null) {
+          aux2 = aux.abajo;
+          edgevis = new Edge(`F${aux.x}C${aux.y}`, `F${aux2.x}C${aux2.y}`, "");
+          Ledges.push(edgevis);
+          aux = aux.abajo
+        }
+      }
+      current=current.next;
+    }
+    return Ledges;
+  }
+
+
+  //METODOS PARA RETORNAR UNA LISTA DE OBJETOS DE NODOS Y APUNTADORES
+  Lnodos(){
+    function NodoVis(id,label,shape,color="red",level=null){
+      this.id= id;
+      this.label= label;
+      this.shape=shape;
+      this.color=color
+      this.level=level;
     }
     let Lnodos=[];
     let nodovis;
@@ -247,7 +413,7 @@ class MatrizDispersa{
     let current=this.l_vertical.head;
     //las cabeceras de las filas tendran un color azul
     while (current!=null){
-      nodovis= new NodoVis(`F${current.valor}`,current.valor.toString(),"box","blue")
+      nodovis= new NodoVis(`F${current.valor}`,current.valor.toString(),"box","blue",current.valor)
       Lnodos.push(nodovis);
       current=current.next;
     }
@@ -255,7 +421,7 @@ class MatrizDispersa{
     current=this.l_horizontal.head;
     while (current!=null){
       //las cabeceras de las filas tendran un color rojo
-      nodovis= new NodoVis(`C${current.valor}`,current.valor.toString(),"box","red")
+      nodovis= new NodoVis(`C${current.valor}`,current.valor.toString(),"box","red",0)
       Lnodos.push(nodovis);
       current=current.next;
     }
@@ -266,7 +432,7 @@ class MatrizDispersa{
       aux=current.der;
       while (aux!=null){
         //las cabeceras de las filas tendran un color rojo
-        nodovis= new NodoVis(`F${aux.x}C${aux.y}`,aux.valor.toString(),"box","purple");
+        nodovis= new NodoVis(`F${aux.x}C${aux.y}`,aux.valor.toString(),"box","purple",aux.x);
         Lnodos.push(nodovis);
         aux=aux.der;
       }
@@ -275,44 +441,46 @@ class MatrizDispersa{
     return Lnodos;
   }
   Ledges(){
-    function Edge(from,to,label="",tailport="",headport=""){
+    function Edge(from,to,label=""){
       this.from=from
       this.to=to;
       this.label=label;
-      this.tailport=tailport;
-      this.headport=headport;
     }
     let Ledges=[]
     let edgevis;
     let aux;
     //QUE LAS CABECERAS DE LAS FILAS APUNTEN ENTRE SI
     let current=this.l_vertical.head;
+    if(current!=null){
     while (current.next!=null){
       edgevis= new Edge(`F${current.valor}`,`F${current.next.valor}`,"");
       Ledges.push(edgevis);
       current=current.next;
-    }
+    }}
     //QUE LAS CABECERAS DE LAS COLUMNAS APUNTEN ENTRE SI
     current=this.l_horizontal.head;
+    if(current!=null){
     while (current.next!=null){
       edgevis= new Edge(`C${current.valor}`,`C${current.next.valor}`,"");
       Ledges.push(edgevis);
       current=current.next;
-    }
+    }}
     //QUE LAS CABECERAS DE LAS FILAS APUNTEN A SU NODO DERECHA MAS PROXIMO
     current=this.l_vertical.head;
     while (current!=null){
       aux=current.der;
+      if(aux!=null){
       edgevis= new Edge(`F${aux.x}`,`F${aux.x}C${aux.y}`,"","e","w");
-      Ledges.push(edgevis);
+      Ledges.push(edgevis);}
       current=current.next;
     }
     //QUE LAS CABECERAS DE LAS COLUMNAS APUNTEN A SU NODO ABAJO MAS PROXIMO
     current=this.l_horizontal.head;
     while (current!=null){
       aux=current.abajo;
+      if(aux!=null){
       edgevis= new Edge(`C${aux.y}`,`F${aux.x}C${aux.y}`,"","s","n");
-      Ledges.push(edgevis);
+      Ledges.push(edgevis);}
       current=current.next;
     }
     //QUE CADA NODO INSERTADO A PUNTE A SU NODO DERECHO
@@ -321,11 +489,13 @@ class MatrizDispersa{
     let aux2;
     while (current!=null){
       aux=current.der;
-      while(aux.der!=null){
-        aux2=aux.der;
-        edgevis= new Edge(`F${aux.x}C${aux.y}`,`F${aux2.x}C${aux2.y}`,"");
-        Ledges.push(edgevis);
-        aux=aux.der
+      if(aux!=null){
+        while(aux.der!=null){
+          aux2=aux.der;
+          edgevis= new Edge(`F${aux.x}C${aux.y}`,`F${aux2.x}C${aux2.y}`,"");
+          Ledges.push(edgevis);
+          aux=aux.der
+        }
       }
       current=current.next;
     }
@@ -333,15 +503,31 @@ class MatrizDispersa{
     current=this.l_horizontal.head;
     while (current!=null){
       aux=current.abajo;
-      while(aux.abajo!=null){
-        aux2=aux.abajo;
-        edgevis= new Edge(`F${aux.x}C${aux.y}`,`F${aux2.x}C${aux2.y}`,"");
-        Ledges.push(edgevis);
-        aux=aux.abajo
+      if(aux!=null) {
+        while (aux.abajo != null) {
+          aux2 = aux.abajo;
+          edgevis = new Edge(`F${aux.x}C${aux.y}`, `F${aux2.x}C${aux2.y}`, "");
+          Ledges.push(edgevis);
+          aux = aux.abajo
+        }
       }
       current=current.next;
     }
     return Ledges;
+  }
+  Rdatos(){
+    let Ldatos=[]
+    let current=this.l_vertical.head;
+    let aux;
+    while (current!=null){
+      aux=current.der;
+      while (aux!=null){
+        Ldatos.push(`valor:${aux.valor} x: ${aux.x} y: ${aux.y}`);
+        aux=aux.der;
+      }
+      current=current.next;
+    }
+    return Ldatos;
   }
 
 }

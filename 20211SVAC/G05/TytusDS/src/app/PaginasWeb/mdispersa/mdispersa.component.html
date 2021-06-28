@@ -8,14 +8,20 @@
     <div class="col-1"><input #Col type="text" placeholder="Columna" class="form-control"> </div>
     <div class="col-1"> <button id="Agregar" class="btn btn-success button1" (click)="Add(agregar.value,fil.value,Col.value)">Agregar</button></div>
     <div class="col-1"><input #eliminar type="text" class="form-control" placeholder="Valor"> </div>
-    <div class="col-1"> <button id="Eliminar" class="button1 btn btn-success" >Eliminar</button></div>
+    <div class="col-1"> <button id="Eliminar" class="button1 btn btn-success" (click)="delete(eliminar.value)">Eliminar</button></div>
     <div class="col-2"><input #valor type="text" class="form-control" placeholder="Nodo a actualizar"> </div>
     <div class="col-2"><input #nuevo_valor type="text" class="form-control" placeholder="Nuevo Valor"> </div>
-    <div class="col-1"> <button id="Actualizar" class="button1 btn btn-success" >Actualizar</button></div>
+    <div class="col-1"> <button id="Actualizar" class="button1 btn btn-success" (click)="update(valor.value,nuevo_valor.value)" >Actualizar</button></div>
   </div>
   <div class="row py-1 pb-2">
-    <div class="col-1"><input #search type="text" class="form-control" placeholder="Buscar"></div>
-    <div class="col-1"><button class="btn btn-success button1">Buscar</button></div>
+    <div class="col-1"><input #search type="text" class="form-control" placeholder="Buscar" ></div>
+    <div class="col-1"><button class="btn btn-success button1" (click)="buscar(search.value)">Buscar</button></div>
+    <div class="col-md-1 text-white">Cabeceras:</div>
+    <div class="col-md-1">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" [(ngModel)]="SC_Cabecera">
+      </div>
+    </div>
   </div>
 
   <!----CAJA DONDE SE GUARDARA LA GRAFICACIÓN DE LOS NODOS---->

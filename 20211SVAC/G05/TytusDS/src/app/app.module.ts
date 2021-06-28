@@ -23,6 +23,11 @@ import { CpComponent } from './PaginasWeb/Cola-Prioridad/cp.component';
 import { ColaComponent } from './PaginasWeb/Cola/cola.component';
 import { MDispersaComponent } from './PaginasWeb/mdispersa/mdispersa.component';
 import {AnchuraComponent} from './PaginasWeb/grafo_anchura/anchura.component';
+import { HammingComponent } from './PaginasWeb/hamming/hamming.component';
+import { LBSTComponent } from './PaginasWeb/lista-bst/l-bst.component';
+import { HuffmanComponent } from './PaginasWeb/huffman/huffman.component';
+import { HashAbiertoComponent } from './PaginasWeb/hash-abierto/hash-abierto.component';
+import { LZWComponent } from './PaginasWeb/lzw/lzw.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +49,12 @@ import {AnchuraComponent} from './PaginasWeb/grafo_anchura/anchura.component';
     BComponent,
     InserccionComponent,
     MDispersaComponent,
-    AnchuraComponent
+    AnchuraComponent,
+    HammingComponent,
+    LBSTComponent,
+    HuffmanComponent,
+    HashAbiertoComponent,
+    LZWComponent
   ],
   imports: [
     BrowserModule,
