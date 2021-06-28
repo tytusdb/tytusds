@@ -30,7 +30,20 @@ class Animation{
         objeto.style.position="absolute"
         divInsert.appendChild(objeto)//Insertando el div en el Div principal        
     }
+    print(){
+        console.log("Funcionó")
+    }
 }
+/*export function name(params) {
+    
+}*/
+module.exports = Animation;
 
-//module.exports = Animation;
+/*const animate = new Animation()
+
+export function crearObjeto(id, text) {
+    animate.createObject(id, text)
+}*/
+
+//export { Animation };
 //export { colocarObject, createObject,Animation};
