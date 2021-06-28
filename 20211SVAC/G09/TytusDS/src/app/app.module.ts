@@ -27,18 +27,6 @@ import { ArbolBinarioComponent } from './componentes/arbol-binario/arbol-binario
 import { ArbolBComponent } from './componentes/arbol-b/arbol-b.component';
 import { ArbolBMasComponent } from './componentes/arbol-bmas/arbol-bmas.component';
 import { ArbolMerkleComponent } from './componentes/arbol-merkle/arbol-merkle.component';
-import { ComponentesFaseDosComponent } from './componentes-fase-dos/componentes-fase-dos.component';
-import { EstructurasNoLinealesComponent } from './ComponentesFaseDos/estructuras-no-lineales/estructuras-no-lineales.component';
-import { AlgoritmosDeCodificacionComponent } from './ComponentesFaseDos/algoritmos-de-codificacion/algoritmos-de-codificacion.component';
-import { EstructurasCompuestasComponent } from './ComponentesFaseDos/estructuras-compuestas/estructuras-compuestas.component';
-import { TablaHashAbiertaComponent } from './ComponentesFaseDos/algoritmos-de-codificacion/tabla-hash-abierta/tabla-hash-abierta.component';
-import { TablaHashCerradaComponent } from './ComponentesFaseDos/algoritmos-de-codificacion/tabla-hash-cerrada/tabla-hash-cerrada.component';
-import { RecorridoBusquedaAnchuraGarfosComponent } from './ComponentesFaseDos/algoritmos-de-codificacion/recorrido-busqueda-anchura-garfos/recorrido-busqueda-anchura-garfos.component';
-import { RecorridoBusquedaAnchuraGrafosComponent } from './ComponentesFaseDos/algoritmos-de-codificacion/recorrido-busqueda-anchura-grafos/recorrido-busqueda-anchura-grafos.component';
-import { RecorridoBusquedaProfundidadGrafosComponent } from './ComponentesFaseDos/algoritmos-de-codificacion/recorrido-busqueda-profundidad-grafos/recorrido-busqueda-profundidad-grafos.component';
-import { AlgoritmoDeCostoUniformeComponent } from './ComponentesFaseDos/algoritmos-de-codificacion/algoritmo-de-costo-uniforme/algoritmo-de-costo-uniforme.component';
-import { ArbolRecubrimientoMinimoComponent } from './ComponentesFaseDos/algoritmos-de-codificacion/arbol-recubrimiento-minimo/arbol-recubrimiento-minimo.component';
-import { AlgoritmoCostoUniformeComponent } from './ComponentesFaseDos/estructuras-no-lineales/algoritmo-costo-uniforme/algoritmo-costo-uniforme.component';
 import { CodigoHammingComponent } from './ComponentesFaseDos/AlgoritmoDeCodificacion/codigo-hamming/codigo-hamming.component';
 import { AlgoritmoHuffmanComponent } from './ComponentesFaseDos/AlgoritmoDeCodificacion/algoritmo-huffman/algoritmo-huffman.component';
 import { AlgoritmoLZWComponent } from './ComponentesFaseDos/AlgoritmoDeCodificacion/algoritmo-lzw/algoritmo-lzw.component';
@@ -75,18 +63,6 @@ import { RecorridoBusquedaProfundidadGrafoComponent } from './ComponentesFaseDos
     ArbolBComponent,
     ArbolBMasComponent,
     ArbolMerkleComponent,
-    ComponentesFaseDosComponent,
-    EstructurasNoLinealesComponent,
-    AlgoritmosDeCodificacionComponent,
-    EstructurasCompuestasComponent,
-    TablaHashAbiertaComponent,
-    TablaHashCerradaComponent,
-    RecorridoBusquedaAnchuraGarfosComponent,
-    RecorridoBusquedaAnchuraGrafosComponent,
-    RecorridoBusquedaProfundidadGrafosComponent,
-    AlgoritmoDeCostoUniformeComponent,
-    ArbolRecubrimientoMinimoComponent,
-    AlgoritmoCostoUniformeComponent,
     CodigoHammingComponent,
     AlgoritmoHuffmanComponent,
     AlgoritmoLZWComponent,
