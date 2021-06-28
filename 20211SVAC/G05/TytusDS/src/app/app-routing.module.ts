@@ -21,6 +21,7 @@ import { AnchuraComponent } from './PaginasWeb/grafo_anchura/anchura.component';
 import {LBSTComponent} from './PaginasWeb/lista-bst/l-bst.component';
 import {MDispersaComponent} from './PaginasWeb/mdispersa/mdispersa.component';
 import { HammingComponent } from './PaginasWeb/hamming/hamming.component';
+import { HuffmanComponent } from './PaginasWeb/huffman/huffman.component';
 
 const routes: Routes = [
   {path:'menu', component: MenuComponent},
@@ -42,6 +43,7 @@ const routes: Routes = [
   {path: 'MDispersa',component: MDispersaComponent},
   {path: 'CodigoHamming',component: HammingComponent},
   {path:'LBST',component: LBSTComponent},
+  {path:'AlgoritmoHuffman',component: HuffmanComponent},
   {path:'**', redirectTo: 'menu'},
 
 
