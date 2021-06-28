@@ -40,7 +40,6 @@ function llenarMatriz(array,nMax) {
         }
     }
     contNparidad=1
-    console.log("tamaño de una fila"+array[0].length)
     for (let j = 3; j < array[0].length-1; j++) {
         array[0][j]="P"+contNparidad
         contNparidad++
@@ -87,4 +86,20 @@ function palabraParidad(array,nMax) {
     }
     return cadena
 }
-Hamming("0110101")
+
+function convertTextToBinary(s){
+    s = unescape( encodeURIComponent( s ) );
+    var chr, i = 0, l = s.length, out = '';
+    for( ; i < l; i ++ ){
+        chr = s.charCodeAt( i ).toString( 2 );
+        while( chr.length % 8 != 0 ){ chr = '0' + chr; }
+        out += chr;
+    }
+    return out;
+}
+function HammingCadena(cadena) {
+    console.log(convertTextToBinary(cadena))
+    Hamming(convertTextToBinary(cadena))
+}
+HammingCadena("se lo dije")
+//Hamming("0110101")
