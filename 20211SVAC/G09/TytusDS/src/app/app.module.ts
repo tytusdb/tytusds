@@ -42,6 +42,9 @@ import { AlgoritmoCostoUniformeComponent } from './ComponentesFaseDos/Estructura
 import { ArbolRecubrimientoMinimoComponent } from './ComponentesFaseDos/EstructurasNoLineales/arbol-recubrimiento-minimo/arbol-recubrimiento-minimo.component';
 import { TablaHashAbiertaComponent} from './ComponentesFaseDos/EstructurasNoLineales/tabla-hash-abierta/tabla-hash-abierta.component';
 import { TablaHashCerradaComponent } from './ComponentesFaseDos/EstructurasNoLineales/tabla-hash-cerrada/tabla-hash-cerrada.component';
+import { EstructuraNoLinealComponent } from './ComponentesFaseDos/estructura-no-lineal/estructura-no-lineal.component';
+import { EstructuraCompuestaComponent } from './ComponentesFaseDos/estructura-compuesta/estructura-compuesta.component';
+import { AlgoritmoCodificacionComponent } from './ComponentesFaseDos/algoritmo-codificacion/algoritmo-codificacion.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -81,7 +84,10 @@ import { TablaHashCerradaComponent } from './ComponentesFaseDos/EstructurasNoLin
     AlgoritmoCostoUniformeComponent,
     ArbolRecubrimientoMinimoComponent,
     TablaHashAbiertaComponent,
-    TablaHashCerradaComponent
+    TablaHashCerradaComponent,
+    EstructuraNoLinealComponent,
+    AlgoritmoCodificacionComponent,
+    EstructuraCompuestaComponent
   ],
   imports: [
     BrowserModule,
