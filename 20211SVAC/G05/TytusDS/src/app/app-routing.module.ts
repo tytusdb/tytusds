@@ -22,6 +22,7 @@ import {LBSTComponent} from './PaginasWeb/lista-bst/l-bst.component';
 import {MDispersaComponent} from './PaginasWeb/mdispersa/mdispersa.component';
 import { HammingComponent } from './PaginasWeb/hamming/hamming.component';
 import { HuffmanComponent } from './PaginasWeb/huffman/huffman.component';
+import { HashAbiertoComponent } from './PaginasWeb/hash-abierto/hash-abierto.component';
 
 const routes: Routes = [
   {path:'menu', component: MenuComponent},
@@ -44,6 +45,7 @@ const routes: Routes = [
   {path: 'CodigoHamming',component: HammingComponent},
   {path:'LBST',component: LBSTComponent},
   {path:'AlgoritmoHuffman',component: HuffmanComponent},
+  {path:'HashAbierta',component: HashAbiertoComponent},
   {path:'**', redirectTo: 'menu'},
 
 
