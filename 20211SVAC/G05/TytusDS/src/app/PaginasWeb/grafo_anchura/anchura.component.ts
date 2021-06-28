@@ -17,6 +17,7 @@ export class AnchuraComponent implements OnInit {
   ag3 = '';
   ag4 = '';
   ag5 = '';
+  ag6 = '';
   opciones = {
     ingreso: 'final',
     velocidadLineales: 1000,
@@ -129,6 +130,58 @@ graficar(){
   let grafo= new vis.Network(contenedor,data,opciones);
 }
 
+
+
+graficarb(){
+  let contenedor= document.getElementById("myDiv1");
+  let datos=this.lista.as1();
+  let Nodos=datos[0];
+  let edges=datos[1];
+  let data={nodes:Nodos,edges:edges};
+
+  //OPCIONES PARA LOS NODOS----------------------------------------------------------
+  let opciones={
+    edges:{
+
+      color:{
+        color:"#013ADF"
+      }, 
+      arrows:{ 
+        to:{
+          enabled:true
+        }
+      }
+    },
+    nodes:{
+      color:{
+        border:"white",background:"red"
+      },
+      font:{
+        color:"white"
+      }
+    },
+    physics:{
+      enabled: true,
+      barnesHut: {
+        gravitationalConstant: -1000,
+        centralGravity: 0.3,
+        springLength: 95
+      }},
+    layout:{
+      hierarchical: {
+        sortMethod: 'directed',
+        nodeSpacing: 200,
+        treeSpacing: 400
+      }
+    } 
+    
+  };
+  //------------------------------------------------------------------------
+  let grafo= new vis.Network(contenedor,data,opciones);
+}
+
+
+
   delete(valor){
     this.lista.eliminar(valor);
     this.graficar();
@@ -137,9 +190,9 @@ graficar(){
 
 
   bus(valor){
-     //this.lista.buscar(valor,this.opciones['velocidadLineales']);
+    this.lista.bus(valor);
     this.ag3 = '';
-      return;
+    this.graficarb()
   }
 
   modi(valor,valor1){
@@ -149,6 +202,12 @@ graficar(){
    this.ag5 = '';
    alert("Modificado"); 
   }
+
+  matriz(){
+    this.lista.matriz();
+  }
+
+
 
   actualizar(){
     this.graficar();

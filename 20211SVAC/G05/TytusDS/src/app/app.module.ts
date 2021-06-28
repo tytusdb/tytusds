@@ -27,6 +27,8 @@ import { HammingComponent } from './PaginasWeb/hamming/hamming.component';
 import { LBSTComponent } from './PaginasWeb/lista-bst/l-bst.component';
 import { HuffmanComponent } from './PaginasWeb/huffman/huffman.component';
 import { HashAbiertoComponent } from './PaginasWeb/hash-abierto/hash-abierto.component';
+import { LZWComponent } from './PaginasWeb/lzw/lzw.component';
+import { HashCerradoComponent } from './PaginasWeb/hash-cerrado/hash-cerrado.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,9 @@ import { HashAbiertoComponent } from './PaginasWeb/hash-abierto/hash-abierto.com
     HammingComponent,
     LBSTComponent,
     HuffmanComponent,
-    HashAbiertoComponent
+    HashAbiertoComponent,
+    LZWComponent,
+    HashCerradoComponent
   ],
   imports: [
     BrowserModule,
