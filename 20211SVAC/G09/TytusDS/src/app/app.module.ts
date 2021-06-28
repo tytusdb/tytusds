@@ -38,6 +38,10 @@ import { ColMajorComponent } from './ComponentesFaseDos/EstructurasCompuestas/co
 import { ConstruccionEstructurasCompuestasComponent } from './ComponentesFaseDos/EstructurasCompuestas/construccion-estructuras-compuestas/construccion-estructuras-compuestas.component';
 import { RecorridoBusquedaAnchuraGrafoComponent } from './ComponentesFaseDos/EstructurasNoLineales/recorrido-busqueda-anchura-grafo/recorrido-busqueda-anchura-grafo.component';
 import { RecorridoBusquedaProfundidadGrafoComponent } from './ComponentesFaseDos/EstructurasNoLineales/recorrido-busqueda-profundidad-grafo/recorrido-busqueda-profundidad-grafo.component';
+import { AlgoritmoCostoUniformeComponent } from './ComponentesFaseDos/EstructurasNoLineales/algoritmo-costo-uniforme/algoritmo-costo-uniforme.component';
+import { ArbolRecubrimientoMinimoComponent } from './ComponentesFaseDos/EstructurasNoLineales/arbol-recubrimiento-minimo/arbol-recubrimiento-minimo.component';
+import { TablaHashAbiertaComponent} from './ComponentesFaseDos/EstructurasNoLineales/tabla-hash-abierta/tabla-hash-abierta.component';
+import { TablaHashCerradaComponent } from './ComponentesFaseDos/EstructurasNoLineales/tabla-hash-cerrada/tabla-hash-cerrada.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,7 +77,11 @@ import { RecorridoBusquedaProfundidadGrafoComponent } from './ComponentesFaseDos
     ColMajorComponent,
     ConstruccionEstructurasCompuestasComponent,
     RecorridoBusquedaAnchuraGrafoComponent,
-    RecorridoBusquedaProfundidadGrafoComponent
+    RecorridoBusquedaProfundidadGrafoComponent,
+    AlgoritmoCostoUniformeComponent,
+    ArbolRecubrimientoMinimoComponent,
+    TablaHashAbiertaComponent,
+    TablaHashCerradaComponent
   ],
   imports: [
     BrowserModule,
