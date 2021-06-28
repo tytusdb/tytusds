@@ -1,11 +1,16 @@
 class Lzw{
-  constructor(texto) {
-    this.text=texto;
+  constructor() {
+    this.text;
     this.diccionario=[];
     this.codigo=""
   }
+  set settext(texto){
+    this.text=texto
+  }
   Gcodigo(){
-    let w="",k,wk;
+    this.codigo="";
+    this.diccionario=[];
+    let w="",k;
     let n=0;
     this.Rdic();
     //HABRA N ITERACIONES POR LOS N CARACTERES DE LA CADENA DE TEXTO
