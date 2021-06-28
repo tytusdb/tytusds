@@ -7,6 +7,7 @@ import Actualizar from './Actualizar'
 import {Link} from 'react-router-dom'
 import Dibujar from './Dibujar';
 import Buscar from './Buscar'
+import GraficarTablaHash from './GraficarTablaHash'
 
 import Seleccion from '../estructuras/Ordenamientos/Seleccion'
 import Insercion from '../estructuras/Ordenamientos/Insercion'

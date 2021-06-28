@@ -114,4 +114,59 @@ class TablaHashCerrada {
 
         return prueba
     }
+
+    imprimir(){
+        for (let index = 0; index < this.tabla.length; index++) {
+            console.log(index, this.tabla[index])
+        
+        
+        }
+
+        console.log(this.datosAgregados)
+    }
+
+    rehashing(){
+        if((this.datosAgregados*100/this.tamaño) >= this.maximo){
+            let copyarray = this.tabla
+
+            let tamañoAnterior = this.tamaño
+
+            this.tamaño = (this.datosAgregados*100/this.minimo);
+
+            this.iniciar()
+
+            for (let index = 0; index < tamañoAnterior; index++) {
+                if(copyarray[index] != -1){
+                        this.agregar(copyarray[index])
+                }
+                
+            }
+        }
+
+    }
+
+    actualizar(datoAnterior, datoNuevo){
+        this.eliminar(datoAnterior)
+        this.agregar(datoNuevo)
+    }
+
+    eliminar(dato){
+        let contador = 0;
+        for (let index = 0; index < this.tabla.length; index++) {
+            if(this.tabla[index] == dato){
+                this.tabla[index] = -1
+                contador++;
+            }
+
+            if(contador == 1){
+                break;
+            }
+        }
+    }
+
+    cargar(arr){
+        arr.map(e => {
+            this.Agregar(e)
+        })
+    }
 }
