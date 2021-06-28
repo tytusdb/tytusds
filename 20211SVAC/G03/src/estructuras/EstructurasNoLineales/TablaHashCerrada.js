@@ -79,4 +79,39 @@ class TablaHashCerrada {
         this.datosAgregados++;
         this.rehashing();
     }
+
+     colisiones(dato, i, colision, h1){
+        let retorno;
+        switch(colision){
+            case "Lineal":
+                retorno = this.colisionLineal(dato, i)
+                break;
+            case "Cuadratica":
+                retorno = this.colisionCuadratica(dato, i)
+                break;
+            case "DobleHash":
+                retorno= this.colisionDobleHash(h1,dato, i)
+                break;
+            default:
+                break;
+        }
+        return retorno
+    }
+
+    colisionLineal(dato,i){
+        let prueba = ((dato+i) % this.tamaño)
+        return prueba
+    }
+
+    colisionCuadratica(dato, i){
+        let prueba = (dato +(i*i)) % this.tamaño
+        return prueba
+    }
+
+    colisionDobleHash(h1,dato,i){
+        let  h2 = 1 + (dato %(this.tamaño-1))
+        let prueba = ((h1 + (i*h2)) % this.tamaño)
+
+        return prueba
+    }
 }
