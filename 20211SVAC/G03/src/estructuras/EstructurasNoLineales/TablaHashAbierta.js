@@ -85,4 +85,36 @@ class TablaHashAbierta {
         this.rehashing();
         
     }
+
+    rehashing(){
+        if((this.datosAgregados*100/this.tamaño) >= this.maximo){
+            let copyarray = this.tabla
+
+            let tamañoAnterior = this.tamaño
+
+            this.tamaño = (this.datosAgregados*100/this.minimo);
+
+            this.iniciar()
+
+            for (let index = 0; index < tamañoAnterior; index++) {
+                if(copyarray[index] != -1){
+                        this.agregar(copyarray[index])
+                }
+                
+            }
+        }
+
+    }
+    
+
+    imprimir(){
+        for (let index = 0; index < this.tabla.length; index++) {
+            console.log(index)
+            if(this.tabla[index] !== -1){
+                console.log(this.tabla[index].Imprimir())
+            }        
+        
+        
+        }
+    }
 }
