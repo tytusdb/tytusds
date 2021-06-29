@@ -117,4 +117,29 @@ class TablaHashAbierta {
         
         }
     }
+
+    actualizar(datoanterior, datonuevo){
+        for (let index = 0; index < this.tabla.length; index++) {
+            if(this.tabla[index] !== -1){
+                console.log(this.tabla[index].eliminar(datoanterior))
+            }
+            
+        }
+        this.agregar(datonuevo,this.funcion)
+    }
+
+    eliminar(dato){
+        for (let index = 0; index < this.tabla.length; index++) {
+            if(this.tabla[index] !== -1){
+                console.log(this.tabla[index].eliminar(dato))
+            }
+            
+        }
+    }
+
+    cargar(arr, funcion){
+        arr.map(e => {
+            this.Agregar(e, funcion)
+        })
+    }
 }
