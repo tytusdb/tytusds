@@ -95,21 +95,15 @@ function feistel(L, R, key){
         key.push(ultimo);
         
         console.log(key);
+
       
         contador++;
     }
+    console.log(L.join("")+"  |  "+R.join(""))
     console.log("RESULTADO FINAL")
     console.log(R);
-}
-
-// ***** SHIFT CIRCULAR *****
-function shifCircular(k){
-    let ultimo = k.shift();
-    return k.push(ultimo);
-    console.log(k)
-    
-
-
+    let allBin = L.join("") + R.join("");
+    console.log(convertBS(allBin));
 }
 
 // ***** CONVERTIR EL CONTENIDO A BINARIO *****
@@ -120,6 +114,17 @@ function convertSB(text) {
       output.push(Array(8-bin.length+1).join("0") + bin);
     } 
     return output.join("");
+}
+
+function convertBS(str) {
+    // Removes the spaces from the binary string
+    str = str.replace(/\s+/g, '');
+    // Pretty (correct) print binary (add a space every 8 characters)
+    str = str.match(/.{1,8}/g).join(" ");
+
+    return str.split(" ").map(function (elem) {
+        return String.fromCharCode(parseInt(elem, 2));
+    }).join("");
 }
 
 // ***** CAMBIAR LLAVE *****
