@@ -92,7 +92,7 @@ class ABinario{
   }
   _eliminar(nodo){
     if(nodo.izquierda!=null && nodo.derecha!=null){
-      let nodoMin=this.minimo(nodo.derecha);
+      let nodoMin=this.Min(nodo.derecha);
       nodo.valor=nodoMin.valor;
       this._eliminar(nodoMin);
     }
@@ -119,9 +119,14 @@ class ABinario{
   }
   //eliminar nodo
   E_Nodo(nodo){
-    nodo.izquierda=null;
-    nodo.derecha=null;
-    nodo=null;
+    if(nodo.padre==null){
+      this.l_horizontal.eliminar(nodo.valor);
+    }
+    else{
+      nodo.izquierda=null;
+      nodo.derecha=null;
+      nodo=null;
+    }
   }
 
   //Eliminar nodo con un hijo
@@ -139,17 +144,26 @@ class ABinario{
             nodo.padre.derecha = nodo_hijo;
           }
         }
+
       }
       if(nodo_hijo!=null){
         nodo_hijo.padre=nodo.padre
         nodo_hijo.nivel=nodo.nivel;
       }
+      console.log("-----------------------------------------------------")
+    this.recorrer();
+     if(nodo.padre==null){
+        nodo.next=nodo_hijo;
+     }
+    console.log("-----------------------------------------------------")
+    this.recorrer();
   }
   buscar(valor){
     let current= this.l_horizontal.head;
     let nodo=null;
-    while (current!=null|| nodo==null){
+    while (current!=null){
       nodo=this._buscar(current,valor);
+      if(nodo!=null) break;
       current=current.next
     }
     return nodo;
