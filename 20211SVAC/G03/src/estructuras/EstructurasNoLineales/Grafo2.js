@@ -256,6 +256,40 @@ class ListaAdyacencia{
         origen.enlaces.insertar(c)
     }
 
+    //Obtencion de Listas ya existentes no vacias
+    contiente(buscando, elemento){
+        let buscar = buscando.cabeza
+        while(buscar!=null){
+            if(buscar.dato.dato == elemento.dato){
+                return true
+            }
+            buscar = buscar.siguiente
+        }
+        return false
+    }
 
+    //Metodo de recursion por anchura
+    BFS(){
+        let nuevo = new ListaDoble()
+        let aux = this.ListaAdyacencia.cabeza
+        while (aux != null){
+            if(this.contiente(nuevo, aux.dato) == false){
+                nuevo.insertar(aux.dato)
+            }
+            let tmp = aux.dato.adyacentes.cabeza
+            while (tmp != null){
+                if(this.contiente(nuevo, tmp.dato) == false){
+                    nuevo.insertar(tmp.dato)
+                }
+                tmp = tmp.siguiente
+            }
+            aux = aux.siguiente
+        }
+        let n = nuevo.cabeza
+        while (n!=null){
+            console.log(n.dato.dato)
+            n = n.siguiente
+        }
+    }    
 
 }
