@@ -38,7 +38,7 @@ export class SeleccionComponent implements OnInit {
       }else{
         this.contenido += this.array[j]+"\n";
       }
-      
+
     }
     this.contenido += "]}";
     //this.array.forEach(valor => this.contenido += valor +",\n");
@@ -74,6 +74,8 @@ export class SeleccionComponent implements OnInit {
         reader.onload=ev=>{
         const resultado=ev.target?.result
         text=String(resultado)
+        console.log("Resultado")
+        console.log(resultado)
         var data = JSON.parse(text);  // se parse para obtener solo los datos
         data.valores.forEach(element => { // se pasa a un arreglo
           this.array.push(element)

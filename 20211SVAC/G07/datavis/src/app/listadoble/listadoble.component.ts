@@ -1,4 +1,3 @@
-import { nullSafeIsEquivalent } from '@angular/compiler/src/output/output_ast';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import * as vis from 'vis';
 
@@ -278,7 +277,7 @@ export class ListadobleComponent implements OnInit {
   constructor() { }
   contenido = "{ \"valores\": [\n";
 
-  
+
   generador(){
     for(var j =0;j<this.array.length;j++){
       if(this.array[j]!=null){
@@ -325,7 +324,7 @@ export class ListadobleComponent implements OnInit {
         data.valores.forEach(element => {
           this.array.push(element)
         });
-        
+
         this.array.forEach(el => this.lista.addhead(el.toString()))
         this.code=text.toString();
       }
