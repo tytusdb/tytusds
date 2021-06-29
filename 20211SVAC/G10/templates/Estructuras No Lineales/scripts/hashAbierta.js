@@ -104,7 +104,7 @@ class Hash {
         let nuevo_codigo = this.set_key(nuevo)
 
         let indice = this.funcionHash(codigo, this.funcion)
-        let nuevo_indice = this.funcionHash(nuevo_codigo, this.funcion)
+        //let nuevo_indice = this.funcionHash(nuevo_codigo, this.funcion)
 
         if (this.buscar(dato) != false) {
             let actual = this.lista[indice]
