@@ -1,4 +1,4 @@
-export class NodoHashCerrado {
+export class NodoHashAbierto {
     indice: any;
     lista: any[];
     constructor(indice: any) {

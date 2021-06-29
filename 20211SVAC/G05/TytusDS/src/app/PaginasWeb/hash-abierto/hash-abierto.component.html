@@ -4,7 +4,7 @@
     <hr>
     <div class="row my-3">
         <div class="col-md-1">
-            <input type="text" class="form-control" placeholder="valor" [(ngModel)]="valorAgregar">
+            <input type="text" class="form-control" placeholder="clave" [(ngModel)]="valorAgregar">
         </div>
         <div class="col-md-1">
             <button class="btn btn-primary" (click)="agregar()">Agregar</button>
@@ -40,5 +40,7 @@
                 <button class="btn btn-success" [disabled]="primero" (click)="guardar()">Guardar</button>
             </div>
         </div>
+    </div>
+    <div class="bg-light animacion mt-5" id="contenedor">
     </div>
 </div>

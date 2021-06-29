@@ -46,6 +46,7 @@ const routes: Routes = [
   {path: 'CodigoHamming',component: HammingComponent},
   {path:'LBST',component: LBSTComponent},
   {path:'AlgoritmoHuffman',component: HuffmanComponent},
+  {path:'HashAbierta',component: HashAbiertoComponent},
   {path:'lzw', component: LZWComponent},
   {path:'**', redirectTo: 'menu'},
 
