@@ -14,7 +14,6 @@ function Hamming(cadena) {
     let a=palabraParidad(Matriz,nMax)//añade la palabra resultante a la matriz y retorna la palabra
     console.log(a)
 }
-
 function calcBitsParidad(cadena) {
     for (let i = 0; i < cadena.length; i++) {
         if(2**i >= cadena.length + i + 1)
