@@ -4,12 +4,21 @@ let lista=require('./listaaux')
 class ABinario{
   constructor() {
     this.l_horizontal= new l();
-    //this.listaaux=new lista();
+    this.listaaux=new lista();
     this.l_edges=[];
     this.l_nodos=[];
-
     this.size=0;
   }
+  //RELLENAR LISTA CON LOS CABECALES AUXILIAR Y LA QUE CUENTA LAS REPETICIONES DE ESTOS
+  Re_aux(){
+    this.listaaux.Reset();
+    let current=this.l_horizontal.head;
+    while (current!=null){
+      this.listaaux.append(current.valor);
+      current=current.next;
+    }
+  }
+
   //APPEND
   append(columna,valor){
     let nodo=this.l_horizontal.buscar(columna);
@@ -78,7 +87,7 @@ class ABinario{
     }
   }
   ////APARTADO DE ARBOL-------------------------------------------------------------------
-  //ELIMINAR
+  //APARTADO DE ELIMINACION
   //4 tipos de eliminación,1 que el nodo no tenga hijos, 2 que el nodo tenga un hijo a la derecha, 3 que el nodo tenga un hijo a la izquierda, 4 que el nodo tenga dos hijos
   delete(valor){
     let nodo=this.buscar(valor);
@@ -151,9 +160,21 @@ class ABinario{
         nodo_hijo.nivel=nodo.nivel;
       }
       console.log("-----------------------------------------------------")
-    this.recorrer();
      if(nodo.padre==null){
-        nodo.next=nodo_hijo;
+       //SE ELIMINA EL NODO DE LA LISTA HORIZONTAL
+       this.l_horizontal.eliminar(nodo.valor);
+       //INSERTAR EL NODO HIJO EN LA LISTA
+       this.l_horizontal.appendO(nodo_hijo.valor);
+       let new_nodo= this.l_horizontal.buscar(nodo_hijo.valor);
+       //ENLAZO EL NODO INSERTADO CON LOS NODOS IZQUIERDO Y DERECHO DEL NODO HIJO  NULL-NODO-NODO_HIJO
+       new_nodo.izquierda=nodo_hijo.izquierda;
+       new_nodo.derecha=nodo_hijo.derecha
+       if(nodo_hijo.izquierda!=null){
+         nodo_hijo.izquierda.padre=new_nodo;
+       }
+       if(nodo_hijo.derecha!=null){
+         nodo_hijo.derecha.padre=new_nodo;
+       }
      }
     console.log("-----------------------------------------------------")
     this.recorrer();
@@ -202,11 +223,18 @@ class ABinario{
   }
   //id= cabezal#nivel#(elemento)
   Rlnodos(){
+    //SOLO SE AGREGO LO DEL CABEZAL EN ESTE RLNODOS
      this.l_nodos=[];
      this.Cniveles();
      let current= this.l_horizontal.head;
+     this.Re_aux();
      while (current!=null){
-       this.pre_orden1(current,current.valor);
+       //PARA REVISAR SI HAY REPETICIONES;
+       //LO QUE SE MANDA DE CABEZAL ES EL VALOR DE LA CABECERA JUTNO A SU REPETICION
+       let cabezal=this.listaaux.buscar(current.valor);
+       let cabezal1=`${cabezal.valor}(${cabezal.repeticion})`
+       cabezal.repeticion-=1;
+       this.pre_orden1(current,cabezal1);
        current=current.next;
 
      }

@@ -3,8 +3,8 @@
   <h1 class="text-white">Lista de Arboles Binarios</h1>
   <hr>
   <div class="row py-2">
-    <div class="col-1"><input #agregar type="text" placeholder="Valor" class="form-control"> </div>
     <div class="col-1"><input #col type="text" placeholder="Columna" class="form-control"> </div>
+    <div class="col-1"><input #agregar type="text" placeholder="Valor" class="form-control"> </div>
     <div class="col-1"> <button id="Agregar" class="btn btn-success button1" (click)="Add(col.value,agregar.value)" >Agregar</button></div>
     <div class="col-1"><input #eliminar type="text" class="form-control" placeholder="Valor"> </div>
     <div class="col-1"> <button id="Eliminar" class="button1 btn btn-success" (click)="delete(eliminar.value)">Eliminar</button></div>

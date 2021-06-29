@@ -1,8 +1,8 @@
 class NodoAux{
-  constructor(valor) {
-    this.valor=valor
-    this.next=null
-    this.apostrofe=0
+  constructor(valor,repeticion=0) {
+    this.valor=valor;
+    this.next=null;
+    this.repeticion=0;
   }
 }
 
