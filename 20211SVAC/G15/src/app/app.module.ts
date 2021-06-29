@@ -23,7 +23,8 @@ import { EstructuraArboreaComponent } from './components/estructura-arborea/estr
 import { InsertionSortComponent } from './components/insertion-sort/insertion-sort.component';
 import { AVLComponent } from './components/avl/avl.component';
 import { MetodorapidoComponent } from './components/metodorapido/metodorapido.component';
-import { MetodoSeleccionComponent } from './components/metodo-seleccion/metodo-seleccion.component'
+import { MetodoSeleccionComponent } from './components/metodo-seleccion/metodo-seleccion.component';
+import { DispersaComponent } from './components/dispersa/dispersa.component'
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { MetodoSeleccionComponent } from './components/metodo-seleccion/metodo-s
     AVLComponent,
     MetodorapidoComponent,
     MetodoSeleccionComponent,
+    DispersaComponent,
   ],
   imports: [
     BrowserModule,
