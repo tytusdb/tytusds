@@ -1,0 +1,33 @@
+body {
+    min-height: 100vh;
+    background-color: #b0bec5;
+  }
+  
+  #contenedorMatriz{
+    min-height: 100vh;
+  }
+  #matriz {
+    height: 100vh;
+    background-color:#ef9a9a;
+  }
+  
+  .opciones {
+    background-color: #b43e60;
+  }
+  
+  .file-input {
+    display: none;
+  }
+  
+  .paragraph {
+    /*text-transform: uppercase;*/ /* para colocar todo el texto en mayuscula  */
+    font: 400 1em/1.5 "Neuton";
+    letter-spacing: 0.5em;
+    display: inline-block;
+    border: 4px double rgba(255, 255, 255, 0.25);
+    border-width: 4px 0;
+    padding: 1.5em 0em;
+    width: 40em;
+    color: white;
+    margin: 0 0 0 -20em;
+  }
