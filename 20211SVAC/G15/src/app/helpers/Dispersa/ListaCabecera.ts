@@ -91,19 +91,96 @@ export class ListaCabecera {
         return null
     }
 
-    public mostrarCabecera(apuntador: Apuntador) {
+    public mostrarCabecera(apuntador: Apuntador, tipo: Tipo) {
         let temp: NodoCabecera = this.primero
-        let res = []
-        while (temp !== null) {
-
-            let data = temp.getLista().getLista(apuntador)
-            res.push({
-                index: temp.getValue(),
-                valores: data
-            })     
-            temp = temp.getSiguiente()
+        let res =
+        {
+            nodes: [],
+            edges: []
         }
-        console.log(res)
+
+        while (temp !== null) {
+            let id = ((apuntador === Apuntador.COLUMNA) ? 'x' : 'y') + temp.getId()
+            if (temp === this.primero) {
+                if (tipo === Tipo.DOBLE) {
+                    res.edges.push({
+                        from: id,
+                        to: 0
+
+                    })
+                }
+                res.edges.push({
+                    from: 0,
+                    to: id
+                })
+            }
+            //let data = temp.getLista().getLista(apuntador)
+            res.nodes.push({
+                id: id,
+                label: '' + temp.getValue(),
+                group: (apuntador === Apuntador.COLUMNA) ? 'horizontal' : 'vertical'
+            })
+            temp = temp.getSiguiente()
+            if (temp !== null) {
+                let id2 = ((apuntador === Apuntador.COLUMNA) ? 'x' : 'y') + temp.getId()
+                res.edges.push({
+                    from: id,
+                    to: id2
+
+                })
+                if (tipo === Tipo.DOBLE) {
+                    if (tipo === Tipo.DOBLE) {
+                        res.edges.push({
+                            from: id2,
+                            to: id
+
+                        })
+                    }
+                }
+            }
+        }
+        return res
+    }
+
+
+    public getNodosHijos(apuntador: Apuntador, tipo: Tipo) {
+        let temp: NodoCabecera = this.primero
+        let res =
+        {
+            nodes: [],
+            edges: []
+        }
+
+        while (temp !== null) {
+            let id = ((apuntador === Apuntador.COLUMNA) ? 'x' : 'y') + temp.getId()
+            let data = temp.getLista().getLista(apuntador, tipo)
+
+            if (data.nodes.length > 0) {
+                let hijoId = 'xy' + temp.getLista().getPrimero().getId()
+                if (tipo === Tipo.DOBLE) {
+                    res.edges.push({
+                        from: id,
+                        to: hijoId
+
+                    })
+                }
+                res.edges.push({
+                    from: hijoId,
+                    to: id
+                })
+            }
+
+       
+
+            if (apuntador === Apuntador.COLUMNA)  res.nodes = res.nodes.concat(data.nodes)
+            
+            res.edges = res.edges.concat(data.edges)
+
+
+            temp = temp.getSiguiente()
+
+        }
+        return res
     }
 
 
@@ -118,11 +195,13 @@ export class ListaCabecera {
                 if (index === x) break
             }
             index++
+            
             temp = temp.getSiguiente()
         }
+        
         let resultado = temp.getLista().buscar(nuevo.getValue(), apuntador)
         if (resultado !== null) return resultado
-        return await temp.getLista().add(nuevo, tipo, apuntador, (apuntador === Apuntador.FILA) ? x : y)
+        return await temp.getLista().add(nuevo, tipo, apuntador, x,y)
 
 
     }

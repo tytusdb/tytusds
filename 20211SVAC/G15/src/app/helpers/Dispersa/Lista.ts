@@ -3,6 +3,15 @@ import { Nodo } from "./Nodo";
 
 export class Lista {
     private primero: Nodo
+
+    public getPrimero(): Nodo {
+        return this.primero;
+    }
+
+    public setPrimero(primero: Nodo): void {
+        this.primero = primero;
+    }
+
     private ultimo: Nodo
 
 
@@ -24,98 +33,127 @@ export class Lista {
     }
 
 
-    public add(nuevo: Nodo, tipo: Tipo, apuntador: Apuntador, posicion: number) {
+    public add(nuevo: Nodo, tipo: Tipo, apuntador: Apuntador, x: number, y: number) {
+
 
         if (this.primero === null) {
             this.primero = nuevo
             this.ultimo = nuevo
             return nuevo
         }
+        //console.log(nuevo.getValue(), x, y)
 
-
-
-        let temp = this.primero
+        let posicion = (apuntador === Apuntador.FILA) ? x : y
         let index = 0
-
-        while (temp !== null) {
+        let temp = this.primero
+        while (index !== posicion) {
+            if (index === posicion) break;
+            if (temp === null) break;
+            if (apuntador === Apuntador.FILA) temp = temp.getSiguiente()
+            else temp = temp.getAbajo()
             index++
-            if (apuntador === Apuntador.FILA) {
-                if (temp.getSiguiente() === null) break
-                temp = temp.getSiguiente()
-
-            }
-            else {
-                if (temp.getAbajo() === null) break
-                temp = temp.getAbajo()
-            }
-
         }
-
-        if (index === posicion) {
+        if (temp === this.primero) {
             if (apuntador === Apuntador.FILA) {
-                this.ultimo.setSiguiente(nuevo)
-                if (tipo === Tipo.DOBLE) nuevo.setAnterior(this.ultimo)
+                let siguiente = temp.getSiguiente()
+                nuevo.setSiguiente(temp)
+                if (Tipo.DOBLE === tipo && siguiente) temp.setAnterior(nuevo)
+                this.primero = nuevo
+                return nuevo
+            }
+
+            let siguiente = temp.getAbajo()
+            nuevo.setAbajo(temp)
+            if (Tipo.DOBLE === tipo && siguiente) temp.setArriba(nuevo)
+            this.primero = nuevo
+            return nuevo
+        }
+        else if (temp === this.ultimo) {
+            if (apuntador === Apuntador.FILA) {
+                nuevo.setSiguiente(this.ultimo)
+                if (Tipo.DOBLE === tipo) this.ultimo.setAnterior(nuevo)
                 this.ultimo = nuevo
                 return nuevo
             }
-
-            this.ultimo.setAbajo(nuevo)
-            if (tipo === Tipo.DOBLE) nuevo.setArriba(this.ultimo)
+            nuevo.setAbajo(this.ultimo)
+            if (Tipo.DOBLE === tipo) this.ultimo.setArriba(nuevo)
             this.ultimo = nuevo
             return nuevo
         }
-
-
-        temp = this.primero
-        index = 0
-        while (temp != null) {
-            if (index + 1 === posicion) {
-                if (apuntador === Apuntador.FILA) {
-                    
-                    let siguiente = temp.getSiguiente()
-                    nuevo.setSiguiente(siguiente)
-                    temp.setSiguiente(nuevo)
-                    if (Tipo.DOBLE === tipo && siguiente) {
-                        siguiente.setAnterior(nuevo)
-                        nuevo.setAnterior(temp)
-                    }
-                    return nuevo
-                }
-                
-                let siguiente = temp.getAbajo()
-                nuevo.setAbajo(siguiente)
-                temp.setAbajo(nuevo)
-                if (Tipo.DOBLE === tipo) {
-                    siguiente.setArriba(nuevo)
-                    nuevo.setArriba(temp)
-                }
-                
+        else if (temp === null) {
+            if (apuntador === Apuntador.FILA) {
+                this.ultimo.setSiguiente(nuevo)
+                if (Tipo.DOBLE === tipo) nuevo.setAnterior(this.ultimo)
+                this.ultimo = nuevo
                 return nuevo
-
             }
-            if (apuntador === Apuntador.COLUMNA) {
-                
-                temp = temp.getAbajo()
-            }
-            else temp = temp.getSiguiente()
-            index++
+            this.ultimo.setAbajo(nuevo)
+            if (Tipo.DOBLE === tipo) nuevo.setArriba(this.ultimo)
+            this.ultimo = nuevo
+            return nuevo
         }
+        else {
+            if (apuntador === Apuntador.FILA) {
+                let siguiente = temp.getSiguiente()
+                nuevo.setSiguiente(siguiente)
+                temp.setSiguiente(nuevo)
+                if (Tipo.DOBLE === tipo && siguiente) {
+                    siguiente.setAnterior(nuevo)
+                    nuevo.setAnterior(temp)
+                }
+                return nuevo
+            }
 
+            let siguiente = temp.getAbajo()
+            nuevo.setAbajo(siguiente)
+            temp.setAbajo(nuevo)
+            if (Tipo.DOBLE === tipo) {
+                siguiente.setArriba(nuevo)
+                nuevo.setArriba(temp)
+            }
 
-
+            return nuevo
+        }
 
     }
 
 
-    public getLista(apuntador: Apuntador) {
-        let data = []
+    public getLista(apuntador: Apuntador, tipo: Tipo) {
+        let data = {
+            nodes: [],
+            edges: []
+        }
         let temp = this.primero
         while (temp != null) {
 
-            data.push(temp.getValue())
+            let id = 'xy' + temp.getId()
+            data.nodes.push({
+
+                id: id,
+                label: '' + temp.getValue(),
+
+            })
 
             if (apuntador === Apuntador.COLUMNA) temp = temp.getAbajo()
             else temp = temp.getSiguiente()
+
+            if (temp !== null) {
+
+                let id2 = 'xy' + temp.getId()
+
+                data.edges.push({
+                    from: id,
+                    to: id2
+                })
+
+                if (tipo === Tipo.DOBLE) {
+                    data.edges.push({
+                        from: id2,
+                        to: id
+                    })
+                }
+
+            }
 
         }
 

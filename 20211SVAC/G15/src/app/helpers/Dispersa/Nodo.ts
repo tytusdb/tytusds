@@ -1,5 +1,5 @@
 export class Nodo{
-    private id:number;
+    private id:number|string;
     private value:number|string;
     private siguiente:Nodo;
     private anterior:Nodo;
@@ -7,7 +7,7 @@ export class Nodo{
     private abajo:Nodo; 
 
 
-    constructor(id:number,value:number|string){
+    constructor(id:number|string,value:number|string){
         this.id = id 
         this.value = value 
         this.siguiente = null 
@@ -16,11 +16,11 @@ export class Nodo{
         this.abajo = null
     }
 
-    public getId(): number {
+    public getId(): number|string {
         return this.id;
     }
 
-    public setId(id: number): void {
+    public setId(id: number|string): void {
         this.id = id;
     }
 
