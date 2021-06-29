@@ -35,9 +35,12 @@ class Cola extends Component {
     super(props);
     this.state = {
       agregar: '',
+      dato_actualizado: '',
       valoreliminar:'',
       valorbuscar: '',
       rango: '1',
+			fileName: '',
+			fileContent: '',
     }
     this.network = {};
     this.appRef = createRef();
@@ -54,6 +57,17 @@ class Cola extends Component {
       [name]: value
     });
     }
+  
+  handleFileChange = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.readAsText(file);
+    reader.onload = () => {
+      this.setState({fileName: file.name, fileContent: reader.result})
+    }
+  }
+
+
   AgregarDato = () => { 
     estructuracola.Encolar(this.state.agregar);
     nodos = new DataSet(estructuracola.GenerarNodosDOT());
@@ -63,6 +77,13 @@ class Cola extends Component {
   }
   EliminarDato = () =>{
     estructuracola.Desencolar();
+    nodos = new DataSet(estructuracola.GenerarNodosDOT());
+    flechas = new DataSet(estructuracola.GenerarEdgesDOT());
+    datos = {nodes:nodos, edges:flechas,};
+    this.network = new Network(this.appRef.current, datos, options);
+  }
+  ActualizarDato = () => {
+    estructuracola.Actualizar(this.state.agregar, this.state.dato_actualizado);
     nodos = new DataSet(estructuracola.GenerarNodosDOT());
     flechas = new DataSet(estructuracola.GenerarEdgesDOT());
     datos = {nodes:nodos, edges:flechas,};
@@ -82,6 +103,34 @@ class Cola extends Component {
     this.network = new Network(this.appRef.current, datos, options);
   }
 
+  handleOpenFile = () => {
+
+		const dataJson = JSON.parse(this.state.fileContent);
+
+		if (dataJson.categoria == "Estructura Lineal" && dataJson.nombre == "Cola"){
+
+			
+			for (var i=0; i < dataJson.valores.length; i++) {
+				console.log(dataJson.valores[i]);
+				estructuracola.Encolar(dataJson.valores[i].toString());
+				
+			}
+			nodos = new DataSet(estructuracola.GenerarNodosDOT());
+      flechas = new DataSet(estructuracola.GenerarEdgesDOT());
+      datos = {
+        nodes: nodos,
+        edges: flechas,
+      }
+			
+      this.network = new Network(this.appRef.current, datos, options);
+
+
+		}else {
+
+			alert("No es un Archivo de ESTRUCTURA LINEAL - Cola!! ")
+		}
+	
+	}
   render() {
     return (
       <>
@@ -91,23 +140,51 @@ class Cola extends Component {
         </div>
       </div>
       <div className="row">
-        <div className="col-md-3" style={{marginLeft: 1 + 'em'}}>
+        <div className="col-md-1" style={{marginLeft: 0 + 'em'}}>
           <input type="text" name="agregar" className="form-control" placeholder="Dato" id="InputCola" value={this.state.agregar} onChange={this.handleInputChange}></input>
         </div>
         <div className="col-md-1">
           <button type="button" className="btn btn-primary" onClick={() => this.AgregarDato()}>Agregar</button>
         </div>
+        <div className="col-md-1" style={{marginLeft: 0 + 'em'}}>
+          <input type="text" name="dato_actualizado" className="form-control" placeholder="Update" id="InputCola" value={this.state.dato_actualizado} onChange={this.handleInputChange} ></input>
+        </div>
+        <div className="col-md-1">
+          <button type="button" className="btn btn-warning" onClick={() => this.ActualizarDato()}>Actualizar Dato</button>
+        </div>
         <div className="col-md-1">
           <button type="button" className="btn btn-danger" onClick={() => this.EliminarDato()}>Eliminar</button>
         </div>
-        <div className="col-md-1" style={{marginLeft: 2 + 'em'}}>
+        <div className="col-md-1" style={{marginLeft: 0 + 'em'}}>
           <button type="button" className="btn btn-dark" onClick={() => this.BuscarDato()}>Buscar</button>
         </div>
-        <div className="col-md-3">
-          <input className="form-control" type="file" id="formFile"></input>
+        <div className="col-md-2" style={{marginLeft: 0 + 'em'}}>
+          <button type="button" className="btn btn-dark" onClick={() => this.handleOpenFile()}>Leer Json</button>
+        </div>
+        <div className="col-md-2">
+          <input className="form-control" type="file" id="formFile" onChange={this.handleFileChange}></input>
         </div>
         <div className="col-md-1">
           <button type="button" class="btn btn-success">Guardar</button>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-md-12"  style={{marginLeft: 3 + 'em'}}>
+          <fieldset class="form-group">
+            <legend>Repetidos</legend>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" ></input>
+                Si
+              </label>
+            </div>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2"></input>
+                No
+              </label>
+            </div>
+          </fieldset>
         </div>
       </div>
       <div className="row">

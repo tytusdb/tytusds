@@ -6,7 +6,7 @@ class NodoDoble {
    }
 }
 
-class ListaDoble {
+class ListaCircularDoble {
     constructor(){
         this.primero = null;
     }
@@ -115,6 +115,65 @@ class ListaDoble {
             console.log("LISTA VACIA");
         }
     }
-
 }
+
+var LCD = new ListaCircularDoble();
+console.log("lista circular doble VACIA CREADA");
+
+function LCDagg(){
+    var ubicacion = document.getElementById("LCDubicacion").value;
+    if (ubicacion == "Cinicio"){
+        LCDAaddinicio();
+    }else{
+        LCDAaddfinal();
+    }
+}
+
+function LCDAaddinicio(){
+    var aux = document.getElementById("LCDagregar").value;
+    var cond = document.getElementById("LCDrepetidos").checked;
+    LCD.agregar_inicio(aux, cond);
+    document.getElementById("LCDagregar").value="";
+    LCD.imprimir();
+    console.log("##########------###########");
+}
+
+function LCDAaddfinal(){
+    var aux = document.getElementById("LCDagregar").value;
+    var cond = document.getElementById("LCDrepetidos").checked;
+    LCD.agregar_final(aux, cond);
+    document.getElementById("LCDagregar").value="";
+    LCD.imprimir();
+    console.log("##########------###########");
+}
+
+function LCDAdelete(){
+    var aux = document.getElementById("LCDeliminarr").value;
+    LCD.eliminar(aux);
+    LCD.imprimir();
+    console.log("##########------###########");
+    document.getElementById("LCDeliminarr").value="";
+}
+
+function LCDAsearch(){
+    var aux = document.getElementById("LCDbuscar").value;
+    console.log("ENCONTRADO: "+LCD.buscar(aux));
+    document.getElementById("LCDbuscar").value="";
+}
+
+function LCDAactualizar(){
+    var previo = document.getElementById("LCDantiguo").value;
+    var now = document.getElementById("LCDnuevo").value;
+    var cond = document.getElementById("LCDrepetidos").checked;
+    LCD.actualizar(previo, now, cond);
+    document.getElementById("LCDantiguo").value="";
+    document.getElementById("LCDnuevo").value="";
+    LCD.imprimir();
+    console.log("##########------###########");
+}
+
+
+
+
+
 

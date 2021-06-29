@@ -7,8 +7,8 @@ class Ordenamiento{
     ordenar(datos){
         this.arreglo = datos;
         for (let i = 0; i< datos.length-1; i++){
-            for(let j = 0; j< datos.length; j++ ){
-                if(datos[j]> datos[j+1]){
+            for(let j = 0; j< datos.length-1; j++ ){
+                if(datos[j].ASCII> datos[j+1].ASCII){
                     let temporal = datos[j];
                     datos[j] = datos[j+1];
                     datos[j+1] = temporal;

@@ -10,6 +10,36 @@ const cargar = document.getElementById('cargar')
 const velocidad = document.getElementById("velocidad")
 let num_velocidad;
 
+var options = {
+    legend: { display: false },
+    scales: {
+      yAxes: [{
+        afterBuildTicks: (x) => {
+          console.log(x)
+        },
+        ticks: {
+          callback: (value) => {
+            console.log(value)
+            return value
+          },
+          beginAtZero: true
+        },
+      }]
+    }
+};
+var ctx = document.getElementById("lienzo").getContext('2d')
+var grafica = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['1', '2', '3'],
+        datasets: [{
+            data: [1, 2, 3],
+            backgroundColor: 'rgb(240, 84, 84)',
+        }]
+    },
+    options: options,
+});
+
 velocidad.oninput = () => {
     document.getElementById('numero').innerHTML = velocidad.value
     num_velocidad = velocidad.value
@@ -22,9 +52,18 @@ const salida ={
 
 agregar.addEventListener("click", (e) => {
     e.preventDefault()
+    let color = []
     if(dato.value != ''){
         nuevo = dato.value.split(', ')
+        original = nuevo
     }
+    for(let i = 0; i < original.length; i ++) {
+        color.push('rgb(240, 84, 84)')
+    }
+    grafica.data.labels = original
+    grafica.data.datasets[0].data = original
+    grafica.data.datasets[0].backgroundColor = color
+    grafica.update()
 })
 
 ordenar.addEventListener("click", (e) => {
@@ -34,20 +73,32 @@ ordenar.addEventListener("click", (e) => {
     }
 })
 
-secuencial = (lista, size) => {
+async function secuencial (lista, size) {
     let aux, menor;
     for (let i = 0; i < size - 1; i++) {
         menor = i
+        
+        grafica.data.datasets[0].backgroundColor[menor] = 'rgb(48, 71, 94)'
+        grafica.update()
+        await new Promise(resolve => setTimeout(resolve, 500))
+
         for (let j = i + 1; j < size; j++) {
             if(lista[menor] > lista[j]) {
                 menor = j
             }
+            grafica.data.datasets[0].backgroundColor[j] = 'rgb(48, 71, 94)'
+            grafica.update()
+            await new Promise(resolve => setTimeout(resolve, 500))
+            grafica.data.datasets[0].backgroundColor[j] = 'rgb(240, 84, 84)'
         }
         aux = lista[i]
         lista[i] = lista[menor]
         lista[menor] = aux
         this.interacion += 1
+
+        grafica.data.datasets[0].backgroundColor[i] = 'rgb(240, 84, 84)'
     }
+    grafica.update()
     return lista
 }
 
@@ -65,16 +116,27 @@ archivo.addEventListener('change', () => {
 
 cargar.addEventListener("click", (e) => {
     e.preventDefault()
+
+    let labels = []
+    let color = []
+
     let lista_ingresada = []
     let valores = entrada["valores"]
 
     for (let i = 0; i < valores.length; i++) {
         lista_ingresada.push(valores[i])
+        labels.push(valores[i])
+        color.push('rgb(240, 84, 84)')
     }
     nuevo = lista_ingresada
 
     document.getElementById('mensaje').innerText = ''
     archivo.setAttribute('disabled', '')
+
+    grafica.data.labels = labels
+    grafica.data.datasets[0].data = labels
+    grafica.data.datasets[0].backgroundColor = color
+    grafica.update()
 })
 
 guardar.addEventListener("click", (e) => {

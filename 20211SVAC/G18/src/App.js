@@ -15,6 +15,7 @@ import ListaDobleEnlazada from './components/ListaDobleEnlazada/ListaDobleEnlaza
 import ListaCircularSimple from './components/ListaCircularSimple/ListaCircularSimple';
 import ListaCircularDoble from './components/ListaCircularDoble/ListaCircularDoble';
 import abb from './components/ArbolBB/ArbolBB';
+import avl from './components/ArbolAVL/ArbolAVL';
 
 function App() {
     return (
@@ -35,6 +36,7 @@ function App() {
             <Route path="/ListaCircularSimple" component={ListaCircularSimple} />
             <Route path="/ListaCircularDoble" component={ListaCircularDoble} />
             <Route path="/abb" component={abb} />
+            <Route path="/avl" component={avl} />
 
         </Switch>
 

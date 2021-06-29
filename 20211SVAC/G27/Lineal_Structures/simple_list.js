@@ -70,6 +70,7 @@ find_valor(posicion){
 
 var lista = new simple_list;
 
+
 function agregarValor(){
   var x = document.getElementById("newValue").value;
   document.getElementById("newValue").value = "";
@@ -168,7 +169,7 @@ function AbrirArchivo(files){
 var file = files[0];
 var reader = new FileReader();
 reader.onload = function(event){
-  var contents = event.target.result;
+  contents = event.target.result;
   var json = JSON.parse(contents);
   var count = Object.keys(json.valores).length;
   for (let index = 0; index < count; index++) {
@@ -181,3 +182,42 @@ reader.onerror = function(event) {
 };
 reader.readAsText(file);
 }
+
+var contents;
+var arreglo =[];
+
+function getValores(){
+  var aux = lista.primero;
+  arreglo = []
+  while(aux != null){
+    arreglo.push(aux.valor);
+    aux = aux.siguiente; 
+  }
+}
+
+function DescargarArchivo(){
+    var json = JSON.parse(contents);
+    getValores();
+    json.valores = arreglo;
+    const myJSON = JSON.stringify(json);
+    //console.log(json);
+    //texto de vent actual
+  
+    //formato para guardar el archivo
+    var nombre="Simple_List.json";//nombre del archivo
+    var file=new Blob([myJSON], {type: 'text/plain'});
+  
+    if(window.navigator.msSaveOrOpenBlob){
+        window.navigator.msSaveOrOpenBlob(file, nombre);
+    }else{
+        var a=document.createElement("a"),url=URL.createObjectURL(file);
+        a.href=url;
+        a.download=nombre;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function(){
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);  
+        },0); 
+      }
+  }

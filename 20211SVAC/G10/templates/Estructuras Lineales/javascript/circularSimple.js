@@ -167,8 +167,17 @@ agregar.addEventListener("click", (e) => {
 
 eliminar.addEventListener("click", (e) => {
     e.preventDefault()
+
+    context.clearRect(0, 0, canvas.width, canvas.height)
+    x_figura = 20
+    x_texto = 50
+
     if(dato.value != ''){
         lista.eliminar(dato.value)
+        for(let i = 0; i< lista.size; i++) {
+            cargar_grafica(lista.obtener(i))
+        }
+
         const indice = salida.lista.indexOf(dato.value)
         salida.lista.splice(indice, 1)
     }
@@ -189,8 +198,14 @@ buscar.addEventListener("click", (e) => {
 
 cambiar.addEventListener("click", (e) => {
     const nuevo = document.getElementById('dato2')
+    context.clearRect(0, 0, canvas.width, canvas.height)
+    x_figura = 20
+    x_texto = 50
     if(dato.value != '' && nuevo.value != ''){
         lista.actualizar(dato.value, nuevo.value)
+        for(let i = 0; i< lista.size; i++) {
+            cargar_grafica(lista.obtener(i))
+        }
         const indice = salida.lista.indexOf(dato.value)
         salida.lista[indice] = nuevo.value
     }
@@ -327,6 +342,7 @@ function cargar_grafica(relleno) {
     context.fillText(relleno, x_texto, 260, 60)
 
     // Flecha
+    
     flecha(x_figura)
 
     x_figura = x_figura+(60*2)
