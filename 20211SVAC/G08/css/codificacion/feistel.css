@@ -1,0 +1,16 @@
+.cuadroAnim{
+   
+    margin-left: 370px;
+    width: 1500px;
+}
+.areaTexto{
+    font-size: 15px;
+    font-family:Arial;
+    font-weight: bolder;
+    resize: none;
+    width: 500px;
+    height: 300px;
+    padding: 10px;
+    margin-right: 20px;
+    float: left;
+}

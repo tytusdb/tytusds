@@ -300,12 +300,38 @@ function guardar(){
 // ***** ALMACENAMIENTO *****
 function almacenar(){
     //console.log("Almacenando");
+    
     var nodesV = grafo.getVertices();
     var edgesA = grafo.getAristas();
     console.log("---------------");
     console.log(nodesV);
     console.log("--------------");
     console.log(edgesA);
+    
+   
+    var opc_Save = document.getElementById('opcs').value;
+    if(opc_Save == "matrizAd"){
+        console.log("Mostrando matriz de adyacencia");
+    } else if (opc_Save == "listaAd"){
+        console.log("Mostrando lista de adyacencia");
+    } else {
+        console.log("nada")
+    }
+    
+
+
+}
+
+function matriz(){
+    var nodesV = grafo.getVertices();
+    var edgesA = grafo.getAristas();
+
+    for (let i = 0; i < 10; i++){
+        for(let j = 0; j < 10; j++){
+            console.log("[]");
+        }
+        console.log("-")
+    }
 
 }
 
