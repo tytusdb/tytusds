@@ -7,7 +7,7 @@
     <title>Lineales</title>
     <link rel="icon" href="../../img/logo.png">
     <link rel="stylesheet" href="../../css/pageStyle.css">
-    <link rel="stylesheet" href="../../css/lineal/pila.css">
+    <link rel="stylesheet" href="../../css/noLineales/grafos.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 </head>
@@ -27,15 +27,19 @@
     </header>
     <br><br>
     <div class="namE">
-        <h1>Recorrido y busqueda por anchura de grafos</h1>
+        <h1>Recorrido y busqueda por profundidad de grafos</h1>
     </div>    
     <div class="cuadroDatos">
         <h3 class="titulo">Ingrese datos</h3>
-        <input class="dato1" type="text" placeholder="Ingrese elemento" id="elemento">
+        <input class="datoGrafo" type="text" placeholder="Inicio" id="inicio">
+        <input class="datoGrafo" type="text" placeholder="Final" id="final">
         <br><br>
+        <input class="dato2 centrado" type="text" placeholder="Distancia" id="distancia">
         <a href="#" class="button" id="agregar"><img src="../../svg/add.svg"></a>
+        <br><br>
         <a href="#" class="button" id="eliminar"><img src="../../svg/remove.svg"></a>
         <a href="#" class="button" id="buscar"><img src="../../svg/find.svg"></a>
+        <a href="#" class="button" id="recorrer"><img src="../../svg/recorrer.svg"></a>
         <br>
         <br>
         <div class="two-things">
@@ -45,15 +49,19 @@
         <br>
         <input type="file" id="file" class="button"><label for="file" class="but-file "><img src="../../svg/download.svg"></label>
         <a href="#" class="button" id="guardar"><img src="../../svg/upload.svg"></a>
-        <a href="#" class="button" id="agregar"><img src="../../svg/recorrer.svg"></a>
+        <a href="#" class="button clear" id="limpiar"><img src="../../svg/clear.svg"></a>  
         <br>
         <br>
         <input class="dato2" type="number" placeholder="Velocidad" id="numVelocidad">
         <a href="#" class="button" id="velocidad"><img src="../../svg/fast.svg"></a>
         <br>
         <br>
-        <input class="check" type="checkbox" name="repeticion" id="repeticion"><label for="repeticion"> Repetir valores</label>
-        <a href="#" class="button clear" id="limpiar"><img src="../../svg/clear.svg"></a>  
+        <select class="almacen">
+            <option disabled selected="">Almacenamiento</option>
+            <option value="matrizAd">Matriz de adyacencia</option>
+            <option value="listaAd">Lista de adyacencia</option>
+        </select>
+        <a href="#" class="button" id="almacena"><img src="../../svg/almacenamiento.svg"></a>
         <br>
         <br>
     </div>
@@ -62,7 +70,7 @@
 
     </div>
 
-    <script src="../../js/lineal/cola.js">
+    <script src="../../js/noLineales/grafoProfundidad.js">
 
     </script>
     <br><br><br><br>
