@@ -18,12 +18,12 @@ export class DispersaComponent implements OnInit {
       horizontal: {
         shape: 'square',
         borderWidth: 3,
-        
+
       },
       vertical: {
         shape: 'square',
         borderWidth: 3,
-        
+
       }
     },
     edges: {
@@ -31,9 +31,13 @@ export class DispersaComponent implements OnInit {
         to: { enabled: true, scaleFactor: 1, type: "arrow" }
       }
     },
+    layout: {
+      hierarchical: {
+        direction: "UD", // From up to bottom.
+      },
+    },
 
-   
-    
+
 
   }
 
@@ -47,17 +51,7 @@ export class DispersaComponent implements OnInit {
   constructor() {
 
     this.dispersa = new Dispersa(Tipo.DOBLE)
-    this.dispersa.add("A", 0, "a0")
-    this.dispersa.add("A", 1, "a1")
-    this.dispersa.add("A", 2, "a2")
 
-    this.dispersa.add("C", 1, "c1")
-    this.dispersa.add("C", 2, "c2")
- 
-    this.dispersa.add("B", 2, "b2")
-    this.dispersa.add("B", 3, "b3")
-    this.dispersa.add("B", 4, "b4")
-    
 
   }
 
@@ -79,18 +73,23 @@ export class DispersaComponent implements OnInit {
     let data = { nodes: this.nodes, edges: this.edges };
 
     this.network = new Network(container, data, this.options);
-      
-    data = this.dispersa.graficar()
-    this.nodes.clear()
-    this.edges.clear()
-    this.nodes.add([{ id: 0, label: '*', group: 'horizontal' },])
-    this.nodes.add(data.nodes)
-    this.edges.add(data.edges)
-    
+
+
+
   }
 
   add() {
+    this.dispersa.add(this.posX, this.posY, this.value)
+    this.posY = ''
+    this.posX = ''
+    this.value = ''
 
+    let data = this.dispersa.graficar()
+    this.nodes.clear()
+    this.edges.clear()
+    this.nodes.add([{ id: 0, label: '*', group: 'horizontal', level: 0 },])
+    this.nodes.add(data.nodes)
+    this.edges.add(data.edges)
   }
 
 }

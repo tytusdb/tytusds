@@ -124,6 +124,7 @@ export class Lista {
             edges: []
         }
         let temp = this.primero
+        let index = 1
         while (temp != null) {
 
             let id = 'xy' + temp.getId()
@@ -131,9 +132,10 @@ export class Lista {
 
                 id: id,
                 label: '' + temp.getValue(),
+                level : temp.getY() + 1
 
             })
-
+            index++
             if (apuntador === Apuntador.COLUMNA) temp = temp.getAbajo()
             else temp = temp.getSiguiente()
 

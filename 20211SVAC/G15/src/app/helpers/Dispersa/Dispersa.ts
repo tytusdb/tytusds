@@ -26,7 +26,7 @@ export class Dispersa {
     public async add(x: number | string, y: number | string, value: number | string) {
         let resultX = this.addColumna(x)
         let resultY = this.addFila(y)
-        let nuevo = new Nodo(x + "" + y + "" + this.id, value)
+        let nuevo = new Nodo(x + "" + y + "" + this.id, value,resultY.index)
         this.id++
         this.columnas.addValor(nuevo, resultX.index, resultY.index, Apuntador.COLUMNA, this.tipo)
         this.filas.addValor(nuevo, resultX.index, resultY.index, Apuntador.FILA, this.tipo)

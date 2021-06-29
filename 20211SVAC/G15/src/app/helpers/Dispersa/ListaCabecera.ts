@@ -98,7 +98,7 @@ export class ListaCabecera {
             nodes: [],
             edges: []
         }
-
+        let level = (apuntador === Apuntador.FILA) ? 1 : 0
         while (temp !== null) {
             let id = ((apuntador === Apuntador.COLUMNA) ? 'x' : 'y') + temp.getId()
             if (temp === this.primero) {
@@ -118,8 +118,10 @@ export class ListaCabecera {
             res.nodes.push({
                 id: id,
                 label: '' + temp.getValue(),
-                group: (apuntador === Apuntador.COLUMNA) ? 'horizontal' : 'vertical'
+                group: (apuntador === Apuntador.COLUMNA) ? 'horizontal' : 'vertical',
+                level: level
             })
+            if(apuntador === Apuntador.FILA) level++
             temp = temp.getSiguiente()
             if (temp !== null) {
                 let id2 = ((apuntador === Apuntador.COLUMNA) ? 'x' : 'y') + temp.getId()

@@ -5,15 +5,28 @@ export class Nodo{
     private anterior:Nodo;
     private arriba:Nodo;
     private abajo:Nodo; 
+    private y :number;
+
+  
 
 
-    constructor(id:number|string,value:number|string){
+
+    constructor(id:number|string,value:number|string,y:number){
         this.id = id 
         this.value = value 
         this.siguiente = null 
         this.anterior = null 
         this.arriba = null 
         this.abajo = null
+        this.y = y
+    }
+
+    public getY():number {
+        return this.y;
+    }
+
+    public setY(y:number): void {
+        this.y = y;
     }
 
     public getId(): number|string {
