@@ -1,3 +1,22 @@
+function CrearGrafo (numNodes, edgeProbability, maxWeight) {
+  var g = []
+  for (var a = 0; a < numNodes; ++a) {
+    g[a] = []
+  }
+  for (var i = 0; i < numNodes; ++i) {
+    for (var j = i + 1; j < numNodes; ++j) {
+      var randomNumber = Math.random()
+      var length = Number.POSITIVE_INFINITY
+      if (randomNumber > edgeProbability) {
+        length = Math.floor(Math.random() * maxWeight)
+      }
+      g[i][j] = g[j][i] = length
+    }
+  }
+  return g
+}
+
+
 function CostoUniforme (Grafo, NodoInicial, NodoFinal) {
     // Grafo
     this.Grafo = Grafo
@@ -24,11 +43,11 @@ function CostoUniforme (Grafo, NodoInicial, NodoFinal) {
     // Nodo padre
     this.NodoPadre = undefined
     // Numero de nodos del padre
-    this.neighbors = undefined
+    this.NodosHijos = undefined
     // Ultimo nodo abierto
     this.R = undefined
     // Nodo hijo actual
-    this.currentNeighbor = undefined
+    this.HijoActual = undefined
     // Falso mientras no se encuentre el nodo objetivo
     this.complete = false
   }
@@ -57,17 +76,17 @@ function CostoUniforme (Grafo, NodoInicial, NodoFinal) {
         // Marcar nodo padre como visitado
         this.NodosVisitados[this.NodoPadre] = true
         // Valor numero de nodos del padre sin definir
-        this.neighbors = undefined
+        this.NodosHijos = undefined
         // Ultimo nodo abierto no definido
         this.R = undefined
         // Nodos hijo actual no definido
-        this.currentNeighbor = undefined
+        this.HijoActual = undefined
         // La busqueda debe continuar
         return false
       }
-      if (this.neighbors === undefined) {
+      if (this.NodosHijos === undefined) {
         // Creación de numero de nodos hijos
-        this.neighbors = []
+        this.NodosHijos = []
         // Validación que el nodo sea correcto
         for (var R = 0; R < this.Grafo.length; ++R) {
           if (R in this.NodosVisitados || R === this.NodoPadre ||
@@ -76,45 +95,46 @@ function CostoUniforme (Grafo, NodoInicial, NodoFinal) {
             continue
           }
           // Agregamos los nodos hijos
-          this.neighbors.push(R)
+          this.NodosHijos.push(R)
         }
         // Grafo aún no finalizado
         return false
       }
       // visitar todos los nodos hijos
-      (this.currentNeighbor === undefined)
+      (this.HijoActual === undefined)
       // no esta definido se asigna el nodo 0
-      ? this.currentNeighbor = 0
+      ? this.HijoActual = 0
       // es distinto se agrega 1
-      : this.currentNeighbor += 1
+      : this.HijoActual += 1
       // En caso de que nodo hijo sea ultimo
-      if (this.currentNeighbor === this.neighbors.length) {
+      if (this.HijoActual === this.NodosHijos.length) {
         // Nodo padre igual a no definido
         this.NodoPadre = undefined
         // nodos padre no definido
-        this.neighbors = undefined
+        this.NodosHijos = undefined
         // Estado aún no finalizado
         return false
       }
       // Se asigna nodo abierto
-      this.R = this.neighbors[this.currentNeighbor]
+      this.R = this.NodosHijos[this.HijoActual]
       // Se calcula el costo del nodo padre al nodo hijo visitado
-      var alt = this.dist[this.NodoPadre] + this.G[this.NodoPadre][this.R]
+      var costo = this.costoNodo[this.NodoPadre] + this.Grafo[this.NodoPadre][this.R]
       // Validación que el nodo sea el de menor costo
-      if (alt < this.dist[this.R]) {
-        this.dist[this.R] = alt
+      if (costo < this.costoNodo[this.R]) {
+        this.costoNodo[this.R] = costo
         this.previous[this.R] = this.NodoPadre
-        this.B.decreaseKey(this.R, alt)
+        this.OrdenarNodo.decreaseKey(this.R, costo)
       }
       // Estado del grafo aún sin terminar
       return false
     },
+    
     // Función para encontrar el camino mas corto
     shortestPath: function () {
       var nodes = []
       var edges = []
       // Si nodo el valor del nodo final es distinto a infinito
-      if (this.dist[this.NodoFinal] !== Number.POSITIVE_INFINITY) {
+      if (this.costoNodo[this.NodoFinal] !== Number.POSITIVE_INFINITY) {
         var NodoAuxiliar = this.NodoFinal
         nodes.push(NodoAuxiliar)
         while (true) {
@@ -133,3 +153,6 @@ function CostoUniforme (Grafo, NodoInicial, NodoFinal) {
       return {edges: edges, nodes: nodes, distance: this.costoNodo[this.NodoFinal]}
     }
   }
+
+  var a = new CostoUniforme(CrearGrafo, 1, 10);
+  console.log(a);
