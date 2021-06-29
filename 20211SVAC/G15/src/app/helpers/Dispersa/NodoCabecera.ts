@@ -28,7 +28,9 @@ export class NodoCabecera {
     }
 
     public getValue(): number | string {
-        return this.value;
+        let temp:any = this.value
+        if (isNaN(temp)) return this.value
+        return +this.value
     }
 
     public setValue(value: number | string): void {

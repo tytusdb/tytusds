@@ -18,7 +18,7 @@ export class ListaCabecera {
         if (this.primero === null) return null
         let temp: NodoCabecera = this.primero
         while (temp !== null) {
-            if (temp.getValue() === value) {
+            if (temp.getValue() === this.convertir(value)) {
                 return {
                     nodo: temp,
                     index: index
@@ -43,7 +43,6 @@ export class ListaCabecera {
                 index: index
             }
         }
-
         if (this.primero.getValue() >= nuevo.getValue()) {
             nuevo.setSiguiente(this.primero)
             if (Tipo.DOBLE === tipo) this.primero.setAnterior(nuevo)
@@ -201,10 +200,15 @@ export class ListaCabecera {
             temp = temp.getSiguiente()
         }
         
-        let resultado = temp.getLista().buscar(nuevo.getValue(), apuntador)
+        let resultado = temp.getLista().buscar(nuevo.getValue(), apuntador,x,y)
         if (resultado !== null) return resultado
         return await temp.getLista().add(nuevo, tipo, apuntador, x,y)
 
 
+    }
+
+    private convertir(value){
+        if(isNaN(value)) return value 
+        return +value
     }
 }

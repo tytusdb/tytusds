@@ -26,7 +26,7 @@ export class Dispersa {
     public async add(x: number | string, y: number | string, value: number | string) {
         let resultX = this.addColumna(x)
         let resultY = this.addFila(y)
-        let nuevo = new Nodo(x + "" + y + "" + this.id, value,resultY.index)
+        let nuevo = new Nodo(x + "x" + y + "y" + this.id, value,resultY.index,{x:x,y:y})
         this.id++
         this.columnas.addValor(nuevo, resultX.index, resultY.index, Apuntador.COLUMNA, this.tipo)
         this.filas.addValor(nuevo, resultX.index, resultY.index, Apuntador.FILA, this.tipo)
@@ -62,12 +62,14 @@ export class Dispersa {
         let data = this.columnas.mostrarCabecera(Apuntador.COLUMNA,this.tipo)
         let data2 = this.filas.mostrarCabecera(Apuntador.FILA,this.tipo)
         let data3 = this.columnas.getNodosHijos(Apuntador.COLUMNA,this.tipo)
+        
         let data4 = this.filas.getNodosHijos(Apuntador.FILA,this.tipo)
         data.nodes = data.nodes.concat(data2.nodes)
         data.edges = data.edges.concat(data2.edges)
         data.nodes = data.nodes.concat(data3.nodes)
         data.edges = data.edges.concat(data3.edges)
         data.edges = data.edges.concat(data4.edges)
+        console.log(data3.nodes,data4.edges,data3.edges)
         return data
     }
 }

@@ -21,11 +21,11 @@ export class Lista {
     }
 
 
-    public buscar(value: number | string, apuntador: Apuntador) {
+    public buscar(value: number | string, apuntador: Apuntador,x:number,y:number) {
         if (this.primero === null) return null
         let temp: Nodo = this.primero
         while (temp !== null) {
-            if (temp.getValue() === value) return temp
+            if(this.convertir(temp.getPos().x) === this.convertir(x) && this.convertir(temp.getPos().y) === this.convertir(y) && temp.getValue() === value ) return temp
             if (apuntador === Apuntador.FILA) temp = temp.getSiguiente();
             else temp = temp.getAbajo()
         }
@@ -35,18 +35,18 @@ export class Lista {
 
     public add(nuevo: Nodo, tipo: Tipo, apuntador: Apuntador, x: number, y: number) {
 
-
+        console.log(nuevo.getValue(), x, y,apuntador)
         if (this.primero === null) {
             this.primero = nuevo
             this.ultimo = nuevo
             return nuevo
         }
-        //console.log(nuevo.getValue(), x, y)
+        
 
         let posicion = (apuntador === Apuntador.FILA) ? x : y
         let index = 0
         let temp = this.primero
-        while (index !== posicion) {
+        while (index <= posicion) {
             if (index === posicion) break;
             if (temp === null) break;
             if (apuntador === Apuntador.FILA) temp = temp.getSiguiente()
@@ -69,15 +69,22 @@ export class Lista {
             return nuevo
         }
         else if (temp === this.ultimo) {
+            let anterior = this.obtenerAnterior(temp, apuntador);
             if (apuntador === Apuntador.FILA) {
+                anterior.setSiguiente(nuevo)
                 nuevo.setSiguiente(this.ultimo)
-                if (Tipo.DOBLE === tipo) this.ultimo.setAnterior(nuevo)
-                this.ultimo = nuevo
+                if (Tipo.DOBLE === tipo) {
+                    nuevo.setAnterior(anterior)
+                    this.ultimo.setAnterior(nuevo)
+                }
                 return nuevo
             }
             nuevo.setAbajo(this.ultimo)
-            if (Tipo.DOBLE === tipo) this.ultimo.setArriba(nuevo)
-            this.ultimo = nuevo
+            anterior.setAbajo(nuevo)
+            if (Tipo.DOBLE === tipo) {
+                nuevo.setArriba(anterior)
+                this.ultimo.setArriba(nuevo)
+            }
             return nuevo
         }
         else if (temp === null) {
@@ -93,23 +100,22 @@ export class Lista {
             return nuevo
         }
         else {
+            let anterior = this.obtenerAnterior(temp, apuntador);
             if (apuntador === Apuntador.FILA) {
-                let siguiente = temp.getSiguiente()
-                nuevo.setSiguiente(siguiente)
-                temp.setSiguiente(nuevo)
-                if (Tipo.DOBLE === tipo && siguiente) {
-                    siguiente.setAnterior(nuevo)
-                    nuevo.setAnterior(temp)
+                anterior.setSiguiente(nuevo)
+                nuevo.setSiguiente(temp)
+                if (Tipo.DOBLE === tipo) {
+                    nuevo.setAnterior(anterior)
+                    temp.setAnterior(nuevo)
                 }
                 return nuevo
             }
 
-            let siguiente = temp.getAbajo()
-            nuevo.setAbajo(siguiente)
-            temp.setAbajo(nuevo)
+            anterior.setAbajo(nuevo)
+            nuevo.setAbajo(temp)
             if (Tipo.DOBLE === tipo) {
-                siguiente.setArriba(nuevo)
-                nuevo.setArriba(temp)
+                nuevo.setArriba(anterior)
+                temp.setArriba(nuevo)
             }
 
             return nuevo
@@ -132,7 +138,7 @@ export class Lista {
 
                 id: id,
                 label: '' + temp.getValue(),
-                level : temp.getY() + 1
+                level: temp.getY() + 1
 
             })
             index++
@@ -160,5 +166,24 @@ export class Lista {
         }
 
         return data
+    }
+
+
+    private obtenerAnterior(nodo: Nodo, apuntador: Apuntador): Nodo {
+        let temp = this.primero
+        while (temp !== null) {
+
+            if (temp.getSiguiente() === nodo) return temp
+            if (apuntador === Apuntador.COLUMNA) temp = temp.getAbajo()
+            else temp.getSiguiente();
+        }
+
+        return null
+    }
+
+
+    private convertir(value){
+        if(isNaN(value)) return value 
+        return +value
     }
 }

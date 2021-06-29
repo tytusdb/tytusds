@@ -6,12 +6,16 @@ export class Nodo{
     private arriba:Nodo;
     private abajo:Nodo; 
     private y :number;
+    private pos : any;
+
+
+
 
   
 
 
 
-    constructor(id:number|string,value:number|string,y:number){
+    constructor(id:number|string,value:number|string,y:number,pos){
         this.id = id 
         this.value = value 
         this.siguiente = null 
@@ -19,6 +23,7 @@ export class Nodo{
         this.arriba = null 
         this.abajo = null
         this.y = y
+        this.pos = pos
     }
 
     public getY():number {
@@ -32,6 +37,17 @@ export class Nodo{
     public getId(): number|string {
         return this.id;
     }
+
+    
+    public getPos(): any {
+        return this.pos;
+    }
+
+    public setPos(pos: any): void {
+        this.pos = pos;
+    }
+
+
 
     public setId(id: number|string): void {
         this.id = id;
