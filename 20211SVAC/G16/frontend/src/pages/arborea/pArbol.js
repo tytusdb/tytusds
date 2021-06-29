@@ -1,35 +1,32 @@
-//Pagina para graficar Cola de Prioridad
-import React from 'react';
+//Pagina para graficar Arbol Binario y AVL
+import React from 'react'
 
-import ColaP from '../Estructuras/lineales/ColaPrioridad'
+import Binario from '../../Estructuras/arborea/Binario'
+import AVL from '../../Estructuras/arborea/AVL'
 
-import Funciones from '../Estructuras/Funciones'
+import Funciones from '../../Estructuras/Funciones.js'
 
-import lineal from '../animaciones/gLineal'
-import VisNetwork from 'vis-network-react'
+import arbol from '../../animaciones/arborea/gArbol'
 
-import './styles/Grafica.css'
+import '../styles/Grafica.css'
 
-class LinealCP extends React.Component {
+class pArbol extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
           repeticion: true,
           velocidad: 5,
           entrada: "",
-          prioridad: 1,
+          orden: 3,
+          tipo: "PreOrden",
           nuevo: "",
           path: this.props.location.pathname,
         }
-        this.cola = new ColaP(this.state.repeticion)
+        this.arbol = this.setarbol(this.state.path, this.state.repeticion)
       }
     
     handleEntrada = e => {
         this.setState({ entrada: e.target.value })
-    }
-
-    handlePrioridad = e => {
-        this.setState({ prioridad: e.target.value })
     }
 
     handleNuevo = e => {
@@ -37,7 +34,11 @@ class LinealCP extends React.Component {
     }
 
     handleRepeticion = () => {
-        this.setState({ repeticion: !this.state.repeticion  })
+        this.setState({ repeticion: !this.state.repeticion })
+    }
+
+    handleTipo = e => {
+        this.setState({ tipo: e.target.value })
     }
     
     handleVelocidad = e => {
@@ -50,53 +51,58 @@ class LinealCP extends React.Component {
         reader.onload = e =>{
             const json = JSON.parse(e.target.result)
             this.setState({ velocidad: json.animaicon })
-            this.cola = new ColaP(json.repeticion)
-            this.cola.cargar(json.valores)
+            this.arbol = this.setarbol(this.state.path, json.repeticion)
+            this.arbol.cargar(json.valores)
         }
         reader.readAsText(files[0])
     }
 
     handleClick = e => {
         const id = e.target.id
-        if(this.state.entrada === "" && id === "Agregar" && id === "Buscar" && id === "Actualizar"){
-            alert("Ingrese un valor")
-        } 
+        if(this.state.entrada === "" && id !== "Nuevo" && id !== "Guardar") alert("Ingrese un valor")
+
         else{
-            if(id === "Agregar") this.cola.agregar(this.state.entrada, this.state.prioridad)
-               
-            else if(id === "Eliminar") this.cola.eliminar()
+            if(id === "Agregar") this.arbol.agregar(this.state.entrada)
+            
+            else if(id === "Eliminar") this.arbol.eliminar(this.state.entrada)
             
             else if(id === "Buscar"){
-                var aux = this.cola.buscar(this.state.entrada)
+                var aux = this.arbol.buscar(this.state.entrada)
                 if(aux) alert("Se encontro el valor")
                 else alert("No se encontro el valor")
             }
             else if(id === "Actualizar"){
-                if(this.state.nuevo === "") alert("Ingrese Nuevo Valor")
-
-                else this.cola.actualizar(this.state.entrada, this.state.nuevo)
-            }
-            else if(id === "Guardar"){
-                var output = this.cola.guardar()
-                Funciones(output.nombre, output.text)
+                if(this.state.nuevo === "") alert("Ingrese el Nuevo valor")
+                
+                else this.arbol.actualizar(this.state.entrada, this.state.nuevo)
             } 
-    
-            else if(id === "Nuevo") this.cola = new ColaP(this.state.repeticion)
+                
+            else if(id === "Nuevo") this.arbol = this.setarbol(this.state.path, this.state.repeticion)
+            
+            else if(id === "Guardar"){
+                var output = this.arbol.guardar(this.state.tipo)
+                Funciones(output.nombre, output.text)
+            }
 
             document.getElementById("input").reset()
             document.getElementById("nuevo").reset()
             this.setState({
                 entrada: "",
-                nuevo: "",
-                prioridad: 0
+                nuevo: ""
             })
         }
     }
 
+    setarbol = (path, repeticion) => {
+        if(path.includes("ArbolBinario")) return new Binario(repeticion)
+        
+        else if(path.includes("AVL")) return new AVL(repeticion)
+    }
+
     render(){
         return (
-        
             <div>
+                {console.log(this.arbol.dotG().nodes)}
                 <nav className="Bar">
                     <table>
                         <td>
@@ -106,18 +112,9 @@ class LinealCP extends React.Component {
                             </form>
                         </td>
                         <td>
-                            <select multiple="" onChange={this.handlePrioridad} style={{height: "30px"}} >
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                            </select>
-                        </td>
-                        <td>
-                        <button className="btn Boton" id="Agregar"
-                            onClick={this.handleClick}> Agregar
-                        </button> 
+                            <button className="btn Boton" id="Agregar" 
+                                onClick={this.handleClick}> Agregar
+                            </button> 
                         </td>
                         <td>
                             <button className="btn Boton" id="Eliminar"
@@ -141,19 +138,25 @@ class LinealCP extends React.Component {
                             </button>
                         </td>
                         <td>
+                            <select multiple="" onChange={this.handleTipo} style={{height: "30px"}}>
+                                <option>PreOrden</option>
+                                <option>InOrden</option>
+                                <option>PostOrden</option>
+                            </select>
+                        </td>
+                        <td>
                             <button className="btn btn-success" id="Guardar"
                                 onClick={this.handleClick}> Guardar
                             </button>
                         </td>
                         <td>
-                            <input type="file" multiple={false} accept=".json" 
+                            <input type="file" multiple={false} accept=".json"
                             onChange={this.handleFiles} />
                         </td>
                     </table>
                 </nav>
                 <div>
-                    {lineal(this.cola.dotG())}
-                   
+                    {arbol(this.arbol.dotG())}
                 </div>
                 <nav className="Sub_bar">
                     <table>
@@ -180,4 +183,4 @@ class LinealCP extends React.Component {
     }
 }
 
-export default LinealCP
+export default pArbol

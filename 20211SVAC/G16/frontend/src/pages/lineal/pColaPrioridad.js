@@ -1,32 +1,34 @@
-//Pagina para graficar  Enlazadas Dobles y Circulares Dobles
-import React from 'react'
+//Pagina para graficar Cola de Prioridad
+import React from 'react';
 
-import EnlazadaD from '../Estructuras/lineales/Doble'
-import CircularD from '../Estructuras/lineales/CircularDoble'
+import ColaP from '../../Estructuras/lineal/ColaPrioridad'
 
-import Funciones from '../Estructuras/Funciones.js'
+import Funciones from '../../Estructuras/Funciones'
 
-import doble from '../animaciones/dobles'
+import lineal from '../../animaciones/lineal/gLineal'
 
-import './styles/Grafica.css'
+import '../styles/Grafica.css'
 
-
-class LinealECD extends React.Component {
+class pColaPrioridad extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
           repeticion: true,
-          ingreso: "Final",
           velocidad: 5,
           entrada: "",
+          prioridad: 1,
           nuevo: "",
           path: this.props.location.pathname,
         }
-        this.lista = this.setLista(this.state.path, this.state.repeticion, this.state.ingreso)
+        this.cola = new ColaP(this.state.repeticion)
       }
     
     handleEntrada = e => {
         this.setState({ entrada: e.target.value })
+    }
+
+    handlePrioridad = e => {
+        this.setState({ prioridad: e.target.value })
     }
 
     handleNuevo = e => {
@@ -34,13 +36,9 @@ class LinealECD extends React.Component {
     }
 
     handleRepeticion = () => {
-        this.setState({ repeticion: !this.state.repeticion })
+        this.setState({ repeticion: !this.state.repeticion  })
     }
-
-    handleIngreso = e => {
-        this.setState({ ingreso: e.target.value })
-    }
-
+    
     handleVelocidad = e => {
         this.setState({ velocidad: e.target.value })
     }
@@ -51,55 +49,52 @@ class LinealECD extends React.Component {
         reader.onload = e =>{
             const json = JSON.parse(e.target.result)
             this.setState({ velocidad: json.animaicon })
-            this.lista = this.setLista(this.state.path, json.repeticion, json.posicion)
-            this.lista.cargar(json.valores)
+            this.cola = new ColaP(json.repeticion)
+            this.cola.cargar(json.valores)
         }
         reader.readAsText(files[0])
     }
 
     handleClick = e => {
         const id = e.target.id
-        if(this.state.entrada === "" && id !== "Nuevo" && id !== "Guardar") alert("Ingrese un valor")
-        
+        if(this.state.entrada === "" && id === "Agregar" && id === "Buscar" && id === "Actualizar"){
+            alert("Ingrese un valor")
+        } 
         else{
-            if(id === "Agregar") this.lista.agregar(this.state.entrada)
-            
-            else if(id === "Eliminar") this.lista.eliminar(this.state.entrada)
+            if(id === "Agregar") this.cola.agregar(this.state.entrada, this.state.prioridad)
+               
+            else if(id === "Eliminar") this.cola.eliminar()
             
             else if(id === "Buscar"){
-                var aux = this.lista.buscar(this.state.entrada)
+                var aux = this.cola.buscar(this.state.entrada)
                 if(aux) alert("Se encontro el valor")
                 else alert("No se encontro el valor")
             }
             else if(id === "Actualizar"){
-                if(this.state.nuevo === "") alert("Ingrese el Nuevo valor")
-                else this.lista.actualizar(this.state.entrada, this.state.nuevo)
-            } 
-                
-            else if(id === "Nuevo") this.lista = this.setLista(this.state.path,this.state.repeticion, this.state.ingreso)
-            
-            else if(id === "Guardar"){
-                var output = this.lista.guardar()
-                Funciones(output.nombre, output.text)
+                if(this.state.nuevo === "") alert("Ingrese Nuevo Valor")
+
+                else this.cola.actualizar(this.state.entrada, this.state.nuevo)
             }
-            
+            else if(id === "Guardar"){
+                var output = this.cola.guardar()
+                Funciones(output.nombre, output.text)
+            } 
+    
+            else if(id === "Nuevo") this.cola = new ColaP(this.state.repeticion)
+
             document.getElementById("input").reset()
             document.getElementById("nuevo").reset()
             this.setState({
                 entrada: "",
-                nuevo: ""
+                nuevo: "",
+                prioridad: 0
             })
         }
     }
 
-    setLista = (path, repeticion, ingreso) => {
-        if(path.includes("EnlazadaDoble")) return new EnlazadaD(ingreso, repeticion)
-        
-        else if(path.includes("CircularDoble")) return new CircularD(ingreso, repeticion)
-    }
-
     render(){
         return (
+        
             <div>
                 <nav className="Bar">
                     <table>
@@ -110,9 +105,18 @@ class LinealECD extends React.Component {
                             </form>
                         </td>
                         <td>
-                            <button className="btn Boton" id="Agregar" 
-                                onClick={this.handleClick}> Agregar
-                            </button> 
+                            <select multiple="" onChange={this.handlePrioridad} style={{height: "30px"}} >
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </td>
+                        <td>
+                        <button className="btn Boton" id="Agregar"
+                            onClick={this.handleClick}> Agregar
+                        </button> 
                         </td>
                         <td>
                             <button className="btn Boton" id="Eliminar"
@@ -141,26 +145,20 @@ class LinealECD extends React.Component {
                             </button>
                         </td>
                         <td>
-                            <input type="file" multiple={false} accept=".json"
+                            <input type="file" multiple={false} accept=".json" 
                             onChange={this.handleFiles} />
                         </td>
                     </table>
                 </nav>
                 <div>
-                    {doble(this.lista.dotG())}
+                    {lineal(this.cola.dotG())}
+                   
                 </div>
                 <nav className="Sub_bar">
                     <table>
                         <td>
                             <input type="range"  min="0" max="10" step="1"  onChange={this.handleVelocidad}
                             defaultValue={this.state.velocidad} width="100"/>
-                        </td>
-                        <td>
-                            <select multiple="" onChange={this.handleIngreso} >
-                                <option>Final</option>
-                                <option>Inicio</option>
-                                <option>Orden</option>
-                            </select>
                         </td>
                         <td>
                             <label>
@@ -179,7 +177,6 @@ class LinealECD extends React.Component {
             </div>
         )
     }
-
 }
 
-export default LinealECD
+export default pColaPrioridad

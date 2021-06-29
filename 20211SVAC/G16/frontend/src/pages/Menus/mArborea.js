@@ -1,21 +1,23 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
 
-import Button from '../components/Button'
-import ItemLineal from '../items/ItemLineal'
+import Button from '../../components/Button'
+import ItemArborea from '../../items/iArborea'
 
-import '../Global.css'
+import '../../Global.css'
 
-class Lineal extends React.Component{
+class Arborea extends React.Component{
     render() {
         return (
             <div className="container">
                 <div className="row Center ">
-                    {ItemLineal.map((item, index) =>{
+                    {ItemArborea.map((item, index) =>{
                         return (
                             <div className="col Center2">
                                 <Link className="Link_text" to={item.path}>
                                     <Button 
+                                        header={item.header} 
+                                        title={item.title}
                                         name={item.name}
                                         logo={item.logo}
                                         clas={item.class}
@@ -30,4 +32,4 @@ class Lineal extends React.Component{
     }
 }
 
-export default Lineal;
+export default Arborea;
