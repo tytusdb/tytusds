@@ -2,5 +2,39 @@
   <app-opciones (opcionesEvento)="getOpciones($event)"></app-opciones>
   <h1 class="text-white">Lista de Arboles Binarios</h1>
   <hr>
+  <div class="row py-2">
+    <div class="col-1"><input #agregar type="text" placeholder="Valor" class="form-control"> </div>
+    <div class="col-1"><input #col type="text" placeholder="Columna" class="form-control"> </div>
+    <div class="col-1"> <button id="Agregar" class="btn btn-success button1" (click)="Add(col.value,agregar.value)" >Agregar</button></div>
+    <div class="col-1"><input #eliminar type="text" class="form-control" placeholder="Valor"> </div>
+    <div class="col-1"> <button id="Eliminar" class="button1 btn btn-success" (click)="delete(eliminar.value)">Eliminar</button></div>
+    <div class="col-2"><input #valor type="text" class="form-control" placeholder="Nodo a actualizar"> </div>
+    <div class="col-2"><input #nuevo_valor type="text" class="form-control" placeholder="Nuevo Valor"> </div>
+    <div class="col-1"> <button id="Actualizar" class="button1 btn btn-success"  >Actualizar</button></div>
+  </div>
+  <div class="row py-1 pb-2">
+    <div class="col-1"><input #search type="text" class="form-control" placeholder="Buscar" ></div>
+    <div class="col-1"><button class="btn btn-success button1" (click)="buscar(search.value)">Buscar</button></div>
+    <div class="col-md-1 text-white">Cabeceras:</div>
+    <div class="col-md-1">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox">
+      </div>
+    </div>
+  </div>
+
+  <!----CAJA DONDE SE GUARDARA LA GRAFICACIÓN DE LOS NODOS---->
+  <div class="animacion container bg-light" id="contenedor">
+  </div>
+  <!----------------------------------------------------------->
+  <div class="container">
+    <div class="row pt-2 pb-3">
+      <div class="col-3" ><button class="btn btn-success button1">Guardar</button></div>
+    </div>
+  </div>
 
 </div>
+
+
+
+

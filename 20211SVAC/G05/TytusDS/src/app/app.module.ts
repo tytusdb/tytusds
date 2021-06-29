@@ -25,6 +25,10 @@ import { MDispersaComponent } from './PaginasWeb/mdispersa/mdispersa.component';
 import {AnchuraComponent} from './PaginasWeb/grafo_anchura/anchura.component';
 import { HammingComponent } from './PaginasWeb/hamming/hamming.component';
 import { LBSTComponent } from './PaginasWeb/lista-bst/l-bst.component';
+import { HuffmanComponent } from './PaginasWeb/huffman/huffman.component';
+import { HashAbiertoComponent } from './PaginasWeb/hash-abierto/hash-abierto.component';
+import { LZWComponent } from './PaginasWeb/lzw/lzw.component';
+import { HashCerradoComponent } from './PaginasWeb/hash-cerrado/hash-cerrado.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +52,11 @@ import { LBSTComponent } from './PaginasWeb/lista-bst/l-bst.component';
     MDispersaComponent,
     AnchuraComponent,
     HammingComponent,
-    LBSTComponent
+    LBSTComponent,
+    HuffmanComponent,
+    HashAbiertoComponent,
+    LZWComponent,
+    HashCerradoComponent
   ],
   imports: [
     BrowserModule,
