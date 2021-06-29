@@ -23,6 +23,7 @@ import {MDispersaComponent} from './PaginasWeb/mdispersa/mdispersa.component';
 import { HammingComponent } from './PaginasWeb/hamming/hamming.component';
 import { HuffmanComponent } from './PaginasWeb/huffman/huffman.component';
 import { HashAbiertoComponent } from './PaginasWeb/hash-abierto/hash-abierto.component';
+import { CuComponent } from './PaginasWeb/costo_uniforme/cu.component';
 
 
 const routes: Routes = [
@@ -48,6 +49,7 @@ const routes: Routes = [
   {path:'AlgoritmoHuffman',component: HuffmanComponent},
   {path:'HashAbierta',component: HashAbiertoComponent},
   {path:'lzw', component: LZWComponent},
+  {path:'Cu', component: CuComponent},
   {path:'**', redirectTo: 'menu'},
 
 ];
