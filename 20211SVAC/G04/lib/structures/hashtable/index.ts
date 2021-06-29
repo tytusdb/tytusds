@@ -183,6 +183,52 @@ class TablaHashCerrada{
         return tabla
     }
 
+    insertar(valor:any){
+        //Obtiene la posicion del arreglo
+        let clave = this.funcion.funcionHash(valor, this.tamaño)
+        //Insertar el valor en el arreglo
+        if(this.tabla[clave].clave == -1){
+            //Si la posición no tiene ningun valor solo se agrega
+            this.tabla[clave] = new Tupla(this.funcion.stringToAscii(valor),valor)
+        }else{
+            //Si la posicion tiene un valor busca otra posicion aplicando las pruebas
+            switch (this.tipoColision) {
+                case 0:
+                    //Prueba Lineal
+                    this.tabla = this.pruebaLineal(valor, (clave+1)%this.tamaño, this.tabla)
+                    break;
+                case 1:
+                    //Prueba Cuadratica
+                    this.tabla = this.pruebaCuadratica(valor,clave,1,this.tabla)
+                    break;
+                case 2:
+                    //Doble Hash
+                    this.tabla = this.dobleHash(valor, clave, 0, this.tabla)
+                    break;
+            }
+        }       
+        this.numEntradas++
+        if(this.factorCarga()>= this.maximo){
+            this.rehashing()
+        }
+    }
+
+    rehashing(){
+        //Aumentar el tamaño hasta que se llegue al minimo de carga
+        while(this.factorCarga()>this.minimo){
+            this.tamaño++
+        }
+        //Copiamos la tabla y se crea una nueva
+        let copia = this.tabla
+        this.numEntradas = 0
+        this.tabla = this.crearTabla()
+        //Se reingresan los valores a la tabla
+        for(let n of copia){
+            if(n.clave != -1){
+                this.insertar(n.valor)
+            }
+        }
+    }
 
     //PRUEBAS DE COLISION ------------------------------------------------------------------------->
     pruebaLineal(valor:any, clave:number, tabla:Tupla[]){
