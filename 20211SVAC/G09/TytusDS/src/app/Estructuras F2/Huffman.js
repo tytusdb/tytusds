@@ -26,14 +26,29 @@ class Huffman{
             repComparar.push(letras[i])
         }
         this.ordenarLetras(repComparar)
-        var a = this.arbolBinario(repComparar)
-        this.raiz=a
-        console.log(a)
-        var cadena=""
-        var aa=this.recorrerArbol(a,1,"d",cadena)
+        this.raiz = this.arbolBinario(repComparar)
+        
         //Recorriendo el árbol y estableciendo los 0s y 1s
+        var cont=0
+        while (cont<letras.length) {
+            this.recorrerArbol(this.raiz,letras[cont].repeticiones,letras[cont].letra,"")
+            cont++
+        }
+        //Leyendo la cadena y codificando las letras
+        var textoCodificado=""
+        cont=0
+        while (cont<cadena.length) {
+            for (let i = 0; i < this.diccionario.length; i++) {
+                if (this.diccionario[i].letra==cadena[cont]) {
+                    textoCodificado+=this.diccionario[i].cadenaCodificada
+                    break
+                }
+            }
+            cont++
+        }
+
     
-        return letras
+        return textoCodificado
     }
     recorrerArbol(nodo, valor, letra, cadenaCodificada, ) {
         if (nodo == null) {
@@ -99,4 +114,7 @@ class Huffman{
     }    
 }
 var a=new Huffman()
-a.tableFrecuencias("daaaatoooo")
+function HuffmanCod(cadena) {
+    console.log(a.tableFrecuencias(cadena))
+}
+HuffmanCod("pablo papa de pablito quiere un clavito")
