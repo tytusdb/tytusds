@@ -67,7 +67,7 @@ export class MatricesDispersasComponent implements OnInit {
           nodes.add(
             {id: i+','+j, label:'0',x: this.x1 , y: this.y1, color: "rgba(97,195,238,0.5)", shape: "box"}
           );
-          this.x1 = this.x1 + 25
+          this.x1 = this.x1 + 40
       }
       this.x1 = 0
       this.y1 = this.y1 + 35
