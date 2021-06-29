@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>TytusDS - Selección</title>
+<title>TytusDS - Tabla Hash Cerrada</title>
 <!-- Bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 <!-- Icon -->
@@ -12,15 +12,22 @@
 <link href="../../assets/css/icons.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;900&display=swap">
-<!--Libreria para las graficas-->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css">
-<!--Intentando con chartJS-->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+<script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
 
 </head>
 <body>
+
+  <style type="text/css">
+    .lineal{
+      background-color: #F7E561;
+    }
+    .cuadratica{
+      background-color: #91F761;
+    }
+    .doble{
+      background-color: #61D5F7;
+    }
+  </style>
 
   <div id="wrapper">
    <div class="overlay"></div>
@@ -47,10 +54,10 @@
         <a class="dropdown-toggle"  data-toggle="dropdown"><i class="uil-horizontal-align-left"></i> Ordenamientos<span class="caret"></span></a>
         <ul class="dropdown-menu animated fadeInLeft" role="menu">
           <div class="dropdown-header">⊂(◉‿◉)つ</div>
-          <li><a href="../Burbuja/Burbuja.html"> Burbuja</a></li>
-          <li><a href="../Seleccion/Seleccion.html"> Selección</a></li>
-          <li><a href="../Insercion/Insercion.html"> Inserción</a></li>
-          <li><a href="../Rapido/Rapido.html"> Rápido</a></li>
+          <li><a href="#"> Burbuja</a></li>
+          <li><a href="#"> Selección</a></li>
+          <li><a href="#"> Inserción</a></li>
+          <li><a href="#"> Rápido</a></li>
         </ul>
       </li>
        <li class="dropdown">
@@ -126,15 +133,58 @@
               </li>
             </ul>
           </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Rehashing
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li>
+                <input class="form-control me-2" type="number" placeholder="Max" aria-label="Search" id="max" style="width: 100px;">
+                <input class="form-control me-2" type="number" placeholder="Min" aria-label="Search" id="min" style="width: 100px;">
+              </li>
+              <li><a class="dropdown-item" id="rehashing">Rehash</a></li>
+            </ul>
+          </li>
+          <li>
+          <form class="d-flex">
+            <div class="form-group" style="margin-right:150px; margin-left: 20px;">
+              <label for="formControlRange" class="text-light" style="margin-right:10px;">Animación</label>
+              <input type="range" class="form-control-range" id="formControlRange">
+            </div>
+          </form>
+          </li>
         </ul>
         <form class="d-flex">
-          <div class="form-group" style="margin-right:10px;">
-            <label for="formControlRange" class="text-light" style="margin-right:10px;">Animación</label>
-            <input type="range" class="form-control-range" id="formControlRange">
-          </div>
+          <select class="form-select" aria-label="Default select example" style="margin-right: 5px;" id="hash" 
+          onchange="this.className=this.options[this.selectedIndex].className">
+            <option value="0" selected>Colisión</option>
+            <option value="0" class="lineal">Lineal</option>
+            <option value="1" class="cuadratica">Cuadrática</option>
+            <option value="2" class="doble">Doble</option>
+          </select>
+          <select class="form-select" aria-label="Default select example" style="margin-right: 5px;" id="modo" 
+          onchange="this.className=this.options[this.selectedIndex].className">
+            <option value="0" selected>Elegir Hash</option>
+            <option value="0" class="doble">Simple</option>
+            <option value="1" class="cuadratica">División</option>
+            <option value="2" class="lineal">Multiplicación</option>
+          </select>
+          <input class="form-control me-2" type="number" placeholder="Tamaño" aria-label="Search" id="m" style="width: 100px;">
+          <a class="btn btn-outline-light" type="submit" style="margin-right: 105px;" id="create">Crear</a>
+        </form>
+        <form class="d-flex">  
+              <a class="btn btn-outline-warning" type="submit" style="margin-right: 5px;" id="update">Actualizar</a>
+              <input class="form-control me-2" type="search" placeholder="Nuevo Valor" aria-label="Search" id="nuevoValor">
+            </form>
+        <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Ingresar Valor" aria-label="Search" id="valor">
+          <a class="btn btn-outline-success" id="add">Añadir</a>
         </form>
         <form class="d-flex" style="padding-left: 5px;">
-          <a class="btn btn-outline-info" id="ordenar">Ordenar</a>
+          <a class="btn btn-outline-info" id="search">Buscar</a>
+        </form>
+        <form class="d-flex" style="padding-left: 5px;">
+          <a class="btn btn-outline-danger" id="delete">Eliminar</a>
         </form>
       </div>
     </div>
@@ -152,11 +202,10 @@
 
         <!--AQUI VA EL CONTENIDO DE LAS ESTRUCTURAS-->
         <div class="container">
-          <h1 style="font-family: 'Merriweather', serif;">Ordenamiento de Selección</h1>
-          <canvas id="myChart" class="col-12" style="height:600px"></canvas>
+          <h1 style="font-family: 'Merriweather', serif;">Tabla Hash Cerrada</h1>
           <!--button class="btn btn-outline-info" type="submit" id="hola">Buscar</button-->       
         </div>
-        <!--div id="visualization" class="col-12" style="height:600px;"></div-->
+        <div id="mynetwork" class="col-12" style="height:600px;"></div>   
         <!-- /#TERMINA CONTENIDO DE LAS ESTRUCTURAS-->
 
 
