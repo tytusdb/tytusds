@@ -62,7 +62,7 @@ class GrafoMatriz{
         var numero2 = this.numeroVertice(nombre2)
         if(numero1 != -1 && numero2 != -1){
             if(this.matAd[numero1][numero2] == 0){
-                if(valor == undefined || !switchToggle2.checked || valor == 0){
+                if(valor == undefined || valor == 0){
                     this.matAd[numero1][numero2] = 1
                 }else{
                     this.matAd[numero1][numero2] = valor
@@ -259,13 +259,77 @@ function RecorrerProfundidad(g, nombre){
     var m = []
     var w
     if(v != -1){
-        console.log("a"+ v)
         var cola = new Cola()
         cola.insertarInicio(g.vertices[v])
         console.log(cola.colaVacia())
         while(!cola.colaVacia()){
             var vertice = cola.eliminar().dato
             m.push(vertice)
+            w = vertice.numeroVertice
+            for(var j = 0; j < g.vertices.length; j++){
+                if(g.matAd[w][j] > 0 && !buscar(m, g.vertices[j].nombre) && !cola.buscar(g.vertices[j].nombre, cola.primero)){
+                    cola.insertarInicio(g.vertices[j])
+                }
+            }
+        }
+    }
+    var q = ""
+    for(var k = 0; k < m.length; k++){
+        if(k == m.length-1){
+            q += m[k].nombre
+        }else{
+            q += m[k].nombre + "-"
+        }
+    }
+    return q
+}
+
+function buscarAnchura(g, nombre, nombreFin){
+    var v = g.numeroVertice(nombre)
+    var m = []
+    var w
+    if(v != -1){
+        var cola = new Cola()
+        cola.insertar(g.vertices[v])
+        while(!cola.colaVacia()){
+            var vertice = cola.eliminar().dato
+            m.push(vertice)
+            if(vertice.nombre == nombreFin){
+                break
+            }
+            w = vertice.numeroVertice
+            for(var j = 0; j < g.vertices.length; j++){
+                if(g.matAd[w][j] > 0 && !buscar(m, g.vertices[j].nombre) && !cola.buscar(g.vertices[j].nombre, cola.primero)){
+                    cola.insertar(g.vertices[j])
+                }
+            }
+        }
+    }
+    var q = ""
+    for(var k = 0; k < m.length; k++){
+        if(k == m.length-1){
+            q += m[k].nombre
+        }else{
+            q += m[k].nombre + "-"
+        }
+    }
+    return q
+}
+
+function buscarProfundidad(g, nombre, nombreFin){
+    var v = g.numeroVertice(nombre)
+    var m = []
+    var w
+    if(v != -1){
+        var cola = new Cola()
+        cola.insertarInicio(g.vertices[v])
+        console.log(cola.colaVacia())
+        while(!cola.colaVacia()){
+            var vertice = cola.eliminar().dato
+            m.push(vertice)
+            if(vertice.nombre == nombreFin){
+                break
+            }
             w = vertice.numeroVertice
             for(var j = 0; j < g.vertices.length; j++){
                 if(g.matAd[w][j] > 0 && !buscar(m, g.vertices[j].nombre) && !cola.buscar(g.vertices[j].nombre, cola.primero)){
@@ -325,7 +389,7 @@ function crearVertice(){
 function crearArco(){
     var valor = document.getElementById("valueNodo").value
     var valor2 = document.getElementById("valueNodo2").value
-    var valor3 = parseInt(document.getElementById("peso").value, 10)
+    var valor3 = document.getElementById("peso").value
     Grafo.nuevoArco(valor, valor2, valor3)
     actualizarTablero()
     document.getElementById("valueNodo").value = ""
@@ -375,8 +439,26 @@ function recorrerPro(){
     document.getElementById("peso").value = ""
 }
 
-function buscarAnchura(){}
+function buscarAn(){
+    var valor = document.getElementById("valueNodo").value
+    var valor2 = document.getElementById("valueNodo2").value
+    str = buscarAnchura(Grafo, valor, valor2)
+    document.getElementById("record").value = str
+    actualizarTablero()
+    document.getElementById("valueNodo").value = ""
+    document.getElementById("valueNodo2").value = ""
+    document.getElementById("peso").value = ""
+}
 
-function buscarProfundidad(){}
+function buscarPro(){
+    var valor = document.getElementById("valueNodo").value
+    var valor2 = document.getElementById("valueNodo2").value
+    str = buscarProfundidad(Grafo, valor, valor2)
+    document.getElementById("record").value = str
+    actualizarTablero()
+    document.getElementById("valueNodo").value = ""
+    document.getElementById("valueNodo2").value = ""
+    document.getElementById("peso").value = "" 
+}
 
 function descargar(){}
