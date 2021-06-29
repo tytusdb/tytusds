@@ -292,4 +292,20 @@ class ListaAdyacencia{
         }
     }    
 
+    //Metodo de busqueda
+    buscar(dato){
+        let bool = false
+        let aux = this.ListaAdyacencia.cabeza
+        while (aux != null){
+            if(aux.dato.dato == dato){
+                bool = true
+                console.log("El dato encontrado fue "+dato)
+                break
+            }
+            aux=aux.siguiente
+        }
+        if(bool == false){
+            console.log("No encontro nada")    
+        }
+    }
 }
