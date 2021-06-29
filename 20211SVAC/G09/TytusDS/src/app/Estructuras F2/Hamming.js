@@ -23,7 +23,7 @@ function calcBitsParidad(cadena) {
 function llenarMatriz(array,nMax) {
     array[0][1]="Posición"
     array[0][2]="Palabra Original"
-    nParidad=[]
+    var nParidad=[]
     for (let i = 0  ; i <= nMax; i++) {
         nParidad.push(Math.pow(2,i))
     }
