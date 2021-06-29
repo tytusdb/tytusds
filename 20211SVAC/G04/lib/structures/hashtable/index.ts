@@ -143,3 +143,91 @@ class TablaHashAbierta{
 
 
 }
+
+class TablaHashCerrada{
+    //Entradas y Espacios
+    numEntradas:number
+    tamaño:number
+    //Factor de Carga
+    minimo:number
+    maximo:number
+
+    tipoColision:number // 0: Lineal, 1:Cuadratica, 2:Multiplicacion
+    tabla:Tupla[]
+    funcion:FuncionHash
+
+    constructor(tamaño:number, minimo:number, maximo:number, tipoColision:number, tipoFuncion:number){
+        //Configuracion Tabla
+        this.numEntradas = 0
+        this.tamaño = tamaño
+        this.tipoColision = tipoColision
+        //Factor de carga
+        this.minimo = minimo
+        this.maximo = maximo
+        //Tabla Hash
+        this.tabla = []
+        this.tabla = this.crearTabla()
+        //Funcion
+        this.funcion = new FuncionHash(tipoFuncion)
+    }
+
+    factorCarga(){
+        return Math.round((this.numEntradas/this.tamaño)*100)
+    }
+
+    crearTabla(){
+        let tabla = []
+        for (let i = 0; i < this.tamaño; i++){
+            tabla.push(new Tupla(-1, null))
+        }
+        return tabla
+    }
+
+
+    //PRUEBAS DE COLISION ------------------------------------------------------------------------->
+    pruebaLineal(valor:any, clave:number, tabla:Tupla[]){
+        if(this.tabla[clave].clave == -1){
+            //Si la posición no tiene ningun valor solo se agrega
+            tabla[clave] = new Tupla(this.funcion.stringToAscii(valor),valor)
+        }else{
+            //Aplica la prueba de nuevo 
+            this.pruebaLineal(valor, (clave+1)%this.tamaño, tabla)
+        }
+        return tabla
+    }
+
+
+    pruebaCuadratica(valor:any, clave:number, agregar:number, tabla:Tupla[]){
+        //Cambiar valor de la clave
+        let id = (clave + (agregar*agregar)) % this.tamaño
+        //Verificar si la posicon no tiene valor
+        if(this.tabla[id].clave == -1){
+            //Posicion Vacia ingresar la tupla
+            tabla[id] = new Tupla(this.funcion.stringToAscii(valor),valor)
+        }else{
+            //Posocion con elemento volver a aplicar la prueba
+            this.pruebaCuadratica(valor, clave, agregar+1, tabla)
+        }
+        return tabla
+    }
+
+    dobleHash(valor:any, clave:number, agregar:number, tabla:Tupla[]){
+        //Cambiar valor y hacer el segundo Hash
+        let id = this.funcion.funcionHash(clave,this.tamaño)
+        if(this.tabla[id].clave == -1){
+            //Posicion Vacia ingresar la tupla
+            tabla[id] = new Tupla(this.funcion.stringToAscii(valor),valor)
+        }else{
+            //Posocion con elemento volver a aplicar la prueba
+            this.pruebaCuadratica(valor, clave, agregar+1, tabla)
+        }
+        return tabla
+    }
+
+    print(){
+        console.log(this.tabla)
+        console.log('Factor de Carga: '+this.factorCarga()+'%')
+        console.log()
+    }
+}
+
