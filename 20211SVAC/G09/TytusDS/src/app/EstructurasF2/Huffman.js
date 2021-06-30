@@ -27,7 +27,6 @@ class Huffman{
         }
         this.ordenarLetras(repComparar)
         this.raiz = this.arbolBinario(repComparar)
-        
         //Recorriendo el árbol y estableciendo los 0s y 1s
         var cont=0
         while (cont<letras.length) {
@@ -46,8 +45,6 @@ class Huffman{
             }
             cont++
         }
-
-    
         return textoCodificado
     }
     recorrerArbol(nodo, valor, letra, cadenaCodificada, ) {
