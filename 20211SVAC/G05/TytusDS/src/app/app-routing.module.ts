@@ -24,6 +24,7 @@ import { HammingComponent } from './PaginasWeb/hamming/hamming.component';
 import { HuffmanComponent } from './PaginasWeb/huffman/huffman.component';
 import { HashAbiertoComponent } from './PaginasWeb/hash-abierto/hash-abierto.component';
 import { HashCerradoComponent } from './PaginasWeb/hash-cerrado/hash-cerrado.component';
+import { CuComponent } from './PaginasWeb/costo_uniforme/cu.component';
 
 
 const routes: Routes = [
@@ -50,6 +51,7 @@ const routes: Routes = [
   {path:'HashAbierta',component: HashAbiertoComponent},
   {path:'HashCerrada',component: HashCerradoComponent},
   {path:'lzw', component: LZWComponent},
+  {path:'Cu', component: CuComponent},
   {path:'**', redirectTo: 'menu'},
 
 ];

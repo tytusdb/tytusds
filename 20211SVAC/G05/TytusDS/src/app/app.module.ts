@@ -29,6 +29,7 @@ import { HuffmanComponent } from './PaginasWeb/huffman/huffman.component';
 import { HashAbiertoComponent } from './PaginasWeb/hash-abierto/hash-abierto.component';
 import { LZWComponent } from './PaginasWeb/lzw/lzw.component';
 import { HashCerradoComponent } from './PaginasWeb/hash-cerrado/hash-cerrado.component';
+import { CuComponent } from './PaginasWeb/costo_uniforme/cu.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { HashCerradoComponent } from './PaginasWeb/hash-cerrado/hash-cerrado.com
     HuffmanComponent,
     HashAbiertoComponent,
     LZWComponent,
+    CuComponent,
     HashCerradoComponent
   ],
   imports: [
