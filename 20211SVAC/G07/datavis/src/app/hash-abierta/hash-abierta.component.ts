@@ -1,21 +1,22 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import * as vis from 'vis';
+var tama: number, valor: number//tamaño de arreglo para la tabla
 
 class Node {
-  data: any;
-  next: Node;
-  prev: Node;
+  data: any
+  next: Node
+  prev: Node
   constructor (data: any, next: Node, prev: Node){
       this.data = data;
       this.next = next;
       this.prev = prev;
   }
 }
-/*
+
 class ListaDoble {
-  head: Node;
-  tail: Node;
-  size: number;
+  head: Node
+  tail: Node
+  size: number
   constructor(){
       this.head = null;
       this.tail = null;
@@ -24,78 +25,44 @@ class ListaDoble {
 
   addhead(data: any){
       const newNode = new Node(data, this.head, null);
-      let anterior= null;
       if (this.head){
           newNode.next = this.head;
           this.head.prev = newNode;
           this.head = newNode;
-          nodes.add(
-            {id: l, label:data}
-          );
-          let men: number;
-          var id = nodes.get({
-            fields:['id', 'label']
-          });
-          anterior = this.head.next
-          for (var val of id){
-            if(val.label == anterior.data){
-              men = val.id;
-            }
-          }
-          edges.update(
-            {from: l, to: men, length: 20, arrows: 'to'}
-          );
-          edges.update(
-            {from: men, to: l, length: 20, arrows: 'to'}
-          );
-          i++;
-          l++;
       }
       else {
           this.head = newNode;
           this.tail = newNode;
-          nodes.add(
-            {id: i, label:data}
-          );
       }
       this.size++;
   }
-
+  buscar(dato: any) {
+    let aux = this.head;
+    if (aux == null) {
+        console.log("LISTA VACIA")
+    } else {
+        while (aux != null) {
+            if (aux.data == dato) {
+                aux = aux.next;
+                return true
+            } else {
+                aux = aux.next;
+            }
+        }
+        console.log("NO SE ENCONTRO")
+        return false
+    }
+  }
   addtail(data: any){
       const newNode = new Node(data, null, this.tail);
-      let anterior= null;
       if (this.tail){
           newNode.prev = this.tail;
           this.tail.next = newNode;
           this.tail = newNode;
-          nodes.add(
-            {id: l, label:data}
-          );
-          let men: number;
-          var id = nodes.get({
-            fields:['id', 'label']
-          });
-          anterior = this.tail.prev
-          for (var val of id){
-            if(val.label == anterior.data){
-              men = val.id;
-            }
-          }
-          edges.update(
-            {from: l, to: men, length: 20, arrows: 'to'}
-          );
-          edges.update(
-            {from: men, to: l, length: 20, arrows: 'to'}
-          );
-          i++;
-          l++;
       }
       else {
           this.tail = newNode;
           this.head = newNode;
-          nodes.add(
-            {id: i, label:data}
-          );
       }
       this.size++;
   }
@@ -115,21 +82,6 @@ class ListaDoble {
           this.head.prev = null;
       }
       this.size--;
-      console.log('delete head')
-      console.log(valoret)
-      var id = nodes.get({
-        fields:['id', 'label']
-      });
-      let primer: number;
-      for (var val of id){
-        if(val.label == valoret){
-          primer = val.id;
-        }
-      }
-      console.log(primer);
-      console.log(nodes)
-      nodes.remove(primer);
-      console.log(nodes)
       return valoret;
   }
 
@@ -148,29 +100,13 @@ class ListaDoble {
           this.tail.next = null;
       }
       this.size--;
-      console.log('delete tail')
-      console.log(valoret)
-      var id = nodes.get({
-        fields:['id', 'label']
-      });
-      let primer: number;
-      for (var val of id){
-        if(val.label == valoret){
-          primer = val.id;
-        }
-      }
-      console.log(primer);
-      console.log(nodes)
-      nodes.remove(primer);
-      console.log(nodes)
       return valoret;
   }
 
   delete(data: any){
       let actual = this.head;
       let anterior = null;
-      console.log("Nodos prrp")
-      console.log(nodes);
+
       while (actual != null){
           if (actual.data === data){
               if (!anterior){
@@ -181,52 +117,8 @@ class ListaDoble {
               else {
                   anterior.next = actual.next;
                   actual.next.prev = anterior;
-                  if(actual.next){
-                    var id = nodes.get({
-                      fields:['id', 'label']
-                    });
-                    let primer: number;
-                    for (var val of id){
-                      if(val.label == actual.data){
-                        primer = val.id;
-                      }
-                    }
-                    nodes.remove(primer);
-
-                    let froms: number;
-                    for (var val of id){
-                      if(val.label == anterior.data){
-                        froms = val.id;
-                      }
-                    }
-                    let to: number;
-                    for (var val of id){
-                      if(val.label == actual.next.data){
-                        to = val.id;
-                      }
-                    }
-                    edges.add(
-                      {from: froms, to: to, length: 20, arrows: 'to'}
-                    );edges.add(
-                      {from: to, to: froms, length: 20, arrows: 'to'}
-                    );
-                  }
-                  else{
-                    var id = nodes.get({
-                      fields:['id', 'label']
-                    });
-                    let primer: number;
-                    for (var val of id){
-                      if(val.label == actual.data){
-                        primer = val.id;
-                      }
-                    }
-                    nodes.remove(primer);
-                  }
               }
               this.size--;
-              console.log('Este es el fin del hombre arana??')
-
               return actual.data;
           }
           anterior = actual;
@@ -246,7 +138,66 @@ class ListaDoble {
   }
 
 }
-*/
+
+class HashAbierta{
+  Arreglo: any[];
+  constructor(){
+    this.Arreglo = null;
+  }
+
+  NuevaTabla(tamano: number){
+    tama = tamano;
+    this.Arreglo = new Array(tama);//arreglo del tamaño especifico
+    for (let j = 0; j < tama; j++) {
+      this.Arreglo[j] = 0;
+      /*nodes.update(
+        {id: j, label:'0',x: this.x1 , y: this.y1, color: "#7BE141", shape: "box"}
+      );
+      this.x1 = this.x1 + 50
+      */
+    }
+  }
+  ValorPos(dato: any){
+		//let valor = 0
+		if(typeof dato === 'string'){
+			for(let j = 0; j < dato.length; j++){
+				valor += dato.charCodeAt(j)
+			}
+		} else {
+			valor = dato
+		}
+		return valor
+	}
+  AgregarValores(dato: any){
+    let datos = this.ValorPos(dato);
+    try {
+      if (datos < tama){
+        if (this.Arreglo[datos] == 0){
+          this.Arreglo[datos] = new ListaDoble;
+          this.Arreglo[datos].addhead(datos);
+        }else{
+          this.Arreglo[datos].addhead(datos);
+        }
+      }
+      else if (datos >= tama){
+        while(datos >= tama){
+          datos = datos - tama;
+        }
+        if (this.Arreglo[datos] == 0){
+          this.Arreglo[datos] = new ListaDoble;
+          this.Arreglo[datos].addhead(datos);
+        }else{
+          this.Arreglo[datos].addhead(datos);
+        }
+      }
+
+    } catch (error) {
+      console.log('ERROR PRRA');
+      console.log(error)
+    }
+  }
+}
+
 @Component({
   selector: 'app-hash-abierta',
   templateUrl: './hash-abierta.component.html',
