@@ -48,7 +48,7 @@ export class RowMajorComponent implements OnInit {
     matriz[fr][cr] = valor
     nodes.update(
       {id: fr+','+cr, label:String(valor)/*, color: "#7BE141"*/}
-    );
+  );
 /*
     nodes.update(
       {id: fr+','+cr, label:String(valor), color: "rgba(97,195,238,0.5)"}
@@ -105,5 +105,8 @@ export class RowMajorComponent implements OnInit {
 		  }
 	  }
     console.log(linealizado);
+  }
+  prueba(valor: any, valor1: any){
+    console.log(valor, valor1)
   }
 }

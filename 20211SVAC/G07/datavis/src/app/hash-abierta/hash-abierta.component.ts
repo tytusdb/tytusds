@@ -144,7 +144,31 @@ class HashAbierta{
   constructor(){
     this.Arreglo = null;
   }
+  simple(){
+    let k = 0.5567;
+    return k * tama;
+  }
 
+  division(k){
+      return k % tama;
+  }
+
+  multiplicacion(k){
+      const A = 0.6180;
+      return tama*((k*A) % 1);
+  }
+
+  lineal(k){
+      return ((k+1) % tama);
+  }
+
+  cuadratica(k,i){
+      return ((k+i) % tama);
+  }
+
+  doble(k,i){
+      return (((k % tama) + i * (7-(k % 7))) % tama);
+  }
   NuevaTabla(tamano: number){
     tama = tamano;
     this.Arreglo = new Array(tama);//arreglo del tamaño especifico
