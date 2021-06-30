@@ -11,5 +11,7 @@ export class TablaHashCerradaComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  value(){
+    
+  }
 }
