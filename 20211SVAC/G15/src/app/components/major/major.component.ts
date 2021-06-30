@@ -33,13 +33,17 @@ export class MajorComponent implements OnInit {
     if (this.arreglo.length > 0) {
       let n = this.arreglo.length;
       let m = this.arreglo[0].length;
-      this.major = new Array(n * m)
+      let temp = new Array(n * m)
 
       for (let i = 0; i < n; i++) {
         for (let j = 0; j < m; j++) {
-          this.major[i * m + j] = this.arreglo[i][j]
-          await this.sleep(this.duracion * 1000)
+          temp[i * m + j] = this.arreglo[i][j]
         }
+      }
+
+      for(let i = 0; i < temp.length; i++){
+        this.major.push(temp[i])
+        await this.sleep(this.duracion * 1000)
       }
     }
 
@@ -50,13 +54,17 @@ export class MajorComponent implements OnInit {
     if (this.arreglo.length > 0) {
       let n = this.arreglo.length;
       let m = this.arreglo[0].length;
-      this.major = new Array(n * m)
+      let temp = new Array(n * m)
 
       for (let i = 0; i < n; i++) {
         for (let j = 0; j < m; j++) {
-          this.major[j * n + i] = this.arreglo[i][j]
-          await this.sleep(this.duracion * 1000)
+          temp[j * n + i] = this.arreglo[i][j]
         }
+      }
+
+      for(let i = 0; i < temp.length; i++){
+        this.major.push(temp[i])
+        await this.sleep(this.duracion * 1000)
       }
     }
   }
