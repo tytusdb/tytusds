@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { TablaHashCerrada } from './ts/tabla-hash-cerrada';
 import { DocumentoService } from '../../services/documento.service';
+import { saveAs } from 'file-saver';
+declare var require: any;
+let vis=require('../../../../vis-4.21.0/dist/vis');
 
 @Component({
   selector: 'app-hash-cerrado',
@@ -77,12 +80,16 @@ export class HashCerradoComponent implements OnInit {
 
     this.hash.agregar(this.valorAgregar);
     this.valorAgregar = '';
+    console.log(this.hash.factorCarga);
     console.log(this.hash.arreglo);
+    this.graficar();
   }
 
   eliminar(): void {
     if (this.valorEliminar.length === 0) return;
-
+  
+    this.hash.eliminar(this.valorEliminar);
+    this.valorEliminar = '';
   }
 
   actualizar(): void {
@@ -95,7 +102,47 @@ export class HashCerradoComponent implements OnInit {
   }
 
   graficar(): void {
-   
+    //Retorno de la lista con los objetos de nodos y edges
+    const nodes = this.hash.getNodos();
+    const edges = this.hash.getEdges();
+    //se escoge el div a utilizar como contenedor
+    let contenedor = document.getElementById("contenedor");
+    const datos = {nodes:nodes,edges:edges};
+    //OPCIONES PARA LOS NODOS----------------------------------------------------------
+    let opciones={
+      edges:{
+        arrows:{
+          to:{
+            enabled:true
+          }
+        },
+        color:{
+          color:"#013ADF"
+        }
+      },
+      nodes:{
+        color:{
+          border:"white",
+          background: "#ED9106"
+        },
+        font:{
+          color:"white"
+        }
+      },
+      physics:{
+        enabled: false
+      },
+      layout:{
+        hierarchical: {
+          direction: "UD",
+          sortMethod: "directed",
+          nodeSpacing: 200,
+          treeSpacing: 400
+        }
+      }
+    };
+    //------------------------------------------------------------------------
+    let grafo= new vis.Network(contenedor,datos,opciones);
   }
 
   guardar(): void {
