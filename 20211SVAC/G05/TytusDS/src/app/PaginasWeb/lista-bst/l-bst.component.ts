@@ -44,6 +44,15 @@ export class LBSTComponent implements OnInit {
         this.graficar();
     }
   }
+  Actualizar(valor,valor_nuevo){
+    valor=this.Vseguro(valor);
+    valor_nuevo=this.Vseguro(valor_nuevo);
+    let nodo=this.lbst.modificar(valor,valor_nuevo);
+    if(nodo==true){
+      this.graficar();
+    }
+  }
+
 
   Vseguro(valor){
     if(isNaN(valor)==false){
@@ -57,9 +66,10 @@ export class LBSTComponent implements OnInit {
       let lista=this.lbst.Mbuscar(valor);
       let cabecera=lista[0];
       let nodo=lista[1];
+      let numCabecera=lista[2];
       if(nodo!=null){
         //id:F#C#
-        let id=`C${cabecera.valor}N${nodo.nivel}(${nodo.valor})`
+        let id=`C${cabecera.valor}(${numCabecera})N${nodo.nivel}(${nodo.valor})`
         let options={
           scale: 10,
           offset: {x:10, y:10},

@@ -15,6 +15,6 @@ let nodos=bst.Rlnodos();
 let edges=bst.Rledges();
 console.log(nodos);
 console.log(edges);
-bst.delete(10);
+bst.delete(0);
 bst.recorrer();
-console.log(nodo.valor);
+
