@@ -18,18 +18,13 @@ var data = {
 };
 var options = {
     nodes: {
-    shape: 'triangle',
+    shape: 'hexagon',
     size: 20,
-    color:"#F63535"
+    color:"#6ABF87"
   },
   edges:{
     color:"#17202A",
     arrows:'to'
-  },
-  physics:{
-    wind: {
-      x: 0.5
-    }
   }
 };
 
@@ -38,12 +33,12 @@ var network = new vis.Network(container, data, options);
 
 var cont = 0
 
-let tablita = new HashCerrada(10)
+let grafito = new Graph()
 
 /*EVENTOS*/
-$('#create').on('click', () => crear())
-$('#rehashing').on('click', () => rehashing())
-$('#add').on('click', () => agregar())
+$('#createNode').on('click', () => crearNodo())
+$('#createEdge').on('click', () => crearArista())
+$('#recorrer').on('click', () => recorrer())
 $('#search').on('click', () => search())
 $('#delete').on('click', () => remove())
 $('#update').on('click', () => update())
@@ -51,119 +46,62 @@ $('#pruebita').on('click', () => prueba())
 $('#cargar').on('click', () => cargarJson())
 $('#guardar').on('click', () => guardarJson())
 
-function crear(){
-  //Reset all options
-  nodes = new vis.DataSet([]);
-  edges = new vis.DataSet([]);
-  container = document.getElementById('mynetwork');
-  data = {nodes: nodes,edges: edges};
-  options = {
-      nodes: {
-      shape: 'triangle',
-      size: 20,
-      color:"#F63535"
-    },
-    edges:{
-      color:"#17202A",
-      arrows:'to'
-    }/*,
-    physics:{
-      wind: {
-        x: 0.5
-      }
-    }*/
-  };
-  network = new vis.Network(container, data, options);
-  cont = 0
-
-  let inputValue = parseInt(document.getElementById("m").value);
-  tablita = new HashCerrada(inputValue)
-  for(let i = 0; i < inputValue; i++){
-    /*if(i == 0){
-      updatedIds = nodes.add([{
-        id: cont,
-        label:i.toString()+"|",
-        fixed: true,
-        x: -600
-      }]);
-    } else {*/
-      updatedIds = nodes.add([{
-        id: cont,
-        label:i.toString()+"|" 
-      }]);
-    //}
-    updatedIds = edges.add([
-      {from: cont-1, to: cont}
-    ])
-    cont++
-  }
-  network.selectNodes([updatedIds[0]]);
-  network.editNode();
+function prueba(){
+  grafito.print()
+  console.log(edges)
 }
 
-function rehashing(){
-  let modo = "linear"
-  let hash = document.getElementById("hash").value;
-  if(hash == 0){
-    modo = "linear"
+function crearNodo(){
+  let inputValue = document.getElementById("valor").value;
+  if(!isNaN(parseInt(inputValue))){
+    inputValue = parseInt(inputValue)
   }
-  else if(hash == 1){
-    modo = "quadratic"
+  if(grafito.existNode(inputValue)){
+    alert("Ese nodo ya existe :c")
+    return
   }
-  else {
-    modo = "double"
-  }
-  let Max = parseInt(document.getElementById("max").value);
-  let Min = parseInt(document.getElementById("min").value);
-  let array = tablita.rehashing(Max, Min, modo)
-  if(array != null){
-    //Reset all options
-    nodes = new vis.DataSet([]);
-    edges = new vis.DataSet([]);
-    container = document.getElementById('mynetwork');
-    data = {nodes: nodes,edges: edges};
-    options = {
-        nodes: {
-        shape: 'triangle',
-        size: 20,
-        color:"#F63535"
-      },
-      edges:{
-        color:"#17202A",
-        arrows:'to'
-      }/*,
-      physics:{
-        wind: {
-          x: 0.5
-        }
-      }*/
-    };
-    network = new vis.Network(container, data, options);
-    cont = 0
+  grafito.addNode(inputValue, cont)
+  var updatedIds = nodes.add([{
+    id: cont,
+    label:inputValue.toString()
+  }]);
+  cont++
+  document.getElementById("valor").value = ""
+}
 
-    for(let i = 0; i < array.length; i++){
-      if(array[i] != null){
-        updatedIds = nodes.add([{
-          id: cont,
-          label:i.toString()+"|"+array[i]
-        }]);
-      } else {
-        updatedIds = nodes.add([{
-          id: cont,
-          label:i.toString()+"|" 
-        }]);
-      }
-      updatedIds = edges.add([
-        {from: cont-1, to: cont}
-      ])
-      cont++
-    }
-    network.selectNodes([updatedIds[0]]);
-    network.editNode();
-
-  } else {
-    alert("La tabla no está lo suficientemente llena");
+function crearArista(){
+  let From = document.getElementById("from").value;
+  let To = document.getElementById("to").value;
+  let Distancia = document.getElementById("distancia").value;
+  if(!isNaN(parseInt(From))){
+    From = parseInt(From)
   }
+  if(!isNaN(parseInt(To))){
+    To = parseInt(To)
+  }
+  if(!grafito.existNode(From)){
+    alert("El nodo '" + From + "' no existe :c")
+    return
+  }
+  if(!grafito.existNode(To)){
+    alert("El nodo '" + To + "' no existe :c")
+    return
+  }
+  if(grafito.existEdge(From, To)){
+    alert("Esa arista ya existe :c")
+    return
+  }
+  grafito.addEdge(From, To)
+  let FromId = grafito.getId(From)
+  let ToId = grafito.getId(To)
+  var updatedIds = edges.add([{
+    from: FromId,
+    to: ToId,
+    label: Distancia
+  }]);
+  document.getElementById("from").value = ""
+  document.getElementById("to").value = ""
+  document.getElementById("distancia").value = ""
 }
 
 async function cargarJson(){
@@ -176,34 +114,8 @@ async function cargarJson(){
     objeto = JSON.parse(fr.result)
     //SETEAMOS LA ANIMACION
     document.getElementById("formControlRange").value = (objeto.animacion*10).toString();
-    //SETEAMOS LA RESOLUSION
-    let resolucion = objeto.resolucion
-    if(resolucion == "Lineal"){
-      document.getElementById("hash").selectedIndex = 1;
-    }
-    else if(resolucion == "Cuadratica"){
-      document.getElementById("hash").selectedIndex = 2;
-    }
-    else {
-      document.getElementById("hash").selectedIndex = 3;
-    }
-    //SETEAMOS EL MINIMO Y MAXIMO
-    document.getElementById("max").value = objeto.maximo.toString();
-    document.getElementById("min").value = objeto.minimo.toString();
     //SETEAMOS EL TAMANIO
-    tablita = new HashCerrada(objeto.size)
-    //AQUI YA AGREGAMOS
-    for(let i = 0; i < objeto.valores.length; i++){
-      if(resolucion == "Lineal"){
-        tablita.setLinearHash(objeto.valores[i])
-      }
-      else if(resolucion == "Cuadratica"){
-        tablita.setQuadraticHash(objeto.valores[i])
-      } else {
-        tablita.setDoubleHash(objeto.valores[i])
-      }
-    }
-    let array = tablita.getArray()
+    grafito = new Graph()
     //Reset all options
     nodes = new vis.DataSet([]);
     edges = new vis.DataSet([]);
@@ -211,97 +123,103 @@ async function cargarJson(){
     data = {nodes: nodes,edges: edges};
     options = {
         nodes: {
-        shape: 'triangle',
+        shape: 'hexagon',
         size: 20,
-        color:"#F63535"
+        color:"#6ABF87"
       },
       edges:{
         color:"#17202A",
         arrows:'to'
-      }/*,
-      physics:{
-        wind: {
-          x: 0.5
-        }
-      }*/
-    };
+      }
+    }
     network = new vis.Network(container, data, options);
     cont = 0
-
-    for(let i = 0; i < array.length; i++){
-      if(array[i] != null){
-        updatedIds = nodes.add([{
-          id: cont,
-          label:i.toString()+"|"+array[i]
-        }]);
-      } else {
-        updatedIds = nodes.add([{
-          id: cont,
-          label:i.toString()+"|" 
-        }]);
-      }
-      updatedIds = edges.add([
-        {from: cont-1, to: cont}
-      ])
-      cont++
+    //AQUI YA AGREGAMOS
+    var updatedIds
+    //Agregamos los nodos
+    for(let i = 0; i < objeto.valores.length; i++){
+      if(grafito.existNode(objeto.valores[i].vertice)) continue
+      grafito.addNode(objeto.valores[i].vertice, cont)
+      updatedIds = nodes.add([{
+        id: cont,
+        label:objeto.valores[i].vertice.toString()
+      }]);
+      cont++    
     }
-    network.selectNodes([updatedIds[0]]);
-    network.editNode();
+    //Agregamos las aristas
+    for(let i = 0; i < objeto.valores.length; i++){
+      for(let j = 0; j < objeto.valores[i].aristas.length; j++){
+        if(grafito.existEdge(objeto.valores[i].vertice, objeto.valores[i].aristas[j].arista)) continue
+        grafito.addEdge(objeto.valores[i].vertice, objeto.valores[i].aristas[j].arista)
+        let FromId = grafito.getId(objeto.valores[i].vertice)
+        let ToId = grafito.getId(objeto.valores[i].aristas[j].arista)
+        updatedIds = edges.add([{
+          from: FromId,
+          to: ToId,
+          label: objeto.valores[i].aristas[j].distancia.toString()
+        }]);
+        /*if(objeto.nombre == "Grafo No Dirigido"){
+          grafito.addEdge(objeto.valores[i].aristas[j].arista, objeto.valores[i].vertice)
+          let ToId = grafito.getId(objeto.valores[i].vertice)
+          let FromId = grafito.getId(objeto.valores[i].aristas[j].arista)
+          updatedIds = edges.add([{
+            from: FromId,
+            to: ToId,
+            label: objeto.valores[i].aristas[j].distancia.toString()
+          }]);
+        }*/
+      }
+    }
   }
 }
 
 function guardarJson(){
   var categoria = "Estructura No Lineal"
-  var nombre = "Tabla Hash"
-  var metodo
-  if(document.getElementById("modo").value == 0){
-    metodo = "Simple"
-  }
-  else if(document.getElementById("modo").value == 1){
-    metodo = "Division"
-  }
-  else {
-    metodo = "Multiplicacion"
-  }
-  var resolucion
-  if(document.getElementById("hash").value == 0){
-    resolucion = "Lineal"
-  }
-  else if(document.getElementById("hash").value == 1){
-    resolucion = "Cuadratica"
-  }
-  else {
-    resolucion = "Doble"
-  }
-  var size = tablita.getArray().length
-  var constante = 0.1625277911
-  var minimo = parseInt(document.getElementById("min").value)
-  var maximo = parseInt(document.getElementById("max").value)
+  var nombre = "Grafo No Dirigido"
+  var almacenamiento = "Matriz/Lista"
   var speed = document.getElementById("formControlRange").value;
-  var tipo = "String/Integer"
-  let array = tablita.getArray()
+  let data = grafito.getData()
   let valores = []
-  for(let i = 0; i < array.length; i++){
-    if(array[i] != null){
-      valores.push(array[i])
+  for(let i = 0; i < data.length; i++){
+    let valor = {
+      vertice: null,
+      aristas: []
     }
+    valor.vertice = data[i].value
+    for(let j = 0; j < data[i].edges.length; j++){
+      let valorArista = {
+        arista: null,
+        distancia: 0
+      }
+      valorArista.arista = data[i].edges[j]
+      //Wa intentar obtener la distancia de adorno :v
+      let aristitas = network.getConnectedEdges(grafito.getId(data[i].value))
+      for(let k = 0; k < aristitas.length; k++){
+        let link = edges.get(aristitas[k])
+        if(link.to == grafito.getId(data[i].edges[j])){
+          if(link.label != null && link.label != ""){
+            let distancia = link.label
+              if(!isNaN(parseInt(distancia))){
+                distancia = parseInt(distancia)
+              }
+              valorArista.distancia = distancia
+          }
+        }
+      }
+      valor.aristas.push(valorArista)
+    }
+    valores.push(valor)
   }
   var objeto = {
     categoria: categoria,
     nombre: nombre,
-    metodo: metodo,
-    resolucion: resolucion,
-    size: size,
-    constante: constante,
-    minimo: minimo,
-    maximo: maximo,
+    almacenamiento: almacenamiento,
     animacion: speed/10,
-    tipo: tipo,
     valores: valores
   }
   var JsonString = JSON.stringify(objeto);
   console.log(JsonString)
-  download("TablaHashCerrada.json",JsonString);
+  download("GrafoDirigido.json",JsonString);
 }
 
 function download(filename, text) {
@@ -317,59 +235,12 @@ function download(filename, text) {
   document.body.removeChild(element);
 }
 
-
-function prueba(){
-  console.log(listita.print())
-}
-
 function convertir(porcentaje){
   let result = (100 - porcentaje)*10
   if (result == 0){
     result = 50
   }
   return result
-}
-
-async function agregar(){
-  var speed = convertir(document.getElementById("formControlRange").value);
-  var animation = {
-    scale: 4,
-    animation: {
-      duration:speed,
-      easingFunction: "linear"
-    }
-  }
-  let inputValue = document.getElementById("valor").value;
-  if(!isNaN(parseInt(inputValue))){
-    inputValue = parseInt(inputValue)
-  }
-  let hash = document.getElementById("hash").value;
-
-  var actualizacion
-  if(hash == 0){
-    actualizacion = tablita.setLinearHash(inputValue)
-  }
-  else if(hash == 1){
-    actualizacion = tablita.setQuadraticHash(inputValue)
-  }
-  else {
-    actualizacion = tablita.setDoubleHash(inputValue)
-  }
-  //Aqui hacemos el recorrido
-  for(let i = 0; i < actualizacion.recorrido.length; i++){
-    network.selectNodes([actualizacion.recorrido[i]])
-    network.focus(actualizacion.recorrido[i], animation)
-    await new Promise(resolve => setTimeout(resolve, speed+10)); // 3 sec
-  }
-  if(actualizacion.actualizar != null){
-    network.fit()
-    await new Promise(resolve => setTimeout(resolve, speed/2));
-    nodes.update({id:actualizacion.actualizar, label:actualizacion.actualizar + "|" + inputValue});
-  } else {
-    network.selectNodes([])
-    network.fit()
-    alert("La tabla ya está llena :c");
-  }
 }
 
 async function search(){
@@ -381,36 +252,64 @@ async function search(){
       easingFunction: "linear"
     }
   }
-  let inputValue = document.getElementById("valor").value;
-  if(!isNaN(parseInt(inputValue))){
-    inputValue = parseInt(inputValue)
+  let From = document.getElementById("from").value;
+  let To = document.getElementById("to").value;
+  if(!isNaN(parseInt(From))){
+    From = parseInt(From)
   }
-  let hash = document.getElementById("hash").value;
-
-  var actualizacion
-  if(hash == 0){
-    actualizacion = tablita.searchLinearHash(inputValue)
+  if(!isNaN(parseInt(To))){
+    To = parseInt(To)
   }
-  else if(hash == 1){
-    actualizacion = tablita.searchQuadraticHash(inputValue)
+  if(!grafito.existNode(From)){
+    alert("El nodo '" + From + "' no existe :c")
+    return
   }
-  else {
-    actualizacion = tablita.searchDoubleHash(inputValue)
+  if(!grafito.existNode(To)){
+    alert("El nodo '" + To + "' no existe :c")
+    return
   }
-  //Aqui hacemos el recorrido
-  for(let i = 0; i < actualizacion.recorrido.length; i++){
-    network.selectNodes([actualizacion.recorrido[i]])
-    network.focus(actualizacion.recorrido[i], animation)
-    await new Promise(resolve => setTimeout(resolve, speed+10)); // 3 sec
+  let recorrido = grafito.breadth(From, To)
+  for(let i = 0; i < recorrido.recorrido.length; i++){
+    network.selectNodes([recorrido.recorrido[i]])
+    network.focus(recorrido.recorrido[i], animation)
+    await new Promise(resolve => setTimeout(resolve, speed+10))
   }
-  if(actualizacion.encontrado == true){
-    network.fit()
-    alert("Se ha encontrado el valor exitosamente :)");
+  network.fit()
+  if(recorrido.encontrado){
+    alert("Se ha encontrado el fin exitosamente :D")
   } else {
-    network.selectNodes([])
-    network.fit()
-    alert("No se ha encontrado el valor :c");
+    alert("No se ha encontrado el fin :c")
   }
+  document.getElementById("from").value = ""
+  document.getElementById("to").value = ""
+}
+
+async function recorrer(){
+  var speed = convertir(document.getElementById("formControlRange").value);
+  var animation = {
+    scale: 4,
+    animation: {
+      duration:speed,
+      easingFunction: "linear"
+    }
+  }
+  let From = document.getElementById("from").value;
+  if(!isNaN(parseInt(From))){
+    From = parseInt(From)
+  }
+  if(!grafito.existNode(From)){
+    alert("El nodo '" + From + "' no existe :c")
+    return
+  }
+  let recorrido = grafito.recorrer(From)
+  for(let i = 0; i < recorrido.recorrido.length; i++){
+    network.selectNodes([recorrido.recorrido[i]])
+    network.focus(recorrido.recorrido[i], animation)
+    await new Promise(resolve => setTimeout(resolve, speed+10))
+  }
+  network.selectNodes([])
+  network.fit()
+  document.getElementById("from").value = ""
 }
 
 async function update(){
@@ -423,41 +322,29 @@ async function update(){
     }
   }
   let inputValue = document.getElementById("valor").value;
-  let inputUpdate = document.getElementById("nuevoValor").value;
   if(!isNaN(parseInt(inputValue))){
     inputValue = parseInt(inputValue)
   }
+  let inputUpdate = document.getElementById("nuevoValor").value;
   if(!isNaN(parseInt(inputUpdate))){
     inputUpdate = parseInt(inputUpdate)
   }
-  let hash = document.getElementById("hash").value;
-
-  var actualizacion
-  if(hash == 0){
-    actualizacion = tablita.updateLinearHash(inputValue, inputUpdate)
+  if(!grafito.existNode(inputValue)){
+    alert("El nodo '" + inputValue + "' no existe :c")
+    return
   }
-  else if(hash == 1){
-    actualizacion = tablita.updateQuadraticHash(inputValue, inputUpdate)
+  if(grafito.existNode(inputUpdate)){
+    alert("El nodo '" + inputUpdate + "' ya existe :c")
+    return
   }
-  else {
-    actualizacion = tablita.updateDoubleHash(inputValue, inputUpdate)
-  }
-  //Aqui hacemos el recorrido
-  for(let i = 0; i < actualizacion.recorrido.length; i++){
-    network.selectNodes([actualizacion.recorrido[i]])
-    network.focus(actualizacion.recorrido[i], animation)
-    await new Promise(resolve => setTimeout(resolve, speed+10)); // 3 sec
-  }
-  if(actualizacion.eliminado != null){
-    network.fit()
-    await new Promise(resolve => setTimeout(resolve, speed/2));
-    nodes.update({id:actualizacion.eliminado, label:actualizacion.eliminado + "|"});
-    nodes.update({id:actualizacion.actualizar, label:actualizacion.actualizar + "|" + inputUpdate});
-  } else {
-    network.selectNodes([])
-    network.fit()
-    alert("No se encontró el valor :c");
-  }
+  let actualizado = grafito.updateNode(inputValue, inputUpdate)
+  network.focus(actualizado, animation)
+  await new Promise(resolve => setTimeout(resolve, speed+10));
+  network.fit()
+  await new Promise(resolve => setTimeout(resolve, speed/2));
+  nodes.update({id:actualizado, label:inputUpdate.toString()});
+  document.getElementById("valor").value = ""
+  document.getElementById("nuevoValor").value = ""
 }
 
 async function remove(){
@@ -473,31 +360,16 @@ async function remove(){
   if(!isNaN(parseInt(inputValue))){
     inputValue = parseInt(inputValue)
   }
-  let hash = document.getElementById("hash").value;
-
-  var actualizacion
-  if(hash == 0){
-    actualizacion = tablita.deleteLinearHash(inputValue)
+  if(!grafito.existNode(inputValue)){
+    alert("El nodo '" + inputValue + "' no existe :c")
+    return
   }
-  else if(hash == 1){
-    actualizacion = tablita.deleteQuadraticHash(inputValue)
-  }
-  else {
-    actualizacion = tablita.deleteDoubleHash(inputValue)
-  }
-  //Aqui hacemos el recorrido
-  for(let i = 0; i < actualizacion.recorrido.length; i++){
-    network.selectNodes([actualizacion.recorrido[i]])
-    network.focus(actualizacion.recorrido[i], animation)
-    await new Promise(resolve => setTimeout(resolve, speed+10)); // 3 sec
-  }
-  if(actualizacion.actualizar != null){
-    network.fit()
-    await new Promise(resolve => setTimeout(resolve, speed/2));
-    nodes.update({id:actualizacion.actualizar, label:actualizacion.actualizar + "|"});
-  } else {
-    network.selectNodes([])
-    network.fit()
-    alert("No se encontró el valor :c");
-  }
+  let eliminado = grafito.deleteNode(inputValue)
+  network.focus(eliminado, animation)
+  await new Promise(resolve => setTimeout(resolve, speed+10));
+  network.fit()
+  await new Promise(resolve => setTimeout(resolve, speed/2));
+  network.selectNodes([eliminado])
+  network.deleteSelected()
+  inputValue = document.getElementById("valor").value = ""
 }
