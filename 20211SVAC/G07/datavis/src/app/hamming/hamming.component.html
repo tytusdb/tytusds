@@ -1,1 +1,146 @@
-<p>hamming works!</p>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
+<div>
+
+  <nav aria-label="breadcrumb" class="navbar navbar-dark bg-primary" >
+    <div class="d-flex justify-content-between">
+      <a class="navbar-brand"  class = "text-center"  href="#">
+        TytusDs
+      </a>
+      <ol class="breadcrumb" >
+        <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Cola de Prioridad</li>
+      </ol>
+    </div>
+
+
+  </nav>
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark bg-primary">
+
+      <form class="form-inline" >
+        <input class="form-control mr-sm-2 " #data type="text" placeholder="Cadena de caracteres" aria-label="Agregar">
+        
+        <button class="btn btn-outline-light mr-sm-2" type="submit" (click)="getString(data.value)">Codificar</button>
+      </form>
+    </nav>
+    <!-- Navbar -->
+
+    <!-- Jumbotron -->
+    <div class="p-5 text-center bg-light">
+      <h1 class="mb-3">Hamming code:</h1>
+      <h4 class="mb-3" id="code"></h4>
+      
+    </div>
+    <!-- Jumbotron -->
+
+
+  <!-- Footer -->
+<footer class="text-center text-lg-start bg-light text-muted">
+  <!-- Section: Social media -->
+  <section
+    class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom"
+  >
+
+
+  </section>
+  <!-- Section: Social media -->
+
+  <!-- Section: Links  -->
+  <section class="">
+    <div class="container text-center text-md-start mt-5">
+      <!-- Grid row -->
+      <div class="row mt-3">
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+          <!-- Content -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            <i class="fas fa-gem me-3"></i>Ingreso
+          </h6>
+          <!-- Default radio -->
+
+
+<!-- Default checked radio -->
+<div class="form-check">
+  <input
+    class="form-check-input"
+    type="radio"
+    name="flexRadioDefaultRepeticion"
+    id="alinicio"
+    checked
+  />
+  <label class="form-check-label" for="alinicio"> Al inicio </label>
+</div>
+<div class="form-check">
+  <input
+    class="form-check-input"
+    type="radio"
+    name="flexRadioDefaultRepeticion"
+    id="alfinal"
+  />
+  <label class="form-check-label" for="alfina"> Al final </label>
+</div>
+
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            Repetición
+          </h6>
+          <!-- Default checked radio -->
+<div class="form-check">
+  <input
+    class="form-check-input"
+    type="radio"
+    name="flexRadioDefaultActivacion"
+    id="desacivada"
+    checked
+  />
+  <label class="form-check-label" for="desactivada"> Desactivada </label>
+</div>
+<div class="form-check">
+  <input
+    class="form-check-input"
+    type="radio"
+    name="flexRadioDefaultActivacion"
+    id="activada"
+  />
+  <label class="form-check-label" for="activada"> Activada </label>
+</div>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            Velocidad de animación
+          </h6>
+<div class="range">
+  <input type="range" class="form-range" min="0" max="5" id="customRange2" />
+</div>
+        </div>
+        <!-- Grid column -->
+
+
+      </div>
+      <!-- Grid row -->
+    </div>
+  </section>
+  <!-- Section: Links  -->
+
+  <!-- Copyright -->
+  <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+    © 2021 Copyright:
+    <a class="text-reset fw-bold" href="https://mdbootstrap.com/">EDD</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->
+
+</div><style id="iw-user-style"></style><script id="iw-user-script"></script>
