@@ -1,18 +1,31 @@
 import React from 'react';
 import ReactFlow, { Background, MiniMap, Handle,ReactFlowProvider } from 'react-flow-renderer';
 
+
 const customNodeStyles = {
-    background: 'green',
-    color: '#FFF',
-    padding: 10,
+    background: "#EEBF1D",
+    padding: 0,
+    height: "40px"
   };
+  
+  const divnodo = {
+  
+  float:"left",
+  border:"1px solid black",
+  margin:"5px",
+  padding: "5px"
+  
+  }
   
   const CustomNodeComponent = ({ data }) => {
     return (
-      <div style={customNodeStyles}>
-        <Handle type="target" position="left" style={{ borderRadius: 0 }} />
-        <Handle type="source" position="right" style={{ borderRadius: 0 }} />
-        <div>{data.text}</div>
+      <div style={customNodeStyles}> 
+      <Handle type="target" position="top" style={{ borderRadius: 0 }} />
+      <Handle type="source" position="bottom" style={{ borderRadius: 0 }} />
+    
+        <div style={divnodo}>{data.text}</div>
+        <div style={divnodo}>{data.nodo}</div>
+      
       </div>
     );
   };
@@ -21,7 +34,7 @@ const customNodeStyles = {
     special: CustomNodeComponent,
   };
 
-export default function GraficarTablaHash(props) {
+export default function GraficarTablaHashCerrada(props) {
     console.log(props.estructura.graficar())
     let elements = props.estructura.graficar()
 

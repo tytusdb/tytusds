@@ -10,16 +10,18 @@ class TablaHashCerrada {
     constructor(tamaño, minimo, maximo,forma){
         
         
-        this.tabla = null,
-        this.tamaño = tamaño,
-        this.minimo = minimo,
-        this.maximo = maximo,
+        this.tabla = null
+        this.tamaño = tamaño
+        this.minimo = minimo
+        this.maximo = maximo
         this.funcion = forma
         this.datosAgregados = 0
         this.iniciar();
     }
 
     iniciar(){
+        
+        this.datosAgregados = 0
         let newTable = new Array(this.tamaño)
 
         for (let index = 0; index < this.tamaño; index++) {
@@ -71,7 +73,7 @@ class TablaHashCerrada {
         let posicion =this.funcion_Hash(dato, this.funcion)
         let i = 1;
         while(this.tabla[posicion] !== -1 && posicion < this.tamaño){
-            posicion = this.colisiones(dato, i, "DobleHash", this.funcion_Hash(dato, this.funcion))
+            posicion = this.colisiones(dato, i, "Lineal", this.funcion_Hash(dato, this.funcion))
             i++;
             
         }
@@ -121,12 +123,10 @@ class TablaHashCerrada {
         
         
         }
-
-        console.log(this.datosAgregados)
     }
 
     rehashing(){
-        if((this.datosAgregados*100/this.tamaño) >= this.maximo){
+        if(((this.datosAgregados*100)/this.tamaño) >= this.maximo){
             let copyarray = this.tabla
 
             let tamañoAnterior = this.tamaño
@@ -166,7 +166,34 @@ class TablaHashCerrada {
 
     cargar(arr){
         arr.map(e => {
-            this.Agregar(e)
+            this.agregar(e)
         })
     }
+
+    graficar(valorBuscar){
+        let recorrido = []
+        for (let index = 0; index < this.tabla.length; index++) {
+            let nodoArreglo = {
+                id: index,
+                type: 'special',
+                targetPosition: 'left',
+                sourcePosition: 'right',
+                data: { nodo: this.tabla[index] !== -1 ? this.tabla[index]: "-----", text:  index  },
+                position: {  x: 100, y: 25 + index*75  },
+                connectable: false, 
+            }
+            recorrido.push(nodoArreglo)
+        }
+
+        for (let index = 0; index < this.tamaño-1; index++) {
+            let varnew = {
+                id: index+'-'+(index+1), source: index, target: index+1
+            }
+            recorrido.push(varnew)
+        }
+
+        return recorrido
+    }
 }
+
+export default TablaHashCerrada;

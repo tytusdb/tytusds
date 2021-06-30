@@ -1,28 +1,29 @@
-/* import { v4 as uuidv4 } from 'uuid';
-import { Cola } from '../EstructurasLineales/Cola'; */
+ import { v4 as uuidv4 } from 'uuid';
 
 class Nodo {
     constructor (dato){
-        this.hash = null,
-        this.dato = dato,
+        this.hash = null
+        this.dato = dato
         this.siguiente = null
-        //this.id = uuidv4();
+        this.id = uuidv4()
     }
 } 
 
 class TablaHashAbierta {
-    constructor (tamaño) {
-        this.tabla = null,
-        this.tamaño = tamaño,
-        this.minimo = minimo,
-        this.maximo = maximo,
+    constructor (tamaño,minimo,maximo,forma) {
+        this.tabla = null
+        this.tamaño = tamaño
+        this.minimo = minimo
+        this.maximo = maximo
         this.funcion = forma
         this.datosAgregados = 0
-        this.iniciar();
-        
+        this.iniciar()
+    
     }
 
     iniciar(){
+        
+        this.datosAgregados = 0;
         let newTable = new Array(this.tamaño)
 
         for (let index = 0; index < this.tamaño; index++) {
@@ -73,14 +74,14 @@ class TablaHashAbierta {
     agregar(dato){
         let posicionTabla = this.tabla[this.funcion_Hash(dato, this.funcion)]
         if(posicionTabla === -1){
-            this.tabla[posicionTabla] =  new Cola()
-            this.tabla[posicionTabla].Agregar(dato)
-        }else{
+            this.tabla[this.funcion_Hash(dato, this.funcion)] =  new Cola()
+            this.tabla[this.funcion_Hash(dato, this.funcion)].Agregar(dato)
             
-            this.tabla[posicionTabla].Agregar(dato)
+            this.datosAgregados++;
+        }else{
+            this.tabla[this.funcion_Hash(dato, this.funcion)].Agregar(dato)
         }
 
-        this.datosAgregados++;
 
         this.rehashing();
         
@@ -95,10 +96,13 @@ class TablaHashAbierta {
             this.tamaño = (this.datosAgregados*100/this.minimo);
 
             this.iniciar()
-
             for (let index = 0; index < tamañoAnterior; index++) {
                 if(copyarray[index] != -1){
-                        this.agregar(copyarray[index])
+                        let temp = copyarray[index].primero
+                        while(temp != null){
+                            this.agregar(temp.dato)
+                            temp = temp.siguiente
+                        }
                 }
                 
             }
@@ -137,9 +141,185 @@ class TablaHashAbierta {
         }
     }
 
-    cargar(arr, funcion){
+    cargar(arr){
         arr.map(e => {
-            this.Agregar(e, funcion)
+            this.agregar(e)
         })
     }
+
+    graficar(valorBuscar){
+        let recorrido = []
+        for (let index = 0; index < this.tabla.length; index++) {
+            console.log(index)
+
+            let nodoArreglo = {
+                id:index,
+                type: 'input', // input node
+                data: { label: index },
+                position: { x: 100, y: 25 + index*75 },
+                connectable: false, 
+            }
+            recorrido.push(nodoArreglo)
+            if(this.tabla[index] !== -1){
+                recorrido = recorrido.concat(
+                    this.tabla[index].Recorrido(index,valorBuscar))
+                
+                let nodoege = {
+                id: index+'-'+this.tabla[index].primero.id, source: index, target: this.tabla[index].primero.id
+                }
+
+                recorrido.push(nodoege)
+            }
+            
+            
+        
+        }
+
+        for (let index = 0; index < this.tamaño-1; index++) {
+            let varnew = {
+                id: index+'-'+(index+1), source: index, target: index+1
+            }
+            recorrido.push(varnew)
+        }
+
+        return recorrido
+    }
 }
+
+
+class Cola {
+    constructor(){
+        this.primero = null
+        this.ultimo = null
+        this.longitud = 0 
+    }
+	
+	estaVacia() {
+        if (this.primero == null){
+            return true
+        }
+
+        return false
+    }
+
+    Agregar(dato){
+        let nuevoNodo = new Nodo(dato)
+
+        if(this.estaVacia()){
+            this.primero = nuevoNodo
+            this.ultimo = nuevoNodo
+        }else{
+            nuevoNodo.siguiente = this.primero
+            this.primero = nuevoNodo
+        }
+
+        this.longitud++
+    }
+	
+	Imprimir(){
+        let text = ""
+        let nodoActual = this.primero
+
+        while (nodoActual != null){
+            text += nodoActual.dato + "->"
+            if(nodoActual.siguiente != null){
+                nodoActual = nodoActual.siguiente
+            }else{
+                nodoActual = null
+            }
+            
+        }
+        text += "null"
+
+        return text
+    }
+	
+	eliminar(dato){
+       let nodoActual = this.primero
+        let nodoanterior = null
+
+        if(nodoActual != null && nodoActual.dato == dato){
+            this.primero = nodoActual.siguiente
+            return
+        }
+
+        while(nodoActual != null && nodoActual.dato != dato){
+            nodoanterior = nodoActual
+            nodoActual = nodoActual.siguiente
+        }
+
+        if (nodoActual == null){
+            return
+        }
+
+        nodoanterior.siguiente = nodoActual.siguiente;
+    }
+	
+	
+    /* guardar(){
+        let arreglo = []
+        let nodoActual = this.primero
+
+        while (nodoActual != null){
+            arreglo.push(nodoActual.dato)
+            if(nodoActual.siguiente != null){
+                nodoActual = nodoActual.siguiente
+            }else{
+                nodoActual = null
+            }
+            
+        }
+
+        return arreglo
+    } */
+	
+	Recorrido(cordenada,datoBuscar){
+        let arreglo = []
+        let nodoActual = this.primero
+        let contador = 0
+
+        while (nodoActual != null){
+            let nodoArreglo = {
+                id: nodoActual.id,
+                type: 'default',
+                targetPosition: 'left',
+                sourcePosition: 'right',
+                data: { label: nodoActual.dato },
+                position: { x: 100 + (contador+1)*200, y: 25 +cordenada *75 },
+                connectable: false, 
+            }
+
+            if(nodoActual.dato == datoBuscar){
+                nodoArreglo = {
+                    id: nodoActual.id,
+                    type: 'special',
+                    targetPosition: 'left',
+                    sourcePosition: 'right',
+                    data: { text: "----------"+nodoActual.dato+ "--------" },
+                    position: { x: 100 + (contador+1)*200, y: 25 +cordenada *75 },
+                    connectable: false, 
+                }
+            }
+
+            arreglo.push(nodoArreglo)
+
+            if(nodoActual.siguiente != null){
+                let nodoArreglo = {
+                    id: nodoActual.id+'-'+nodoActual.siguiente.id, source: nodoActual.id, target: nodoActual.siguiente.id  }
+                    arreglo.push(nodoArreglo)
+            }
+            
+            
+
+            if(nodoActual.siguiente != null){
+                nodoActual = nodoActual.siguiente
+            }else{
+                nodoActual = null
+            }
+            contador++
+        }
+
+        return arreglo
+    }
+}
+export default  TablaHashAbierta;
