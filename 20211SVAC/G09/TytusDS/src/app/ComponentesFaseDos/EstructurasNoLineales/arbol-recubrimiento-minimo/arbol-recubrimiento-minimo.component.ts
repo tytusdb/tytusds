@@ -12,4 +12,8 @@ export class ArbolRecubrimientoMinimoComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  value(){
+    
+  }
+
 }
