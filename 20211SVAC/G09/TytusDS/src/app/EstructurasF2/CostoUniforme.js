@@ -5,16 +5,23 @@ function CostoUniforme(Grafo,NodoInicial,NodoFinal){
   this.NodoInicial = NodoInicial;
   //Nodo Final
   this.NodoFinal = NodoFinal;
-
-  let CaminoCorto=Object.assign({[NodoFinal]:Infinity},Grafo[NodoInicial])
-  let CaminoCortoNodosPadres={[NodoFinal]:null}
-  for(let element in Grafo[NodoInicial]){
-    CaminoCortoNodosPadres[element]=NodoInicial;
-  }
+ //Camino Corto
+  let CaminoCorto;
+  //Camino Padres (Corto)
+  let CaminoCortoNodosPadres;
+  //dato del grafo
+  let dato;
   //Nodos Visitados
-  let NodosVisitados=[]
+   let NodosVisitados=[]
   //Nodos
-  let Nodo;
+   let Nodo;
+
+  CaminoCorto=Object.assign({[NodoFinal]:Infinity},Grafo[NodoInicial])
+  CaminoCortoNodosPadres={[NodoFinal]:null}
+  for(dato in Grafo[NodoInicial]){
+    CaminoCortoNodosPadres[dato]=NodoInicial;
+  }
+ 
   Nodo = findCheapest(CaminoCorto,NodosVisitados)
     while(Nodo){
         let Camino = CaminoCorto[Nodo];
@@ -30,15 +37,15 @@ function CostoUniforme(Grafo,NodoInicial,NodoFinal){
         NodosVisitados.push(Nodo)
         Nodo = findCheapest(CaminoCorto,NodosVisitados)
     }
-  let finalAnswer = [NodoFinal];
-  let parent = CaminoCortoNodosPadres[NodoFinal]
-  while(parent!=NodoInicial){
-      finalAnswer.unshift(parent)
-      parent=CaminoCortoNodosPadres[parent]
+  let FinalGrafo = [NodoFinal];
+  let NodoPadre = CaminoCortoNodosPadres[NodoFinal]
+  while(NodoPadre!=NodoInicial){
+      FinalGrafo.unshift(NodoPadre)
+      NodoPadre=CaminoCortoNodosPadres[NodoPadre]
   }
-  finalAnswer.unshift(NodoInicial)
+  FinalGrafo.unshift(NodoInicial)
   let MejorCamino ={
-      Camino: finalAnswer,
+      Camino: FinalGrafo,
       Costo: CaminoCorto[NodoFinal]
   }
   return MejorCamino 
@@ -53,6 +60,8 @@ function findCheapest(CaminoCorto,NodosVisitados){
     },null)
     return NodoAuxiliar
 }
+
+////Prueba de Costo Uniforme
   let Grafo={
     H: { M: 50, A: 30, O: 40},
     M: { A: 71, W: 33},
