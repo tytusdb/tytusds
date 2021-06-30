@@ -12,4 +12,8 @@ export class TablaHashAbiertaComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  value(){
+    
+  }
+
 }
