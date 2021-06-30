@@ -7,11 +7,13 @@ var arbol=[];
 var texto="";
 var cola="";
 var cantidad=0;
+var cadena="";
 class Nodop{
-    constructor(valor1,valor2,valor3){
+    constructor(valor1,valor2,valor3,valor4){
         this.dato1=valor1;
-        this.dato2=valor1;
+        this.dato2=valor2;
         this.dato3=valor3;
+        this.dato4=valor4;
         this.post=null;
         this.ant=null
     }
@@ -24,27 +26,27 @@ class cola_prioridad{
         this.tamaño=0;
         this.av=true;}
 
-        guardar(valor1,valor2,valor3){
-            let nodo = new Nodop(valor1,valor2,valor3)
+        guardar(valor1,valor2,valor3,valor4){
+            let nodo = new Nodop(valor1,valor2,valor3,valor4)
             let aux1;
             let aux2;
-            if(this.uno==null){
-               this.uno=nodo;
+            if(this.cuno==null){
+               this.cuno=nodo;
                 nodo.post=null;
-                this.fin=nodo;
-            }else{ aux1=this.uno;
+                this.cfin=nodo;
+            }else{ aux1=this.cuno;
                 while(aux1!=null){
                     aux2=aux1.post;
                     if(nodo.dato1<aux1.dato1){
-                        nodo.post=this.uno;
-                        this.uno=nodo;
-                        this.fin=this.uno;
+                        nodo.post=this.cuno;
+                        this.cuno=nodo;
+                        this.cfin=this.cuno;
                         break;}
                     else{
                         if(nodo.dato1>=aux1.dato1 && aux2==null){
                             aux1.post=nodo;
                             nodo.post=null;
-                            this.fin=nodo;
+                            this.cfin=nodo;
                             break;
                         }else{  if(aux1.dato1<=nodo.dato1 && aux2.dato1>nodo.dato1){
                             aux1.post=nodo;
@@ -56,14 +58,14 @@ class cola_prioridad{
                         }}
         }
         eliminar(){
-            let actual = this.uno;
+            let actual = this.cuno;
             let anterior = null;
-            if (this.uno!=null){
-                cola=this.uno.dato3;
-                cantidad=this.uno.dato1;
-                this.uno= this.uno.post;   
+            if (this.cuno!=null){
+                cola=this.cuno.dato3;
+                cadena=this.cuno.dato4;
+                cantidad=this.cuno.dato1;
+                this.cuno= this.cuno.post;   
             return cola;}
-            
              }
 
 
@@ -365,15 +367,16 @@ bus(valori,valorf){
 var actual=valori;
 var aux1=p.uno;
 var aux2=p1.inicio;
+var resultado
 var bandera=true;
 var print="";
 cantidad=0;
 
 do{
 arbol.push(actual);
-print+=actual;
 if (actual==valorf){
-break;
+//break;
+console.log("k");
 }
 var aux2=p1.inicio;
 do{
@@ -383,15 +386,17 @@ do{
                 bandera=false;
             }}
             if (bandera==true){
-                c.guardar(aux2.dato3+cantidad,aux2.dato1,aux2.dato2);
-            } bandera=true;
-        
+                var n=parseInt(aux2.dato3)+parseInt(cantidad);
+                var h=cadena+" "+aux2.dato1;
+                c.guardar(n,aux2.dato1,aux2.dato2,h);
+            } bandera=true; 
     }
 aux2=aux2.sigui;
 }while(aux2!=null);
 if(c.cuno!=null){ actual=c.eliminar();  }
 }while(actual!=valorf);
-
+//console.log(actual+cantidad);
+print=cadena+" "+actual;
 console.log(print);
 
 

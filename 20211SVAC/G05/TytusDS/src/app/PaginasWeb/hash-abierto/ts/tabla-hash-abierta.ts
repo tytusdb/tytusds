@@ -29,7 +29,7 @@ export class TablaHashAbierta {
     agregar(id: any, clave: any, valor: any, metodo?: string, constante?: any): void {
         let p = 0;
         if (metodo?.toLowerCase() === 'simple') {
-            p = this.hashDivision(id)
+            p = this.hashSimple(id)
         } else if (metodo?.toLowerCase() === 'division') {
             p = this.hashDivision(id)
         } else if (metodo?.toLowerCase() === 'multiplicacion') {
@@ -132,7 +132,12 @@ export class TablaHashAbierta {
             resultado = parseInt(entrada, 10);
         }
 
-        return (resultado * this.size);
+        while(resultado >= 1) {
+            resultado = resultado / 10;
+        }
+        console.log(resultado * this.size);
+
+        return Math.round(resultado * this.size);
     }
 
     hashDivision(entrada: any): any {
@@ -158,9 +163,9 @@ export class TablaHashAbierta {
             resultado = parseInt(entrada, 10);
         }
 
-        console.log(parseFloat(`${this.size*(resultado * constante % 1)}`));
+        console.log(Math.floor(parseFloat(`${this.size*(resultado * (constante % 1))}`)));
 
-        return Math.round(this.size*((resultado * constante) % 1));
+        return Math.floor(parseFloat(`${this.size*(resultado * (constante % 1))}`));
     }
 
     getAscii(cadena: string): number {
@@ -184,7 +189,7 @@ export class TablaHashAbierta {
                 nodo.label = 'vacio';
                 nodos.push(nodo);
             } else {
-                nodo.label = `${x+1}`;
+                nodo.label = `Nodo ${x}`;
                 nodos.push(nodo);
                 for (let y = 0; y < this.arreglo[x].lista.length; y++) {
                     let n = {
