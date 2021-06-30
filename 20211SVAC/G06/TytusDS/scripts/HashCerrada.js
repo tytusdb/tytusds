@@ -278,7 +278,7 @@ class HashCerrada{
 		if((this.size*100/this.array.length) >= max){
 			let tmp = [...this.array];
 			let mprev = tmp.length
-			let m = this.size*100/min
+			let m = Math.round(this.size*100/min)
 			this.array = new Array(m)
 			for(let i = 0; i < mprev; i++){
 				if(tmp[i] != undefined){

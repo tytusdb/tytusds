@@ -133,18 +133,6 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Rehashing
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li>
-                <input class="form-control me-2" type="number" placeholder="Max" aria-label="Search" id="max" style="width: 100px;">
-                <input class="form-control me-2" type="number" placeholder="Min" aria-label="Search" id="min" style="width: 100px;">
-              </li>
-              <li><a class="dropdown-item" id="rehashing">Rehash</a></li>
-            </ul>
-          </li>
           <li>
           <form class="d-flex">
             <div class="form-group" style="margin-right:150px; margin-left: 20px;">
@@ -155,30 +143,19 @@
           </li>
         </ul>
         <form class="d-flex">
-          <select class="form-select" aria-label="Default select example" style="margin-right: 5px;" id="hash" 
-          onchange="this.className=this.options[this.selectedIndex].className">
-            <option value="0" selected>Colisión</option>
-            <option value="0" class="lineal">Lineal</option>
-            <option value="1" class="cuadratica">Cuadrática</option>
-            <option value="2" class="doble">Doble</option>
-          </select>
-          <select class="form-select" aria-label="Default select example" style="margin-right: 5px;" id="modo" 
-          onchange="this.className=this.options[this.selectedIndex].className">
-            <option value="0" selected>Elegir Hash</option>
-            <option value="0" class="doble">Simple</option>
-            <option value="1" class="cuadratica">División</option>
-            <option value="2" class="lineal">Multiplicación</option>
-          </select>
-          <input class="form-control me-2" type="number" placeholder="Tamaño" aria-label="Search" id="m" style="width: 100px;">
-          <a class="btn btn-outline-light" type="submit" style="margin-right: 105px;" id="create">Crear</a>
+          <input class="form-control me-2" placeholder="From" aria-label="Search" id="from" style="width: 100px;">
+          <input class="form-control me-2" placeholder="To" aria-label="Search" id="to" style="width: 100px;">
+          <input class="form-control me-2" placeholder="Distancia" aria-label="Search" id="distancia" style="width: 100px;">
+          <a class="btn btn-outline-light" type="submit" style="margin-right: 5px;" id="createEdge">Arista</a>
+          <input class="form-control me-2" placeholder="Valor" aria-label="Search" id="valor" style="width: 100px;">
+          <a class="btn btn-outline-light" type="submit" style="margin-right: 105px;" id="createNode">Nodo</a>
         </form>
         <form class="d-flex">  
               <a class="btn btn-outline-warning" type="submit" style="margin-right: 5px;" id="update">Actualizar</a>
               <input class="form-control me-2" type="search" placeholder="Nuevo Valor" aria-label="Search" id="nuevoValor">
-            </form>
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Ingresar Valor" aria-label="Search" id="valor">
-          <a class="btn btn-outline-success" id="add">Añadir</a>
+        </form>
+        <form class="d-flex" style="padding-left: 5px;">
+          <a class="btn btn-outline-success" id="recorrer">Recorrer</a>
         </form>
         <form class="d-flex" style="padding-left: 5px;">
           <a class="btn btn-outline-info" id="search">Buscar</a>
