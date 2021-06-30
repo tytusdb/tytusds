@@ -36,6 +36,22 @@ class ListaDoble {
       }
       this.size++;
   }
+  actualizarValor(dato: any, valor: any) {
+    let aux = this.head;
+    if (aux == null) {
+        console.log("Nada we")
+    } else {
+        while (aux != null) {
+            if (aux.data == dato) {
+                aux.data = valor;
+                return true
+            } else {
+                aux = aux.next;
+            }
+        }
+    }
+  }
+
   buscar(dato: any) {
     let aux = this.head;
     if (aux == null) {
@@ -141,39 +157,42 @@ class ListaDoble {
 
 class HashAbierta{
   Arreglo: any[];
-  constructor(){
+  fun:any;
+ 
+  constructor(fun:any){
     this.Arreglo = null;
+    this.fun = fun;
   }
   simple(){
     let k = 0.5567;
     return k * tama;
   }
 
-  division(k){
+  division(k:any){
       return k % tama;
   }
 
-  multiplicacion(k){
+  multiplicacion(k:any){
       const A = 0.6180;
       return tama*((k*A) % 1);
   }
 
-  lineal(k){
-      return ((k+1) % tama);
-  }
+  // lineal(k){
+  //     return ((k+1) % tama);
+  // }
 
-  cuadratica(k,i){
-      return ((k+i) % tama);
-  }
+  // cuadratica(k,i){
+  //     return ((k+i) % tama);
+  // }
 
-  doble(k,i){
-      return (((k % tama) + i * (7-(k % 7))) % tama);
-  }
+  // doble(k,i){
+  //     return (((k % tama) + i * (7-(k % 7))) % tama);
+  // }
   NuevaTabla(tamano: number){
     tama = tamano;
     this.Arreglo = new Array(tama);//arreglo del tamaño especifico
     for (let j = 0; j < tama; j++) {
-      this.Arreglo[j] = 0;
+      this.Arreglo[j] = "-1";
       /*nodes.update(
         {id: j, label:'0',x: this.x1 , y: this.y1, color: "#7BE141", shape: "box"}
       );
@@ -181,39 +200,167 @@ class HashAbierta{
       */
     }
   }
-  ValorPos(dato: any){
-		//let valor = 0
-		if(typeof dato === 'string'){
-			for(let j = 0; j < dato.length; j++){
-				valor += dato.charCodeAt(j)
+
+  ValorPos(valor: any){
+		let dato = 0
+		if(typeof valor === 'string'){
+			for(let j = 0; j < valor.length; j++){
+				dato += valor.charCodeAt(j)
 			}
 		} else {
-			valor = dato
+			dato = valor
+      return dato
 		}
-		return valor
+		return dato
 	}
-  AgregarValores(dato: any){
-    let datos = this.ValorPos(dato);
+  
+  eliminar(valor:any){
+    let posicion = this.ValorPos(valor);
     try {
-      if (datos < tama){
-        if (this.Arreglo[datos] == 0){
-          this.Arreglo[datos] = new ListaDoble;
-          this.Arreglo[datos].addhead(datos);
+
+      if(this.fun == "Simple"){
+        let res = Math.trunc(this.simple());
+        if(this.Arreglo[res]!="-1"){
+          this.Arreglo[res].delete(valor)
         }else{
-          this.Arreglo[datos].addhead(datos);
+          console.log("Posición vacía")
+        }
+        
+      }else if(this.fun == "Div"){
+        let res = this.division(posicion);
+        if(this.Arreglo[res]!="-1"){
+          this.Arreglo[res].delete(valor);
+        }else {
+          console.log("Posición vacía")
+        }
+
+      }else if(this.fun == "Multi"){
+        let res =Math.trunc(this.multiplicacion(posicion));
+        if(this.Arreglo[res]!="-1"){
+          this.Arreglo[res].delete(valor);
+        }else {
+          console.log("Posición vacía")
         }
       }
-      else if (datos >= tama){
-        while(datos >= tama){
-          datos = datos - tama;
-        }
-        if (this.Arreglo[datos] == 0){
-          this.Arreglo[datos] = new ListaDoble;
-          this.Arreglo[datos].addhead(datos);
+    
+
+    } catch (error) {
+      console.log('ERROR PRRA');
+      console.log(error)
+    }
+  }
+
+  actualizar(key:any, nuevo:any){
+    let posicion = this.ValorPos(key);
+    try {
+
+      if(this.fun == "Simple"){
+        let res = Math.trunc(this.simple());
+        if(this.Arreglo[res]!="-1"){
+          this.Arreglo[res].actualizarValor(key,nuevo);
         }else{
-          this.Arreglo[datos].addhead(datos);
+          console.log("Posición vacía")
+        }
+        
+      }else if(this.fun == "Div"){
+        let res = this.division(posicion);
+        if(this.Arreglo[res]!="-1"){
+          this.Arreglo[res].actualizarValor(key,nuevo);
+        }else {
+          console.log("Posición vacía")
+        }
+
+      }else if(this.fun == "Multi"){
+        let res =Math.trunc(this.multiplicacion(posicion));
+        if(this.Arreglo[res]!="-1"){
+          this.Arreglo[res].actualizarValor(key,nuevo);
+        }else {
+          console.log("Posición vacía")
         }
       }
+    
+
+    } catch (error) {
+      console.log('ERROR PRRA');
+      console.log(error)
+    }
+  }
+
+  buscar(dato:any){
+    let posicion = this.ValorPos(dato);
+    try {
+
+      if(this.fun == "Simple"){
+        let res = Math.trunc(this.simple());
+        if(this.Arreglo[res]!="-1"){
+          let bandera = this.Arreglo[res].buscar(dato);
+        }else{
+          console.log("Posición vacía")
+        }
+        
+      }else if(this.fun == "Div"){
+        let res = this.division(posicion);
+        if(this.Arreglo[res]!="-1"){
+          let bandera = this.Arreglo[res].buscar(dato);
+        }else {
+          console.log("Posición vacía")
+        }
+
+      }else if(this.fun == "Multi"){
+        let res =Math.trunc(this.multiplicacion(posicion));
+        if(this.Arreglo[res]!="-1"){
+         let bandera =  this.Arreglo[res].buscar(dato);
+        }else {
+          console.log("Posición vacía")
+        }
+      }
+    
+
+    } catch (error) {
+      console.log('ERROR PRRA');
+      console.log(error)
+    }
+  }
+
+  AgregarValores(dato: any){
+    let posicion = this.ValorPos(dato);
+    try {
+
+      if(this.fun == "Simple"){
+        let res = Math.trunc(this.simple());
+        if(this.Arreglo[res]!="-1"){
+          // si hay un dato en esa posición y se recorre la lista
+          this.Arreglo[res].addhead(dato);
+        }else{
+          //no hay dato en esa posición, se agrega
+          this.Arreglo[res] = new ListaDoble;
+          this.Arreglo[res].addhead(dato);
+        }
+        
+
+      }else if(this.fun == "Div"){
+        let res = this.division(posicion);
+        if(this.Arreglo[res]!="-1"){
+          // si hay un dato en esa posición y se recorre la lista
+          this.Arreglo[res].addhead(dato);
+        }else {
+          //no hay dato en esa posición, se agrega
+          this.Arreglo[res] = new ListaDoble;
+          this.Arreglo[res].addhead(dato);
+        }
+
+      }else if(this.fun == "Multi"){
+        let res =Math.trunc(this.multiplicacion(posicion));
+        if(this.Arreglo[res]!="-1"){
+          // si hay un dato en esa posición y se recorre la lista
+          this.Arreglo[res].addhead(dato);
+        }else {
+          //no hay dato en esa posición, se agrega
+          this.Arreglo[res] = new ListaDoble;
+          this.Arreglo[res].addhead(dato);
+        }
+      }
+    
 
     } catch (error) {
       console.log('ERROR PRRA');
