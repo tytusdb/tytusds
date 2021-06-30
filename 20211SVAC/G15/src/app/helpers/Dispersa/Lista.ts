@@ -25,7 +25,7 @@ export class Lista {
         if (this.primero === null) return null
         let temp: Nodo = this.primero
         while (temp !== null) {
-            if(this.convertir(temp.getPos().x) === this.convertir(x) && this.convertir(temp.getPos().y) === this.convertir(y) && temp.getValue() === value ) return temp
+            if(this.convertir(temp.getPos().x) === this.convertir(x) && this.convertir(temp.getPos().y) === this.convertir(y)) return temp
             if (apuntador === Apuntador.FILA) temp = temp.getSiguiente();
             else temp = temp.getAbajo()
         }
