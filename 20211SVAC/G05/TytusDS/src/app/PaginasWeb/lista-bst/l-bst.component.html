@@ -10,7 +10,7 @@
     <div class="col-1"> <button id="Eliminar" class="button1 btn btn-success" (click)="delete(eliminar.value)">Eliminar</button></div>
     <div class="col-2"><input #valor type="text" class="form-control" placeholder="Nodo a actualizar"> </div>
     <div class="col-2"><input #nuevo_valor type="text" class="form-control" placeholder="Nuevo Valor"> </div>
-    <div class="col-1"> <button id="Actualizar" class="button1 btn btn-success"  >Actualizar</button></div>
+    <div class="col-1"> <button id="Actualizar" class="button1 btn btn-success" (click)="Actualizar(valor.value,nuevo_valor.value)">Actualizar</button></div>
   </div>
   <div class="row py-1 pb-2">
     <div class="col-1"><input #search type="text" class="form-control" placeholder="Buscar" ></div>
