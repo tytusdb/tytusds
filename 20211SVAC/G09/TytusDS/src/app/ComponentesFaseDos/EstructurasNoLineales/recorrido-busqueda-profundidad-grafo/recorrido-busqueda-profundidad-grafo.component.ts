@@ -12,4 +12,8 @@ export class RecorridoBusquedaProfundidadGrafoComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  value(){
+    
+  }
+
 }
