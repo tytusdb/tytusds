@@ -11,52 +11,112 @@ class Hash {
         this.elementos = 0
         this.size = null
         this.factor = 0.0
-        this.max = null
-        this.min = null
+        this.max = 80
+        this.min = 20
         this.funcion = 'division'
+        this.prueba = 'lineal'
         this.constante_a = 0.1625277911 
     }
 
     crear(size){
+        this.elementos = 0
         this.vector.splice(0, this.vector.length)
         this.size = size
         for(let i = 0; i < this.size; i++){
-            this.vector.push(null)
+            this.vector[i] = null
         }
-        console.log(this.vector)
     }
 
     agregar(dato) {
         let codigo = this.set_key(dato)
-        let indice = this.funcionHash(codigo, this.funcion)
+        let indice = this.funcionHash(codigo)
 
         let nuevo = new Node(codigo, dato)
-        //console.log(indice)
-        //console.log(this.vector[indice])
 
+        while(this.vector[indice] != null) {
+            //indice = this.lineal(indice)
+            indice = this.pruebaHash(indice)
+        }
+        this.vector[indice] = nuevo
+        this.elementos ++
+        this.rehashing()
+    }
 
-        if(this.vector[indice] == null) {
-            this.vector[indice] = nuevo
-            console.log(this.vector)
-            
-        } else {
-            while(this.vector[indice] != null) {
-                indice += 1
-
+    rehashing() {
+        if ((this.elementos*100/this.size) >= this.max) {
+            let temporal = this.vector
+            this.mostrar()
+            let aux_size = this.size
+            this.size =  this.elementos * 100/this.min
+            this.crear(this.size)
+            for (let i = 0; i < aux_size; i++) {
+                if (temporal[i] != null) {
+                    this.agregar(temporal[i])
+                }
             }
-            indice = this.funcionHash(indice, this.funcion)
-            this.vector[indice] = nuevo
+        } else {
+            this.mostrar()
         }
     }
 
-    funcionHash(numero, funcion) {
-        if (funcion == 'simple') {
+    buscar(dato) {
+        for(let i = 0; i < this.size; i++) {
+            if(this.vector[i].dato == dato) {
+                return this.vector[i].dato 
+            }
+        }
+        return false
+    }
+
+    eliminar(dato) {
+        if (this.buscar(dato)) {
+            let indice
+            for(let i = 0; i < this.size; i++) {
+                if(this.vector[i].dato == dato) {
+                    indice = i
+                }
+            }
+            this.vector[indice] = null
+            this.elementos --
+        }
+    }
+
+    actualizar(dato, nuevo) {
+        console.log('Actualizar()')
+        if (this.buscar(dato)) {
+            this.eliminar(dato)
+            this.agregar(nuevo)
+            console.log(`Se actualizo el dato ${dato} por ${nuevo}`)
+        }
+    }
+
+    pruebaHash(numero) {
+        if (this.prueba == 'lineal') {
+            return this.lineal(numero)
+        } else if (this.prueba == ' cuadratica') {
+            console.log('cuadratica')
+            return this.lineal(numero)
+        } else {
+            return this.lineal(numero)
+        }
+    }
+
+    lineal(numero){
+        return (Math.abs(numero) + 1) % this.size
+    }
+
+    funcionHash(numero) {
+        if (this.funcion == 'simple') {
             return this.simple()
-        } else if (funcion == 'multiplicacion') {
+        } else if (this.funcion == 'multiplicacion') {
             return this.multiplicacion(numero)
         } else {
             return this.division(numero)
         }
+    }
+
+    set_prueba(prueba) {
+        this.prueba = prueba
     }
 
     simple() {
@@ -94,6 +154,20 @@ class Hash {
         }
         return codigo
     }
+
+    mostrar() {
+        let string = '['
+        for (let i = 0; i < this.size; i++) {
+            if (this.vector[i] != null) {
+                string += ` ${this.vector[i].dato}`
+            } else {
+                string += ` -1`
+            }
+            
+        }
+        string += `] ${(this.elementos*100/this.size)}%`
+        console.log(string)
+    }
 }
 
 const dato = document.getElementById('dato')
@@ -108,4 +182,21 @@ document.getElementById('crear').addEventListener('click', () =>{
 
 document.getElementById('agregar').addEventListener('click', () => {
     table.agregar(dato.value)
+})
+
+document.getElementById('buscar').addEventListener('click', () => {
+    console.log(`el dato ${table.buscar(dato.value)} si esta`)
+})
+
+document.getElementById('eliminar').addEventListener('click', () => {
+    table.eliminar(dato.value)
+})
+
+document.getElementById('actualizar').addEventListener('click', () => {
+    document.getElementById('oculto').style.display = 'block'
+})
+
+document.getElementById('cambiar').addEventListener('click', () => {
+    table.actualizar(dato.value, nuevo.value)
+    document.getElementById('oculto').style.display = 'none'
 })
