@@ -1,4 +1,5 @@
-const Nodo = require('./Nodo.js')
+import Nodo from './Nodo.js'
+// const Nodo = require('./Nodo.js')
 class Stack{
 
     constructor(){
@@ -161,4 +162,5 @@ class Stack{
 
 }
 
-module.exports = Stack;
+export default Stack;
+//module.exports = Stack;

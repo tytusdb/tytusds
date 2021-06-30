@@ -1,0 +1,15 @@
+<div class="container">
+  <app-opciones (opcionesEvento)="getOpciones($event)"></app-opciones>
+  <h1 class="text-white">Algoritmo LZW</h1>
+  <div class="row p-2">
+    <div class="col-md-6"><input class="form-control" type="file" id="formFile" (change)="getDocumento($event.target)" ></div>
+  </div>
+  <div class="row p-2">
+  <div class="col-md-6"><button class="btn btn-success button1" (click)="comprimir(tcomprimir.value)">Comprimir</button></div>
+    <div class="col-md-6"><button class="btn btn-success button1" (click)="clear()">Guardar</button></div>
+  </div>
+  <div class="row p-4">
+    <div class="col-md-6"><textarea #tcomprimir class="form-control"></textarea></div>
+    <div class="col-md-6"><textarea id="Resultado" class="form-control"></textarea></div>
+  </div>
+</div>

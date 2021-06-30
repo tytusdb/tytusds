@@ -21,26 +21,107 @@ class ListaCD{  //Clase Lista Circular doble
         this.size = 0;
     }
 
-    //Metodo Insertar
-    insert(dato){
+    //Metodo opcion de insertados
+    agregar(dato, opcion){       
+        switch (opcion) {
+            case "Inicio":
+                this.insertarInicio(dato)
+                break;
+            case "Ordenado":
+                this.agregarOrdenado(dato)
+                break;
+            case "Final":
+                this.insertFinal(dato)
+                break;     
+        }
+    }
+
+    //Metodo Insertar al Inicio
+    insertarInicio(dato){
         let nodo = new Nodo(dato);
         //Insertcion de primer nodo 
         if(this.cabeza == null){
             this.cabeza = nodo;
             this.cola = nodo;
             this.size++;
-        }else if(this.cabeza != null){
+            return
+        }else if(this.cabeza != null && this.cola != null){
             //Insercion de Nodos no primeros
-            let aux = this.cabeza;
+            this.cabeza.anterior = nodo;
+            nodo.siguiente = this.cabeza;
+            nodo.anterior = this.cola;
+            this.cola.siguiente = nodo
+            this.cabeza = nodo;
+            this.size++;
+            return
+        }
+    }
+
+    //Metodo Insertar
+    agregarOrdenado(dato){
+        let nodo = new Nodo(dato)
+        let aux = this.cabeza
+        if(this.cabeza == null){
+            this.cabeza = nodo;
+            this.cola = nodo;
+            this.size++;
+            return
+        }
+        if(dato < this.cabeza.dato){
+            //Insercion de Nodos no primeros
+            this.cabeza.anterior = nodo;
+            nodo.siguiente = this.cabeza;
+            nodo.anterior = this.cola;
+            this.cola.siguiente = nodo
+            this.cabeza = nodo;
+            this.size++;
+            return
+        }else if(dato >= this.cabeza.dato && dato <= this.cola.dato){
             while(aux != this.cola){
-                aux = aux.siguiente;
+                if(dato >= aux.dato && dato <= aux.siguiente.dato){
+                    let tmp = aux.siguiente
+                    tmp.anterior = nodo
+                    aux.siguiente = nodo
+                    nodo.siguiente = tmp
+                    nodo.anterior = aux
+                    this.size++;
+                    return
+                }
+                aux = aux.siguiente
             }
+        }else if(dato > this.cola.dato){
+            //Insercion de Nodos no primeros
+            let aux = this.cola;
             aux.siguiente = nodo;
             nodo.anterior = aux;
             nodo.siguiente = this.cabeza;
             this.cabeza.anterior = nodo;
             this.cola = nodo;
             this.size++;
+            return
+        }
+        
+    }
+
+    //Metodo Insertar al Final
+    insertFinal(dato){
+        let nodo = new Nodo(dato);
+        //Insertcion de primer nodo 
+        if(this.cabeza == null){
+            this.cabeza = nodo;
+            this.cola = nodo;
+            this.size++;
+            return
+        }else if(this.cabeza != null && this.cola != null){
+            //Insercion de Nodos no primeros
+            let aux = this.cola;
+            aux.siguiente = nodo;
+            nodo.anterior = aux;
+            nodo.siguiente = this.cabeza;
+            this.cabeza.anterior = nodo;
+            this.cola = nodo;
+            this.size++;
+            return
         }
     }
 
@@ -127,9 +208,9 @@ class ListaCD{  //Clase Lista Circular doble
     }
 
     //Metodo Carga
-    cargar(arreglo) {
+    cargar(arreglo,accion) {
         arreglo.map(elemento => {
-            this.insert(elemento)
+            this.agregar(elemento,accion)
         })
     }
 
@@ -143,9 +224,7 @@ class ListaCD{  //Clase Lista Circular doble
             archivojs.push(temporal.dato)
             temporal = temporal.siguiente
         }
-        let json = JSON.stringify(archivojs)
-        let nombre = "ListaCircularDoble"
-        fs.writeFile(nombre, json)  
+        return archivojs
     }
 
 

@@ -1,0 +1,15 @@
+.Bar {
+    width: 100%;
+    padding: 0.5rem 0;
+    background: #1B1B25;
+  }
+  
+  .Sub_bar {
+    width: 100%;
+    padding: 0.5rem 0;
+    background: #F4F4F7;
+  }
+  
+  .Boton{
+    background-image: linear-gradient(to right, #C7CEEA, #B5EAD7 );
+  }

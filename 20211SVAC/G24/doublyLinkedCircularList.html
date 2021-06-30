@@ -30,14 +30,34 @@
 				</span>
 				<input style='margin-right: 1%;margin-left: 3%;' type='submit' id='dBtn' value='Eliminar'/>
 				<input style='margin-left: 3%;' id='speed' type='range' min='0' max='9' step='1' value='4'/>
+				<input type='submit' id='downBtn' value='Guardar'/>
+
 				<script>
 					document.getElementById('file').onchange = function(){
 						var fil = document.getElementById('file').files[0];
 						const read= new FileReader();
 						read.onload=function(){
-							console.log(JSON.parse(read.result))
+							console.log(JSON.parse(read.result));
+							cy.remove('node');
+							ls=new circularDoublyLinkedList();
+							list=JSON.parse(read.result).valores;
+							rep=JSON.parse(read.result).repeticion;
+							if(!rep){
+								list=list.filter((item,index)=>list.indexOf(item)===index);
+							}
+							for(var i=0;i<list.length;i++){
+								console.log('aaaa');
+								if(isNumeric(list[i])){
+									ls.add(parseInt(list[i]));
+								}else{
+									ls.add(list[i]);
+								}
+							}
+							ls.print();lstNode=ls.getNodes();
+							addNodes(lstNode);
 						}
-						read.readAsText(fil)
+						read.readAsText(fil);
+
 
 					}
 				</script>
@@ -46,6 +66,8 @@
 		
 		<div id='cy'></div>
     	<script>
+			list=[];
+			var rep=true;
 			var ls=new circularDoublyLinkedList();
       		var cy = cytoscape({
 				container: document.getElementById('cy'),
@@ -74,6 +96,39 @@
 			const canvas = document.createElement('canvas');
 			const ctx = canvas.getContext('2d');
 			ctx.font= '20px serif';
+
+			var list=[];
+			var rep=true;
+			var pos='FINAL';
+			var ls=new circularDoublyLinkedList();
+
+			async function addNodes(n){
+				var spd = document.getElementById('speed').value;
+				const timer = ms => new Promise(res => setTimeout(res, ms));
+
+				for(var i =0; i<list.length;i++){
+					if (i==0){
+					cy.add([{data:{id:0,name:n[i]}}]).style({width:ctx.measureText(n[i]).width}).select();
+					cy.add({data:{source:0,target:0,id:'loop'}});
+					cy.add({data:{source:0,target:0,id:'loop2'}});
+					}else{
+						var r = cy.filter('#loop');
+						var r2=cy.filter('#loop2')
+						cy.remove(r);
+						cy.remove(r2);
+						cy.add({data:{id:i,name:n[i]}}).style({width:ctx.measureText(n[i]).width});
+						cy.add({data:{source:i-1,target:i}});
+						cy.add({data:{source:i,target:i-1}});
+						cy.add({data:{source:i,target:0,id:'loop'}});
+						cy.add({data:{source:0,target:i,id:'loop2'}});
+					}
+					var options={name:'circle',animate:'end',animationDuration: 100*spd};
+					cy.layout(options).run();
+					await timer(100*spd);
+				}
+				blink(ls.size-1)
+
+			}
 				
 			document.getElementById('nBtn').onclick = function(){
 				var input = document.getElementById('nText').value;
@@ -156,6 +211,33 @@
 				var pos=cy.$(':selected').data('id');
 				ls.update(pos,input);
 				cy.$(':selected').data('name',input);
+			}
+
+			function isNumeric(n) {
+  				return !isNaN(parseFloat(n)) && isFinite(n);
+			}
+
+			document.getElementById('downBtn').onclick=function(){
+				var nodos=ls.getNodes();
+				var obj = new Object();
+				obj.categoria="Estructura Lineal";
+				obj.nombre="Lista Circular Doblemente Enlazada";
+				obj.repeticion=rep;
+				obj.animacion= document.getElementById('speed').value;
+				obj.posicion=pos;
+				obj.valores=nodos;
+				var jsonString=JSON.stringify(obj,undefined,2);
+				console.log(jsonString);
+				download(jsonString, "listaCircularDoblementeEnlazada.json", "text/plain");
+			
+			}
+
+			function download(content, fileName, contentType) {
+				const a = document.createElement("a");
+				const file = new Blob([content], { type: contentType });
+				a.href = URL.createObjectURL(file);
+				a.download = fileName;
+				a.click();
 			}
 
 		</script>

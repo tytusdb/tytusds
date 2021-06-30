@@ -1,4 +1,5 @@
-const Nodo = require('./Nodo.js')
+import Nodo from './Nodo.js'
+// const Nodo = require('./Nodo.js')
 class ListaDoble{
 
     constructor(){
@@ -235,4 +236,5 @@ class ListaDoble{
 
 }
 
-module.exports = ListaDoble;
+export default ListaDoble;
+//module.exports = ListaDoble;

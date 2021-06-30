@@ -22,84 +22,120 @@
 							type="button"
 							aria-label="Home"
 							><i class="icon-home"></i></a
-						>Ordenamiento por Inserción
+						>Ordenamiento Burbuja
 					</h1>
 					<ul>
 						<li>
-							<label for="array-json" class="btn">
-								<i class="icon-upload-cloud"></i>Cargar</label
-							>
 							<input
-								type="file"
-								onchange="onChangeUploadInput(event)"
-								id="array-json"
+								type="checkbox"
 								style="display: none"
+								id="show-files-menu"
 							/>
-						</li>
-						<li>
-							<button type="button"><i class="icon-save"></i>Guardar</button>
-						</li>
-						<li>
-							<input type="checkbox" style="display: none" id="show-velocity" />
-							<label class="btn" for="show-velocity" type="button">
-								<i class="icon-fast-forward"></i>Velocidad
+							<label class="btn nav-btn" for="show-files-menu" type="button">
+								<i class="icon-file"></i>Archivos
 								<i class="icon-chevron-down"></i>
 							</label>
-							<div class="range-container">
-								<input
-									type="range"
-									min="50"
-									max="800"
-									id="velocity"
-									onchange="onChangeSortVelocity(event)"
-								/>
+							<div class="files-menu-container">
+								<ul>
+									<li>
+										<label
+											onclick="hideNavMenu(0)"
+											for="array-json"
+											class="btn"
+										>
+											<i class="icon-upload-cloud"></i>Cargar</label
+										>
+										<input
+											type="file"
+											onchange="onChangeUploadInput(event)"
+											id="array-json"
+											style="display: none"
+										/>
+									</li>
+									<li>
+										<button onclick="saveSortJSONFile()">
+											<i class="icon-save"></i>Guardar
+										</button>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<input
+								type="checkbox"
+								style="display: none"
+								id="show-settings-menu"
+							/>
+							<label class="btn nav-btn" for="show-settings-menu" type="button">
+								<i class="icon-settings"></i>Configuración
+								<i class="icon-chevron-down"></i>
+							</label>
+							<div class="settings-menu-container">
+								<ul>
+									<li>
+										<button type="button">
+											<i class="icon-fast-forward"></i>Velocidad
+										</button>
+										<div class="range-container">
+											<input
+												type="range"
+												min="5"
+												step="5"
+												max="30"
+												value="5"
+												id="velocity"
+												onchange="onChangeSortVelocity(event)"
+											/>
+										</div>
+									</li>
+								</ul>
 							</div>
 						</li>
 						<li class="test-code-btn">
-								<input
-									type="checkbox"
-									style="display: none"
-									id="show-code-menu"
-									checked='true'
-								/>
-								<label class="btn" for="show-code-menu" type="button">
-									<i class="icon-code"></i>Muestra de código
-									<i class="icon-chevron-down"></i>
-								</label>
-								<div class="editor">
-									<pre><code><strong style="color:var(--monoConstIce)">const</strong> data:<strong style="color:var(--monoNumberIce)">number</strong>[] <i style='color:var(--graySoda)'>=</i> [<strong style="color:var(--lightPurple)" id='code-data-array'>4, 1, 13, 2, 15, 3, 8, 9, 5, 11, 14, 6, 18, 12, 7</strong>]
-						<strong style="color: var(--monoFuncGreen)">insertionSort</strong>(data)</code></pre>
-									<ul>
-										<li>
-											<button
-												class="reset"
-												onclick="restartSortedData()"
-												type="button"
-											>
-												<i class="icon-repeat"></i>
-											</button>
-										</li>
-										<li>
-											<label
+							<input
+								type="checkbox"
+								style="display: none"
+								id="show-code-menu"
+								checked="true"
+							/>
+							<label class="btn" for="show-code-menu" type="button">
+								<i class="icon-code"></i>Muestra de código
+								<i class="icon-chevron-down"></i>
+							</label>
+							<div class="editor">
+								<pre><code><strong style="color:var(--monoConstIce)">const</strong> data:<strong style="color:var(--monoNumberIce)">number</strong>[] <i style='color:var(--graySoda)'>=</i> [<strong style="color:var(--lightPurple)" id='code-data-array'>4, 1, 13, 2, 15, 3, 8, 9, 5, 11, 14, 6, 18, 12, 7</strong>]
+							<strong style="color: var(--monoFuncGreen)">bubbleSort</strong>(data)</code></pre>
+								<ul>
+									<li>
+										<button
+											class="reset"
+											onclick="restartSortedData()"
+											type="button"
+										>
+											<i class="icon-repeat"></i>
+										</button>
+									</li>
+									<li>
+										<label
 											class="btn"
-											for='show-code-menu'
-												id="start-btn"
-												type="button"
-												onclick="startSorting()"
-											>
-												<i class="icon-play"></i>Iniciar
-											</label>
-										</li>
-									</ul>
-								</div>
-								<div class="sort-banner">
-									<img
-										id="sort-banner"
-										src="../../images/pages/sort.png"
-										alt="Bot"
-									/>
-								</div>
-							</li>
+											for="show-code-menu"
+											id="start-btn"
+											type="button"
+											onclick="startSorting()"
+										>
+											<i class="icon-play"></i>Iniciar
+										</label>
+									</li>
+								</ul>
+							</div>
+							<div class="sort-banner">
+								<img
+									id="sort-banner"
+									src="../../images/pages/sort.png"
+									alt="Bot"
+								/>
+							</div>
+						</li>
 					</ul>
 				</div>
 			</nav>
@@ -162,7 +198,7 @@
 			</footer>
 		</main>
 		<script src="../../../scripts/utils/colors.js"></script>
-		<script src="../../../scripts/utils/canvas.js"></script>	
+		<script src="../../../scripts/utils/canvas.js"></script>
 		<script src="../../../scripts/visualizer/index.js"></script>
 		<script src="../../../scripts/visualizer/sort.js"></script>
 		<script src="../../../scripts/structures/insertionsort/index.js"></script>

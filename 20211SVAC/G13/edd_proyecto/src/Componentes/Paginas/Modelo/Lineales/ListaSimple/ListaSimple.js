@@ -1,4 +1,7 @@
-const Nodo = require('./Nodo.js');
+import Nodo from './Nodo.js'
+import fs from 'fs';
+// const Nodo = require('./Nodo.js');
+
 class ListaSimple{
 
     cabeza = null
@@ -176,13 +179,39 @@ class ListaSimple{
 
     }
 
-    readJason = (text) => {
+    generateJSON = () => {
 
-       
-      
-        
+        var dic = {};
 
+        dic.categoria = "Estructura Lineal"
+        dic.nombre = "Lista Simplemente/doblemente/circular simplemente/circular doblemente Enlazada"
+        var dot = []
+        if (this.get_vacia() == false){
+            let nodo_actual = this.get_cabeza();
+            do{
+                if(typeof(parseInt(nodo_actual.get_dato())) == "number"  && 0 <= parseInt(nodo_actual.get_dato())){
+                    
+                    dot.push(parseInt(nodo_actual.get_dato()))
+                     
+                }else if (typeof(nodo_actual.get_dato()) == "string" ){
+
+                    dot.push(nodo_actual.get_dato().toString())
+
+                } 
+
+                nodo_actual = nodo_actual.get_siguiente();
+            }while(nodo_actual != null);
+        }
+        dic.valores = dot;
+        console.log(dic)
+        var dictstring = JSON.stringify(dic);
+        console.log(dictstring)
+        // var fs = require('fs')
+        fs.writeFile("thing.json", dictstring, function(err, result) {
+            if(err) console.log('error', err);
+        });
     }
+
 
 
     get_cabeza = () =>{ return this.cabeza; }
@@ -191,4 +220,6 @@ class ListaSimple{
     set_ultimo = (ultimo) => { this.ultimo = ultimo; }
 }
 
-module.exports = ListaSimple;
+export default ListaSimple;
+//module.exports = ListaSimple;
+

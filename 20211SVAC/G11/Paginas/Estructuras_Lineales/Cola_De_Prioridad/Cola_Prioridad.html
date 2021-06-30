@@ -7,8 +7,10 @@
     <title>Lista_Simplemente_enlazada</title>
     <link rel="stylesheet" href= "../../../CSS/Header.css">
     <link rel="stylesheet" href= "../../../CSS/estilos.css">
+    <link rel="stylesheet" href= "Cola_Prioridad.css">
     <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <!--<script type="text/javascript"  language="JavaScript" src="pila.js" ></script>-->
+    <script type="text/javascript"  language="JavaScript" src="Cola_Prioridad.js" ></script>
+
 </head>
 <body>
     <!-- Bootstrap CSS -->
@@ -26,24 +28,19 @@
         <div class="row mt-3">
             <div class="col-8">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Ingresar datos" id="valor">
+                    <input type="text" class="form-control" placeholder="Ingresar datos" id="patient-name">&nbsp;&nbsp;
+                    <input type="number" id="patient-priority" max="5" placeholder="Ingrese la Prioridad"/>
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-append">
-                        <button class="btn-Ingrese" >Apilar</button>
+                        <button class="btn-Ingrese" id="add-patient">Agregar a la Cola</button>
                     </div>
 
-                    <div class="input-group-append">
-                        <button class="btn-Elimina" >Desapilar</button>
+                    <div class="input-group-append" >
+                        <button class="btn-Elimina" id="attend-patient">Listo!</button>
                     </div>
                     
-                    <div class="input-group-append">
-                        <button class ="btn-Actualizar">Actualizar</button>
-                    </div>
-
-                    <div class="input-group-append">
-                        <button class ="btn-Buscar">Buscar</button>
-                    </div>
+                   
                     
                     <div class="input-group-append">
                         <button class ="btn-Guardar">Guardar</button>
@@ -53,10 +50,19 @@
                 <div class="input-group mb-3">                    
                     <div id = "div_file">
                         <p id="texto">Cargar</p>
-                        <input type ="file" id="btn_Cargar">
+                        <input type ="file" id="btn_Cargar" accept="txt/json" onchange= "return validarExt()"/>
                     </div>
                 </div>
             </div>
+            <div id="ed-queue">
+                <div id="service">
+                  Cola...
+                </div>
+                <div id="current-patient"></div>
+              
+                <div id="patients-queue">
+                </div>
+              </div>
         </div>
     </div>
 </body>

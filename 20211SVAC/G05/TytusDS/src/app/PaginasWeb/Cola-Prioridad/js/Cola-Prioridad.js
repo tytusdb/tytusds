@@ -12,6 +12,7 @@ class cola_prioridad{
         this.uno=null;
         this.fin=null;
         this.tamaño=0;
+        this.av=true;
     }
 
 guardar(valor,valor1){
@@ -81,18 +82,25 @@ var element1=document.createElement("button");
 }
 
 guardar2(valor,valor1){
-        let nodo = new Nodo(valor,valor1)
+        let nodo = new Nodo(valor,valor1);
         let aux1;
         let aux2;
         let aux=this.uno;
         var  bandera=true;
-        do{if (valor==aux.dato){
-            bandera=false;
-            break;}
-            aux=aux.post;
-        }while(aux!=null);
+        if(this.uno==null){
+            this.uno=nodo;
+             nodo.post=null;
+             this.fin=nodo;
+         }else{
+            do{
+                if (valor1==aux.dato1){
+                bandera=false;
+                break;}
+                aux=aux.post;
+            }while(aux!=null);
+         }
 
-        if (bandera==true){
+         if (bandera==true){
             if(this.uno==null){
                 this.uno=nodo;
                  nodo.post=null;
@@ -122,9 +130,61 @@ guardar2(valor,valor1){
         else{
             alert("dato no valido");
         }
+        
+        
 
 }
 
+
+guardar21(valor,valor1,tiempo){
+        let nodo = new Nodo(valor,valor1)
+        let aux1;
+        let aux2;
+        let aux=this.uno;
+        var  bandera=true;
+        if(this.uno==null){
+            this.uno=nodo;
+             nodo.post=null;
+             this.fin=nodo;
+         }else{
+            do{if (valor1==aux.dato1){
+                bandera=false;
+                this.av=false;
+                break;}
+                aux=aux.post;
+            }while(aux!=null);
+         }
+
+        if (bandera==true){
+            if(this.uno==null){
+                this.uno=nodo;
+                 nodo.post=null;
+                 this.fin=nodo;
+             }else{ aux1=this.uno;
+                 while(aux1!=null){
+                     aux2=aux1.post;
+                     if(nodo.dato<aux1.dato){
+                         nodo.post=this.uno;
+                         this.uno=nodo;
+                         this.fin=this.uno;
+                         break;}
+                     else{
+                         if(nodo.dato>=aux1.dato && aux2==null){
+                             aux1.post=nodo;
+                             nodo.post=null;
+                             this.fin=nodo;
+                             break;
+                         }else{  if(aux1.dato<=nodo.dato && aux2.dato>nodo.dato){
+                             aux1.post=nodo;
+                             nodo.post=aux2;
+                             break;
+                             }else{aux1=aux1.post;}
+                             }}}
+     }  this.buscarespecial(tiempo);
+        }
+        
+
+}
 
 
 
@@ -132,12 +192,7 @@ eliminar(){
     let actual = this.uno;
     let anterior = null;
     if (this.uno!=null){
-            if(actual==this.fin){
-                if(actual==this.uno){
-                  this.uno=this.uno.post;
-            }else{
-                this.uno=this.uno.post;
-              }} 
+        this.uno= this.uno.post;
             
               var puntero=document.getElementById("myDiv1");
               if (puntero.childNodes.length>0) {
@@ -211,7 +266,7 @@ modificar2(bus,valor){
 
 
 
-buscar(valor){
+buscar(valor,tiempo){
     var ele= document.getElementById("myDiv1");
     while (ele.firstChild) {
         ele.removeChild(ele.firstChild);}   
@@ -219,6 +274,7 @@ buscar(valor){
     let aux = this.uno;
     var bandera=true;
     var bandera1=true;
+    var bandera3=false;
     if (this.uno!=null){
         //while(aux!=null){
         
@@ -226,6 +282,7 @@ buscar(valor){
                 bandera1=false;
                 if (valor==aux.dato1){
                     bandera=false;
+                    bandera3=true;
                     var element1=document.createElement("button");
                     var myDiv1=document.getElementById("myDiv1");
                     var content1=document.createTextNode("Prio: "+aux.dato);
@@ -246,7 +303,6 @@ buscar(valor){
                     element.style.borderRadius="5px";
                     element.style.boxShadow="0 9px black";
                     element.style.width="125px";
-                    element.style.height="40px";
                     myDiv.appendChild(element);
                     window.scroll({
                         top: 2000,
@@ -277,7 +333,6 @@ buscar(valor){
                     element.style.borderRadius="5px";
                     element.style.boxShadow="0 9px black";
                     element.style.width="125px";
-                    element.style.height="40px";
                     myDiv.appendChild(element);
                     window.scroll({
                         top: 2000,
@@ -289,23 +344,27 @@ buscar(valor){
                 }
                 aux=aux.post;
                     var pos = 0;
-                    var id = setInterval(frame, 10);
+                    var id = setInterval(frame, 3);
     function frame() { if (pos == 50) { clearInterval(id);} 
         else { pos++; myDiv.style.top = pos + 'px'; myDiv.style.left = 55 + 'px';}}
               
               if (aux==null){  
                 if(bandera1==false){ if (bandera==true){alert("dato no encontrado");}}
-                  clearInterval(intervalo);}
+                if(bandera3==true) {alert("Dato encontrado"); } 
+                clearInterval(intervalo);}
             };
         
-        var intervalo = setInterval(fun,1000);
+        var intervalo = setInterval(fun,tiempo);
     }
         else{
             alert("Pila vacia"); 
         }
+
+
+
 }
 
-buscarespecial(){
+buscarespecial(tiempo){
     var ele= document.getElementById("myDiv1");
     while (ele.firstChild) {
         ele.removeChild(ele.firstChild);}   
@@ -335,7 +394,6 @@ buscarespecial(){
                     element.style.borderRadius="5px";
                     element.style.boxShadow="0 9px black";
                     element.style.width="125px";
-                    element.style.height="40px";
                     myDiv.appendChild(element);
                     window.scroll({
                         top: 2000,
@@ -346,7 +404,7 @@ buscarespecial(){
                 
                 aux=aux.post;
                     var pos = 0;
-                    var id = setInterval(frame, 10);
+                    var id = setInterval(frame, 3);
     function frame() { if (pos == 50) { clearInterval(id);} 
         else { pos++; myDiv.style.top = pos + 'px'; myDiv.style.left = 55 + 'px';}}
               
@@ -354,7 +412,7 @@ buscarespecial(){
                 
                   clearInterval(intervalo);}
             };
-        var intervalo = setInterval(fun,1000);
+        var intervalo = setInterval(fun,tiempo);
     }
     if (this.uno==null){alert("Cola De Prioridad Vacia");}
 }
@@ -404,16 +462,16 @@ leer(){
     let aux = this.uno;
     if (this.uno!=null){
         do{
-            ldatos.push([aux.dato.toString(),aux.dato1.toString()]);
+            var ob =new Object();
+            
+            ob.valor=aux.dato1.toString();
+            ob.prioridad=aux.dato.toString();
+            ldatos.push(ob);
             aux=aux.post;
             }while(aux!=null);}
     else{console.log("sin datos"); }
     return ldatos;
   }
-
-
-
-
 
 
 

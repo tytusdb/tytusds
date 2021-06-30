@@ -1,6 +1,7 @@
-const Nodo = require('./Nodo.js');
+import Nodo from './Nodo.js'
+// const Nodo = require('./Nodo.js');
 
-class ListaCDE{
+class ListaCircularDE{
 	primero=null;
 	ultimo=null;
 
@@ -137,6 +138,19 @@ class ListaCDE{
             i++;
         }
     }
+    Actualizar = (dato, cambio) => {
+        let nodo_actual = this.get_primero();
+        if (this.vacia() == false){
+            let i = 0;
+            while(i<this.size){
+                if (nodo_actual.get_dato() == dato){
+                    nodo_actual.set_dato(cambio);
+                }
+                nodo_actual = nodo_actual.get_siguiente()
+                i++;
+            }
+        }
+    }
     Buscar=(dato)=>{
         let nodo_actual = this.get_primero()
         if (this.vacia() == false){
@@ -161,7 +175,15 @@ class ListaCDE{
         if (this.vacia() == false){
             let i = 0
             while(i<this.size){
-                dot.push({id:i, label: nodo_actual.get_dato()});    
+                if(i==0){
+                    let etiqueta=nodo_actual.get_dato()+"\n Inicio"
+                    dot.push({id:i, label: etiqueta});
+                }else if(i+1==this.size){
+                    let etiqueta=nodo_actual.get_dato()+"\n Final"
+                    dot.push({id:i, label: etiqueta});
+                }else{
+                    dot.push({id:i, label: nodo_actual.get_dato()});  
+                }
                 nodo_actual = nodo_actual.get_siguiente();
                 i++;
             } 
@@ -171,6 +193,8 @@ class ListaCDE{
     GenerarEdgesDOT = () => {
         let nodo_actual = this.get_primero();
         var dot = [];
+        let idinicio=this.size+1;
+        let idfinal=this.size+2;
         if (this.vacia() == false){
             let i = 0;
             while(i<this.size){
@@ -196,4 +220,5 @@ class ListaCDE{
     }
 }
 
-module.exports = ListaCDE;
+export default ListaCircularDE;
+//module.exports = ListaCircularDE;

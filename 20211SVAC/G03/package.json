@@ -7,6 +7,9 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "dompurify": "^2.2.9",
+    "graphviz-react": "^1.2.0",
+    "js-sha256": "^0.9.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-graph-vis": "^1.0.7",
@@ -16,13 +19,14 @@
     "recharts": "^2.0.9",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^2.0.3",
+    "viz.js": "^1.8.0",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "predeploy": "npm run build",
+    "predeploy": "npm run --max_old_space_size=4096 build",
     "deploy": "gh-pages -d build",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-scripts --max_old_space_size=4096 start",
+    "build": "react-scripts --max_old_space_size=4096 build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

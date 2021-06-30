@@ -3,7 +3,7 @@ export default function Insercion(arr){
     for (let x = 0; x < arr.length; x++) {
         derecha = x
         aux = arr[x]
-        while((derecha>0) && (arr[derecha-1] > aux)){
+        while((derecha>0) && (arr[derecha-1].ASCII > aux.ASCII)){
             arr[derecha] = arr[derecha-1]
             derecha--
         }

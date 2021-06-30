@@ -1,5 +1,6 @@
 var arrayNodes = []
 var edges = []
+var arregloaux = []
 var contador = 1
 var clickedNode
 var index
@@ -63,6 +64,13 @@ class ArbolDeMerkle{
             }
         }
         this.claves = arreglo
+    }
+
+    recorrerGuardar(){
+        this.reorganizar()
+        for(var i = 0; i<this.claves.length; i++){
+            arregloaux.push(this.claves[i].valor.toString(16))
+        }
     }
 
     eliminar(id, valor){
@@ -131,10 +139,10 @@ class ArbolDeMerkle{
             this.recorrerGraficar(temp.izq)
             arrayNodes.push({id: temp.id, label: temp.valor.toString(), shape: "box"})
             if(temp.izq != null){
-                edges.push({from: temp.id, to: temp.izq.id})
+                edges.push({from: temp.id, to: temp.izq.id, arrows: "from"})
             }
             if(temp.der != null){
-                edges.push({from: temp.id, to: temp.der.id})
+                edges.push({from: temp.id, to: temp.der.id, arrows: "from"})
             }
             this.recorrerGraficar(temp.der)
         }
@@ -292,7 +300,7 @@ function read(){
                 for(let i=0; i<val.length; i++){
                     contadorr = contadorr + 0.5
                     setTimeout(function (params) {
-                        arbolbb.agregar(parseInt(val[i],16))
+                        arbolbb.agregar(val[i],16)
                         arbolbb.estructurar()
                         actualizarTablero()
                     },(1000)*Math.round(parseInt(slider.value)/2)*contadorr) 
@@ -302,12 +310,12 @@ function read(){
                 switchToggle.checked = false
                 for(let i=0; i<val.length; i++){
                     contadorr = contadorr + 0.5
-                    if (arbolbb.buscar(parseInt(val[i],16), arbolbb.raiz)){
+                    if (arbolbb.buscar(val[i], arbolbb.raiz)){
                         console.log("no se aceptan valores repetidos")
                     }else{
                         contadorr = contadorr + 0.5
                         setTimeout(function (params) {
-                            arbolbb.agregar(parseInt(val[i],16))
+                            arbolbb.agregar(+val[i])
                             arbolbb.estructurar()
                             actualizarTablero()
                         },(1000)*Math.round(parseInt(slider.value)/2)*contadorr)                        
@@ -316,5 +324,33 @@ function read(){
                 }
                 break;
         }
+    }
+}
+
+function descargar(){
+    arbolbb.recorrerGuardar()
+    let array = {
+        categoria: "Estructura Arboreas",
+        nombre:  "Arbol de Merkle",
+        repeticion: switchToggle.checked,
+        animacion: parseInt(slider.value),
+        valores: arregloaux
+    }
+    arregloaux = []
+    var json = JSON.stringify(array, null, "\t");
+    json = [json];
+    var blob1 = new Blob(json, { type: "text/json;charset=utf-8" });
+    var isIE = false || !!document.documentMode;
+    if (isIE) {
+        window.navigator.msSaveBlob(blob1, "data.json");
+    } else {
+        var url = window.URL || window.webkitURL;
+        link = url.createObjectURL(blob1);
+        var a = document.createElement("a");
+        a.download = "dataArbolMerkle.json";
+        a.href = link;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
     }
 }

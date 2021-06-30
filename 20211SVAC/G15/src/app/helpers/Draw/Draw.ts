@@ -4,6 +4,7 @@ export class Draw {
     
     posicionesRight(div, div2) {
         return {
+            
             x1: div.getBoundingClientRect().right,
             x2: div2.getBoundingClientRect().left + 50,
             y1: div.getBoundingClientRect().top + div.offsetHeight / 2 - 5,

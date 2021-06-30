@@ -6,24 +6,31 @@ class Abinario{
     this.listaaux=new listaaux();
     this.raiz=null;
     this.json=[];
+    this.repeat=false;
     this.dot="";
     this.L_nodos=[]
     this.L_edges=[]
     this.nNulls=0;
   }
-
+  set Repeat(repeat){
+    this.repeat=repeat
+  }
   Dot(){
     this.L_edges=[]
     this.L_nodos=[]
     this.Dotgen();
     let ldata=[]
-    this.preorden();
     ldata.push(this.L_nodos);
     ldata.push(this.L_edges);
     return ldata
   }
   append(valor){
-    this.raiz=this._append(valor,this.raiz,null);
+    let existe=this.buscar(valor)
+    if (this.repeat==true) {
+      this.raiz = this._append(valor, this.raiz, null);
+    }else if(this.repeat==false && existe==null ){
+      this.raiz = this._append(valor, this.raiz, null);
+    }
   }
   _append(valor,nodo,padre){
     //si se repite mandar a la derecha
@@ -80,29 +87,29 @@ class Abinario{
   }
 
   _eliminar(nodo){
-      //caso 1:
-      if(nodo.right==null && nodo.left==null){
-        this.E_NcH(nodo,null);
-        this.E_Nodo(nodo);
-        this.nNulls-=2;
-      }
-      //caso 2
-      else if(nodo.left!==null && nodo.right===null){
-        this.E_NcH(nodo,nodo.left);
-        this.E_Nodo(nodo);
-        this.nNulls-=1;
-        //caso 3
-      }else if(nodo.right!==null && nodo.left===null){
-        this.E_NcH(nodo,nodo.right);
-        this.E_Nodo(nodo);
-        this.nNulls-=1;
-      }
-      //caso4
-      else if(nodo.right!=null && nodo.left!=null){
-        let nodoMin=this.minimo(nodo.right);
-        nodo.valor=nodoMin.valor;
-        this._eliminar(nodoMin);
-      }
+    //caso 1:
+    if(nodo.right==null && nodo.left==null){
+      this.E_NcH(nodo,null);
+      this.E_Nodo(nodo);
+      this.nNulls-=2;
+    }
+    //caso 2
+    else if(nodo.left!==null && nodo.right===null){
+      this.E_NcH(nodo,nodo.left);
+      this.E_Nodo(nodo);
+      this.nNulls-=1;
+      //caso 3
+    }else if(nodo.right!==null && nodo.left===null){
+      this.E_NcH(nodo,nodo.right);
+      this.E_Nodo(nodo);
+      this.nNulls-=1;
+    }
+    //caso4
+    else if(nodo.right!=null && nodo.left!=null){
+      let nodoMin=this.minimo(nodo.right);
+      nodo.valor=nodoMin.valor;
+      this._eliminar(nodoMin);
+    }
 
   }
   //eliminar nodo
@@ -116,26 +123,30 @@ class Abinario{
   E_NcH(nodo,nodo_hijo){
     if(nodo==this.raiz){
       this.raiz=nodo_hijo;
-    }
+    }else{
     if(nodo.padre!=null){
       //si el nodo a eliminar se encuentra de lado izquierdo para que esto se cumpla se debe de cumplir la igualacion
       if(nodo.padre.left!=null) {
+
         if (nodo.valor == nodo.padre.left.valor) {
+
           nodo.padre.left = nodo_hijo;
           //si el nodo a eliminar se encuentra de lado derecho
         }
-      }else if(nodo.padre.right!=null) {
+      }
+      if(nodo.padre.right!=null) {
+
         if (nodo.valor == nodo.padre.right.valor) {
           nodo.padre.right = nodo_hijo;
         }
       }
-
-
-
     }
-    if(nodo_hijo!=null){
+      if(nodo_hijo!=null){
       nodo_hijo.padre=nodo.padre
+      }
     }
+
+    this.preorden();
   }
 
   //MINIMO, obtener el valor mas a la izquierda de la rama derecha.
@@ -151,7 +162,7 @@ class Abinario{
   }
   //MAXIMO
   preorden(){
-  //raiz->sub-arbol izquierdo->sub-arbol derecho
+    //raiz->sub-arbol izquierdo->sub-arbol derecho
     this.pre_orden(this.raiz);
   }
   pre_orden(nodo){
@@ -168,6 +179,7 @@ class Abinario{
   in_orden(nodo){
     if (nodo!=null){
       this.in_orden(nodo.left);
+      console.log(`${nodo.valor} padre: ${nodo.padre}`);
       this.in_orden(nodo.right);
     }
 
@@ -177,10 +189,11 @@ class Abinario{
     this.post_orden(this.raiz);
   }
   post_orden(nodo){
-      if(nodo!=null){
-        this.post_orden(nodo.left);
-        this.post_orden(nodo.right);
-      }
+    if(nodo!=null){
+      this.post_orden(nodo.left);
+      this.post_orden(nodo.right);
+      console.log(`${nodo.valor} padre: ${nodo.padre}`);
+    }
   }
   Dotgen(){
     //se resetea la lista;
@@ -210,9 +223,6 @@ class Abinario{
       //Restar siempre -1 para que los nodos esten conectaos si no se crearian nodos en posiciones aleatorias
       let apostrofe=this.listaaux.buscar(nodo.valor).apostrofe-1;
       //la raiz es la unica posicion donde no se debe de restar ese valor, como se realizo se le coloco 0
-      if (apostrofe==-1){
-        apostrofe=0
-      }
       let nodoraiz=nodo.valor+`(${apostrofe})`;
       //INGRESO DE OBJETOS NODO
       this.Lnodos(nodoraiz,nodo.valor);
@@ -255,7 +265,7 @@ class Abinario{
     }
     let vnodo= new NodoE(id,label);
     if(this.CompararNodos(vnodo)==false){
-    this.L_nodos.push(vnodo);}
+      this.L_nodos.push(vnodo);}
   }
   //LISTA DE EDGES
   Ledges(from,to){
@@ -265,7 +275,7 @@ class Abinario{
     }
     let edge=new Edge(from,to);
     if(this.CompararEdges(edge)==false){
-    this.L_edges.push(edge);}
+      this.L_edges.push(edge);}
   }
   Rdot(){
     return this.dot;
@@ -291,7 +301,7 @@ class Abinario{
   /////////----------------------------------------------------
   //Retornar Json
   Rjson(){
-    this.json=[]
+    this.json=[];
     this._Rjson(this.raiz);
     return this.json;
   }

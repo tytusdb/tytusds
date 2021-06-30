@@ -10,6 +10,8 @@ var fileInput = document.querySelector('input[type="file"]');
 var switchToggle = document.getElementById("flexSwitchCheckDefault")
 var slider = document.getElementById("customRange2");
 
+let dataDowloand = [];
+
 class Nodo {
     constructor(dato) {
         this.dato = dato;
@@ -63,6 +65,7 @@ class Pila {
 
     //recorrido y llenado de nodos
     mostrar(){
+        dataDowloand = []
         let i = 0;
         if (!this.IsVacia())
         {
@@ -72,9 +75,11 @@ class Pila {
                 {
                     arrayNodes.push({id: i, label: actual.dato, shape: "box"});
                     edges.push({from: i - 1, to: i})
+                    dataDowloand.push(actual.dato);
                     i++;
                 }else{
                     arrayNodes.push({id:i, label: actual.dato, shape: "box"});
+                    dataDowloand.push(actual.dato);
                     i++;
                 }
                 actual = actual.siguiente;
@@ -260,7 +265,7 @@ function focus() {
         scale: 5.0,
         offset: {x:0,y:0},
         animation: {
-            duration: (1000)*(slider.value),
+            duration: (1000)*(11 - slider.value),
             easingFunction: "easeOutQuint"
         }
     }
@@ -269,7 +274,7 @@ function focus() {
 
 function BuscarNodo() {
     focus();
-    setTimeout(zoomExtended, (1000)*(slider.value));
+    setTimeout(zoomExtended, (1000)*(11 - slider.value));
     document.getElementById("valueNodo").value="";
 }
 
@@ -283,7 +288,7 @@ function insertarNodos(array) {
         setTimeout(function (params) {
             pila.ApilarJson(temp[i].toString());
             actualizarT();
-        },(1000)*Math.round(parseInt(slider.value)/2)*contador)
+        },(500)*(11 - slider.value)*contador)
     }
 }
 
@@ -339,4 +344,31 @@ function zoomExtended(){
     }
 
     network.moveTo(options);
+}
+
+function descargar(){
+
+    let arrayDescargado ={
+        categoria: "Estructura lineal",
+        nombre: "Pila",
+        valores: dataDowloand
+    }
+
+    var json = JSON.stringify(arrayDescargado, null, "\t");
+    json = [json];
+    var blob1 = new Blob(json, { type: "text/json;charset=utf-8" });
+    //Check the Browser.
+    var isIE = false || !!document.documentMode;
+    if (isIE) {
+        window.navigator.msSaveBlob(blob1, "data.json");
+    } else {
+        var url = window.URL || window.webkitURL;
+        link = url.createObjectURL(blob1);
+        var a = document.createElement("a");
+        a.download = "data_Pila.json";
+        a.href = link;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
 }

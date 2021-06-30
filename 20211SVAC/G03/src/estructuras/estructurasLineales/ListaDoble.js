@@ -1,7 +1,5 @@
-var fs = require('fs')
 class Nodo {
-    constructor(valor) {
-        this.id = null;
+    constructor(valor) {        
         this.valor = valor;
         this.siguiente = null;
         this.anterior = null;
@@ -12,27 +10,78 @@ class Nodo {
 class ListaDoble {
     constructor() {
         //inicializar atributos
-        this.contador = 0;
-        this.contadorListas = 0;
         this.primero = null;
         this.ultimo = null;
 
     }
-    
-    agregar(elemento){
-        this.contador ++;
+
+    agregar(elemento, accion){        
+        switch(accion){
+            case "Ordenado":
+                this.agregarOrdenado(elemento);
+                break;
+            case "Final":
+                this.agregarFinal(elemento);
+                break;
+            case "Inicio":
+                this.agregarInicio(elemento);
+                break;   
+        }
+    }
+
+
+    agregarInicio(elemento){
+        let nodo = new Nodo(elemento);
+        let temporal = this.primero;
+        if(this.primero == null){
+            this.primero = nodo;
+        }else{
+            nodo.siguiente =this.primero;
+            this.primero.anterior = nodo;
+            this.primero = nodo;
+        }
+
+    }
+
+    agregarOrdenado(elemento){
+        let nodo = new Nodo(elemento)
+        if(this.primero == null){
+            this.primero = nodo;
+        }else{
+            let temporal = this.primero;
+
+            while(temporal.siguiente != null ){
+                if(temporal.valor <= elemento && temporal.siguiente.valor >= elemento){
+                    nodo.siguiente = temporal.siguiente;
+                    temporal.siguiente.anterior = nodo;
+                    nodo.anterior = temporal;
+                    temporal.siguiente = nodo;   
+                    break;                 
+                }else if(temporal == this.primero && temporal.valor >= elemento){
+                    nodo.siguiente = this.primero;
+                    this.primero.anterior = nodo;
+                    this.primero = nodo;
+                    break;
+                }                                
+                temporal = temporal.siguiente;
+
+            }if(temporal.siguiente == null && temporal.valor <= elemento){
+                temporal.siguiente = nodo;
+                nodo.anterior = temporal; 
+            }
+        }
+
+    }
+    agregarFinal(elemento){        
         var temporal = this.primero;
         let nodo = new Nodo(elemento);
-        if(this.primero == null){
-            nodo.id = this.contador;
+        if(this.primero == null){            
             this.primero = nodo;
         }else {
             
             while(temporal.siguiente != null) {
-                temporal = temporal.siguiente;
-                console.log(temporal)
-            }
-            nodo.id = this.contador;
+                temporal = temporal.siguiente;                
+            }            
             temporal.siguiente = nodo;
             nodo.anterior = temporal;
         }
@@ -66,15 +115,15 @@ class ListaDoble {
         }
     }
 
-    actualizar(id,valor){
+    actualizar(reemplazo,valor){
         if (this.primero == null) {
             console.log("No hay nada en las lista")
         }
         else {
             let temporal = this.primero;
             while (temporal != null) {
-                if (temporal.valor == id) {
-                    temporal.valor = valor;
+                if (temporal.valor == valor) {
+                    temporal.valor = reemplazo;
                 }
                 temporal = temporal.siguiente;
             }
@@ -104,20 +153,24 @@ class ListaDoble {
         });
     }
 
-    guardar(){
-        let contadorListas
-        contadorListas ++;
-        let archivojs;
+    guardar() {
+        let archivojs= [];
         let temporal = this.primero;
         while (temporal != null){
-            archivojs[temporal.id] = temporal.valor;
+            archivojs.push(temporal.valor);
             temporal = temporal.siguiente;
             
         }
-        let json = JSON.stringify(archivojs)
-        let nombre = "ListaSimple" + contadorListas;
-        fs.writeFile(nombre, json)
+        return archivojs;
+        
+    }
 
+    imprimir(){
+        let temporal = this.primero;
+        while(temporal != null){
+            console.log(temporal.valor + "Aqui")
+            temporal = temporal.siguiente;
+        }
     }
 
     Recorrido(datoBuscar){
@@ -142,5 +195,5 @@ class ListaDoble {
 
 
 }
-
+//module.exports.ListaDoble = ListaDoble;
 export default ListaDoble;

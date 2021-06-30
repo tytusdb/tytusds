@@ -82,9 +82,20 @@ class circularDoble {
         }
     }
 
+    localizado(dato) {
+        let actual = this.primero;
+        for (let i=0; i < this.size; i++) {
+            if (actual.valor == dato) {
+                return true;
+            } 
+            actual = actual.siguiente;
+        }
+        return false;
+    }
+
     actualizar(dato, nuevo) {
         let actual = this.primero;
-        if (this.localizado(dato)) {
+        if (this.buscar(dato)) {
             while (actual.valor != dato) {             
                 actual = actual.siguiente
             }
@@ -95,15 +106,24 @@ class circularDoble {
         }
     }
 
-    localizado(dato) {
-        let actual = this.primero;
-        for (let i=0; i < this.size; i++) {
+    index(dato) {
+        let actual = this.primero
+        let contador = 0
+        while (this.buscar(dato)) {
             if (actual.valor == dato) {
-                return true;
-            } 
-            actual = actual.siguiente;
+                return contador
+            }
+            contador += 1
+            actual = actual.siguiente
         }
-        return false;
+    }
+
+    obtener(numero) {
+        let actual = this.primero
+        for (let i = 0; i < this.size; i ++) {
+            if (numero == i) {return actual.valor}
+            actual = actual.siguiente
+        }
     }
 
     mostrar() {
@@ -138,11 +158,12 @@ const guardar = document.getElementById('guardar')
 const cargar = document.getElementById('cargar')
 
 const velocidad = document.getElementById("velocidad")
-let num_velocidad;
+let time = 5
 
 velocidad.oninput = () => {
     document.getElementById('numero').innerHTML = velocidad.value
-    num_velocidad = velocidad.value
+    if (velocidad.value == 3 ) time = 2.5
+    else time = parseInt(velocidad.value)
 }
 
 const salida ={
@@ -161,8 +182,16 @@ agregar.addEventListener("click", (e) => {
 
 eliminar.addEventListener("click", (e) => {
     e.preventDefault()
+
+    context.clearRect(0, 0, canvas.width, canvas.height)
+    x_figura = 20
+    x_texto = 50
+
     if(dato.value != ''){
         lista.eliminar(dato.value)
+        for(let i = 0; i< lista.size; i++) {
+            cargar_grafica(lista.obtener(i))
+        }
         const indice = salida.lista.indexOf(dato.value)
         salida.lista.splice(indice, 1)
     }
@@ -183,8 +212,17 @@ buscar.addEventListener("click", (e) => {
 
 cambiar.addEventListener("click", (e) => {
     const nuevo = document.getElementById('dato2')
+    context.clearRect(0, 0, canvas.width, canvas.height)
+    x_figura = 20
+    x_texto = 50
+
     if(dato.value != '' && nuevo.value != ''){
         lista.actualizar(dato.value, nuevo.value)
+
+        for(let i = 0; i< lista.size; i++) {
+            cargar_grafica(lista.obtener(i))
+        }
+
         const indice = salida.lista.indexOf(dato.value)
         salida.lista[indice] = nuevo.value
     }
@@ -218,7 +256,22 @@ cargar.addEventListener("click", (e) => {
 
 guardar.addEventListener("click", (e) => {
     e.preventDefault()
+    let texto = JSON.stringify(salida)
+    download('CircularDoble.json', texto)
 })
+
+function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+  
+    element.style.display = 'none';
+    document.body.appendChild(element);
+  
+    element.click();
+  
+    document.body.removeChild(element);
+}
 
 // ---------Animaciones------------------------------------------------------------------------------------
 var canvas = document.getElementById('lienzo')
@@ -377,7 +430,6 @@ function crear_cuadrado() {
 
 function animar() {
 
-    let time = 5
     window.requestAnimationFrame(function loop() {
 
         if (x_start != x_figura) {

@@ -126,12 +126,13 @@ const guardar = document.getElementById('guardar')
 const cargar = document.getElementById('cargar')
 
 const velocidad = document.getElementById("velocidad")
-let num_velocidad = 3;
 
+let time = 2.5
 velocidad.oninput = () => {
     document.getElementById('numero').innerHTML = velocidad.value
     //num_velocidad = (velocidad.value * 1) / 5
-    num_velocidad = velocidad.value
+    if (velocidad.value == 3 ) time = 2.5
+    else time = parseInt(velocidad.value)
     
 }
 
@@ -152,8 +153,16 @@ agregar.addEventListener("click", (e) => {
 
 eliminar.addEventListener("click", (e) => {
     e.preventDefault()
+
+    context.clearRect(0, 0, canvas.width, canvas.height)
+    x_figura = 20
+    x_texto = 50
+
     if(dato.value != ''){
         lista.eliminar(dato.value)
+        for(let i = 0; i< lista.size; i++) {
+            cargar_grafica(lista.obtener(i))
+        }
         const indice = salida.lista.indexOf(dato.value)
         salida.lista.splice(indice, 1)
     }
@@ -174,12 +183,21 @@ buscar.addEventListener("click", (e) => {
 
 cambiar.addEventListener("click", (e) => {
     const nuevo = document.getElementById('dato2')
+
+    context.clearRect(0, 0, canvas.width, canvas.height)
+    x_figura = 20
+    x_texto = 50
+
     if(dato.value != '' && nuevo.value != ''){
         lista.actualizar(dato.value, nuevo.value)
         const indice = salida.lista.indexOf(dato.value)
         salida.lista[indice] = nuevo.value
+        for(let i = 0; i< lista.size; i++) {
+            cargar_grafica(lista.obtener(i))
+        }
     }
     document.getElementById('oculto').style.display = 'none'
+    
 })
 
 let archivo = document.getElementById('file')
@@ -196,6 +214,7 @@ archivo.addEventListener('change', () => {
 
 cargar.addEventListener("click", (e) => {
     e.preventDefault()
+
     let valores = entrada["valores"]
     salida.lista = valores
     for (let i = 0; i < valores.length; i++) {
@@ -211,6 +230,8 @@ let x_texto_aux
 
 guardar.addEventListener("click", (e) => {
     e.preventDefault()
+    let texto = JSON.stringify(salida)
+    download('ListaSimple.json', texto)
 })
 
 function download(filename, text) {
@@ -327,7 +348,6 @@ function crear_cuadrado() {
 
 function animar() {
 
-    let time = 5
     window.requestAnimationFrame(function loop() {
 
         if (x_start != x_figura) {

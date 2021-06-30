@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 declare var adDCola:any;
 declare var DeletCola:any;
 declare var buscarCola:any;
+declare var actualizarCOla:any;
 
 @Component({
   selector: 'app-cola',
@@ -16,6 +17,10 @@ export class ColaComponent implements OnInit {
   }
   eliminarCola(){
     DeletCola()
+
+  }
+  getValueActualizarCola(var1:string,var2:string){
+    actualizarCOla(var1,var2)
 
   }
   getValue1(val:string){

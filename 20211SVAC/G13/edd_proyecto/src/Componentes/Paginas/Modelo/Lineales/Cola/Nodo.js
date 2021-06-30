@@ -10,5 +10,5 @@ class Nodo{
 	get_valor(){ return this.valor;}
 	set_valor(valor){ this.valor=valor;}
 }
-
-module.exports = Nodo;
+export default Nodo;
+// module.exports = Nodo;

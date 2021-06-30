@@ -15,7 +15,7 @@ class Rapido{
 				aux_izq++;//va hacia adelante
 			}
 			while(arreglo[aux_der]>pivote){
-				aux_der--: //se disminuye debido que va hacia atras
+				aux_der--; //se disminuye debido que va hacia atras
 			}
 			if(aux_izq <= aux_der){
 				this.Cambio(arreglo, aux_izq, aux_der);//Cambio
@@ -40,3 +40,4 @@ class Rapido{
 		return arreglo;
 	}
 }
+export default Rapido;

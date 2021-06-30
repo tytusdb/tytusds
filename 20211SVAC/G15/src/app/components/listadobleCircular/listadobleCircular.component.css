@@ -1,7 +1,7 @@
 body {
   min-height: 100vh;
   min-width: 100%;
-  background-color: #b0bec5;
+  background: #063f6d; 
 }
 
 .container {
@@ -9,9 +9,7 @@ body {
   z-index: 1;
 }
 
-.opciones {
-  background-color: #b43e60;
-}
+
 
 .arrow {
   stroke: rgb(0, 0, 0);

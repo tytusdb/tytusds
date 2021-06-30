@@ -9,8 +9,13 @@ export class Seleccion extends Component {
         this.state = {
             valorSeleccion: "",
             seleccion: [],
+            arregloPalabra: [],
+            valoresAscci: [],
+            arregloPalabraOrdenado: [],
+            tamañoAscci: 0
 
         }
+        this.leerJson = this.leerJson.bind(this)
     }
 
 
@@ -29,67 +34,188 @@ export class Seleccion extends Component {
 
 
     handleSubmit = (e) => {
-        e.preventDefault();
-        // console.log("Formulario Subido")
-        // console.log(this.state.valorBurbuja)
-        this.state.seleccion.push(parseInt(this.state.valorSeleccion))
+        e?.preventDefault();
+       
+        let numero = parseInt(this.state.valorSeleccion);
+        let palabra = this.state.valorSeleccion;
+
+        if (Number.isNaN(numero)) {
+
+            this.state.arregloPalabra.push(palabra);
+
+        } else {
+
+            this.state.seleccion.push(numero);
+        };
 
         this.setState({
-            burbuja: this.state.seleccion
+            seleccion: this.state.seleccion
         })
+
+        this.letrasAnumeros(this.state.arregloPalabra)
     };
 
 
 
+    leerJson(event) {
+        const input = event.target
+        const reader = new FileReader()
+        reader.onload = (event) => {
+            const text = reader.result
 
+            const json = JSON.parse(text)
+            const valores = json.valores
 
-    ordenamientoAnimacion = (contador, listaSeleccion) => {
+            valores.forEach((element, index) => {
+                setTimeout(() => {
+                    this.setState({
+                        valorSeleccion: element,
+                    }, () => {
+                        this.handleSubmit()
+                    })
 
+                }, index * 1000)
+            });
 
-        setTimeout(() => {
             this.setState({
-                seleccion: listaSeleccion
+                data: json
             })
-        },  contador*800)
+        }
+        reader.readAsText(input.files[0], "UTF-8")
     }
 
 
-    ordenamiento = () => {
-        const tamañoLista = this.state.seleccion.length;
-        const seleccionLista = this.state.seleccion;
-        let contador = 0
 
-        for (let i = 0; i < tamañoLista; i++) {
-            let minimo = i
-            for (let j = i + 1; j < tamañoLista; j++) {
-                if (seleccionLista[minimo] > seleccionLista[j]) {
+     ordenamientoAnimacion = (contador, listaSeleccion, siesTexto) => {
 
-                    minimo = j;
-                    this.ordenamientoAnimacion(++contador, seleccionLista)
-         
-                }
-      
-            }
-            
-            if(minimo != i){
-                let temporal = seleccionLista[i]
-                seleccionLista[i] =  seleccionLista[minimo]
-                seleccionLista[minimo] = temporal
-            }
-            this.ordenamientoAnimacion(++contador, seleccionLista)
-         
+
+         setTimeout(() => {
+            this.setState({
+                seleccion: siesTexto ? []:  listaSeleccion,
+                arregloPalabraOrdenado: siesTexto ? listaSeleccion: []
+            })
+        },  contador*550)
+    }
+
+    sumaAscii = (cadena) => {
+
+        for (let i = 0; i < cadena.length; i++) {
+
+            this.state.tamañoAscci = this.state.tamañoAscci + parseInt(cadena.charCodeAt(i))
+        }
+    }
+
+    letrasAnumeros = (arreglo) => {
+
+
+     
+        this.state.valoresAscci = []
+        for (let i = 0; i < arreglo.length; i++) {
+            let tmp = arreglo[i]
+            this.sumaAscii(tmp)
+
+            this.state.valoresAscci.push(this.state.tamañoAscci)
+            this.state.tamañoAscci = 0
+
         }
 
+        this.state.arregloPalabraOrdenado = []
+
+        for (let x = 0; x < this.state.valoresAscci.length; x++) {
+
+            this.state.arregloPalabraOrdenado.push(
+                {
+                    palabra: {
+                        string: this.state.arregloPalabra[x],
+                        tamañoAscci: this.state.valoresAscci[x]
+                    }
+
+
+                }
+            )
+
+
+        }
 
         this.setState({
-            seleccion: seleccionLista,
+            arregloPalabra: arreglo
         })
+    }
+
+
+
+
+
+    ordenamiento = () => {
+
+
+        let valor  = parseInt(this.state.seleccion[0]);
+        
+        if(Number.isNaN(valor)){
+            const listaSeleccion = this.state.arregloPalabraOrdenado
+            const tamañoLista = this.state.arregloPalabraOrdenado.length
+            let contador = 0
+
+            for (let i = 0; i < tamañoLista; i++) {
+                let minimo = i
+                for (let j = i + 1; j < tamañoLista; j++) {
+                    if (listaSeleccion[minimo]['palabra']['tamañoAscci'] > listaSeleccion[j]['palabra']['tamañoAscci']) {
+
+                        minimo = j;
+                       
+         
+                    }
+                    this.ordenamientoAnimacion(++contador, [...listaSeleccion],true)
+                }   
+            
+                if(minimo != i){
+                    let temporal = listaSeleccion[i]
+                    listaSeleccion[i] =  listaSeleccion[minimo]
+                    listaSeleccion[minimo] = temporal
+                    this.ordenamientoAnimacion(++contador, [...listaSeleccion],true)
+                }
+         
+         
+            }
+
+
+        }else{
+            const listaSeleccion = this.state.seleccion
+            const tamañoLista = this.state.seleccion.length
+
+            let contador = 0
+
+            for (let i = 0; i < tamañoLista; i++) {
+                let minimo = i
+                
+                for (let j = i + 1; j < tamañoLista; j++) {
+                    if (listaSeleccion[minimo] > listaSeleccion[j]) {
+
+                        minimo = j;
+                        
+         
+                    }
+                    this.ordenamientoAnimacion(++contador, [...listaSeleccion],false)
+                }   
+            
+                if(minimo != i){
+                    let temporal = listaSeleccion[i]
+                    listaSeleccion[i] =  listaSeleccion[minimo]
+                    listaSeleccion[minimo] = temporal
+                    this.ordenamientoAnimacion(++contador, [...listaSeleccion],false)
+                }
+         
+         
+            }
+        }
+
 
     }
 
 
     render() {
         console.log(this.state.seleccion)
+        console.log(this.state.arregloPalabraOrdenado)
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
@@ -114,7 +240,9 @@ export class Seleccion extends Component {
                             <div className="col-sm-2 d-grid gap-2">
                                 <button type="button" className="btn btn-success" onClick={this.ordenamiento} >Ordenar</button>
                             </div>
-
+                            <div className="col-sm-2 d-grid gap-2"> 
+                                <input type="file" class="form-control" onChange={this.leerJson} />    
+                                </div>
                         </div>
 
                     </div>
@@ -124,7 +252,7 @@ export class Seleccion extends Component {
                     <div className="card mt-4">
                         <Bar
                             data={{
-                                labels: this.state.seleccion,
+                                labels: this.state.seleccion.length > 0 ? this.state.seleccion : this.state.arregloPalabraOrdenado.map((palabra) => palabra.palabra.string),
                                 options: {
                                     plugins: {
                                         legend: {
@@ -141,7 +269,7 @@ export class Seleccion extends Component {
                                 datasets: [
                                     {
                                         label: 'ordenamiento de seleccion ',
-                                        data: this.state.seleccion,
+                                        data:  this.state.seleccion.length > 0 ? this.state.seleccion : this.state.arregloPalabraOrdenado.map((palabra) => palabra.palabra.tamañoAscci),
                                         backgroundColor: [
                                             'rgba(255, 99, 132, 0.2)',
                                             'rgba(54, 162, 235, 0.2)',

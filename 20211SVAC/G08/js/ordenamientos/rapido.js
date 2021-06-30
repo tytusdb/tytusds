@@ -23,6 +23,7 @@ btn_velocidad.addEventListener("click", datoVelocidad)
 
 
 // F  U  N  C  I  O  N  E  S  -  E  V  E  N  T  O  S
+var datOrden = [];
 
 // ***** LIMPIAR PANTALLA *****
 function limpiar(){
@@ -35,7 +36,7 @@ function saveFile(){
     var fileJ = {
         "categoria": `${convert.categoria}`,
         "nombre": `${convert.nombre}`,
-        "valores": listaValores
+        "valores": datOrden
     }
 
     let saveArchivo = new Blob([JSON.stringify(fileJ)],{type:"application/json"});
@@ -93,42 +94,6 @@ function longitudWord(palabra){
     return suma;
 }
 
-// VISUALIZADOR DE ORDENAMIENTO BURBUJA
-// GENERADOR DE BARRAS
-/*
-var container = document.getElementById("array");
-function generateElements(datos, typeD){
-    for (var t = 0; t < datos.length;t++){
-        // creando div para cada dato de la lista
-        var elemento = document.createElement("div");
-        elemento.classList.add("block");
-        // añadiendo el estilo a los bloques 
-        // ** CAMBIOS DE LONGITUD PENDIENTES **
-        if (typeD === 'number'){      // depende del tipo de dato asi sera su height  
-            if (datos[t]<=100 ){ // para que se vea mejor depende de su centena
-                elemento.style.height = `${datos[t]*4}px`;
-
-            } else if (datos>100 && datos < 1000){
-
-                elemento.style.height = `${datos[t]*0.02}px`;
-            } else {
-                elemento.style.height = `${datos[t]*0.04}px`;
-            } 
-        } else{
-            var tamWord = longitudWord(datos[t]);
-            elemento.style.height = `${tamWord*0.5}px`;
-        }
-        //elemento.style.height = `${datos[t]*0.05}px`;
-        elemento.style.transform=`translate(${t*35}px)`
-        // mostrar el valor 
-        var elemento_label = document.createElement("label");
-        elemento_label.classList.add("block_id");
-        elemento_label.innerText = datos[t];
-        // colocando los elementos en su espacio determinado
-        elemento.appendChild(elemento_label);
-        container.appendChild(elemento);
-    }
-}*/
 
 var container = document.getElementById("addElement");
 function generateSpace(datosFile, typeDa){
@@ -141,76 +106,7 @@ function generateSpace(datosFile, typeDa){
 
     }
 } 
-// INTERCAMBIO DE POSICION DE BLOQUES
-function cambiar(bloque1, bloque2){
-    return new Promise((resolve) =>{
 
-        // cambiar el estilo de los bloques
-        var bloque_tmp = bloque1.style.transform;
-        bloque1.style.transform = bloque2.style.transform;
-        bloque2.style.transform = bloque_tmp;
-
-        window.requestAnimationFrame(function(){
-            setTimeout(() =>{
-                container.insertBefore(bloque2, bloque1);
-                resolve();
-            }, 250); // velocidad de animacion
-        });
-    });
-
-}
-
-async function insercion(delay = 100){
-    var bloques = document.querySelectorAll(".block");
-    velocidad =10;
-    console.log(listaValores);
-    var cont = false;
-    for(let i = 1; i < listaValores.length; i++){
-        const element = listaValores[i];
-        let j = i - 1;
-        // color de bloques seleccionados
-        bloques[i].style.backgroundColor = "#FF4949";
-        bloques[j].style.backgroundColor = "#FF4949";
-        // delay de 0.1 segundo para que se entienda
-        await new Promise((resolve) =>
-        setTimeout(() =>{
-            resolve();
-        }, (velocidad*100)) //delay
-        );   
-        while(j >= 0 && listaValores[j] > element){
-
-            bloques[j].style.backgroundColor = "#FF4949";
-            bloques[j+1].style.backgroundColor = "#FF4949";
-            // delay de 0.1 segundo para que se entienda
-            await new Promise((resolve) =>
-            setTimeout(() =>{
-                resolve();
-            }, (velocidad*50)) //delay
-            );  
-
-            listaValores[j + 1] = listaValores[j];
-            await cambiar(bloques[j], bloques[j + 1]);
-            bloques = document.querySelectorAll(".block");
-            bloques[j].style.backgroundColor = "#6b5b95";
-            bloques[j+1].style.backgroundColor = "#6b5b95";
-
-            // j + 1
-            j--; // -1 
-            // j +1 aqui se dejan de seleccionar 
-            
-        }
-        
-        bloques[i].style.backgroundColor = "#6b5b95";
-        bloques[i-1].style.backgroundColor = "#6b5b95";
-          
-
-        listaValores[j + 1] = element;
-        
-    }
-    console.log("Valores ordenados")
-    console.log(listaValores);
-
-}
 
 // ORDENAMIENTO RAPIDO
 function rapido(listaV){
@@ -248,7 +144,7 @@ function rapido(listaV){
     rightSide = rapido(rightSide);
     console.log("---------------------")
     var listaComplete = leftSide.concat(pivote).concat(rightSide);
-    imprimir(listaComplete, tipoDato)
+    //imprimir(listaComplete, tipoDato)
     return leftSide.concat(pivote).concat(rightSide);
     
 
@@ -271,11 +167,34 @@ function imprimir(datosFile, typeDa){
 function infoFile(){ // metodo que convierte la cadena obtenida del archivo en json y permite leerlo
    
 
-    rapido(listaValores);
+    datOrden = rapido(listaValores);
+    console.log("PRUEBAS----------");
+
+
+    // Mostrar todo ordenado
+    console.log(datOrden);
+    finalResult(datOrden);
+
     
-    //generateSpace(lista2, tiipoo);
-    //console.log(rapido(listaValores));
-    
+
+}
+
+
+async function finalResult(values){
+    for(let i = 0; i < values.length; i++){
+        
+            // Creando los cuadros y agregandole el elemento ingresado
+            const div = document.createElement("div");
+            div.classList.add('cuadrito');
+            div.textContent = values[i];
+            container.appendChild(div);
+            await new Promise((resolve) =>
+                setTimeout(() =>{
+                resolve();
+                }, (velocidad*200)) //delay
+            ); 
+        
+    }
 
 }
 
