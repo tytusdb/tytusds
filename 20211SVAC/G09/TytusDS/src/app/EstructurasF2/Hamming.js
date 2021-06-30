@@ -100,5 +100,6 @@ function HammingCadena(cadena) {
     console.log(convertTextToBinary(cadena))
     Hamming(convertTextToBinary(cadena))
 }
+
 HammingCadena("se lo dije")
 //Hamming("0110101")
