@@ -6,6 +6,14 @@ class listaaux{
     this.size=0
   }
   append(valor){
+    let NodoExiste=this.buscar(valor);
+    if(NodoExiste==null){
+      this._append(valor);
+    }else{
+      NodoExiste.repeticion+=1;
+    }
+  }
+  _append(valor){
     let nodo= new Nodo(valor);
     if(this.head==null){
       this.head=nodo;
@@ -25,6 +33,17 @@ class listaaux{
       current=current.next
     }
     return null;
+  }
+  Nrep(valor){
+    let n=0;
+    let current = this.head;
+    while (current!=null){
+      if(current.valor==valor){
+        n+=1;
+      }
+      current=current.next
+    }
+    return n;
   }
   Reset(){
     this.head=null;
