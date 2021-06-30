@@ -12,4 +12,7 @@ export class AlgoritmoCostoUniformeComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  value(){
+    
+  }
 }
