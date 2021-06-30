@@ -45,7 +45,8 @@
               "src/app/Ordenamientos/Ordenamientos.js",
               "src/app/Structures/BinaryTree.js",
               "src/app/Structures/AVLTree.js",
-              "src/app/Structures/Btree2.js"
+              "src/app/Structures/Btree2.js",
+              "src/app/EstructurasF2/HasshCerrada.js"
             ]
           },
           "configurations": {
@@ -121,7 +122,8 @@
               "src/app/Ordenamientos/Ordenamientos.js",
               "src/app/Structures/BinaryTree.js",
               "src/app/Structures/AVLTree.js",
-              "src/app/Structures/Btree2.js"
+              "src/app/Structures/Btree2.js",
+              "src/app/EstructurasF2/HasshCerrada.js"
             ]
           }
         },
