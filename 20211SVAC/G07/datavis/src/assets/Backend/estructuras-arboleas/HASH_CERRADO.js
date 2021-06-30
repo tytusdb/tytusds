@@ -68,17 +68,6 @@ class hash{
     imprimir(){
         console.log(this.tabla);
     }
-    // ValorPos(dato: any){
-	// 	let valor = 0
-	// 	if(typeof dato === 'string'){
-	// 		for(let j = 0; j < dato.length; j++){
-	// 			valor += dato.charCodeAt(j)
-	// 		}
-	// 	} else {
-	// 		valor = dato
-	// 	}
-	// 	return valor
-	// }
 
     verificacionDato(valor){
         let dato = 0;
@@ -93,30 +82,305 @@ class hash{
         return dato;
     }
 
-    buscar(valor){
+    //Eliminar
+    eliminar(valor){
         let calc = this.verificacionDato(valor);
         
-        if(this.func == "Simple" && this.test =="Lineal"){
+        if(this.fun == "Simple" && this.test =="Lineal"){
+            let res = Math.trunc(this.simple());
+            while(this.tabla[res]!=valor){
+                res = this.lineal(res);
+            }
+            this.tabla[res] = "-1";
+            this.size--;
+
+        }else if(this.fun == "Simple" && this.test =="Cuadratica"){
+            let r;
+            let res = Math.trunc(this.simple());
+            let iteracion = 0;
+            do{
+                let j = Math.pow(iteracion,2);
+                r = this.cuadratica(res,j);
+                iteracion++;
+            }while(this.tabla[r]!=valor)
+            this.tabla[r] = "-1";
+            this.size--;
+        
+        }else if(this.fun == "Simple" && this.test =="Doble"){
+            let r;
+            let res = Math.trunc(this.simple());
+            let iteracion = 0;
+            do{
+                r = this.doble(res,iteracion);
+                iteracion++;
+            }while(this.tabla[r]!=valor);
+            this.tabla[r] = "-1";
+            this.size--;
+
+        }else if(this.fun == "Div" && this.test =="Lineal"){
+            let res = this.division(calc);
+            while(this.tabla[res]!=valor){
+                res = this.lineal(res); 
+            }
+            this.tabla[res] = "-1";
+            this.size--;
+
+        }else if(this.fun == "Div" && this.test =="Cuadratica" ){
+            let r;
+            let res = this.division(calc);
+            let iteracion = 0;
+
+            do{
+                
+                let j = Math.pow(iteracion,2);
+                r = this.cuadratica(res,j);
+                iteracion++;
+                
+            }while(this.tabla[r]!=valor);
+            this.tabla[r] = "-1";
+            this.size--;
+
+        }else if(this.fun == "Div" && this.test =="Doble" ){
+            let r;
+            let res = this.division(calc);
+            let iteracion = 0;
+            do{
+                r = this.doble(res,iteracion);
+                iteracion++;
+            }while(this.tabla[r]!=valor);
+            this.tabla[r] = "-1";
+            this.size--;
+
+        }else if(this.fun == "Multi" && this.test =="Lineal" ){
+            let res =Math.trunc(this.multiplicacion(calc));
+            while(this.tabla[res]!=valor){
+                res = this.lineal(res); 
+            }
+            this.tabla[res] = "-1";
+            this.size--;
+
+        }else if(this.fun == "Multi" && this.test =="Cuadratica" ){
+            let r;
+            let res = Math.trunc(this.multiplicacion(calc));
+            let iteracion = 0;
+            do{
+                
+                let j = Math.pow(iteracion,2);
+                r = this.cuadratica(res,j);
+                iteracion++;
+                
+            }while(this.tabla[r]!=valor);
+            this.tabla[r] = "-1";
+            this.size--;
+
+        }else if(this.fun == "Multi" && this.test =="Doble" ){
+            let r;
+            let res = Math.trunc(this.multiplicacion(calc));
+            let iteracion = 0;
+            do{
+                r = this.doble(res,iteracion);
+                iteracion++;
             
-        }else if(this.func == "Simple" && this.test =="Cuadratica"){
-
-        }else if(this.func == "Simple" && this.test =="Doble"){
-
-        }else if(this.func == "Div" && this.test =="Lineal"){
-
-        }else if(this.func == "Div" && this.test =="Cuadratica" ){
-
-        }else if(this.func == "Div" && this.test =="Doble" ){
-
-        }else if(this.func == "Multi" && this.test =="Lineal" ){
-
-        }else if(this.func == "Multi" && this.test =="Cuadratica" ){
-
-        }else if(this.func == "Multi" && this.test =="Doble" ){
-
+            }while(this.tabla[r]!=valor);
+            this.tabla[r] = "-1";
+            this.size--;
         }
     }
 
+
+    //Actualizar
+    actualizar(valor,sustituto){
+        let calc = this.verificacionDato(valor);
+        
+        if(this.fun == "Simple" && this.test =="Lineal"){
+            let res = Math.trunc(this.simple());
+            while(this.tabla[res]!=valor){
+                res = this.lineal(res);
+            }
+            this.tabla[res] = sustituto;
+
+        }else if(this.fun == "Simple" && this.test =="Cuadratica"){
+            let r;
+            let res = Math.trunc(this.simple());
+            let iteracion = 0;
+            do{
+                let j = Math.pow(iteracion,2);
+                r = this.cuadratica(res,j);
+                iteracion++;
+            }while(this.tabla[r]!=valor)
+            this.tabla[r] = sustituto;
+        
+        }else if(this.fun == "Simple" && this.test =="Doble"){
+            let r;
+            let res = Math.trunc(this.simple());
+            let iteracion = 0;
+            do{
+                r = this.doble(res,iteracion);
+                iteracion++;
+            }while(this.tabla[r]!=valor);
+            this.tabla[r] = sustituto;
+
+        }else if(this.fun == "Div" && this.test =="Lineal"){
+            let res = this.division(calc);
+            while(this.tabla[res]!=valor){
+                res = this.lineal(res); 
+            }
+            this.tabla[res] = sustituto;
+
+        }else if(this.fun == "Div" && this.test =="Cuadratica" ){
+            let r;
+            let res = this.division(calc);
+            let iteracion = 0;
+
+            do{
+                
+                let j = Math.pow(iteracion,2);
+                r = this.cuadratica(res,j);
+                iteracion++;
+                
+            }while(this.tabla[r]!=valor);
+            this.tabla[r] = sustituto;
+
+        }else if(this.fun == "Div" && this.test =="Doble" ){
+            let r;
+            let res = this.division(calc);
+            let iteracion = 0;
+            do{
+                r = this.doble(res,iteracion);
+                iteracion++;
+            }while(this.tabla[r]!=valor);
+            this.tabla[r] = sustituto;
+
+        }else if(this.fun == "Multi" && this.test =="Lineal" ){
+            let res =Math.trunc(this.multiplicacion(calc));
+            while(this.tabla[res]!=valor){
+                res = this.lineal(res); 
+            }
+            this.tabla[res] = sustituto;
+
+        }else if(this.fun == "Multi" && this.test =="Cuadratica" ){
+            let r;
+            let res = Math.trunc(this.multiplicacion(calc));
+            let iteracion = 0;
+            do{
+                
+                let j = Math.pow(iteracion,2);
+                r = this.cuadratica(res,j);
+                iteracion++;
+                
+            }while(this.tabla[r]!=valor);
+            this.tabla[r] = sustituto;
+
+        }else if(this.fun == "Multi" && this.test =="Doble" ){
+            let r;
+            let res = Math.trunc(this.multiplicacion(calc));
+            let iteracion = 0;
+            do{
+                r = this.doble(res,iteracion);
+                iteracion++;
+            
+            }while(this.tabla[r]!=valor);
+             this.tabla[r] = sustituto;
+        }
+    }
+
+    //Buscar
+    buscar(valor){
+        let calc = this.verificacionDato(valor);
+        
+        if(this.fun == "Simple" && this.test =="Lineal"){
+            let res = Math.trunc(this.simple());
+            while(this.tabla[res]!=valor){
+                res = this.lineal(res);
+            }
+            return this.tabla[res];
+
+        }else if(this.fun == "Simple" && this.test =="Cuadratica"){
+            let r;
+            let res = Math.trunc(this.simple());
+            let iteracion = 0;
+            do{
+                let j = Math.pow(iteracion,2);
+                r = this.cuadratica(res,j);
+                iteracion++;
+            }while(this.tabla[r]!=valor)
+            return this.tabla[r];
+        
+        }else if(this.fun == "Simple" && this.test =="Doble"){
+            let r;
+            let res = Math.trunc(this.simple());
+            let iteracion = 0;
+            do{
+                r = this.doble(res,iteracion);
+                iteracion++;
+            }while(this.tabla[r]!=valor);
+            return this.tabla[r];
+
+        }else if(this.fun == "Div" && this.test =="Lineal"){
+            let res = this.division(calc);
+            while(this.tabla[res]!=valor){
+                res = this.lineal(res); 
+            }
+                return this.tabla[res];
+
+        }else if(this.fun == "Div" && this.test =="Cuadratica" ){
+            let r;
+            let res = this.division(calc);
+            let iteracion = 0;
+
+            do{
+                
+                let j = Math.pow(iteracion,2);
+                r = this.cuadratica(res,j);
+                iteracion++;
+                
+            }while(this.tabla[r]!=valor);
+            return this.tabla[r];
+
+        }else if(this.fun == "Div" && this.test =="Doble" ){
+            let r;
+            let res = this.division(calc);
+            let iteracion = 0;
+            do{
+                r = this.doble(res,iteracion);
+                iteracion++;
+            }while(this.tabla[r]!=valor);
+            return this.tabla[r];
+
+        }else if(this.fun == "Multi" && this.test =="Lineal" ){
+            let res =Math.trunc(this.multiplicacion(calc));
+            while(this.tabla[res]!=valor){
+                res = this.lineal(res); 
+            }
+            return this.tabla[res];
+
+        }else if(this.fun == "Multi" && this.test =="Cuadratica" ){
+            let r;
+            let res = Math.trunc(this.multiplicacion(calc));
+            let iteracion = 0;
+            do{
+                
+                let j = Math.pow(iteracion,2);
+                r = this.cuadratica(res,j);
+                iteracion++;
+                
+            }while(this.tabla[r]!=valor);
+            return this.tabla[r];
+
+        }else if(this.fun == "Multi" && this.test =="Doble" ){
+            let r;
+            let res = Math.trunc(this.multiplicacion(calc));
+            let iteracion = 0;
+            do{
+                r = this.doble(res,iteracion);
+                iteracion++;
+            
+            }while(this.tabla[r]!=valor);
+            return this.tabla[r];
+        }
+    }
+
+    //Insercion
     insertar(valor){
         let calculo = this.verificacionDato(valor);
         if(this.fun == "Simple" && this.test=="Lineal"){
@@ -237,12 +501,16 @@ class hash{
         }
 }
 
-let h = new hash(10,80,20,"Div","Lineal");
-h.insertar("hola");
-h.imprimir()
-h.insertar(0);
-h.imprimir()
-h.insertar("pies");
-h.imprimir()
+// let h = new hash(10,80,20,"Multi","Doble");
+// h.insertar("hola");
+// h.insertar("ala");
+// h.insertar(2);
+// h.insertar(4);
+// h.imprimir();
+// h.actualizar("ala","apa");
+// h.imprimir();
+// h.eliminar(4);
+// h.imprimir();
+// console.log(h.buscar(2));
 
 
