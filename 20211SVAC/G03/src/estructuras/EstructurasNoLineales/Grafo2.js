@@ -308,4 +308,22 @@ class ListaAdyacencia{
             console.log("No encontro nada")    
         }
     }
+
+    //Metodo modificar
+    modificar(datobus, datocam){
+        let bool = false
+        let aux = this.ListaAdyacencia.cabeza
+        while(aux!=null){
+            if(aux.dato.dato == datobus){
+                bool = true
+                aux.dato.dato = datocam
+                console.log("El dato modificado fue " + datobus + " a " + aux.dato.dato)
+                break
+            }
+            aux = aux.siguiente
+        }
+        if(bool == false){
+            console.log("No encontro nada")    
+        }
+    }
 }
