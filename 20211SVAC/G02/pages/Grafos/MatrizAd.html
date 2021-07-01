@@ -30,7 +30,7 @@
             <div class="input-group mb-3">
                 <input type="text" id="valueNodo" name="valueNodo" class="form-control" placeholder="Valor del vertice">
                 <input type="text" id="valueNodo2" name="valueNodo2" class="form-control" placeholder="Valor del vertice">
-                <input type="text" id="peso" name="peso" class="form-control" placeholder="Peso">
+                <input type="number" id="peso" name="peso" class="form-control" placeholder="Peso">
             </div>
             <div class="btn-group" role="group">
               <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -59,8 +59,8 @@
                 Buscar
               </button>
               <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                <li><button class="dropdown-item" id="btn-inicio" onclick="buscarAnchura()">Buscar por anchura</button></li>
-                <li><button class="dropdown-item" id="btn-final" onclick="buscarProfundidad()">Buscar por profundidad</button></li>
+                <li><button class="dropdown-item" id="btn-inicio" onclick="buscarAn()">Buscar por anchura</button></li>
+                <li><button class="dropdown-item" id="btn-final" onclick="buscarPro()">Buscar por profundidad</button></li>
               </ul>
             </div>
             <button class="btn btn-secondary" onclick="descargar()">Guardar</button>

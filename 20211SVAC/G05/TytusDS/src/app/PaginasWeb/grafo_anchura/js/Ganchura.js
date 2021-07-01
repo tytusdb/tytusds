@@ -1,5 +1,69 @@
 var nodos=[];
 var punteros=[];
+var nodos1=[];
+var punteros1=[];
+var matriz=[];
+var texto="";
+
+class Nodocola{
+    constructor(valor){
+        this.dato=valor;
+        this.posterior=null;
+        this.ant=null
+    }
+}
+
+
+class cola{
+    constructor(){
+        this.cuno=null;
+        this.cfin=null;
+        this.ctamaño=0;
+    }
+    insertar(valor){
+        let nodo = new Nodocola(valor)
+        nodo.dato=valor;
+        if(this.cuno==null){
+            this.cuno=nodo;
+            this.cfin=nodo
+            }else{
+            nodo.posterior=this.cuno;
+            this.cuno=nodo;}
+            this.ctamaño++
+    }
+
+    eliminar(){
+        var copia="";
+        let actual = this.cuno;
+        let anterior = null;
+
+        if (this.cuno!=null){
+            do{
+                if(actual==this.cfin){
+                    if(actual==this.cuno){
+                      this.cuno=this.cuno.posterior;
+                }else{
+                  anterior.posterior=null;
+                  this.cfin=anterior;
+                  } copia=actual.dato;
+                } 
+                anterior=actual;
+                actual=actual.posterior;
+                }while(actual!=null);
+                this.ctamaño--
+                return copia;
+                }
+                
+        
+         }
+
+
+}
+
+const c = new cola();
+
+
+
 class nodolista{
     constructor(vertice){
         this.dato=vertice;
@@ -9,7 +73,8 @@ class nodolista{
 
 class lista {
     constructor() {
-     this.uno=null;
+     this.uno=null
+     this.fin=null;
     this.tamaño=0;}
  
    guardar(vertice) {
@@ -17,12 +82,17 @@ class lista {
    let nodo = new nodolista(vertice)
    nodo.dato=vertice;
    if (this.uno==null){
-       this.uno=nodo;}
-   else{nodo.post=this.uno;
-       this.uno=nodo;}
+       this.uno=nodo;
+    this.fin=this.uno;}
+   else{
+    this.fin.post=nodo;
+    this.fin=this.fin.post;
+       //nodo.post=this.uno;
+       //this.uno=nodo;
+    }
     }
 
-       buscar1(vertice){ 
+    buscar1(vertice){ 
         let aux = this.uno;
         var bandera=true;
         if (this.uno!=null){
@@ -84,7 +154,7 @@ class lista {
         
 }
 
-
+const p = new lista();
 class nodolistaaux{
     constructor(verticeo,verticef,peso){
         this.dato1=verticeo;
@@ -96,7 +166,8 @@ class nodolistaaux{
 
 class listaaux{
     constructor() {
-     this.inicio=null;}
+     this.inicio=null;
+     this.final=null;}
  
    guardar(verticeo,verticef,peso) {
    let nodo = new nodolistaaux(verticeo,verticef,peso)
@@ -104,10 +175,14 @@ class listaaux{
    nodo.dato2=verticef;
    nodo.dato3=peso;
    if (this.inicio==null){
-       this.inicio=nodo;}
+       this.inicio=nodo;
+    this.final=this.inicio;}
    else{
-       nodo.sigui=this.inicio;
-       this.inicio=nodo;}
+       this.final.sigui=nodo;
+       this.final=this.final.sigui;
+       //nodo.sigui=this.inicio;
+       //this.inicio=nodo;
+    }
     }
 
     eliminar(vertice){
@@ -157,12 +232,85 @@ class listaaux{
             console.log("sin datos");
         }
             }
+    imprimir2(){
+        let au = p.uno;
+        var tr = document.createElement("tr");
+        var th = document.createElement("th");
+        th.innerHTML =" ";
+        tr.appendChild(th);
+        do{
+            var th = document.createElement("th");
+            th.innerHTML =au.dato;
+            tr.appendChild(th);
+            th.style.textAlign="center";
+            th.style.border="5px solid";
+            au=au.post;
+        }while(au!=null);
+
+        document.getElementById("tabla").appendChild(tr);
 
 
+
+        var cadena="";
+        let aux = p.uno;
+        if (this.inicio!=null){
+            //var tabla = document.createElement("table");
+            
+            
+            
+            do{let aux1 = p.uno;
+                var tr = document.createElement("tr");
+                var th = document.createElement("th");
+                th.innerHTML =aux.dato;
+                tr.appendChild(th);
+                th.style.textAlign="center";
+                th.style.border="5px solid";
+                do{let temp = this.inicio;
+                    var bandera=true;
+                    
+                    do{var th = document.createElement("th");
+                        if(aux.dato==temp.dato1  &&aux1.dato==temp.dato2){
+                            bandera=false;
+                            th.innerHTML =temp.dato3;
+		                    tr.appendChild(th);
+                            th.style.textAlign="center";
+                        th.style.border="1px solid";
+                            cadena+=temp.dato3+"|";
+                        }
+                        temp=temp.sigui;
+                        }while(temp!=null);
+                        if (bandera==true){cadena+="0|";  th.innerHTML ="0"; tr.appendChild(th);
+                        th.style.textAlign="center";
+                        th.style.border="1px solid";
+                    }
+                    aux1=aux1.post;
+                    
+                    }while(aux1!=null);
+                document.getElementById("tabla").appendChild(tr);
+                var elem=document.getElementById("tabla");
+                elem.style.background = 'white';
+                elem.style.borderCollapse="collapse";
+                elem.style.width="70%";
+                elem.style.backgroundColor="#ffffff";
+                elem.style.color="black";
+                elem.style.margin="0px auto";
+                elem.style.textAlign="center";
+                elem.style.border="1px solid";
+                //tabla.appendChild(tr)
+                aux=aux.post;
+                console.log(cadena);
+                cadena="";
+                }while(aux!=null);}
+                
+                //document.getElementById("tabla").appendChild(tabla)
+         }
 }
 
-const p = new lista();
+
 const p1 = new listaaux();
+
+
+
 class Ganchura{
 constructor(){
     this.vertice=0;
@@ -196,6 +344,89 @@ tamaño(){
     p.imprimir();
     p1.imprimir();
 }
+matriz(){  
+    matriz=[];
+    p1.imprimir2();
+
+}
+
+bus(valor){
+nodos1.push({id: valor, label: valor})
+//punteros.push({from: aux.dato1, to: aux.dato2  ,label:aux.dato3});
+texto+=valor+"->";
+var aux1=p.uno;
+var aux2=p1.inicio;
+var aux3=c.cuno;
+var actual=valor;
+matriz=[];
+matriz.push(actual);
+do{
+    if (actual==aux2.dato1){
+        matriz.push(aux2.dato2);
+        c.insertar(aux2.dato2)
+        punteros1.push({from: aux2.dato1, to: aux2.dato2  ,label:aux2.dato3});
+}aux2=aux2.sigui;
+}while(aux2!=null)
+
+if (c.cuno!=null){
+    this.bus1();}
+else{
+console.log(texto);
+texto="";
+}
+}
+
+
+bus1(){
+    var aux1=p.uno;
+    var aux3=c.cuno;
+    var actual;
+    var aux2=p1.inicio;
+    var bandera=true;
+    do{
+        if (c.ctamaño>0){
+        actual=c.eliminar();
+        matriz.push(actual)
+        texto+=actual+"->";
+        nodos1.push({id: actual, label: actual});
+    }
+    
+            do{
+            if (actual==aux2.dato1){
+                for (var i=0; i<matriz.length; i++) { 
+                    if(matriz[i]==aux2.dato2){
+                        bandera=false;
+                    }}
+                if (bandera==true){
+                c.insertar(aux2.dato2)
+                matriz.push(aux2.dato2);
+                bandera=true;
+                punteros1.push({from: aux2.dato1, to: aux2.dato2  ,label:aux2.dato3});
+                } bandera=true;
+                }
+            aux2=aux2.sigui;
+            }while(aux2!=null)
+            aux2=p1.inicio;
+        
+        if(c.ctamaño==0){
+            break;
+        }
+   
+    }while(c.ctamaño>0);
+    console.log(texto);
+    texto="";
+    }
+
+
+as1(){
+    let ldata=[];
+    ldata.push(nodos1);
+    ldata.push(punteros1);
+    nodos1=[];
+    punteros1=[];
+    return ldata;
+    
+}
 
 as(){
     nodos=[];
@@ -211,6 +442,9 @@ as(){
     return ldata;
     
 }
+
+
+
 
 
 }

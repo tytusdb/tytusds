@@ -16,6 +16,12 @@ export class OpcionesComponent implements OnInit {
   velocidadArboles = 1000;
   grado = 3;
   repeticionArboles = true;
+  sizeNoLineales = 10;
+  funcionHash = "simple";
+  rangoHashMinimo = 45;
+  rangoHashMaximo = 85;
+  pruebaHashCerrado = "lineal";
+  velocidadNoLineales = 2000;
 
   constructor() { }
 
@@ -38,7 +44,13 @@ export class OpcionesComponent implements OnInit {
       velocidadOrdenamientos: this.velocidadOrdenamientos,
       velocidadArboles: +this.velocidadArboles,
       grado: +this.grado,
-      repeticionArboles: this.repeticionArboles
+      repeticionArboles: this.repeticionArboles,
+      sizeNoLineales: this.sizeNoLineales,
+      funcionHash: this.funcionHash,
+      rangoHashMinimo: this.rangoHashMinimo,
+      rangoHashMaximo: this.rangoHashMaximo,
+      pruebaHashCerrado: this.pruebaHashCerrado,
+      velocidadNoLineales: this.velocidadNoLineales,
     };
     this.opcionesEvento.emit(opciones);
     this.op_cerrada();

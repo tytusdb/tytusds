@@ -255,18 +255,21 @@ class Hash {
 }
 
 
-/*function lol() {
+function lol() {
     var no = new Hash()
+    let array = [1, 4, 6, 9, 11, 100]
     no.crearHash(5)
-    no.insert(1)
-    no.insert(4)
+    for (let i = 0; i < array.length; i++) {
+        no.insert(array[i])
+    }
+    /*no.insert(4)
     no.insert(6)
     no.insert(9)
     no.insert(11)
-    no.insert(100)
+    no.insert(100)*/
 }
 
-lol();*/
+lol();
 
 /*function lol() {
     var no = new ListaDoble();
