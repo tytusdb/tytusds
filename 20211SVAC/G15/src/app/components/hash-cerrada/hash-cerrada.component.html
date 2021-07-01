@@ -1,0 +1,149 @@
+<body>
+    <div class="container">
+
+        <div class="row opciones p-2">
+            <div class="col-lg-2 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <label for="tamanio" class="mr-1 text-white">Tamaño</label>
+                    <input type="number" class="form-control" id="tamanio" name="tamanio" [(ngModel)]="tamanio"
+                        placeholder="Tamaño">
+
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <label for="dropFuncion" class="mr-1 text-white">Funcion Hash</label>
+                    <select class="form-control" id="dropFuncion" [(ngModel)]="funcionHash">
+                        <option value="1">Simple</option>
+                        <option value="2">Multiplicacion</option>
+                        <option value="3">Division</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <label for="dropPrueba" class="mr-1 text-white">Prueba Hash</label>
+                    <select class="form-control" id="dropPrueba" [(ngModel)]="pruebaHash">
+                        <option value="1">Lineal</option>
+                        <option value="2">Cuadratica</option>
+                        <option value="3">Doble</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <label for="minHash" class="mr-1 text-white">Min</label>
+                    <input type="number" class="form-control" id="minHash" name="minHash" [(ngModel)]="minHash"
+                        placeholder="Min Hash">
+
+                    <label for="maxHash" class="mr-1 text-white">Max</label>
+                    <input type="number" class="form-control" id="maxHash" name="maxHash" [(ngModel)]="maxHash"
+                        placeholder="Max Hash">
+
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <input type="text" class="form-control" value="" id="numero" name="numero" [(ngModel)]="numero"
+                        placeholder="Ingresa un Numero">
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary " type="button" (click)="add()">Guardar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <input type="text" class="form-control" value="" id="numero" name="numero"
+                        placeholder="Ingresa un Numero">
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary " type="button">Buscar</button>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="col-lg-3 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="numero" name="numero" placeholder="Antiguo">
+                    <input type="text" class="form-control" id="numero" name="numero" placeholder="Nuevo">
+                    <div class="input-group-append">
+                        <button class="btn btn-warning" type="button">Actualizar</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-3 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <input type="text" class="form-control" value="" id="numero" name="numero"
+                        placeholder="Ingresa un Numero">
+                    <div class="input-group-append">
+                        <button class="btn btn-warning " type="button">Eliminar</button>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-12 col-sm-12 col-lg-2 text-left mt-2 text-white mt-1">
+                <div class="dropdown">
+                    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Opciones
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="numero" name="numero" placeholder="Velocidad">
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+
+            <div class="col-12 col-sm-12 col-lg-3 text-left mt-2 text-white mt-1">
+                <div class="input-group">
+                    <input type="file" class="file-input" #fileUpload>
+                    <div class="file-upload">
+
+                        {{fileName || "No file uploaded yet."}}
+
+                        <button class="btn btn-primary" (click)="fileUpload.click()">
+                            <i class="fas fa-upload"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-12 col-lg-3 text-left mt-2 text-white mt-1">
+                <div class="input-group">
+                    <button class="btn btn-primary">
+                        Generar JSON
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="container mt-5 ">
+
+    </div>
+
+
+
+</body>
