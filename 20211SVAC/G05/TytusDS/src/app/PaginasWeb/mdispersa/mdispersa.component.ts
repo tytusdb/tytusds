@@ -33,6 +33,32 @@ export class MDispersaComponent implements OnInit {
   getOpciones(opciones: any): void {
     this.opciones = opciones;
   }
+  //LEER ARCHIVOS DE ENTRADA------------------------------------------------------------------
+  getDocumento(documento: any): void{
+    this.documentoService.getDocumento(documento).then( contenido => {
+      contenido['valores'].forEach(valor => {
+        //valor es el diccionario
+          let indices,fila,columna,v_valor;
+           indices=valor['indices'];
+           fila=indices[0];
+           columna=indices[1];
+           v_valor=valor['valor'];
+           console.log(`${fila} ${columna} ${v_valor}`)
+           this.Add1(v_valor,fila,columna);
+      });
+      this.graficar();
+    });
+
+  }
+  Add1(valor,fila,columna){
+    let existe=this.matriz.BPosicion(fila,columna);
+    if(existe==null) {
+      this.matriz.append(valor, fila, columna);
+    }else{
+      this.matriz.update(existe.valor,valor,fila,columna);
+    }
+  }
+
   //AÑADIR-----------------------------------------------------------------------------------------
   Add(valor,x,y){
     //que no hayan casillas vacias:
@@ -161,7 +187,6 @@ export class MDispersaComponent implements OnInit {
     const contenido: any = {
       categoria: "Estructura Compuesta",
       nombre: "Matriz Dispersa",
-      repeticion:true,
       animacion:10,
       valores: []
     };

@@ -29,6 +29,20 @@ export class LBSTComponent implements OnInit {
   ngOnInit(): void {
 
   }
+  //LEER ARCHIVOS DE ENTRADA------------------------------------------------------------------
+  getDocumento(documento: any): void{
+    this.documentoService.getDocumento(documento).then( contenido => {
+      contenido['valores'].forEach(valor => {
+        //valor es el diccionario
+        let principal,secundario;
+        principal=valor['principal'];
+        secundario=valor['secundario'];
+        this.lbst.append(principal,secundario);
+      });
+      this.graficar();
+    });
+
+  }
   getOpciones(opciones: any): void {
     this.opciones = opciones;
   }
@@ -44,6 +58,15 @@ export class LBSTComponent implements OnInit {
         this.graficar();
     }
   }
+  Actualizar(valor,valor_nuevo){
+    valor=this.Vseguro(valor);
+    valor_nuevo=this.Vseguro(valor_nuevo);
+    let nodo=this.lbst.modificar(valor,valor_nuevo);
+    if(nodo==true){
+      this.graficar();
+    }
+  }
+
 
   Vseguro(valor){
     if(isNaN(valor)==false){
@@ -57,9 +80,10 @@ export class LBSTComponent implements OnInit {
       let lista=this.lbst.Mbuscar(valor);
       let cabecera=lista[0];
       let nodo=lista[1];
+      let numCabecera=lista[2];
       if(nodo!=null){
         //id:F#C#
-        let id=`C${cabecera.valor}N${nodo.nivel}(${nodo.valor})`
+        let id=`C${cabecera.valor}(${numCabecera})N${nodo.nivel}(${nodo.valor})`
         let options={
           scale: 10,
           offset: {x:10, y:10},
@@ -127,6 +151,19 @@ export class LBSTComponent implements OnInit {
     };
     //------------------------------------------------------------------------
     this.grafo= new vis.Network(contenedor,datos,opciones);
+  }
+  //GUARDAR
+  guardar(): void {
+    const contenido: any = {
+      categoria: "Estructura Compuesta",
+      nombre: "Construccion",
+      animacion:10,
+      valores: []
+    };
+    //this.matriz.Rdatos()
+    contenido.valores=contenido.valores.concat(this.lbst.Rdatos());
+    let blob = new Blob([JSON.stringify(contenido)], {type: 'json;charset=utf-8'});
+    saveAs(blob, 'descarga.json');
   }
 
 }

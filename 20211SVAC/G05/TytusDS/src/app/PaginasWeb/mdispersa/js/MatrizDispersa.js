@@ -18,10 +18,6 @@ class MatrizDispersa{
     }else{
       this.caso4(valor,x,y);
     }
-    console.log("append")
-    console.log(this.l_vertical.Size());
-    console.log(this.l_horizontal.Size());
-
   }
   //no existe cabecera en x ni y para colocar el nuevo nodo en la posicion en la que se quiere
   caso1(valor,x,y){
@@ -52,7 +48,7 @@ class MatrizDispersa{
       }else{
         nodo.abajo=current;
         nodo.arriba=current.arriba;
-        current.arriba.abajo=Nodo;
+        current.arriba.abajo=nodo;
         current.arriba=nodo;
         return
       }
@@ -413,7 +409,7 @@ class MatrizDispersa{
     let current=this.l_vertical.head;
     //las cabeceras de las filas tendran un color azul
     while (current!=null){
-      nodovis= new NodoVis(`F${current.valor}`,current.valor.toString(),"box","blue",current.valor)
+      nodovis= new NodoVis(`F${current.valor}`,current.valor.toString(),"box","blue",current.valor+1)
       Lnodos.push(nodovis);
       current=current.next;
     }
@@ -432,7 +428,7 @@ class MatrizDispersa{
       aux=current.der;
       while (aux!=null){
         //las cabeceras de las filas tendran un color rojo
-        nodovis= new NodoVis(`F${aux.x}C${aux.y}`,aux.valor.toString(),"box","purple",aux.x);
+        nodovis= new NodoVis(`F${aux.x}C${aux.y}`,aux.valor.toString(),"box","purple",aux.x+1);
         Lnodos.push(nodovis);
         aux=aux.der;
       }
@@ -516,13 +512,17 @@ class MatrizDispersa{
     return Ledges;
   }
   Rdatos(){
+    function Nodo_Dato(valor,x,y){
+      this.indices=[x,y]
+      this.valor=valor
+    }
     let Ldatos=[]
     let current=this.l_vertical.head;
     let aux;
     while (current!=null){
       aux=current.der;
       while (aux!=null){
-        Ldatos.push(`valor:${aux.valor} x: ${aux.x} y: ${aux.y}`);
+        Ldatos.push(new Nodo_Dato(aux.valor,aux.x,aux.y));
         aux=aux.der;
       }
       current=current.next;

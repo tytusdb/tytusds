@@ -13,7 +13,7 @@ bst.append(15,17);
 bst.recorrer();
 let nodos=bst.Rlnodos();
 let edges=bst.Rledges();
-console.log(nodos);
+bst.Rdatos();
 console.log(edges);
 bst.delete(0);
 bst.recorrer();

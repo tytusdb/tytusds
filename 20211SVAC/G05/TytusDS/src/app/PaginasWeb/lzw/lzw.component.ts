@@ -10,6 +10,11 @@ let lzw=require('./js/lzw');
   styleUrls: ['./lzw.component.css']
 })
 export class LZWComponent implements OnInit {
+  resultado=""
+  cabecera=["w","K","wK","Agregar al diccionario","Salida"];
+  eIteraciones=false;
+  iteraciones=[];
+
   lzw=lzw;
   opciones = {
     ingreso: 'final',
@@ -33,14 +38,13 @@ export class LZWComponent implements OnInit {
   //COMPRIMIR
   comprimir(texto){
     if(texto!=""){
-
-      let R=document.getElementById('Resultado');
       this.lzw.text=texto;
       this.lzw.Gcodigo();
       texto=this.lzw.codigo;
-      console.log(texto);
-      R!.innerHTML=texto;
-
+      this.resultado=texto
+      console.log(this.lzw.iteraciones);
+      this.eIteraciones=true;
+      this.iteraciones=this.lzw.iteraciones;
     }
   }
   clear(){
