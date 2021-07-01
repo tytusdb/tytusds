@@ -15,12 +15,7 @@
   <div class="row py-1 pb-2">
     <div class="col-1"><input #search type="text" class="form-control" placeholder="Buscar" ></div>
     <div class="col-1"><button class="btn btn-success button1" (click)="buscar(search.value)">Buscar</button></div>
-    <div class="col-md-1 text-white">Cabeceras:</div>
-    <div class="col-md-1">
-      <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox">
-      </div>
-    </div>
+    <div class="col-md-6"><input class="form-control" type="file" id="formFile" (change)="getDocumento($event.target)" ></div>
   </div>
 
   <!----CAJA DONDE SE GUARDARA LA GRAFICACIÓN DE LOS NODOS---->
@@ -29,7 +24,7 @@
   <!----------------------------------------------------------->
   <div class="container">
     <div class="row pt-2 pb-3">
-      <div class="col-3" ><button class="btn btn-success button1">Guardar</button></div>
+      <div class="col-3" ><button class="btn btn-success button1" (click)="guardar()">Guardar</button></div>
     </div>
   </div>
 
