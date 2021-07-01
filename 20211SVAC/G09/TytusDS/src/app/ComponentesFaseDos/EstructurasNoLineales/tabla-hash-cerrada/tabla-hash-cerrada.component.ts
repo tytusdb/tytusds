@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-declare var checkHashCerradaSimple:any;
+declare var insertarHashCerrada:any;
 @Component({
   selector: 'app-tabla-hash-cerrada',
   templateUrl: './tabla-hash-cerrada.component.html',
@@ -12,9 +12,10 @@ export class TablaHashCerradaComponent implements OnInit {
   ngOnInit(): void {
   }
   value(){
-    
   }
-  checkCerradaSimple(){
-    console.log('hola')
+  
+  insertarHashCerrada(data:any){
+    insertarHashCerrada(data)
   }
+ 
 }

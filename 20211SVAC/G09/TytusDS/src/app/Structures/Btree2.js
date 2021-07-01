@@ -222,6 +222,8 @@ class Node {
     console.log("*****************")
       t.add(data);
       t.print();
+      console.log("postorden")
+      t.postOrder();
   }
   function borrarB(data){
     console.log("*****************")
@@ -237,6 +239,7 @@ class Node {
     t.delete(data);
     t.add(data2);
     t.print();
+   
   }
   
   
