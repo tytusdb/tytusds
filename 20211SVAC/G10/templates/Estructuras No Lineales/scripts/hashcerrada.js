@@ -15,13 +15,14 @@ class Hash {
         this.min = 20
         this.funcion = 'division'
         this.prueba = 'lineal'
-        this.constante_a = 0.1625277911 
+        this.constante_a = 0.1625277911
     }
 
     crear(size){
         this.elementos = 0
-        this.vector.splice(0, this.vector.length)
+        //this.vector.splice(0, this.vector.length)
         this.size = size
+        this.vector = new Array(size)
         for(let i = 0; i < this.size; i++){
             this.vector[i] = null
         }
@@ -34,10 +35,10 @@ class Hash {
         let nuevo = new Node(codigo, dato)
 
         while(this.vector[indice] != null) {
-            //indice = this.lineal(indice)
             indice = this.pruebaHash(indice)
         }
         this.vector[indice] = nuevo
+        
         this.elementos ++
         this.rehashing()
     }
@@ -47,14 +48,15 @@ class Hash {
             let temporal = this.vector
             this.mostrar()
             let aux_size = this.size
-            this.size =  this.elementos * 100/this.min
+            this.size = this.elementos * 100 / this.min
             this.crear(this.size)
-            for (let i = 0; i < aux_size; i++) {
-                if (temporal[i] != null) {
-                    this.agregar(temporal[i])
+            for(let i = 0; i<aux_size; i++) {
+                if(temporal[i] != null) {
+                    this.agregar(temporal[i].dato)
                 }
             }
-        } else {
+        }
+        else {
             this.mostrar()
         }
     }
@@ -165,7 +167,7 @@ class Hash {
             }
             
         }
-        string += `] ${(this.elementos*100/this.size)}%`
+        string += `] ${(this.elementos*100/this.size).toFixed(0)}%`
         console.log(string)
     }
 }
