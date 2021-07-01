@@ -46,8 +46,8 @@ export class HashCerradoComponent implements OnInit {
 
   getDocumento(documento: any): void {
     this.documentoService.getDocumento(documento).then( contenido => {
-      if (contenido['size'] !== undefined) {
-        this.opciones['sizeNoLineales'] = contenido['size'];
+      if (contenido['m'] !== undefined) {
+        this.opciones['sizeNoLineales'] = contenido['m'];
       }
       if (contenido['funcion'] !== undefined) {
         this.opciones['funcionHash'] = contenido['funcion'];
@@ -80,9 +80,10 @@ export class HashCerradoComponent implements OnInit {
 
     this.hash.agregar(this.valorAgregar);
     this.valorAgregar = '';
-    console.log(this.hash.factorCarga);
     console.log(this.hash.arreglo);
-    this.graficar();
+    if (!esperar) {
+      this.graficar();
+    }
   }
 
   eliminar(): void {
@@ -90,11 +91,16 @@ export class HashCerradoComponent implements OnInit {
   
     this.hash.eliminar(this.valorEliminar);
     this.valorEliminar = '';
+    this.graficar();
   }
 
   actualizar(): void {
     if (this.valorAntiguo.length === 0 || this.valorActualizar.length === 0) return;
 
+    this.hash.actualizar(this.valorAntiguo, this.valorActualizar);
+    this.valorAntiguo = '';
+    this.valorActualizar = '';
+    this.graficar();
   }
 
   buscar(): void {
@@ -115,9 +121,6 @@ export class HashCerradoComponent implements OnInit {
           to:{
             enabled:true
           }
-        },
-        color:{
-          color:"#013ADF"
         }
       },
       nodes:{

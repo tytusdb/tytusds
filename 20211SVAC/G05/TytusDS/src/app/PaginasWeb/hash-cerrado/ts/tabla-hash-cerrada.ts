@@ -32,7 +32,8 @@ export class TablaHashCerrada {
         this.maximo = maximo;
         this.prueba = prueba;
         this.funcion = funcion;
-        this.constante = constante;
+        this.constante = 0.1625277911;
+        console.log(this.prueba);
     }
 
     agregar(valor: any): void {
@@ -80,15 +81,14 @@ export class TablaHashCerrada {
                     this.arreglo[x] = null;
                     this.elementosCargados--;
                     this.factorCarga = this.elementosCargados / this.size;
-                    this.rehash();
                 }
             }
         }
     }
 
-    actualizar(valor: any): void {
-        this.eliminar(valor);
-        this.agregar(valor);
+    actualizar(valorAntiguo: any, valorNuevo: any): void {
+        this.eliminar(valorAntiguo);
+        this.agregar(valorNuevo);
     }
 
     hashSimple(entrada: any): any {
@@ -145,7 +145,6 @@ export class TablaHashCerrada {
     }
 
     pruebaLineal(nodo: NodoHashCerrado, posicion: number): void {
-        console.log('entro a lineal');
         let encontrado = false;
         let aux = posicion;
         while(!encontrado) {
@@ -166,24 +165,22 @@ export class TablaHashCerrada {
 
     pruebaCuadratica(nodo: NodoHashCerrado, posicion: number): void {
         console.log('entro a cuadratica');
-        let encontrado = false;
-        let p = 1;
-        let aux = posicion+p;
-        while(!encontrado) {
-            console.log(aux);
-            if (this.arreglo[aux] === null) {
-                nodo.posicion = aux;
-                this.arreglo[aux] = nodo;
-                encontrado = true;
-            }
-            p++;
-            if ((aux + Math.pow(p, 2)) > (this.arreglo.length - 1)) {
-                console.log(`se da la vuelta ${aux+Math.pow(p, 2)}`);
-                aux = (aux + Math.pow(p, 2)) - (this.arreglo.length);
+        let i = 1;
+        let aux = posicion + 1;
+        while (this.arreglo[aux] !== null) {
+            console.log(this.arreglo[i], aux);
+            i++;
+            if (aux >= this.size) {
+                aux = ((posicion + i*i)) % this.size;
             }else {
-                aux += Math.pow(p, 2);
+                aux = posicion + i*i;
+            }
+            if (i >= this.size) {
+                break;
             }
         }
+        nodo.posicion = aux;
+        this.arreglo[aux] = nodo;
     }
 
     pruebaDobleHash(nodo: NodoHashCerrado, posicion: number): void {
@@ -208,32 +205,25 @@ export class TablaHashCerrada {
     }
 
     rehash(): void {
-        if ((this.factorCarga * 100) < this.maximo) {
+        if ((this.factorCarga * 100) <= this.maximo) {
             return;
         }
-        console.log('hay que hacer rehash');
-
-        let nodos: any = [];
-
-        for (let x = 0; x < this.size; x++) {
-            if (this.arreglo[x] !== null) {
-                nodos.push(this.arreglo[x]);
-            }
-            this.arreglo[x] = null;
-        }
-
-        this.factorCarga = 0;
-
-        while((this.factorCarga * 100) < this.minimo) {
-            this.arreglo.push(null);
-            this.size++;
-            this.factorCarga = this.elementosCargados / this.size;
-        }
-
+        console.log('REHASHING');
+        
+        let aux = this.arreglo;
+        let m = this.size;
+        this.size = Math.ceil((this.elementosCargados * 100) / this.minimo);
         this.elementosCargados = 0;
-
-        for (let x = 0; x < nodos.length; x++) {
-            this.agregar(nodos[x].valor);
+        this.arreglo = [];
+        for (let x = 0; x < this.size; x++) {
+            this.arreglo.push(null);
+        }
+        this.factorCarga = 0;
+        this.elementosCargados = 0;
+        for (let x = 0; x < m; x++) {
+            if (aux[x] !== null) {
+                this.agregar(aux[x].valor);
+            }
         }
     }
 
@@ -244,12 +234,15 @@ export class TablaHashCerrada {
                 id: x,
                 label: '',
                 shape: 'box',
-                level: x
+                level: x,
+                color: ''
             };
             if (this.arreglo[x] !== null) {
                 nodo.label = this.arreglo[x].valor;
+                nodo.color = '#013ADF';
             }else {
                 nodo.label = `nodo vacio: ${x+1}`;
+                nodo.color = 'red';
             }
             nodos.push(nodo);
         }
