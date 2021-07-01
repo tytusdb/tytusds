@@ -55,9 +55,9 @@ export class RowMajorComponent implements OnInit {
           console.log(element.indices[1])
           console.log(element.valor)
           this.AgregarNuevo(element.valor,element.indices[0],element.indices[1]);
-          
+
         });
-       
+
         this.code=text.toString();
       }
       reader.readAsText(a)
@@ -89,7 +89,7 @@ export class RowMajorComponent implements OnInit {
           nodes.add(
             {id: i+','+j, label:'0',x: this.x1 , y: this.y1, color: "rgba(97,195,238,0.5)",shape: "box"}
           );
-          this.x1 = this.x1 + 50
+          this.x1 = this.x1 + 70
       }
       this.x1 = 0
       this.y1 = this.y1 + 35
@@ -111,7 +111,7 @@ export class RowMajorComponent implements OnInit {
       nodes.update(
         {id: j, label:'0',x: this.x1 , y: this.y1, color: "#7BE141", shape: "box"}
       );
-      this.x1 = this.x1 + 50
+      this.x1 = this.x1 + 70
     }
     console.log(linealizado);
     for (let i = 0; i < m; i++) {
