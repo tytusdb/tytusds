@@ -183,6 +183,8 @@ class TablaHashCerrada{
         return tabla
     }
 
+    //INSERTAR ------------------------------------------------------------------------------------>
+
     insertar(valor:any){
         //Obtiene la posicion del arreglo
         let clave = this.funcion.funcionHash(valor, this.tamaño)
@@ -203,7 +205,7 @@ class TablaHashCerrada{
                     break;
                 case 2:
                     //Doble Hash
-                    this.tabla = this.dobleHash(valor, clave, 0, this.tabla)
+                    this.tabla = this.dobleHash(valor, clave, this.tabla)
                     break;
             }
         }       
@@ -230,6 +232,42 @@ class TablaHashCerrada{
         }
     }
 
+    //ELIMINAR ------------------------------------------------------------------------------------>
+    eliminar(valor:any){
+        let clave = this.funcion.funcionHash(valor, this.tamaño)
+        if(this.tabla[clave].valor == valor){
+            this.tabla[clave] = new Tupla(-1, null)
+            this.numEntradas--
+            return true
+        }
+        switch (this.tipoColision) {
+            case 0:
+                //Prueba Lineal
+                clave = this.buscarLineal(valor, clave, clave+1)
+                break;
+            case 1:
+                //Prueba Cuadratica
+                clave = this.buscarCuadratica(valor, clave, 1)
+                break;
+            case 2:
+                //Doble Hash
+                clave = this.busquedaDobleHash(valor, clave)
+                break;
+        }
+        if(clave == -1){
+            return false
+        }
+        this.tabla[clave] = new Tupla(-1, null)
+        this.numEntradas--
+        return true
+    }
+
+    actualizar(valor:any, nuevo:any){
+        if(this.eliminar(valor)){
+            this.insertar(nuevo)
+        }
+    }
+
     //PRUEBAS DE COLISION ------------------------------------------------------------------------->
     pruebaLineal(valor:any, clave:number, tabla:Tupla[]){
         if(this.tabla[clave].clave == -1){
@@ -241,6 +279,17 @@ class TablaHashCerrada{
         }
         return tabla
     }
+
+    buscarLineal(valor:any, inicial:number, clave:number):number{
+        if(this.tabla[clave].valor == valor){
+            return clave
+        }else if(inicial == clave){
+            return -1
+        }else{
+            return this.buscarLineal(valor, inicial, (clave+1)%this.tamaño)
+        }
+    }
+
 
 
     pruebaCuadratica(valor:any, clave:number, agregar:number, tabla:Tupla[]){
@@ -257,7 +306,19 @@ class TablaHashCerrada{
         return tabla
     }
 
-    dobleHash(valor:any, clave:number, agregar:number, tabla:Tupla[]){
+    buscarCuadratica(valor:any, clave:number, agregar:number):number{
+        let id = (clave + (agregar*agregar)) % this.tamaño
+        if(this.tabla[id].valor == valor){
+            return id
+        }else if(id == clave){
+            return -1
+        }else{
+            return this.buscarCuadratica(valor, clave, agregar+1)
+        }
+    }
+
+
+    dobleHash(valor:any, clave:number, tabla:Tupla[]){
         //Cambiar valor y hacer el segundo Hash
         let id = this.funcion.funcionHash(clave,this.tamaño)
         if(this.tabla[id].clave == -1){
@@ -265,9 +326,20 @@ class TablaHashCerrada{
             tabla[id] = new Tupla(this.funcion.stringToAscii(valor),valor)
         }else{
             //Posocion con elemento volver a aplicar la prueba
-            this.pruebaCuadratica(valor, clave, agregar+1, tabla)
+            this.dobleHash(valor, clave, tabla)
         }
         return tabla
+    }
+
+    busquedaDobleHash(valor:any, clave:number):number{
+        let id = this.funcion.funcionHash(clave,this.tamaño)
+        if(this.tabla[id].valor == valor){
+            return id
+        }else if(id == clave){
+            return -1
+        }else{
+            return this.busquedaDobleHash(valor,clave)
+        }
     }
 
     print(){
