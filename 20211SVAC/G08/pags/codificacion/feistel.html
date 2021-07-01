@@ -30,8 +30,8 @@
     </div>
     <div class="cuadroDatos">
         <h3 class="titulo">Ingrese datos</h3>
-        <input class="dato2 centrado" type="text" placeholder="Rondas" id="rondas">
-        <a href="#" class="button" id="addRonda"><img src="../../svg/add.svg"></a>
+        <input class="datoGrafo" type="text" placeholder="LLave" id="llave">
+        <input class="datoGrafo" type="text" placeholder="Rondas" id="rondas">
         <br><br>
         <input id="numVelocidad" class="dato2 velo" type="number" placeholder="Velocidad">
         <br><br>
@@ -50,8 +50,33 @@
         
         <br>    
         <textarea name="ta" class="areaTexto" id="espacioTxt"></textarea>
-        <textarea name="tb" class="areaTexto" id="espacioTxt2"></textarea>
+        <br><br>
+        <h3 class="resul">RESULTADO</h3>
+        <textarea name="res" class="areaTexto mini" id="respuesta"></textarea>
         
+        
+    </div>
+    <div class="diagram">
+        
+        <textarea name="ti" class="textDia" id="left" placeholder="IZQUIERDA"></textarea>
+        <textarea name="td" class="textDia" id="right" placeholder="DERECHA"></textarea>
+        <div>
+            <img src="../../svg/arrow2.png" class="arrow" id="a1">
+            <img src="../../svg/arrow2.png" class="arrow" id="a2">
+            <br>
+            <label id="x1">XOR</label>
+            <label id="x2">XOR</label> 
+            <br>
+            <img src="../../svg/arrow2.png" class="arrow2" id="a1">
+            <img src="../../svg/arrow2.png" class="arrow2" id="a2">
+
+        </div>
+        
+        <textarea name="tb" class="textDia" id="func" placeholder="R XOR K"></textarea>
+        
+        <textarea name="tb" class="textDia" id="llavero" placeholder="KEY"></textarea>
+        <img src="../../svg/arrow2.png" class="arrow3" id="a1">
+        <img src="../../svg/arrow2.png" class="arrow4" id="a2">
     </div>
 
     <script src="../../js/codificacion/feistel.js">
