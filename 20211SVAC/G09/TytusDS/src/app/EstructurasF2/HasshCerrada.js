@@ -200,6 +200,14 @@ class hash {
             let q = Math.trunc(y)
             return q
         }
+        if(checkBoxHashCerradaSimple==true){
+            let p = k;
+            while(p>1){
+                p = p/10
+            }
+            let q = Math.trunc(p)
+            return q*this.m
+        }
         
        
     }
