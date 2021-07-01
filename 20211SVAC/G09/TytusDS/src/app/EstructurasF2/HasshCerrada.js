@@ -3,7 +3,11 @@ var checkBoxHashCerradaLineal = false;
 var checkBoxHashCerradaInt = false;
 var checkBoxHashCerradaString = false;
 var checkBoxCerradaDivision = false;
+var checkBoxMultiplicacion = false;
 var checkBoxCerradaCuadratica = false;
+var checkBoxCerradaDobleHash = false;
+
+
 function checkCerradaSimple(){
     if(checkBoxHashCerradaSimple == true){
         checkBoxHashCerradaSimple = false;
@@ -59,6 +63,24 @@ function checkCerradaString(){
         console.log("cambioando chek "+ checkBoxHashCerradaString);
     }  
 }
+function checkCerradaDobleHash(){
+    if(checkBoxCerradaDobleHash == true){
+        checkBoxCerradaDobleHash = false;
+        console.log("cambiando chek "+ checkBoxCerradaDobleHash);
+    }else{
+        checkBoxCerradaDobleHash = true;
+        console.log("cambioando chek "+ checkBoxCerradaDobleHash);
+    }  
+}
+function checkCerradaMultiplicacion(){
+    if(checkBoxMultiplicacion === true){
+        checkBoxMultiplicacion = false;
+        console.log("cambiando chek "+ checkBoxMultiplicacion);
+    }else{
+        checkBoxMultiplicacion = true;
+        console.log("cambioando chek! "+ checkBoxMultiplicacion);
+    }  
+}
 
 class hash {
     hash(m, min,max) {
@@ -81,12 +103,15 @@ class hash {
    insertar(k){
     let i = this.funcionHash(k)
     //let i = this.division(k);
-    //console.log(i);
+    console.log("funcion has"+i);
     let contador = 0;
     while(this.areglo[i] != -1){
+        if(contador>this.areglo.length){
+            i++
+        }
         contador++
         i = this.pruebaHash(i,contador);
-        console.log(i)
+        console.log("prueba hash"+i)
     }
     //console.log(i)
     this.areglo[i] = k
@@ -105,8 +130,8 @@ class hash {
          var temp = this.areglo
          console.log(temp)
          var mprev = this.m
-         console.log(this.n)
-         console.log(this.min)
+         //console.log(this.n)
+         //console.log(this.min)
          this.m = this.n*100/this.min
          this.init()
          this.n = 0
@@ -124,9 +149,14 @@ class hash {
         console.log(y)
         //let i = this.divisionString(y);
         console.log(i)
-        
+        let contador = 0;
         while(this.areglo[i] != -1){
-           i = this.linear(i); 
+            if(contador>this.areglo.length){
+                i++
+            }
+            contador++
+            i = this.pruebaHash(i,contador);
+            console.log(i)
         }
         this.areglo[i] = y
         console.log(this.areglo)
@@ -159,6 +189,19 @@ class hash {
         if(checkBoxCerradaDivision==true){
             return (k%(this.m))
         }
+       
+        if(checkBoxMultiplicacion==true){
+            let p = k;
+            while(p>1){
+                p = p/10
+            }
+            let h = this.m;
+            let y = h*(k*p%1);
+            let q = Math.trunc(y)
+            return q
+        }
+        
+       
     }
     funcionHashString(y){
         if(checkBoxCerradaDivision==true){
@@ -169,9 +212,19 @@ class hash {
             }
             return contador%this.m
         }
+        if(checkBoxMultiplicacion==true){
+            let p = y;
+            while(p>1){
+                p = p/10
+            }
+            let h = this.m;
+            let x = h*(y*p%1);
+            let q = Math.trunc(x)
+            return q
+        }
+        
         
     }
-   ///disvion
     pruebaHash(k,c){
         if(checkBoxHashCerradaLineal===true){
             return ((k+1)%this.m)
@@ -180,23 +233,17 @@ class hash {
             let o = k+c*c
             return ((o)%this.m)
         }
+        if(checkBoxCerradaDobleHash===true){
+            
+        }
        
        
     }
-    linear(k){
-    return ((k+1)%this.m)
-    }
-    
-    cuadratica(k){
-        console.log(k) 
-        k = k * k
-        console.log(k) 
-        return ((k+1)%this.m)
-    }
+
 }
 
 let p = new hash();
-p.hash(20,20,80);
+p.hash(5,20,80);
 //p.insertar(5);
 //p.insertar(5);
 //p.insertar(5);
