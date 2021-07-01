@@ -39,6 +39,28 @@ export class MatricesDispersasComponent implements OnInit {
   texto="";
   abrir(eve:any)
   {
+    let a =eve.target.files[0]
+    let text=""
+
+    if(a){
+      let reader=new FileReader()
+        reader.onload=ev=>{
+        const resultado=ev.target?.result
+        text=String(resultado)
+        var data = JSON.parse(text);  // se parse para obtener solo los datos
+        data.valores.forEach(element => { // se pasa a un arreglo
+          console.log(element.indices[0])
+          console.log(element.indices[1])
+          console.log(element.valor)
+          let fila = Number(element.indices[0]);
+          let columna = Number(element.indices[1]);
+          this.AgregarNuevo(element.valor,fila,columna);
+        });
+       
+        this.code=text.toString();
+      }
+      reader.readAsText(a)
+    }
 
   }
   AgregarNuevo(valor: any, fila: number, columna: number){
