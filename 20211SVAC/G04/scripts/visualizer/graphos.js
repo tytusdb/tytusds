@@ -32,24 +32,12 @@ drawInCanvas = function () {
             var currentEdge = edgesArray[edgeIndex];
             if (currentEdge.dest) {
                 canvasCtx.beginPath();
-                canvasCtx.strokeStyle = currentEdge.origin.color;
+                canvasCtx.strokeStyle = currentEdge.dest.isDouble
+                    ? currentEdge.dest.color
+                    : currentEdge.origin.color;
                 canvasCtx.lineWidth = 5;
                 canvasCtx.moveTo(currentEdge.origin.x, currentEdge.origin.y);
-                if (currentEdge.dest.isDouble) {
-                    var midX = (currentEdge.dest.x + currentEdge.origin.x) / 2;
-                    var midY = (currentEdge.dest.y + currentEdge.origin.y) / 2;
-                    var deltaX = currentEdge.dest.x - currentEdge.origin.x;
-                    var deltaY = currentEdge.dest.y - currentEdge.origin.y;
-                    var distance = getNodesDistance(currentEdge.origin.x, currentEdge.dest.x, currentEdge.origin.y, currentEdge.dest.y);
-                    var randPhase = currentEdge.dest.randPhase;
-                    canvasCtx.quadraticCurveTo(midX +
-                        (Math.abs(deltaY) > Math.abs(deltaX) ? distance / 2 : 0) *
-                            randPhase, midY +
-                        +(Math.abs(deltaX) > Math.abs(deltaY) ? distance / 2 : 0) *
-                            randPhase, currentEdge.dest.x, currentEdge.dest.y);
-                }
-                else
-                    canvasCtx.lineTo(currentEdge.dest.x, currentEdge.dest.y);
+                canvasCtx.arrowTo(currentEdge.origin.x, currentEdge.origin.y, currentEdge.dest.x, currentEdge.dest.y, 30);
                 canvasCtx.stroke();
                 canvasCtx.closePath();
             }
@@ -193,7 +181,7 @@ canvas.addEventListener('click', function (ev) {
                 });
                 if (isJoinAdded) {
                     selectedNode_1.isDouble = true;
-                    selectedNode_1.randPhase = Math.random() + 0.1;
+                    selectedNode_1.randPhase = Math.random() * (0.5 - 0.3) + 0.3;
                 }
                 lastEdge_1.dest = selectedNode_1;
                 enableAddEdge = false;

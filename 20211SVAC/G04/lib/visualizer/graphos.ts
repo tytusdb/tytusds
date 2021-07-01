@@ -34,38 +34,20 @@ drawInCanvas = () => {
 				canvasCtx.beginPath()
 
 				// LINEA
-				canvasCtx.strokeStyle = currentEdge.origin.color
+				canvasCtx.strokeStyle = currentEdge.dest.isDouble
+					? currentEdge.dest.color
+					: currentEdge.origin.color
 				canvasCtx.lineWidth = 5
 
 				// DIBUJAR LINEA
 				canvasCtx.moveTo(currentEdge.origin.x, currentEdge.origin.y)
-
-				// ARCO SI ES DOBLE
-				if (currentEdge.dest.isDouble) {
-					// GET DELTAS
-					const midX: number = (currentEdge.dest.x + currentEdge.origin.x) / 2
-					const midY: number = (currentEdge.dest.y + currentEdge.origin.y) / 2
-					const deltaX: number = currentEdge.dest.x - currentEdge.origin.x
-					const deltaY: number = currentEdge.dest.y - currentEdge.origin.y
-					const distance: number = getNodesDistance(
-						currentEdge.origin.x,
-						currentEdge.dest.x,
-						currentEdge.origin.y,
-						currentEdge.dest.y,
-					)
-					const randPhase: number = currentEdge.dest.randPhase
-
-					canvasCtx.quadraticCurveTo(
-						midX +
-							(Math.abs(deltaY) > Math.abs(deltaX) ? distance / 2 : 0) *
-								randPhase,
-						midY +
-							+(Math.abs(deltaX) > Math.abs(deltaY) ? distance / 2 : 0) *
-								randPhase,
-						currentEdge.dest.x,
-						currentEdge.dest.y,
-					)
-				} else canvasCtx.lineTo(currentEdge.dest.x, currentEdge.dest.y)
+				canvasCtx.arrowTo(
+					currentEdge.origin.x,
+					currentEdge.origin.y,
+					currentEdge.dest.x,
+					currentEdge.dest.y,
+					30,
+				)
 
 				// PINTAR
 				canvasCtx.stroke()
@@ -273,7 +255,7 @@ canvas.addEventListener('click', (ev: MouseEvent) => {
 
 				if (isJoinAdded) {
 					selectedNode.isDouble = true
-					selectedNode.randPhase = Math.random() + 0.1
+					selectedNode.randPhase = Math.random() * (0.5 - 0.3) + 0.3
 				}
 
 				// AGREGAR

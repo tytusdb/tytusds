@@ -43,7 +43,7 @@ interface IndexSearchItem {
 }
 
 interface CanvasRenderingContext2D {
-	arrow: (
+	arrow(
 		x: number,
 		y: number,
 		distance: number,
@@ -51,14 +51,29 @@ interface CanvasRenderingContext2D {
 		down?: boolean,
 		left?: boolean,
 		double?: boolean,
-	) => void
-	roundRect: (
+	): void
+	roundRect(
 		x: number,
 		y: number,
 		width: number,
 		height: number,
 		radius: number,
-	) => void
+	): void
+	arrowTo(x0: number, y0: number, x1: number, y1: number, radius?: number): void
+	quadraticArrowCurveTo(
+		x0: number,
+		y0: number,
+		x1: number,
+		y1: number,
+		cpx: number,
+		cpy: number,
+		radius?: number,
+	): void
+}
+
+interface PointPosition {
+	x: number
+	y: number
 }
 
 interface Lista {
