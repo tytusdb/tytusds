@@ -21,13 +21,6 @@ class LZW{
 
             if (this.buscarTextoinDiccionario(w+K)) {//Si encuentra en el diccionario el wK entonces iguala w
                 w=w+K
-                /*if (cont==texto.length-1) {
-                    temp=this.imprimirW(w)
-                    this.Matriz[0][cont+1]=w
-                    this.Matriz[4][cont+1]=temp
-                    textCifrado+=temp
-                    console.log(temp)
-                }*/
             } else {//Si no lo encuentra lo añade al dic y sigue recorriendo
                 //console.log(temp)
                 textCifrado+=temp
