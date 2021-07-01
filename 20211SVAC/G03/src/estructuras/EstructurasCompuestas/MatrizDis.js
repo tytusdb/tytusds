@@ -280,4 +280,22 @@ class Matriz{
             cab = cab.siguiente
         }
     }
+
+    modificar(datobus, datomod){
+        let cab = this.CVertical.cabeza
+        let aux
+        while(cab != null){
+            aux = cab.este
+            while(aux!=null){
+                if(aux.dato == datobus){
+                    aux.dato = datomod
+                    console.log("El dato"+datobus+" cambio a: "+aux.dato+" en "+aux.i + " , "+aux.j)
+                    return
+                }
+                aux = aux.este
+            }
+            cab = cab.siguiente
+        }
+    }
+
 }
