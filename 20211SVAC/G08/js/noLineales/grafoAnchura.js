@@ -1,5 +1,5 @@
 //  C  O  D  I  G  O
-
+/*
 class Grafo{
     constructor(){
         this.nodos = new Map();
@@ -141,7 +141,7 @@ class Grafo{
 }*/
 
 
-let grafo = new Grafo();
+//let grafo = new Grafo();
 /*
 console.log("Agregando vertices");
 grafo.agregarV("A");
