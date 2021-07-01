@@ -167,6 +167,7 @@ export class TablaHashCerrada {
         console.log('entro a cuadratica');
         let i = 1;
         let aux = posicion + 1;
+        let error = false;
         while (this.arreglo[aux] !== null) {
             console.log(this.arreglo[i], aux);
             i++;
@@ -176,31 +177,41 @@ export class TablaHashCerrada {
                 aux = posicion + i*i;
             }
             if (i >= this.size) {
+                error = true;
                 break;
             }
         }
-        nodo.posicion = aux;
-        this.arreglo[aux] = nodo;
+        if (error) {
+            this.elementosCargados--;   
+        }else {
+            nodo.posicion = aux;
+            this.arreglo[aux] = nodo;
+        }
     }
 
     pruebaDobleHash(nodo: NodoHashCerrado, posicion: number): void {
         console.log('entro a doble hash');
-        let encontrado = false;
+
         let i = 0;
-        let aux = posicion;
-        while(!encontrado) {
-            console.log(aux);
-            if (this.arreglo[aux] === null) {
-                nodo.posicion = aux;
-                this.arreglo[aux] = nodo;
-                encontrado = true;
-            }
+        let aux = this.hashSimple(nodo.valor);
+        let error = false;
+        while (this.arreglo[aux] !== null) {
             i++;
-            if ((aux + this.hashSimple(nodo.valor) * i * this.hashDivision(nodo.valor)) > this.arreglo.length) {
-                aux = (aux + this.hashSimple(nodo.valor) * i * this.hashDivision(nodo.valor)) - this.arreglo.length;
-            }else {
-                aux += this.hashSimple(nodo.valor) * i * this.hashDivision(nodo.valor);
+            aux = this.hashSimple(nodo.valor) + i * this.hashDivision(nodo.valor);
+            if (aux >= this.size) {
+                aux = aux % this.size;
             }
+            if (i > this.size) {
+                error = true;
+                break;
+            }
+        }
+
+        if (error) {
+            this.elementosCargados--;
+        }else {
+            nodo.posicion = aux;
+            this.arreglo[aux] = nodo;
         }
     }
 
@@ -259,5 +270,31 @@ export class TablaHashCerrada {
             edges.push(edge);
         }
         return edges;
+    }
+
+    buscar(valor: any): any {
+        let nodos: any = [];
+        for (let x = 0; x < this.size; x++) {
+            const nodo = {
+                id: x,
+                label: '',
+                shape: 'box',
+                level: x,
+                color: ''
+            };
+            if (this.arreglo[x] !== null) {
+                if (this.arreglo[x].valor == valor) {
+                    nodo.color = '#FFFB00';    
+                }else {
+                    nodo.color = '#013ADF';
+                }
+                nodo.label = this.arreglo[x].valor;
+            }else {
+                nodo.label = `nodo vacio: ${x+1}`;
+                nodo.color = 'red';
+            }
+            nodos.push(nodo);
+        }
+        return nodos;
     }
 }
