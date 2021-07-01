@@ -6,7 +6,11 @@ class Feistel{
     }
     cifrarCadena(text, rondas){
         var l="",r="",k, cadena="",f, aux=""
-        cadena=this.convertBinario(text)
+        //Se importa el la clase Hamming para usar su método de converión a binario
+        const Hamming= require('./Hamming')
+        var Hm= new Hamming()
+        cadena=Hm.convertTextToBinary(text)
+        //Se declaran los l y r de la tabla
         l=cadena.substring(0,parseInt(cadena.length/2))
         r=cadena.substring(parseInt(cadena.length/2),cadena.length)
         k="00110001"
@@ -60,19 +64,20 @@ class Feistel{
         aux=r
         r=this.xor(f,l)
         l=aux
-        return rondas==1 ? [l,r,j+4]: this.calcularCifrado(l,r,this.shiftCircular(k),j+4,rondas-1)
+        return rondas==1 ? [l,r,j+4]: this.calcularCifrado(l,r,this.shiftCircular(k),j+4,rondas-1)//Función recursiva donde se llama a si misma hasta que termine de ejecutar las rondas
     }
     shiftCircular(llave){
         llave=llave.substring(1,llave.length)+llave[0]
         return llave
     }
 }
-var c= new Feistel()
-console.log("La el texto convertido es: "+c.cifrarCadena("CF",3))
+var f= new Feistel()
+
+cifradoFeistel("CF",4)
 
 function cifradoFeistel(text, rondas) {
     var result
-    result=c.cifrarCadena(text,rondas)
+    result=f.cifrarCadena(text,rondas)
     console.log("El texto convertido es: "+result)
     return result
 }

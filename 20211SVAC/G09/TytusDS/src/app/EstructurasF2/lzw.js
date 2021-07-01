@@ -1,22 +1,52 @@
 class LZW{
     constructor(){
         this.diccionario=[]
+        this.Matriz=[]
+        for (let i = 0; i < 5; i++) {
+            this.Matriz[i]= new Array()
+        }
     }
     cifradoLZW(texto){
+        this.llenarMatriz()
         this.addLetrasDiccionario(texto)
-        var w="",K, cont=0//, wK=""
+        var w="",K, cont=0, textCifrado="", temp=""
         while (cont<texto.length) {
             K=texto[cont]
+
+            this.Matriz[0][cont+1]=w
+            this.Matriz[1][cont+1]=K
+            this.Matriz[2][cont+1]=w+K
+
+            temp=this.imprimirW(w)//Ya se va imprimir en ambos caso del else
+
             if (this.buscarTextoinDiccionario(w+K)) {//Si encuentra en el diccionario el wK entonces iguala w
                 w=w+K
+                /*if (cont==texto.length-1) {
+                    temp=this.imprimirW(w)
+                    this.Matriz[0][cont+1]=w
+                    this.Matriz[4][cont+1]=temp
+                    textCifrado+=temp
+                    console.log(temp)
+                }*/
             } else {//Si no lo encuentra lo añade al dic y sigue recorriendo
-                console.log(this.imprimirW(w))
+                //console.log(temp)
+                textCifrado+=temp
                 this.diccionario.push({letra:w+K,valor:this.diccionario.length})
+                this.Matriz[3][cont+1]=w+K
+                this.Matriz[4][cont+1]=temp
                 w=K
             }
             cont++
         }
-        console.log(this.imprimirW(w))
+        try {
+            temp=this.imprimirW(w)
+            this.Matriz[0][cont+1]=w
+            this.Matriz[4][cont+1]=temp
+            textCifrado+=temp            
+            //console.log(temp)
+        } catch (error) {}
+
+        return textCifrado
     }
     addLetrasDiccionario(cadena){
         var ind=1, newCad=""
@@ -49,7 +79,23 @@ class LZW{
             cont++
         }
         return null
+    }
+    llenarMatriz(){
+        this.Matriz[0][0]="w"
+        this.Matriz[1][0]="K"
+        this.Matriz[2][0]="wK"
+        this.Matriz[3][0]="ADD diccionario"
+        this.Matriz[4][0]="Salida"
     }        
 }
 var lz=new LZW()
-lz.cifradoLZW("compadre no compro coco")
+
+algoritmoLZW("pablo papa de pablito")
+//compadre no compro coco
+//pablo papa de pablito
+
+function algoritmoLZW(cadena) {
+    var cifrado=lz.cifradoLZW(cadena)
+    console.log(cifrado)
+    return cifrado
+}
