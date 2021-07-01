@@ -29,7 +29,7 @@
     </button>
     <br>
     <input type="text" #box placeholder="Ingrese Datos" name="Ingrese Datos"/> 
-    <button class="boton" (click)="value()" type="submit" >Push</button> &nbsp; &nbsp;
+    <button class="boton" (click)="insertarHashCerrada(box.value)" type="submit" >Push</button> &nbsp; &nbsp;
     
     <input type="text" #box1 placeholder="Eliminar Datos" name="username"/> 
     <button class="boton" (click)="value()" >Eliminar</button>&nbsp; &nbsp;&nbsp;
@@ -47,14 +47,14 @@
     <br>
     <br>
     <label><font color="#000000"><input type="checkbox" id="check" onclick="checkCerradaSimple()">Simple  </font></label> &nbsp;&nbsp;&nbsp;
-    <label><font color="#000000"><input type="checkbox" id="check" onclick="checkBox()">Division  </font></label> &nbsp;&nbsp;&nbsp;
+    <label><font color="#000000"><input type="checkbox" id="check" onclick="checkCerradaDivision()">Division  </font></label> &nbsp;&nbsp;&nbsp;
     <label><font color="#000000"><input type="checkbox" id="check" onclick="checkBox()">Multiplicaicon </font></label> &nbsp;&nbsp;&nbsp;
     <br>
     <label><font color="#000000"><input type="checkbox" id="check" onclick="checkCerradaLineal()">Hash lineal f(i) = i </font></label> &nbsp;&nbsp;&nbsp;
     <label><font color="#000000"><input type="checkbox" id="check" onclick="checkBox()">Hash Cuadratico: f(i) = i * i  </font></label> &nbsp;&nbsp;&nbsp;
     <label><font color="#000000"><input type="checkbox" id="check" onclick="checkBox()">Doble Hash: f(i) = i * hash2(elem)</font></label> &nbsp;&nbsp;&nbsp;
     <br>
-    <label><font color="#000000"><input type="checkbox" id="check" onclick="checkBox()">String?</font></label> &nbsp;&nbsp;&nbsp;
+    <label><font color="#000000"><input type="checkbox" id="check" onclick="checkCerradaString()">String?</font></label> &nbsp;&nbsp;&nbsp;
     <label><font color="#000000"><input type="checkbox" id="check" onclick="checkCerradaInt()">Integer?</font></label> &nbsp;&nbsp;&nbsp;
     <br>
     <br>
