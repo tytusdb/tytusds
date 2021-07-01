@@ -1,5 +1,6 @@
 class Nodo{
-  constructor(valor,padre) {
+  constructor(valor,padre=null,nivel=0) {
+    this.nivel=nivel;
     this.padre=padre;
     this.valor=valor;
     this.next=null;

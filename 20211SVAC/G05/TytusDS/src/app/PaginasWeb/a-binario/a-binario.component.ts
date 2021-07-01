@@ -63,6 +63,7 @@ export class ABinarioComponent implements OnInit {
     let datos=this.bst.Dot();
     let Nodos=datos[0];
     let Edges=datos[1];
+    console.log(Nodos);
     let data={nodes:Nodos,edges:Edges};
 
     //OPCIONES PARA LOS NODOS----------------------------------------------------------

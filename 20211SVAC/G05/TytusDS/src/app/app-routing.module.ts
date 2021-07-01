@@ -17,10 +17,15 @@ import {BComponent} from './PaginasWeb/b/b.component';
 import { ColaComponent } from './PaginasWeb/Cola/cola.component';
 import { CpComponent } from './PaginasWeb/Cola-Prioridad/cp.component';
 import { AnchuraComponent } from './PaginasWeb/grafo_anchura/anchura.component';
-
+import {LZWComponent} from './PaginasWeb/lzw/lzw.component';
 import {LBSTComponent} from './PaginasWeb/lista-bst/l-bst.component';
 import {MDispersaComponent} from './PaginasWeb/mdispersa/mdispersa.component';
 import { HammingComponent } from './PaginasWeb/hamming/hamming.component';
+import { HuffmanComponent } from './PaginasWeb/huffman/huffman.component';
+import { HashAbiertoComponent } from './PaginasWeb/hash-abierto/hash-abierto.component';
+import { HashCerradoComponent } from './PaginasWeb/hash-cerrado/hash-cerrado.component';
+import { CuComponent } from './PaginasWeb/costo_uniforme/cu.component';
+
 
 const routes: Routes = [
   {path:'menu', component: MenuComponent},
@@ -42,8 +47,12 @@ const routes: Routes = [
   {path: 'MDispersa',component: MDispersaComponent},
   {path: 'CodigoHamming',component: HammingComponent},
   {path:'LBST',component: LBSTComponent},
+  {path:'AlgoritmoHuffman',component: HuffmanComponent},
+  {path:'HashAbierta',component: HashAbiertoComponent},
+  {path:'HashCerrada',component: HashCerradoComponent},
+  {path:'lzw', component: LZWComponent},
+  {path:'Cu', component: CuComponent},
   {path:'**', redirectTo: 'menu'},
-
 
 ];
 
