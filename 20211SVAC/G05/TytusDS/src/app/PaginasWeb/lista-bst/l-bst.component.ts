@@ -29,6 +29,20 @@ export class LBSTComponent implements OnInit {
   ngOnInit(): void {
 
   }
+  //LEER ARCHIVOS DE ENTRADA------------------------------------------------------------------
+  getDocumento(documento: any): void{
+    this.documentoService.getDocumento(documento).then( contenido => {
+      contenido['valores'].forEach(valor => {
+        //valor es el diccionario
+        let principal,secundario;
+        principal=valor['principal'];
+        secundario=valor['secundario'];
+        this.lbst.append(principal,secundario);
+      });
+      this.graficar();
+    });
+
+  }
   getOpciones(opciones: any): void {
     this.opciones = opciones;
   }
@@ -137,6 +151,19 @@ export class LBSTComponent implements OnInit {
     };
     //------------------------------------------------------------------------
     this.grafo= new vis.Network(contenedor,datos,opciones);
+  }
+  //GUARDAR
+  guardar(): void {
+    const contenido: any = {
+      categoria: "Estructura Compuesta",
+      nombre: "Construccion",
+      animacion:10,
+      valores: []
+    };
+    //this.matriz.Rdatos()
+    contenido.valores=contenido.valores.concat(this.lbst.Rdatos());
+    let blob = new Blob([JSON.stringify(contenido)], {type: 'json;charset=utf-8'});
+    saveAs(blob, 'descarga.json');
   }
 
 }
