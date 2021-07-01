@@ -13,8 +13,8 @@ let listaData = { nodes: nodes,
 
 
   class vertice {
-    valor: number;
-    adyacencia: number[];
+    valor: any;
+    adyacencia: vertice[];
     aristas: number[];
 
     constructor(value) {
@@ -26,6 +26,13 @@ let listaData = { nodes: nodes,
       this.adyacencia.push(vertice);
     }
   }
+  class grafo {
+    vertix: vertice[];
+    constructor() {
+      this.vertix = [];
+    }
+  }
+  var pagina = new grafo();
 
 
 @Component({
@@ -74,12 +81,33 @@ export class RBAnchuraGrafosComponent implements OnInit {
     nodes.add(
       {id: this.ValorPos(data), label: data}
     );
+    pagina.vertix.push(new vertice(data));
   }
 
   addArista(veri,dist,verf){
     edges.update(
       {from: this.ValorPos(veri), to: this.ValorPos(verf) , length:20, label:dist}
     );
+  }
+  deleteVertice(data){
+    nodes.remove(this.ValorPos(data));
+  }
+  actualizarVertice(viejo, nuevo){
+    nodes.update({
+      id: this.ValorPos(viejo), label: nuevo
+    });
+  }
+  buscarVertice(data){
+    nodes.update(
+      {id: this.ValorPos(data), color: "red"}
+    );
+  }
+
+  searchAnchura(data){
+
+  }
+  searchProfundidad(data){
+
   }
   
   descargar(){}
