@@ -47,7 +47,7 @@ class Huffman{
         }
         return textoCodificado
     }
-    recorrerArbol(nodo, valor, letra, cadenaCodificada, ) {
+    recorrerArbol(nodo, valor, letra, cadenaCodificada, ) {//Esto está fumado para explicar :V
         if (nodo == null) {
             return false
         }
@@ -103,15 +103,14 @@ class Huffman{
         for (let i = 2; i < letras.length; i++) {
             temp.push(letras[i])
         }
-        /*if(temp.length>1){
-        }
-        else{return "temp[0]"}*/
+
         this.ordenarLetras(temp)
         return temp.length>1 ? this.arbolBinario(temp):temp[0]
     }    
 }
 var a=new Huffman()
+
 function HuffmanCod(cadena) {
     console.log(a.tableFrecuencias(cadena))
 }
-HuffmanCod("pablo papa de pablito quiere un clavito")
+HuffmanCod("OTORRINOLARINGOLOGO")
