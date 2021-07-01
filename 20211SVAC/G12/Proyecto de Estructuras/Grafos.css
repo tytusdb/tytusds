@@ -1,0 +1,40 @@
+.circle {
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    border-radius: 50%;
+    font-size: 50px;
+    color: #fff;
+    text-align: center;
+    background: #000;
+    position: absolute;
+}
+
+.arrow-right {
+    width: 0;
+    height: 0;
+    border-top: 60px solid transparent;
+    border-bottom: 60px solid transparent;
+
+    border-left: 60px solid green;
+}
+
+@keyframes colorChangeYellow {
+    from {
+        background-color: red;
+    }
+    to {
+        background-color: yellow;
+    }
+}
+
+@keyframes colorChangeBY {
+    from {
+        background-color: Black;
+        color:white;
+    }
+    to {
+        background-color: yellow;
+        color:black;
+    }
+}
