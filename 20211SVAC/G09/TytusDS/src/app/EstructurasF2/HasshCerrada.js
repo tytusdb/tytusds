@@ -3,6 +3,7 @@ var checkBoxHashCerradaLineal = false;
 var checkBoxHashCerradaInt = false;
 var checkBoxHashCerradaString = false;
 var checkBoxCerradaDivision = false;
+var checkBoxCerradaCuadratica = false;
 function checkCerradaSimple(){
     if(checkBoxHashCerradaSimple == true){
         checkBoxHashCerradaSimple = false;
@@ -39,7 +40,16 @@ function checkCerradaDivision(){
         console.log("cambioando chek "+ checkBoxCerradaDivision);
     }  
 }
+function checkCerradaCuadratica(){
+    if(checkBoxCerradaCuadratica == true){
+        checkBoxCerradaCuadratica = false;
+        console.log("cambiando chek "+ checkBoxCerradaCuadratica);
+    }else{
+        checkBoxCerradaCuadratica = true;
+        console.log("cambioando chek "+ checkBoxCerradaCuadratica);
+    }  
 
+}
 function checkCerradaString(){
     if(checkBoxHashCerradaString == true){
         checkBoxHashCerradaString = false;
@@ -69,23 +79,26 @@ class hash {
       }
    }
    insertar(k){
-    let i = this.division(k);
-    console.log(i);
+    let i = this.funcionHash(k)
+    //let i = this.division(k);
+    //console.log(i);
+    let contador = 0;
     while(this.areglo[i] != -1){
-        i = this.linear(i); 
+        contador++
+        i = this.pruebaHash(i,contador);
         console.log(i)
     }
-    console.log(i)
+    //console.log(i)
     this.areglo[i] = k
     //console.log(this.areglo[i])
     console.log(this.areglo)
     this.n++; //numero de valores de la tabla hash hasta el momento
-    console.log(this.n)
+    //console.log(this.n)
     this.rehashing()
     
   }
-   
     rehashing(){
+        console.log("entrando a rehashinkg")
         console.log(this.areglo+"  "+ this.n/this.m)
         if((this.n*100/this.m)>=this.max){  
          console.log(this.n*100/this.m)
@@ -107,8 +120,11 @@ class hash {
  
      } 
      insertarString(y){
-        let i = this.divisionString(y);
+        let i = this.funcionHashString(y); 
+        console.log(y)
+        //let i = this.divisionString(y);
         console.log(i)
+        
         while(this.areglo[i] != -1){
            i = this.linear(i); 
         }
@@ -139,19 +155,34 @@ class hash {
        }
 
     }     
-   ///disvion
-   division(k){
-    return (k%(this.m))
-   }
-   divisionString(data){
-    var contador = 0;
-    for(var h in data){
-       // console.log(data.charCodeAt(k));
-        contador = contador + data.charCodeAt(h);
+    funcionHash(k){
+        if(checkBoxCerradaDivision==true){
+            return (k%(this.m))
+        }
     }
-    //////////////////////////
-    return contador%this.m
-}
+    funcionHashString(y){
+        if(checkBoxCerradaDivision==true){
+            var contador = 0;
+            for(var h in y){
+            // console.log(data.charCodeAt(k));
+                contador = contador + y.charCodeAt(h);
+            }
+            return contador%this.m
+        }
+        
+    }
+   ///disvion
+    pruebaHash(k,c){
+        if(checkBoxHashCerradaLineal===true){
+            return ((k+1)%this.m)
+        }
+        if(checkBoxCerradaCuadratica===true){
+            let o = k+c*c
+            return ((o)%this.m)
+        }
+       
+       
+    }
     linear(k){
     return ((k+1)%this.m)
     }
@@ -165,21 +196,19 @@ class hash {
 }
 
 let p = new hash();
-p.hash(5,20,80);
-p.insertar(5);
-p.insertar(5);
-p.insertar(5);
-
-
+p.hash(20,20,80);
+//p.insertar(5);
+//p.insertar(5);
+//p.insertar(5);
 
 
 
 
 function insertarHashCerrada(data){
-    if(checkBoxCerradaDivision==true && checkBoxHashCerradaLineal== true && checkBoxHashCerradaInt==true){
+    if(checkBoxHashCerradaInt==true){
         p.insertar(data)
     }
-    if(checkBoxCerradaDivision==true && checkBoxHashCerradaLineal== true && checkBoxHashCerradaString==true){
+    if(checkBoxHashCerradaString==true){
        p.insertarString(data)
     }
 }
