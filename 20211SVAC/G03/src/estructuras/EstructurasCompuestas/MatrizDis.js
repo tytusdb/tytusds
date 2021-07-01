@@ -264,4 +264,20 @@ class Matriz{
             cab = cab.siguiente
         }
     }
+
+    buscar(dato){
+        let cab = this.CVertical.cabeza
+        let aux
+        while(cab != null){
+            aux = cab.este
+            while(aux!=null){
+                if(aux.dato == dato){
+                    console.log("El dato es: "+aux.dato+" en "+aux.i + " , "+aux.j)
+                    return
+                }
+                aux = aux.este
+            }
+            cab = cab.siguiente
+        }
+    }
 }
