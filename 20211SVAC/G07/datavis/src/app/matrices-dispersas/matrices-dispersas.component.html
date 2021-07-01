@@ -34,7 +34,8 @@
         <input class="form-control mr-sm-2" type="text" #Col placeholder="Columna" aria-label="Columna">
         <input  class="form-control mr-sm-2 " type="text" #nombre placeholder="Agregar" aria-label="Agregar datp">
         <button (click)="AgregarNuevo(nombre.value, Fila.value, Col.value)" class="btn btn-outline-light mr-sm-2" type="button">Agregar dato</button>
-
+        <input style="display:none;" type="file" (change)="abrir($event)" #archivo>
+        <button (click)="archivo.click()" class="btn btn-outline-light mr-sm-2" type="button" >Cargar</button>
 
 
       </form>
