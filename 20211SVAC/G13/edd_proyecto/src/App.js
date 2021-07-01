@@ -17,6 +17,7 @@ import AVL from './Componentes/Paginas/AVL';
 import ArbolB from './Componentes/Paginas/Arbolb';
 import ArbolBPlus from './Componentes/Paginas/Arbolbplus';
 import ArbolMerkle from './Componentes/Paginas/Arbolmerkle';
+import MatrizDispersa from './Componentes/Paginas/MatrizDispersa';
 
 
 
@@ -41,6 +42,7 @@ function App() {
         <Route path='/Arbolb' component={ArbolB} />
         <Route path='/Arbolbplus' component={ArbolBPlus} />
         <Route path='/Arbolmerkle' component={ArbolMerkle} />
+        <Route path='/MatrizDispersa' component={MatrizDispersa} />
       </Switch>
     </Router>
   );
