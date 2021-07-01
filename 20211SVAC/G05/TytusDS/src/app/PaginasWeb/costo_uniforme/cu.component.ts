@@ -11,6 +11,7 @@ let vis=require('../../../../vis-4.21.0/dist/vis');
 })
 export class CuComponent implements OnInit {
   lista=Lista;
+  opcion=true;
   ag = '';
   ag1 = '';
   ag2 = '';
@@ -18,6 +19,7 @@ export class CuComponent implements OnInit {
   ag4 = '';
   ag5 = '';
   ag6 = '';
+  ag7 = '';
   opciones = {
     ingreso: 'final',
     velocidadLineales: 1000,
@@ -77,16 +79,37 @@ export class CuComponent implements OnInit {
   Add(valor){
       this.lista.insertar_vertices(valor);
       this.ag = '';
-      this.graficar();
+      if (this.opcion==true){
+    this.graficarb();
+      }else{
+    this.graficar();
+      }
       return;
   }
+
+  Addcarga(valor){
+    this.lista.insertar_vertices(valor);
+    this.ag = '';
+    var x=this.lista.identificar();
+    if (x==false){this.graficarb();}
+    else{this.graficar(); }
+    
+    return;
+}
 
   Add2(valor1,valor2,peso){
     if (valor1=="" || valor2=="" ||peso==""){
       alert("algun campo esta vacio"); 
     }else{
-      this.lista.isertar_aristas(valor1,valor2,peso);
+      if (this.opcion==true){
+        this.lista.isertar_aristas(valor1,valor2,peso);
+    this.graficarb();
+      }else{
+        this.lista.isertar_aristas(valor1,valor2,peso);
+        this.lista.isertar_aristas(valor2,valor1,peso);
     this.graficar();
+      }
+      
     this.ag1 = '';
     this.ag2 = '';
     this.ag3 = '';
@@ -111,9 +134,8 @@ graficar(){
         color:"#013ADF"
       }, 
       arrows:{ 
-        to:{
-          enabled:true
-        }
+        to:true,
+          from:true
       }
     },
     nodes:{

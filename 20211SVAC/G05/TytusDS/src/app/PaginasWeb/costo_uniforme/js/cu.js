@@ -2,6 +2,8 @@ var nodos=[];
 var punteros=[];
 var nodos1=[];
 var punteros1=[];
+var auxnodos=[];
+var auxpunteros=[];
 var matriz=[];
 var arbol=[];
 var texto="";
@@ -245,6 +247,30 @@ class listaaux{
             console.log("sin datos");
         }
             }
+
+
+            imprimir3(){
+                let aux = this.inicio;
+                if (this.inicio!=null){
+                    do{let aux1 = this.inicio;
+                        do{
+                            if (aux.dato1==aux1.dato2&&aux.dato2==aux1.dato1){
+                                console.log(" ");
+                            }else{
+                                punteros.push({from: aux1.dato1, to: aux1.dato2  ,label:aux1.dato3});
+                            }
+                            
+                            aux1=aux1.sigui;
+                            }while(aux1!=null);
+                        aux=aux.sigui;
+                        }while(aux!=null);
+                }
+                else{
+                    console.log("sin datos");
+                }
+                    }
+
+
     imprimir2(){
         let au = p.uno;
         var tr = document.createElement("tr");
@@ -363,6 +389,30 @@ matriz(){
 
 }
 
+identificar(){
+    var bandera=false;
+    var aux=p1.inicio;
+    do{var aux2=p1.inicio;
+        do{ 
+            if(aux.dato1==aux2.dato2&&aux.dato2==aux2.dato1){
+                bandera=true;
+                break;
+            }
+    
+        aux2=aux2.sigui;
+        }while(aux2!=null);
+    if (bandera==true){break;}
+    aux=aux.sigui;
+    }while(aux!=null)
+
+    if (bandera==false){ return false}
+
+
+
+}
+
+
+
 bus(valori,valorf){
 var actual=valori;
 var aux1=p.uno;
@@ -404,19 +454,7 @@ console.log(print);
 }
 
 
-
-
 as1(){
-    let ldata=[];
-    ldata.push(nodos1);
-    ldata.push(punteros1);
-    nodos1=[];
-    punteros1=[];
-    return ldata;
-    
-}
-
-as(){
     nodos=[];
     punteros=[];
     p.imprimir();
@@ -430,6 +468,31 @@ as(){
     return ldata;
     
 }
+
+
+nodosnodirigidos(valori,valorf,peso){
+auxpunteros.push({from: valori, to: valorf  ,label:peso});
+
+}
+
+
+
+
+as(){
+    nodos=[];
+    punteros=[];
+    p.imprimir();
+    let ldata=[];
+    //this.nodos.push({id: aux.id, label: impre})
+    //this.punteros.push({from: aux.id, to: aux.hojitas[i].id});
+    ldata.push(nodos);
+    ldata.push(auxpunteros);
+    console.log(ldata);
+    auxpunteros=[];
+    return ldata;
+    
+}
+
 }
 
 
