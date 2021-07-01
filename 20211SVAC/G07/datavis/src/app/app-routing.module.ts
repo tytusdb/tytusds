@@ -17,6 +17,21 @@ import { BtreeplusComponent } from './btreeplus/btreeplus.component';
 import { BubblesortComponent } from './bubblesort/bubblesort.component';
 import { CirculardobleComponent } from './circulardoble/circulardoble.component';
 import { CircularsimpleComponent } from './circularsimple/circularsimple.component';
+import { ArbolMinimoComponent } from './arbol-minimo/arbol-minimo.component';
+import { ColMajorComponent } from './col-major/col-major.component';
+import { CostoUniformeComponent } from './costo-uniforme/costo-uniforme.component';
+import { EstructurasCompuestasComponent } from './estructuras-compuestas/estructuras-compuestas.component';
+import { FeistelComponent } from './feistel/feistel.component';
+import { HammingComponent } from './hamming/hamming.component';
+import { HashAbiertaComponent } from './hash-abierta/hash-abierta.component';
+import { HashCerradoComponent } from './hash-cerrado/hash-cerrado.component';
+import { HuffmanComponent } from './huffman/huffman.component';
+import { LZWComponent } from './lzw/lzw.component';
+import { MatricesDispersasComponent } from './matrices-dispersas/matrices-dispersas.component';
+import { RBAnchuraGrafosComponent } from './rbanchura-grafos/rbanchura-grafos.component';
+import { RBProfundidadGrafosComponent } from './rbprofundidad-grafos/rbprofundidad-grafos.component';
+import { RowMajorComponent } from './row-major/row-major.component';
+import { RSAComponent } from './rsa/rsa.component';
 
 const routes: Routes = [
   {
@@ -86,6 +101,66 @@ const routes: Routes = [
   {
     path:'arbolmerklexd',
     component: MerkleComponent
+  },
+  {
+    path:'abierta',
+    component: HashAbiertaComponent
+  },
+  {
+    path:'cerrada',
+    component: HashCerradoComponent
+  },
+  {
+    path:'anchura',
+    component: RBAnchuraGrafosComponent
+  },
+  {
+    path:'prof',
+    component: RBProfundidadGrafosComponent
+  },
+  {
+    path:'uniforme',
+    component: CostoUniformeComponent
+  },
+  {
+    path:'minimo',
+    component: ArbolMinimoComponent
+  },
+  {
+    path:'hamming',
+    component: HammingComponent
+  },
+  {
+    path:'huffman',
+    component: HuffmanComponent
+  },
+  {
+    path:'LZW',
+    component: LZWComponent
+  },
+  {
+    path:'ESComp',
+    component:EstructurasCompuestasComponent
+  },
+  {
+    path:'RSA',
+    component: RSAComponent
+  },
+  {
+    path:'feistel',
+    component: FeistelComponent
+  },
+  {
+    path:'dispersas',
+    component: MatricesDispersasComponent
+  },
+  {
+    path:'row',
+    component: RowMajorComponent
+  },
+  {
+    path:'col',
+    component: ColMajorComponent
   }
 ];
 

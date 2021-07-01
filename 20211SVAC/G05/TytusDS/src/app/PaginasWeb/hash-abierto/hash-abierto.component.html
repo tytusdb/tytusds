@@ -1,0 +1,46 @@
+<app-opciones (opcionesEvento)="getOpciones($event)"></app-opciones>
+<div class="container mt-3 text-white">
+    <h1 class="fw-light">Tabla Hash Abierta</h1>
+    <hr>
+    <div class="row my-3">
+        <div class="col-md-1">
+            <input type="text" class="form-control" placeholder="clave" [(ngModel)]="valorAgregar">
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-primary" (click)="agregar()">Agregar</button>
+        </div>
+        <div class="col-md-1">
+            <input type="text" class="form-control" placeholder="valor" [(ngModel)]="valorEliminar">
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-danger" [disabled]="primero" (click)="eliminar()">Eliminar</button>
+        </div>
+        <div class="col-md-2">
+            <input type="text" class="form-control" placeholder="valor antiguo" [(ngModel)]="valorAntiguo">
+        </div>
+        <div class="col-md-2">
+            <input type="text" class="form-control" placeholder="valor nuevo" [(ngModel)]="valorActualizar">
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-primary" [disabled]="primero" (click)="actualizar()">Actualizar</button>
+        </div>
+        <div class="col-md-2">
+            <input type="text" class="form-control" placeholder="buscar valor" [(ngModel)]="valorBuscar">
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-primary" [disabled]="primero" (click)="buscar()">Buscar</button>
+        </div>
+    </div>
+    <div class="row my-3">
+        <div class="col-md-6">
+            <input class="form-control" type="file" id="formFile" (change)="getDocumento($event.target)">
+        </div>
+        <div class="col-md-2">
+            <div class="d-grid gap-2">
+                <button class="btn btn-success" [disabled]="primero" (click)="guardar()">Guardar</button>
+            </div>
+        </div>
+    </div>
+    <div class="bg-light animacion mt-5" id="contenedor">
+    </div>
+</div>

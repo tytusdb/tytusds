@@ -12,6 +12,7 @@
 ## ESTRUCTURAS NO LINEALES
 ### [Arbol de Busqueda Binario](https://tytusdb.github.io/tytusds/20211SVAC/G27/Arboles/BST.html)
 ### [Arbol AVL](https://tytusdb.github.io/tytusds/20211SVAC/G27/Arboles/AVL.html)
+### [Hash Abierto](https://tytusdb.github.io/tytusds/20211SVAC/G27/No_Lineales/hash_abierto.html)
 
 ## ORDENAMIENTOS
 ### [Ordenamiento Burbuja](https://tytusdb.github.io/tytusds/20211SVAC/G27/ordenamientos/bubleSort.html)

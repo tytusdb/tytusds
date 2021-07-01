@@ -275,6 +275,31 @@ export class ListadobleComponent implements OnInit {
   @ViewChild('mynetwork', {static: false}) el: ElementRef;
   public network: any;
   constructor() { }
+  contenido = "{ \"valores\": [\n";
+
+
+  generador(){
+    for(var j =0;j<this.array.length;j++){
+      if(this.array[j]!=null){
+        if(j+1!=this.array.length){
+          this.contenido += this.array[j]+",\n";
+        }else{
+          this.contenido += this.array[j]+"\n";
+        }
+      }
+    }
+    this.contenido += "]}";
+  }
+
+  descargarContenido(){
+    this.generador();
+    let downloadfile = "data: text/json;charset=utf-8,"+encodeURIComponent(this.contenido);
+    console.log(downloadfile);
+    var downloader = document.createElement('a');
+    downloader.setAttribute('href', downloadfile);
+    downloader.setAttribute('download', 'data.json');
+    downloader.click();
+  }
 
   ngOnInit(): void {
   }
@@ -283,21 +308,24 @@ export class ListadobleComponent implements OnInit {
     this.network = new vis.Network(container, listaData, options);
   }
   code = '';
+  array = [];
+  texto = "";
   lista = new ListaDoble();
   abrir(eve:any)
   {
     let a =eve.target.files[0]
     let text=""
-    let arr = [];
     if(a){
       let reader=new FileReader()
         reader.onload=ev=>{
         const resultado=ev.target?.result
         text=String(resultado)
-        console.log(resultado)
-        console.log(text)
-        arr = text.replace("{","").replace("}","").split(",");
-        arr.forEach(el => console.log(el))
+        var data = JSON.parse(text);
+        data.valores.forEach(element => {
+          this.array.push(element)
+        });
+
+        this.array.forEach(el => this.lista.addhead(el.toString()))
         this.code=text.toString();
       }
       reader.readAsText(a)
@@ -307,16 +335,28 @@ export class ListadobleComponent implements OnInit {
   }
   AgregarNuevo(valor: any){
     this.lista.addhead(valor);
+    this.array.unshift(valor);
     console.log(this.lista);
   }
   AgregarNuevoUltimo(valor: any){
     this.lista.addtail(valor);
+    this.array.push(valor);
     console.log(this.lista);
    }
   Eliminar(valor: any){
     console.log('valor ' + valor)
+    this.blankspace(valor);
     this.lista.delete(valor)
     console.log("this.lista");
     console.log(this.lista);
+  }
+  blankspace(value){
+    for(var j=0;j<this.array.length;j++){
+      if(this.array[j]==value){
+        this.array[j]=null;
+        return;
+      }
+    }
+
   }
 }

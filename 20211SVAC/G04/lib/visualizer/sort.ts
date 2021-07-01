@@ -29,7 +29,15 @@ let sortMethod: (
 	stepCallback?: (newSortData: number[], step: number) => unknown,
 ) => unknown = () => null
 
-// CARDAR JSON
+// GUARDAR JSON
+const saveSortJSONFile = () =>
+	saveJSONFile(
+		allStrings
+			? globalSortData.map((wIndex: number) => globalCopyStringData[wIndex - 1])
+			: globalSortData,
+	)
+
+// CARGAR JSON
 fileUploadCallback = (json: JSONInputFile) => {
 	// ASIGNAR VARIABLES GLOBALES
 	const valores = json.valores as number[]
