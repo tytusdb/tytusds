@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
+import {FeistelComponent} from './PaginasWeb/feistel/feistel.component';
 import {ListasCircularesComponent} from './PaginasWeb/listas-circulares/listas-circulares.component';
 import {ListasCicularesDEComponent} from './PaginasWeb/listas-ciculares-de/listas-ciculares-de.component';
 import { ListaSimpleComponent } from './PaginasWeb/lista-simple/lista-simple.component';
@@ -51,6 +51,7 @@ const routes: Routes = [
   {path:'HashAbierta',component: HashAbiertoComponent},
   {path:'HashCerrada',component: HashCerradoComponent},
   {path:'lzw', component: LZWComponent},
+  {path:'feistel', component:FeistelComponent},
   {path:'Cu', component: CuComponent},
   {path:'**', redirectTo: 'menu'},
 

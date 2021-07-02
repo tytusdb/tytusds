@@ -11,6 +11,7 @@ let vis=require('../../../../vis-4.21.0/dist/vis');
 })
 export class CuComponent implements OnInit {
   lista=Lista;
+  opcion=true;
   ag = '';
   ag1 = '';
   ag2 = '';
@@ -18,6 +19,7 @@ export class CuComponent implements OnInit {
   ag4 = '';
   ag5 = '';
   ag6 = '';
+  ag7 = '';
   opciones = {
     ingreso: 'final',
     velocidadLineales: 1000,
@@ -43,50 +45,68 @@ export class CuComponent implements OnInit {
 
 
   getDocumento(documento: any): void{
-    if(this.opciones['repeticionLineales']===true){
       this.documentoService.getDocumento(documento).then( contenido => {
-        console.log(contenido);
         contenido['valores'].forEach(valor => { 
-          //this.lista.insertar2(valor);
-          });  alert("Datos guardados");  });
-    }
-    else{
-      this.documentoService.getDocumento(documento).then( contenido => {
-        console.log(contenido);
-        contenido['valores'].forEach(valor => { 
-          //this.lista.guardar22(valor);
-          });  alert("Datos guardados"); });
-    }
+          this.lista.insertar_vertices(valor['vertice'].toString());
+          valor['aristas'].forEach(valor1 => { 
+            this.lista.isertar_aristas(valor['vertice'].toString(),valor1['arista'].toString(),valor1['distancia'].toString(),"","");
+          }); 
+         
+          });  alert("Datos guardados");   
+          var s=this.lista.identificar();
+        if (s==true){this.graficar();  this.opcion=false;}
+        else{this.graficarb();  this.opcion=true;}
+        
+        
+        
+        });
+    
+    
     
   }
 
   guardar(): void {
     const contenido: any = {
-      categoria: "Estructura Lineal",
-      nombre: "Cola",
-      repeticion:true,
+      categoria: "Estructura No Lineal",
+      nombre: "Grafo Dirigido/No Dirigido",
+      almacenamiento: "Matriz/Lista",
       animacion:10,
       valores: []
     };
-    //contenido.valores=contenido.valores.concat(this.lista.leer());
+    contenido.valores=contenido.valores.concat(this.lista.leer());
     let blob = new Blob([JSON.stringify(contenido)], {type: 'json;charset=utf-8'});
-    saveAs(blob, 'Cola.json');
+    saveAs(blob, 'Grafo.json');
   }
 
 
   Add(valor){
       this.lista.insertar_vertices(valor);
       this.ag = '';
-      this.graficar();
+      if (this.opcion==true){
+    this.graficarb();
+      }else{
+    this.graficar();
+      }
       return;
   }
+
+
+
 
   Add2(valor1,valor2,peso){
     if (valor1=="" || valor2=="" ||peso==""){
       alert("algun campo esta vacio"); 
     }else{
-      this.lista.isertar_aristas(valor1,valor2,peso);
+      if (this.opcion==true){
+        this.lista.isertar_aristas(valor1,valor2,peso,"","");
+    this.graficarb();
+      }else{
+        
+        this.lista.isertar_aristas(valor1,valor2,peso,valor1,valor2);
+        this.lista.isertar_aristas(valor2,valor1,peso,"","");
     this.graficar();
+      }
+      
     this.ag1 = '';
     this.ag2 = '';
     this.ag3 = '';
@@ -111,9 +131,8 @@ graficar(){
         color:"#013ADF"
       }, 
       arrows:{ 
-        to:{
-          enabled:true
-        }
+        to:true,
+          from:true
       }
     },
     nodes:{
@@ -184,7 +203,12 @@ graficarb(){
 
   delete(valor){
     this.lista.eliminar(valor);
-    this.graficar();
+    alert("Eliminados"); 
+    if (this.opcion==true){
+      this.graficarb();
+        }else{
+      this.graficar();
+        }
     this.ag = '';
   }
 
@@ -197,7 +221,11 @@ graficarb(){
 
   modi(valor,valor1){
    this.lista.modificar(valor,valor1);
-   this.graficar();
+   if (this.opcion==true){
+    this.graficarb();
+      }else{
+    this.graficar();
+      }
    this.ag4 = '';
    this.ag5 = '';
    alert("Modificado"); 
@@ -210,6 +238,6 @@ graficarb(){
 
 
   actualizar(){
-    this.graficar();
+    this.graficarb(); 
   }
 }
