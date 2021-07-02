@@ -15,8 +15,18 @@ class Hamming{
             this.calcParidad(this.Matriz,contP)//Va estableciendo la paridad
             contP++
         }
-        
-        return this.palabraParidad(this.Matriz,nMax)//añade la palabra resultante a la matriz y retorna la palabra
+
+        console.log("La codificación del texto es: "+this.palabraParidad(this.Matriz,nMax))//añade la palabra resultante a la matriz y retorna la palabra
+    }
+    graficar(){
+        const Animaciones= require('./Animaciones')
+        let ani=new Animaciones()
+        //debugger
+        ani.graficarMatriz(this.returnMatriz())
+    }
+    HammingCadena(cadena){
+        cadena=this.convertTextToBinary(cadena)
+        this.Hamming(cadena)
     }
 
     calcBitsParidad(cadena) {
@@ -115,13 +125,13 @@ var Hm= new Hamming()
 
 
 //HammingCadena("se lo dije")
-
+/*
 function HammingCadena(cadena) {
     var textBinario=Hm.convertTextToBinary(cadena)
     console.log(Hm.Hamming(textBinario))
     const Animaciones= require('./Animaciones')
     let ani=new Animaciones
     ani.graficarMatriz(Hm.returnMatriz())
-}
+}*/
 
 module.exports = Hamming;

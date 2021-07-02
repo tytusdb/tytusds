@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-
-
-//const Huffman=require('../../../EstructurasF2/Hamming')
+declare var require:any;
+let Hamming=require('../../../EstructurasF2/Hamming')
 
 @Component({
   selector: 'app-codigo-hamming',
@@ -12,15 +11,25 @@ import { Component, OnInit } from '@angular/core';
 export class CodigoHammingComponent implements OnInit {
 
   cadena:string ="Primer"
-
+  ingresaString:boolean = false
   constructor() {
     this.cadena=""
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
   codificar(){
-    
+    let a= new Hamming()
+    if (!this.ingresaString) {
+      a.Hamming(this.cadena)
+      a.graficar()
+    } else {
+      a.HammingCadena(this.cadena)
+      if(a.returnMatriz().length<50){
+        a.graficar()
+      }else{
+        console.log("No se grafica por que la Matriz es muy grande")
+      }
+    }
   }
   leerArchivo(event: any){
     console.log(event)
@@ -30,7 +39,6 @@ export class CodigoHammingComponent implements OnInit {
       var contenido, text=""
       reader.onload = function (e) {
         contenido = e.target?.result
-        console.log(contenido)
         text+=contenido?.toString()
       }
       reader.readAsText(archivo)
@@ -38,6 +46,10 @@ export class CodigoHammingComponent implements OnInit {
         this.cadena+=text
       }, 500); 
     }
+  }
+  checkString(){
+    this.ingresaString=!this.ingresaString
+    //console.log(this.ingresaString)
   }
 }
 

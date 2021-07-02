@@ -1,12 +1,16 @@
 class Animaciones{
 	constructor(){}
 	graficarMatriz(array){
+		document.getElementById('DivInsert').innerHTML = '';
 		for (let i = 0; i < array.length; i++) {
-			this.crearColocar("btn"+i.toString()+",0",array[i][0],50*i,20)
-		}
-		for (let i = 1; i < array.length; i++) {
-			for (let j = 1; j < array.length; j++) {
-				this.crearColocar("btn"+i.toString()+","+j.toString(),array[i][j],50*i,20*i)
+			if (array[i][0]) {
+			this.crearColocar("btn"+i.toString()+",0",array[i][0],50*i,0)}
+		}//debugger
+		for (let j = 1; j < array[0].length; j++) {
+			for (let i = 1; i < array.length; i++) {
+				if (array[i][j]) {
+					this.crearColocar("btn"+i.toString()+","+j.toString(),array[i][j],50*i,40*j)
+				}
 			}			
 		}
 	}
