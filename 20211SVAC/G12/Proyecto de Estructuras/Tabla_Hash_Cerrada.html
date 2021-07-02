@@ -10,21 +10,23 @@
 <body>
     <header class="header">
         <center><h1>Tabla Hash Cerrada</h1></center>
+        <center><form>
+            <input type="file" id="Archivo">
+            <input type="text" id="tamaño" placeholder="Tamaño" required/>
+            <input type="text" id="minimo" placeholder="Minimo" required/>
+            <input type="text" id="maximo" placeholder="Maximo" required/>
+            <input type="button" onClick="configuracion()" value="Configuracion" />
+            <input type="button" onClick="DescargarArchivo()" value="Descargar" />
+        </form></center>
     </header>
     <form><center>
-        <input type="text" id="tamaño" placeholder="Tamaño" required/>
-        <input type="text" id="minimo" placeholder="Minimo" required/>
-        <input type="text" id="maximo" placeholder="Maximo" required/>
-        <input type="button" onClick="configuracion()" value="Configuracion" />
         <input type="text" id="dato_pag" placeholder="Dato" required/>
         <input type="button" onClick="insertar_nodo()" value="Insertar" />
-        <!--Repetidos<input type="checkbox" id="checkbox"/>
-        <input type="file" id="Archivo"/>
-        <input type="button" onClick="DescargarArchivo()" value="Descargar" />
+        <input type="button" onClick="buscar_nodo()" value="Buscar" />
         <input type="button" onClick="eliminar_nodo()" value="Eliminar" />
-        <input type="text" id="Viejo" placeholder="Nodo Viejo" required/>
-        <input type="text" id="Nuevo" placeholder="Nodo Nuevo" required/>
-        <input type="button" onClick="Actualizar()" value="Actualizar" />-->
+        <input type="text" id="Viejo" placeholder="Dato Viejo" required/>
+        <input type="text" id="Nuevo" placeholder="Dato Nuevo" required/>
+        <input type="button" onClick="Actualizar()" value="Actualizar" />
     </center>
     <br>
     </form>
