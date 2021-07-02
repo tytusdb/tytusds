@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../../css/noLineales/grafos.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
 </head>
 <body>
     <!-- Aquí puedes escribir tu comentario -->
@@ -31,6 +32,10 @@
     </div>    
     <div class="cuadroDatos">
         <h3 class="titulo">Ingrese datos</h3>
+        <br>
+        <input class="dato2 centrado" type="text" placeholder="Nuevo elemento" id="vertice">
+        <a href="#" class="button" id="agregarVertice"><img src="../../svg/add.svg"></a>
+        <br><br>
         <input class="datoGrafo" type="text" placeholder="Inicio" id="inicio">
         <input class="datoGrafo" type="text" placeholder="Final" id="final">
         <br><br>
@@ -56,18 +61,24 @@
         <a href="#" class="button" id="velocidad"><img src="../../svg/fast.svg"></a>
         <br>
         <br>
-        <select class="almacen">
+        <select class="almacen" id="opcs">
             <option disabled selected="">Almacenamiento</option>
-            <option value="matrizAd">Matriz de adyacencia</option>
-            <option value="listaAd">Lista de adyacencia</option>
+            <option value="matrizAd" >Matriz de adyacencia</option>
+            <option value="listaAd" >Lista de adyacencia</option>
         </select>
         <a href="#" class="button" id="almacena"><img src="../../svg/almacenamiento.svg"></a>
+        <br>
+        <br>
+        <input  type="checkbox" name="inicio" id="dirigido"><label for="inicio" class="check ing">  Dirigido</label>     
+        <input  type="checkbox" name="final" id="ponderado"><label for="final" class="check ing">  Ponderado</label>
         <br>
         <br>
     </div>
     <div class="cuadroAnim" id="espacio">
         
-
+    </div>
+    <div class="cuadroBR">
+        <h2>asdf</h2>
     </div>
 
     <script src="../../js/noLineales/grafoProfundidad.js">

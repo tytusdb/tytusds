@@ -23,3 +23,13 @@
     width: 133px;
     margin-right: 11px;   
 }
+.cuadroBR{
+    padding: 5px;
+    margin-top:5px;
+    margin-left: 350px;
+    width: 1015px;
+    height: 30px;
+    text-align: center;
+    border: 3px solid black;
+    background-color:cornflowerblue;
+}
