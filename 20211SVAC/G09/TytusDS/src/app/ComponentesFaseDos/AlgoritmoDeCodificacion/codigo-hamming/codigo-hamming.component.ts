@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 
@@ -14,30 +13,31 @@ export class CodigoHammingComponent implements OnInit {
 
   cadena:string ="Primer"
 
-  constructor(private http: HttpClient) { }
+  constructor() {
+    this.cadena=""
+  }
 
   ngOnInit(): void {
   }
   codificar(){
+    
   }
   leerArchivo(event: any){
     console.log(event)
     let archivo = event.target.files[0]
     if (archivo) {
       let reader= new FileReader()
-      var contenido, text
+      var contenido, text=""
       reader.onload = function (e) {
         contenido = e.target?.result
-        //document.getElementById("t1").innerText = contenido;
         console.log(contenido)
-        text=contenido
+        text+=contenido?.toString()
       }
       reader.readAsText(archivo)
-      this.cadena+=text
+      setTimeout(() => {
+        this.cadena+=text
+      }, 500); 
     }
-  }
-  asignarTexto(text:string): void{
-    this.cadena=text
   }
 }
 
