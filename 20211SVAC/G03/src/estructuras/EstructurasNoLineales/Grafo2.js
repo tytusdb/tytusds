@@ -1,7 +1,7 @@
-//Contador para identificadores unicos de los nodos
+//Contador Nodos
 var idNodos = 0
 
-//Clase para la lista de adyacencia como lista doble
+//Clase Lista Doble
 class ListaDoble{
     //Constructor
     constructor(){
@@ -10,7 +10,7 @@ class ListaDoble{
         this.size = 0
     }
 
-    //Insercion para la lista doble
+    //Insercion de lista
     insertar(dato){
         if(this.cabeza == null){
             let nodo = new NodoListaDoble(dato)
@@ -30,11 +30,11 @@ class ListaDoble{
         }
     }
 
-    //Eliminacion para la lista doble
+    //Eliminacion de lista
     eliminar(dato){
         let aux = this.cabeza
         while(aux != null){
-            if(dato == aux.dato && aux == this.cabeza){
+            if(dato == aux.dato && aux == this.cabeza && this.cabeza.siguiente!=null){
                 let tmp = this.cabeza.siguiente
                 tmp.anterior = null
                 this.cabeza.siguiente = null
@@ -49,7 +49,7 @@ class ListaDoble{
                 aux.anterior = null
                 this.size--
                 return
-            }else if(dato == aux.dato && aux == this.cola){
+            }else if(dato == aux.dato && aux == this.cola && this.cola.anterior != null){
                 let tmp = this.cola.anterior
                 tmp.siguiente = null
                 this.cola.anterior = null
@@ -67,7 +67,10 @@ class ListaDoble{
     }
 }
 
-//Clase Nodos para Lista Doble
+//Lista de nodos para recorridos
+var n = null
+
+//Clase Nodo para Lista Doble
 class NodoListaDoble{
     //Constructor
     constructor(dato){
@@ -78,7 +81,7 @@ class NodoListaDoble{
     }
 }
 
-//Clase Nodo para Grafo
+//Clase Nodo Grafo
 class Nodo{
     //Constructor
     constructor(dato){
@@ -89,7 +92,7 @@ class Nodo{
     }
 }
 
-//Clas Enlaces para Grafos
+//Clase enlaces
 class Enlaces{
     //Constructor
     constructor(inicio, distancia, destino){
@@ -99,15 +102,15 @@ class Enlaces{
     }
 }
 
-//Clase Lista Principal de Adyacencia
+//Clase Lista de Adyacencia Principal
 class ListaAdyacencia{
-    //Constructor
     constructor(inicio, final){
         this.ListaAdyacencia = new ListaDoble()
         this.inicio = inicio
         this.final = final
     }
 
+    //Metodo de obtencion de vertices no dirigos
     getVerticeNoDirigido(dato){
         let aux = this.ListaAdyacencia.cabeza
         while(aux!= null){
@@ -122,6 +125,7 @@ class ListaAdyacencia{
         return null
     }
 
+    //Metodo de insercion para Grafo no dirigido
     insertarNoDirigido(dato, inicio, final, distancia){
         if (this.getVerticeNoDirigido(dato)==null){
             let n = new Nodo(dato)
@@ -141,6 +145,7 @@ class ListaAdyacencia{
         }
     }    
 
+    //Metodo de primer enlace para Grafo no Dirigido
     enlazarprimeroNoDirigido(n1, n2, distancia, dato){
         let nodo2 = new Nodo(dato)
         nodo2.id = idNodos
@@ -162,6 +167,7 @@ class ListaAdyacencia{
         destino.enlaces.insertar(d)
     }
 
+    //Enlaces para grafos no dirigidos
     EnlazarNoDirigido(n1, n2, distancia){
         let origen = null
         let destino = null
@@ -217,7 +223,7 @@ class ListaAdyacencia{
         destino.enlaces.insertar(d)
     }
 
-    //Obtencion de Nodos o Vertices para validacion booleana
+    //Metodo de obtencion de vertices para grafos dirigidos
     getVertice(dato){
         let aux = this.ListaAdyacencia.cabeza
         while(aux!= null){
@@ -232,28 +238,27 @@ class ListaAdyacencia{
         return null
     }
 
-    //Insercion de nodos en Lista de adyacencia
+    //Insercion de Grafos Dirigidos
     insertar(dato, inicio, final, distancia){
-        //Insercion de nodo no existente
         if (this.getVertice(dato)==null){
             let n = new Nodo(dato)
             n.id = idNodos
             this.ListaAdyacencia.insertar(n)
             idNodos++
             this.Enlazar(inicio, final, distancia)
-        }else if(this.getVertice(dato) == dato){    //Insercion de nodo primero
+        }else if(this.getVertice(dato) == dato){
             let n = new Nodo(dato)
             n.id = idNodos
             this.ListaAdyacencia.insertar(n)
             idNodos++
             this.enlazarprimero(inicio, final, distancia,final)
-        }else{  //Enlaces para nodos ya existentes
+        }else{
             this.Enlazar(inicio, final, distancia)
             console.log("Al parecer ya lo creo o es el primero")
         }
     }    
 
-    //Enlazamientos para creacion de nodo primero con enlace aparente
+    //Primer enlaces para Grafo Dirigido
     enlazarprimero(n1, n2, distancia, dato){
         let nodo2 = new Nodo(dato)
         nodo2.id = idNodos
@@ -262,7 +267,7 @@ class ListaAdyacencia{
         let origen = null
         let destino = null
         origen = this.getVertice(n1)
-        destino = this.getVertice(n2)    
+        destino = this.getVertice(n2)
         if(origen == null || destino == null){
             console.log("No se encontro un nodo para el enlace we en primero")
             return
@@ -271,10 +276,9 @@ class ListaAdyacencia{
         destino.adyacentes.insertar(origen)
         let c = new Enlaces(origen, distancia, destino)
         origen.enlaces.insertar(c)
-
     }
 
-    //Enlazamiento de nodos ya existentes
+    //Enlaces para grafos dirigidos
     Enlazar(n1, n2, distancia){
         let origen = null
         let destino = null
@@ -282,9 +286,19 @@ class ListaAdyacencia{
         let dat2 = null
         origen = this.getVertice(n1)
         destino = this.getVertice(n2)
-        if(origen == null || destino == null){
-            console.log("No se encontro un nodo para el enlace we")
-            return
+        if(origen==null){
+            let nodo2 = new Nodo(n1)
+            nodo2.id = idNodos
+            idNodos++
+            this.ListaAdyacencia.insertar(nodo2)
+            origen = this.getVerticeNoDirigido(n1)
+        }
+        if(destino == null){
+            let nodo2 = new Nodo(n2)
+            nodo2.id = idNodos
+            idNodos++
+            this.ListaAdyacencia.insertar(nodo2)
+            destino = this.getVerticeNoDirigido(n2)
         }
         let aux = origen.adyacentes.cabeza
         while(aux!= null){
@@ -318,7 +332,7 @@ class ListaAdyacencia{
         origen.enlaces.insertar(c)
     }
 
-    //Obtencion de Listas ya existentes no vacias
+    //Metodo para validacion de datos ya existentes en una lista
     contiente(buscando, elemento){
         let buscar = buscando.cabeza
         while(buscar!=null){
@@ -330,30 +344,31 @@ class ListaAdyacencia{
         return false
     }
 
-    //Metodo de recursion por anchura
+    //Recorrido por anchura
     BFS(){
-        let nuevo = new ListaDoble()
+        n = new ListaDoble()
         let aux = this.ListaAdyacencia.cabeza
         while (aux != null){
-            if(this.contiente(nuevo, aux.dato) == false){
-                nuevo.insertar(aux.dato)
+            if(this.contiente(n, aux.dato) == false){
+                n.insertar(aux.dato)
             }
             let tmp = aux.dato.adyacentes.cabeza
             while (tmp != null){
-                if(this.contiente(nuevo, tmp.dato) == false){
-                    nuevo.insertar(tmp.dato)
+                if(this.contiente(n, tmp.dato) == false){
+                    n.insertar(tmp.dato)
                 }
                 tmp = tmp.siguiente
             }
             aux = aux.siguiente
         }
-        let n = nuevo.cabeza
-        while (n!=null){
-            console.log(n.dato.dato)
-            n = n.siguiente
+        let imp = n.cabeza
+        while (imp!=null){
+            console.log(imp.dato.dato)
+            imp = imp.siguiente
         }
     }    
 
+    //Recorrido por Profundidad
     DFS(){
         n = new ListaDoble()
         let aux = this.ListaAdyacencia.cabeza
@@ -365,6 +380,7 @@ class ListaAdyacencia{
         }
     }
 
+    //Sub metodo para Recorrido por Produndidad
     subDFS(nodo){
         if(this.contiente(n, nodo) == false){
             n.insertar(nodo)
@@ -378,7 +394,7 @@ class ListaAdyacencia{
         }
     }
 
-    //Metodo de busqueda
+    //Metodo Buscar
     buscar(dato){
         let bool = false
         let aux = this.ListaAdyacencia.cabeza
@@ -395,7 +411,7 @@ class ListaAdyacencia{
         }
     }
 
-    //Metodo modificar
+    //Metodo Modificar
     modificar(datobus, datocam){
         let bool = false
         let aux = this.ListaAdyacencia.cabeza
@@ -443,4 +459,34 @@ class ListaAdyacencia{
             console.log("No encontro nada")    
         }
     }
+
+    //Metodo Cargar
+    cargar(arreglo) {
+        arreglo.array.map(vertice, arista, distancia => {
+            this.insert(vertice, vertice, arista, distancia)
+        })
+    }
+
+    //Metodo Guardar
+    guardar() {
+        let archivojs = [];
+        let aux = this.ListaAdyacencia.cabeza
+        while (aux != null){
+            archivojs.push("vertice")
+            archivojs.push(aux.dato.dato)
+            let tmp = aux.dato.enlaces.cabeza
+            while(tmp!=null){
+                archivojs.push("arista")
+                archivojs.push(tmp.dato.destino.dato)
+                archivojs.push("distancia")
+                archivojs.push(tmp.dato.distancia)            
+                tmp=tmp.siguiente
+            }       
+            aux=aux.siguiente
+        }
+        let json = JSON.stringify(archivojs)
+        let nombre = "RecorridoAnchuraProfundidad"
+        fs.writeFile(nombre, json)  
+    }
 }
+
