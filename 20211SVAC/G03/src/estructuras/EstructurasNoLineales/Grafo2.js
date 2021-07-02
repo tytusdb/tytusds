@@ -108,6 +108,115 @@ class ListaAdyacencia{
         this.final = final
     }
 
+    getVerticeNoDirigido(dato){
+        let aux = this.ListaAdyacencia.cabeza
+        while(aux!= null){
+            if (aux.dato.dato == dato){
+                return aux.dato
+            }
+            aux= aux.siguiente
+        }
+        if(this.ListaAdyacencia.size == 0){
+            return dato
+        }
+        return null
+    }
+
+    insertarNoDirigido(dato, inicio, final, distancia){
+        if (this.getVerticeNoDirigido(dato)==null){
+            let n = new Nodo(dato)
+            n.id = idNodos
+            this.ListaAdyacencia.insertar(n)
+            idNodos++
+            this.EnlazarNoDirigido(inicio, final, distancia)
+        }else if(this.getVerticeNoDirigido(dato) == dato){
+            let n = new Nodo(dato)
+            n.id = idNodos
+            this.ListaAdyacencia.insertar(n)
+            idNodos++
+            this.enlazarprimeroNoDirigido(inicio, final, distancia,final)
+        }else{
+            this.EnlazarNoDirigido(inicio, final, distancia)
+            console.log("Al parecer ya lo creo o es el primero")
+        }
+    }    
+
+    enlazarprimeroNoDirigido(n1, n2, distancia, dato){
+        let nodo2 = new Nodo(dato)
+        nodo2.id = idNodos
+        idNodos++
+        this.ListaAdyacencia.insertar(nodo2)
+        let origen = null
+        let destino = null
+        origen = this.getVerticeNoDirigido(n1)
+        destino = this.getVerticeNoDirigido(n2)    
+        if(origen == null || destino == null){
+            console.log("No se encontro un nodo para el enlace we en primero")
+            return
+        }
+        origen.adyacentes.insertar(destino)
+        destino.adyacentes.insertar(origen)
+        let c = new Enlaces(origen, distancia, destino)
+        origen.enlaces.insertar(c)
+        let d = new Enlaces(destino, distancia, origen)
+        destino.enlaces.insertar(d)
+    }
+
+    EnlazarNoDirigido(n1, n2, distancia){
+        let origen = null
+        let destino = null
+        let dat1 = null
+        let dat2 = null
+        origen = this.getVerticeNoDirigido(n1)
+        destino = this.getVerticeNoDirigido(n2)
+        if(origen==null){
+            let nodo2 = new Nodo(n1)
+            nodo2.id = idNodos
+            idNodos++
+            this.ListaAdyacencia.insertar(nodo2)
+            origen = this.getVerticeNoDirigido(n1)
+        }
+        if(destino == null){
+            let nodo2 = new Nodo(n2)
+            nodo2.id = idNodos
+            idNodos++
+            this.ListaAdyacencia.insertar(nodo2)
+            destino = this.getVerticeNoDirigido(n2)
+        }
+        let aux = origen.adyacentes.cabeza
+        while(aux!= null){
+            if (aux.dato.dato ==  destino.dato){
+                dat1 = destino.dato
+                break
+            }
+            aux= aux.siguiente
+        }
+        if(dat1 == null){
+            origen.adyacentes.insertar(destino)
+        }
+        if(origen.adyacentes.size == 0){
+            origen.adyacentes.insertar(destino)
+        }
+        let aux2 = destino.adyacentes.cabeza
+        while(aux2!= null){
+            if (aux2.dato.dato ==  origen.dato){
+                dat2 = origen.dato
+                break
+            }
+            aux2 = aux2.siguiente
+        }
+        if(dat2 == null){
+            destino.adyacentes.insertar(origen)
+        }
+        if(destino.adyacentes.size == 0){
+            destino.adyacentes.insertar(origen)
+        }
+        let c = new Enlaces(origen, distancia, destino)
+        origen.enlaces.insertar(c)
+        let d = new Enlaces(destino, distancia, origen)
+        destino.enlaces.insertar(d)
+    }
+
     //Obtencion de Nodos o Vertices para validacion booleana
     getVertice(dato){
         let aux = this.ListaAdyacencia.cabeza
