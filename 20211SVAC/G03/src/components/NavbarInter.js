@@ -21,6 +21,7 @@ import GraficarArbol from './GraficarArbol'
 
 import './NavbarInter.css'
 import GraficaLinealizado from './GraficaLinealizado'
+import GraficarMDispersa from './GraficarMDispersa'
 
 
 let count = 0;
@@ -313,6 +314,36 @@ export default class NavbarInter extends Component {
         <h1 style={{ color: 'white' }}>{this.state.nombre}</h1>
         {/* <h3>{this.state.estructura.Imprimir()}</h3> */}
         <GraficarTablaHash nombre={this.state.nombre} estructura={this.state.estrutura} valorBusqueda={this.state.busqueda} key={count++}/> 
+      </div>
+      )
+        }else if(this.state.nombre == "Matriz Dispersa"
+        ){
+      return (
+      <div>
+          <Menu className="ui tpo inverted attached menu">
+            <Menu.Item>
+                        <Link to="/tytusds/20211SVAC/G03/build/">TytusDS</Link>
+            </Menu.Item>
+            <Cargar obtenerDatos={this.obtenerDatos} nombre={this.state.nombre} edd={this.state.estrutura} key={count++}/>
+            <Agregar  obtenerDatos={this.obtenerDatos} nombre={this.state.nombre} edd={this.state.estrutura} key={count++} />
+            <Eliminar obtenerDatos={this.obtenerDatos} nombre={this.state.nombre} edd={this.state.estrutura} key={count++}/> 
+            <Actualizar obtenerDatos={this.obtenerDatos} nombre={this.state.nombre} edd={this.state.estrutura} key={count++}/>
+            <Buscar busqueda={this.obtenerBusqueda} key={count++}/>
+          <Menu.Menu position='right'>
+            <Menu.Item name="Guardar" icon='save'  onClick={this.handleItemClick, this.guardarEstructuras}>
+            </Menu.Item>
+            
+          </Menu.Menu>
+        </Menu>
+        <br/>
+        <a className="hidden"
+              download={this.state.nombre+".json"}
+              href={this.state.fileDownloadUrl}
+              ref={e=>this.dofileDownload = e}
+              >download it</a>
+        <h1 style={{ color: 'white' }}>{this.state.nombre}</h1>
+        {/* <h3>{this.state.estructura.Imprimir()}</h3> */}
+        <GraficarMDispersa nombre={this.state.nombre} estructura={this.state.estrutura} valorBusqueda={this.state.busqueda} key={count++}/> 
       </div>
       )
         }else if(this.state.nombre == "Col Major" || this.state.nombre == "Row Major"

@@ -1,8 +1,10 @@
+import { v4 as uuidv4 } from 'uuid';
 //Clase Nodo Matriz
 class NodoMatriz{
     //Constructor
     constructor(dato, i, j){
         this.dato = dato
+        this.id = uuidv4()
         this.este = null
         this.sur = null
         this.norte = null
@@ -101,6 +103,7 @@ class ListaDoble{
         }
         return null
     }
+
 }
 
 //Clase Matriz Dispersa
@@ -221,7 +224,7 @@ class Matriz{
             }else if(contadorC == i){
                 let contadorC2 = aux.j
                 if(contadorC2 == j){
-                    console.log("Ya hay algo en este nodo")
+                    alert("Ya existe valor en el Nodo"+"("+ aux.i+","+aux.j+")")
                     return
                 }
             }else{
@@ -280,6 +283,12 @@ class Matriz{
         }
     }
 
+
+    cargar(arreglo){
+        arreglo.map(e => {
+            this.insertar(e.valor,e.indices[0],e.indices[1])
+        })
+    }
     //Metodo busqueda
     buscar(dato){
         let cab = this.CVertical.cabeza
@@ -438,4 +447,146 @@ class Matriz{
         }
         console.log("Al parecer no encontro un dato")
     }
+
+    graficar(valorBusqueda){
+        let arreglo = []
+
+        arreglo = arreglo.concat(this.graficarCabeceraHorizontal())
+        arreglo = arreglo.concat(this.graficarCabeceraVertical(valorBusqueda))
+
+        return arreglo
+    }
+
+    graficarCabeceraHorizontal(){
+        let arreglo = []
+        let aux;
+        let tmp = this.CHorizontal.cabeza
+        let x = 1;
+        while(tmp != null){
+            let nodoArreglo = {
+                id: tmp.id,
+                type: 'default',
+                targetPosition: 'left',
+                sourcePosition: 'right',
+                data: { label: (
+                    <> <strong>{tmp.dato}</strong>
+                    </>
+                 ) },
+                position: {  x: 100 + (x)*200, y:25 },
+                connectable: false, 
+            }
+
+            aux = tmp.sur
+            let y = 1;
+            while(aux!=null){
+                  /* 
+                if(aux.dato){
+                    let nodoInterior = {
+                        id: aux.id,
+                        type: 'default',
+                        targetPosition: 'left',
+                        sourcePosition: 'right',
+                        data: { label: aux.dato },
+                        position: {  x: 100+ (x)*200, y:25+ (aux.j+1)*75 },
+                        connectable: false, 
+                    }
+                    
+                    arreglo.push(nodoInterior)
+                } */
+                y++;
+                if(aux.sur != null){
+                    let nodoedge = {id: aux.id+'-'+aux.sur.id, source: aux.id, target: aux.sur.id, style: { stroke: 'red' },
+                    type: 'step'  }
+                    arreglo.push(nodoedge)
+                }
+                aux = aux.sur
+            }
+            let nodoedgePI = {id: tmp.id+'-'+tmp.sur.id, source: tmp.id, target: tmp.sur.id ,style: { stroke: 'red' },
+            type: 'step' }
+            arreglo.push(nodoedgePI)
+
+            x++;
+            arreglo.push(nodoArreglo)
+
+            if(tmp.siguiente != null){
+                let nodoedge = {id: tmp.id+'-'+tmp.siguiente.id, source: tmp.id, target: tmp.siguiente.id  }
+                arreglo.push(nodoedge)
+            }
+            tmp = tmp.siguiente
+        }
+
+        return arreglo
+    }
+
+    graficarCabeceraVertical(valorBusqueda){
+        let arreglo = []
+
+        let tmp = this.CVertical.cabeza
+        let aux ;
+        let x = 1;
+        while(tmp != null){
+            let nodoArreglo = {
+                id: tmp.id,
+                type: 'default',
+                targetPosition: 'top',
+                sourcePosition: 'bottom',
+                data: { label: (
+                    <> <strong>{tmp.dato}</strong>
+                    </>
+                 ) },
+                position: {  x: 100, y:25+ x*75 },
+                connectable: false, 
+            }
+
+            aux = tmp.este
+            let y = 1;
+            while(aux!=null){
+                  
+                    let nodoInterior = {
+                        id: aux.id,
+                        type: 'default',
+                        targetPosition: 'left',
+                        sourcePosition: 'right',
+                        data: { label: aux.dato },
+                        position: {  x: 100+ (aux.i+1)*200, y:25+ x*75 },
+                        connectable: false, 
+                    }
+
+                    if(valorBusqueda == aux.dato){
+                        nodoInterior = {
+                            id: aux.id,
+                            type: 'special',
+                            targetPosition: 'left',
+                            sourcePosition: 'right',
+                            data: { text: "----------"+aux.dato+ "--------" },
+                            position: {  x: 100+ (aux.i+1)*200, y:25+ x*75 },
+                            connectable: false, 
+                        }
+                    }
+                    
+                    arreglo.push(nodoInterior)
+                
+                y++;
+                if(aux.este != null){
+                    let nodoedge = {id: aux.id+'-'+aux.este.id, source: aux.id, target: aux.este.id ,style: { stroke: 'red' } }
+                    arreglo.push(nodoedge)
+                }
+                aux = aux.este
+            }
+            let nodoedgePI = {id: tmp.id+'-'+tmp.este.id, source: tmp.id, target: tmp.este.id  ,style: { stroke: 'red' }}
+            arreglo.push(nodoedgePI)
+            x++;
+            arreglo.push(nodoArreglo)
+            if(tmp.siguiente != null){
+                let nodoedge = {id: tmp.id+'-'+tmp.siguiente.id, source: tmp.id, target: tmp.siguiente.id  }
+                arreglo.push(nodoedge)
+            }
+            tmp = tmp.siguiente
+        }
+
+
+        return arreglo
+    }
 }
+
+export default Matriz;

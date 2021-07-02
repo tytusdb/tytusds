@@ -21,6 +21,7 @@ import TablaHashAbierta from '../estructuras/EstructurasNoLineales/TablaHashAbie
 import TablaHashCerrada from '../estructuras/EstructurasNoLineales/TablaHashCerrada'
 
 import CRMajor from '../estructuras/EstructurasCompuestas/Col_Major'
+import Matriz from '../estructuras/EstructurasCompuestas/MatrizDis'
 
 let propsG
 function onChange(e){
@@ -157,6 +158,11 @@ function structW(nombre,datos,edd,grado,posicion,json){ // FUNCION PARA SABER QU
             edd = new CRMajor(json.m);
             edd.cargar(datos)
             edd.imprimirMatriz()
+            break
+        case "Matriz Dispersa":
+
+            edd = new Matriz();
+            edd.cargar(datos)
             break
         default:
             break;

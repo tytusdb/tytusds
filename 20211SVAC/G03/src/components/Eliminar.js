@@ -74,6 +74,10 @@ export default class Eliminar extends Component {
                 let j = splitarr[1]
                 edd.eliminar(i,j,nombre,dato)
             break;
+
+            case "Matriz Dispersa":
+                edd.eliminar(dato)
+                break;
             default:
                 break;
         }

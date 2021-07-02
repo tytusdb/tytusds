@@ -39,6 +39,8 @@ export default class Divisiones extends Component {
                     <Division title="Tabla Hash Cerrada" descripcion="this a description" color="green" imagen=""/>
                     <Division title="Col Major" descripcion="this a description" color="green" imagen=""/>
                     <Division title="Row Major" descripcion="this a description" color="green" imagen=""/>
+
+                    <Division title="Matriz Dispersa" descripcion="this a description" color="green" imagen=""/>
             </Card.Group>
             </div>
         )
