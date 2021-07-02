@@ -24,7 +24,7 @@ class TablaHashAbierta {
     iniciar(){
         
         this.datosAgregados = 0;
-        let newTable = new Array(this.tamaño)
+        let newTable = [this.tamaño]
 
         for (let index = 0; index < this.tamaño; index++) {
             newTable[index] = -1
@@ -36,15 +36,18 @@ class TablaHashAbierta {
 
     funcion_Hash(dato, forma){
         let valorretorno;
+        if(dato.charCodeAt){
+            dato = this.getCharCodes(dato)
+        }
         switch(forma){
             
-            case "Hash Simple":
+            case "Simple":
                 valorretorno = this.hashSimple(dato)
                 break;
-            case "Metodo Division":
+            case "Division":
                 valorretorno =  this.division(dato)
                 break;
-            case "Metodo Multiplicación":
+            case "Multiplicacion":
                 valorretorno =  this.multiplicacion(dato)
                 break;
             default:
@@ -56,7 +59,11 @@ class TablaHashAbierta {
     }
 
     hashSimple(valor){
+        while(valor > 1){
+            valor = valor/10
+        }
         let hash = valor * this.tabla.length
+        return Math.floor(hash)
     }
 
     division(valor){
@@ -66,13 +73,28 @@ class TablaHashAbierta {
     }
 
     multiplicacion(valor){
-        let hash = (this.tabla.length(valor*0.2520 % 1))
+        let hash = (this.tabla.length*(valor*0.2520 % 1))
 
-        return hash
+        return Math.floor(hash)
     }
 
+    getCharCodes(s){
+        let charCodeArr = 0;
+        
+        for(let i = 0; i < s.length; i++){
+            let code = s.charCodeAt(i);
+            charCodeArr += code
+        }
+        
+        return charCodeArr;
+      }
+
+
     agregar(dato){
+        dato = parseInt(dato)== NaN ? dato: parseInt(dato)
         let posicionTabla = this.tabla[this.funcion_Hash(dato, this.funcion)]
+        let posicion = this.funcion_Hash(dato, this.funcion)
+        console.log(posicion)
         if(posicionTabla === -1){
             this.tabla[this.funcion_Hash(dato, this.funcion)] =  new Cola()
             this.tabla[this.funcion_Hash(dato, this.funcion)].Agregar(dato)
@@ -123,19 +145,20 @@ class TablaHashAbierta {
     }
 
     actualizar(datoanterior, datonuevo){
-        for (let index = 0; index < this.tabla.length; index++) {
-            if(this.tabla[index] !== -1){
-                console.log(this.tabla[index].eliminar(datoanterior))
-            }
-            
-        }
+        this.eliminar(datoanterior)
         this.agregar(datonuevo,this.funcion)
     }
 
     eliminar(dato){
         for (let index = 0; index < this.tabla.length; index++) {
             if(this.tabla[index] !== -1){
-                console.log(this.tabla[index].eliminar(dato))
+                if(this.tabla[index].eliminar(dato)){
+                    if (this.tabla[index].primero == null){
+                        this.tabla[index] = -1
+                        console.log("es null -1")
+                    }
+                    break;
+                }
             }
             
         }
@@ -147,11 +170,21 @@ class TablaHashAbierta {
         })
     }
 
+    guardar(){
+        let recorrido = []
+        for (let index = 0; index < this.tabla.length; index++) {
+            if(this.tabla[index] !== -1){
+                recorrido = recorrido.concat(
+                    this.tabla[index].guardar())
+            }
+        }
+
+        return recorrido
+    }
+
     graficar(valorBuscar){
         let recorrido = []
         for (let index = 0; index < this.tabla.length; index++) {
-            console.log(index)
-
             let nodoArreglo = {
                 id:index,
                 type: 'input', // input node
@@ -233,30 +266,35 @@ class Cola {
 
         return text
     }
-	
+
 	eliminar(dato){
        let nodoActual = this.primero
         let nodoanterior = null
+        let valor = false;
 
         if(nodoActual != null && nodoActual.dato == dato){
             this.primero = nodoActual.siguiente
-            return
+            return true
         }
 
         while(nodoActual != null && nodoActual.dato != dato){
             nodoanterior = nodoActual
             nodoActual = nodoActual.siguiente
+            valor = true
         }
 
         if (nodoActual == null){
-            return
+            return false
         }
-
         nodoanterior.siguiente = nodoActual.siguiente;
+        if(valor){
+            return true
+        }
+        return false
     }
 	
 	
-    /* guardar(){
+    guardar(){
         let arreglo = []
         let nodoActual = this.primero
 
@@ -271,7 +309,7 @@ class Cola {
         }
 
         return arreglo
-    } */
+    }
 	
 	Recorrido(cordenada,datoBuscar){
         let arreglo = []
@@ -321,5 +359,23 @@ class Cola {
 
         return arreglo
     }
+
+    /* guardar(){
+        let arreglo = []
+        let nodoActual = this.primero
+        let contador = 0
+
+        while (nodoActual != null){
+            arreglo.push(nodoActual.dato)          
+            if(nodoActual.siguiente != null){
+                nodoActual = nodoActual.siguiente
+            }else{
+                nodoActual = null
+            }
+            contador++
+        }
+
+        return arreglo
+    } */
 }
 export default  TablaHashAbierta;

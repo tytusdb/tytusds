@@ -7,7 +7,7 @@ class Nodo {
 }
 
 class TablaHashCerrada {
-    constructor(tamaño, minimo, maximo,forma){
+    constructor(tamaño, minimo, maximo,forma,colision){
         
         
         this.tabla = null
@@ -15,6 +15,7 @@ class TablaHashCerrada {
         this.minimo = minimo
         this.maximo = maximo
         this.funcion = forma
+        this.colision = colision
         this.datosAgregados = 0
         this.iniciar();
     }
@@ -22,7 +23,7 @@ class TablaHashCerrada {
     iniciar(){
         
         this.datosAgregados = 0
-        let newTable = new Array(this.tamaño)
+        let newTable = [this.tamaño]
 
         for (let index = 0; index < this.tamaño; index++) {
             newTable[index] = -1
@@ -34,15 +35,18 @@ class TablaHashCerrada {
 
     funcion_Hash(dato, forma){
         let valorretorno;
+        if(dato.charCodeAt){
+            dato = this.getCharCodes(dato)
+        }
         switch(forma){
             
-            case "Hash Simple":
+            case "Simple":
                 valorretorno = this.hashSimple(dato)
                 break;
-            case "Metodo Division":
+            case "Division":
                 valorretorno =  this.division(dato)
                 break;
-            case "Metodo Multiplicación":
+            case "Multiplicacion":
                 valorretorno =  this.multiplicacion(dato)
                 break;
             default:
@@ -54,7 +58,11 @@ class TablaHashCerrada {
     }
 
     hashSimple(valor){
+        while(valor > 1){
+            valor = valor/10
+        }
         let hash = valor * this.tabla.length
+        return Math.floor(hash)
     }
 
     division(valor){
@@ -64,16 +72,29 @@ class TablaHashCerrada {
     }
 
     multiplicacion(valor){
-        let hash = (this.tabla.length(valor*0.2520 % 1))
+        let hash = (this.tabla.length*(valor*0.2520 % 1))
 
-        return hash
+        return Math.floor(hash)
     }
 
+     getCharCodes(s){
+        let charCodeArr = 0;
+        
+        for(let i = 0; i < s.length; i++){
+            let code = s.charCodeAt(i);
+            charCodeArr += code
+        }
+        
+        return charCodeArr;
+      }
+
     agregar(dato){
+        dato = parseInt(dato)== NaN ? dato: parseInt(dato)
         let posicion =this.funcion_Hash(dato, this.funcion)
         let i = 1;
         while(this.tabla[posicion] !== -1 && posicion < this.tamaño){
-            posicion = this.colisiones(dato, i, "Lineal", this.funcion_Hash(dato, this.funcion))
+            
+            posicion = this.colisiones(dato, i, this.colision, this.funcion_Hash(dato, this.funcion))
             i++;
             
         }
@@ -84,6 +105,10 @@ class TablaHashCerrada {
 
      colisiones(dato, i, colision, h1){
         let retorno;
+        if(dato.charCodeAt){
+            dato = this.getCharCodes(dato)
+        }
+        console.log(dato)
         switch(colision){
             case "Lineal":
                 retorno = this.colisionLineal(dato, i)
@@ -91,18 +116,20 @@ class TablaHashCerrada {
             case "Cuadratica":
                 retorno = this.colisionCuadratica(dato, i)
                 break;
-            case "DobleHash":
+            case "Doble":
                 retorno= this.colisionDobleHash(h1,dato, i)
                 break;
             default:
                 break;
         }
+        console.log(retorno)
         return retorno
     }
 
     colisionLineal(dato,i){
+
         let prueba = ((dato+i) % this.tamaño)
-        return prueba
+        return Math.floor(prueba)
     }
 
     colisionCuadratica(dato, i){
@@ -123,6 +150,19 @@ class TablaHashCerrada {
         
         
         }
+
+        console.log(this.datosAgregados)
+    }
+
+    guardar(){
+        let arreglo = []
+        for (let index = 0; index < this.tabla.length; index++) {
+            if(this.tabla[index] !=  -1){
+                arreglo.push(this.tabla[index])
+            }
+        }
+
+        return arreglo
     }
 
     rehashing(){
@@ -182,6 +222,20 @@ class TablaHashCerrada {
                 position: {  x: 100, y: 25 + index*75  },
                 connectable: false, 
             }
+            if(this.tabla[index] === valorBuscar){
+                nodoArreglo = {
+                    id: index,
+                    type: 'default',
+                    targetPosition: 'top',
+                    sourcePosition: 'bottom',
+                    data: { label: (
+                        <> <strong>{this.tabla[index]}</strong>
+                        </>
+                     ) },
+                    position: {  x: 100, y: 25 + index*75  },
+                    connectable: false, 
+                }
+            }
             recorrido.push(nodoArreglo)
         }
 
@@ -197,3 +251,6 @@ class TablaHashCerrada {
 }
 
 export default TablaHashCerrada;
+
+
+

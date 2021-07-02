@@ -37,6 +37,8 @@ export default class Divisiones extends Component {
                     <Division title="Arbol Merkle" descripcion="this a description" color="green" imagen="https://s6.gifyu.com/images/Arbol-Merkle.gif"/>
                     <Division title="Tabla Hash Abierta" descripcion="this a description" color="green" imagen=""/>
                     <Division title="Tabla Hash Cerrada" descripcion="this a description" color="green" imagen=""/>
+                    <Division title="Col Major" descripcion="this a description" color="green" imagen=""/>
+                    <Division title="Row Major" descripcion="this a description" color="green" imagen=""/>
             </Card.Group>
             </div>
         )

@@ -20,6 +20,8 @@ import ArbolBplus from '../estructuras/Estructuras_Arboreas/ArbolBplus'
 import TablaHashAbierta from '../estructuras/EstructurasNoLineales/TablaHashAbierta'
 import TablaHashCerrada from '../estructuras/EstructurasNoLineales/TablaHashCerrada'
 
+import CRMajor from '../estructuras/EstructurasCompuestas/Col_Major'
+
 let propsG
 function onChange(e){
     let files = e.target.files[0];
@@ -134,15 +136,27 @@ function structW(nombre,datos,edd,grado,posicion,json){ // FUNCION PARA SABER QU
             break
         case "Tabla Hash Abierta":
 
-            edd = new TablaHashAbierta(json.tamaño, json.minimo, json.maximo, json.funcion);
+            edd = new TablaHashAbierta(json.m, json.minimo, json.maximo, json.funcion);
             edd.cargar(datos)
             edd.imprimir()
             break
         case "Tabla Hash Cerrada":
 
-            edd = new TablaHashCerrada(json.tamaño, json.minimo, json.maximo, json.funcion);
+            edd = new TablaHashCerrada(json.m, json.minimo, json.maximo, json.funcion, json.prueba);
             edd.cargar(datos)
             edd.imprimir()
+            break
+        case "Row Major":
+
+            edd = new CRMajor(json.m);
+            edd.cargar(datos)
+            edd.imprimirMatriz()
+            break
+        case "Col Major":
+
+            edd = new CRMajor(json.m);
+            edd.cargar(datos)
+            edd.imprimirMatriz()
             break
         default:
             break;
