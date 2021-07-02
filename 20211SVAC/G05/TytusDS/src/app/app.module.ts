@@ -30,6 +30,7 @@ import { HashAbiertoComponent } from './PaginasWeb/hash-abierto/hash-abierto.com
 import { LZWComponent } from './PaginasWeb/lzw/lzw.component';
 import { HashCerradoComponent } from './PaginasWeb/hash-cerrado/hash-cerrado.component';
 import { CuComponent } from './PaginasWeb/costo_uniforme/cu.component';
+import { FeistelComponent } from './PaginasWeb/feistel/feistel.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { CuComponent } from './PaginasWeb/costo_uniforme/cu.component';
     HashAbiertoComponent,
     LZWComponent,
     CuComponent,
-    HashCerradoComponent
+    HashCerradoComponent,
+    FeistelComponent
   ],
   imports: [
     BrowserModule,
