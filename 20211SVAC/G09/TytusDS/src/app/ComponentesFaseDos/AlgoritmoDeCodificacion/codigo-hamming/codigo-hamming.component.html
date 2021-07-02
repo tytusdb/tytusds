@@ -1,1 +1,10 @@
-<p>codigo-hamming works!</p>
+<button id="b1" class="btn btn-primary btn-block text-white" type="submit">
+    <em class="fas fa-list"></em>
+    CÓDIGO DE HAMMING
+</button>
+<textarea id="t1" name="textarea" rows="10" cols="50" placeholder="Escriba su cadena"> {{cadena}} </textarea>
+<input type="file" (change)="leerArchivo($event)">
+<button class="boton" (click)="codificar()" type="submit" >Codificar</button> &nbsp; &nbsp;
+
+<!--Esto debe quedar abajo de todo ya que es la tabla del algoritmo-->
+<div id="DivInsert" style="position: absolute;"></div>

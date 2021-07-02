@@ -104,6 +104,9 @@ class Hamming{
             out += chr;
         }
         return out;
+    }
+    returnMatriz(){
+        return this.Matriz
     }    
 
 }
@@ -116,6 +119,9 @@ var Hm= new Hamming()
 function HammingCadena(cadena) {
     var textBinario=Hm.convertTextToBinary(cadena)
     console.log(Hm.Hamming(textBinario))
+    const Animaciones= require('./Animaciones')
+    let ani=new Animaciones
+    ani.graficarMatriz(Hm.returnMatriz())
 }
 
 module.exports = Hamming;
