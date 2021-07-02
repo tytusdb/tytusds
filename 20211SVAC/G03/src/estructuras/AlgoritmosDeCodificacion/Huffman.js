@@ -144,6 +144,34 @@ class Lista{
         return inicio;
     }
 
+}
+
+
+
+
+class AlgoritmoHuffman{
+    constructor(){
+        this.texto = null;
+        this.lista = new Lista();
+        this.listaOrdenada = new Lista();// la raiz 
+        this.listaCodigos = new Lista();
+        this.textoCodificado = null;
+    }
+
+    cargar(texto){
+        let info = texto
+        this.texto = texto;
+        for(let i = 0; i < info.length; i++){
+            let nodo = new Nodo()
+            nodo.valor = info.charAt(i)
+            this.lista.agregarFinalValor(nodo)            
+        }
+        //this.lista.imprimir();    
+        this.reasignarValores();  
+        this.generaCodificado();
+        console.log(this.textoCodificado)
+    }
+
 
 
 
