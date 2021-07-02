@@ -34,10 +34,11 @@ export class CodigoHammingComponent implements OnInit {
   leerArchivo(event: any){
     console.log(event)
     let archivo = event.target.files[0]
+    //debugger
     if (archivo) {
       let reader= new FileReader()
       var contenido, text=""
-      reader.onload = function (e) {
+      reader.onload = function (e) {//debugger
         contenido = e.target?.result
         text+=contenido?.toString()
       }

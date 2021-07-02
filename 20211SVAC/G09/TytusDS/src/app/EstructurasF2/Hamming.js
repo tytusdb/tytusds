@@ -121,7 +121,7 @@ class Hamming{
 
 }
 
-var Hm= new Hamming()
+//var Hm= new Hamming()
 
 
 //HammingCadena("se lo dije")

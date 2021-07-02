@@ -805,5 +805,5 @@ function downloadRapido(filename, text) {
     document.body.removeChild(element);
 }
 
-lista = [10,9,8,7,6,5,4,3,2,11,12,1];
-console.log(ordRapido(lista))
+//lista = [10,9,8,7,6,5,4,3,2,11,12,1];
+//console.log(ordRapido(lista))

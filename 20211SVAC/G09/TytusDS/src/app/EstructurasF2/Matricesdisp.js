@@ -268,17 +268,10 @@ class Matriz {
         }
     }
 }
-let a= new Matriz()
+//let a= new Matriz()
 
-addMatriz("DC",0,0)
-addMatriz("DD",0,2)
-addMatriz("2D",2,1)
-addMatriz("53D",3,9)
-addMatriz("21D",0,12)
-addMatriz("D432",5,5)
-
-function addMatriz(valor, x, y) {
+/*function addMatriz(valor, x, y) {
     a.insertar(valor,x,y)
-}
+}*/
 
 module.exports = Matriz;
