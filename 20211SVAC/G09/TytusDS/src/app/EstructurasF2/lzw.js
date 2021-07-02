@@ -37,9 +37,9 @@ class LZW{
             this.Matriz[4][cont+1]=temp
             textCifrado+=temp            
             //console.log(temp)
-        } catch (error) {}
-
-        return textCifrado
+        } catch (error) {}debugger
+        console.log("El texto cifrado es: "+textCifrado)
+        this.graficar()
     }
     addLetrasDiccionario(cadena){
         var ind=1, newCad=""
@@ -79,16 +79,17 @@ class LZW{
         this.Matriz[2][0]="wK"
         this.Matriz[3][0]="ADD diccionario"
         this.Matriz[4][0]="Salida"
+    }
+    graficar(){
+        const Animaciones= require('./Animaciones')
+        let ani=new Animaciones()
+        ani.graficarMatriz(this.Matriz)
     }        
 }
-var lz=new LZW()
 
-algoritmoLZW("pablo papa de pablito")
+module.exports = LZW
+//var lz=new LZW()
+
+//algoritmoLZW("pablo papa de pablito")
 //compadre no compro coco
 //pablo papa de pablito
-
-function algoritmoLZW(cadena) {
-    var cifrado=lz.cifradoLZW(cadena)
-    console.log(cifrado)
-    return cifrado
-}

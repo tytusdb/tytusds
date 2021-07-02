@@ -4,12 +4,8 @@ class Feistel{
         this.table[0]=new Array()
         this.table[1]=new Array()
     }
-    cifrarCadena(text, rondas){
-        var l="",r="",k, cadena="",f, aux=""
-        //Se importa el la clase Hamming para usar su método de converión a binario
-        const Hamming= require('./Hamming')
-        var Hm= new Hamming()
-        cadena=Hm.convertTextToBinary(text)
+    cifrarCadena(cadena, rondas){
+        var l="",r="",k,f, aux=""
         //Se declaran los l y r de la tabla
         l=cadena.substring(0,parseInt(cadena.length/2))
         r=cadena.substring(parseInt(cadena.length/2),cadena.length)
@@ -28,7 +24,7 @@ class Feistel{
         aux=this.calcularCifrado(l,r,this.shiftCircular(k),4,rondas-1)
         this.table[0][aux[2]]=aux[0]
         this.table[1][aux[2]]=aux[1]
-        return aux[0]+aux[1]
+        console.log("La cadena cifrada es: "+aux[0]+aux[1])
     }
     xor(ri,ki){
         var cont=0, result=""
@@ -42,15 +38,12 @@ class Feistel{
         }
         return result
     }
-    convertBinario(s){
-        s = unescape( encodeURIComponent( s ) );
-        var chr, i = 0, l = s.length, out = '';
-        for( ; i < l; i ++ ){
-            chr = s.charCodeAt( i ).toString( 2 );
-            while( chr.length % 8 != 0 ){ chr = '0' + chr; }
-            out += chr;
-        }
-        return out;        
+    convertBinario(cadena, rondas){
+        //Se importa el la clase Hamming para usar su método de converión a binario
+        const Hamming= require('./Hamming')
+        var Hm= new Hamming()
+        cadena=Hm.convertTextToBinary(cadena)
+        this.cifrarCadena(cadena, rondas)
     }
     calcularCifrado(l,r,k,j,rondas){
         var aux, f
@@ -70,14 +63,12 @@ class Feistel{
         llave=llave.substring(1,llave.length)+llave[0]
         return llave
     }
+    graficar(){
+        const Animaciones= require('./Animaciones')
+        let ani=new Animaciones()
+        ani.graficarMatriz(this.table)
+    }
+    returnTable(){return this.table}    
 }
-var f= new Feistel()
 
-cifradoFeistel("CF",4)
-
-function cifradoFeistel(text, rondas) {
-    var result
-    result=f.cifrarCadena(text,rondas)
-    console.log("El texto convertido es: "+result)
-    return result
-}
+module.exports = Feistel
