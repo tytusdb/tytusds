@@ -298,4 +298,126 @@ class Matriz{
         }
     }
 
+    eliminar(datoel){
+        let cab = this.CVertical.cabeza
+        let aux
+        while(cab != null){
+            aux = cab.este
+            while(aux!=null){
+                if(aux.dato == datoel){
+                    let arr = aux.norte
+                    let ab = aux.sur
+                    let iz = aux.oeste
+                    let der = aux.este
+                    let Ni = this.CHorizontal.busqueda(aux.i)
+                    let Nj = this.CVertical.busqueda(aux.j)
+                    if(der == null && ab == null){
+                        if(iz.i == null && arr.i == null){
+                            this.CHorizontal.eliminar(Ni.dato)
+                            this.CVertical.eliminar(Nj.dato)
+                            return
+                        }else if(iz.i == null && arr.i != null){
+                            aux.norte.sur=null
+                            aux.norte = null
+                            aux.oeste = null
+                            this.CVertical.eliminar(Nj.dato)
+                            return
+                        }else if(iz.i != null && arr.i == null){
+                            aux.oeste.este = null
+                            aux.oeste = null
+                            aux.norte = null
+                            this.CHorizontal.eliminar(Ni.dato)
+                            return
+                        }else if(iz.i != null && arr.i != null){
+                            aux.oeste.este = null
+                            aux.oeste = null
+                            aux.norte.sur = null
+                            aux.norte = null
+                            return
+                        }
+                    }else if(der != null && ab == null ){
+                        if(iz.i == null && arr.i == null){
+                            der.oeste = aux.oeste
+                            aux.oeste.este = der
+                            aux.oeste = null
+                            aux.este = null
+                            this.CHorizontal.eliminar(Ni.dato)
+                            return
+                        }else if(iz.i == null && arr.i != null){
+                            der.oeste = aux.oeste
+                            aux.oeste.este = der
+                            aux.oeste = null
+                            aux.este = null
+                            aux.norte.sur=null
+                            aux.norte = null
+                            return
+                        }else if(iz.i != null && arr.i == null){
+                            der.oeste = aux.oeste
+                            aux.oeste.este = der
+                            aux.oeste = null
+                            aux.este = null
+                            aux.norte = null
+                            this.CHorizontal.eliminar(Ni.dato)
+                            return
+                        }else if(iz.i != null && arr.i != null){
+                            aux.oeste.este = der
+                            der.oeste = aux.oeste
+                            aux.oeste = null
+                            aux.este = null
+                            aux.norte.sur = null
+                            aux.norte = null
+                            return
+                        }
+                    }else if(der == null && ab != null ){
+                        if(iz.i == null && arr.i == null){
+                            ab.norte = aux.norte
+                            aux.norte.sur = ab
+                            aux.norte = null
+                            aux.sur =  null
+                            aux. oeste = null
+                            this.CVertical.eliminar(Nj.dato)
+                            return
+                        }else if(iz.i == null && arr.i != null){
+                            ab.norte = aux.norte
+                            arr.sur = ab
+                            aux.norte = null
+                            aux.sur = null
+                            aux.oeste = null
+                            this.CVertical.eliminar(Nj.dato)
+                            return
+                        }else if(iz.i != null && arr.i == null){
+                            aux.oeste.este = null
+                            aux.oeste = null
+                            ab.norte = aux.norte
+                            arr.sur = aux.sur
+                            aux.norte = null
+                            aux.sur = null
+                            return
+                        }else if(iz.i != null && arr.i != null){
+                            aux.oeste.este = null
+                            aux.oeste = null
+                            ab.norte = aux.norte
+                            arr.sur = aux.sur
+                            aux.norte = null
+                            aux.sur = null
+                            return
+                        }
+                    }else if(der != null && ab != null ){
+                        der.oeste = aux.oeste
+                        iz.este = aux.este
+                        arr.sur = aux.sur
+                        ab.norte = aux.norte
+                        aux.oeste = null
+                        aux.este = null
+                        aux.sur = null
+                        aux.norte = null
+                        return
+                    }                                       
+                }
+                aux = aux.este
+            }
+            cab = cab.siguiente
+        }
+        console.log("Al parecer no encontro un dato")
+    }
 }
