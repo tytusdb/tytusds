@@ -190,7 +190,71 @@ class AlgoritmoHuffman{
         this.crearCodigos()       
     }
 
+    ordenar() {
+            // Crea una nueva lista Ordenando las frecuencias de menor a mayor
+            let temporal = this.lista.primero;
+            while(temporal != null){ 
+                let nodo = new Nodo()
+                nodo.valor = temporal.valor;
+                nodo.frecuencia = temporal.frecuencia;
+                this.listaOrdenada.agregarOrdenadoFrecuencia(nodo)
+                temporal = temporal.siguiente;
+            }        
+        }
 
+    crearArbol(){
+        // fusionar nodos hasta que la lista sea un solo arbol
+        let temporal = this.listaOrdenada.primero
+        while(this.listaOrdenada.primero.siguiente != null){
+            let nodoiz = this.listaOrdenada.eliminarInicio();
+            let nododer = this.listaOrdenada.eliminarInicio();
+            // El nodo padre es el nodo a reinsertar en la lista con sus hojas izq y der
+            let nodoPadre = new Nodo();
+            nodoPadre.frecuencia = (nodoiz.frecuencia + nododer.frecuencia)
+
+            let hijoIzq = new Nodo();
+            hijoIzq.valor = nodoiz.valor;
+            hijoIzq.frecuencia = nodoiz.frecuencia;
+            hijoIzq.derecha = nodoiz.derecha;
+            hijoIzq.izquierda = nodoiz.izquierda;
+
+            let hijoDer = new Nodo();
+            hijoDer.valor = nododer.valor;
+            hijoDer.frecuencia = nododer.frecuencia;
+            hijoDer.derecha = nododer.derecha;
+            hijoDer.izquierda = nododer.izquierda; 
+
+            nodoPadre.derecha = hijoDer;
+            nodoPadre.izquierda = hijoIzq;
+
+            this.listaOrdenada.agregarOrdenadoFrecuencia(nodoPadre);
+        }
+    }    
+
+    crearCodigos(){
+        let codigo = ""
+        this.RecorrerYCrear(this.listaOrdenada.primero, codigo)
+        this.listaCodigos.imprimirCodigos();
+
+    }
+    RecorrerYCrear(rama, codigo){
+        
+        if(rama.valor != null){
+            let nodo = new Nodo();
+            nodo.valor = rama.valor
+            nodo.codigo = codigo;
+            this.listaCodigos.agregarFinalValor(nodo);
+        }
+        if(rama.izquierda != null){
+            this.RecorrerYCrear(rama.izquierda, codigo + "0");
+        }
+        if(rama.derecha != null){
+            this.RecorrerYCrear(rama.derecha,codigo + "1");
+
+        }
+        
+    }
+ 
 
 
 
