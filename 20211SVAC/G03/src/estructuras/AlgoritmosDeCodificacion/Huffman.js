@@ -75,5 +75,44 @@ class Lista{
         }
     }
 
+    imprimir(){
+        
+        let temporal = this.primero;
+        while(temporal != null){
+            console.log(temporal.valor +temporal.frecuencia)
+            temporal = temporal.siguiente;
+        }
+    }
+
+    imprimirCodigos(){
+        
+        let temporal = this.primero;
+        while(temporal != null){
+            console.log(temporal.valor + "Codigo" + temporal.codigo)
+            temporal = temporal.siguiente;
+        }
+    }
+
+
+
+    
+    
+    buscarValor(valor) {
+        if (this.primero == null  ) {
+            console.log("no hay elementos en la lista");           
+
+        }
+        else {
+            let temporal = this.primero;
+            while(temporal != null){ 
+                if(temporal.valor == valor){
+                    return temporal.codigo;  
+                }
+                temporal = temporal.siguiente;
+            }
+        }
+    }
+
+
 
 } 
