@@ -281,7 +281,7 @@ function eliminar(){
     draw();
 }
 
-const myHash = new hash(20);
+const myHash = new hash(13);
 var contents;
 
 function setSize(){
@@ -330,6 +330,7 @@ function AbrirArchivo(files){
     reader.onload = function(event){
       contents = event.target.result;
       var json = JSON.parse(contents);
+      myHash.table.length = json.m;
       var count = Object.keys(json.valores).length;
       for (let index = 0; index < count; index++) {
         myHash.insert(json.valores[index]); 
