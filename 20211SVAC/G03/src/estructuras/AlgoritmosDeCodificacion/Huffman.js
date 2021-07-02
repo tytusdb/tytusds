@@ -113,6 +113,38 @@ class Lista{
         }
     }
 
+    eliminarFrecuencia(frecuencia) {
+        if (this.primero == null) {
+            console.log("No hay nada en las lista")
+        }
+        else {
+            let temporal = this.primero;
+            while (temporal != null) {
+                if (temporal.frecuencia == frecuencia) {
+                    temporal = temporal.siguiente;
+                }
+                else {
+                    if (temporal.siguiente != null) {
+                        if (temporal.siguiente.frecuencia == frecuencia ) {
+                            let siguienteT = temporal.siguiente;
+                            temporal.siguiente = siguienteT.siguiente;
+                            siguienteT.siguiente = null;
+                            return;
+                        }
+                    }
+                }
+                temporal = temporal.siguiente;
+            }
+        }
+    }
+    
+    eliminarInicio(){
+        let inicio = this.primero;
+        this.primero = this.primero.siguiente
+        return inicio;
+    }
+
+
 
 
 } 
