@@ -4,6 +4,8 @@ import * as vis from 'vis';
 var n: number; // columnas
 var m: number; // filas
 var matriz: any[][];
+//var rows: number[], columns: number[], values: any[];
+var MaxRow: number, MaxCols: number;
 var edges = new vis.DataSet([]);
 var nodes = new vis.DataSet([]);
 var fr: number, cr: number, ante: string
@@ -29,6 +31,9 @@ export class MatricesDispersasComponent implements OnInit {
   constructor() { }
   x1 = 0;
   y1 = 0;
+  rows = new Array()
+  columns = new Array()
+  values = new Array()
   ngOnInit(): void {
   }
   ngAfterViewInit(): void {
@@ -56,7 +61,7 @@ export class MatricesDispersasComponent implements OnInit {
           let columna = Number(element.indices[1]);
           this.AgregarNuevo(element.valor,fila,columna);
         });
-       
+
         this.code=text.toString();
       }
       reader.readAsText(a)
@@ -64,12 +69,57 @@ export class MatricesDispersasComponent implements OnInit {
 
   }
   AgregarNuevo(valor: any, fila: number, columna: number){
-    fr = fila
-    cr = columna
-    matriz[fr][cr] = valor
-    nodes.update(
-      {id: fr+','+cr, label:String(valor)/*, color: "#7BE141"*/}
-    );
+    var ids = nodes.get({
+      fields:['id', 'label', 'color']
+    });
+    for (var val of ids){
+      console.log('quye pdo esta pasando prra')
+      if(val.color === "#7BE141"){
+        nodes.update(
+          {id: val.id, color: "rgba(97,195,238,0.5)"}
+        );
+      }
+    }
+    console.log("id de los nodos we")
+    console.log(ids)
+    this.rows.push(fila)
+    this.columns.push(columna)
+    this.values.push(valor)
+    MaxCols = Math.max.apply(null, this.columns)
+    MaxRow = Math.max.apply(null, this.rows)
+    if(ids.length === 0){
+      let tempA = MaxCols + 1;
+      let tempB = MaxRow + 1;
+      this.TamanoMatriz(tempB, tempA)
+      fr = fila
+      cr = columna
+      matriz[fr][cr] = valor
+      nodes.update(
+        {id: fr+','+cr, label:String(valor), color: "#7BE141"}
+      );
+    }
+    else{
+      var id = nodes.get({
+        fields:['id', 'label']
+      });
+      console.log("id de los nodos we")
+      console.log(id)
+      for (var val of id){
+        nodes.remove(val.id);
+      }
+      let tempA = MaxCols + 1;
+      let tempB = MaxRow + 1;
+      this.TamanoMatriz(tempB, tempA)
+      for(var i=0; i<this.values.length; i++){
+        fr = this.rows[i]
+        cr = this.columns[i]
+        matriz[fr][cr] = valor
+        nodes.update(
+          {id: fr+','+cr, label:String(this.values[i]), color: "#7BE141"}
+        );
+      }
+    }
+
 /*
     nodes.update(
       {id: fr+','+cr, label:String(valor), color: "rgba(97,195,238,0.5)"}
