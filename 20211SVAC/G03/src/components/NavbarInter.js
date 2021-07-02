@@ -7,6 +7,8 @@ import Actualizar from './Actualizar'
 import {Link} from 'react-router-dom'
 import Dibujar from './Dibujar';
 import Buscar from './Buscar'
+import GraficarTablaHash from './GraficarTablaHash'
+import GraficarTablaHashCerrada from './GraficarTablaHashCerrada'
 
 import Seleccion from '../estructuras/Ordenamientos/Seleccion'
 import Insercion from '../estructuras/Ordenamientos/Insercion'
@@ -18,6 +20,7 @@ import GraficarArbol from './GraficarArbol'
 
 
 import './NavbarInter.css'
+import GraficaLinealizado from './GraficaLinealizado'
 
 
 let count = 0;
@@ -99,6 +102,25 @@ export default class NavbarInter extends Component {
         })
     }
 
+    linealizar=()=>{
+      switch (this.state.nombre) {
+        case "Col Major":
+          this.state.estrutura.colMajor()
+          break;
+        
+        case "Row Major":
+          this.state.estrutura.rowMajor()
+          break;
+        default:
+          break;
+        
+      }
+
+      this.setState({
+        estrutura: this.state.estrutura
+      })
+  }
+
 
    guardarOrdenamiento=(event) =>{
 
@@ -153,12 +175,15 @@ export default class NavbarInter extends Component {
                 
               </Menu.Menu>
             </Menu>
+            
+           
             <a className="hidden"
               download={this.state.nombre+".json"}
               href={this.state.fileDownloadUrl}
               ref={e=>this.dofileDownload = e}
               >download it</a>
             <h1 style={{ color: 'white' }}>{this.state.nombre}</h1>
+
             
           </div>
         )
@@ -229,8 +254,8 @@ export default class NavbarInter extends Component {
             </div>
           )
         }else if(this.state.nombre == "Arbol B"
-        ||this.state.nombre == "Arbol B+"
-        ||this.state.nombre == "Arbol Merkle"
+              ||this.state.nombre == "Arbol B+"
+              ||this.state.nombre == "Arbol Merkle"
         ){
     return (
       <div>
@@ -260,7 +285,100 @@ export default class NavbarInter extends Component {
          <GraficarArboles nombre={this.state.nombre} estructura={this.state.estrutura} valorBusqueda={this.state.busqueda} key={count++}/>
       </div>
     )
-  }else if(this.state.nombre == "Pila"
+        }else if(this.state.nombre == "Tabla Hash Abierta"
+        ){
+      return (
+      <div>
+          <Menu className="ui tpo inverted attached menu">
+            <Menu.Item>
+                        <Link to="/tytusds/20211SVAC/G03/build/">TytusDS</Link>
+            </Menu.Item>
+            <Cargar obtenerDatos={this.obtenerDatos} nombre={this.state.nombre} edd={this.state.estrutura} key={count++}/>
+            <Agregar  obtenerDatos={this.obtenerDatos} nombre={this.state.nombre} edd={this.state.estrutura} key={count++} />
+            <Eliminar obtenerDatos={this.obtenerDatos} nombre={this.state.nombre} edd={this.state.estrutura} key={count++}/> 
+            <Actualizar obtenerDatos={this.obtenerDatos} nombre={this.state.nombre} edd={this.state.estrutura} key={count++}/>
+            <Buscar busqueda={this.obtenerBusqueda} key={count++}/>
+          <Menu.Menu position='right'>
+            <Menu.Item name="Guardar" icon='save'  onClick={this.handleItemClick, this.guardarEstructuras}>
+            </Menu.Item>
+            
+          </Menu.Menu>
+        </Menu>
+        <br/>
+        <a className="hidden"
+              download={this.state.nombre+".json"}
+              href={this.state.fileDownloadUrl}
+              ref={e=>this.dofileDownload = e}
+              >download it</a>
+        <h1 style={{ color: 'white' }}>{this.state.nombre}</h1>
+        {/* <h3>{this.state.estructura.Imprimir()}</h3> */}
+        <GraficarTablaHash nombre={this.state.nombre} estructura={this.state.estrutura} valorBusqueda={this.state.busqueda} key={count++}/> 
+      </div>
+      )
+        }else if(this.state.nombre == "Col Major" || this.state.nombre == "Row Major"
+        ){
+      return (
+      <div>
+          <Menu className="ui tpo inverted attached menu">
+            <Menu.Item>
+                        <Link to="/tytusds/20211SVAC/G03/build/">TytusDS</Link>
+            </Menu.Item>
+            <Cargar obtenerDatos={this.obtenerDatos} nombre={this.state.nombre} edd={this.state.estrutura} key={count++}/>
+            <Agregar  obtenerDatos={this.obtenerDatos} nombre={this.state.nombre} edd={this.state.estrutura} key={count++} />
+            <Menu.Item name="Linealizar" icon='chart bar' 
+                    onClick={this.handleItemClick, this.linealizar}>
+            </Menu.Item>
+            <Eliminar obtenerDatos={this.obtenerDatos} nombre={this.state.nombre} edd={this.state.estrutura} key={count++}/> 
+            <Actualizar obtenerDatos={this.obtenerDatos} nombre={this.state.nombre} edd={this.state.estrutura} key={count++}/>
+            <Buscar busqueda={this.obtenerBusqueda} key={count++}/>
+          <Menu.Menu position='right'>
+            <Menu.Item name="Guardar" icon='save'  onClick={this.handleItemClick, this.guardarEstructuras}>
+            </Menu.Item>
+            
+          </Menu.Menu>
+        </Menu>
+        <br/>
+        <a className="hidden"
+              download={this.state.nombre+".json"}
+              href={this.state.fileDownloadUrl}
+              ref={e=>this.dofileDownload = e}
+              >download it</a>
+        <h1 style={{ color: 'white' }}>{this.state.nombre}</h1>
+        {/* <h3>{this.state.estructura.Imprimir()}</h3> */}
+        <GraficaLinealizado nombre={this.state.nombre} estructura={this.state.estrutura} valorBusqueda={this.state.busqueda} key={count++}/> 
+      </div>
+      )
+        }else if(this.state.nombre == "Tabla Hash Cerrada"
+        ){
+      return (
+      <div>
+          <Menu className="ui tpo inverted attached menu">
+            <Menu.Item>
+                        <Link to="/tytusds/20211SVAC/G03/build/">TytusDS</Link>
+            </Menu.Item>
+            <Cargar obtenerDatos={this.obtenerDatos} nombre={this.state.nombre} edd={this.state.estrutura} key={count++}/>
+            <Agregar  obtenerDatos={this.obtenerDatos} nombre={this.state.nombre} edd={this.state.estrutura} key={count++} />
+            <Eliminar obtenerDatos={this.obtenerDatos} nombre={this.state.nombre} edd={this.state.estrutura} key={count++}/> 
+            <Actualizar obtenerDatos={this.obtenerDatos} nombre={this.state.nombre} edd={this.state.estrutura} key={count++}/>
+            <Buscar busqueda={this.obtenerBusqueda} key={count++}/>
+          <Menu.Menu position='right'>
+            <Menu.Item name="Guardar" icon='save'  onClick={this.handleItemClick, this.guardarEstructuras}>
+            </Menu.Item>
+            
+          </Menu.Menu>
+        </Menu>
+        <br/>
+        <a className="hidden"
+              download={this.state.nombre+".json"}
+              href={this.state.fileDownloadUrl}
+              ref={e=>this.dofileDownload = e}
+              >download it</a>
+        <h1 style={{ color: 'white' }}>{this.state.nombre}</h1>
+        {/* <h3>{this.state.estructura.Imprimir()}</h3> */}
+        <GraficarTablaHashCerrada nombre={this.state.nombre} estructura={this.state.estrutura} valorBusqueda={this.state.busqueda} key={count++}/> 
+      </div>
+      )
+        }else if(this.state.nombre == "Pila"
               || this.state.nombre == "Cola"
               || this.state.nombre == "Cola de prioridad"){
           return (
