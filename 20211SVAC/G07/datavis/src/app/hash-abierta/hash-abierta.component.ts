@@ -95,12 +95,30 @@ class ListaDoble {
   }
   actualizarValor(dato: any, valor: any) {
     let aux = this.head;
+    var ids = nodes.get({
+      fields:['id', 'label', 'color']
+    });
+    console.log("id de los nodos we")
+    console.log(ids)
     if (aux == null) {
         console.log("Nada we")
     } else {
         while (aux != null) {
             if (aux.data == dato) {
                 aux.data = valor;
+                for (var val of ids){
+                  if(val.label === dato){
+                    if(typeof val.id == 'number'){
+                      nodes.update(
+                        {id: val.id,label:valor, color: "#FFA807"}
+                      );
+                    }else{
+                      nodes.update(
+                        {id: pos+','+dato, label:valor,color: "#FFA807"}
+                      );
+                    }
+                  }
+                }
                 return true
             } else {
                 aux = aux.next;
@@ -111,12 +129,31 @@ class ListaDoble {
 
   buscar(dato: any) {
     let aux = this.head;
+    var ids = nodes.get({
+      fields:['id', 'label', 'color']
+    });
+    console.log("id de los nodos we")
+    console.log(ids)
+
     if (aux == null) {
         console.log("LISTA VACIA")
     } else {
         while (aux != null) {
             if (aux.data == dato) {
                 aux = aux.next;
+                for (var val of ids){
+                  if(val.label === dato){
+                    if(typeof val.id == 'number'){
+                      nodes.update(
+                        {id: val.id, color: "#FFA807"}
+                      );
+                    }else{
+                      nodes.update(
+                        {id: pos+','+dato, color: "#FFA807"}
+                      );
+                    }
+                  }
+                }
                 return true
             } else {
                 aux = aux.next;
@@ -125,19 +162,6 @@ class ListaDoble {
         console.log("NO SE ENCONTRO")
         return false
     }
-  }
-  addtail(data: any){
-      const newNode = new Node(data, null, this.tail);
-      if (this.tail){
-          newNode.prev = this.tail;
-          this.tail.next = newNode;
-          this.tail = newNode;
-      }
-      else {
-          this.tail = newNode;
-          this.head = newNode;
-      }
-      this.size++;
   }
 
   deletehead(){
@@ -155,6 +179,16 @@ class ListaDoble {
           this.head.prev = null;
       }
       this.size--;
+      var id = nodes.get({
+        fields:['id', 'label']
+      });
+      let primer: number;
+      for (var val of id){
+        if(val.label == valoret){
+          primer = val.id;
+        }
+      }
+      nodes.remove(primer);
       return valoret;
   }
 
@@ -173,6 +207,20 @@ class ListaDoble {
           this.tail.next = null;
       }
       this.size--;
+      var id = nodes.get({
+        fields:['id', 'label']
+      });
+      let primer: number;
+      for (var val of id){
+        if(val.label == valoret){
+          primer = val.id;
+        }
+      }
+      console.log(primer);
+      console.log(nodes)
+      nodes.update(
+        {id: primer, label:"-1"}
+      );
       return valoret;
   }
 
@@ -190,6 +238,48 @@ class ListaDoble {
               else {
                   anterior.next = actual.next;
                   actual.next.prev = anterior;
+                  if(actual.next){
+                    var id = nodes.get({
+                      fields:['id', 'label']
+                    });
+                    let primer: number;
+                    for (var val of id){
+                      if(val.label == actual.data){
+                        primer = val.id;
+                      }
+                    }
+                    nodes.remove(primer);
+
+                    let froms: number;
+                    for (var val of id){
+                      if(val.label == anterior.data){
+                        froms = val.id;
+                      }
+                    }
+                    let to: number;
+                    for (var val of id){
+                      if(val.label == actual.next.data){
+                        to = val.id;
+                      }
+                    }
+                    edges.add(
+                      {from: froms, to: to, length: 20, arrows: 'to'}
+                    );edges.add(
+                      {from: to, to: froms, length: 20, arrows: 'to'}
+                    );
+                  }
+                  else{
+                    var id = nodes.get({
+                      fields:['id', 'label']
+                    });
+                    let primer: number;
+                    for (var val of id){
+                      if(val.label == actual.data){
+                        primer = val.id;
+                      }
+                    }
+                    nodes.remove(primer);
+                  }
               }
               this.size--;
               return actual.data;
@@ -198,16 +288,6 @@ class ListaDoble {
           actual = actual.next;
       }
       return null
-  }
-
-  print(){
-      let actual = this.head;
-      let result = '';
-      while (actual){
-          result += actual.data + '<-->';
-          actual = actual.next;
-      }
-      return result += 'X';
   }
 
 }
@@ -265,22 +345,28 @@ class HashAbierta{
       if(this.fun == "Simple"){
         let res = Math.trunc(this.simple());
         if(this.Arreglo[res]!="-1"){
+          pos = res;
+          value = valor;
           this.Arreglo[res].delete(valor)
         }else{
           console.log("Posición vacía")
         }
 
-      }else if(this.fun == "Div"){
+      }else if(this.fun == "Division"){
         let res = this.division(posicion);
         if(this.Arreglo[res]!="-1"){
+          pos = res;
+          value = valor;
           this.Arreglo[res].delete(valor);
         }else {
           console.log("Posición vacía")
         }
 
-      }else if(this.fun == "Multi"){
+      }else if(this.fun == "Multiplicacion"){
         let res =Math.trunc(this.multiplicacion(posicion));
         if(this.Arreglo[res]!="-1"){
+          pos = res;
+          value = valor;
           this.Arreglo[res].delete(valor);
         }else {
           console.log("Posición vacía")
@@ -296,11 +382,25 @@ class HashAbierta{
 
   actualizar(key:any, nuevo:any){
     let posicion = this.ValorPos(key);
+    var ids = nodes.get({
+      fields:['id', 'label', 'color']
+    });
+    console.log("id de los nodos we")
+    console.log(ids)
+    for (var val of ids){
+      if(val.color === "#FFA807"){
+        nodes.update(
+          {id: val.id, color: "rgba(97,195,238,0.5)"}
+        );
+      }
+    }
     try {
 
       if(this.fun == "Simple"){
         let res = Math.trunc(this.simple());
         if(this.Arreglo[res]!="-1"){
+          pos = res;
+          value = nuevo;
           this.Arreglo[res].actualizarValor(key,nuevo);
         }else{
           console.log("Posición vacía")
@@ -309,6 +409,8 @@ class HashAbierta{
       }else if(this.fun == "Div"){
         let res = this.division(posicion);
         if(this.Arreglo[res]!="-1"){
+          pos = res;
+          value = nuevo;
           this.Arreglo[res].actualizarValor(key,nuevo);
         }else {
           console.log("Posición vacía")
@@ -317,6 +419,8 @@ class HashAbierta{
       }else if(this.fun == "Multi"){
         let res =Math.trunc(this.multiplicacion(posicion));
         if(this.Arreglo[res]!="-1"){
+          pos = res;
+          value = nuevo;
           this.Arreglo[res].actualizarValor(key,nuevo);
         }else {
           console.log("Posición vacía")
@@ -332,28 +436,54 @@ class HashAbierta{
 
   buscar(dato:any){
     let posicion = this.ValorPos(dato);
+    var ids = nodes.get({
+      fields:['id', 'label', 'color']
+    });
+    console.log("id de los nodos we")
+    console.log(ids)
+    for (var val of ids){
+      if(val.color === "#FFA807"){
+        nodes.update(
+          {id: val.id, color: "rgba(97,195,238,0.5)"}
+        );
+      }
+    }
     try {
 
       if(this.fun == "Simple"){
         let res = Math.trunc(this.simple());
+        let prueba = true;
         if(this.Arreglo[res]!="-1"){
-          let bandera = this.Arreglo[res].buscar(dato);
+          pos = res;
+          value = valor;
+          console.log(res)
+          this.Arreglo[res].buscar(dato);
+
         }else{
           console.log("Posición vacía")
         }
 
-      }else if(this.fun == "Div"){
+      }else if(this.fun == "Division"){
         let res = this.division(posicion);
+        let prueba = true;
         if(this.Arreglo[res]!="-1"){
-          let bandera = this.Arreglo[res].buscar(dato);
+          pos = res;
+          value = valor;
+          console.log(res)
+          this.Arreglo[res].buscar(dato);
+
         }else {
           console.log("Posición vacía")
         }
 
-      }else if(this.fun == "Multi"){
+      }else if(this.fun == "Multiplicacion"){
         let res =Math.trunc(this.multiplicacion(posicion));
+        let prueba = true;
         if(this.Arreglo[res]!="-1"){
-         let bandera =  this.Arreglo[res].buscar(dato);
+          pos = res;
+          value = valor;
+          console.log(res)
+          this.Arreglo[res].buscar(dato);
         }else {
           console.log("Posición vacía")
         }
@@ -461,6 +591,21 @@ export class HashAbiertaComponent implements OnInit {
     console.log("Entro??")
     console.log(h);
     h.AgregarValores(datos);
+  }
+  Actualizars(dato: any, datos: any){
+    console.log('dato ' + dato)
+    console.log("buscar")
+    h.actualizar(dato, datos)
+  }
+  buscar(dato: any){
+    console.log('dato ' + dato)
+    console.log("buscar")
+    h.buscar(dato)
+  }
+  Eliminar(valor: any){
+    console.log("Entro??")
+    console.log(h);
+    h.eliminar(valor);
   }
 
 }

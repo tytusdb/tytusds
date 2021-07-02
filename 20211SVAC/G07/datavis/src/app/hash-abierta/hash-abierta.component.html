@@ -40,6 +40,13 @@
         <button (click)="Tamano(amano.value, seleccionar.value)" class="btn btn-outline-light mr-sm-2" type="button">Crear Tabla</button>
         <input  class="form-control mr-sm-2" type="text" #dato placeholder="Valor" aria-label="Valor">
         <button (click)="AgregarNuevo(dato.value)" class="btn btn-outline-light mr-sm-2" type="button">Agregar Valor</button>
+        <input  class="form-control mr-sm-2" type="text" #elim placeholder="Eliminar" aria-label="Eliminar">
+        <button (click)="Eliminar(elim.value)" class="btn btn-outline-light mr-sm-2" type="button">Eliminar Valor</button>
+        <input class="form-control mr-sm-2" type="text" #actu placeholder="Actualizar" aria-label="actualizar">
+        <input class="form-control mr-sm-2" type="text" #sus placeholder="Sustituto" aria-label="Sustituto">
+        <button (click)="Actualizars(actu.value, sus.value)" class="btn btn-outline-light mr-sm-2" type="button">Actualizar Valor</button>
+        <input  class="form-control mr-sm-2" type="text" #busc placeholder="Buscar" aria-label="Buscar">
+        <button (click)="buscar(busc.value)" class="btn btn-outline-light mr-sm-2" type="button">Buscar Valor</button>
 
 
 
