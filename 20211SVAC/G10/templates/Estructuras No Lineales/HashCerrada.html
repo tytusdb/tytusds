@@ -17,27 +17,56 @@
     <div class="row">
         <div class="col-3 columna1">
             <div class="row configuracion">
-                <div class="col-3"><label for="size" >Tamaño:</label></div>
-                <div class="col-4"><input type="number" min="1" id="size"></div>
-                <div class="col-5"><button id="crear">Crear</button></div>
+                <div class="row">
+                    <div class="col-6"><label for="size" >Tamaño:</label></div>
+                    <div class="col-6"><input type="number" min="1" id="size"></div>
+                </div>
+                <div class ="row">
+                    <div class="col-6"><label for="minimo" >Rango Minimo:</label></div>
+                    <div class="col-6"><input type="number" min="1" id="minimo"></div>
+                </div>
+                <div class="row">
+                    <div class="col-6"><label for="maximo" >Rango Maximo:</label></div>
+                    <div class="col-6"><input type="number" min="1" id="maximo"></div>
+                </div>
+                <div class="col-6"><button id="crear">Crear</button></div>
+                <div class="row">
+                    <div class="col-3"><label for="">Función:</label></div>
+                    <div class="col-8">
+                        <select name="" id="funcion">
+                            <option value="Division">División</option>
+                            <option value="Multiplicacion">Multiplicación</option>
+                            <option value="Simple">Simple</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3"><label for="">Prueba:</label></div>
+                    <div class="col-8">
+                        <select name="" id="prueba">
+                            <option value="Lineal">Lineal</option>
+                            <option value="Cuadratica">Cuadrática:</option>
+                            <option value="Doble">Doble Hash</option>
+                        </select>
+                    </div>
+                </div>
             </div>
 
             <div class="row formulario">
                 <form action="#" method="POST" class="form" id="1form">
                     <div class="row">
                         <div class="col-1 col_label"><label for="dato" class="form_label">&plus;</label></div>
-                        <div class="col-8 col_input"><input type="text" name="" id="dato" placeholder="Dato"></div>
+                        <div class="col-9 col_input"><input type="text" name="" id="dato" placeholder="Dato"></div>
                     </div>
                 </form>
                 <div id="oculto">
-                    <form action="#" method="POST" class="form" id="2form">
-                        <div class="row">
-                            <div class="col-1 col_label"><label for="dato" class="form_label labe">&lrhar;</label></div>
-                            <div class="col-8 col_input"><input type="text" name="" id="dato2" placeholder="Nuevo dato"></div>
-                        </div>
-                    </form>
                     <div class="row">
-                        <div class="row justify-content-end"><button class="boton" id="cambiar">Cambiar</button></div>
+                        <div class="col-1 col_label" style="margin: 0 5px;"><label for="dato" class="form_label">&lrhar;</label></div>
+                        <div class="col-9 col_input"><input type="text" name="" id="dato2" placeholder="Nuevo dato"></div>
+                    </div>
+                    
+                    <div class="row flex-row-reverse">
+                        <div class="col-6 align-self-end"><button class="boton" id="cambiar">Cambiar</button></div>
                     </div>
                 </div>
             </div>
@@ -68,36 +97,12 @@
                     <div class="col-6"><button class="boton" id="cargar">Cargar</button></div>
                     <div class="col-6"><button class="boton" id="guardar" >Guardar</button></div>
                 </div>
-                <div class="row">
-                    <table class="configuracion">
-                        <tr>
-                            <td><label for="">Función:</label></td>
-                            <td><select name="" id="funcion">
-                                <option value="">Simple</option>
-                                <option value="">División</option>
-                                <option value="">Multiplicación</option>
-                            </select></td>
-                        </tr>
-                        <tr>
-                            <td><label for="">Rango:</label></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td><label for="">Prueba:</label></td>
-                            <td><select name="" id="">
-                                <option value="">Lineal</option>
-                                <option value="">Cuadrática:</option>
-                                <option value="">Doble Hash</option>
-                            </select></td>
-                        </tr>
-                    </table>
-                </div>
             </div>
         </div>
 
         <div class="col-9 columna2">
             <div class="row">
-                <div class="panel"><canvas id='lienzo' width="1000" height="500"></canvas></div>
+                <div class="panel"><canvas id='lienzo' width="1000" height="650"></canvas></div>
             </div>
             <div class="row">
                 <div class="controles">

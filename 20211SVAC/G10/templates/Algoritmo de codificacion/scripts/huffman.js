@@ -80,9 +80,26 @@ class lista {
     }
 }
 
+class NodeArbol {
+    constructor(dato, frecuencia) {
+        this.dato = dato
+        this.frecuencia = frecuencia
+        this.left = null
+        this.right = null
+    }
+}
+
 class huffman{
     constructor() {
-        this.lista = []
+        this.root = null
+    }
+
+    agregar(caracter, frecuencia, izq, der) {
+        let nuevo = new NodeArbol(caracter, frecuencia)
+        this.root = nuevo
+        this.root.left = izq
+        this.root.right = der
+        console.log(this.root)
     }
 }
 
@@ -90,6 +107,7 @@ let entrada
 let archivo = document.getElementById('file')
 
 let list = new lista()
+let arbol = new huffman()
 
 archivo.addEventListener('change', () => {
     let leer = new FileReader()
@@ -104,13 +122,8 @@ cargar.addEventListener("click", (e) => {
     e.preventDefault()
     console.log(entrada)
 
-    
-    
     for(let i = 0; i < entrada.length; i++) {
         let frecuencia = 0
-        //console.log(entrada[i])
-        //repetido.push(entrada[i])
-        //console.log(`buscar ${list.buscar(entrada[i])}`)
         frecuencia ++
         if(!list.buscar(entrada[i])) {
             list.agregar(entrada[i], frecuencia)
@@ -119,9 +132,25 @@ cargar.addEventListener("click", (e) => {
         }     
     }
     let lista = list.ordenar()
-    
-    for(let i = 0; i < lista.length; i++) {
-        console.log(lista[i].caracter)
+
+    for (let i = 0; i < lista.length; i++){
+        console.log(lista.slice(0, 2))
+        for(let j = 0; j < lista.slice(0, 2).length; j++) {
+            lista.shift()
+        }
     }
+
+    let nueva_lista = lista.slice(0, 2)
+    let frecuencia_raiz = 0
+
+    for (let i = 0; i < nueva_lista.length; i++){
+        frecuencia_raiz = frecuencia_raiz + nueva_lista[i].frecuencia
+        lista.shift()
+    }
+
+    arbol.agregar(null, frecuencia_raiz, nueva_lista[0], nueva_lista[1])
+
+    console.log(lista)
+
     document.getElementById('mensaje').innerText = ''
 })

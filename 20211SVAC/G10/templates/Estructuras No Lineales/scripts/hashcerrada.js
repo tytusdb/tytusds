@@ -11,8 +11,8 @@ class Hash {
         this.elementos = 0
         this.size = null
         this.factor = 0.0
-        this.max = 80
-        this.min = 20
+        this.maximo = null
+        this.minimo = null
         this.funcion = 'division'
         this.prueba = 'lineal'
         this.constante_a = 0.1625277911
@@ -20,10 +20,9 @@ class Hash {
 
     crear(size){
         this.elementos = 0
-        //this.vector.splice(0, this.vector.length)
         this.size = size
         this.vector = new Array(size)
-        for(let i = 0; i < this.size; i++){
+        for(let i = 0; i < this.vector.length; i++){
             this.vector[i] = null
         }
     }
@@ -34,8 +33,11 @@ class Hash {
 
         let nuevo = new Node(codigo, dato)
 
+        let i = 1
+        let k = indice
         while(this.vector[indice] != null) {
-            indice = this.pruebaHash(indice)
+            indice = this.pruebaHash(k, i)
+            i ++
         }
         this.vector[indice] = nuevo
         
@@ -44,11 +46,11 @@ class Hash {
     }
 
     rehashing() {
-        if ((this.elementos*100/this.size) >= this.max) {
+        if ((this.elementos*100/this.size) >= this.maximo) {
             let temporal = this.vector
             this.mostrar()
             let aux_size = this.size
-            this.size = this.elementos * 100 / this.min
+            this.size = this.elementos * 100 / this.minimo
             this.crear(this.size)
             for(let i = 0; i<aux_size; i++) {
                 if(temporal[i] != null) {
@@ -92,25 +94,47 @@ class Hash {
         }
     }
 
-    pruebaHash(numero) {
-        if (this.prueba == 'lineal') {
-            return this.lineal(numero)
-        } else if (this.prueba == ' cuadratica') {
+    pruebaHash(numero, i) {
+        if (this.prueba == 'Doble') {
+            return this.doble(numero, i)
+        } else if (this.prueba == ' Cuadratica') {
             console.log('cuadratica')
-            return this.lineal(numero)
+            return this.cuadratica(numero, i)
         } else {
-            return this.lineal(numero)
+            return this.lineal(numero, i)
         }
     }
 
-    lineal(numero){
-        return (Math.abs(numero) + 1) % this.size
+    lineal(numero, i){
+        return (Math.abs(numero) + i) % this.size
+    }
+
+    cuadratica(numero, i) {
+        return (Math.abs(numero) + i * i) % this.size
+    }
+
+    h1(numero) {
+        return Math.abs(numero) % this.size
+    }
+
+    h2(numero) {
+        return 2 - (Math.abs(numero) % 2)
+    }
+
+    doble(numero, i) {
+        try {
+            let h1 = this.h1(numero)
+            let h2 = this.lineal(numero, i)
+            return (h1 + i * h2) % this.size
+        } catch (error) {
+            return this.lineal(numero, i)
+        }
     }
 
     funcionHash(numero) {
-        if (this.funcion == 'simple') {
+        if (this.funcion == 'Simple') {
             return this.simple()
-        } else if (this.funcion == 'multiplicacion') {
+        } else if (this.funcion == 'Multiplicacion') {
             return this.multiplicacion(numero)
         } else {
             return this.division(numero)
@@ -141,6 +165,11 @@ class Hash {
         this.funcion = funcion
     }
 
+    set_rango(min, max) {
+        this.minimo = min
+        this.maximo = max
+    }
+
     atAscii(cadena) {
         let resultado = 0
         for(let i = 0; i < cadena.length; i++) {
@@ -155,6 +184,14 @@ class Hash {
             codigo = this.atAscii(dato)
         }
         return codigo
+    }
+
+    configurar(m, min, max, funcion, prueba) {
+        this.size = m
+        this.minimo = min
+        this.maximo = max
+        this.funcion = funcion
+        this.prueba = prueba
     }
 
     mostrar() {
@@ -175,14 +212,21 @@ class Hash {
 const dato = document.getElementById('dato')
 const size = document.getElementById('size')
 const nuevo = document.getElementById('dato2')
+const funcion = document.getElementById('funcion')
+const prueba = document.getElementById('prueba')
+const min = document.getElementById('minimo')
+const max = document.getElementById('maximo')
 
 let table = new Hash()
 
 document.getElementById('crear').addEventListener('click', () =>{
     table.crear(size.value)
+    table.set_rango(min.value, max.value)
 })
 
 document.getElementById('agregar').addEventListener('click', () => {
+    table.set_funcion(funcion.value)
+    table.set_prueba(prueba.value)
     table.agregar(dato.value)
 })
 
@@ -201,4 +245,38 @@ document.getElementById('actualizar').addEventListener('click', () => {
 document.getElementById('cambiar').addEventListener('click', () => {
     table.actualizar(dato.value, nuevo.value)
     document.getElementById('oculto').style.display = 'none'
+})
+
+let archivo = document.getElementById('file')
+let entrada;
+
+archivo.addEventListener('change', () => {
+    let leer = new FileReader()
+    leer.readAsText(archivo.files[0])
+    leer.onload = function() {
+    entrada = JSON.parse(leer.result)
+    }
+    document.getElementById('mensaje').innerText = 'Se cargo el archivo con exito'
+})
+
+cargar.addEventListener("click", (e) => {
+    e.preventDefault()
+
+    let m = entrada['m']
+    table.crear(m)
+
+    let minimo = entrada['minimo']
+    let maximo = entrada['maximo']
+    let funcion = entrada['funcion']
+    let prueba = entrada['prueba']
+    let valores = entrada["valores"]
+
+    table.configurar(m, minimo, maximo, funcion, prueba)
+    
+    for (let i = 0; i < valores.length; i++) {
+        table.agregar(valores[i])
+    }
+    document.getElementById('mensaje').innerText = ''
+    archivo.setAttribute('disabled', '')
+    table.mostrar()
 })
