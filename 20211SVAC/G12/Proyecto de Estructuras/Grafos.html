@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="Grafos.js"></script>
+    <link rel="stylesheet" href="AVL.css">
+    <script>
+        let m=new Matriz();
+        function init(){
+            m.insert(1,2,1)
+            m.insert(1,3,1)
+            m.insert(2,1,1)
+            m.insert(2,3,1)
+            m.insert(3,4,1)
+            m.insert(4,5,1)
+            m.insert(5,4,1)
+            m.Graph()
+        }
+        function search(){
+           m.busquedaProfundidad(1,5).then(x =>{
+               console.log(x)
+           })
+        }
+    </script>
+</head>
+<body onload="init()">
+<button onclick="search()">Search</button>
+<div id="result" style="display: table">
+    <table id="storage" style="width: 100%">
+
+    </table>
+</div>
+</body>
+</html>
