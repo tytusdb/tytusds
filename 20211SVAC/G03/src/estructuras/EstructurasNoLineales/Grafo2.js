@@ -245,6 +245,30 @@ class ListaAdyacencia{
         }
     }    
 
+    DFS(){
+        n = new ListaDoble()
+        let aux = this.ListaAdyacencia.cabeza
+        this.subDFS(aux.dato)
+        let imp = n.cabeza
+        while(imp!= null){
+            console.log(imp.dato.dato)
+            imp = imp.siguiente
+        }
+    }
+
+    subDFS(nodo){
+        if(this.contiente(n, nodo) == false){
+            n.insertar(nodo)
+        }else{
+            return
+        }
+        let aux2 = nodo.adyacentes.cabeza
+        while(aux2!=null){
+            this.subDFS(aux2.dato)
+            aux2 = aux2.siguiente
+        }
+    }
+
     //Metodo de busqueda
     buscar(dato){
         let bool = false
