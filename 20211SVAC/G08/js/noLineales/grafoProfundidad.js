@@ -191,15 +191,22 @@ class Cola{
         return aux;
 
     }
+    eliminar(){
+        if(this.cantidad == 0){
+            return null;
+        } else {
+            let del = this.front;
+            this.front = this.front.siguiente;
+            this.cantidad--;
+            return del;
+        }
+    }
     empty(){
         if (this.cantidad == 0){
             return true;
-        } else {
-            var aux = this.front;
-            this.front = this.front.siguiente;
-            this.cantidad--;
-            return aux;
         }
+        return false; 
+    
     }
 }
 
@@ -516,13 +523,94 @@ function eliminar(){
 // ***** BUSCAR ELEMENTO *****
 function buscar(){
     console.log("Buscando");
-    var buscado = document.getElementById('inicio').value;
+    var Binicio = document.getElementById('inicio').value;
+    var Bfinal = document.getElementById('final').value;
 
+    var find = Bprofundidad(grafo, Binicio, Bfinal);
+    console.log(find);
+
+
+}
+function Bprofundidad(graph, start, end){
+    var ind = graph.indiceV(start);
+    var listOne = [];
+    var tempo;
+    if (ind != -1){
+        var cola = new Cola();
+        cola.insertarF(graph.vertices[ind]);
+        while(!cola.empty()){
+            var vertex = cola.eliminar().dato;
+            listOne.push(vertex);
+            if (vertex.id == end){
+                break;
+            }
+            tempo = vertex.noVer;
+            for (let i = 0; i < graph.vertices.length; i++){
+                if (graph.matrizAdy[tempo][i] > 0 && !search(listOne, graph.vertices[i].id) && !cola.buscar(graph.vertices[i].id, cola.front)){
+                    cola.insertarF(graph.vertices[i]);
+
+                }
+            }
+        }
+    }
+    var cadena = "";
+    for (var j = 0; j < listOne.length; j++){
+        if (j == listOne.length - 1){
+            return cadena += listOne[j].id;
+        } else {
+            cadena += listOne[j].id + " -> ";
+        }
+
+    }
+    return cadena;
+
+}
+function search(arr, code){
+    for(let i = 0; i < arr.length; i++){
+        if (arr[i].code == code){
+            return true;
+        }
+    }
+    return false;
 }
 
 // ***** RECORRER GRAFO *****
 function recorrer(){
     console.log("Recorriendo");
+    var prime = document.getElementById('inicio').value;
+    var path = Rprofundidad(grafo, prime);
+    console.log(path);
+
+}
+
+function Rprofundidad(graph, start){
+    var ind = graph.indiceV(start);
+    var listOne = [];
+    var tempo; 
+    if (ind != -1){
+        var cola = new Cola();
+        cola.insertarF(graph.vertices[ind]);
+        while(!cola.empty()){
+            var vertex = cola.eliminar().dato;
+            listOne.push(vertex);
+            tempo = vertex.noVer;
+            for (var i = 0; i < graph.vertices.length; i++){
+                if (graph.matrizAdy[tempo][i] > 0 && !search(listOne, graph.vertices[i].id) && !cola.buscar(graph.vertices[i].id, cola.front)){
+                    cola.insertarF(graph.vertices[i]);
+                }
+            }
+        }
+    }
+
+    var cadena = "";
+    for (var j = 0; j < listOne.length; j++){
+        if (j == listOne.length - 1){
+            cadena += listOne[j].id;
+        } else {
+            cadena += listOne[j].id + " -> ";
+        }
+    }
+    return cadena;
 
 }
 
