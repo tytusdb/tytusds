@@ -7,6 +7,6 @@
 <textarea [(ngModel)]="cadena" rows="10" cols="50" placeholder="Escriba su cadena" >{{cadena}}</textarea>
 <input type="file" (change)="leerArchivo($event)">
 <button class="boton" (click)="codificar()" type="submit" >Codificar</button> &nbsp; &nbsp;
-
+<button class="btn boton btn-block text-white" type="submit" (click)="download()">Guardar Conversión</button>
 <!--Esto debe quedar abajo de todo ya que es la tabla del algoritmo-->
 <div id="DivInsert" style="position: absolute;"></div>

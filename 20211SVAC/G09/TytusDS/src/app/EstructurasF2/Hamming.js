@@ -1,6 +1,7 @@
 class Hamming{
     constructor(){
         this.Matriz=[]
+        this.cadenaConvertida=""
     }
 
     Hamming(cadena) {
@@ -15,8 +16,8 @@ class Hamming{
             this.calcParidad(this.Matriz,contP)//Va estableciendo la paridad
             contP++
         }
-
-        console.log("La codificación del texto es: "+this.palabraParidad(this.Matriz,nMax))//añade la palabra resultante a la matriz y retorna la palabra
+        this.cadenaConvertida=this.palabraParidad(this.Matriz,nMax)
+        console.log("La codificación del texto es: "+this.cadenaConvertida)//añade la palabra resultante a la matriz y retorna la palabra
     }
     graficar(){
         const Animaciones= require('./Animaciones')
@@ -117,6 +118,9 @@ class Hamming{
     }
     returnMatriz(){
         return this.Matriz
+    }
+    returnCadena(){
+        return this.cadenaConvertida
     }    
 
 }

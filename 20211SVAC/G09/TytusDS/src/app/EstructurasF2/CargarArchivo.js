@@ -1,9 +1,12 @@
 // 1 Matrices Dispersas
+// 2 Rowmajor
+// 3 Colmajor
+// 4 Estructuras compuestas
 class CargaArchivo{
     constructor(){
 
     }
-    leerMatriz(event,indexClase){
+    leerMatriz(event,indexClase, variante){
         var file = event.target.files[0];
         var reader = new FileReader();
         var doc
@@ -60,12 +63,29 @@ class CargaArchivo{
                 var md= new Matricesdisp()
                 for (var k in doc.valores){
                     md.insertar(doc.valores[k].valor,doc.valores[k].indices[0],doc.valores[k].indices[1])
-                    //debugger
                 }
-                //md.imprimir_vertical()
                 md.imprimir_horizontal()
                 break;
-        
+            case 2:
+                const RowColMayor= require('./rowColMayor') 
+                debugger
+                var rc= new RowColMayor()
+                let Matriz= new Array(doc.m[0])
+                for (let i = 0; i < Matriz.length; i++) {
+                    Matriz[i]= new Array(doc.m[1])
+                }
+                for (let k in doc.valores){
+                    Matriz[doc.valores[k].indices[0]][doc.valores[k].indices[1]]=doc.valores[k].valor
+                }
+                animate.graficarMatriz(Matriz)
+                setTimeout(() => {
+                    if (variante=="row") {
+                        animate.graficarMatrizUnaDimension(rc.convertRowmayor(Matriz))
+                    } else {
+                        animate.graficarMatrizUnaDimension(rc.convertColmayor(Matriz))
+                    }                    
+                }, 1000);
+                break;
             default:
                 console.log("Indice indefinido")
                 break;

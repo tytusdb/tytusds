@@ -1,17 +1,28 @@
 class Animaciones{
 	constructor(){}
 	graficarMatriz(array){
+		//debugger
 		document.getElementById('DivInsert').innerHTML = '';
 		for (let i = 0; i < array.length; i++) {
-			if (array[i][0]) {
-			this.crearColocar("btn"+i.toString()+",0",array[i][0],50*i,0)}
+			if (array[i][0]) {this.crearColocar("btn"+i.toString()+",0",array[i][0],50*i,0)}
 		}//debugger
 		for (let j = 1; j < array[0].length; j++) {
 			for (let i = 0; i < array.length; i++) {
-				if (array[i][j]) {
-					this.crearColocar("btn"+i.toString()+","+j.toString(),array[i][j],50*i,40*j)
-				}
+				if (array[i][j]) {this.crearColocar("btn"+i.toString()+","+j.toString(),array[i][j],50*i,40*j)}
 			}			
+		}			
+		
+	}
+	graficarMatrizUnaDimension(array){
+		debugger
+		document.getElementById('DivInsert').innerHTML = '';
+		let cont=1
+		for (let i = 0; i < array.length; i++) {
+			try {
+				if (array[i][0]!=null) {
+					this.crearColocar("btn"+i.toString()+",0",array[i],50*cont,0)
+					cont++}
+			} catch (e) {}
 		}
 	}
 	crearColocar(id, contenido,x,y){
