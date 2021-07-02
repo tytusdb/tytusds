@@ -1,6 +1,18 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import * as vis from 'vis';
-var tama: number, valor: number//tamaño de arreglo para la tabla
+var edges = new vis.DataSet([]);
+var nodes = new vis.DataSet([]);
+var x1 = 0, y1 = 0;
+var h;
+var pos: any, value:any;
+var options = {
+  physics: {
+    enabled: false,
+  },
+}
+let listaData = { nodes: nodes,
+  edges: edges };
+var tama: number, valor: number, uno: number, dos: number//tamaño de arreglo para la tabla
 
 class Node {
   data: any
@@ -29,10 +41,55 @@ class ListaDoble {
           newNode.next = this.head;
           this.head.prev = newNode;
           this.head = newNode;
+          var id = nodes.get({
+            fields:['id', 'label', 'x', 'y']
+          });
+          var anterior = this.head.next
+          for (var val of id){
+            if(val.label == anterior.data){
+              uno = val.x
+              dos = val.y
+            }
+          }
+          console.log("id de los nodos we")
+          console.log(id)
+          dos = dos+50;
+          nodes.add(
+            {id: pos+','+data, label:String(data), x: uno , y: dos, color: "rgba(97,195,238,0.5)",shape: "box"}
+          );
+          let men: number;
+          var ids = nodes.get({
+            fields:['id', 'label']
+          });
+          for (var val of ids){
+            if(val.label == anterior.data){
+              men = val.id;
+            }
+          }
+          edges.update(
+            {from: pos+','+data, to: men, length: 20, arrows: 'to'}
+          );
+          edges.update(
+            {from: men, to: pos+','+data, length: 20, arrows: 'to'}
+          );
       }
       else {
           this.head = newNode;
           this.tail = newNode;
+          var id = nodes.get({
+            fields:['id', 'label', 'x', 'y']
+          });
+          console.log("id de los nodos we")
+          console.log(id)
+          for (var val of id){
+            if(val.id == pos){
+              uno = val.x
+              dos = val.y
+            }
+          }
+          nodes.update(
+            {id: pos, label:String(data), x: uno , y: dos, color: "rgba(97,195,238,0.5)",shape: "box"}
+          );
       }
       this.size++;
   }
@@ -158,7 +215,7 @@ class ListaDoble {
 class HashAbierta{
   Arreglo: any[];
   fun:any;
- 
+
   constructor(fun:any){
     this.Arreglo = null;
     this.fun = fun;
@@ -176,28 +233,15 @@ class HashAbierta{
       const A = 0.6180;
       return tama*((k*A) % 1);
   }
-
-  // lineal(k){
-  //     return ((k+1) % tama);
-  // }
-
-  // cuadratica(k,i){
-  //     return ((k+i) % tama);
-  // }
-
-  // doble(k,i){
-  //     return (((k % tama) + i * (7-(k % 7))) % tama);
-  // }
   NuevaTabla(tamano: number){
     tama = tamano;
     this.Arreglo = new Array(tama);//arreglo del tamaño especifico
     for (let j = 0; j < tama; j++) {
       this.Arreglo[j] = "-1";
-      /*nodes.update(
-        {id: j, label:'0',x: this.x1 , y: this.y1, color: "#7BE141", shape: "box"}
+      nodes.update(
+        {id: j, label:'-1',x: x1 , y: y1, color: "rgba(97,195,238,0.5)",shape: "box"}
       );
-      this.x1 = this.x1 + 50
-      */
+      x1 = x1 + 90
     }
   }
 
@@ -213,7 +257,7 @@ class HashAbierta{
 		}
 		return dato
 	}
-  
+
   eliminar(valor:any){
     let posicion = this.ValorPos(valor);
     try {
@@ -225,7 +269,7 @@ class HashAbierta{
         }else{
           console.log("Posición vacía")
         }
-        
+
       }else if(this.fun == "Div"){
         let res = this.division(posicion);
         if(this.Arreglo[res]!="-1"){
@@ -242,7 +286,7 @@ class HashAbierta{
           console.log("Posición vacía")
         }
       }
-    
+
 
     } catch (error) {
       console.log('ERROR PRRA');
@@ -261,7 +305,7 @@ class HashAbierta{
         }else{
           console.log("Posición vacía")
         }
-        
+
       }else if(this.fun == "Div"){
         let res = this.division(posicion);
         if(this.Arreglo[res]!="-1"){
@@ -278,7 +322,7 @@ class HashAbierta{
           console.log("Posición vacía")
         }
       }
-    
+
 
     } catch (error) {
       console.log('ERROR PRRA');
@@ -297,7 +341,7 @@ class HashAbierta{
         }else{
           console.log("Posición vacía")
         }
-        
+
       }else if(this.fun == "Div"){
         let res = this.division(posicion);
         if(this.Arreglo[res]!="-1"){
@@ -314,7 +358,7 @@ class HashAbierta{
           console.log("Posición vacía")
         }
       }
-    
+
 
     } catch (error) {
       console.log('ERROR PRRA');
@@ -323,48 +367,68 @@ class HashAbierta{
   }
 
   AgregarValores(dato: any){
+    console.log('que3 pdo prra')
     let posicion = this.ValorPos(dato);
-    try {
-
-      if(this.fun == "Simple"){
-        let res = Math.trunc(this.simple());
-        if(this.Arreglo[res]!="-1"){
-          // si hay un dato en esa posición y se recorre la lista
-          this.Arreglo[res].addhead(dato);
-        }else{
-          //no hay dato en esa posición, se agrega
-          this.Arreglo[res] = new ListaDoble;
-          this.Arreglo[res].addhead(dato);
-        }
-        
-
-      }else if(this.fun == "Div"){
-        let res = this.division(posicion);
-        if(this.Arreglo[res]!="-1"){
-          // si hay un dato en esa posición y se recorre la lista
-          this.Arreglo[res].addhead(dato);
-        }else {
-          //no hay dato en esa posición, se agrega
-          this.Arreglo[res] = new ListaDoble;
-          this.Arreglo[res].addhead(dato);
-        }
-
-      }else if(this.fun == "Multi"){
-        let res =Math.trunc(this.multiplicacion(posicion));
-        if(this.Arreglo[res]!="-1"){
-          // si hay un dato en esa posición y se recorre la lista
-          this.Arreglo[res].addhead(dato);
-        }else {
-          //no hay dato en esa posición, se agrega
-          this.Arreglo[res] = new ListaDoble;
-          this.Arreglo[res].addhead(dato);
-        }
+    if(this.fun == "Simple"){
+      let res = Math.trunc(this.simple());
+      if(this.Arreglo[res]!="-1"){
+        // si hay un dato en esa posición y se recorre la lista
+        pos = res;
+        value = dato;
+        console.log("datos de pos y otros 1")
+        console.log(res)
+        console.log(posicion)
+        this.Arreglo[res].addhead(dato);
+      }else{
+        //no hay dato en esa posición, se agrega
+        pos = res;
+        value = dato;
+        console.log("datos de pos y otros 11")
+        console.log(res)
+        console.log(posicion)
+        this.Arreglo[res] = new ListaDoble;
+        this.Arreglo[res].addhead(dato);
       }
-    
-
-    } catch (error) {
-      console.log('ERROR PRRA');
-      console.log(error)
+    }else if(this.fun == "Division"){
+      let res = this.division(posicion);
+      if(this.Arreglo[res]!="-1"){
+        // si hay un dato en esa posición y se recorre la lista
+        pos = res;
+        value = dato;
+        console.log("datos de pos y otros 2 ")
+        console.log(res)
+        console.log(posicion)
+        this.Arreglo[res].addhead(dato);
+      }else {
+        //no hay dato en esa posición, se agrega
+        pos = res;
+        value = dato;
+        console.log("datos de pos y otros 22")
+        console.log(res)
+        console.log(posicion)
+        this.Arreglo[res] = new ListaDoble;
+        this.Arreglo[res].addhead(dato);
+      }
+    }else if(this.fun == "Multiplicacion"){
+      let res =Math.trunc(this.multiplicacion(posicion));
+      if(this.Arreglo[res]!="-1"){
+        // si hay un dato en esa posición y se recorre la lista
+        pos = res;
+        value = dato;
+        console.log("datos de pos y otros 3 ")
+        console.log(res)
+        console.log(posicion)
+        this.Arreglo[res].addhead(dato);
+      }else {
+        //no hay dato en esa posición, se agrega
+        pos = res;
+        value = dato;
+        console.log("datos de pos y otros 33")
+        console.log(res)
+        console.log(posicion)
+        this.Arreglo[res] = new ListaDoble;
+        this.Arreglo[res].addhead(dato);
+      }
     }
   }
 }
@@ -376,9 +440,27 @@ class HashAbierta{
 })
 export class HashAbiertaComponent implements OnInit {
 
+  @ViewChild('mynetwork', {static: false}) el: ElementRef;
+  public network: any;
   constructor() { }
 
   ngOnInit(): void {
+  }
+  ngAfterViewInit(): void {
+    var container = this.el.nativeElement;
+    this.network = new vis.Network(container, listaData, options);
+  }
+
+  Tamano(ta: number, dat:any){
+    h = new HashAbierta(dat);
+    h.NuevaTabla(ta);
+    console.log(h)
+  }
+
+  AgregarNuevo(datos: any){
+    console.log("Entro??")
+    console.log(h);
+    h.AgregarValores(datos);
   }
 
 }

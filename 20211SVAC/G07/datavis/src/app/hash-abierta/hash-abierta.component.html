@@ -26,16 +26,9 @@
 
       <form class="form-inline" >
 
-        <input  class="form-control mr-sm-2 " type="text" #Tamano placeholder="tamaño" aria-label="Tamaño">
-        <button class="btn btn-outline-light mr-sm-2" type="button">Crear Tabla</button>
-        <input  class="form-control mr-sm-2" type="text" #dato placeholder="Valor" aria-label="Valor">
-        <button class="btn btn-outline-light mr-sm-2" type="button">Agregar Valor</button>
-        <input  class="form-control mr-sm-2" type="text" #elim placeholder="Eliminar" aria-label="Eliminar">
-        <button class="btn btn-outline-light mr-sm-2" type="button">Eliminar Valor</button>
-        <input class="form-control mr-sm-2" type="text" #actu placeholder="Actualizar" aria-label="actualizar">
-        <button class="btn btn-outline-light mr-sm-2" type="button">Actualizar Valor</button>
-        <input  class="form-control mr-sm-2" type="text" #busc placeholder="Buscar" aria-label="Buscar">
-        <button class="btn btn-outline-light mr-sm-2" type="button">Buscar Valor</button>
+        <form class="form-inline" >
+
+        <input  class="form-control mr-sm-2 " type="text" #amano placeholder="tamaño" aria-label="Tamaño">
         <select #seleccionar class="form-select form-select-lg mb-3">
         <option>Simple</option>
         <option>Division</option>
@@ -44,11 +37,14 @@
         <br>
         <br>
         <br>
-        <select #Re class="form-select form-select-lg mb-3">
-        <option>Lineal</option>
-        <option>Cuadratica</option>
-        <option>Doble</option>
-        </select>
+        <button (click)="Tamano(amano.value, seleccionar.value)" class="btn btn-outline-light mr-sm-2" type="button">Crear Tabla</button>
+        <input  class="form-control mr-sm-2" type="text" #dato placeholder="Valor" aria-label="Valor">
+        <button (click)="AgregarNuevo(dato.value)" class="btn btn-outline-light mr-sm-2" type="button">Agregar Valor</button>
+
+
+
+      </form>
+        <br>
 
       </form>
     </nav>
