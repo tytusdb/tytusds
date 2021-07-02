@@ -25,12 +25,15 @@ export class HashCerradaComponent implements OnInit {
 
   add(){
     if(!this.flagCreada){
-      this.tablaHash = new TablaHash(this.tamanio,this.getFuncion(),this.getPrueba())
+      this.tablaHash = new TablaHash(this.tamanio,this.getFuncion(),this.getPrueba(),this.minHash,this.maxHash)
       this.flagCreada = true
     }
 
     this.tablaHash.add(this.numero)
-    
+    let ocupacion = this.tablaHash.obtenerOcupacion()
+    if(ocupacion >= this.minHash){
+      this.tablaHash.reHashing()
+    }
     this.numero = ''
   }
 
