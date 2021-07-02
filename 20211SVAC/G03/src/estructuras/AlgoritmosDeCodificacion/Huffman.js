@@ -173,6 +173,26 @@ class AlgoritmoHuffman{
     }
 
 
+    generaCodificado(){
+        let textoCodi = "";
+        let info = this.texto;
+        for(let i = 0; i< info.length; i++){
+            let codigo = this.listaCodigos.buscarValor(info.charAt(i));
+            textoCodi += codigo
+        }
+        this.textoCodificado = textoCodi;
+    }
+
+    reasignarValores(){
+        this.ordenar();
+        this.crearArbol();
+        this.listaOrdenada.imprimir();
+        this.crearCodigos()       
+    }
+
+
+
+
 
 
 } 
