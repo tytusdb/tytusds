@@ -1,11 +1,11 @@
-class NodoGrafo{
+class NodoGrafoD{
     constructor(label, id){
         this.label = label;
         this.id = id;
     }
 }
 
-class AristaGrafo{
+class AristaGrafoD{
     constructor(nodoA,nodoB,distancia){
         this.idA = nodoA.id;
         this.idB = nodoB.id;
@@ -13,7 +13,7 @@ class AristaGrafo{
     }
 }
 
-class Grafo{
+class GrafoDirigido{
     constructor(){
         this.nodos = [];
         this.aristas = [];
@@ -28,7 +28,7 @@ class Grafo{
 
     agregar(nombre){
         if(this.getNodo(nombre) == null){
-            let nuevo = new NodoGrafo(nombre, this.idActual);
+            let nuevo = new NodoGrafoD(nombre, this.idActual);
             this.nodos.push(nuevo);
             this.idActual++;
             return true;
@@ -46,7 +46,7 @@ class Grafo{
         let nodoB = this.getNodo(nombreB);
 
         if(this.getArista(nodoA.id,nodoB.id,lenArista) == null){
-            let nueva = new AristaGrafo(nodoA,nodoB,lenArista);
+            let nueva = new AristaGrafoD(nodoA,nodoB,lenArista);
             this.aristas.push(nueva);
             return true;
         }else{
@@ -127,14 +127,14 @@ class Grafo{
         for(let i = 0; i <= this.nodos.length; i++){
             nodo = this.nodos[i];
             if(nodo != null){
-                datos.nodos.push({id:nodo.id,label:nodo.label.toString()});
+                datos.nodos.push({id:nodo.id,label:nodo.label.toString(), color:{border:'#44753D',background:'#4AF535'}});
             }
         }
 
         for(let i = 0; i <= this.aristas.length; i++){
             arista = this.aristas[i];
             if(arista != null){
-                datos.aristas.push({from:arista.idA,to:arista.idB,label:arista.distancia.toString()});
+                datos.aristas.push({from:arista.idA,to:arista.idB,arrows:'to',label:arista.distancia.toString()});
             }
         }
 
@@ -151,7 +151,7 @@ class Grafo{
                 if(nodo.label.toString() == nombre){
                     datos.nodos.push({id:nodo.id,label:nodo.label.toString(), color:{border:'#800F17',background:'#FF5854'}});
                 }else{
-                    datos.nodos.push({id:nodo.id,label:nodo.label.toString()});
+                    datos.nodos.push({id:nodo.id,label:nodo.label.toString(), color:{border:'#44753D',background:'#4AF535'}});
                 }
             }
         }
@@ -174,7 +174,7 @@ class NodoArista{
     }
 }
 
-const grafo = new Grafo();
+const grafo = new GrafoDirigido();
 
 const nodoUno = document.getElementById('nodo1');
 const nodoDos = document.getElementById('nodo2');
@@ -290,7 +290,7 @@ archivo.addEventListener('change', () => {
     leer.onload = function() {
     entrada = JSON.parse(leer.result)
     }
-    reporte.innerHTML = 'Se cargó el archivo con éxito'
+    document.getElementById('mensaje').innerText = 'Se cargo el archivo con exito'
 })
 
 cargar.addEventListener("click", (e) => {
