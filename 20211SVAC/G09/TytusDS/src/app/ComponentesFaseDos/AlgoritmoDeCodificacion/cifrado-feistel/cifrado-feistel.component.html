@@ -3,7 +3,7 @@
     CIFRADO FEISTEL
 </button>
 <label><font color="#000000"><input type="checkbox" id="check" (click)="checkString()">Para codificar Cadenas</font></label> &nbsp;&nbsp;&nbsp;
-<input type="number" id="v-search" style="width: 50px;" title="Enter an Integer" autocomplete="off" min="3" [(ngModel)]="rondas">
+<label><font color="#000000"><input type="number" id="v-search" style="width: 50px;" title="Enter an Integer" autocomplete="off" min="3" [(ngModel)]="rondas">Elija el número de rondas</font></label> &nbsp;&nbsp;&nbsp;
 <textarea [(ngModel)]="cadena" rows="10" cols="50" placeholder="Escriba su cadena" >{{cadena}}</textarea>
 <input type="file" (change)="leerArchivo($event)">
 <button class="boton" (click)="codificar()" type="submit" >Codificar</button> &nbsp; &nbsp;

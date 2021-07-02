@@ -45,7 +45,7 @@ class Huffman{
             }
             cont++
         }
-        return textoCodificado
+        console.log("La cadena cifrada es: "+textoCodificado)
     }
     recorrerArbol(nodo, valor, letra, cadenaCodificada, ) {//Esto está fumado para explicar :V
         if (nodo == null) {
@@ -108,9 +108,4 @@ class Huffman{
         return temp.length>1 ? this.arbolBinario(temp):temp[0]
     }    
 }
-var a=new Huffman()
-
-function HuffmanCod(cadena) {
-    console.log(a.tableFrecuencias(cadena))
-}
-HuffmanCod("OTORRINOLARINGOLOGO")
+module.exports = Huffman
