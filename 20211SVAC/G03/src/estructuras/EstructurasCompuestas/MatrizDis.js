@@ -1,4 +1,6 @@
+//Clase Nodo Matriz
 class NodoMatriz{
+    //Constructor
     constructor(dato, i, j){
         this.dato = dato
         this.este = null
@@ -12,12 +14,15 @@ class NodoMatriz{
     }
 }
 
+//Lista Doble para Cabeceras
 class ListaDoble{
+    //Constructor
     constructor(){
         this.cabeza = null
         this.cola = null
     }
 
+    //Ordenamiento de Cabeceras
     ordenar(nodo){
         let aux = this.cabeza
         while(aux != null){
@@ -43,6 +48,7 @@ class ListaDoble{
         this.cola = nodo
     }
 
+    //Insercion en cabeceras
     insertar(dato){
         let nodo = new NodoMatriz(dato, null, null)
         if(this.cabeza == null){
@@ -84,6 +90,7 @@ class ListaDoble{
         }
     }
 
+    //Busqueda en cabeceras
     busqueda(dato){
         let tmp = this.cabeza
         while(tmp != null){
@@ -96,12 +103,15 @@ class ListaDoble{
     }
 }
 
+//Clase Matriz Dispersa
 class Matriz{
+    //Constructor
     constructor(){
         this.CHorizontal = new ListaDoble()
         this.CVertical = new ListaDoble()
     }
 
+    //Insercion en matriz
     insertar(dato, i, j){
         let Ni = this.CHorizontal.busqueda(i)
         let Nj = this.CVertical.busqueda(j)
@@ -116,6 +126,7 @@ class Matriz{
         }
     }
 
+    //Primer Caso posible de insercion
     C1(dato,i,j){
         this.CHorizontal.insertar(i)
         this.CVertical.insertar(j)
@@ -128,6 +139,7 @@ class Matriz{
         n.oeste = Nj
     }
 
+    //Segundo caso de insercion posible
     C2(dato, i, j){
         this.CHorizontal.insertar(i)
         let Ni = this.CHorizontal.busqueda(i)
@@ -161,6 +173,7 @@ class Matriz{
         n.norte = Ni
     }
 
+    //Tercer caso de insercion posible
     C3(dato, i, j){
         this.CVertical.insertar(j)
         let Ni = this.CHorizontal.busqueda(i)
@@ -193,6 +206,7 @@ class Matriz{
         n.oeste = Nj
     }
 
+    //Cuarto caso de insercion posible
     C4(dato, i, j){
         let Ni = this.CHorizontal.busqueda(i)
         let Nj = this.CVertical.busqueda(j)
@@ -252,6 +266,7 @@ class Matriz{
         }
     }
 
+    //Impresion por cabeza Vertical
     imprimirCVertical(){
         let cab = this.CVertical.cabeza
         let aux
@@ -265,6 +280,7 @@ class Matriz{
         }
     }
 
+    //Metodo busqueda
     buscar(dato){
         let cab = this.CVertical.cabeza
         let aux
@@ -281,6 +297,7 @@ class Matriz{
         }
     }
 
+    //Metodo modificar
     modificar(datobus, datomod){
         let cab = this.CVertical.cabeza
         let aux
@@ -298,6 +315,7 @@ class Matriz{
         }
     }
 
+    //Metodo Eliminar
     eliminar(datoel){
         let cab = this.CVertical.cabeza
         let aux
