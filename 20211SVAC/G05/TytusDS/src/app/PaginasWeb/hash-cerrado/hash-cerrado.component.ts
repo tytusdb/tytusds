@@ -105,12 +105,20 @@ export class HashCerradoComponent implements OnInit {
 
   buscar(): void {
     if (this.valorBuscar.length === 0) return;
+    let nodos = this.hash.buscar(this.valorBuscar);
+    this.valorBuscar = '';
+    this.graficar(nodos);
   }
 
-  graficar(): void {
+  graficar(busquda?: any): void {
     //Retorno de la lista con los objetos de nodos y edges
-    const nodes = this.hash.getNodos();
-    const edges = this.hash.getEdges();
+    let nodes = [];
+    let edges = this.hash.getEdges();
+    if (busquda) {
+      nodes = busquda
+    }else {  
+      nodes = this.hash.getNodos();
+    }
     //se escoge el div a utilizar como contenedor
     let contenedor = document.getElementById("contenedor");
     const datos = {nodes:nodes,edges:edges};
@@ -125,8 +133,7 @@ export class HashCerradoComponent implements OnInit {
       },
       nodes:{
         color:{
-          border:"white",
-          background: "#ED9106"
+          border:"white"
         },
         font:{
           color:"white"
@@ -149,6 +156,19 @@ export class HashCerradoComponent implements OnInit {
   }
 
   guardar(): void {
+    let arreglo: any = [];
+    this.hash.arreglo.forEach( nodo => {
+      if (nodo !== null) {
+        arreglo.push(nodo.valor);
+      }
+    });
+    const contenido: any = {
+      categoria: "Estructura No Lineal",
+      nombre: "Tabla Hash Cerrada",
+      valores: arreglo
+    };
+    let blob = new Blob([JSON.stringify(contenido)], {type: 'json;charset=utf-8'});
+    saveAs(blob, 'TablaHashCerrada.json');
   }
 
 

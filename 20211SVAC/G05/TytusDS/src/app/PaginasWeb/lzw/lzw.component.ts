@@ -10,7 +10,8 @@ let lzw=require('./js/lzw');
   styleUrls: ['./lzw.component.css']
 })
 export class LZWComponent implements OnInit {
-  resultado=""
+  resultado="";
+  Texto_comprimir="";
   cabecera=["w","K","wK","Agregar al diccionario","Salida"];
   eIteraciones=false;
   iteraciones=[];
@@ -47,15 +48,24 @@ export class LZWComponent implements OnInit {
       this.iteraciones=this.lzw.iteraciones;
     }
   }
-  clear(){
-    (<HTMLInputElement>document.getElementById('Resultado')).innerHTML='';
+  //GUARDAR
+  guardar(): void {
+    const contenido: any = {
+      categoria: "Algoritmo de codificacion",
+      nombre: "Algoritmo LZW",
+      repeticion:true,
+      animacion:10,
+      valores: []
+    };
+    contenido.valores=contenido.valores.concat(this.lzw.diccionario);
+    let blob = new Blob([JSON.stringify(contenido)], {type: 'json;charset=utf-8'});
+    saveAs(blob, 'descarga.json');
   }
   //LEER ARCHIVOS DE ENTRADA--------------------------------
   getDocumento(documento: any): void {
     try{
-      this.documentoService.getDocumento(documento).then(contenido => {
-        contenido['valores'].forEach(valor => {
-        });
+      this.documentoService.getDocumento2(documento).then(contenido => {
+       this.Texto_comprimir=contenido;
       });
     }catch (e){
       alert("Escoger un archivo")
