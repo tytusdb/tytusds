@@ -120,6 +120,7 @@ class hash {
     this.n++; //numero de valores de la tabla hash hasta el momento
     //console.log(this.n)
     this.rehashing()
+   
     
   }
     rehashing(){
@@ -146,7 +147,7 @@ class hash {
      } 
      insertarString(y){
         let i = this.funcionHashString(y); 
-        console.log(y)
+        console.log(i)
         //let i = this.divisionString(y);
         console.log(i)
         let contador = 0;
@@ -198,6 +199,7 @@ class hash {
             let h = this.m;
             let y = h*(k*p%1);
             let q = Math.trunc(y)
+            console.log(q)
             return q
         }
         if(checkBoxHashCerradaSimple==true){
@@ -221,14 +223,33 @@ class hash {
             return contador%this.m
         }
         if(checkBoxMultiplicacion==true){
-            let p = y;
+            var contador = 0;
+            for(var j in y){
+            // console.log(data.charCodeAt(k));
+                contador = contador + y.charCodeAt(j);
+            }
+            let p = contador;
             while(p>1){
                 p = p/10
             }
-            let h = this.m;
-            let x = h*(y*p%1);
+            console.log("esto es p"+p)
+            let x = this.m*(contador*p%1);
             let q = Math.trunc(x)
+            console.log("esto es q"+q)
             return q
+        }
+        if(checkBoxHashCerradaSimple==true){
+            var contador = 0;
+            for(var w in y){
+            // console.log(data.charCodeAt(k));
+                contador = contador + y.charCodeAt(w);
+            }
+            let p = contador;
+            while(p>1){
+                p = p/10
+            }
+            let q = Math.trunc(p)
+            return q*this.m
         }
         
         
@@ -262,6 +283,7 @@ p.hash(5,20,80);
 function insertarHashCerrada(data){
     if(checkBoxHashCerradaInt==true){
         p.insertar(data)
+        
     }
     if(checkBoxHashCerradaString==true){
        p.insertarString(data)

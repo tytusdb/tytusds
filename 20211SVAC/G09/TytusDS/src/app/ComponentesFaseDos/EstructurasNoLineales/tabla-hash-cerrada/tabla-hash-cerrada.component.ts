@@ -6,7 +6,6 @@ declare var insertarHashCerrada:any;
   styleUrls: ['./tabla-hash-cerrada.component.css']
 })
 export class TablaHashCerradaComponent implements OnInit {
-
   constructor() { }
 
   ngOnInit(): void {
@@ -16,6 +15,7 @@ export class TablaHashCerradaComponent implements OnInit {
   
   insertarHashCerrada(data:any){
     insertarHashCerrada(data)
+    
   }
  
 }
