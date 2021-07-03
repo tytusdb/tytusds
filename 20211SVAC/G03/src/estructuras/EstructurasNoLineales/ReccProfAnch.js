@@ -348,7 +348,6 @@ class ListaAdyacencia{
 
     //Recorrido por anchura
     BFS(){
-        this.profundidad = null
         n = new ListaDoble()
         let aux = this.ListaAdyacencia.cabeza
         while (aux != null){
@@ -365,16 +364,29 @@ class ListaAdyacencia{
             aux = aux.siguiente
         }
         let imp = n.cabeza
+        let egde = null
+        let agregado = new ListaDoble()
         let arregloEdge = []
         while (imp.siguiente!=null){
-            let siguiente = imp.siguiente
-            let egde = {from: imp.dato.id, to: siguiente.dato.id}
-            arregloEdge.push(egde)
+            let ady = imp.dato.adyacentes.cabeza
+            while(ady!=null){
+                let siguiente = imp.siguiente
+                while(siguiente!= null){
+                    if(siguiente.dato.dato== ady.dato.dato){
+                        if(agregado.console(agregado, siguiente.dato) == false){
+                            egde = {from: imp.dato.id, to: siguiente.dato.id}
+                            arregloEdge.push(egde)
+                            agregado.insertar(siguiente.dato)
+                        }
+                    }
+                    siguiente = siguiente.siguiente
+                }
+                ady = ady.siguiente
+            }
             imp = imp.siguiente
         }
-        this.anchura = arregloEdge
         return arregloEdge
-    }    
+    }        
 
     //Recorrido por Profundidad
     DFS(){
