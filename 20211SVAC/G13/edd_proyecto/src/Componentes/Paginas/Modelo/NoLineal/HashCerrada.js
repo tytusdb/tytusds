@@ -384,3 +384,4 @@ class HashCerrada{
 	}
 
 }
+export default HashCerrada;
