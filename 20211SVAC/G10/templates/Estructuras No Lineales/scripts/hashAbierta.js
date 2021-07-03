@@ -329,5 +329,3 @@ function crear_cuadrado(contenido, x, y) {
     context.fillText(contenido, tx, ty, 60)
     context.stroke()
 }
-
-

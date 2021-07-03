@@ -22,6 +22,11 @@ class Hash {
         this.elementos = 0
         this.size = size
         this.vector = new Array(size)
+
+        for(let i = 0; i < this.size; i++) {
+            crear_lista(i)
+        }
+        
         for(let i = 0; i < this.vector.length; i++){
             this.vector[i] = null
         }
@@ -30,37 +35,47 @@ class Hash {
     agregar(dato) {
         let codigo = this.set_key(dato)
         let indice = this.funcionHash(codigo)
-
         let nuevo = new Node(codigo, dato)
-
         let i = 1
         let k = indice
+        
         while(this.vector[indice] != null) {
             indice = this.pruebaHash(k, i)
             i ++
         }
         this.vector[indice] = nuevo
+
         
+        let nivel = 0
+        for(let i = 0; i < 30; i ++){
+            if(indice >= i * 14){
+                nivel = i
+            } 
+        }
+
+        crear_cuadrado(this.vector[indice].dato, indice, nivel)
         this.elementos ++
         this.rehashing()
     }
 
-    rehashing() {
+    rehashing() {   
         if ((this.elementos*100/this.size) >= this.maximo) {
             let temporal = this.vector
-            this.mostrar()
+            //this.mostrar()
             let aux_size = this.size
-            this.size = this.elementos * 100 / this.minimo
+            
+            this.size = Math.round(this.elementos * 100 / this.minimo)
+            context.clearRect(0, 0, canvas.width, canvas.height)
+            reiniciar_lista()
             this.crear(this.size)
             for(let i = 0; i<aux_size; i++) {
                 if(temporal[i] != null) {
                     this.agregar(temporal[i].dato)
                 }
             }
-        }
-        else {
-            this.mostrar()
-        }
+        } //else {
+            //this.mostrar()
+        //}
     }
 
     buscar(dato) {
@@ -207,6 +222,22 @@ class Hash {
         string += `] ${(this.elementos*100/this.size).toFixed(0)}%`
         console.log(string)
     }
+
+    crearLista() {
+        let resultado = []
+        let dic = {}
+        for(let i = 0; i < this.vector.length; i++) {
+            if (this.vector[i] == null) {
+                resultado.push(-1)
+            } else {
+                resultado.push({
+                    key: this.vector[i].codigo,
+                    dato: this.vector[i].dato
+                })
+            }
+        }
+        return resultado
+    }
 }
 
 const dato = document.getElementById('dato')
@@ -254,10 +285,38 @@ archivo.addEventListener('change', () => {
     let leer = new FileReader()
     leer.readAsText(archivo.files[0])
     leer.onload = function() {
-    entrada = JSON.parse(leer.result)
+        entrada = JSON.parse(leer.result)
     }
     document.getElementById('mensaje').innerText = 'Se cargo el archivo con exito'
 })
+
+guardar.addEventListener("click", () => {
+    console.log('guardar')
+    let salida = {
+        operacion: 'Tabla Hash Cerrada',
+        size: table.size,
+        minimo: table.minimo,
+        maximo: table.maximo,
+        porcentaje: parseInt((table.elementos*100/table.size).toFixed(0)),
+        valores: table.crearLista() 
+    }
+
+    let texto = JSON.stringify(salida)
+    download('TablaHashCerrada.json', texto)
+})
+
+function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+  
+    element.style.display = 'none';
+    document.body.appendChild(element);
+  
+    element.click();
+  
+    document.body.removeChild(element);
+}
 
 cargar.addEventListener("click", (e) => {
     e.preventDefault()
@@ -275,8 +334,58 @@ cargar.addEventListener("click", (e) => {
     
     for (let i = 0; i < valores.length; i++) {
         table.agregar(valores[i])
+        crear_lista(i)
     }
+
     document.getElementById('mensaje').innerText = ''
     archivo.setAttribute('disabled', '')
-    table.mostrar()
 })
+
+
+var canvas = document.getElementById('lienzo')
+var context = canvas.getContext("2d")
+
+let x = 20
+let y = 20
+let limitey = 0
+
+function crear_lista(indice) {
+    
+    if (x > canvas.width-20) {
+        x = 20
+        y = 90 + (limitey* 70)
+        limitey ++
+    }
+
+    context.beginPath()
+    context.lineWidth = 2
+    context.strokeStyle = "rgb(48, 71, 94)"//rgb(48, 71, 94)
+    context.rect(x, y, 70, 40)
+
+    context.textAlign="center";
+    context.font = "bold 12pt sans-serif"
+    context.fillStyle = "rgb(48, 71, 94)" //"rgb(240, 84, 84)";
+    context.fillText(indice, x+35, y+60)
+    context.stroke()
+    
+    x = x + 70
+}
+
+function reiniciar_lista(){
+    x = 20
+    y = 20
+    limitey = 0
+}
+
+function crear_cuadrado(contenido, i, bajar) {
+
+    let x = 55 + ((i - (bajar * 14)) * 70)
+  
+    let y = 45 + (bajar*70)
+    
+    context.beginPath()
+    context.textAlign="center";
+    context.font = "bold 12pt sans-serif"
+    context.fillText(contenido, x, y, 70)
+    context.stroke()
+}
