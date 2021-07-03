@@ -488,5 +488,31 @@ class ListaAdyacencia{
         let nombre = "RecorridoAnchuraProfundidad"
         fs.writeFile(nombre, json)  
     }
+
+    //Carga de array para graficacion de nodos
+    graficarNodos(){
+        let aux = this.ListaAdyacencia.cabeza
+        while(aux!=null){
+            let dato = {id: aux.dato.id, label:aux.dato.dato,}
+            arreglo.push(dato)
+            aux = aux.siguiente
+        }
+        return arreglo
+    }
+
+    //Carga de array para graficacion de enlaces
+    graficarEnlaces(){
+        let aux = this.ListaAdyacencia.cabeza
+        while(aux!=null){
+            let tmp = aux.dato.enlaces.cabeza
+            while(tmp!= null){
+                let egde = {from: tmp.inicio.dato.id, to: tmp.final.dato.id , label: tmp.distancia}
+                arregloEdge.push(egde)
+                tmp = tmp.siguiente
+            }
+            aux = aux.siguiente
+        }
+        return arregloEdge
+    } 
 }
 
