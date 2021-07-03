@@ -40,6 +40,11 @@ export class HashCerradaComponent implements OnInit {
   }
 
   async add() {
+    await this.agregar(this.numero)
+    this.numero = ''
+  }
+
+  async agregar(value) {
     if (!this.flagCreada) {
       document.getElementById('consola').innerHTML = "Creando Tabla Hash"
       this.tablaHash = new TablaHash(this.tamanio, this.getFuncion(), this.getPrueba(), this.minHash, this.maxHash, this.values)
@@ -47,7 +52,7 @@ export class HashCerradaComponent implements OnInit {
 
     }
 
-    await this.tablaHash.add(this.numero, this.duracion)
+    await this.tablaHash.add(value, this.duracion)
     let ocupacion = this.tablaHash.obtenerOcupacion()
     this.ocupacion = ocupacion
     if (ocupacion >= this.minHash) {
@@ -56,7 +61,6 @@ export class HashCerradaComponent implements OnInit {
       this.tamanio = this.values.length
       this.ocupacion = this.tablaHash.obtenerOcupacion()
     }
-    this.numero = ''
   }
 
 
@@ -101,7 +105,7 @@ export class HashCerradaComponent implements OnInit {
 
 
   async edit() {
-    let result = await this.tablaHash.edit(this.numeroAntiguo,this.numeroNuevo, this.duracion)
+    let result = await this.tablaHash.edit(this.numeroAntiguo, this.numeroNuevo, this.duracion)
     if (result !== null) {
       Swal.fire({
         icon: 'success',
@@ -118,6 +122,44 @@ export class HashCerradaComponent implements OnInit {
     }
     this.numeroAntiguo = ''
     this.numeroNuevo = ''
+  }
+
+
+  async onFileSelected(event) {
+    const file = event.target.files[0];
+    if (file) {
+
+      this.fileName = file.name;
+      let data: any = await this.processFile(file)
+      data = JSON.parse(data)
+      this.tamanio = +data.m
+      this.minHash = +data.minimo 
+      this.maxHash = +data.maximo
+      data = data.valores
+      for (let i = 0; i < data.length; i++) {
+        await this.agregar(data[i])
+      }
+
+      Swal.fire({
+        icon: 'success',
+        title: ':)',
+        text: `Recorrido Completo `
+      })
+
+
+    }
+  }
+
+  async processFile(file) {
+    return new Promise((resolve, reject) => {
+      let reader = new FileReader()
+      reader.onload = (event) => {
+        resolve(event.target.result.toString())
+      }
+      reader.onerror = reject;
+
+      reader.readAsText(file);
+    })
   }
 
 

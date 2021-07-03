@@ -254,7 +254,7 @@ export class TablaHash {
         this.llenarMatriz()
         document.getElementById('consola').innerHTML += `<br />Insertando Valores Nuevamente`
         for (let i = 0; i < clone.length; i++) {
-            if (!(clone[i].libre === true)) await this.add(this.getValue(clone[i].value), duracion)
+            if (!(clone[i].libre === true)) await this.add(clone[i].value, duracion)
         }
         document.getElementById('consola').innerHTML += `<br />----------------Fin ReHashing---------------`
 
