@@ -155,5 +155,5 @@ class ListaCabeceraFilas {
 }
 
 
-// export default ListaCabeceraFilas;
-module.exports = ListaCabeceraFilas;
+export default ListaCabeceraFilas;
+// module.exports = ListaCabeceraFilas;

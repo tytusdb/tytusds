@@ -14,6 +14,7 @@ class MatrizOrtogonal {
     constructor() {
         this.filas = new ListaCabeceraFilas();
         this.columnas = new ListaCabeceraColumnas();
+        this.estado = false;
     }
 
     insertar = (x, y, dato) =>{
@@ -175,7 +176,9 @@ class MatrizOrtogonal {
 
         if(nodo_cabecera != null){
             do{
-                dot.push({id:parseInt(contador), label:"Fila: "+String(nodo_cabecera.getX()), x:0, y:nodo_cabecera.getX()});
+                if(this.estado == true){
+                    dot.push({id:parseInt(contador), label:"Fila: "+String(nodo_cabecera.getX()), x:0, y:nodo_cabecera.getX()});
+                }
                 contador++;
                 let nodo_actual = nodo_cabecera.getColumna().getPrimero();
                 if(nodo_actual != null){
@@ -194,7 +197,9 @@ class MatrizOrtogonal {
         if(nodo_cabecera != null){
             
             do{
-                dot.push({id:parseInt(contador), label: "Columna: "+String(nodo_cabecera.getY()), x:nodo_cabecera.getY(), y:0}); 
+                if(this.estado==true){
+                dot.push({id:parseInt(contador), label: "Columna: "+String(nodo_cabecera.getY()), x:nodo_cabecera.getY(), y:0});
+                } 
                 contador++;
                 nodo_actual = nodo_cabecera.getFila().getPrimero();    
                 if (nodo_actual != null){
@@ -312,6 +317,13 @@ class MatrizOrtogonal {
         return dot;
     }
 
+    desactivarEncabezado = (state) => {
+        if(state=="True"){
+            this.estado = true;
+        }else if(state=="False"){
+            this.estado = false;
+        }
+    }
 
     getColumna = () =>{ return this.columnas; }
     setColumna = (columna) => { this.columnas = columna; }

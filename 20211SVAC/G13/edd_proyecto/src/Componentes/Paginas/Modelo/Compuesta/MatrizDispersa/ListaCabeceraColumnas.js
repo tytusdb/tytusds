@@ -154,5 +154,5 @@ class ListaCabeceraColumnas{
 }
 
 
-// export default ListaCabeceraColumnas;
-module.exports = ListaCabeceraColumnas;
+export default ListaCabeceraColumnas;
+// module.exports = ListaCabeceraColumnas;
