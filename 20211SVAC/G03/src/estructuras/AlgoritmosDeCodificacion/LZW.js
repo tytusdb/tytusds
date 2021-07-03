@@ -5,6 +5,37 @@ class LZW {
         this.salida = [];
     }
 
+    codificar(mensaje) {
+        this.iniciarDiccionario(mensaje)
+        // w vacia
+        let w = "";
+        /*cada caracter k en el mensaje se lee en el for y se compara 
+        si existe el valor k en el diccionario*/
+        for (let k of mensaje) {
+            let enDiccionario = false;
+            let wk = w + k;
+            for (let letra of this.diccionario.keys()) {
+                if (wk == letra) {
+                    enDiccionario = true;
+                    break;
+                }                
+            }
+            if (enDiccionario == true) {
+                w = wk;
+            /*en caso de que no exista se agrega al diccionario ademas de
+            colocar la llave del valor w en la salida*/
+            } else {
+
+                this.diccionario.set(wk, this.contador++)
+                this.salida.push(this.diccionario.get(w))
+                w = k;
+            }
+
+        }
+        this.salida.push(this.diccionario.get(w));
+    }
+
+
 
 
 
