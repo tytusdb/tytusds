@@ -69,9 +69,9 @@ function ColumnMajor() {
         var t = matriz[i].val.toString()
         m[f][c] = t
     }
-    for (let i = 0; i < m[0].length; i++) {
-        for (let j = 0; j < m.length; j++) {
-            dat.push(m[j][i].toString())
+    for (let i = 0; i < m.length; i++) {
+        for (let j = 0; j < m[0].length; j++) {
+            dat.push(m[i][j].toString())
         }
     }
     for (let u = 0; u < dat.length; u++) {
@@ -169,11 +169,11 @@ var archivo = 1;
 function guardarJson() {
     var obj = {
         categoria: "Estructura Compuesta",
-        nombre: "Column Major",
+        nombre: "Row Major",
         valores: dat
     }
     texto = JSON.stringify(obj);
-    download("columnMajor.json", texto);
+    download("rowMajor.json", texto);
 }
 
 function download(filename, textInput) {
