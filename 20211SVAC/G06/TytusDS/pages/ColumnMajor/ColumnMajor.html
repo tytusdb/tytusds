@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Row Major</title>
+    <title>Column Major</title>
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <!-- Icon -->
@@ -135,14 +135,22 @@
                         </li>
                     </ul>
                     <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Left Value" autocomplete="off" aria-label="Search" id="izquierdo">
-                        <input class="form-control me-2" type="search" placeholder="Right Value" autocomplete="off" aria-label="Search" id="derecho">
-                        <input class="form-control me-2" type="search" placeholder="Key Value" autocomplete="off" aria-label="Search" id="llave">
+                      <div class="form-group" style="margin-right:250px; margin-left: 20px;">
+                        <label for="formControlRange" class="text-light" style="margin-right:10px;">Animación</label>
+                        <input type="range" class="form-control-range" id="formControlRange">
+                      </div>
                     </form>
-                    <a class="btn btn-outline-success" id="add">Row Major</a>
-                    <form class="d-flex" style="padding-left: 5px;">
-                        <a class="btn btn-outline-info" id="result">Resultado</a>
+                    <form class="d-flex">
+                        <a class="btn btn-outline-light" id="create" style="margin-right: 7px;">Crear</a>
                     </form>
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="number" placeholder="n" id="n" style="width: 100px;" autocomplete="off">
+                        <input class="form-control me-2" type="number" placeholder="m" id="m" style="width: 100px;" autocomplete="off">
+                        <input class="form-control me-2" type="search" placeholder="Value" autocomplete="off" aria-label="Search" id="valor">
+                        <a class="btn btn-outline-success" id="add" style="margin-right: 7px;">Add</a>
+                    </form>
+                    <a class="btn btn-outline-danger" id="delete" style="margin-right: 7px;">delete</a>
+                    <a class="btn btn-outline-info" id="colMajor">Column Major</a>
                 </div>
             </div>
         </nav>
@@ -158,15 +166,16 @@
 
 
             <!--AQUI VA EL CONTENIDO DE LAS ESTRUCTURAS-->
-            <div class="container-xxl">
-                <h1 style="font-family: 'Merriweather', serif;">Row Major</h1>
+            <div class="container">
+                <h1 style="font-family: 'Merriweather', serif;">Column Major</h1>
+                <div id="matriz" class="col-12 overflow-auto" style="height: 300px;"></div>
                 <!--<div class="overflow-auto">
                     <h3></h3>
 
                 </div>-->
                 <!--button class="btn btn-outline-info" type="submit" id="hola">Buscar</button-->
             </div>
-            <div id="mynetwork" class="col-12" style="height:600px;"></div>
+            <div id="mynetwork" class="col-12" style="height:300px;"></div>
             <!-- /#TERMINA CONTENIDO DE LAS ESTRUCTURAS-->
 
 
@@ -230,7 +239,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.4/js/tether.min.js"></script>
 
         <!-- Scripts de las estructuras -->
-        <script type="text/javascript" src="../../scripts/Hamming.js"></script>
 
         <!-- Scripts para los eventos -->
         <script type="text/javascript" src="../../index.js"></script>
