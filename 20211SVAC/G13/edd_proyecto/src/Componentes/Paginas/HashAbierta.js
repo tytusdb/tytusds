@@ -80,21 +80,40 @@ class TablaHashAbierta extends Component {
 		tablahash.set_min(parseInt(this.state.minimo));
 		tablahash.set_max(parseInt(this.state.maximo));
 		tablahash.InicializarArreglo();
+		let numero = 2
+		console.log(typeof numero);
 		console.log("Generado");
 	}
 
 	handleAdd = () => {
+		let esentero = true;
+		let entero = parseInt(this.state.text); 
+		if(isNaN(entero)){
+			esentero=false;
+		}
 		if(this.state.opcion=="Simple"){
-			tablahash.InsertarSimple(parseInt(this.state.text));
+			if(esentero==true){
+				tablahash.InsertarSimple(parseInt(this.state.text));
+			}else{
+				tablahash.InsertarSimple(this.state.text);
+			}
 			getNodes = new DataSet(tablahash.setDataSet()[0]);
 			getEdges = new DataSet(tablahash.setDataSet()[1]);
 		}else if(this.state.opcion=="Division"){
-			tablahash.InsertarDivision(this.state.text);
+			if(esentero==true){
+				tablahash.InsertarDivision(parseInt(this.state.text));
+			}else{
+				tablahash.InsertarDivision(this.state.text);
+			}
 			getNodes = new DataSet(tablahash.setDataSet()[0]);
 			getEdges = new DataSet(tablahash.setDataSet()[1]);
 			console.log("Div");
 		}else if(this.state.opcion=="Multiplicacion"){
-			tablahash.InsertarMultiplicacion(this.state.text);
+			if(esentero==true){
+				tablahash.InsertarMultiplicacion(parseInt(this.state.text));
+			}else{
+				tablahash.InsertarMultiplicacion(this.state.text);
+			}
 			getNodes = new DataSet(tablahash.setDataSet()[0]);
 			getEdges = new DataSet(tablahash.setDataSet()[1]);
 			console.log("Mult");
@@ -109,66 +128,183 @@ class TablaHashAbierta extends Component {
 	}
 
 	handleDelete = () => {
-		/*
-		listaSimple.eliminar(this.state.text);
-		getNodes = new DataSet(listaSimple.setNodesDataSet());
-		getEdges = new DataSet(listaSimple.setEdgesDataSet());
+		let esentero = true;
+		let entero = parseInt(this.state.text); 
+		if(isNaN(entero)){
+			esentero=false;
+		}
+		if(this.state.opcion=="Simple"){
+			if(esentero==true){
+				tablahash.EliminarSimple(parseInt(this.state.text));
+			}else{
+				tablahash.EliminarSimple(this.state.text);
+			}
+			getNodes = new DataSet(tablahash.setDataSet()[0]);
+			getEdges = new DataSet(tablahash.setDataSet()[1]);
+		}else if(this.state.opcion=="Division"){
+			if(esentero==true){
+				tablahash.EliminarDivision(parseInt(this.state.text));
+			}else{
+				tablahash.EliminarDivision(this.state.text);
+			}
+			getNodes = new DataSet(tablahash.setDataSet()[0]);
+			getEdges = new DataSet(tablahash.setDataSet()[1]);
+			console.log("Div");
+		}else if(this.state.opcion=="Multiplicacion"){
+			if(esentero==true){
+				tablahash.EliminarMultiplicacion(parseInt(this.state.text));
+			}else{
+				tablahash.EliminarMultiplicacion(this.state.text);
+			}
+			getNodes = new DataSet(tablahash.setDataSet()[0]);
+			getEdges = new DataSet(tablahash.setDataSet()[1]);
+			console.log("Mult");
+		}
 		data = {
 			nodes: getNodes,
 			edges: getEdges
 		}
-		
-		this.network = new Network(this.appRef.current, data, options);*/
+		console.log(getNodes);
+		console.log(getEdges);
+		this.network = new Network(this.appRef.current, data, options);
 	}
 
 	handleUpdate = () => {
-		/*
-		listaSimple.update(this.state.text, this.state.dato_actualizado);
-		getNodes = new DataSet(listaSimple.setNodesDataSet());
-		getEdges = new DataSet(listaSimple.setEdgesDataSet());
+		let esentero = true;
+		let entero = parseInt(this.state.text); 
+		if(isNaN(entero)){
+			esentero=false;
+		}
+		let esentero2 = true;
+		let entero2 = parseInt(this.state.dato_actualizado); 
+		if(isNaN(entero2)){
+			esentero2=false;
+		}
+		if(this.state.opcion=="Simple"){
+			if(esentero==true){
+				if(esentero2==true){
+					tablahash.Actualizar(parseInt(this.state.text),parseInt(this.state.dato_actualizado),"Simple");
+				}else{
+					tablahash.Actualizar(parseInt(this.state.text),this.state.dato_actualizado,"Simple");
+				}
+			}else{
+				if(esentero2==true){
+					tablahash.Actualizar(this.state.text,parseInt(this.state.dato_actualizado),"Simple");
+				}else{
+					tablahash.Actualizar(this.state.text,this.state.dato_actualizado,"Simple");
+				}
+			}
+			tablahash.Actualizar(this.state.text,this.state.dato_actualizado,"Simple");
+			getNodes = new DataSet(tablahash.setDataSet()[0]);
+			getEdges = new DataSet(tablahash.setDataSet()[1]);
+		}else if(this.state.opcion=="Division"){
+			if(esentero==true){
+				if(esentero2==true){
+					tablahash.Actualizar(parseInt(this.state.text),parseInt(this.state.dato_actualizado),"Division");
+				}else{
+					console.log("DIVIVIIVIVIVI");
+					tablahash.Actualizar(parseInt(this.state.text),this.state.dato_actualizado,"Division");
+				}
+			}else{
+				if(esentero2==true){
+					tablahash.Actualizar(this.state.text,parseInt(this.state.dato_actualizado),"Division");
+				}else{
+					tablahash.Actualizar(this.state.text,this.state.dato_actualizado,"Division");
+				}
+			}
+			getNodes = new DataSet(tablahash.setDataSet()[0]);
+			getEdges = new DataSet(tablahash.setDataSet()[1]);
+		}else if(this.state.opcion=="Multiplicacion"){
+			if(esentero==true){
+				if(esentero2==true){
+					tablahash.Actualizar(parseInt(this.state.text),parseInt(this.state.dato_actualizado),"Multiplicacion");
+				}else{
+					tablahash.Actualizar(parseInt(this.state.text),this.state.dato_actualizado,"Multiplicacion");
+				}
+			}else{
+				if(esentero2==true){
+					tablahash.Actualizar(this.state.text,parseInt(this.state.dato_actualizado),"Multiplicacion");
+				}else{
+					tablahash.Actualizar(this.state.text,this.state.dato_actualizado,"Multiplicacion");
+				}
+			}
+			getNodes = new DataSet(tablahash.setDataSet()[0]);
+			getEdges = new DataSet(tablahash.setDataSet()[1]);
+		}
 		data = {
 			nodes: getNodes,
 			edges: getEdges
 		}
-		
-		this.network = new Network(this.appRef.current, data, options);*/
+		console.log(getNodes);
+		console.log(getEdges);
+		this.network = new Network(this.appRef.current, data, options);
 	}
 
 	handleSearch = () => {
-		/*
-		let dato = listaSimple.search(this.state.text);
-		if (0 <= parseInt(dato)){
-			console.log(dato+" ENCONTRADO")
-			getNodes = new DataSet(listaSimple.setNodesDataSet());
-			getEdges = new DataSet(listaSimple.setEdgesDataSet());
-			data = {
-				nodes: getNodes,
-				edges: getEdges
-			}
-			getEdges.add({from: parseInt(dato), to: parseInt(dato), value:parseInt(dato),color:{color:'#ff383f'}});
-			
-		}else{
-			console.log(dato)
-
+		let esentero = true;
+		let entero = parseInt(this.state.text); 
+		if(isNaN(entero)){
+			esentero=false;
 		}
-		
-		this.network = new Network(this.appRef.current, data, options);*/
+		if(this.state.opcion=="Simple"){
+			if(esentero==true){
+				tablahash.BuscarSimple(parseInt(this.state.text));
+			}else{
+				tablahash.BuscarSimple(this.state.text);
+			}
+			getNodes = new DataSet(tablahash.setDataSet()[0]);
+			getEdges = new DataSet(tablahash.setDataSet()[1]);
+		}else if(this.state.opcion=="Division"){
+			if(esentero==true){
+				tablahash.BuscarDivision(parseInt(this.state.text));
+			}else{
+				tablahash.BuscarDivision(this.state.text);
+			}
+			getNodes = new DataSet(tablahash.setDataSet()[0]);
+			getEdges = new DataSet(tablahash.setDataSet()[1]);
+		}else if(this.state.opcion=="Multiplicacion"){
+			if(esentero==true){
+				tablahash.BuscarMultiplicacion(parseInt(this.state.text));
+			}else{
+				tablahash.BuscarMultiplicacion(this.state.text);
+			}
+			getNodes = new DataSet(tablahash.setDataSet()[0]);
+			getEdges = new DataSet(tablahash.setDataSet()[1]);
+		}
+		data = {
+			nodes: getNodes,
+			edges: getEdges
+		}
+		console.log(getNodes);
+		console.log(getEdges);
+		this.network = new Network(this.appRef.current, data, options);
 	}
 
 	handleOpenFile = () => {
-		/*
+		let paraarreglo=[]
 		const dataJson = JSON.parse(this.state.fileContent);
-		let nombre = "Lista Simplemente/doblemente/circular simplemente/circular doblemente Enlazada"
-		if (dataJson.categoria == "Estructura Lineal" && dataJson.nombre == nombre){
+		//let nombre = "Lista Simplemente/doblemente/circular simplemente/circular doblemente Enlazada"
+		if (dataJson.categoria == "Estructura No Lineal"){
 
-			
+			tablahash.set_m(parseInt(dataJson.m));
+			tablahash.set_min(parseInt(dataJson.minimo));
+			tablahash.set_max(parseInt(dataJson.maximo));
+			tablahash.InicializarArreglo();
 			for (var i=0; i < dataJson.valores.length; i++) {
-				console.log(dataJson.valores[i]);
-				listaSimple.insertar(dataJson.valores[i].toString());
-				
+				if(dataJson.funcion=="Simple"){
+					console.log(dataJson.valores[i]);
+					tablahash.InsertarSimple(dataJson.valores[i].toString())
+				}else if(dataJson.funcion=="Division"){
+					console.log(dataJson.valores[i]);
+					tablahash.InsertarDivision(dataJson.valores[i].toString())
+				}else if(dataJson.funcion=="Multiplicacion"){
+					console.log(dataJson.valores[i]);
+					tablahash.InsertarMultiplicacion(dataJson.valores[i].toString())
+				}
+
 			}
-			getNodes = new DataSet(listaSimple.setNodesDataSet());
-			getEdges = new DataSet(listaSimple.setEdgesDataSet());
+			getNodes = new DataSet(tablahash.setDataSet()[0]);
+			getEdges = new DataSet(tablahash.setDataSet()[1]);
 			data = {
 				nodes: getNodes,
 				edges: getEdges
@@ -179,8 +315,8 @@ class TablaHashAbierta extends Component {
 
 		}else {
 
-			alert("No es un Archivo de ESTRUCTURA LINEAL!! ")
-		}*/
+			alert("No es un Archivo de ESTRUCTURA NO LINEAL!! ")
+		}
 	
 	}
 

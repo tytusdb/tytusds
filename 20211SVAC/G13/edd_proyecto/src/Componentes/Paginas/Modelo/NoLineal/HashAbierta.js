@@ -7,6 +7,24 @@ class HashAbierta{
 		this.max = max;
 		this.InicializarArreglo();
 	}
+	ConvertirString=(cadena)=>{
+		let result=0;
+		for(let i=0;i<cadena.length;i++){
+			result+=cadena.charCodeAt(i);
+		}
+		return result;
+	}
+	ConvertirArreglo=(arreglo)=>{
+		let nuevoarreglo=[]
+		for(let i=0;i<arreglo.length;i++){
+			let result=0;
+			for(let j=0;j<arreglo[i].length;j++){
+				result+=arreglo[i].charCodeAt(j);
+			}
+			nuevoarreglo.push(result);
+		}
+		return nuevoarreglo;
+	}
 	InicializarArreglo=()=>{
 		this.insertados=0;
 		this.arrreglo=[];
@@ -66,15 +84,6 @@ class HashAbierta{
 		let a = 0.1625277911;
 		return (Math.round(this.get_m()*((a*k)%1)));
 	}
-	FuncionAcomodarLineal=(k,i)=>{
-		return ((k + 1) % this.get_m() );
-	}
-	FuncionAcomodarCuadratica=(k,i)=>{
-		return ((k+(i*i)) % this.get_m());
-	}
-	FuncionAcomodarDoble=(h1,i,h2)=>{	
-		return ((h1+i*h2) % this.get_m());
-	}
 	Rehashing=(tipo)=>{
 		if(((this.Capacidad()*100)/this.get_m())>=this.get_max()){
 			let aux = this.arrreglo;
@@ -83,14 +92,39 @@ class HashAbierta{
 			this.set_m(this.Capacidad()*100/this.get_min());
 			this.InicializarArreglo();
 			for(let i=0; i<m_anterior; i++){
-				//console.log(aux[i]);
-				if(aux[i]!=[-1]){
+				console.log(aux[i]);
+				if(aux[i]!=-1){
 					if(tipo=="Division"){
-						this.InsertarDivision(aux[i]);
+						console.log("Division reh"+aux[i]);
+						for(let j=0;j<aux[i].length;j++){
+							let esono = typeof aux[i][j];
+							if(esono=="string"){
+								let etiqueta=""+aux[i][j];
+								this.InsertarDivision(aux[i][j]);
+							}else if(esono=="number"){
+								this.InsertarDivision(parseInt(aux[i][j]));
+							}
+						}
 					}else if(tipo=="Multiplicacion"){
-						this.InsertarMultiplicacion(aux[i]);
+						for(let j=0;j<aux[i].length;j++){
+							let esono = typeof aux[i][j];
+							if(esono=="string"){
+								let etiqueta=""+aux[i][j];
+								this.InsertarMultiplicacion(aux[i][j]);
+							}else if(esono=="number"){
+								this.InsertarMultiplicacion(parseInt(aux[i][j]));
+							}
+						}
 					}else if(tipo=="Simple"){
-						this.InsertarSimple(aux[i]);
+						for(let j=0;j<aux[i].length;j++){
+							let esono = typeof aux[i][j];
+							if(esono=="string"){
+								let etiqueta=""+aux[i][j];
+								this.InsertarSimple(aux[i][j]);
+							}else if(esono=="number"){
+								this.InsertarSimple(parseInt(aux[i][j]));
+							}
+						}
 					}
 				}
 			}
@@ -99,7 +133,16 @@ class HashAbierta{
 		}
 	}
 	InsertarDivision=(k)=>{
-		let valordivision = this.FuncionDivision(k);
+		console.log("Aqui");
+		let esono = typeof k;
+		console.log(typeof k);
+		let valordivision=0;
+		if(esono=="string"){
+			valordivision = parseInt(this.FuncionDivision(this.ConvertirString(k)));
+		}else if(esono=="number"){
+			valordivision = this.FuncionDivision(parseInt(k));
+		}
+		console.log("Convertido: "+valordivision);
 		if(this.arrreglo[valordivision]!=-1){
 			this.arrreglo[valordivision].push(k);
 			//this.arrreglo[valordivision] = valordearreglo.push(k);
@@ -111,8 +154,13 @@ class HashAbierta{
 		this.Rehashing("Division");
 	}
 	InsertarSimple=(k)=>{
-		console.log(k);
-		let valorsimple = this.FuncionSimple(parseInt(k));
+		let esono = typeof k;
+		let valorsimple=0;
+		if(esono=="string"){
+			valorsimple = parseInt(this.FuncionSimple(this.ConvertirString(k)));
+		}else if(esono=="number"){
+			valorsimple = this.FuncionSimple(parseInt(k));
+		}
 		if(this.arrreglo[valorsimple]!=-1){
 			this.arrreglo[valorsimple].push(k);
 			//let valordearreglo = this.arrreglo[valorsimple];
@@ -125,7 +173,13 @@ class HashAbierta{
 		this.Rehashing("Simple");
 	}
 	InsertarMultiplicacion=(k)=>{
-		let valormultiplicacion= this.FuncionMultiplicacion(k);
+		let esono = typeof k;
+		let valormultiplicacion=0;
+		if(esono=="string"){
+			valormultiplicacion = parseInt(this.FuncionMultiplicacion(this.ConvertirString(k)));
+		}else{
+			valormultiplicacion = this.FuncionMultiplicacion(k);
+		}
 		if(this.arrreglo[valormultiplicacion]!=-1){
 			this.arrreglo[valormultiplicacion].push(k);
 			//this.arrreglo[valormultiplicacion] = valordearreglo.push(k);
@@ -138,7 +192,13 @@ class HashAbierta{
 	}
 
 	EliminarSimple=(k)=>{
-		let valorsimple = this.FuncionSimple(k);
+		let esono = typeof k;
+		let valorsimple=0;
+		if(esono=="string"){
+			valorsimple = parseInt(this.FuncionSimple(this.ConvertirString(k)));
+		}else{
+			valorsimple = this.FuncionSimple(k);
+		}
 		if(this.arrreglo[valorsimple]!=-1){
 			if(this.arrreglo[valorsimple].length>1){
 				for(let i=0;i<this.arrreglo[valorsimple].length;i++){
@@ -147,6 +207,7 @@ class HashAbierta{
 						auxarreglo.splice(i,1);
 						this.arrreglo[valorsimple] = auxarreglo;
 						this.insertados--;
+						break;
 					}
 				}
 			}else{
@@ -157,7 +218,13 @@ class HashAbierta{
 		this.Rehashing("Simple");
 	}
 	EliminarDivision=(k)=>{
-		let valordivision = this.FuncionDivision(k);
+		let esono = typeof k;
+		let valordivision=0;
+		if(esono=="string"){
+			valordivision = parseInt(this.FuncionDivision(this.ConvertirString(k)));
+		}else{
+			valordivision = this.FuncionDivision(k);
+		}
 		if(this.arrreglo[valordivision]!=-1){
 			if(this.arrreglo[valordivision].length>1){
 				for(let i=0;i<this.arrreglo[valordivision].length;i++){
@@ -166,6 +233,7 @@ class HashAbierta{
 						auxarreglo.splice(i,1);
 						this.arrreglo[valordivision] = auxarreglo;
 						this.insertados--;
+						break;
 					}
 				}
 			}else{
@@ -176,7 +244,13 @@ class HashAbierta{
 		this.Rehashing("Division");
 	}
 	EliminarMultiplicacion=(k)=>{
-		let valormultiplicacion = this.FuncionMultiplicacion(k);
+		let esono = typeof k;
+		let valormultiplicacion=0;
+		if(esono=="string"){
+			valormultiplicacion = parseInt(this.FuncionMultiplicacion(this.ConvertirString(k)));
+		}else{
+			valormultiplicacion = this.FuncionMultiplicacion(k);
+		}
 		if(this.arrreglo[valormultiplicacion]!=-1){
 			if(this.arrreglo[valormultiplicacion].length>1){
 				for(let i=0;i<this.arrreglo[valormultiplicacion].length;i++){
@@ -185,6 +259,7 @@ class HashAbierta{
 						auxarreglo.splice(i,1);
 						this.arrreglo[valormultiplicacion] = auxarreglo;
 						this.insertados--;
+						break;
 					}
 				}
 			}else{
@@ -194,10 +269,17 @@ class HashAbierta{
 		}
 		this.Rehashing("Multiplicacion");
 	}
+
 	BuscarSimple=(k)=>{
 		let indice=-1;
 		let segundoindice=0;
-		let valorsimple = this.FuncionSimple(k);
+		let esono = typeof k;
+		let valorsimple=0;
+		if(esono=="string"){
+			valorsimple = parseInt(this.FuncionSimple(this.ConvertirString(k)));
+		}else{
+			valorsimple = this.FuncionSimple(k);
+		}
 		if(this.arrreglo[valorsimple]!=-1){
 			if(this.arrreglo[valorsimple].length>1){
 				for(let i=0;i<this.arrreglo[valorsimple].length;i++){
@@ -216,7 +298,13 @@ class HashAbierta{
 	BuscarDivision=(k)=>{
 		let indice=-1;
 		let segundoindice=0;
-		let valordivision = this.FuncionDivision(k);
+		let esono = typeof k;
+		let valordivision=0;
+		if(esono=="string"){
+			valordivision = parseInt(this.FuncionDivision(this.ConvertirString(k)));
+		}else{
+			valordivision = this.FuncionDivision(k);
+		}
 		if(this.arrreglo[valordivision]!=-1){
 			if(this.arrreglo[valordivision].length>1){
 				for(let i=0;i<this.arrreglo[valordivision].length;i++){
@@ -235,7 +323,13 @@ class HashAbierta{
 	BuscarMultiplicacion=(k)=>{
 		let indice=-1;
 		let segundoindice=0;
-		let valormultiplicacion = this.FuncionMultiplicacion(k);
+		let esono = typeof k;
+		let valormultiplicacion=0;
+		if(esono=="string"){
+			valormultiplicacion = parseInt(this.FuncionMultiplicacion(this.ConvertirString(k)));
+		}else{
+			valormultiplicacion = this.FuncionMultiplicacion(k);
+		}
 		if(this.arrreglo[valormultiplicacion]!=-1){
 			if(this.arrreglo[valormultiplicacion].length>1){
 				for(let i=0;i<this.arrreglo[valormultiplicacion].length;i++){
@@ -254,7 +348,13 @@ class HashAbierta{
 
 	Actualizar=(k,nuevo,tipo)=>{
 		if(tipo=="Simple"){
-			let valorsimple = this.FuncionSimple(k);
+			let esono = typeof k;
+			let valorsimple=0;
+			if(esono=="string"){
+				valorsimple = parseInt(this.FuncionSimple(this.ConvertirString(k)));
+			}else{
+				valorsimple = this.FuncionSimple(k);
+			}
 			if(this.arrreglo[valorsimple]!=-1){
 				if(this.arrreglo[valorsimple].length>1){
 					for(let i=0;i<this.arrreglo[valorsimple].length;i++){
@@ -263,18 +363,25 @@ class HashAbierta{
 							auxarreglo.splice(i,1);
 							this.arrreglo[valorsimple] = auxarreglo;
 							this.insertados--;
-							this.InsertarSimple(k);
+							this.InsertarSimple(nuevo);
 						}
 					}
 				}else{
 					this.arrreglo[valorsimple]=[-1];
 					this.insertados--;
-					this.InsertarSimple(k);
+					this.InsertarSimple(nuevo);
 				}
 			}
 			this.Rehashing("Simple");
 		}else if(tipo=="Division"){
-			let valordivision = this.FuncionDivision(k);
+			let esono = typeof k;
+			let valordivision=0;
+			if(esono=="string"){
+				valordivision = parseInt(this.FuncionDivision(this.ConvertirString(k)));
+			}else{
+				valordivision = this.FuncionDivision(k);
+			}
+
 			if(this.arrreglo[valordivision]!=-1){
 				if(this.arrreglo[valordivision].length>1){
 					for(let i=0;i<this.arrreglo[valordivision].length;i++){
@@ -283,18 +390,24 @@ class HashAbierta{
 							auxarreglo.splice(i,1);
 							this.arrreglo[valordivision] = auxarreglo;
 							this.insertados--;
-							this.InsertarDivision(k);
+							this.InsertarDivision(nuevo);
 						}
 					}
 				}else{
 					this.arrreglo[valordivision]=[-1];
 					this.insertados--;
-					this.InsertarDivision(k);
+					this.InsertarDivision(nuevo);
 				}
 			}
 			this.Rehashing("Division");
 		}else if(tipo=="Multiplicacion"){
-			let valormultiplicacion = this.FuncionMultiplicacion(k);
+			let esono = typeof k;
+			let valormultiplicacion=0;
+			if(esono=="string"){
+				valormultiplicacion = parseInt(this.FuncionMultiplicacion(this.ConvertirString(k)));
+			}else{
+				valormultiplicacion = this.FuncionMultiplicacion(k);
+			}
 			if(this.arrreglo[valormultiplicacion]!=-1){
 				if(this.arrreglo[valormultiplicacion].length>1){
 					for(let i=0;i<this.arrreglo[valormultiplicacion].length;i++){
@@ -303,13 +416,13 @@ class HashAbierta{
 							auxarreglo.splice(i,1);
 							this.arrreglo[valormultiplicacion] = auxarreglo;
 							this.insertados--;
-							this.InsertarMultiplicacion(k);
+							this.InsertarMultiplicacion(nuevo);
 						}
 					}
 				}else{
 					this.arrreglo[valormultiplicacion]=[-1];
 					this.insertados--;
-					this.InsertarMultiplicacion(k);
+					this.InsertarMultiplicacion(nuevo);
 				}
 			}
 			this.Rehashing("Multiplicacion");
