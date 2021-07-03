@@ -20,10 +20,16 @@ class Hash {
     }
 
     crear(size){
-        this.lista.splice(0, this.lista.length)
+        this.n = 0
         this.m = size
-        for(let i = 0; i < this.m; i++){
-            this.lista.push(null)
+        this.lista = new Array(size)
+
+        for(let i = 0; i < this.m; i++) {
+            crear_lista(i)
+        }
+
+        for(let i = 0; i < this.lista; i++) {
+            this.lista[i] = null
         }
     }
 
@@ -41,6 +47,7 @@ class Hash {
         let indice = this.funcionHash(codigo, this.funcion)
         if(this.lista[indice] == null) {
             this.lista[indice] = nodo
+            this.n ++
         } else {
             let actual = this.lista[indice]
             while (actual.siguiente != null) {
@@ -51,6 +58,27 @@ class Hash {
         }
         crear_cuadrado(dato, this.lista[indice].elemento, indice)
         this.lista[indice].elemento += 1
+        this.rehashing()
+    }
+
+    rehashing() {   
+        if ((this.n*100/this.m) >= this.maximo) {
+            let temporal = this.lista
+            this.mostrar()
+            let aux_size = this.m
+            
+            this.m = Math.round(this.n * 100 / this.minimo)
+            context.clearRect(0, 0, canvas.width, canvas.height)
+            reiniciar_lista()
+            this.crear(this.m)
+            for(let i = 0; i<aux_size; i++) {
+                if(temporal[i] != null) {
+                    this.agregar(temporal[i].dato)
+                }
+            }
+        } else {
+            this.mostrar()
+        }
     }
 
     set_key(dato) {
@@ -69,7 +97,6 @@ class Hash {
         let contador = 0
         while (actual != null) {
             if (actual.dato == dato) {
-                console.log(contador)
                 return actual.dato
             }
             contador ++
@@ -77,7 +104,7 @@ class Hash {
         }
         return false
     }
-    //table.eliminar(table.division(dato.value), dato.value)
+
     eliminar(dato){
         let codigo = this.set_key(dato)
         
@@ -110,7 +137,6 @@ class Hash {
             context.clearRect(60, 20+(indice*60), canvas.width, 60)
             for (let i = 0; i < posiciones.length; i++) {
                 crear_cuadrado(posiciones[i], i, indice)
-                //crear_cuadrado(dato, this.lista[indice].elemento, indice)
             }
         }        
     }
@@ -177,6 +203,16 @@ class Hash {
     }
 
     mostrar(){
+        let string = '['
+
+        for (let i = 0; i < this.m; i++) {
+            if (this.lista[i] != null) {
+                string += ` ${this.lista[i].dato}`
+            } else {
+                string += ' -1'
+            }
+        }
+        /* 
         let string = ''
         let cantidad
         for(let i = 0; i < this.lista.length; i++) {
@@ -194,7 +230,31 @@ class Hash {
             }
             string += ` (${cantidad} elementos)\n`
         }
+        */
+        string += `] ${(this.n*100/this.m).toFixed(0)}%`
         console.log(string)
+    }
+
+    crearLista() {
+        let resultado = []
+        for(let i = 0; i < this.lista.length; i++) {
+            let actual = this.lista[i]
+            let listaDatos = []
+            if(actual == null) {
+                resultado.push(-1)
+            } else {
+                while(actual != null) {
+                    listaDatos.push({
+                        key: actual.codigo,
+                        dato: actual.dato
+                    })
+                    actual = actual.siguiente
+                }
+                resultado.push(listaDatos)
+            }
+            
+        }
+        return resultado
     }
 }
 
@@ -214,16 +274,15 @@ document.getElementById('agregar').addEventListener('click', () => {
 
 document.getElementById('crear').addEventListener('click', () =>{
     table.crear(size.value)
-    console.log(`${min.value} ${max.value}`)
     table.set_rango(min.value, max.value)
-
-    for(let i = 0; i < size.value; i++) {
-        crear_lista(i)
-    }
 })
 
 document.getElementById('buscar').addEventListener('click', () => {
-    console.log(`el dato ${table.buscar(dato.value)} si esta`)
+    if(table.buscar(dato.value)) {
+        console.log(`el dato ${table.buscar(dato.value)} si esta en la tabla`)
+    } else (
+        console.log(`el dato no esta en la tabla`)
+    )
 })
 
 document.getElementById('eliminar').addEventListener('click', () => {
@@ -251,6 +310,35 @@ archivo.addEventListener('change', () => {
     }
     document.getElementById('mensaje').innerText = 'Se cargo el archivo con exito'
 })
+
+guardar.addEventListener("click", () => {
+    table.crearLista()
+
+    let salida = {
+        operacion: 'Tabla Hash Abierta',
+        size: table.size,
+        minimo: table.minimo,
+        maximo: table.maximo,
+        porcentaje: parseInt((table.n*100/table.m).toFixed(0)),
+        valores: table.crearLista()
+    }
+    
+    let texto = JSON.stringify(salida)
+    download('TablaHashAbierta.json', texto)
+})
+
+function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+  
+    element.style.display = 'none';
+    document.body.appendChild(element);
+  
+    element.click();
+  
+    document.body.removeChild(element);
+}
 
 cargar.addEventListener("click", (e) => {
     e.preventDefault()
@@ -283,6 +371,13 @@ let y = 20
 let yo = 20
 let yf = 80
 let ty = 55
+
+function reiniciar_lista(){
+    y = 20
+    yo = 20
+    yf = 80
+    ty = 55
+}
 
 function crear_lista(indice) {
     context.beginPath()

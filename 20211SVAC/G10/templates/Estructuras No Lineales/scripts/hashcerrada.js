@@ -61,7 +61,7 @@ class Hash {
     rehashing() {   
         if ((this.elementos*100/this.size) >= this.maximo) {
             let temporal = this.vector
-            //this.mostrar()
+            this.mostrar()
             let aux_size = this.size
             
             this.size = Math.round(this.elementos * 100 / this.minimo)
@@ -73,9 +73,9 @@ class Hash {
                     this.agregar(temporal[i].dato)
                 }
             }
-        } //else {
-            //this.mostrar()
-        //}
+        } else {
+            this.mostrar()
+        }
     }
 
     buscar(dato) {
@@ -101,7 +101,6 @@ class Hash {
     }
 
     actualizar(dato, nuevo) {
-        console.log('Actualizar()')
         if (this.buscar(dato)) {
             this.eliminar(dato)
             this.agregar(nuevo)
@@ -113,7 +112,6 @@ class Hash {
         if (this.prueba == 'Doble') {
             return this.doble(numero, i)
         } else if (this.prueba == ' Cuadratica') {
-            console.log('cuadratica')
             return this.cuadratica(numero, i)
         } else {
             return this.lineal(numero, i)
@@ -225,7 +223,6 @@ class Hash {
 
     crearLista() {
         let resultado = []
-        let dic = {}
         for(let i = 0; i < this.vector.length; i++) {
             if (this.vector[i] == null) {
                 resultado.push(-1)
@@ -262,7 +259,12 @@ document.getElementById('agregar').addEventListener('click', () => {
 })
 
 document.getElementById('buscar').addEventListener('click', () => {
-    console.log(`el dato ${table.buscar(dato.value)} si esta`)
+    if(table.buscar(dato.value)) {
+        console.log(`el dato ${table.buscar(dato.value)} si esta en la tabla`)
+    } else (
+        console.log(`el dato no esta en la tabla`)
+    )
+    
 })
 
 document.getElementById('eliminar').addEventListener('click', () => {
@@ -291,7 +293,7 @@ archivo.addEventListener('change', () => {
 })
 
 guardar.addEventListener("click", () => {
-    console.log('guardar')
+    
     let salida = {
         operacion: 'Tabla Hash Cerrada',
         size: table.size,
@@ -359,12 +361,12 @@ function crear_lista(indice) {
 
     context.beginPath()
     context.lineWidth = 2
-    context.strokeStyle = "rgb(48, 71, 94)"//rgb(48, 71, 94)
+    context.strokeStyle = "rgb(48, 71, 94)"
     context.rect(x, y, 70, 40)
 
     context.textAlign="center";
     context.font = "bold 12pt sans-serif"
-    context.fillStyle = "rgb(48, 71, 94)" //"rgb(240, 84, 84)";
+    context.fillStyle = "rgb(48, 71, 94)" 
     context.fillText(indice, x+35, y+60)
     context.stroke()
     
