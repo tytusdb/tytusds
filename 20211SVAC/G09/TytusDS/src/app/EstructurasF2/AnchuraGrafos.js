@@ -11,9 +11,9 @@ let NodoActual;
 let Vertices = null;
 
 class CrearVertice{
-    constructor(IdVertice, NumeroVerticetice){
+    constructor(IdVertice, VerticeGrafo){
         this.IdVertice = IdVertice;
-        this.NumeroVerticetice = NumeroVerticetice;
+        this.VerticeGrafo = VerticeGrafo;
     }
 }
 
@@ -127,6 +127,33 @@ class CrearGrafo{
             this.GuardarGrafo = auxiliarGuardarGrafo
         }
     }
+
+    RecorrerGrafo(){
+        for(var i = 0; i < this.Vertices.length; i++){
+            GuardarNodos.push({id: this.Vertices[i].VerticeGrafo, label: this.Vertices[i].IdVertice.toString(), shape: "circle"});
+        }
+        for(var i = 0; i < this.Vertices.length; i++){
+            for(var j = 0; j < this.Vertices.length; j++){
+                if(this.GuardarGrafo[i][j] > 0){
+                    if(switchToggle2.checked){
+                        if(switchToggle.checked){
+                            GuardarVertices.push({from: i, to: j, arrows: "to", label: this.GuardarGrafo[i][j].toString()});
+                        }else{
+                            GuardarVertices.push({from: i, to: j, label: this.GuardarGrafo[i][j].toString()});
+                        }
+                    }else{
+                        if(switchToggle.checked){
+                            GuardarVertices.push({from: i, to: j, arrows: "to"})
+                        }else{
+                            GuardarVertices.push({from: i, to: j});
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    
 
 
 }
