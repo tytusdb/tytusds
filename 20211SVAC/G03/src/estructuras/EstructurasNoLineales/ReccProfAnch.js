@@ -108,6 +108,8 @@ class ListaAdyacencia{
         this.ListaAdyacencia = new ListaDoble()
         this.inicio = inicio
         this.final = final
+        this.profundidad = null
+        this.anchura = null
     }
 
     //Metodo de obtencion de vertices no dirigos
@@ -346,6 +348,7 @@ class ListaAdyacencia{
 
     //Recorrido por anchura
     BFS(){
+        this.profundidad = null
         n = new ListaDoble()
         let aux = this.ListaAdyacencia.cabeza
         while (aux != null){
@@ -369,11 +372,13 @@ class ListaAdyacencia{
             arregloEdge.push(egde)
             imp = imp.siguiente
         }
+        this.anchura = arregloEdge
         return arregloEdge
     }    
 
     //Recorrido por Profundidad
     DFS(){
+        this.anchura = null
         n = new ListaDoble()
         let aux = this.ListaAdyacencia.cabeza
         this.subDFS(aux.dato)
@@ -381,10 +386,11 @@ class ListaAdyacencia{
         let arregloEdge = []
         while(imp.siguiente!= null){
             let siguiente = imp.siguiente
-            let egde = {from: imp.dato.id, to: siguiente.dato.id}
+            let egde = {from: imp.dato.id, to: siguiente.dato.id, value: 6}
             arregloEdge.push(egde)
             imp = imp.siguiente
         }
+        this.profundidad = arregloEdge
         return arregloEdge
     }
 
@@ -530,11 +536,36 @@ class ListaAdyacencia{
             let tmp = aux.dato.enlaces.cabeza
             while(tmp!= null){
                 let egde = {from: tmp.dato.inicio.id, to: tmp.dato.destino.id , label: tmp.dato.distancia.toString()}
+                if(this.anchura != null){
+                    for (let x = 0; x < this.anchura.length; x++) {
+                        if(this.anchura[x].from === tmp.dato.inicio.id && this.anchura[x].to === tmp.dato.destino.id){
+                            egde = {from: tmp.dato.inicio.id, to: tmp.dato.destino.id , label: tmp.dato.distancia.toString(),  color: "rgb(20,24,200)"}   
+                        }
+                        
+                    }
+                     
+                }else if(this.profundidad != null){
+                    for (let x = 0; x < this.profundidad.length; x++) {
+                        if(this.profundidad[x].from === tmp.dato.inicio.id && this.profundidad[x].to === tmp.dato.destino.id){
+                            egde = {from: tmp.dato.inicio.id, to: tmp.dato.destino.id , label: tmp.dato.distancia.toString(),  color: "rgb(20,24,200)"}   
+                        }
+                        
+                    }
+                }
+                
                 arregloEdge.push(egde)
                 tmp = tmp.siguiente
             }
             aux = aux.siguiente
         }
+        /* if(this.anchura != null){
+            
+            return arregloEdge.concat(this.anchura)
+        }
+        
+        if(this.profundidad != null){
+            return arregloEdge.concat(this.profundidad)
+        } */
         return arregloEdge
     } 
 }

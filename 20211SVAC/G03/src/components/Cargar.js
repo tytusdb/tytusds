@@ -166,10 +166,15 @@ function structW(nombre,datos,edd,grado,posicion,json){ // FUNCION PARA SABER QU
             edd = new Matriz();
             edd.cargar(datos)
             break
-        case "Grafo":
+        case "Grafo Dirigido":
 
             edd = new ListaAdyacencia();
-            edd.cargar(datos,json.nombre)
+            edd.cargar(datos,nombre)
+            break
+        case "Grafo No Dirigido":
+
+            edd = new ListaAdyacencia();
+            edd.cargar(datos,nombre)
             break
         default:
             break;

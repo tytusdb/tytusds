@@ -78,6 +78,12 @@ export default class Eliminar extends Component {
             case "Matriz Dispersa":
                 edd.eliminar(dato)
                 break;
+            case "Grafo Dirigido":
+                edd.eliminar(dato)
+                break;
+            case "Grafo No Dirigido":
+                edd.eliminar(dato)
+                break;
             default:
                 break;
         }

@@ -123,6 +123,44 @@ export default class NavbarInter extends Component {
       })
   }
 
+  recorridosAnchura=()=>{
+    switch (this.state.nombre) {
+      case "Grafo Dirigido":
+        this.state.estrutura.BFS()
+        break;
+      case "Grafo No Dirigido":
+        this.state.estrutura.BFS()
+        break;
+     
+      default:
+        break;
+      
+    }
+    this.setState({
+      estrutura: this.state.estrutura
+    })
+}
+
+recorridosProfundidad=()=>{
+  switch (this.state.nombre) {
+    case "Grafo Dirigido":
+      this.state.estrutura.DFS()
+      break;
+    case "Grafo No Dirigido":
+      this.state.estrutura.DFS()
+      break;
+   
+    default:
+      break;
+    
+  }
+
+this.setState({
+  estrutura: this.state.estrutura
+})
+}
+
+
 
    guardarOrdenamiento=(event) =>{
 
@@ -410,7 +448,7 @@ export default class NavbarInter extends Component {
         <GraficarTablaHashCerrada nombre={this.state.nombre} estructura={this.state.estrutura} valorBusqueda={this.state.busqueda} key={count++}/> 
       </div>
       )
-        }else if(this.state.nombre == "Grafo"
+        }else if(this.state.nombre == "Grafo Dirigido" || this.state.nombre == "Grafo No Dirigido"
         ){
       return (
       <div>
@@ -423,6 +461,12 @@ export default class NavbarInter extends Component {
             <Eliminar obtenerDatos={this.obtenerDatos} nombre={this.state.nombre} edd={this.state.estrutura} key={count++}/> 
             <Actualizar obtenerDatos={this.obtenerDatos} nombre={this.state.nombre} edd={this.state.estrutura} key={count++}/>
             <Buscar busqueda={this.obtenerBusqueda} key={count++}/>
+            <Menu.Item name="Recorrido por Profundidad"
+                    onClick={this.handleItemClick, this.recorridosProfundidad}>
+            </Menu.Item>
+            <Menu.Item name="Recorrido por Anchura"
+                    onClick={this.handleItemClick, this.recorridosAnchura}> 
+            </Menu.Item>
           <Menu.Menu position='right'>
             <Menu.Item name="Guardar" icon='save'  onClick={this.handleItemClick, this.guardarEstructuras}>
             </Menu.Item>

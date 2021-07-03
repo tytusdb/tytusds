@@ -80,9 +80,12 @@ export default class Actualizar extends Component {
                 edd.actualizar(i,j,nombre,datoNuevo)
             break
             case "Matriz Dispersa":    
-                 /* splitarr = datoAnterior.split(",")
-                 i = splitarr[0]
-                 j = splitarr[1] */
+                edd.modificar(datoAnterior,datoNuevo)
+            break
+            case "Grafo No Dirigido":    
+                edd.modificar(datoAnterior,datoNuevo)
+            break
+            case "Grafo Dirigido":    
                 edd.modificar(datoAnterior,datoNuevo)
             break
             default:

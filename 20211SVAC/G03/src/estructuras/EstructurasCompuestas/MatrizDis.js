@@ -32,20 +32,40 @@ class ListaDoble{
     ordenar(nodo){
         let aux = this.cabeza
         while(aux != null){
-            if(aux.dato < nodo.dato){
-                aux = aux.siguiente
-            } else{
-                if(aux == this.cabeza){
-                    nodo.siguiente = aux
-                    aux.anterior = nodo
-                    this.cabeza = nodo
-                    return
+
+            if(aux.dato.charCodeAt){
+                if(this.obtenerASCCI(aux.dato) < this.obtenerASCCI(nodo.dato)){
+                    aux = aux.siguiente
                 } else{
-                    nodo.anterior = aux.anterior
-                    aux.anterior.siguiente = nodo
-                    nodo.siguiente = aux
-                    aux.anterior = nodo
-                    return
+                    if(aux == this.cabeza){
+                        nodo.siguiente = aux
+                        aux.anterior = nodo
+                        this.cabeza = nodo
+                        return
+                    } else{
+                        nodo.anterior = aux.anterior
+                        aux.anterior.siguiente = nodo
+                        nodo.siguiente = aux
+                        aux.anterior = nodo
+                        return
+                    }
+                }
+            }else{
+                if(aux.dato < nodo.dato){
+                    aux = aux.siguiente
+                } else{
+                    if(aux == this.cabeza){
+                        nodo.siguiente = aux
+                        aux.anterior = nodo
+                        this.cabeza = nodo
+                        return
+                    } else{
+                        nodo.anterior = aux.anterior
+                        aux.anterior.siguiente = nodo
+                        nodo.siguiente = aux
+                        aux.anterior = nodo
+                        return
+                    }
                 }
             }
         }
@@ -53,6 +73,17 @@ class ListaDoble{
         nodo.anterior = this.cola
         this.cola = nodo
     }
+
+    obtenerASCCI(s){
+        let charCodeArr = 0;
+        
+        for(let i = 0; i < s.length; i++){
+            let code = s.charCodeAt(i);
+            charCodeArr += code
+        }
+        
+        return charCodeArr;
+      }
 
     //Insercion en cabeceras
     insertar(dato){
@@ -561,7 +592,7 @@ class Matriz{
                         targetPosition: 'left',
                         sourcePosition: 'right',
                         data: { label: aux.dato },
-                        position: {  x: 100+ (aux.i+1)*200, y:25+ x*75 },
+                        position: {  x: 100+ (this.CHorizontal.busqueda(aux.i).identificador+1)*200, y:25+ x*75 },
                         connectable: false, 
                     }
 
@@ -572,7 +603,7 @@ class Matriz{
                             targetPosition: 'left',
                             sourcePosition: 'right',
                             data: { text: "----------"+aux.dato+ "--------" },
-                            position: {  x: 100+ (aux.i+1)*200, y:25+ x*75 },
+                            position: {  x: 100+ (this.CHorizontal.busqueda(aux.i).identificador+1)*200, y:25+ x*75 },
                             connectable: false, 
                         }
                     }
@@ -599,6 +630,32 @@ class Matriz{
 
 
         return arreglo
+    }
+
+    guardar(){
+        let arregloGuardar = []
+
+        let tempo = this.CVertical.cabeza
+        let aux ;
+
+        while(tempo != null){
+            aux = tempo.este
+            while(aux!=null){
+                    let indices = []
+                    indices.push(aux.i)
+                    indices.push(aux.j)
+
+                    let valorGuardar = {indices: indices, valor: aux.dato}
+                    
+                    arregloGuardar.push(valorGuardar)
+                    aux = aux.este
+            }
+            tempo = tempo.siguiente
+        }
+
+
+        return arregloGuardar
+
     }
 }
 

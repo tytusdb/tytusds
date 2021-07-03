@@ -3,53 +3,14 @@ import Graph from "react-graph-vis";
 
 export default function GraficarGrafo(props) {
 
-    /* let nodosAfuera = props.edd.Recorrido()
-    if(props.buscar != ""){
-      nodosAfuera = props.edd.Recorrido(props.buscar)
-    }
-    let uniones = edgeF()
-
-
-    function edgeF(){
-      let edgefuera = []
-      for (let i = 0; i < nodosAfuera.length-1; i++) {
-        let edge = {from:i, to:i+1}
-        edgefuera[i] = edge
-        
-      }
-
-      if(props.nombre == "Lista doblemente enlazada"){
-          let contador = nodosAfuera.length-1
-          for (let i = 0; i < nodosAfuera.length-1; i++) {
-              let edge = {from:i+1, to:i}
-              edgefuera[contador] = edge
-              contador++
-          }
-          
-      }
-
-      return edgefuera
-    }
-
-    console.log(nodosAfuera)
-    console.log(uniones) */
-
-     var nodes = props.estructura.graficarNodos()
-    
-      // create some edges
-      var edges = props.estructura.graficarEnlaces()
+    var nodes = props.estructura.graficarNodos()
+    // create some edges
+    var edges = props.estructura.graficarEnlaces()
 
     const graph = {
         nodes: nodes,
         edges: edges
       };
-     
-
-
-
-      const diseño = {
-          direction: 'LR'
-      }
 
       const options = {
         physics: {
@@ -72,7 +33,10 @@ export default function GraficarGrafo(props) {
           nodes:{
             shape: "dot",
             size: 16,
-            color: "white"
+            color: "red",
+            font: {
+              color: "#ffffff",
+            }
         },
         interaction: {
           navigationButtons: true,
