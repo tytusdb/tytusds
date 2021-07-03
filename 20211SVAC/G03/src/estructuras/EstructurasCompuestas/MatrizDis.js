@@ -13,8 +13,12 @@ class NodoMatriz{
         this.anterior = null
         this.i = i
         this.j = j
+        this.identificador = 0
     }
 }
+
+//Contador cabeceras
+var cabnodo = 0
 
 //Lista Doble para Cabeceras
 class ListaDoble{
@@ -52,12 +56,21 @@ class ListaDoble{
 
     //Insercion en cabeceras
     insertar(dato){
+        cabnodo = 0
         let nodo = new NodoMatriz(dato, null, null)
         if(this.cabeza == null){
             this.cabeza = this.cola = nodo
             return
         }
         this.ordenar(nodo)
+        if(this.cabeza !=null){
+            let aux = this.cabeza
+            while(aux!=null){
+                aux.identificador = cabnodo
+                cabnodo++
+                aux = aux.siguiente
+            }
+        }
     }
 
     //Eliminacion para la lista doble
