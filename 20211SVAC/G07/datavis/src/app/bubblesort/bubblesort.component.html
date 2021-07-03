@@ -22,9 +22,11 @@
 
       <form class="form-inline" >
         <input style="display:none;" type="file" (change)="abrir($event)" #archivo>
-        <button (click)="archivo.click()" class="btn btn-outline-light mr-sm-2" type="button">Cargar</button>
+        <button (click)="archivo.click()" class="btn btn-outline-light mr-sm-2" type="button" >Cargar</button>
 
-        <button (click)="descargarContenido()" class="btn btn-outline-light mr-sm-2"   type="button">Guardar</button>
+        
+
+        <button id="descarga" (click)="descargarContenido()" class="btn btn-outline-light mr-sm-2"   type="button">Guardar</button>
 
 
       </form>

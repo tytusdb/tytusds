@@ -8,13 +8,3 @@
 	right: -50px;
 	transform: scaleX(1);
 }
-
-nav > div > ul > li > .range-container,
-nav > div > ul > li > .files-menu-container,
-nav > div > ul > li > .nodes-menu-container,
-nav > div > ul > li > .settings-menu-container {
-	padding: 0 10px;
-	width: max-content;
-	top: 53px;
-	border-radius: var(--radius);
-}

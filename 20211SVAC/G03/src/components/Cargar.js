@@ -17,6 +17,11 @@ import ListaDoble from '../estructuras/EstructurasLineales/ListaDoble'
 import ArbolB from '../estructuras/Estructuras_Arboreas/ArbolB'
 import ArbolBplus from '../estructuras/Estructuras_Arboreas/ArbolBplus'
 
+import TablaHashAbierta from '../estructuras/EstructurasNoLineales/TablaHashAbierta'
+import TablaHashCerrada from '../estructuras/EstructurasNoLineales/TablaHashCerrada'
+
+import CRMajor from '../estructuras/EstructurasCompuestas/Col_Major'
+
 let propsG
 function onChange(e){
     let files = e.target.files[0];
@@ -26,11 +31,11 @@ function onChange(e){
         const text = reader.result.toString().trim();
         console.log(text)
         let data = JSON.parse(text); //parseo de archivo JSON
-        structW(propsG.nombre, data.valores, propsG.edd,data.grado,data.posicion) 
+        structW(propsG.nombre, data.valores, propsG.edd,data.grado,data.posicion,data) 
     }
     reader.readAsText(files);
 }
-function structW(nombre,datos,edd,grado,posicion){ // FUNCION PARA SABER QUE TIPO DE ESTRUCTURA ES.
+function structW(nombre,datos,edd,grado,posicion,json){ // FUNCION PARA SABER QUE TIPO DE ESTRUCTURA ES.
     switch(nombre){
         case "Pila" :
             if(edd == null){
@@ -128,6 +133,30 @@ function structW(nombre,datos,edd,grado,posicion){ // FUNCION PARA SABER QUE TIP
             edd = new ArbolBplus(grado);
             edd.cargar(datos)
             console.log(edd.graficar())
+            break
+        case "Tabla Hash Abierta":
+
+            edd = new TablaHashAbierta(json.m, json.minimo, json.maximo, json.funcion);
+            edd.cargar(datos)
+            edd.imprimir()
+            break
+        case "Tabla Hash Cerrada":
+
+            edd = new TablaHashCerrada(json.m, json.minimo, json.maximo, json.funcion, json.prueba);
+            edd.cargar(datos)
+            edd.imprimir()
+            break
+        case "Row Major":
+
+            edd = new CRMajor(json.m);
+            edd.cargar(datos)
+            edd.imprimirMatriz()
+            break
+        case "Col Major":
+
+            edd = new CRMajor(json.m);
+            edd.cargar(datos)
+            edd.imprimirMatriz()
             break
         default:
             break;

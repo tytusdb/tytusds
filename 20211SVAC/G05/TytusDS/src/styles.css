@@ -4,9 +4,10 @@
   padding: 0;
   box-sizing: border-box;
 }
+body{
+  background: linear-gradient(to right,#1C1C1C,#E6E6E6);
+}
 .animacion {
     height: 400px;
 }
-.Cmenu{
-  background: linear-gradient(to right,#1C1C1C,#E6E6E6);
-}
+
