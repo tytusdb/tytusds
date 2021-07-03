@@ -362,10 +362,14 @@ class ListaAdyacencia{
             aux = aux.siguiente
         }
         let imp = n.cabeza
-        while (imp!=null){
-            console.log(imp.dato.dato)
+        let arregloEdge = []
+        while (imp.siguiente!=null){
+            let siguiente = imp.siguiente
+            let egde = {from: imp.dato.id, to: siguiente.dato.id}
+            arregloEdge.push(egde)
             imp = imp.siguiente
         }
+        return arregloEdge
     }    
 
     //Recorrido por Profundidad
@@ -374,10 +378,14 @@ class ListaAdyacencia{
         let aux = this.ListaAdyacencia.cabeza
         this.subDFS(aux.dato)
         let imp = n.cabeza
-        while(imp!= null){
-            console.log(imp.dato.dato)
+        let arregloEdge = []
+        while(imp.siguiente!= null){
+            let siguiente = imp.siguiente
+            let egde = {from: imp.dato.id, to: siguiente.dato.id}
+            arregloEdge.push(egde)
             imp = imp.siguiente
         }
+        return arregloEdge
     }
 
     //Sub metodo para Recorrido por Produndidad
