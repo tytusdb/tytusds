@@ -4,12 +4,16 @@ var nodos1=[];
 var punteros1=[];
 var auxnodos=[];
 var auxpunteros=[];
+var listan=[];
+var nodol=[];
 var matriz=[];
 var arbol=[];
 var texto="";
 var cola="";
 var cantidad=0;
 var cadena="";
+let arr;
+var co=0;
 class Nodop{
     constructor(valor1,valor2,valor3,valor4){
         this.dato1=valor1;
@@ -113,7 +117,7 @@ class lista {
         if (this.uno!=null){
             while(aux!=null){
                     if (vertice==aux.dato){
-                        console.log("vertice ya existe");
+                        alert("vertice ya existe"); 
                         bandera=false;
                         break;
                     }aux=aux.post;} 
@@ -163,12 +167,15 @@ class lista {
         var bandera=true;
         if (this.uno!=null){
             while(aux!=null){
-                        console.log(aux.dato);
-                        nodos.push({id: aux.dato, label: aux.dato})
-                    aux=aux.post;} }
+                        nodos.push({id: aux.dato, label: aux.dato })
+                        console.log(aux.dato)
+                    aux=aux.post;
+                    }
+                 }
             else{
                 console.log("sin datos");
             }
+            co=0;
         }
         
 }
@@ -257,7 +264,8 @@ class listaaux{
         let aux = this.inicio;
         if (this.inicio!=null){
             do{
-                punteros.push({from: aux.dato1, to: aux.dato2  ,label:aux.dato3});
+                punteros.push({from: aux.dato1, to: aux.dato2 ,label:aux.dato3  });
+                console.log(aux.dato1+" "+aux.dato2)
                 aux=aux.sigui;
                 }while(aux!=null);
         }
@@ -283,10 +291,6 @@ class listaaux{
                     }
 
         
-
-
-            
-
 
     imprimir2(){
     if(p.uno!=null){
@@ -354,7 +358,39 @@ class listaaux{
     }
        
          }
-}
+
+
+         imprimir22(){
+            if(p.uno!=null){
+                
+                var cadena="";
+                let aux = p.uno;
+                if (this.inicio!=null){
+                    do{let aux1 = p.uno;
+                        nodol.push({id: aux.dato, label: aux.dato,shape:'box' })
+                        var bandera=true;
+                        do{let temp = this.inicio;
+                            
+                            do{
+                                if(aux.dato==temp.dato1  && aux1.dato==temp.dato2){
+                                    bandera=false;
+                                cadena+="| "+aux1.dato+" |"; }
+                                temp=temp.sigui;
+                                }while(temp!=null);
+                           
+                            
+                            aux1=aux1.post;
+                            }while(aux1!=null);
+                    if (bandera==false){ 
+                        nodol.push({id:cadena+aux.dato, label: cadena,shape:'box'});
+                        listan.push({from: aux.dato, to: cadena+aux.dato , label: 5});
+                        cadena=""; }
+                        aux=aux.post;
+                        }while(aux!=null);}
+            }
+                 }
+
+        }
 
 
 const p1 = new listaaux();
@@ -420,21 +456,39 @@ matriz(){
 
 }
 
+li(){   
+    listan=[];
+    nodol=[];
+    let ld=[];
+    p1.imprimir22();
+    ld.push(nodol);
+    ld.push(listan);
+    p.imprimir();
+    console.log(listan);
+    console.log(nodol);
+    return ld;
+
+}
+
+
+
 identificar(){
     var bandera=false;
     var aux=p1.inicio;
-    do{var aux2=p1.inicio;
-        do{ 
-            if(aux.dato1==aux2.dato2&&aux.dato2==aux2.dato1){
-                bandera=true;
-                break;
-            }
-    
-        aux2=aux2.sigui;
-        }while(aux2!=null);
-    if (bandera==true){break;}
-    aux=aux.sigui;
-    }while(aux!=null)
+    if (aux!=null){
+        do{var aux2=p1.inicio;
+            do{ 
+                if(aux.dato1==aux2.dato2&&aux.dato2==aux2.dato1){
+                    bandera=true;
+                    break;
+                }
+        
+            aux2=aux2.sigui;
+            }while(aux2!=null);
+        if (bandera==true){break;}
+        aux=aux.sigui;
+        }while(aux!=null)
+    }
 
    return bandera;
 }
@@ -442,6 +496,7 @@ identificar(){
 
 
 bus(valori,valorf){
+arr=[];
 var actual=valori;
 var aux1=p.uno;
 var aux2=p1.inicio;
@@ -454,7 +509,7 @@ do{
 arbol.push(actual);
 if (actual==valorf){
 //break;
-console.log("k");
+console.log();
 }
 var aux2=p1.inicio;
 do{
@@ -475,28 +530,90 @@ if(c.cuno!=null){ actual=c.eliminar();  }
 }while(actual!=valorf);
 //console.log(actual+cantidad);
 print=cadena+" "+actual;
+arbol=[];
 let str = print;
-let arr = str.split(' '); 
-console.log(arr);
-console.log(print);
+arr = str.split(' '); 
 this.limpiarcola()
+cadena=""
 
 }
 
 
 
 limpiarcola(){
-    do{
-        if(c.cuno!=null){ c.eliminar();
+    
+        if(c.cuno!=null){ 
+            do{
+                c.eliminar();
+            }
+            while(c.cuno!=null);
+
         }
-    }
-    while(c.cuno!=null);
+
     console.log("limpio")  
 }
 
 
+animacionbus(){
+    nodos=[];
+    punteros=[];
+    p1.imprimir();
+    let ldata=[];
+    var aux1=p.uno; 
+    var bandera=true;
+    var cad="";
+    do{
+        for(var i=0; i<arr.length; i++) { 
+            if(arr[i]==aux1.dato){
+                bandera=false;
+                nodos.push({id: aux1.dato, label: aux1.dato , color:{
+                    border:"white",background:"green"
+                  }})
+            }
+        }
+        if (bandera==true){nodos.push({id: aux1.dato, label: aux1.dato })}
 
+        aux1=aux1.post;
+        bandera=true;
+    }while(aux1!=null);
+   
+    ldata.push(nodos);
+    ldata.push(punteros);
+    return ldata;
+    
+}
 
+animacionbusno(){
+    nodos=[];
+    punteros=[];
+    p1.imprimir1();
+    let ldata=[];
+    var aux1=p.uno; 
+    var bandera=true;
+    var cad="";
+    do{
+        for(var i=0; i<arr.length; i++) { 
+            if(arr[i]==aux1.dato){
+                bandera=false;
+                nodos.push({id: aux1.dato, label: aux1.dato , color:{
+                    border:"white",background:"green"
+                  }})
+            }
+        }
+        if (bandera==true){nodos.push({id: aux1.dato, label: aux1.dato })}
+
+        aux1=aux1.post;
+        bandera=true;
+    }while(aux1!=null);
+    ldata.push(nodos);
+    ldata.push(punteros);
+    return ldata;
+    
+}
+
+bb(){
+    return arr;
+}
 
 
 as1(){
@@ -507,6 +624,8 @@ as1(){
     let ldata=[];
     //this.nodos.push({id: aux.id, label: impre})
     //this.punteros.push({from: aux.id, to: aux.hojitas[i].id});
+    console.log(nodos)
+    console.log(punteros)
     ldata.push(nodos);
     ldata.push(punteros);
     return ldata;
@@ -519,11 +638,10 @@ as(){
     p.imprimir();
     p1.imprimir1();
     let ldata=[];
-    //this.nodos.push({id: aux.id, label: impre})
-    //this.punteros.push({from: aux.id, to: aux.hojitas[i].id});
     ldata.push(nodos);
     ldata.push(punteros);
-    console.log(ldata);
+    console.log(nodos);
+    console.log(punteros);
     return ldata;
     
 }
