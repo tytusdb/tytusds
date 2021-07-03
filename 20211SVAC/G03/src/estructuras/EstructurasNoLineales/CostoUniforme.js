@@ -78,10 +78,48 @@ class NodoListaDoble{
     }
 }
 
+//Clase Nodo para Grafo
+class Nodo{
+    //Constructor
+    constructor(dato){
+        this.dato = dato
+        this.id = 0
+        this.distTotal = 0
+        this.camino = new ListaDoble()
+        this.enlaces = new ListaDoble()
+        this.adyacentes = new ListaDoble()
+    }
+}
+
+//Clas Enlaces para Grafos
+class Enlaces{
+    //Constructor
+    constructor(inicio, distancia, destino){
+        this.inicio = inicio
+        this.destino = destino
+        this.distancia = distancia
+    }
+}
+
+
+
+//Clase Lista Principal de Adyacencia
+class ListaAdyacencia{
+    //Constructor
+    constructor(inicio, final){
+        this.ListaAdyacencia = new ListaDoble()
+        this.caminoFinal = []
+        this.distanciaFinal = 0
+        this.inicio = inicio
+        this.final = final
+    }
 
 
 
 
+
+
+}
 
 
 
