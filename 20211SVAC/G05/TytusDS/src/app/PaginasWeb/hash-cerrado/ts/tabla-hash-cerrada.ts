@@ -33,7 +33,6 @@ export class TablaHashCerrada {
         this.prueba = prueba;
         this.funcion = funcion;
         this.constante = 0.1625277911;
-        console.log(this.prueba);
     }
 
     agregar(valor: any): void {
@@ -131,9 +130,9 @@ export class TablaHashCerrada {
             resultado = parseInt(entrada, 10);
         }
 
-        console.log(Math.floor(parseFloat(`${this.size*(resultado * (constante % 1))}`)));
+        console.log(Math.floor(this.size * (resultado * constante % 1)));
 
-        return Math.floor(parseFloat(`${this.size*(resultado * (constante % 1))}`));
+        return Math.floor(this.size * (resultado * constante % 1));
     }
 
     getAscii(cadena: string): number {
@@ -272,29 +271,15 @@ export class TablaHashCerrada {
         return edges;
     }
 
-    buscar(valor: any): any {
-        let nodos: any = [];
+    buscar(valor: any): number {
+        let id = -1;
         for (let x = 0; x < this.size; x++) {
-            const nodo = {
-                id: x,
-                label: '',
-                shape: 'box',
-                level: x,
-                color: ''
-            };
             if (this.arreglo[x] !== null) {
                 if (this.arreglo[x].valor == valor) {
-                    nodo.color = '#FFFB00';    
-                }else {
-                    nodo.color = '#013ADF';
+                    id = x;
                 }
-                nodo.label = this.arreglo[x].valor;
-            }else {
-                nodo.label = `nodo vacio: ${x+1}`;
-                nodo.color = 'red';
             }
-            nodos.push(nodo);
         }
-        return nodos;
+        return id;
     }
 }
