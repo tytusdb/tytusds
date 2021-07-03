@@ -101,20 +101,17 @@ class Enlaces{
     }
 }
 
-
-
 //Clase Lista Principal de Adyacencia
 class ListaAdyacencia{
     //Constructor
-    constructor(inicio, final){
+    constructor(){
         this.ListaAdyacencia = new ListaDoble()
         this.caminoFinal = []
         this.distanciaFinal = 0
-        this.inicio = inicio
-        this.final = final
+        this.inicio = null
+        this.final = null
     }
-    
-    
+
     //Obtencion de Nodos o Vertices para validacion booleana
     getVerticeNoDirigido(dato){
         let aux = this.ListaAdyacencia.cabeza
@@ -129,8 +126,7 @@ class ListaAdyacencia{
         }
         return null
     }
-    
-    
+
     //Insercion en grafo no dirigido
     insertarNoDirigido(dato, inicio, final, distancia){
         if (this.getVerticeNoDirigido(dato)==null){
@@ -151,8 +147,6 @@ class ListaAdyacencia{
         }
     }    
 
-
-    
     //Enlace primero en grafo no dirigido
     enlazarprimeroNoDirigido(n1, n2, distancia, dato){
         let nodo2 = new Nodo(dato)
@@ -246,8 +240,6 @@ class ListaAdyacencia{
         return null
     }
 
-   
-    
     //Insercion de grafos dirigdos
     insertar(dato, inicio, final, distancia){
         if (this.getVertice(dato)==null){
@@ -267,7 +259,6 @@ class ListaAdyacencia{
             console.log("Al parecer ya lo creo o es el primero")
         }
     }    
-
 
     //Primer enlace para grafos dirigidos
     enlazarprimero(n1, n2, distancia, dato){
@@ -343,8 +334,7 @@ class ListaAdyacencia{
         origen.enlaces.insertar(c)
     }
 
-
-     //Metodo de busqueda
+    //Metodo de busqueda
     buscar(dato){
         let bool = false
         let aux = this.ListaAdyacencia.cabeza
@@ -377,12 +367,6 @@ class ListaAdyacencia{
         if(bool == false){
             console.log("No encontro nada")    
         }
-        if(this.inicio == datobus){
-            this.inicio =datocam
-        }
-        if(this.final == datobus){
-            this.final = datocam
-        }
     }
 
     //Metodo Eliminar
@@ -414,18 +398,13 @@ class ListaAdyacencia{
         if(bool == false){
             console.log("No encontro nada")    
         }
-        if(this.inicio == datelim){
-            this.inicio = "."
-        }
-        if(this.final == datelim){
-            this.final = "."
-        }
     }
 
-
-
     //Metodo arranque para costo minimo
-    costoMinimo(){
+    costoMinimo(ini, fin){
+        let arregloEdge = []
+        this.inicio = ini
+        this.final = fin
         console.log("Empezamos en: "+this.inicio)
         console.log("Queremos terminar en: " + this.final)
         let iniRec = this.ListaAdyacencia.cabeza
@@ -437,11 +416,10 @@ class ListaAdyacencia{
                     while(adyman!=null){
                         if(adyman.dato.dato == enl.dato.destino.dato){
                             adyman.dato.distTotal = enl.dato.distancia
-                            adyman.dato.camino.insertar(iniRec.dato.dato)
+                            adyman.dato.camino.insertar(iniRec.dato)
                             this.formarcaminooptimo(adyman.dato)
-                            adyman.dato.camino.eliminar(iniRec.dato.dato)
-                            console.log("Al parecer funciono, la distancia final total es: "+this.distanciaFinal)
-                            console.log("El camino usado fue: " + this.caminoFinal)
+                            adyman.dato.camino.eliminar(iniRec.dato)
+                            
                         }
                         adyman = adyman.siguiente
                     }
@@ -450,6 +428,46 @@ class ListaAdyacencia{
             }
             iniRec = iniRec.siguiente
         }
+        console.log("Al parecer funciono, la distancia final total es: "+this.distanciaFinal)
+        for(let i = 0;i<this.caminoFinal.length-1;i++){
+            let egde = {from: this.caminoFinal[i].id, to: this.caminoFinal[i+1].id }
+            arregloEdge.push(egde)
+            console.log("El camino usado fue: " + this.caminoFinal[i].dato + " con id " + this.caminoFinal[i].id)
+        }
+        return arregloEdge
+    }
+
+    //Metodo recursivo para arbol de Recubrimiento minimo
+    recubrimientoMinimo(){
+        let arregloEdge = []
+        let iniRec = this.ListaAdyacencia.cabeza
+        while(iniRec!=null){
+            if(iniRec.dato.dato == this.inicio){
+                let enl = iniRec.dato.enlaces.cabeza
+                while(enl!= null){
+                    let adyman = iniRec.dato.adyacentes.cabeza
+                    while(adyman!=null){
+                        if(adyman.dato.dato == enl.dato.destino.dato){
+                            adyman.dato.distTotal = enl.dato.distancia
+                            adyman.dato.camino.insertar(iniRec.dato)
+                            this.formarcaminooptimo(adyman.dato)
+                            adyman.dato.camino.eliminar(iniRec.dato)
+                            
+                        }
+                        adyman = adyman.siguiente
+                    }
+                    enl = enl.siguiente
+                }
+            }
+            iniRec = iniRec.siguiente
+        }
+        console.log("Al parecer funciono, la distancia final total es: "+this.distanciaFinal)
+        for(let i = 0;i<this.caminoFinal.length-1;i++){
+            let egde = {from: this.caminoFinal[i].id, to: this.caminoFinal[i+1].id }
+            arregloEdge.push(egde)
+            console.log("El camino usado fue: " + this.caminoFinal[i].dato + " con id " + this.caminoFinal[i].id)
+        }
+        return arregloEdge
     }
 
     //Metodo Recursivo para busqueda de camino a final
@@ -458,23 +476,23 @@ class ListaAdyacencia{
             if(nodo.distTotal<this.distanciaFinal&&nodo.distTotal!=0){
                 this.caminoFinal = []
                 this.distanciaFinal = nodo.distTotal
-                nodo.camino.insertar(nodo.dato)
+                nodo.camino.insertar(nodo)
                 let cargacamino = nodo.camino.cabeza
                 while (cargacamino != null){
                     this.caminoFinal.push(cargacamino.dato)
                     cargacamino = cargacamino.siguiente
                 }
-                nodo.camino.eliminar(nodo.dato)
+                nodo.camino.eliminar(nodo)
                 console.log("Hay una nueva carga de datos finales")
             }else if(this.distanciaFinal == 0){
                 this.distanciaFinal = nodo.distTotal
-                nodo.camino.insertar(nodo.dato)
+                nodo.camino.insertar(nodo)
                 let cargacamino = nodo.camino.cabeza
                 while (cargacamino != null){
                     this.caminoFinal.push(cargacamino.dato)
                     cargacamino = cargacamino.siguiente
                 }
-                nodo.camino.eliminar(nodo.dato)
+                nodo.camino.eliminar(nodo)
                 console.log("Hay una nueva carga de datos finales")
             }
         }else{
@@ -484,7 +502,7 @@ class ListaAdyacencia{
                     let verificacioncaminodestino = nodo.camino.cabeza
                     let permiso = false
                     while(verificacioncaminodestino!=null){
-                        if(verificacioncaminodestino.dato == nuevosenlaces.dato.destino.dato){
+                        if(verificacioncaminodestino.dato.dato == nuevosenlaces.dato.destino.dato){
                             permiso = true
                             break
                         }
@@ -495,11 +513,11 @@ class ListaAdyacencia{
                         while(adymandar!= null){
                             if(adymandar.dato.dato == nuevosenlaces.dato.destino.dato){
                                 adymandar.dato.distTotal = nuevosenlaces.dato.distancia + nodo.distTotal
-                                nodo.camino.insertar(nodo.dato)
+                                nodo.camino.insertar(nodo)
                                 adymandar.dato.camino = nodo.camino
                                 this.formarcaminooptimo(adymandar.dato)
-                                nodo.camino.eliminar(nodo.dato)
-                                adymandar.dato.camino.eliminar(nodo.dato)
+                                nodo.camino.eliminar(nodo)
+                                adymandar.dato.camino.eliminar(nodo)
                                 break
                             }
                             adymandar = adymandar.siguiente
@@ -510,11 +528,11 @@ class ListaAdyacencia{
                     while(adymandar!= null){
                         if(adymandar.dato.dato == nuevosenlaces.dato.dato){
                             adymandar.dato.distTotal = nuevosenlaces.dato.distancia + nodo.distTotal
-                            nodo.camino.insertar(nodo.dato)
+                            nodo.camino.insertar(nodo)
                             adymandar.dato.camino = nodo.camino
                             formarcaminooptimo(adymandar.dato)
-                            nodo.camino.eliminar(nodo.dato)
-                            adymandar.dato.camino.eliminar(nodo.dato)
+                            nodo.camino.eliminar(nodo)
+                            adymandar.dato.camino.eliminar(nodo)
                         break
                         }
                         adymandar= adymandar.siguiente
@@ -524,8 +542,6 @@ class ListaAdyacencia{
             }
         }        
     }
-
-  
 
     //Metodo Carga
     cargar(arreglo) {
@@ -581,12 +597,12 @@ class ListaAdyacencia{
         }
         return arregloEdge
     } 
-
-
-
-
 }
 
-
-
-
+let lista = new ListaAdyacencia()
+lista.insertar(1,1,2,2)
+lista.insertar(2,2,3,3)
+lista.insertar(4,2,4,1)
+lista.insertar(3,3,1,8)
+lista.insertar(3,3,4,1)
+lista.costoMinimo(1,4)
