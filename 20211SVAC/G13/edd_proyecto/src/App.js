@@ -18,6 +18,7 @@ import ArbolB from './Componentes/Paginas/Arbolb';
 import ArbolBPlus from './Componentes/Paginas/Arbolbplus';
 import ArbolMerkle from './Componentes/Paginas/Arbolmerkle';
 import MatrizDispersa from './Componentes/Paginas/MatrizDispersa';
+import TablaHashAbierta from './Componentes/Paginas/HashAbierta';
 
 
 
@@ -27,6 +28,7 @@ function App() {
       <Navbar />
       <Switch>
         <Route path='/' exact component={Home} />
+        <Route path='/HashAbierta' exact component={TablaHashAbierta} />
         <Route path='/Listasimplementeenlazada' component={ListaSE} />
         <Route path='/Listadoblementeenlazada' component={ListaDE} />
         <Route path='/Listacircularsimplementeenlazada' component={ListaCSE} />

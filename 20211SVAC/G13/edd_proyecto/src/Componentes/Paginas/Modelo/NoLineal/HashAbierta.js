@@ -30,7 +30,7 @@ class HashAbierta{
 		return this.arrreglo.length;
 	}
 	set_m=(m)=>{this.m=m;}
-	get_m=()=>{return parseInt(this.m,10);}
+	get_m=()=>{return this.m;}
 	set_min=(min)=>{this.min=min}
 	get_min=()=>{return this.min;}
 	set_max=(max)=>{this.max=max;}
@@ -51,15 +51,16 @@ class HashAbierta{
 		return ( k % this.get_m() );
 	}
 	FuncionSimple = (k)=>{
-		let reducido = k;
-		while(reducido>1){
-			reducido = Math.round(reducido/2);
+		let reducido = parseInt(k);
+		let retorno=0;
+		while(reducido>=1){
+			reducido = reducido/2;
 		}
-		let retorno= Math.round(reducido * this.get_m());
-		if(retorno==this.get_m()){
-			retorno=retorno-1;
+		retorno= Math.round( reducido * parseInt(this.m));
+		if(parseInt(retorno)==this.get_m()){
+			retorno=parseInt(retorno)-1;
 		}
-		return (retorno);
+		return (parseInt(retorno));
 	}
 	FuncionMultiplicacion=(k)=>{
 		let a = 0.1625277911;
@@ -110,9 +111,11 @@ class HashAbierta{
 		this.Rehashing("Division");
 	}
 	InsertarSimple=(k)=>{
-		let valorsimple = this.FuncionSimple(k);
+		console.log(k);
+		let valorsimple = this.FuncionSimple(parseInt(k));
 		if(this.arrreglo[valorsimple]!=-1){
 			this.arrreglo[valorsimple].push(k);
+			//let valordearreglo = this.arrreglo[valorsimple];
 			//this.arrreglo[valorsimple] = valordearreglo.push(k);
 			this.insertados++;
 		}else{
@@ -313,5 +316,56 @@ class HashAbierta{
 		}
 		
 	}
+	setDataSet = () => { // Esto Genera los nodos de Vis.
+		var dotNode = [];
+		var dotEdges = [];
+		let contador = 0
+		for(let i=0;i<this.get_sizearreglo();i++){
+			dotNode.push({id:i, label: "/", level:0});
+			if(i+1<this.arrreglo.length){
+				dotEdges.push({from:i, to:i+1, arrows: "to"});
+			}
+			contador++;
+		}
+		console.log(contador);
+		for(let i=0;i<this.get_sizearreglo();i++){
+			if(this.arrreglo[i]!=-1){
+				if(this.arrreglo[i].length>1){
+					for(let j=0;j<this.arrreglo[i].length;j++){
+						if(j==0){
+							let etiqueta=""+this.arrreglo[i][j];
+							dotNode.push({id:contador, label: etiqueta, level:j+1});
+							dotEdges.push({from:i, to:contador, arrows: "to"});
+							contador++;
+							if((j+1)<=this.arrreglo[i].length){
+								let etiqueta=""+this.arrreglo[i][j+1];
+								dotNode.push({id:contador, label: etiqueta, level:j+2});
+								dotEdges.push({from:contador-1, to:contador, arrows: "to"});
+								contador++;
+							}
+						}else{
+							if((j+1)<this.arrreglo[i].length){
+								let etiqueta=""+this.arrreglo[i][j+1];
+								dotNode.push({id:contador, label: etiqueta, level:j+2});
+								dotEdges.push({from:contador-1, to:contador, arrows: "to"});
+								contador++;
+							}
+						}	
+						
+					}
+					//contador++;
+				}else{
+					let etiqueta=""+this.arrreglo[i][0];
+					dotNode.push({id:contador, label: etiqueta, level:1});
+					dotEdges.push({from:i, to:contador, arrows: "to"});
+					contador++
+				}
+			}
+		}
+
+        return [dotNode,dotEdges];
+
+    } 
 
 }
+export default HashAbierta;
