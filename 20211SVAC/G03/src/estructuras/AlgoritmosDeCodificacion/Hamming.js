@@ -61,6 +61,58 @@ y otro que sera la referencia de que dato y que potencia estamos usando */
         
     }
 
+     ObtenerHamming(Potencia,tamArreglo){
+        let potenciaIndice = 1;// Sirve para denominar los simbolos P de cada arreglo
+        for(let i =0;  i<Potencia; i++){
+            let arregloNuevo = [];            
+            let refPotencia =1;// Sirve como referencia de las posiciones de cada potencia en la tabla
+            let contadorPares = 0;
+            
+            for(let j =0; j<= tamArreglo; j++){
+                if(j == 0){
+                    arregloNuevo[0] = "p" + potenciaIndice;
+                }else if(j == potenciaIndice){                    
+                    let contadorUnos = 0 // cuenta el numero de unos                    
+                    let contadorInsercion = j /* donde se colocan los valores
+                    dependiendo de que fila de la tabla se lea*/
+                    while(contadorInsercion<= tamArreglo){
+                        let contadorRelleno = 0
+                        while(contadorRelleno < potenciaIndice){
+                            if(contadorInsercion <= tamArreglo){
+                                arregloNuevo[contadorInsercion]= this.tabla[0][contadorInsercion];
+                                
+                                if(this.tabla[0][contadorInsercion] == "1"){
+                                    contadorUnos++;                                
+                                }                                                            
+                            }
+                            contadorRelleno++;
+                            contadorInsercion++;                            
+                        }
+                        contadorInsercion += potenciaIndice;
+                    }
+                    if(contadorUnos%2 == 0){
+                        arregloNuevo[j]= this.tabla[0][j] ="0";                         
+                    }else{
+                        arregloNuevo[j]= this.tabla[0][j] ="1";
+                        
+                    }                  
+                }    
+                
+
+            }
+            refPotencia *= 2;
+            potenciaIndice *=2
+            this.tabla.push(arregloNuevo); 
+        }
+
+    }
+       
+
+
+
+
+
+    }
 
 
 
