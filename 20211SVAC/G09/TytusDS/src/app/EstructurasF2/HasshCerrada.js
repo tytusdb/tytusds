@@ -6,8 +6,16 @@ var checkBoxCerradaDivision = false;
 var checkBoxMultiplicacion = false;
 var checkBoxCerradaCuadratica = false;
 var checkBoxCerradaDobleHash = false;
-
-
+var categoriaCerrada;
+var nombreCerrada;
+var tamanoCerrada;
+var minimoCerrada;
+var maxicoCerrada;
+var funcionCerrada;
+var pruebaCerrada;
+var animacionCerrada;
+var ListaFinal = [];
+var ListaParaGuardar = [];
 function checkCerradaSimple(){
     if(checkBoxHashCerradaSimple == true){
         checkBoxHashCerradaSimple = false;
@@ -126,6 +134,7 @@ class hash {
     rehashing(){
         console.log("entrando a rehashinkg")
         console.log(this.areglo+"  "+ this.n/this.m)
+        ListaFinal = this.areglo;
         if((this.n*100/this.m)>=this.max){  
          console.log(this.n*100/this.m)
          var temp = this.areglo
@@ -153,7 +162,10 @@ class hash {
         let contador = 0;
         while(this.areglo[i] != -1){
             if(contador>this.areglo.length){
-                i++
+                i=0
+                while(this.areglo[i] != -1){
+                    i++
+                }
             }
             contador++
             i = this.pruebaHash(i,contador);
@@ -167,6 +179,7 @@ class hash {
     
    rehashingString(){
        console.log(this.areglo+"  "+ this.n/this.m)
+       ListaFinal = this.areglo;
        if((this.n*100/this.m)>=this.max){  
         console.log(this.n*100/this.m)
         var temp = this.areglo
@@ -175,6 +188,7 @@ class hash {
         console.log(this.n)
         console.log(this.min)
         this.m = this.n*100/this.min
+        this.m = Math.trunc(this.m)
         this.init()
         this.n = 0
         console.log(mprev)
@@ -216,10 +230,16 @@ class hash {
     funcionHashString(y){
         if(checkBoxCerradaDivision==true){
             var contador = 0;
+            console.log("dato de dibision: "+y)
             for(var h in y){
             // console.log(data.charCodeAt(k));
                 contador = contador + y.charCodeAt(h);
+                console.log("el assci de division es "+ y.charCodeAt(h) )
             }
+
+            console.log("Contador division "+contador)
+            console.log("tamano division "+this.m)
+            console.log("division "+contador%this.m)
             return contador%this.m
         }
         if(checkBoxMultiplicacion==true){
@@ -263,16 +283,26 @@ class hash {
             return ((o)%this.m)
         }
         if(checkBoxCerradaDobleHash===true){
-            
+            let w
+            let primer = primerhash(k,this.m)
+            let segundo = segundohas(k,this.m)
+            let dobleHash = (primer)%this.m
+            return dobleHash
         }
-       
+        function primerhash(k,m){
+            let o = k+c*c
+            return ((o)%m)
+        }
+        function segundohas(k,m){
+            return ((k+1)%m)
+        }
        
     }
 
 }
 
 let p = new hash();
-p.hash(5,20,80);
+p.hash(20,20,80);
 //p.insertar(5);
 //p.insertar(5);
 //p.insertar(5);
@@ -291,5 +321,138 @@ function insertarHashCerrada(data){
 }
 
 
+function guardarCerrada(event) {
+    //console.log(event)
+    var file = event.target.files[0];
+    //console.log(file)
+    var reader = new FileReader();
+    reader.onload = function(event) {
+      // El texto del archivo se mostrará por consola aquí
+     // console.log(event.target.result)
+      let doc = JSON.parse(event.target.result);
+      //console.log(doc)
 
+      for (var key in doc) {
+        //console.log('name=' + key + ' value=' + doc[key]);
+        if(key=='categoria'){
+            categoriaCerrada = doc[key]
+            console.log(categoria)
+        }
+        if(key=='m'){
+            tamanoCerrada = doc[key];
+            console.log(tamanoCerrada);
+        }
+        if(key=='nombre'){
+            nombreCerrada = doc[key]
+            console.log(nombre)
+        }
+        if(key=='minimo'){
+            minimoCerrada = doc[key]
+            console.log(minimoCerrada)
+        }
+        if(key=='maximo'){
+            maxicoCerrada = doc[key]
+            console.log(maxicoCerrada)
+        }
+        if(key=='funcion'){
+            funcionCerrada = doc[key]
+            if(funcionCerrada == 'Multiplicacion'){
+                checkBoxMultiplicacion = true;
+            }
+            if(funcionCerrada == 'Division'){
+                checkBoxCerradaDivision = true;
+            }
+            if(funcionCerrada== 'Simple')
+                checkBoxHashCerradaSimple = true;
+            console.log(funcionCerrada)
+        }
+        if(key=='prueba'){
+            pruebaCerrada = doc[key]
+            if(pruebaCerrada=='Doble'){
+                checkBoxCerradaDobleHash=true;
+            }
+            if(pruebaCerrada=='Lineal'){
+                checkBoxHashCerradaLineal=true;
+            }
+            if(pruebaCerrada=='Cuadratica'){
+                checkBoxCerradaCuadratica=true;
+            }
+            console.log(pruebaCerrada)
+            console.log("check Simple"+checkBoxHashCerradaSimple)
+            console.log("check Multiplicacion"+checkBoxMultiplicacion)
+            console.log("check Division "+checkBoxCerradaDivision)
+            console.log("check Lineal"+checkBoxHashCerradaLineal)
+            console.log("check doble"+checkBoxCerradaDobleHash)
+            console.log("check Cuadratica"+checkBoxCerradaCuadratica)
+            console.log(tamanoCerrada)
+            console.log(minimoCerrada)
+            console.log(maxicoCerrada)
+            p.hash(tamanoCerrada,minimoCerrada,maxicoCerrada)
+        }
+        if(key=='animacion'){
+            animacionCerrada = doc[key]
+            console.log(animacionCerrada)
+        }
+        if(key=='valores'){
+            //console.log(doc[key].length)
+            for (var k in doc[key]){
+                console.log(doc[key][k]);
+                insertarHashCerrada(doc[key][k]);
+            }
+        }
+        //console.log(key)
+     }
+     
 
+    };
+    
+    reader.readAsText(file);
+}//guardar archivo
+function quitarUno(){
+    
+    for(w in ListaFinal){
+        if(ListaFinal[w] != -1 || ListaFinal[w] != '-1'){
+            ListaParaGuardar.push(ListaFinal[w])
+        }
+    }
+    return ListaParaGuardar
+}
+function eliminarHash(k){
+    if(checkBoxHashCerradaString==true){
+        for(w in ListaFinal){
+            if(ListaFinal[w] == k){
+                ListaFinal[w] = -1;
+            }
+        }
+    }
+    console.log("Objeto Eliminado "+ListaFinal)
+}
+
+function BuscarHash(k){
+    if(checkBoxHashCerradaString==true){
+        for(w in ListaFinal){
+            if(ListaFinal[w] == k){
+                console.log("El Elemento "+ListaFinal[w]+ " Encontrado en la posicion: "+ w);
+            }
+        }
+    }
+}
+
+function downloadCerrada(filename, text) {
+    console.log("LISTA PARA GUARDAR: "+quitarUno())
+  
+    var element = document.createElement('a');
+    let doc = JSON.stringify({ "categoria": categoriaCerrada, 'nombre': nombreCerrada, 'tamaño':tamanoCerrada, 'minimo':minimoCerrada, 'maximo': maxicoCerrada, 'funcion': funcionCerrada
+    ,'prueba': pruebaCerrada, 'animacion': animacionCerrada, 'valores': quitarUno() });
+    
+    //console.log(listSimple.print())
+    element.setAttribute('href', 'data:json,' + doc);
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+}
