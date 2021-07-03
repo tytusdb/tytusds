@@ -418,23 +418,25 @@ function quitarUno(){
     return ListaParaGuardar
 }
 function eliminarHash(k){
-    if(checkBoxHashCerradaString==true){
+   
         for(w in ListaFinal){
             if(ListaFinal[w] == k){
                 ListaFinal[w] = -1;
+                break;
             }
         }
-    }
+   
     console.log("Objeto Eliminado "+ListaFinal)
 }
 
 function BuscarHash(k){
-    if(checkBoxHashCerradaString==true){
+    
         for(w in ListaFinal){
             if(ListaFinal[w] == k){
                 console.log("El Elemento "+ListaFinal[w]+ " Encontrado en la posicion: "+ w);
+                break;
             }
-        }
+        
     }
 }
 
