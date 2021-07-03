@@ -41,6 +41,7 @@ class MatrizDispersa extends Component {
 			text: '',
 			textX: '',
 			textY: '',
+			estado: '',
 			dato_actualizado: '',
 			fileName: '',
 			fileContent: '',
@@ -193,6 +194,18 @@ class MatrizDispersa extends Component {
 		console.log("Guardar :c")
 	}
 
+	handleCabecera = () => {
+		matrizDispersa.desactivarEncabezado(this.state.estado)
+		getNodes = new DataSet(matrizDispersa.setNodesDataSet());
+			getEdges = new DataSet(matrizDispersa.setEdgesDataSet());
+			data = {
+				nodes: getNodes,
+				edges: getEdges
+			}
+			
+			this.network = new Network(this.appRef.current, data, options);
+	}
+
 
 	render() {
 		
@@ -233,11 +246,17 @@ class MatrizDispersa extends Component {
 				</div>
 			</div>
 			<div className="row">
-				<div className="col-md-2" style={{marginLeft: 1 + 'em'}}>
+				<div className="col-md-1" style={{marginLeft: 1 + 'em'}}>
 					<input type="text" name="textX" className="form-control" placeholder="Posicion: X" id="InputCola" value={this.state.textX} onChange={this.handleInputChange}></input>
 				</div>
-				<div className="col-md-2" style={{marginLeft: 1 + 'em'}}>
+				<div className="col-md-1" style={{marginLeft: 1 + 'em'}}>
 					<input type="text" name="textY" className="form-control" placeholder="Posicion: Y" id="InputCola" value={this.state.textY} onChange={this.handleInputChange}></input>
+				</div>
+				<div className="col-md-1">
+					<input type="text" name="estado" className="form-control" placeholder="True/False" id="InputCola" value={this.state.estado} onChange={this.handleInputChange}></input>
+				</div>
+				<div className="col-md-1">
+					<button type="button" className="btn btn-danger" onClick={() => this.handleCabecera()} >Cabecera</button>
 				</div>
 				<div className="col-md-1">
 					<button type="button" className="btn btn-danger" onClick={() => this.handleDelete()} >Eliminar</button>

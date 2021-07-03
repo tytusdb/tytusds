@@ -19,6 +19,7 @@ import ArbolBPlus from './Componentes/Paginas/Arbolbplus';
 import ArbolMerkle from './Componentes/Paginas/Arbolmerkle';
 import MatrizDispersa from './Componentes/Paginas/MatrizDispersa';
 import TablaHashAbierta from './Componentes/Paginas/HashAbierta';
+import Compuesta from './Componentes/Paginas/Compuesta'
 
 
 
@@ -45,6 +46,7 @@ function App() {
         <Route path='/Arbolbplus' component={ArbolBPlus} />
         <Route path='/Arbolmerkle' component={ArbolMerkle} />
         <Route path='/MatrizDispersa' component={MatrizDispersa} />
+        <Route path='/Compuesta' component={Compuesta} />
       </Switch>
     </Router>
   );

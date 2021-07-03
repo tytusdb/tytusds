@@ -142,5 +142,5 @@ class ListaHorizontal {
 
 }
 
-// export default ListaHorizontal;
-module.exports = ListaHorizontal;
+export default ListaHorizontal;
+// module.exports = ListaHorizontal;
