@@ -6,9 +6,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <link rel="stylesheet" href="../static/css/templates.css">
 </head>
-<body style="overflow: hidden;">
+<body>
     <nav class="navbar navbar-light" style="background-color: rgb(48, 71, 94)">
-        <a class="navbar-toggler" href="https://diego1399.github.io/tytusds/20211SVAC/G10/index.html" style="border: 1px solid rgb(0, 59, 148);">
+        <a class="navbar-toggler" href="https://diego1399.github.io/tytusds/20211SVAC/G10/index.html" style="border: 1px solid rgb(34, 40, 49);">
             <span class="navbar-toggler-icon"></span>
         </a>
         <h1>Grafo no Dirigido</h1>
@@ -27,8 +27,8 @@
             </div>
 
             <div class="row tablero">
-                <div class="col-6"><button class="boton" id="agregar">Agregar nodo</button></div>
-                <div class="col-6"><button class="boton" id="agregararista">Agregar arista</button></div>
+                <div class="col-6"><button class="boton" id="agregar" style="font-size: small;">Agregar nodo</button></div>
+                <div class="col-6"><button class="boton" id="agregararista" style="font-size: small;">Agregar arista</button></div>
                 
             </div>
             <div class="row">
@@ -37,10 +37,12 @@
                 
                 <div class="col-6 align-self-end"><button class="boton" id="eliminar" >Eliminar</button></div>
                 <div class="col-6 align-self-end"><button class="boton" id="limpiar" style="background-color: rgb(70, 70, 180); color: white">Limpiar</button></div>
-                <div class="col-6 align-self-end"><button class="boton" id="recorridop" >Recorrido Profundidad</button></div>
-                <div class="col-6 align-self-end"><button class="boton" id="recorridoa" >Recorrido Anchura</button></div>
-                <div class="col-6 align-self-end"><button class="boton" id="busquedap" >Búsqueda Profundidad</button></div>
-                <div class="col-6 align-self-end"><button class="boton" id="busquedaa" >Búsqueda Anchura</button></div>
+                <div class="col-6 align-self-end"><button class="boton" id="recorridop" style="font-size: small;">Recorrido Profundidad</button></div>
+                <div class="col-6 align-self-end"><button class="boton" id="recorridoa" style="font-size: small;">Recorrido Anchura</button></div>
+                <div class="col-6 align-self-end"><button class="boton" id="busquedap" style="font-size: small;">Búsqueda Profundidad</button></div>
+                <div class="col-6 align-self-end"><button class="boton" id="busquedaa" style="font-size: small;">Búsqueda Anchura</button></div>
+                <div class="col-6 align-self-end"><button class="boton" id="costouniforme" style="font-size: small;">Costo uniforme</button></div>
+                <div class="col-6 align-self-end"><button class="boton" id="arbolminimo" style="font-size: small;">Árbol mínimo</button></div>
             </div>
             
             <div class="row archivo">
@@ -66,14 +68,12 @@
             </div>
             <div class="row"><label id="reporte" style="font-size:large"></label></div>
         </div>
-
         <div class="col-9 columna2">
             <div class="row">
-                <div class="panel" id = 'lienzo'></div>
+                <div class="panel" id = 'lienzo' style="height: 600px;"></div>
                 <div class="navbar navbar-light" style="background-color: rgb(48, 71, 94); height: 200px"></div>
             </div>
         </div>
-        
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis-network.min.js"></script>
     <script src="scripts/grafoNoDirigido.js"></script>

@@ -165,7 +165,231 @@ class Grafo{
 
         return datos;
     }
-}
+
+    recorridoPNA(nombre = null){
+        let datos = new NodoArista();
+        if(nombre == null){
+            nombre = this.nodos[0].label;
+        }
+
+        if(this.getNodo(nombre) != null && this.nodos.length > 0){
+            let nodo;
+            for(let i = 0; i <= this.nodos.length; i++){
+                nodo = this.nodos[i];
+                if(nodo != null){
+                    datos.nodos.push({id:nodo.id,label:nodo.label.toString()});
+                }
+            }
+
+            let pila = [];
+            let hallados = [];
+            let actual = this.getNodo(nombre)
+            pila.push(actual);
+            hallados.push(actual.id);
+
+            while(hallados.length < this.nodos.length && pila.length > 0){
+                actual = pila.pop();
+                for(let i = this.aristas.length -1; i >= 0; i--){
+                    if(this.aristas[i].idA == actual.id){
+                        if(!hallados.includes(this.aristas[i].idB)){
+                            datos.aristas.push({from:this.aristas[i].idA     ,to:this.aristas[i].idB,     label:this.aristas[i].distancia.toString()});
+                            hallados.push(this.aristas[i].idB)
+                            pila.push(this.getNodoID(this.aristas[i].idB));
+                        }
+                    }else if(this.aristas[i].idB == actual.id){
+                        if(!hallados.includes(this.aristas[i].idA)){
+                            datos.aristas.push({from:this.aristas[i].idB     ,to:this.aristas[i].idA,     label:this.aristas[i].distancia.toString()});
+                            hallados.push(this.aristas[i].idA)
+                            pila.push(this.getNodoID(this.aristas[i].idA));
+                        }
+                    }
+                }
+            }
+
+
+        }
+        return datos;
+    }
+
+    recorridoANA(nombre = null){
+        let datos = new NodoArista();
+        if(nombre == null){
+            nombre = this.nodos[0].label;
+        }
+
+        if(this.getNodo(nombre) != null && this.nodos.length > 0){
+            let nodo;
+            for(let i = 0; i <= this.nodos.length; i++){
+                nodo = this.nodos[i];
+                if(nodo != null){
+                    datos.nodos.push({id:nodo.id,label:nodo.label.toString()});
+                }
+            }
+
+            let cola = [];
+            let hallados = [];
+            let actual = this.getNodo(nombre)
+            cola.push(actual);
+            hallados.push(actual.id);
+
+            while(hallados.length < this.nodos.length && cola.length > 0){
+                actual = cola.pop();
+                for(let i = 0; i < this.aristas.length -1; i++){
+                    if(this.aristas[i].idA == actual.id){
+                        if(!hallados.includes(this.aristas[i].idB)){
+                            datos.aristas.push({from:this.aristas[i].idA     ,to:this.aristas[i].idB,     label:this.aristas[i].distancia.toString()});
+                            hallados.push(this.aristas[i].idB)
+                            cola.unshift(this.getNodoID(this.aristas[i].idB));
+                        }
+                    }else if(this.aristas[i].idB == actual.id){
+                        if(!hallados.includes(this.aristas[i].idA)){
+                            datos.aristas.push({from:this.aristas[i].idB     ,to:this.aristas[i].idA,     label:this.aristas[i].distancia.toString()});
+                            hallados.push(this.aristas[i].idA)
+                            cola.unshift(this.getNodoID(this.aristas[i].idA));
+                        }
+                    }
+                }
+            }
+
+
+        }
+        return datos;
+    }
+
+    nodoBP(actual, objetivo, hallados, datos, encontrado){
+        let parametros = {hallados:hallados, datos:datos, encontrado:encontrado};
+        let candidato;
+        console.log("Actual: "+actual.label)
+
+        let i = 0;
+        while(i < this.aristas.length && !parametros.encontrado){
+            if(this.aristas[i].idA == actual.id){
+                candidato = this.getNodoID(this.aristas[i].idB)
+
+                if(!hallados.includes(this.aristas[i].idB)){
+                    if(candidato.label == objetivo){
+                        console.log(candidato.label);
+                        datos.nodos.push({id:candidato.id,  label:candidato.label.toString(),   color:{border:'#800F17',background:'#FF5854'}});
+                        datos.aristas.push({from:this.aristas[i].idA     ,to:this.aristas[i].idB,     label:this.aristas[i].distancia.toString()});
+                        hallados.push(this.aristas[i].idB);
+                        parametros.encontrado = true;
+                        return parametros;
+                    }else{
+                        datos.nodos.push({id:candidato.id,  label:candidato.label.toString()});
+                        datos.aristas.push({from:this.aristas[i].idA     ,to:this.aristas[i].idB,     label:this.aristas[i].distancia.toString()});
+                        hallados.push(this.aristas[i].idB);
+
+                        parametros = this.nodoBP(candidato, objetivo, hallados, datos, encontrado);
+                    }
+                }
+            }else if(this.aristas[i].idB == actual.id){
+                candidato = this.getNodoID(this.aristas[i].idA)
+
+                if(!hallados.includes(this.aristas[i].idA)){
+                    if(candidato.label == objetivo){
+                        console.log(candidato.label);
+                                
+                        datos.nodos.push({id:candidato.id,  label:candidato.label.toString(),   color:{border:'#800F17',background:'#FF5854'}});
+                        datos.aristas.push({from:this.aristas[i].idB     ,to:this.aristas[i].idA,     label:this.aristas[i].distancia.toString()});
+                        hallados.push(this.aristas[i].idA);
+                        parametros.encontrado = true;
+                        return parametros;
+                    }else{
+                        datos.nodos.push({id:candidato.id,  label:candidato.label.toString()});
+                        datos.aristas.push({from:this.aristas[i].idB     ,to:this.aristas[i].idA,     label:this.aristas[i].distancia.toString()});
+                        hallados.push(this.aristas[i].idA);
+                        
+                        parametros = this.nodoBP(candidato, objetivo, hallados, datos, encontrado);
+                    }
+                }
+            }
+            i++;
+        }
+
+        return parametros;
+    }
+
+    busquedaPNA(objetivo, nombre = null){
+        let datos = new NodoArista();
+
+        if(nombre == null){
+            nombre = this.nodos[0].label;
+        }
+
+        let primero = this.getNodo(nombre);
+        let encontrado = false;
+        let hallados = [];
+        hallados.push(primero.id);
+        datos.nodos.push({id:primero.id,label:primero.label, color:{border:'#6B5127',background:'#EBB254'}});
+
+        datos = this.nodoBP(primero, objetivo, hallados, datos, encontrado).datos;
+        return datos;
+    }
+
+    busquedaANA(objetivo, nombre = null){
+        let datos = new NodoArista();
+        if(nombre == null){
+            nombre = this.nodos[0].label;
+        }
+
+        if(this.getNodo(nombre) != null && this.nodos.length > 0){
+            let nodo;
+
+            let cola = [];
+            let hallados = [];
+            let actual = this.getNodo(nombre);
+            let encontrado = false;
+            let candidato;
+            let i;
+            
+            cola.push(actual);
+            hallados.push(actual.id);
+            datos.nodos.push({id:actual.id,label:actual.label.toString(), color:{border:'#6B5127',background:'#EBB254'}});
+            
+
+            while(hallados.length < this.nodos.length && !encontrado && cola.length > 0){
+                actual = cola.pop();
+                i = 0;
+                while(i < this.aristas.length && !encontrado){
+                    if(this.aristas[i].idA == actual.id){
+                        if(!hallados.includes(this.aristas[i].idB)){
+                            candidato = this.getNodoID(this.aristas[i].idB)
+                            if(candidato.label == objetivo){
+                                
+                                datos.nodos.push({id:candidato.id,  label:candidato.label.toString(),   color:{border:'#800F17',background:'#FF5854'}});
+                                datos.aristas.push({from:this.aristas[i].idA     ,to:this.aristas[i].idB,     label:this.aristas[i].distancia.toString()});
+                                hallados.push(this.aristas[i].idB)
+                                cola.unshift(candidato);
+                                encontrado = true
+                            }else{
+                                datos.nodos.push({id:candidato.id,  label:candidato.label.toString()});
+                                datos.aristas.push({from:this.aristas[i].idA     ,to:this.aristas[i].idB,     label:this.aristas[i].distancia.toString()});
+                                hallados.push(this.aristas[i].idB)
+                                cola.unshift(candidato);
+                            }
+                        }
+                    }else if(this.aristas[i].idB == actual.id){
+                        candidato = this.getNodoID(this.aristas[i].idA)
+                        if(candidato.label == objetivo){
+                            datos.nodos.push({id:candidato.id,  label:candidato.label.toString(),   color:{border:'#800F17',background:'#FF5854'}});
+                            datos.aristas.push({from:this.aristas[i].idB     ,to:this.aristas[i].idA,     label:this.aristas[i].distancia.toString()});
+                            hallados.push(this.aristas[i].idA)
+                            cola.unshift(candidato);
+                            encontrado = true
+                        }
+                        if(!hallados.includes(this.aristas[i].idA)){
+                            datos.nodos.push({id:candidato.id,  label:candidato.label.toString()});
+                            datos.aristas.push({from:this.aristas[i].idB     ,to:this.aristas[i].idA,     label:this.aristas[i].distancia.toString()});
+                            hallados.push(this.aristas[i].idA)
+                            cola.unshift(candidato);
+                        }
+                    }
+                    i++;
+                }
+            }
+        return datos;
+    }
+}}
 
 class NodoArista{
     constructor(){
@@ -193,6 +417,15 @@ const reporte = document.getElementById('reporte');
 const guardar = document.getElementById('guardar');
 const cargar = document.getElementById('cargar');
 const archivo = document.getElementById('file');
+
+const recorridoProfundidad = document.getElementById('recorridop');
+const recorridoAnchura = document.getElementById('recorridoa');
+const busquedaProfundidad = document.getElementById('busquedap');
+const busquedaAnchura = document.getElementById('busquedaa');
+const costoUniforme = document.getElementById('costouniforme');
+const arbolMinimo = document.getElementById('arbolminimo');
+
+
 let entrada;
 
 agregar.addEventListener("click", (e) =>{
@@ -263,17 +496,19 @@ buscar.addEventListener("click", (e) =>{
     if(nodoUno.value != ''){
         if(grafo.getNodo(nodoUno.value) != null){
             reporte.innerHTML = 'Se resaltó el nodo "'+nodoUno.value+'" en el grafo.'
-            graficaBuscar(grafo, nodoUno.value);
+            graficaGrafo(grafo,"buscar", nodoUno.value);
         }else{
             reporte.innerHTML = 'El nodo "'+nodoUno.value+'" no existe en el grafo.'
         }
     }else if(nodoDos.value != ''){
         if(grafo.getNodo(nodoDos.value) != null){
             reporte.innerHTML = 'Se resaltó el nodo "'+nodoUno.value+'" en el grafo.'
-            graficaBuscar(grafo, nodoDos.value);
+            graficaGrafo(grafo,"buscar", nodoDos.value);
         }else{
             reporte.innerHTML = 'El nodo no existe en el grafo.'
         }
+    }else{
+        reporte.innerHTML = 'Por favor escribe un nodo para buscar.';
     }
 })
 
@@ -293,9 +528,145 @@ archivo.addEventListener('change', () => {
     reporte.innerHTML = 'Se cargó el archivo con éxito'
 })
 
+recorridoProfundidad.addEventListener("click", (e) =>{
+    e.preventDefault
+    if(grafo.nodos.length > 0){
+        if(nodoUno.value != ''){
+            graficaGrafo(grafo, "recorridop", nodoUno.value);
+            reporte.innerHTML = 'Mostrando el recorrido por profundidad desde el nodo "'+nodoUno.value+'".'
+        }else if(nodoDos.value != ''){
+            graficaGrafo(grafo, "recorridop", nodoDos.value);
+            reporte.innerHTML = 'Mostrando el recorrido por profundidad desde el nodo "'+nodoDos.value+'".'
+        }else{
+            graficaGrafo(grafo, "recorridop");
+            reporte.innerHTML = 'Mostrando el recorrido por profundidad desde el nodo "'+grafo.nodos[0].label+'".'
+        }
+        
+    }else{
+        reporte.innerHTML = 'El grafo no tiene nodos.'
+    }
+})
+
+recorridoAnchura.addEventListener("click", (e) =>{
+    e.preventDefault
+    if(grafo.nodos.length > 0){
+        if(nodoUno.value != ''){
+            graficaGrafo(grafo, "recorridoa", nodoUno.value);
+            reporte.innerHTML = 'Mostrando el recorrido por anchura desde el nodo "'+nodoUno.value+'".'
+        }else if(nodoDos.value != ''){
+            graficaGrafo(grafo, "recorridoa", nodoDos.value);
+            reporte.innerHTML = 'Mostrando el recorrido por anchura desde el nodo "'+nodoDos.value+'".'
+        }else{
+            graficaGrafo(grafo, "recorridoa");
+            reporte.innerHTML = 'Mostrando el recorrido por anchura desde el nodo "'+grafo.nodos[0].label+'".'
+        }
+        
+    }else{
+        reporte.innerHTML = 'El grafo no tiene nodos.';
+    }
+})
+
+busquedaProfundidad.addEventListener("click", (e) =>{
+    e.preventDefault
+    if(grafo.nodos.length > 0){
+        if(nodoUno.value != ''){
+            if(nodoDos.value != ''){
+                if(grafo.getNodo(nodoDos.value) != null && grafo.getNodo(nodoUno.value) != null){
+                    graficaGrafo(grafo, "busquedap", nodoDos.value, nodoUno.value);
+                    reporte.innerHTML = 'Mostrando búsqueda por profundidad de "'+nodoDos.value+'" desde "'+nodoUno.value+'".';
+                }else{
+                    reporte.innerHTML = 'Uno o dos nodos no están en el grafo.';
+                }
+            }else{
+                if(grafo.getNodo(nodoUno.value) != null){
+                    graficaGrafo(grafo, "busquedap", nodoUno.value);
+                    reporte.innerHTML = 'Mostrando búsqueda por profundidad de "'+nodoUno.value+'" desde "'+grafo.nodos[0].label+'".';
+                }else{
+                    reporte.innerHTML = 'El nodo no está en el grafo.';
+                }
+            }
+        }else if(nodoDos.value != ''){
+            if(grafo.getNodo(nodoUno.value) != null){
+                graficaGrafo(grafo, "busquedap", nodoDos.value);
+                reporte.innerHTML = 'Mostrando búsqueda por profundidad de "'+nodoDos.value+'" desde "'+grafo.nodos[0].label+'".';
+            }else{
+                reporte.innerHTML = 'El nodo no está en el grafo.';
+            }
+        }else{
+            reporte.innerHTML = 'Por favor escribe un nodo para buscar.';
+        }
+    }else{
+        reporte.innerHTML = 'El grafo no tiene nodos.';
+    }
+})
+
+busquedaAnchura.addEventListener("click", (e) =>{
+    e.preventDefault
+    if(grafo.nodos.length > 0){
+        if(nodoUno.value != ''){
+            if(nodoDos.value != ''){
+                if(grafo.getNodo(nodoDos.value) != null && grafo.getNodo(nodoUno.value) != null){
+                    graficaGrafo(grafo, "busquedaa", nodoDos.value, nodoUno.value);
+                    reporte.innerHTML = 'Mostrando búsqueda por anchura de "'+nodoDos.value+'" desde "'+nodoUno.value+'".';
+                }else{
+                    reporte.innerHTML = 'Uno o dos nodos no están en el grafo.';
+                }
+            }else{
+                if(grafo.getNodo(nodoUno.value) != null){
+                    graficaGrafo(grafo, "busquedaa", nodoUno.value);
+                    reporte.innerHTML = 'Mostrando búsqueda por anchura de "'+nodoUno.value+'" desde "'+grafo.nodos[0].label+'".';
+                }else{
+                    reporte.innerHTML = 'El nodo no está en el grafo.';
+                }
+            }
+        }else if(nodoDos.value != ''){
+            if(grafo.getNodo(nodoUno.value) != null){
+                graficaGrafo(grafo, "busquedaa", nodoDos.value);
+                reporte.innerHTML = 'Mostrando búsqueda por anchura de "'+nodoDos.value+'" desde "'+grafo.nodos[0].label+'".';
+            }else{
+                reporte.innerHTML = 'El nodo no está en el grafo.';
+            }
+        }else{
+            reporte.innerHTML = 'Por favor escribe un nodo para buscar.';
+        }
+    }else{
+        reporte.innerHTML = 'El grafo no tiene nodos.';
+    }
+})
+
+costoUniforme.addEventListener("click", (e) =>{
+    e.preventDefault
+    if(grafo.nodos.length > 0){
+        if(nodoUno.value != ''){
+            graficaGrafo(grafo, "recorridop", nodoUno.value);
+        }else if(nodoDos.value != ''){
+            graficaGrafo(grafo, "recorridop", nodoDos.value);
+        }else{
+            graficaGrafo(grafo, "recorridop");
+        }
+    }else{
+        reporte.innerHTML = 'El grafo no tiene nodos.';
+    }
+})
+
+arbolMinimo.addEventListener("click", (e) =>{
+    e.preventDefault
+    if(grafo.nodos.length > 0){
+        if(nodoUno.value != ''){
+            graficaGrafo(grafo, "recorridop", nodoUno.value);
+        }else if(nodoDos.value != ''){
+            graficaGrafo(grafo, "recorridop", nodoDos.value);
+        }else{
+            graficaGrafo(grafo, "recorridop");
+        }
+    }else{
+        reporte.innerHTML = 'El grafo no tiene nodos.';
+    }
+})
+
 cargar.addEventListener("click", (e) => {
     e.preventDefault()
-    let valores = entrada["valores"]
+    let valores = entrada["valores"];
     let listaA = null;
     for (let i = 0; i < valores.length; i++) {
         grafo.agregar(valores[i].vertice.toString());
@@ -355,11 +726,36 @@ function download(filename, text) {
     document.body.removeChild(element);
 }
 
-function graficaGrafo(grafo){
-    let lista = new NodoArista();
+function graficaGrafo(grafo,tipo = null,label = null, labelB = null){
+    let lista = null;
 
-    lista = grafo.devolverNodosAristas();
-
+    switch(tipo){
+        case "buscar":
+            lista = grafo.devolverNABuscar(label);
+            break;
+        case "recorridop":
+            lista = grafo.recorridoPNA(label);
+            break;
+        case "recorridoa":
+            lista = grafo.recorridoANA(label);
+            break;
+        case "busquedap":
+            lista = grafo.busquedaPNA(label, labelB);
+            break;
+        case "busquedaa":
+            lista = grafo.busquedaANA(label, labelB);
+            break;
+        case "arbolminimo":
+            lista = grafo.arbolMin(label);
+            break;
+        case "costouniforme":
+            lista = grafo.costoUni(label,labelB);
+            break;
+        default:
+            lista = grafo.devolverNodosAristas();
+            break;
+    }
+    
     let nodos = new vis.DataSet(lista.nodos);
     let aristas = new vis.DataSet(lista.aristas);
 
@@ -367,25 +763,6 @@ function graficaGrafo(grafo){
         nodes: nodos,
         edges: aristas
     };
-
-    let opciones = {physics: false};
-
-    let grafica = new vis.Network(lienzo, datos, opciones);
-}
-
-function graficaBuscar(grafo, label){
-    let lista = new NodoArista();
-
-    lista = grafo.devolverNABuscar(label);
-
-    let nodos = new vis.DataSet(lista.nodos);
-    let aristas = new vis.DataSet(lista.aristas);
-
-    let datos = {
-        nodes: nodos,
-        edges: aristas
-    };
-    console.log(datos);
 
     let opciones = {physics: false};
 
