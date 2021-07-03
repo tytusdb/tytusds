@@ -113,7 +113,22 @@ class ListaAdyacencia{
         this.inicio = inicio
         this.final = final
     }
-
+    
+    
+    //Obtencion de Nodos o Vertices para validacion booleana
+    getVerticeNoDirigido(dato){
+        let aux = this.ListaAdyacencia.cabeza
+        while(aux!= null){
+            if (aux.dato.dato == dato){
+                return aux.dato
+            }
+            aux= aux.siguiente
+        }
+        if(this.ListaAdyacencia.size == 0){
+            return dato
+        }
+        return null
+    }
 
 
 
