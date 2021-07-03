@@ -40,6 +40,7 @@ class TablaHashCerrada extends Component {
 		super(props);
 		this.state = {
 			opcion: 'Simple',
+			modo: 'Lineal',
 			tamanio: '',
 			minimo: '',
 			maximo: '',
@@ -93,26 +94,26 @@ class TablaHashCerrada extends Component {
 		}
 		if(this.state.opcion=="Simple"){
 			if(esentero==true){
-				tablahash.InsertarSimple(parseInt(this.state.text));
+				tablahash.InsertarSimple(parseInt(this.state.text),this.state.modo);
 			}else{
-				tablahash.InsertarSimple(this.state.text);
+				tablahash.InsertarSimple(this.state.text,this.state.modo);
 			}
 			getNodes = new DataSet(tablahash.setDataSet()[0]);
 			getEdges = new DataSet(tablahash.setDataSet()[1]);
 		}else if(this.state.opcion=="Division"){
 			if(esentero==true){
-				tablahash.InsertarDivision(parseInt(this.state.text));
+				tablahash.InsertarDivision(parseInt(this.state.text),this.state.modo);
 			}else{
-				tablahash.InsertarDivision(this.state.text);
+				tablahash.InsertarDivision(this.state.text,this.state.modo);
 			}
 			getNodes = new DataSet(tablahash.setDataSet()[0]);
 			getEdges = new DataSet(tablahash.setDataSet()[1]);
 			console.log("Div");
 		}else if(this.state.opcion=="Multiplicacion"){
 			if(esentero==true){
-				tablahash.InsertarMultiplicacion(parseInt(this.state.text));
+				tablahash.InsertarMultiplicacion(parseInt(this.state.text),this.state.modo);
 			}else{
-				tablahash.InsertarMultiplicacion(this.state.text);
+				tablahash.InsertarMultiplicacion(this.state.text,this.state.modo);
 			}
 			getNodes = new DataSet(tablahash.setDataSet()[0]);
 			getEdges = new DataSet(tablahash.setDataSet()[1]);
@@ -135,26 +136,26 @@ class TablaHashCerrada extends Component {
 		}
 		if(this.state.opcion=="Simple"){
 			if(esentero==true){
-				tablahash.EliminarSimple(parseInt(this.state.text));
+				tablahash.EliminarSimple(parseInt(this.state.text),this.state.modo);
 			}else{
-				tablahash.EliminarSimple(this.state.text);
+				tablahash.EliminarSimple(this.state.text,this.state.modo);
 			}
 			getNodes = new DataSet(tablahash.setDataSet()[0]);
 			getEdges = new DataSet(tablahash.setDataSet()[1]);
 		}else if(this.state.opcion=="Division"){
 			if(esentero==true){
-				tablahash.EliminarDivision(parseInt(this.state.text));
+				tablahash.EliminarDivision(parseInt(this.state.text),this.state.modo);
 			}else{
-				tablahash.EliminarDivision(this.state.text);
+				tablahash.EliminarDivision(this.state.text,this.state.modo);
 			}
 			getNodes = new DataSet(tablahash.setDataSet()[0]);
 			getEdges = new DataSet(tablahash.setDataSet()[1]);
 			console.log("Div");
 		}else if(this.state.opcion=="Multiplicacion"){
 			if(esentero==true){
-				tablahash.EliminarMultiplicacion(parseInt(this.state.text));
+				tablahash.EliminarMultiplicacion(parseInt(this.state.text),this.state.modo);
 			}else{
-				tablahash.EliminarMultiplicacion(this.state.text);
+				tablahash.EliminarMultiplicacion(this.state.text,this.state.modo);
 			}
 			getNodes = new DataSet(tablahash.setDataSet()[0]);
 			getEdges = new DataSet(tablahash.setDataSet()[1]);
@@ -183,33 +184,33 @@ class TablaHashCerrada extends Component {
 		if(this.state.opcion=="Simple"){
 			if(esentero==true){
 				if(esentero2==true){
-					tablahash.Actualizar(parseInt(this.state.text),parseInt(this.state.dato_actualizado),"Simple");
+					tablahash.Actualizar(parseInt(this.state.text),parseInt(this.state.dato_actualizado),this.state.modo,"Simple");
 				}else{
-					tablahash.Actualizar(parseInt(this.state.text),this.state.dato_actualizado,"Simple");
+					tablahash.Actualizar(parseInt(this.state.text),this.state.dato_actualizado,this.state.modo,"Simple");
 				}
 			}else{
 				if(esentero2==true){
-					tablahash.Actualizar(this.state.text,parseInt(this.state.dato_actualizado),"Simple");
+					tablahash.Actualizar(this.state.text,parseInt(this.state.dato_actualizado),this.state.modo,"Simple");
 				}else{
-					tablahash.Actualizar(this.state.text,this.state.dato_actualizado,"Simple");
+					tablahash.Actualizar(this.state.text,this.state.dato_actualizado,this.state.modo,"Simple");
 				}
 			}
-			tablahash.Actualizar(this.state.text,this.state.dato_actualizado,"Simple");
+			tablahash.Actualizar(this.state.text,this.state.dato_actualizado,this.state.modo,"Simple");
 			getNodes = new DataSet(tablahash.setDataSet()[0]);
 			getEdges = new DataSet(tablahash.setDataSet()[1]);
 		}else if(this.state.opcion=="Division"){
 			if(esentero==true){
 				if(esentero2==true){
-					tablahash.Actualizar(parseInt(this.state.text),parseInt(this.state.dato_actualizado),"Division");
+					tablahash.Actualizar(parseInt(this.state.text),parseInt(this.state.dato_actualizado),this.state.modo,"Division");
 				}else{
 					console.log("DIVIVIIVIVIVI");
-					tablahash.Actualizar(parseInt(this.state.text),this.state.dato_actualizado,"Division");
+					tablahash.Actualizar(parseInt(this.state.text),this.state.dato_actualizado,this.state.modo,"Division");
 				}
 			}else{
 				if(esentero2==true){
-					tablahash.Actualizar(this.state.text,parseInt(this.state.dato_actualizado),"Division");
+					tablahash.Actualizar(this.state.text,parseInt(this.state.dato_actualizado),this.state.modo,"Division");
 				}else{
-					tablahash.Actualizar(this.state.text,this.state.dato_actualizado,"Division");
+					tablahash.Actualizar(this.state.text,this.state.dato_actualizado,this.state.modo,"Division");
 				}
 			}
 			getNodes = new DataSet(tablahash.setDataSet()[0]);
@@ -217,15 +218,15 @@ class TablaHashCerrada extends Component {
 		}else if(this.state.opcion=="Multiplicacion"){
 			if(esentero==true){
 				if(esentero2==true){
-					tablahash.Actualizar(parseInt(this.state.text),parseInt(this.state.dato_actualizado),"Multiplicacion");
+					tablahash.Actualizar(parseInt(this.state.text),parseInt(this.state.dato_actualizado),this.state.modo,"Multiplicacion");
 				}else{
-					tablahash.Actualizar(parseInt(this.state.text),this.state.dato_actualizado,"Multiplicacion");
+					tablahash.Actualizar(parseInt(this.state.text),this.state.dato_actualizado,this.state.modo,"Multiplicacion");
 				}
 			}else{
 				if(esentero2==true){
-					tablahash.Actualizar(this.state.text,parseInt(this.state.dato_actualizado),"Multiplicacion");
+					tablahash.Actualizar(this.state.text,parseInt(this.state.dato_actualizado),this.state.modo,"Multiplicacion");
 				}else{
-					tablahash.Actualizar(this.state.text,this.state.dato_actualizado,"Multiplicacion");
+					tablahash.Actualizar(this.state.text,this.state.dato_actualizado,this.state.modo,"Multiplicacion");
 				}
 			}
 			getNodes = new DataSet(tablahash.setDataSet()[0]);
@@ -246,30 +247,34 @@ class TablaHashCerrada extends Component {
 		if(isNaN(entero)){
 			esentero=false;
 		}
+		console.log("Entro Buscar");
 		if(this.state.opcion=="Simple"){
+			console.log("Simple");
 			if(esentero==true){
-				tablahash.BuscarSimple(parseInt(this.state.text));
+				getNodes = new DataSet(tablahash.setDataSetBuscar(parseInt(this.state.text))[0]);
+				getEdges = new DataSet(tablahash.setDataSetBuscar(parseInt(this.state.text))[1]);
 			}else{
-				tablahash.BuscarSimple(this.state.text);
+				getNodes = new DataSet(tablahash.setDataSetBuscar(this.state.text)[0]);
+				getEdges = new DataSet(tablahash.setDataSetBuscar(this.state.text)[1]);
 			}
-			getNodes = new DataSet(tablahash.setDataSet()[0]);
-			getEdges = new DataSet(tablahash.setDataSet()[1]);
 		}else if(this.state.opcion=="Division"){
 			if(esentero==true){
-				tablahash.BuscarDivision(parseInt(this.state.text));
+				console.log("Division");
+				getNodes = new DataSet(tablahash.setDataSetBuscar(parseInt(this.state.text))[0]);
+				getEdges = new DataSet(tablahash.setDataSetBuscar(parseInt(this.state.text))[1]);
 			}else{
-				tablahash.BuscarDivision(this.state.text);
+				getNodes = new DataSet(tablahash.setDataSetBuscar(this.state.text)[0]);
+				getEdges = new DataSet(tablahash.setDataSetBuscar(this.state.text)[1]);
 			}
-			getNodes = new DataSet(tablahash.setDataSet()[0]);
-			getEdges = new DataSet(tablahash.setDataSet()[1]);
 		}else if(this.state.opcion=="Multiplicacion"){
+			console.log("Multiplicacion");
 			if(esentero==true){
-				tablahash.BuscarMultiplicacion(parseInt(this.state.text));
+				getNodes = new DataSet(tablahash.setDataSetBuscar(parseInt(this.state.text))[0]);
+				getEdges = new DataSet(tablahash.setDataSetBuscar(parseInt(this.state.text))[1]);
 			}else{
-				tablahash.BuscarMultiplicacion(this.state.text);
+				getNodes = new DataSet(tablahash.setDataSetBuscar(this.state.text)[0]);
+				getEdges = new DataSet(tablahash.setDataSetBuscar(this.state.text)[1]);
 			}
-			getNodes = new DataSet(tablahash.setDataSet()[0]);
-			getEdges = new DataSet(tablahash.setDataSet()[1]);
 		}
 		data = {
 			nodes: getNodes,
@@ -293,13 +298,13 @@ class TablaHashCerrada extends Component {
 			for (var i=0; i < dataJson.valores.length; i++) {
 				if(dataJson.funcion=="Simple"){
 					console.log(dataJson.valores[i]);
-					tablahash.InsertarSimple(dataJson.valores[i].toString())
+					tablahash.InsertarSimple(dataJson.valores[i].toString(),dataJson.prueba.toString());
 				}else if(dataJson.funcion=="Division"){
 					console.log(dataJson.valores[i]);
-					tablahash.InsertarDivision(dataJson.valores[i].toString())
+					tablahash.InsertarDivision(dataJson.valores[i].toString(),dataJson.prueba.toString());
 				}else if(dataJson.funcion=="Multiplicacion"){
 					console.log(dataJson.valores[i]);
-					tablahash.InsertarMultiplicacion(dataJson.valores[i].toString())
+					tablahash.InsertarMultiplicacion(dataJson.valores[i].toString(),dataJson.prueba.toString());
 				}
 
 			}
@@ -359,17 +364,24 @@ class TablaHashCerrada extends Component {
 				<div className="col-md-3" style={{marginLeft: 1 + 'em'}}>
 					<input type="text" name="text" className="form-control" placeholder="Ingresar Dato" id="InputCola" value={this.state.text} onChange={this.handleInputChange}></input>
 				</div>
-				<div className="col-md-3">
+				<div className="col-md-2">
 					<select type="opcion" name="opcion" className="form-select" onChange={this.handleInputChange}>
         				<option value="Simple">Simple</option>
         				<option value="Division">Division</option>
         				<option value="Multiplicacion">Multiplicacion</option>
       				</select>
       			</div>
+      			<div className="col-md-2">
+					<select type="opcion" name="modo" className="form-select" onChange={this.handleInputChange}>
+        				<option value="Lineal">Lineal</option>
+        				<option value="Cuadratica">Cuadratica</option>
+        				<option value="Doble">Doble</option>
+      				</select>
+      			</div>
 				<div className="col-md-2" style={{marginLeft: 1 + 'em'}}>
 					<input type="text" name="dato_actualizado" className="form-control" placeholder="Dato a Actualizar" id="InputCola" value={this.state.dato_actualizado} onChange={this.handleInputChange} ></input>
 				</div>
-				<div className="col-md-3">
+				<div className="col-md-2">
 					<input className="form-control" type="file" onChange={this.handleFileChange} ></input>
 				</div>
 			</div>

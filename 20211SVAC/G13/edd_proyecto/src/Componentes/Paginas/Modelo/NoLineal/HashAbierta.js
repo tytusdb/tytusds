@@ -477,8 +477,63 @@ class HashAbierta{
 		}
 
         return [dotNode,dotEdges];
-
     } 
+
+    setDataSetBuscar=(indicei,indicej,dato)=>{
+    	var dotNode = [];
+		var dotEdges = [];
+		let contador = 0
+		for(let i=0;i<this.get_sizearreglo();i++){
+			dotNode.push({id:i, label: "/", level:0});
+			if(i+1<this.arrreglo.length){
+				dotEdges.push({from:i, to:i+1, arrows: "to"});
+			}
+			contador++;
+		}
+		console.log(contador);
+		for(let i=0;i<this.get_sizearreglo();i++){
+			if(this.arrreglo[i]!=-1){
+				if(this.arrreglo[i].length>1){
+					for(let j=0;j<this.arrreglo[i].length;j++){
+						if(j==0){
+							let etiqueta=""+this.arrreglo[i][j];
+							dotNode.push({id:contador, label: etiqueta, level:j+1});
+							dotEdges.push({from:i, to:contador, arrows: "to"});
+							contador++;
+							if((j+1)<=this.arrreglo[i].length){
+								let etiqueta=""+this.arrreglo[i][j+1];
+								dotNode.push({id:contador, label: etiqueta, level:j+2});
+								dotEdges.push({from:contador-1, to:contador, arrows: "to"});
+								contador++;
+							}
+						}else{
+							if((j+1)<this.arrreglo[i].length){
+								let etiqueta=""+this.arrreglo[i][j+1];
+								dotNode.push({id:contador, label: etiqueta, level:j+2});
+								dotEdges.push({from:contador-1, to:contador, arrows: "to"});
+								contador++;
+							}
+							
+						}	
+						if((indicei==i)&&(indicej==j)&&(dato==this.arrreglo[i][j])){
+							dotEdges.push({from: contador-1, to: contador-1, value:contador,color:{color:'#ff383f'}});
+						}
+					}
+					//contador++;
+				}else{
+					let etiqueta=""+this.arrreglo[i][0];
+					dotNode.push({id:contador, label: etiqueta, level:1});
+					dotEdges.push({from:i, to:contador, arrows: "to"});
+					if((indicei==i)&&(indicej==0)&&(dato==this.arrreglo[i][0])){
+						dotEdges.push({from: contador, to: contador, value:contador,color:{color:'#ff383f'}});
+					}
+					contador++
+				}
+			}
+		}
+
+        return [dotNode,dotEdges];
+    }
 
 }
 export default HashAbierta;

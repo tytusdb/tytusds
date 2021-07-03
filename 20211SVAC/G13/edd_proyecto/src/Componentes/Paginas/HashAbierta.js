@@ -247,29 +247,53 @@ class TablaHashAbierta extends Component {
 			esentero=false;
 		}
 		if(this.state.opcion=="Simple"){
+			let indicei=0;
+			let indicej=0;
 			if(esentero==true){
-				tablahash.BuscarSimple(parseInt(this.state.text));
+				indicei=tablahash.BuscarSimple(parseInt(this.state.text))[0];
+				indicej=tablahash.BuscarSimple(parseInt(this.state.text))[1];
+				getNodes = new DataSet(tablahash.setDataSetBuscar(indicei,indicej,parseInt(this.state.text))[0]);
+				getEdges = new DataSet(tablahash.setDataSetBuscar(indicei,indicej,parseInt(this.state.text))[1]);
 			}else{
-				tablahash.BuscarSimple(this.state.text);
+				indicei=tablahash.BuscarSimple(this.state.text)[0];
+				indicej=tablahash.BuscarSimple(this.state.text)[1];
+				getNodes = new DataSet(tablahash.setDataSetBuscar(indicei,indicej,this.state.text)[0]);
+				getEdges = new DataSet(tablahash.setDataSetBuscar(indicei,indicej,this.state.text)[1]);
 			}
-			getNodes = new DataSet(tablahash.setDataSet()[0]);
-			getEdges = new DataSet(tablahash.setDataSet()[1]);
+			console.log("indicei: "+indicei);
+			console.log("indicej: "+indicej);
 		}else if(this.state.opcion=="Division"){
+			let indicei=0;
+			let indicej=0;
 			if(esentero==true){
-				tablahash.BuscarDivision(parseInt(this.state.text));
+				indicei=tablahash.BuscarDivision(parseInt(this.state.text))[0];
+				indicej=tablahash.BuscarDivision(parseInt(this.state.text))[1];
+				getNodes = new DataSet(tablahash.setDataSetBuscar(indicei,indicej,parseInt(this.state.text))[0]);
+				getEdges = new DataSet(tablahash.setDataSetBuscar(indicei,indicej,parseInt(this.state.text))[1]);
 			}else{
-				tablahash.BuscarDivision(this.state.text);
+				indicei=tablahash.BuscarDivision(this.state.text)[0];
+				indicej=tablahash.BuscarDivision(this.state.text)[1];
+				getNodes = new DataSet(tablahash.setDataSetBuscar(indicei,indicej,this.state.text)[0]);
+				getEdges = new DataSet(tablahash.setDataSetBuscar(indicei,indicej,this.state.text)[1]);
 			}
-			getNodes = new DataSet(tablahash.setDataSet()[0]);
-			getEdges = new DataSet(tablahash.setDataSet()[1]);
+			console.log("indicei: "+indicei);
+			console.log("indicej: "+indicej);
 		}else if(this.state.opcion=="Multiplicacion"){
+			let indicei=0;
+			let indicej=0;
 			if(esentero==true){
-				tablahash.BuscarMultiplicacion(parseInt(this.state.text));
+				indicei=tablahash.BuscarMultiplicacion(parseInt(this.state.text))[0];
+				indicej=tablahash.BuscarMultiplicacion(parseInt(this.state.text))[1];
+				getNodes = new DataSet(tablahash.setDataSetBuscar(indicei,indicej,parseInt(this.state.text))[0]);
+				getEdges = new DataSet(tablahash.setDataSetBuscar(indicei,indicej,parseInt(this.state.text))[1]);
 			}else{
-				tablahash.BuscarMultiplicacion(this.state.text);
+				indicei=tablahash.BuscarMultiplicacion(this.state.text)[0];
+				indicej=tablahash.BuscarMultiplicacion(this.state.text)[1];
+				getNodes = new DataSet(tablahash.setDataSetBuscar(indicei,indicej,this.state.text)[0]);
+				getEdges = new DataSet(tablahash.setDataSetBuscar(indicei,indicej,this.state.text)[1]);
 			}
-			getNodes = new DataSet(tablahash.setDataSet()[0]);
-			getEdges = new DataSet(tablahash.setDataSet()[1]);
+			console.log("indicei: "+indicei);
+			console.log("indicej: "+indicej);
 		}
 		data = {
 			nodes: getNodes,
@@ -432,4 +456,4 @@ class TablaHashAbierta extends Component {
 	}
   }
   
-  export default TablaHashAbierta;
+  export default TablaHashAbierta;s

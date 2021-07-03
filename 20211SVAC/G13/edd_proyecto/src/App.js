@@ -19,6 +19,7 @@ import ArbolBPlus from './Componentes/Paginas/Arbolbplus';
 import ArbolMerkle from './Componentes/Paginas/Arbolmerkle';
 import MatrizDispersa from './Componentes/Paginas/MatrizDispersa';
 import TablaHashAbierta from './Componentes/Paginas/HashAbierta';
+import TablaHashCerrada from './Componentes/Paginas/HashCerrada';
 import Compuesta from './Componentes/Paginas/Compuesta'
 
 
@@ -30,6 +31,7 @@ function App() {
       <Switch>
         <Route path='/' exact component={Home} />
         <Route path='/HashAbierta' exact component={TablaHashAbierta} />
+        <Route path='/HashCerrada' exact component={TablaHashCerrada} />
         <Route path='/Listasimplementeenlazada' component={ListaSE} />
         <Route path='/Listadoblementeenlazada' component={ListaDE} />
         <Route path='/Listacircularsimplementeenlazada' component={ListaCSE} />
