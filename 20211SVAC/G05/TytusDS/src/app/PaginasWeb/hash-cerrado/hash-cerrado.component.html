@@ -7,13 +7,13 @@
             <input type="text" class="form-control" placeholder="clave" [(ngModel)]="valorAgregar">
         </div>
         <div class="col-md-1">
-            <button class="btn btn-primary" (click)="agregar()">Agregar</button>
+            <button class="btn btn-primary button1" (click)="agregar()">Agregar</button>
         </div>
         <div class="col-md-1">
             <input type="text" class="form-control" placeholder="valor" [(ngModel)]="valorEliminar">
         </div>
         <div class="col-md-1">
-            <button class="btn btn-danger" [disabled]="primero" (click)="eliminar()">Eliminar</button>
+            <button class="btn btn-danger button1" [disabled]="primero" (click)="eliminar()">Eliminar</button>
         </div>
         <div class="col-md-2">
             <input type="text" class="form-control" placeholder="valor antiguo" [(ngModel)]="valorAntiguo">
@@ -22,13 +22,13 @@
             <input type="text" class="form-control" placeholder="valor nuevo" [(ngModel)]="valorActualizar">
         </div>
         <div class="col-md-1">
-            <button class="btn btn-primary" [disabled]="primero" (click)="actualizar()">Actualizar</button>
+            <button class="btn btn-primary button1" [disabled]="primero" (click)="actualizar()">Actualizar</button>
         </div>
         <div class="col-md-2">
             <input type="text" class="form-control" placeholder="buscar valor" [(ngModel)]="valorBuscar">
         </div>
         <div class="col-md-1">
-            <button class="btn btn-primary" [disabled]="primero" (click)="buscar()">Buscar</button>
+            <button class="btn btn-primary button1" [disabled]="primero" (click)="buscar()">Buscar</button>
         </div>
     </div>
     <div class="row my-3">
@@ -37,7 +37,7 @@
         </div>
         <div class="col-md-2">
             <div class="d-grid gap-2">
-                <button class="btn btn-success" [disabled]="primero" (click)="guardar()">Guardar</button>
+                <button class="btn btn-success button1" [disabled]="primero" (click)="guardar()">Guardar</button>
             </div>
         </div>
     </div>
