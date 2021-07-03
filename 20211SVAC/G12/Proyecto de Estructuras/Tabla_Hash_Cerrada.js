@@ -4,6 +4,9 @@ let list = document.getElementById('lista_hash');
 let nuevosdivs = document.getElementsByClassName('vector');
 let nodes = document.getElementsByClassName('node');
 let flechas = document.getElementsByClassName('flecha');
+let seleccion_lineal = false;
+let seleccion_cuadratica = false;
+let seleccion_hash = false;
 var indice = 0;
 let categoria = "";
 let tipo = "";
@@ -77,15 +80,47 @@ class Hash{
     }
 
     funcionHash(id){
-        let posicion = id % (this.size -1);
+        if(seleccion_lineal == true){
+            let posicion = id % (this.size);
 
-        while(this.vector[posicion] != null){
-            posicion++;
-            if(posicion > this.size){
-                posicion = posicion - this.size;
+            while(this.vector[posicion] != null){
+                posicion++;
+                if(posicion > this.size){
+                    posicion = posicion - this.size;
+                }
             }
+            return posicion;
+        }else if(seleccion_cuadratica == true){
+            let contador = 0;
+            let posicion = id % (this.size);
+            let posicion_nueva = id % (this.size);
+
+            while(this.vector[posicion] != null){
+                contador++;
+                posicion = posicion_nueva + (contador*contador);
+                if(posicion > this.size){
+                    posicion = posicion - this.size;
+                }
+            }
+            return posicion;
+        }else if(seleccion_hash == true){
+            let contador = 0;
+            let posicion = id % (this.size);
+            let posicion_nueva = id % (this.size);
+            let otra_posicion = id % (this.size);
+        
+            while(this.vector[posicion] != null){
+                contador++;
+                if(posicion == 0){
+                    break;
+                }
+                posicion = posicion_nueva + (contador*otra_posicion);
+                if(posicion > this.size){
+                    posicion = posicion - this.size;
+                }
+            }
+            return posicion;
         }
-        return posicion;
     }
 
     StringtoASCII(cadena){
@@ -261,12 +296,19 @@ function configuracion(){
 
 function insertar_nodo(){
     var dato = document.getElementById('dato_pag').value;
+    seleccion_lineal = document.getElementById('lineal').checked;
+    seleccion_cuadratica = document.getElementById('cuadratica').checked;
+    seleccion_hash = document.getElementById('doble').checked;
 
-    document.getElementById("lista_hash").innerHTML="";
-
-    tabla.insertar(tabla.StringtoASCII(dato), dato, dato);
-    tabla.graficar();
-    tabla.print();
+    if(seleccion_lineal == false && seleccion_cuadratica == false && seleccion_hash == false){
+        alert("Por favor seleccione una opcion");
+        return false;
+    }else{
+        document.getElementById("lista_hash").innerHTML="";
+        tabla.insertar(tabla.StringtoASCII(dato), dato, dato);
+        tabla.graficar();
+        tabla.print();
+    }
 }
 
 function buscar_nodo(){
@@ -328,6 +370,13 @@ async function abrirArchivo(evento){
             animacion = mydata.animacion;
             tabla = new Hash(tamaño, minimo, maximo);
             console.log(mydata);
+            if(prueba == "Lineal"){
+                seleccion_lineal = true;
+            }else if(prueba == "Cuadratica"){
+                seleccion_cuadratica = true;
+            }else if(prueba == "Doble"){
+                seleccion_hash == true;
+            }
             for(var i = 0; i<(mydata.valores).length; i++){
                 valores = mydata.valores[i];
                 console.log(valores)

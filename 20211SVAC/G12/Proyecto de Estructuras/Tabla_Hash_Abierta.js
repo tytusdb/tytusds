@@ -5,6 +5,8 @@ let nodes = document.getElementsByClassName('node');
 let nuevosdivs = document.getElementsByClassName('vector');
 let pointers = document.getElementsByClassName('pointer');
 let flechas = document.getElementsByClassName('flecha');
+let division = false;
+let multiplicacion = false;
 var indice = 0;
 let result
 let categoria = "";
@@ -49,11 +51,20 @@ class Hash{
 
     //Funcion hash con el metodo de division
     funcionHash(id){
-        let posicion = id % (this.size-1);//Este nos indica la posicion en donde estara posicionado en el array
-        if(posicion > this.size){
-            return posicion - this.size;
+        if (division == true){
+            //let posicion = id % (this.size-1);//Este nos indica la posicion en donde estara posicionado en el array
+            let posicion = id % (this.size);//Este nos indica la posicion en donde estara posicionado en el array
+            if(posicion > this.size){
+                return posicion - this.size;
+            }
+            return posicion;
+        }else if(multiplicacion == true){
+            let posicion = parseInt((this.size)*(id * 0.1625277911 % 1));
+            if(posicion > this.size){
+                return posicion - this.size;
+            }
+            return posicion;
         }
-        return posicion;
     }
 
     insertar(id, clave, valor){
@@ -79,9 +90,9 @@ class Hash{
         let factor = 0.0//Es el factor que se obtiene al evaluar nuestros elementos con el siguiente size
 
         while(factor <= this.minimo){
-            //siguiente++;
-            factor = this.elementos/siguiente;
             siguiente++;
+            factor = this.elementos/siguiente;
+            //siguiente++;
         }
         let vectorTemp = [];
         this.elementos = 0;
@@ -126,6 +137,7 @@ class Hash{
                 console.log("Indice:", null);
             }
         })
+        console.log(this.size);
     }
 
     buscar(dato){
@@ -331,12 +343,18 @@ function configuracion(){
 
 function insertar_nodo(){
     var dato = document.getElementById('dato_pag').value;
+    division = document.getElementById('division').checked;
+    multiplicacion = document.getElementById('multiplicacion').checked;
 
-    document.getElementById("lista_hash").innerHTML="";
-
-    tabla1.insertar(tabla1.StringtoASCII(dato), dato, indice);
-    tabla1.graficar();
-    tabla1.print();
+    if(division == false && multiplicacion == false){
+        alert("Por favor seleccione una opcion");
+        return false;
+    }else{
+        document.getElementById("lista_hash").innerHTML="";
+        tabla1.insertar(tabla1.StringtoASCII(dato), dato, indice);
+        tabla1.graficar();
+        tabla1.print();
+    }
 }
 
 function buscar_nodo(){
@@ -397,6 +415,12 @@ async function abrirArchivo(evento){
             prueba = mydata.prueba;
             animacion = mydata.animacion;
             tabla1 = new Hash(tamaño, minimo, maximo);
+            if(funcion == "Division"){
+                division = true;
+            }
+            if(funcion == "Multiplicacion"){
+                multiplicacion = true;
+            }
             console.log(mydata);
             for(var i = 0; i<(mydata.valores).length; i++){
                 valores = mydata.valores[i];
