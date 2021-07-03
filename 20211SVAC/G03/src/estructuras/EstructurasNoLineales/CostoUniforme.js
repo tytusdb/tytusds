@@ -246,6 +246,28 @@ class ListaAdyacencia{
         return null
     }
 
+   
+    
+    //Insercion de grafos dirigdos
+    insertar(dato, inicio, final, distancia){
+        if (this.getVertice(dato)==null){
+            let n = new Nodo(dato)
+            n.id = idNodos
+            this.ListaAdyacencia.insertar(n)
+            idNodos++
+            this.Enlazar(inicio, final, distancia)
+        }else if(this.getVertice(dato) == dato){
+            let n = new Nodo(dato)
+            n.id = idNodos
+            this.ListaAdyacencia.insertar(n)
+            idNodos++
+            this.enlazarprimero(inicio, final, distancia,final)
+        }else{
+            this.Enlazar(inicio, final, distancia)
+            console.log("Al parecer ya lo creo o es el primero")
+        }
+    }    
+
 
 
 
