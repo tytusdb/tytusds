@@ -400,8 +400,10 @@ function crearArco(){
 
 function eliminarVertice(){
     var valor = document.getElementById("valueNodo").value
-    Grafo.eliminarVertice(valor)
-    actualizarTablero()
+    if(Grafo.numeroVertice(valor) != -1){
+        Grafo.eliminarVertice(valor)
+        actualizarTablero()
+    }
     document.getElementById("valueNodo").value = ""
     document.getElementById("valueNodo2").value = ""
     document.getElementById("peso").value = ""
@@ -421,9 +423,13 @@ function actualizarVertice(){
 
 function recorrerAn(){
     var valor = document.getElementById("valueNodo").value
-    str = RecorrerAnchura(Grafo, valor)
+    var str
+    if(Grafo.numeroVertice(valor) != -1){
+        str = RecorrerAnchura(Grafo, valor)
+    }else{
+        str = "El nodo "+valor+" no existe dentro del grafo"
+    }
     document.getElementById("record").value = str
-    actualizarTablero()
     document.getElementById("valueNodo").value = ""
     document.getElementById("valueNodo2").value = ""
     document.getElementById("peso").value = ""
@@ -431,9 +437,13 @@ function recorrerAn(){
 
 function recorrerPro(){
     var valor = document.getElementById("valueNodo").value
-    str = RecorrerProfundidad(Grafo, valor)
+    var str
+    if(Grafo.nuevoVertice(valor) != -1){
+        str = RecorrerProfundidad(Grafo, valor)
+    }else{
+        str = "El nodo "+valor+" no existe dentro del grafo"
+    }
     document.getElementById("record").value = str
-    actualizarTablero()
     document.getElementById("valueNodo").value = ""
     document.getElementById("valueNodo2").value = ""
     document.getElementById("peso").value = ""
@@ -442,9 +452,12 @@ function recorrerPro(){
 function buscarAn(){
     var valor = document.getElementById("valueNodo").value
     var valor2 = document.getElementById("valueNodo2").value
-    str = buscarAnchura(Grafo, valor, valor2)
-    document.getElementById("record").value = str
-    actualizarTablero()
+    if(Grafo.numeroVertice(valor) > -1 && Grafo.numeroVertice(valor2) > -1){
+        focus()
+        setTimeout(zoomExtended, 2000)
+        var str = buscarAnchura(Grafo, valor, valor2)
+        document.getElementById("record").value = str
+    }
     document.getElementById("valueNodo").value = ""
     document.getElementById("valueNodo2").value = ""
     document.getElementById("peso").value = ""
@@ -453,12 +466,41 @@ function buscarAn(){
 function buscarPro(){
     var valor = document.getElementById("valueNodo").value
     var valor2 = document.getElementById("valueNodo2").value
-    str = buscarProfundidad(Grafo, valor, valor2)
-    document.getElementById("record").value = str
-    actualizarTablero()
+    if(Grafo.numeroVertice(valor) > -1 && Grafo.numeroVertice(valor2) > -1){
+        focus()
+        setTimeout(zoomExtended, 2000)
+        var str = buscarProfundidad(Grafo, valor, valor2)
+        document.getElementById("record").value = str
+    }
     document.getElementById("valueNodo").value = ""
     document.getElementById("valueNodo2").value = ""
     document.getElementById("peso").value = "" 
+}
+
+function focus() {
+    var valueNodo = document.getElementById("valueNodo2").value
+    let nodeId = Grafo.numeroVertice(valueNodo)
+    document.getElementById("valueNodo2").value = ""
+    var options = {
+        scale: 3.0,
+        offset: {x:0,y:0},
+        animation: {
+            duration: (1000)*(10-slider.value),
+            easingFunction: "easeOutQuint"
+        }
+    }
+    network.focus(nodeId, options);
+}
+
+function zoomExtended(){
+    var options = {
+        scale: 1.0,
+        duration: 4500,
+        offset: {x:0,y:0},
+        easingFunction: "easeOutCubic"
+    }
+
+    network.moveTo(options);
 }
 
 function descargar(){}
