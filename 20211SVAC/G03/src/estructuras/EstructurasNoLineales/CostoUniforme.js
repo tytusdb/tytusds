@@ -344,6 +344,85 @@ class ListaAdyacencia{
     }
 
 
+     //Metodo de busqueda
+    buscar(dato){
+        let bool = false
+        let aux = this.ListaAdyacencia.cabeza
+        while (aux != null){
+            if(aux.dato.dato == dato){
+                bool = true
+                console.log("El dato encontrado fue "+dato)
+                break
+            }
+            aux=aux.siguiente
+        }
+        if(bool == false){
+            console.log("No encontro nada")    
+        }
+    }
+
+    //Metodo modificar
+    modificar(datobus, datocam){
+        let bool = false
+        let aux = this.ListaAdyacencia.cabeza
+        while(aux!=null){
+            if(aux.dato.dato == datobus){
+                bool = true
+                aux.dato.dato = datocam
+                console.log("El dato modificado fue " + datobus + " a " + aux.dato.dato)
+                break
+            }
+            aux = aux.siguiente
+        }
+        if(bool == false){
+            console.log("No encontro nada")    
+        }
+        if(this.inicio == datobus){
+            this.inicio =datocam
+        }
+        if(this.final == datobus){
+            this.final = datocam
+        }
+    }
+
+    //Metodo Eliminar
+    eliminar(datelim){
+        let bool = false
+        let aux = this.ListaAdyacencia.cabeza
+        while (aux != null){
+            if(aux.dato.dato == datelim){
+                bool = true
+                this.ListaAdyacencia.eliminar(aux.dato)
+                console.log("El dato eliminado fue "+datelim)
+            }
+            let enl = aux.dato.enlaces.cabeza
+            while(enl!=null){
+                if(enl.dato.inicio.dato == datelim || enl.dato.destino.dato == datelim){
+                    aux.dato.enlaces.eliminar(enl.dato)
+                }
+                enl = enl.siguiente
+            }
+            let ady = aux.dato.adyacentes.cabeza
+            while(ady!=null){
+                if(ady.dato.dato == datelim){
+                    aux.dato.adyacentes.eliminar(ady.dato)
+                }
+                ady = ady.siguiente
+            }
+            aux = aux.siguiente
+        }
+        if(bool == false){
+            console.log("No encontro nada")    
+        }
+        if(this.inicio == datelim){
+            this.inicio = "."
+        }
+        if(this.final == datelim){
+            this.final = "."
+        }
+    }
+
+
 
 
 
