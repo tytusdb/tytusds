@@ -18,7 +18,7 @@ class EstructuraCola{
 			return false;
 		}
 	}
-	Encolar = (valor) => {
+	insertar = (valor) => {
 		let nodo = new Nodo(valor);
 		if(this.get_vacia()==true){
 			this.set_primero(nodo);
@@ -33,7 +33,7 @@ class EstructuraCola{
 		let seguir = true;
 		this.set_primero(this.get_primero().get_siguiente());
 	}
-	Buscar = (dato) =>{
+	search = (dato) =>{
 		let nodo = this.get_primero();
 		let i=0;
 		if(this.get_vacia() == false){
@@ -49,7 +49,7 @@ class EstructuraCola{
 		}
 		return false;
 	}
-	Actualizar = (dato, cambio) =>{
+	update = (dato, cambio) =>{
         let nodo_actual = this.get_primero();
         if (this.get_vacia() == false){
             do{
@@ -68,7 +68,7 @@ class EstructuraCola{
 			nodo=nodo.get_siguiente();
 		}while(nodo!=null)
 	}
-	GenerarNodosDOT = () => {
+	setNodesDataSet = () => {
 		let nodo = this.get_primero();
 		var dot = [];
 		if(this.get_vacia()==false){
@@ -81,7 +81,7 @@ class EstructuraCola{
 		}
 		return dot;
 	}
-	GenerarEdgesDOT = () => {
+	setEdgesDataSet = () => {
 		let nodo = this.get_primero();
 		var dot = [];
 		if(this.get_vacia()==false){

@@ -16,7 +16,7 @@ export const MenuItemsCompuesta = [
 	},
 	{
 		title:'Estructuras Compuestas',
-		path:'/MatrizDispersa',
+		path:'/Compuesta',
 		cName:'dropdown-item'
 	},
 ]
