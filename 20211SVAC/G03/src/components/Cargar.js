@@ -23,6 +23,8 @@ import TablaHashCerrada from '../estructuras/EstructurasNoLineales/TablaHashCerr
 import CRMajor from '../estructuras/EstructurasCompuestas/Col_Major'
 import Matriz from '../estructuras/EstructurasCompuestas/MatrizDis'
 
+import ListaAdyacencia from '../estructuras/EstructurasNoLineales/ReccProfAnch'
+
 let propsG
 function onChange(e){
     let files = e.target.files[0];
@@ -163,6 +165,11 @@ function structW(nombre,datos,edd,grado,posicion,json){ // FUNCION PARA SABER QU
 
             edd = new Matriz();
             edd.cargar(datos)
+            break
+        case "Grafo":
+
+            edd = new ListaAdyacencia();
+            edd.cargar(datos,json.nombre)
             break
         default:
             break;

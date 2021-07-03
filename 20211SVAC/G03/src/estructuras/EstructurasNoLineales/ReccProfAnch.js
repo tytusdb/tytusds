@@ -461,14 +461,27 @@ class ListaAdyacencia{
     }
 
     //Metodo Cargar
-    cargar(arreglo) {
-        arreglo.array.map(vertice, arista, distancia => {
-            this.insert(vertice, vertice, arista, distancia)
+    cargar(arreglo,nombre) {
+        arreglo.map(elemento=> {
+            let vertice = elemento.vertice
+            if(nombre === "Grafo Dirigido"){
+                if(elemento.aristas.length != 0){    
+                    elemento.aristas.map(e =>{
+                        this.insertar(vertice,vertice, e.arista, e.distancia)
+                    })
+                }
+            }else{
+                if(elemento.aristas.length != 0){    
+                    elemento.aristas.map(e =>{
+                        this.insertarNoDirigido(vertice,vertice, e.arista, e.distancia)
+                    })
+                }
+            }
         })
     }
 
     //Metodo Guardar
-    guardar() {
+   /*  guardar() {
         let archivojs = [];
         let aux = this.ListaAdyacencia.cabeza
         while (aux != null){
@@ -487,13 +500,14 @@ class ListaAdyacencia{
         let json = JSON.stringify(archivojs)
         let nombre = "RecorridoAnchuraProfundidad"
         fs.writeFile(nombre, json)  
-    }
+    } */
 
     //Carga de array para graficacion de nodos
     graficarNodos(){
+        let arreglo = []
         let aux = this.ListaAdyacencia.cabeza
         while(aux!=null){
-            let dato = {id: aux.dato.id, label:aux.dato.dato,}
+            let dato = {id: aux.dato.id, label:aux.dato.dato.toString(),}
             arreglo.push(dato)
             aux = aux.siguiente
         }
@@ -502,11 +516,12 @@ class ListaAdyacencia{
 
     //Carga de array para graficacion de enlaces
     graficarEnlaces(){
+        let arregloEdge = []
         let aux = this.ListaAdyacencia.cabeza
         while(aux!=null){
             let tmp = aux.dato.enlaces.cabeza
             while(tmp!= null){
-                let egde = {from: tmp.inicio.dato.id, to: tmp.final.dato.id , label: tmp.distancia}
+                let egde = {from: tmp.dato.inicio.id, to: tmp.dato.destino.id , label: tmp.dato.distancia.toString()}
                 arregloEdge.push(egde)
                 tmp = tmp.siguiente
             }
@@ -516,3 +531,4 @@ class ListaAdyacencia{
     } 
 }
 
+export default ListaAdyacencia;
