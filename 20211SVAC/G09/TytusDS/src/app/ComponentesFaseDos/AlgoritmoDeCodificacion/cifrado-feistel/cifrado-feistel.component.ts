@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 declare var require:any;
 let Feistel=require('../../../EstructurasF2/Feistel')
+let guardarArchivo=require('../../../EstructurasF2/guardarArchivo')
 @Component({
   selector: 'app-cifrado-feistel',
   templateUrl: './cifrado-feistel.component.html',
@@ -11,20 +12,20 @@ export class CifradoFeistelComponent implements OnInit {
   rondas = 3
   cadena:string ="Primer"
   ingresaString:boolean = false
+  a = new Feistel()
   constructor() {
     this.cadena=""
   }
 
   ngOnInit(): void {}
   codificar(){
-    let a= new Feistel()
     if (!this.ingresaString) {
-      a.cifrarCadena(this.cadena,this.rondas)
-      a.graficar()
+      this.a.cifrarCadena(this.cadena,this.rondas)
+      this.a.graficar()
     } else {
-      a.convertBinario(this.cadena,this.rondas)
-      if(a.returnTable().length<50){
-        a.graficar()
+      this.a.convertBinario(this.cadena,this.rondas)
+      if(this.a.returnTable().length<50){
+        this.a.graficar()
       }else{
         console.log("No se grafica por que la Matriz es muy grande")
       }
@@ -50,4 +51,8 @@ export class CifradoFeistelComponent implements OnInit {
     this.ingresaString=!this.ingresaString
     //console.log(this.ingresaString)
   }
+  download(){
+    let dow= new guardarArchivo()
+    dow.guardarTexto(this.cadena,this.a.returnCadena())
+  }  
 }

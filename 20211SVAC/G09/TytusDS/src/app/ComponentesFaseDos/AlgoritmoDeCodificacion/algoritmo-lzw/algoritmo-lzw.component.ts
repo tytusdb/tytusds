@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 declare var require:any;
 let LZW=require('../../../EstructurasF2/lzw')
+let guardarArchivo=require('../../../EstructurasF2/guardarArchivo')
 @Component({
   selector: 'app-algoritmo-lzw',
   templateUrl: './algoritmo-lzw.component.html',
@@ -9,14 +10,14 @@ let LZW=require('../../../EstructurasF2/lzw')
 })
 export class AlgoritmoLZWComponent implements OnInit {
   cadena:string ="Primer"
+  a= new LZW()
 
   constructor() {this.cadena="" }
 
   ngOnInit(): void {
   }
   codificar(){
-    let a= new LZW()
-    a.cifradoLZW(this.cadena)
+    this.a.cifradoLZW(this.cadena)
   }
   leerArchivo(event: any){
     console.log(event)
@@ -34,4 +35,8 @@ export class AlgoritmoLZWComponent implements OnInit {
       }, 500); 
     }
   }
+  download(){
+    let dow= new guardarArchivo()
+    dow.guardarTexto(this.cadena,this.a.returnCadena())
+  }  
 }

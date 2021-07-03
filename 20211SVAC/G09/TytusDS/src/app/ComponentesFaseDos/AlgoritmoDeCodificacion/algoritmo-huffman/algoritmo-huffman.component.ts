@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 declare var require:any;
 let huffman=require('../../../EstructurasF2/Huffman')
-
+let guardarArchivo=require('../../../EstructurasF2/guardarArchivo')
 @Component({
   selector: 'app-algoritmo-huffman',
   templateUrl: './algoritmo-huffman.component.html',
@@ -10,14 +10,14 @@ let huffman=require('../../../EstructurasF2/Huffman')
 })
 export class AlgoritmoHuffmanComponent implements OnInit {
   cadena:string ="Primer"
+  a= new huffman()
   constructor() {
     this.cadena=""
   }
 
   ngOnInit(): void {}
   codificar(){
-    let a= new huffman()
-      a.tableFrecuencias(this.cadena)
+      this.a.tableFrecuencias(this.cadena)
       //a.graficar()
   }
   leerArchivo(event: any){
@@ -36,4 +36,8 @@ export class AlgoritmoHuffmanComponent implements OnInit {
       }, 500); 
     }
   }
+  download(){
+    let dow= new guardarArchivo()
+    dow.guardarTexto(this.cadena,this.a.returnCadena())
+  }  
 }

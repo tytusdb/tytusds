@@ -10,6 +10,7 @@ class Huffman{
     constructor(){
         this.raiz=null
         this.diccionario=[]
+        this.cadenaConvertida=""
     }
     tableFrecuencias(cadena) {
         var letras= []
@@ -45,6 +46,7 @@ class Huffman{
             }
             cont++
         }
+        this.cadenaConvertida=textoCodificado
         console.log("La cadena cifrada es: "+textoCodificado)
     }
     recorrerArbol(nodo, valor, letra, cadenaCodificada, ) {//Esto está fumado para explicar :V
@@ -106,6 +108,9 @@ class Huffman{
 
         this.ordenarLetras(temp)
         return temp.length>1 ? this.arbolBinario(temp):temp[0]
+    }
+    returnCadena(){
+        return this.cadenaConvertida
     }    
 }
 module.exports = Huffman

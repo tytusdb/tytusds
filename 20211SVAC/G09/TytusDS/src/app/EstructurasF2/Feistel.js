@@ -3,6 +3,7 @@ class Feistel{
         this.table=[]
         this.table[0]=new Array()
         this.table[1]=new Array()
+        this.cadenaConvertida=""
     }
     cifrarCadena(cadena, rondas){
         var l="",r="",k,f, aux=""
@@ -24,7 +25,8 @@ class Feistel{
         aux=this.calcularCifrado(l,r,this.shiftCircular(k),4,rondas-1)
         this.table[0][aux[2]]=aux[0]
         this.table[1][aux[2]]=aux[1]
-        console.log("La cadena cifrada es: "+aux[0]+aux[1])
+        this.cadenaConvertida=aux[0]+aux[1]
+        console.log("La cadena cifrada es: "+this.cadenaConvertida)
     }
     xor(ri,ki){
         var cont=0, result=""
@@ -68,7 +70,8 @@ class Feistel{
         let ani=new Animaciones()
         ani.graficarMatriz(this.table)
     }
-    returnTable(){return this.table}    
+    returnTable(){return this.table}
+    returnCadena(){return this.cadenaConvertida}    
 }
 
 module.exports = Feistel

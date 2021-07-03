@@ -124,18 +124,4 @@ class Hamming{
     }    
 
 }
-
-//var Hm= new Hamming()
-
-
-//HammingCadena("se lo dije")
-/*
-function HammingCadena(cadena) {
-    var textBinario=Hm.convertTextToBinary(cadena)
-    console.log(Hm.Hamming(textBinario))
-    const Animaciones= require('./Animaciones')
-    let ani=new Animaciones
-    ani.graficarMatriz(Hm.returnMatriz())
-}*/
-
 module.exports = Hamming;

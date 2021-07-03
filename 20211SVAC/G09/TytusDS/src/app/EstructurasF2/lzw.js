@@ -5,6 +5,7 @@ class LZW{
         for (let i = 0; i < 5; i++) {
             this.Matriz[i]= new Array()
         }
+        this.cadenaConvertida=""
     }
     cifradoLZW(texto){
         this.llenarMatriz()
@@ -35,10 +36,10 @@ class LZW{
             temp=this.imprimirW(w)
             this.Matriz[0][cont+1]=w
             this.Matriz[4][cont+1]=temp
-            textCifrado+=temp            
-            //console.log(temp)
-        } catch (error) {}debugger
+            textCifrado+=temp
+        } catch (error) {}//debugger
         console.log("El texto cifrado es: "+textCifrado)
+        this.cadenaConvertida=textCifrado
         this.graficar()
     }
     addLetrasDiccionario(cadena){
@@ -84,7 +85,10 @@ class LZW{
         const Animaciones= require('./Animaciones')
         let ani=new Animaciones()
         ani.graficarMatriz(this.Matriz)
-    }        
+    }
+    returnCadena(){
+        return this.cadenaConvertida
+    }         
 }
 
 module.exports = LZW
