@@ -12,6 +12,8 @@ let vis=require('../../../../vis-4.21.0/dist/vis');
 })
 export class HashCerradoComponent implements OnInit {
 
+  grafo: any;
+
   opciones = {
     sizeNoLineales: 10,
     funcionHash: "simple",
@@ -61,6 +63,9 @@ export class HashCerradoComponent implements OnInit {
       if (contenido['prueba'] !== undefined) {
         this.opciones['pruebaHashCerrado'] = contenido['prueba'];
       }
+      if (contenido['animacion'] !== undefined) {
+        this.opciones['velocidadNoLineales'] = contenido['animacion'] * 100;
+      }
       
       contenido['valores'].forEach(valor => {
         this.valorAgregar = `${valor}`;
@@ -105,9 +110,24 @@ export class HashCerradoComponent implements OnInit {
 
   buscar(): void {
     if (this.valorBuscar.length === 0) return;
-    let nodos = this.hash.buscar(this.valorBuscar);
+    let id = this.hash.buscar(this.valorBuscar);
+    if (id == -1) {
+      alert(`No se ha encontrado el valor ${this.valorBuscar}`);
+      this.valorBuscar = '';
+      return;
+    }
+    let options={
+      scale: 10,
+      offset: {x:10, y:10},
+      locked: false,
+      animation: {
+        //duración en ms
+        duration: this.opciones['velocidadNoLineales'],
+        easingFunction: "easeInOutQuad"
+      }
+    }
     this.valorBuscar = '';
-    this.graficar(nodos);
+    this.grafo.focus(id,options);
   }
 
   graficar(busquda?: any): void {
@@ -152,7 +172,7 @@ export class HashCerradoComponent implements OnInit {
       }
     };
     //------------------------------------------------------------------------
-    let grafo= new vis.Network(contenedor,datos,opciones);
+    this.grafo = new vis.Network(contenedor,datos,opciones);
   }
 
   guardar(): void {
