@@ -45,34 +45,37 @@ export class CuComponent implements OnInit {
 
 
   getDocumento(documento: any): void{
-    if(this.opciones['repeticionLineales']===true){
       this.documentoService.getDocumento(documento).then( contenido => {
-        console.log(contenido);
         contenido['valores'].forEach(valor => { 
-          //this.lista.insertar2(valor);
-          });  alert("Datos guardados");  });
-    }
-    else{
-      this.documentoService.getDocumento(documento).then( contenido => {
-        console.log(contenido);
-        contenido['valores'].forEach(valor => { 
-          //this.lista.guardar22(valor);
-          });  alert("Datos guardados"); });
-    }
+          this.lista.insertar_vertices(valor['vertice'].toString());
+          valor['aristas'].forEach(valor1 => { 
+            this.lista.isertar_aristas(valor['vertice'].toString(),valor1['arista'].toString(),valor1['distancia'].toString(),"","");
+          }); 
+         
+          });  alert("Datos guardados");   
+          var s=this.lista.identificar();
+        if (s==true){this.graficar();  this.opcion=false;}
+        else{this.graficarb();  this.opcion=true;}
+        
+        
+        
+        });
+    
+    
     
   }
 
   guardar(): void {
     const contenido: any = {
-      categoria: "Estructura Lineal",
-      nombre: "Cola",
-      repeticion:true,
+      categoria: "Estructura No Lineal",
+      nombre: "Grafo Dirigido/No Dirigido",
+      almacenamiento: "Matriz/Lista",
       animacion:10,
       valores: []
     };
-    //contenido.valores=contenido.valores.concat(this.lista.leer());
+    contenido.valores=contenido.valores.concat(this.lista.leer());
     let blob = new Blob([JSON.stringify(contenido)], {type: 'json;charset=utf-8'});
-    saveAs(blob, 'Cola.json');
+    saveAs(blob, 'Grafo.json');
   }
 
 
@@ -87,26 +90,20 @@ export class CuComponent implements OnInit {
       return;
   }
 
-  Addcarga(valor){
-    this.lista.insertar_vertices(valor);
-    this.ag = '';
-    var x=this.lista.identificar();
-    if (x==false){this.graficarb();}
-    else{this.graficar(); }
-    
-    return;
-}
+
+
 
   Add2(valor1,valor2,peso){
     if (valor1=="" || valor2=="" ||peso==""){
       alert("algun campo esta vacio"); 
     }else{
       if (this.opcion==true){
-        this.lista.isertar_aristas(valor1,valor2,peso);
+        this.lista.isertar_aristas(valor1,valor2,peso,"","");
     this.graficarb();
       }else{
-        this.lista.isertar_aristas(valor1,valor2,peso);
-        this.lista.isertar_aristas(valor2,valor1,peso);
+        
+        this.lista.isertar_aristas(valor1,valor2,peso,valor1,valor2);
+        this.lista.isertar_aristas(valor2,valor1,peso,"","");
     this.graficar();
       }
       
@@ -206,7 +203,12 @@ graficarb(){
 
   delete(valor){
     this.lista.eliminar(valor);
-    this.graficar();
+    alert("Eliminados"); 
+    if (this.opcion==true){
+      this.graficarb();
+        }else{
+      this.graficar();
+        }
     this.ag = '';
   }
 
@@ -219,7 +221,11 @@ graficarb(){
 
   modi(valor,valor1){
    this.lista.modificar(valor,valor1);
-   this.graficar();
+   if (this.opcion==true){
+    this.graficarb();
+      }else{
+    this.graficar();
+      }
    this.ag4 = '';
    this.ag5 = '';
    alert("Modificado"); 
@@ -232,6 +238,6 @@ graficarb(){
 
 
   actualizar(){
-    this.graficar();
+    this.graficarb(); 
   }
 }

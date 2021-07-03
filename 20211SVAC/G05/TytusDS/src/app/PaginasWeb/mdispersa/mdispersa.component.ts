@@ -70,7 +70,7 @@ export class MDispersaComponent implements OnInit {
         valor=this.Vseguro(valor);
         x=parseInt(x);
         y=parseInt(y);
-        if(x>0 && y>0){
+        if(x>=0 && y>=0){
           let existe=this.matriz.BPosicion(x,y);
           if(existe==null){
           this.matriz.append(valor,x,y);
@@ -80,7 +80,7 @@ export class MDispersaComponent implements OnInit {
             alert('dicha posicion se encuentra ocupada');
           }
         }else {
-          alert('Ingrese posiciones mayores a 0');
+          alert('Ingrese posiciones positivas');
         }
       }
     }
