@@ -275,6 +275,38 @@ export class TablaHash {
         return arr
     }
 
+    public getJson(duracion){
+        let data = {
+            categoria: "Estructura No Lineal",
+            nombre : "Tabla Hash Cerrada",
+            m : this.size,
+            minimo: this.min,
+            maximo: this.max,
+            funcion: this.getFuncion(),
+            prueba: this.getPrueba,
+            animacion: duracion,
+            valores : []
+        }
+
+        for(let i = 0; i < this.size; i++){
+            if(this.values[i].libre === false) data.valores.push(this.values[i].value)
+        }
+
+        return JSON.stringify(data)
+    }
+
+
+    private getFuncion(){
+        if(this.funcion === Funcion.SIMPLE) return "simple"
+        else if(this.funcion === Funcion.DIVISION) return "divison"
+        else return "multiplicacion"
+    }
+
+    private getPrueba(){
+        if(this.prueba === Prueba.LINEAL) return "Lineal"
+        else if(this.prueba === Prueba.DOBLE) return "Doble"
+        else return "Cuadratica"
+    }
 
     sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));

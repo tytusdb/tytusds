@@ -163,6 +163,16 @@ export class HashCerradaComponent implements OnInit {
   }
 
 
+  generarJSON() {
+
+    let jsonData = this.tablaHash.getJson(this.duracion)
+    var link = document.createElement("a");
+    link.download = "data.json";
+    var info = "text/json;charset=utf-8," + encodeURIComponent(jsonData);
+    link.href = "data:" + info;
+    link.click();
+    link.remove()
+  }
 
   getFuncion(): Funcion {
     if (+this.funcionHash === 1) return Funcion.SIMPLE
