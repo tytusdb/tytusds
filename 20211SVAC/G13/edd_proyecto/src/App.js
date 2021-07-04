@@ -23,6 +23,7 @@ import MatrizDispersa from './Componentes/Paginas/MatrizDispersa';
 import TablaHashAbierta from './Componentes/Paginas/HashAbierta';
 import TablaHashCerrada from './Componentes/Paginas/HashCerrada';
 import Compuesta from './Componentes/Paginas/Compuesta'
+import Hamming from './Componentes/Paginas/Hamming.js';
 
 
 
@@ -53,6 +54,7 @@ function App() {
         <Route path='/Arbolmerkle' component={ArbolMerkle} />
         <Route path='/MatrizDispersa' component={MatrizDispersa} />
         <Route path='/Compuesta' component={Compuesta} />
+        <Route path='/Hamming' component={Hamming} />
       </Switch>
     </Router>
   );
