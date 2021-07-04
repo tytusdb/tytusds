@@ -75,4 +75,15 @@ export class Dispersa {
         //console.log(data3.nodes,data4.edges,data3.edges)
         return data
     }
+
+    public getJSON(duracion){
+        let data = {
+            categoria: "Estructura Compuesta",
+            nombre: "Matriz Dispersa",
+            animacion: duracion ,
+            valores: this.columnas.getJson(Apuntador.COLUMNA)
+        }
+
+        return JSON.stringify(data)
+    }
 }

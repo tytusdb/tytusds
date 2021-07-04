@@ -155,7 +155,7 @@ export class ListaCabecera {
 
         while (temp !== null) {
             let id = ((apuntador === Apuntador.COLUMNA) ? 'x' : 'y') + temp.getId()
-            let data = temp.getLista().getLista(apuntador, tipo,index)
+            let data = temp.getLista().getLista(apuntador, tipo, index)
 
             if (data.nodes.length > 0) {
                 let hijoId = 'xy' + temp.getLista().getPrimero().getId()
@@ -184,6 +184,20 @@ export class ListaCabecera {
 
         }
         return res
+    }
+
+
+    public getJson(apuntador: Apuntador) {
+        if (this.primero === null) return []
+        let temp: NodoCabecera = this.primero
+        let dato = []
+        while (temp !== null) {
+            let result = temp.getLista().getListaJSON(apuntador)
+            dato = dato.concat(result)
+            temp = temp.getSiguiente()
+
+        }
+        return dato
     }
 
 
@@ -226,4 +240,8 @@ export class ListaCabecera {
         }
         return null
     }
+
+
+
+
 }

@@ -192,6 +192,18 @@ export class DispersaComponent implements OnInit {
   }
 
 
+  
+  generarJSON() {
+    let duracion = 3
+    let jsonData = this.dispersa.getJSON(duracion)
+    var link = document.createElement("a");
+    link.download = "data.json";
+    var info = "text/json;charset=utf-8," + encodeURIComponent(jsonData);
+    link.href = "data:" + info;
+    link.click();
+    link.remove()
+  }
+
   sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }

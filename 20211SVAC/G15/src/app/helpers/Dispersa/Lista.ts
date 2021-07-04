@@ -181,6 +181,28 @@ export class Lista {
     }
 
 
+    
+    public getListaJSON(apuntador: Apuntador) {
+        let valores = []
+        let temp = this.primero
+        while (temp != null) {
+
+            valores.push({
+                indices: [this.convertir(temp.getPos().x),this.convertir(temp.getPos().y)],
+                valor: this.convertir(temp.getValue())
+            })
+            
+            if (apuntador === Apuntador.COLUMNA) temp = temp.getAbajo()
+            else temp = temp.getSiguiente()
+
+            
+
+        }
+
+        return valores
+    }
+
+
     private obtenerAnterior(nodo: Nodo, apuntador: Apuntador): Nodo {
         let temp = this.primero
         while (temp !== null) {
