@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProfundidaComponent } from './profundida.component';
+import { CowComponent } from './cow.component';
 
-describe('ProfundidaComponent', () => {
-  let component: ProfundidaComponent;
-  let fixture: ComponentFixture<ProfundidaComponent>;
+describe('HashAbiertoComponent', () => {
+  let component: CowComponent;
+  let fixture: ComponentFixture<CowComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProfundidaComponent ]
+      declarations: [ CowComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProfundidaComponent);
+    fixture = TestBed.createComponent(CowComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
