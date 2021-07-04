@@ -98,12 +98,14 @@ class Nodo{
 
 class Arbol{
   raiz: Nodo;
+  aux:Nodo;
   contador: number;
   tablaCode: any[];
   tablaCaracter: any[];
   arrayTexto: any[];
   constructor(){
       this.raiz = null;
+      this.aux = null;
       this.contador = 0;
       this.tablaCode = [];
       this.tablaCaracter = [];
