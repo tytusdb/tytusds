@@ -54,12 +54,7 @@ export class MatricesDispersasComponent implements OnInit {
         text=String(resultado)
         var data = JSON.parse(text);  // se parse para obtener solo los datos
         data.valores.forEach(element => { // se pasa a un arreglo
-          console.log(element.indices[0])
-          console.log(element.indices[1])
-          console.log(element.valor)
-          let fila = Number(element.indices[0]);
-          let columna = Number(element.indices[1]);
-          this.AgregarNuevo(element.valor,fila,columna);
+          this.AgregarNuevo(element.valor,element.indices[0],element.indices[1]);
         });
 
         this.code=text.toString();
@@ -139,7 +134,7 @@ export class MatricesDispersasComponent implements OnInit {
           nodes.add(
             {id: i+','+j, label:'0',x: this.x1 , y: this.y1, color: "rgba(97,195,238,0.5)", shape: "box"}
           );
-          this.x1 = this.x1 + 40
+          this.x1 = this.x1 + 85
       }
       this.x1 = 0
       this.y1 = this.y1 + 35
