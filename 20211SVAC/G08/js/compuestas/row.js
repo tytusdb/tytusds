@@ -189,9 +189,61 @@ function getVelocidad(){
 }
 
 // ***** GUARDAR ARCHIVO *****
-function guardar(){
+async function guardar(){
     console.log("Guardando JSON");
 
+    // Creando lista con las dimensiones
+    var dimens = [];
+    dimens.push(fil);
+    dimens.push(col);
+
+    // creando lista con los valores de la tabla
+    await new Promise((resolve) =>
+                setTimeout(() =>{
+                    resolve();
+                }, (1000)) //delay
+            );
+
+    var fileVal = pathTable();
+    console.log(".-.-.-.-.-.-.-.-.-.")
+    console.log(dimens)
+    console.log(fileVal);
+
+    
+
+    var fileJ = {
+        "categoria": "Extructura Compuesta",
+        "nombre": "Row/Column Major",
+        "animacion" : 10,
+        "m": dimens,
+        "valores": fileVal
+    }
+
+    let saveArchivo = new Blob([JSON.stringify(fileJ)],{type:"application/json"});
+    let a = document.createElement("a");
+    a.href = URL.createObjectURL(saveArchivo);
+    a.download = "rowMajor.json";
+    a.click();
+    
+
+}
+// ***** RECORRIENDO TABLA *****
+function pathTable(){
+    var valores = []
+    for (let i = 0; i < fil; i++){
+        for (let j = 0; j < col; j++){
+            if (conTabla[i][j] != null){
+                var indices = [];
+                indices.push(i);
+                indices.push(j);
+                valores.push({"indices" : indices, "valor" : conTabla[i][j]});
+
+                indices = [];
+
+            }
+        }
+    }
+    return valores;
 }
 // ***** LEYENDO ARCHIVO *****
 function readFile(evento){ // lectura del archivo .json
