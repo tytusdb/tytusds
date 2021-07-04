@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { saveAs } from 'file-saver';
 import { DocumentoService } from '../../services/documento.service';
+import { NodoHashAbierto } from '../hash-abierto/ts/nodo-hash-abierto';
 declare var require: any;
 let Lista=require('./js/cu');
 let vis=require('../../../../vis-4.21.0/dist/vis');
@@ -11,6 +12,7 @@ let vis=require('../../../../vis-4.21.0/dist/vis');
 })
 export class CuComponent implements OnInit {
   lista=Lista;
+  grafo;
   opcion=true;
   ag = '';
   ag1 = '';
@@ -52,10 +54,11 @@ export class CuComponent implements OnInit {
             this.lista.isertar_aristas(valor['vertice'].toString(),valor1['arista'].toString(),valor1['distancia'].toString(),"","");
           }); 
          
-          });  alert("Datos guardados");   
+          });   
           var s=this.lista.identificar();
         if (s==true){this.graficar();  this.opcion=false;}
         else{this.graficarb();  this.opcion=true;}
+        alert("Datos guardados");  
         
         
         
@@ -79,13 +82,15 @@ export class CuComponent implements OnInit {
   }
 
 
+
+
   Add(valor){
       this.lista.insertar_vertices(valor);
       this.ag = '';
       if (this.opcion==true){
-    this.graficarb();
+    this.graficarb1();
       }else{
-    this.graficar();
+    this.graficar1();
       }
       return;
   }
@@ -99,12 +104,12 @@ export class CuComponent implements OnInit {
     }else{
       if (this.opcion==true){
         this.lista.isertar_aristas(valor1,valor2,peso,"","");
-    this.graficarb();
+    this.graficarb1();
       }else{
         
         this.lista.isertar_aristas(valor1,valor2,peso,valor1,valor2);
         this.lista.isertar_aristas(valor2,valor1,peso,"","");
-    this.graficar();
+    this.graficar1();
       }
       
     this.ag1 = '';
@@ -146,9 +151,9 @@ graficar(){
     
   };
   //------------------------------------------------------------------------
-  let grafo= new vis.Network(contenedor,data,opciones);
+  this.grafo= new vis.Network(contenedor,data,opciones);
+  
 }
-
 
 
 graficarb(){
@@ -156,8 +161,197 @@ graficarb(){
   let datos=this.lista.as1();
   let Nodos=datos[0];
   let edges=datos[1];
+    let data={nodes:Nodos,edges:edges};
+    let duracion=this.opciones['velocidadLineales'];
+    //OPCIONES PARA LOS NODOS----------------------------------------------------------
+    let opciones={
+      edges:{
+        arrows:{
+          to:{
+            enabled:true
+          }
+        },
+        color:{
+          color:"#013ADF"
+        }
+      },
+      nodes:{
+        color:{
+          border:"white",background:"red"
+        },
+        font:{
+          color:"white"
+        }
+      }
+    };
+    //------------------------------------------------------------------------
+  this.grafo= new vis.Network(contenedor,data,opciones);
+    
+  
+}
+
+graficar1(){
+  let contenedor= document.getElementById("myDiv1");
+  let datos=this.lista.as();
+  let Nodos=datos[0];
+  let edges=datos[1];
   let data={nodes:Nodos,edges:edges};
 
+  //OPCIONES PARA LOS NODOS----------------------------------------------------------
+  let opciones={
+    edges:{
+
+      color:{
+        color:"#013ADF"
+      }, 
+      arrows:{ 
+        to:true,
+          from:true
+      }
+    },
+    nodes:{
+      color:{
+        border:"white",background:"red"
+      },
+      font:{
+        color:"white"
+      }
+    }, 
+    
+  };
+  //------------------------------------------------------------------------
+  this.grafo= new vis.Network(contenedor,data,opciones);
+}
+
+
+graficarb1(){
+  let contenedor= document.getElementById("myDiv1");
+  let datos=this.lista.as1();
+  let Nodos=datos[0];
+  let edges=datos[1];
+    let data={nodes:Nodos,edges:edges};
+    let duracion=this.opciones['velocidadLineales'];
+    //OPCIONES PARA LOS NODOS----------------------------------------------------------
+    let opciones={
+      edges:{
+        arrows:{
+          to:{
+            enabled:true
+          }
+        },
+        color:{
+          color:"#013ADF"
+        }
+      },
+      nodes:{
+        color:{
+          border:"white",background:"red"
+        },
+        font:{
+          color:"white"
+        }
+      }
+    };
+    //------------------------------------------------------------------------
+    this.grafo= new vis.Network(contenedor,data,opciones);
+    
+  
+}
+
+
+graficarnodirigido(){
+  let contenedor= document.getElementById("myDiv1");
+  let datos=this.lista.animacionbusno();
+  let Nodos=datos[0];
+  let edges=datos[1];
+  let data={nodes:Nodos,edges:edges};
+
+  //OPCIONES PARA LOS NODOS----------------------------------------------------------
+  let opciones={
+    edges:{
+
+      color:{
+        color:"#013ADF"
+      }, 
+      arrows:{ 
+        to:true,
+          from:true
+      }
+    },
+    nodes:{
+      color:{
+        border:"white",background:"red"
+      },
+      font:{
+        color:"white"
+      }
+    }
+    
+  };
+  //------------------------------------------------------------------------
+  this.grafo= new vis.Network(contenedor,data,opciones);
+  
+}
+
+
+buscar(){
+  let h=this.lista.bb();
+  let gl=this.grafo;
+  var n=0;
+    let AnimLista = setInterval(function(){
+      if(n<=h.length){
+        let nodo=h[n];
+        if(nodo!=""){
+          if(nodo!=null){
+            //id:F#C#
+            let id=nodo;
+            let options={
+              scale: 5,
+             
+              locked: false,
+              animation: {
+                //duración en ms
+                duration: 1000,
+                easingFunction: "easeInOutQuad"
+              }
+            }
+      
+            gl.focus(id,options);
+          }
+        }
+          
+    
+        if(n== h.length){
+          var cad="";
+          for(var i=0; i<h.length; i++) { 
+            cad+="->"+h[i];
+        }
+    alert("La mejor opcion es:"+cad); 
+          clearInterval(AnimLista);
+        }
+        n++;
+
+      }
+    
+    },1000);
+
+
+
+  
+
+  
+}
+
+
+
+
+graficardirigido(){
+  let contenedor= document.getElementById("myDiv1");
+  let datos=this.lista.animacionbus();
+  let Nodos=datos[0];
+  let edges=datos[1];
+  let data={nodes:Nodos,edges:edges};
+  let duracion=this.opciones['velocidadLineales'];
   //OPCIONES PARA LOS NODOS----------------------------------------------------------
   let opciones={
     edges:{
@@ -178,57 +372,56 @@ graficarb(){
       font:{
         color:"white"
       }
-    },
-    physics:{
-      enabled: true,
-      barnesHut: {
-        gravitationalConstant: -1000,
-        centralGravity: 0.3,
-        springLength: 95
-      }},
-    layout:{
-      hierarchical: {
-        sortMethod: 'directed',
-        nodeSpacing: 200,
-        treeSpacing: 400
-      }
     } 
     
   };
   //------------------------------------------------------------------------
-  let grafo= new vis.Network(contenedor,data,opciones);
+  this.grafo= new vis.Network(contenedor,data,opciones);
+ 
+
+
 }
-
-
 
   delete(valor){
     this.lista.eliminar(valor);
-    alert("Eliminados"); 
     if (this.opcion==true){
-      this.graficarb();
+      this.graficarb1();
         }else{
-      this.graficar();
+      this.graficar1();
         }
-    this.ag = '';
+        this.ag = '';
   }
 
 
   bus(valor,valorf){
-    this.lista.bus(valor,valorf);
-    this.ag3 = '';
-    //this.graficarb()
+    if (valor=="" || valorf==""){
+      alert("algun campo esta vacio"); 
+    }else{
+      this.lista.bus(valor,valorf);
+    
+    if (this.opcion==true){
+      this.graficardirigido();
+        }else{
+          this.graficarnodirigido();
+        }
+        this.buscar();
+    this.ag6 = '';
+    this.ag7 = '';
+    }
+    
   }
+
+  
 
   modi(valor,valor1){
    this.lista.modificar(valor,valor1);
    if (this.opcion==true){
-    this.graficarb();
+    this.graficarb1();
       }else{
-    this.graficar();
+    this.graficar1();
       }
    this.ag4 = '';
    this.ag5 = '';
-   alert("Modificado"); 
   }
 
   matriz(){
@@ -236,8 +429,47 @@ graficarb(){
   }
 
 
+  list(){
+  let contenedor= document.getElementById("myDiv1");
+  let datos=this.lista.li();
+  let Nodos=datos[0];
+  let edges=datos[1];
+  let data={nodes:Nodos,edges:edges};
 
-  actualizar(){
-    this.graficarb(); 
+  let opciones={
+    edges:{
+      arrows:{
+        to:{
+          enabled:true
+        }
+      },
+      color:{
+        color:"#013ADF"
+      }
+    },
+    nodes:{
+      color:{
+        border:"white",background:"red"
+      },
+      font:{
+        color:"white"
+      }
+    },
+    physics:{
+      enabled: false},
+    layout:{
+      hierarchical: {
+        direction: "RL",
+        sortMethod: "directed",
+        nodeSpacing: 10,
+        treeSpacing: 50
+      }
+    }
+  };
+  this.grafo= new vis.Network(contenedor,data,opciones);
   }
+
+
+
+  
 }

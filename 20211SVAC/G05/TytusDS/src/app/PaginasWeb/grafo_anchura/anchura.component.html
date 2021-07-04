@@ -14,28 +14,25 @@
         <button id="Modificar" class="btn btn-primary" style="margin: 5px" (click)="Add2(actual.value,actual1.value,actual2.value)" >insertar aristas</button>
       </div>
 
-      <div  >
+      <div class="form-check form-switch" >
         <input #m1 type="text" style="margin: 5px" placeholder="nodo" [(ngModel)]="ag4">
         <input #m2 type="text" style="margin: 5px" placeholder="new valor" [(ngModel)]="ag5">
         <button id="modificar1" class="btn btn-primary" style="margin: 5px" (click)="modi(m1.value,m2.value)"  >Modificar <span class=".glyphicon-search"></span></button>
         <input #bus1 type="text" style="margin: 5px" placeholder="vertice de busquedad" [(ngModel)]="ag6">
         <button id="buscar" class="btn btn-primary" style="margin: 5px" (click)="bus(bus1.value)"  >Buscar  <span class=".glyphicon-search"></span></button>
-        <button id="Actualizar" class="btn btn-primary" style="margin: 5px" (click)="actualizar()"  >Actualizar  <span class=".glyphicon-search"></span></button>
+        <button id="Actualizar" class="btn btn-primary" style="margin: 5px" (click)="list()"  >Lista De Adyacencia  <span class=".glyphicon-search"></span></button>
         <button id="matriz" class="btn btn-primary" style="margin: 5px" (click)="matriz()"  >Matriz De Adyacencia  <span class=".glyphicon-search"></span></button>
         <button id="Guardar" class="btn btn-primary" style="margin: 5px" (click)="guardar()"  >Guardar json <span class=".glyphicon-search"></span></button>
+        <div  >
+          <input  style="margin: 5px" type="file" id="formFile" (change)="getDocumento($event.target)" >
+        </div>
+        <div class="col-md-1 text-white">Dirigido:</div>
+        <input class="form-check-input" style="margin: 5px" type="checkbox" [(ngModel)]="opcion">
       </div>
 
-      <div  >
-        <input  style="margin: 5px" type="file" id="formFile" (change)="getDocumento($event.target)" >
-      </div>
+      
       <div  id="myDiv1"  class="animacion container bg-light"   style="color: blue;"> </div>
-      <div>
-        <table id="tabla" >
-          
-
-
-        </table>
-      </div>
+      
 
 
 
@@ -43,6 +40,10 @@
 
 
     <hr>
+    <div>
+      <table id="tabla" >
+      </table>
+    </div>
 
 
 </div>

@@ -5,7 +5,8 @@
     <h1 class="fw-light text-white">Algoritmo De Costo Uniforme</h1>
     <hr>
     <div class="row">
-      <div ><input #agregar type="text"  placeholder="nodo" [(ngModel)]="ag" >
+      <div >
+        <input #agregar type="text"  placeholder="nodo" [(ngModel)]="ag" >
         <button id="Agregar" class="btn btn-primary" style="margin: 5px" (click)="Add(agregar.value)">Agregar</button>
         <button id="Eliminar" class="btn btn-danger" style="margin: 10px" (click)="delete(agregar.value)">Eliminar</button>
         <input #actual type="text" style="margin: 5px" placeholder="vertice inicio" [(ngModel)]="ag1">
@@ -19,6 +20,7 @@
         <input #m2 type="text" style="margin: 5px" placeholder="new valor" [(ngModel)]="ag5">
         <button id="modificar1" class="btn btn-primary" style="margin: 5px" (click)="modi(m1.value,m2.value)"  >Modificar <span class=".glyphicon-search"></span></button>
         <button id="matriz" class="btn btn-primary" style="margin: 5px" (click)="matriz()"  >Matriz De Adyacencia  <span class=".glyphicon-search"></span></button>
+        <button id="lista" class="btn btn-primary" style="margin: 5px" (click)="list()"  >Lista De Adyacencia  <span class=".glyphicon-search"></span></button>
         <button id="Guardar" class="btn btn-primary" style="margin: 5px" (click)="guardar()"  >Guardar json <span class=".glyphicon-search"></span></button>
       </div>
 
@@ -30,10 +32,6 @@
         <div class="col-md-1 text-white">Dirigido:</div>
         <input class="form-check-input" style="margin: 5px" type="checkbox" [(ngModel)]="opcion">
       
-       
-
-    
-        
       </div>
       <div  id="myDiv1"  class="animacion container bg-light"   style="color: blue;"> </div>
       

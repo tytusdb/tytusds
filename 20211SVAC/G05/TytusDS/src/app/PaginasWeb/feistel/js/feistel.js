@@ -75,7 +75,6 @@ class feistel{
     //5. POR ULTIMO INGRESAR EL RESULTADO:
     this.iteraciones.push(w.slice().concat(izquierda.slice().concat(derecha.slice())));
    this.resultado=this.resString(izquierda.concat(derecha));
-   console.log(this.resultado);
   }
 
   resString(lista){
