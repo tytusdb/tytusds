@@ -37,6 +37,7 @@ class TablaHash{
         this.cte = 0.1625277911
         this.minimo = 50
         this.maximo = 60
+        this.funcion = ""
         for(let i=0 ; i<size; i++){
             this.vector.push(null) 
         }
@@ -142,7 +143,7 @@ class TablaHash{
                 console.log("El maximo es: " + this.maximo)
             }
             if(this.factorCarga > this.maximo){
-                this.rehashing(funcHash)
+                this.rehashing()
             }
         }
     }
@@ -179,12 +180,24 @@ class TablaHash{
     }
     // this.vector[p].lista[p].clave
     
-    buscar(clave1){
+    buscar(clave1, funcHash){
         if (typeof clave1 === "string"){
             let posicion = 0;
             let pr;
             let encontrado = false
-            posicion = this.functionDivision(this.toAscii(clave1))
+           
+
+            switch(funcHash){
+                case "simple":
+                    posicion = this.functionSimple(this.toAscii(clave1))
+                    break
+                case "division":
+                    posicion = this.functionDivision(this.toAscii(clave1))
+                    break
+                case "multiplicacion":
+                    posicion = this.functionMultiplicacion(this.toAscii(clave1))
+                    break
+            }
             pr = this.vector[posicion]
             // console.log(pr.)
             if(pr != null){
@@ -192,7 +205,7 @@ class TablaHash{
                 if(valor == undefined){
                     return null
                 }else{
-                    return valor.clave
+                    alert("Encontrado!! La clave es: " + valor.clave + " en el indice: " +  pr.indice)
                 }
             }else {
                 return null
@@ -201,7 +214,17 @@ class TablaHash{
             let posicion = 0;
             let pr;
             let encontrado = false
-            posicion = this.functionDivision(clave1)
+            switch(funcHash){
+                case "simple":
+                    posicion = this.functionSimple((clave1))
+                    break
+                case "division":
+                    posicion = this.functionDivision((clave1))
+                    break
+                case "multiplicacion":
+                    posicion = this.functionMultiplicacion((clave1))
+                    break
+            }
             pr = this.vector[posicion]
             // console.log(pr.)
             if(pr != null){
@@ -295,7 +318,30 @@ class TablaHash{
                 return null
             }
         } else {
-            console.log("demoxd")
+            let posicion = 0;
+            let pr;
+            let encontrado = false
+            let tipo = funcHash
+            switch(funcHash){
+                case "simple":
+                    posicion = this.functionSimple(claveVieja)
+                    break
+                case "division":
+                    posicion = this.functionDivision(claveVieja)
+                    break
+                case "multiplicacion":
+                    posicion = this.functionMultiplicacion(claveVieja)
+                    break
+            }
+            pr = this.vector[posicion]
+            if(pr != null){
+                pr.lista = pr.lista.filter(function(key) {
+                    return key.clave !== claveVieja; 
+                });
+                this.insertar(claveNueva, tipo)
+            }else {
+                return null
+            }
         }
     }
     
@@ -442,13 +488,13 @@ function read(){
         tablaHash.minimo = obj.minimo
         tablaHash.maximo = obj.maximo
         slider.value = obj.animacion
-        let funcHasp = obj.funcion
+        let selected1 = obj.funcion
+        tablaHash.funcion = selected1
         let val = obj.valores
-
         let contador = 0
         for(let i=0; i<val.length; i++){
             setTimeout(function(){
-                tablaHash.insertar(val[i], funcHasp)
+                tablaHash.insertar(val[i], selected1)
                 actualizarTablero()
             }, (500)*(11- slider.value)*contador)
         }  
@@ -473,9 +519,13 @@ function insertarNodo(){
 function eliminarNodo() {
     let aux = clickedNodoValue.split(',')
     let clave = aux[0]
-    var selected = select.options[select.selectedIndex].value;
-    console.log(clave)
-    tablaHash.eliminar(clave, selected)
+    selected = select.options[select.selectedIndex].value;
+    if (tablaHash.funcion == ""){
+        tablaHash.eliminar(clave, selected)
+    }else{
+        tablaHash.eliminar(clave, tablaHash.funcion)
+    }
+    
     document.getElementById('valueNodo').value = ""
     actualizarTablero()
 }
@@ -484,13 +534,29 @@ function modificarNodo(){
     let aux = clickedNodoValue.split(',')
     var valueNodo = document.getElementById('valueNodo').value
     let clave = aux[0]
-    var selected = select.options[select.selectedIndex].value;
+    selected = select.options[select.selectedIndex].value;
     console.log(clave)
-    tablaHash.modificar(clave, valueNodo, selected)
+
+    if(tablaHash.funcion == ""){
+        tablaHash.modificar(clave, valueNodo, selected)
+    }else{
+        tablaHash.modificar(clave, valueNodo, tablaHash.funcion)
+    }
+   
     document.getElementById('valueNodo').value = ""
     actualizarTablero()
    
 }
 
+function searchNode(){
+    var valueNodo = document.getElementById('valueNodo').value
+    selected = select.options[select.selectedIndex].value;
+    if(tablaHash.funcion == ""){
+        tablaHash.buscar(valueNodo, selected)
+    }else{
+        tablaHash.buscar(valueNodo, tablaHash.funcion)
+    }
+
+}
 
 
