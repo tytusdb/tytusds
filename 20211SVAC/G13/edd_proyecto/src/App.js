@@ -17,11 +17,12 @@ import AVL from './Componentes/Paginas/AVL';
 import ArbolB from './Componentes/Paginas/Arbolb';
 import ArbolBPlus from './Componentes/Paginas/Arbolbplus';
 import ArbolMerkle from './Componentes/Paginas/Arbolmerkle';
+import MatrizColumnMajor from './Componentes/Paginas/ColumnMajor';
+import MatrizRowMajor from './Componentes/Paginas/RowMajor';
 import MatrizDispersa from './Componentes/Paginas/MatrizDispersa';
 import TablaHashAbierta from './Componentes/Paginas/HashAbierta';
 import TablaHashCerrada from './Componentes/Paginas/HashCerrada';
-import Compuesta from './Componentes/Paginas/Compuesta';
-import Hamming from './Componentes/Paginas/Hamming.js';
+import Compuesta from './Componentes/Paginas/Compuesta'
 
 
 
@@ -33,6 +34,8 @@ function App() {
         <Route path='/' exact component={Home} />
         <Route path='/HashAbierta' exact component={TablaHashAbierta} />
         <Route path='/HashCerrada' exact component={TablaHashCerrada} />
+        <Route path='/ColumnMajor' exact component={MatrizColumnMajor} />
+        <Route path='/RowMajor' exact component={MatrizRowMajor} />
         <Route path='/Listasimplementeenlazada' component={ListaSE} />
         <Route path='/Listadoblementeenlazada' component={ListaDE} />
         <Route path='/Listacircularsimplementeenlazada' component={ListaCSE} />
@@ -50,7 +53,6 @@ function App() {
         <Route path='/Arbolmerkle' component={ArbolMerkle} />
         <Route path='/MatrizDispersa' component={MatrizDispersa} />
         <Route path='/Compuesta' component={Compuesta} />
-        <Route path='/Hamming' component={Hamming} />
       </Switch>
     </Router>
   );
