@@ -120,6 +120,7 @@ cifrado(iteracion:any){
   auxDerecha.forEach(element => this.arrayIzquierda.push(element));
 
 }
+
 ingresoDescifrado(texto:any,llave:any){
   let medio = texto.length/2;
 

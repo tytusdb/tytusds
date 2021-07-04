@@ -22,12 +22,12 @@
 
       <form class="form-inline" >
         <textarea class="form-control" #textocifrado id="textAreaExample" rows="5" ></textarea>
-        <input class="form-control mr-sm-2" type="text" placeholder="Key" aria-label="Key">
-        <button class="btn btn-outline-light mr-sm-2" type="button">Cifrar</button>
+        <input class="form-control mr-sm-2" #keycifrado type="text" placeholder="Key" aria-label="Key">
+        <button (click)="ingresoCifradoText(textocifrado.value,keycifrado.value)" class="btn btn-outline-light mr-sm-2" type="button">Cifrar</button>
 
-        <textarea class="form-control" id="textAreaExample" rows="5"></textarea>
-        <input class="form-control mr-sm-2" type="text" placeholder="Key" aria-label="Key">
-        <button  class="btn btn-outline-light mr-sm-2" type="button">Descifrar</button>
+        <textarea class="form-control" #textodescifrado id="textAreaExample" rows="5"></textarea>
+        <input class="form-control mr-sm-2" #keydescifrado type="text" placeholder="Key" aria-label="Key">
+        <button (click)="ingresoDescifradoText(textodescifrado.value,keydescifrado.value)" class="btn btn-outline-light mr-sm-2" type="button">Descifrar</button>
 
         <input class="form-control mr-sm-2" #rondas type="text" placeholder="Rondas" aria-label="Rondas">
         <button (click)="ingresoRondas(rondas.value)" class="btn btn-outline-light mr-sm-2" type="button">Rondas</button>
