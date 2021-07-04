@@ -474,7 +474,7 @@ class ListaAdyacencia{
                             adymandar.dato.distTotal = nuevosenlaces.dato.distancia + nodo.distTotal
                             nodo.camino.insertar(nodo)
                             adymandar.dato.camino = nodo.camino
-                            subbusqueda(adymandar.dato)
+                            this.subbusqueda(adymandar.dato)
                             nodo.camino.eliminar(nodo)
                             adymandar.dato.camino.eliminar(nodo)
                         break
