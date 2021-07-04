@@ -1,3 +1,4 @@
+//lista principal
 class Nodo{
     constructor(indice){
         this.Lista = [];
@@ -5,6 +6,7 @@ class Nodo{
     }
 }
 
+//lista de elementos
 class Llave{
     constructor(clave, valor){
         this.clave = clave;
@@ -120,16 +122,45 @@ class Hash{
         })
     }
 
-    buscar(elemento){
-        let valores = "";
-        this.vector.forEach(nodo => {
-            valores ="";
-            nodo.Lista.forEach(Llave => {
-                valores = Llave.clave
+    buscar(elemento, pos){
+        let nodo = this.vector[pos];
+        let valor = "";
+        let ret = false;
 
-            })
+        
+        for(let i = 0; i< nodo.Lista.length; i++){
+            while(ret != true){
+                valor = nodo.Lista[i];
+                if(valor.clave == elemento){
+                    ret = true;
+                }else{
+                    ret = false;
+                }
+            }
+        }
+        
+        console.log(nodo.Lista.length);
+        return true;
+    }
+
+    eliminar(elemento, pos){
+        let nodo = this.vector[pos];
+        let valor = "";
+        let ret = false;
+
+        
+        for(let i = 0; i< nodo.Lista.length; i++){
+            valor = nodo.Lista[i];
+            if(valor.clave == elemento){
+                nodo.Lista.splice(valor,1);
+            }else{
+                ret = false;
+            }
             
-        })
+        }
+        
+        console.log(nodo.Lista.length);
+        return true;
     }
 
     valorASCII(cadena){
@@ -224,13 +255,57 @@ function agregar(){
     
     tabla.insertar(tabla.valorASCII(nuevo), nuevo, 1, val_fun);
     tabla.print();
+    console.log(tabla.porcentaje);
 
 }
 
 //-----------BUSCAR ELEMENTO-----------
 function buscar(){
     let elemento = document.getElementById("elemento").value;
+    let elemento2 = tabla.valorASCII(elemento);
+    let posicion;
+    var cod = document.getElementById("funcion").value;
+    
+    if(cod === "division"){
+        posicion = tabla.funcionHash_division(elemento2);
+    }else if (cod === "multiplicacion"){
+        posicion = tabla.funcionHash_division(elemento2);
+    }else{
+        posicion = tabla.funcionHash_simple(elemento2);
+    }
+    let busqueda = tabla.buscar(elemento, posicion);
+    if (busqueda == true){
+        console.log("---------->" + elemento + " en el indice " + posicion);
+    }
+    else{
+        console.log("---------->" + elemento + " no encontrado");
+    }
+    
+}
 
+//-----------ELIMINAR ELEMENTO-----------
+function eliminar(){
+    let elemento = document.getElementById("elemento").value;
+    let elemento2 = tabla.valorASCII(elemento);
+    let posicion;
+    var cod = document.getElementById("funcion").value;
+    
+    if(cod === "division"){
+        posicion = tabla.funcionHash_division(elemento2);
+    }else if (cod === "multiplicacion"){
+        posicion = tabla.funcionHash_division(elemento2);
+    }else{
+        posicion = tabla.funcionHash_simple(elemento2);
+    }
+    let busqueda = tabla.eliminar(elemento, posicion);
+    if (busqueda == true){
+        console.log("---------->" + elemento + " eliminado");
+    }
+    else{
+        console.log("---------->" + elemento + " no encontrado");
+    }
+
+    tabla.print();
     
 }
 
