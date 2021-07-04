@@ -6,7 +6,7 @@ var network = null
 var clickedNode
 var clickedNodoValue
 var dataDownload = []
-
+var slider = document.getElementById("customRange2")
 
 var selected = null
 var selectedPrueba = null
@@ -86,7 +86,30 @@ class TablaCerrada{
             }
 
         }else{
-            //cuando son numeros
+            let posicion1 = this.elegirFuncionEnteros(valor, this.funcHash)
+            if(this.tabla[posicion1] == -1){
+                this.tabla[posicion1] = new Nodo(posicion1, valor)
+            }else{
+                let posicion = 0
+                switch(this.pruebaHash){
+                    case "lineal":
+                        posicion = this.pruebalineal(valor)
+                        break
+                    case "cuadratica":
+                        posicion = this.cuadratica(valor, 1)
+                        break   
+                    case "doublehash":
+                        posicion = this.dobleHash(valor)
+                        break
+                }
+                this.tabla[posicion] = new Nodo(posicion, valor)
+            }
+            this.elementos++
+            this.factorCarga = Math.round((this.elementos/this.tamanio)*100)
+            if(this.factorCarga >= this.maximo){
+                this.rehashing()
+            }
+
         }
     }
 
@@ -253,6 +276,22 @@ class TablaCerrada{
         this.insertar(valorNuevo)
     }
 
+    elegirFuncionEnteros(k,params){
+        let posicion
+        switch(params){
+            case "simple":
+                posicion = this.functionSimple(k)
+                break
+            case "division":
+                posicion = this.division(k)
+                break
+            case "multiplicacion":
+                posicion = this.functionMultiplicacion(k)
+                break
+        }
+    
+        return posicion
+    }
 
     buscar(valor){
         let encontrado = false
@@ -336,6 +375,38 @@ function eliminarNodo(){
     actualizarTablero()
 }
 
+
+function read(){
+    var fileInput = document.querySelector('input[type="file"]');
+
+    var file = fileInput.files.item(0);
+    var reader = new FileReader();
+
+    reader.readAsText(file);
+    
+    reader.onload = function() {
+        var obj = JSON.parse(reader.result)
+        
+        if (tableclose == null){
+            tableclose = new TablaCerrada(obj.m, obj.minimo, obj.maximo)
+        }
+        slider.value = obj.animacion
+        tableclose.funcHash = obj.funcion
+        tableclose.pruebaHash = obj.pruebaHash
+        let val = obj.valores
+        let contador = 0
+        for(let i=0; i<val.length; i++){
+            setTimeout(function(){
+                tableclose.insertar(val[i])
+                actualizarTablero()
+            }, (500)*(11- slider.value)*contador)
+        }  
+
+        
+    }
+}
+
+
 function searchNode(){
     var valueNodo = document.getElementById('valueNodo').value
     tableclose.buscar(valueNodo)
@@ -411,256 +482,3 @@ function actualizarTablero(){
     arrayNodes = []
     edges = []  
 }
-
-
-
-
-
-
-
-
-
-
-class hash {
-    hash(m, min,max) {
-     // / m, seria el tamaño de la tabla 
-      this.m = m;
-      this.min = min;
-      this.max = max;
-      this.arreglo = []
-      this.cte = 0.1625277911
-      this.n = 0
-      this.init()
-    }
-
-    init(){
-        this.areglo = [this.m] 
-        for(var i=0; i<this.m; i++){
-            this.areglo[i] = -1;
-        }
-    }
-
-    insertar(k, opcionFuncion, opcionPrueba){
-        if(typeof k === "string"){
-            console.log(opcionFuncion)
-            console.log(opcionPrueba)
-            let i = this.elegirFuncionString(k, opcionFuncion);
-            let iter =0
-            while(this.areglo[i] != -1){
-                if (opcionPrueba == "lineal"){
-                    i = this.linear(i)
-                }else if (opcionPrueba == "cuadratica"){
-                    i = this.cuadratica(i, iter)
-                    iter++
-                    if (iter > this.m){
-                        break
-                    }
-                }else if(opcionPrueba == "doublehash"){
-                    i = this.dobleHash(i)
-                }else {
-                    break
-                }
-            }
-            this.areglo[i] = k
-            // -> numero de elementos ingresados en la tabla actual
-            this.n++;
-            this.rehashing()
-        }else{
-            let i = this.elegirFuncionEnteros(k, opcionFuncion);
-            let iter =0
-            while(this.areglo[i] != -1){
-                if (opcionPrueba == "lineal"){
-                    i = this.linear(i)
-                }else if (opcionPrueba == "cuadratica"){
-                    i = this.cuadratica(i, iter)
-                    iter++
-                    if (iter > this.m){
-                        break
-                    }
-                }else if(opcionPrueba == "doublehash"){
-                    i = this.dobleHash(i)
-                }else {
-                    break
-                }
-            }
-            this.areglo[i] = k
-            this.n++;
-            this.rehashing()
-        }
-        
-        
-    }
-    rehashing(){
-        console.log(this.areglo)
-        // n es el numero de elementos ingresados en la tabla actual
-        // m es el tamaño de la lista
-        if((this.n*100/this.m)>=this.max){
-            var temp = this.areglo
-            var mprev = this.m
-            this.m = Math.ceil(this.n*100/this.min)
-            this.init()
-            this.n = 0
-            // console.log(this.n)
-            // console.log(this.areglo)
-            for(var i=0; i<mprev; i++){
-                if(temp[i]!=-1){
-                    this.insertar(temp[i])
-                }
-            }   
-        }
-    }   
-
-    
-    toAscii(cadena){
-        let result = 0
-        for(let i=0; i<cadena.length; i++){
-            result += cadena.charCodeAt(i)
-        }
-        return result
-    }
-
-    print(){
-        console.log("[")
-        for(let i=0; i<this.m; i++){
-            console.log(" " + this.areglo[i])
-        }
-        console.log("]" + (this.n*100)/this.m) + "%"
-    }
-
-
-    eliminar(valor){
-        for(let i=0; i<this.areglo.length; i++){
-            if(this.areglo[i] != -1){
-                if(this.areglo[i] == valor){
-                    this.areglo[i] == valor
-                    this.n--
-                }
-            }
-        }
-        
-    }
-
-    modificar(valor, valornuevo){
-        for(let i=0; i<this.areglo.length; i++){
-            if(this.areglo[i] != -1){
-                if(this.areglo[i] == valor){
-                    this.areglo.splice(i, -1)
-                }
-            }
-        }
-        this.insertar(valornuevo)
-    }
-
-    print1(){
-        let contante = 10000
-        dataDownload = []
-        for (let i=0; i<this.areglo.length; i++){
-            if(this.areglo[i] != -1){
-                arrayNodes.push({id: i, label: i.toString(), level: i, shape: "box"})
-                arrayNodes.push({id: i+contante, label: this.areglo[i].toString(), level: i, shape: "box"})
-                edges.push({from: i, to: i+contante, shape: "box", arrows: "to"})
-                console.log("indice: "  + i  +  ", valor: " + this.areglo[i])
-            }else{
-                arrayNodes.push({id: i, label: "/", level: i, shape: "box"})
-                console.log("indice: "  + "/"  +  ", valor: " + "-1")
-            }
-    
-            if(i >= 1){
-                edges.push({from: i-1, to: i, shape: "box", arrows: "to"})
-            }
-        }
-        console.log("porcentaje: " + ((this.n*100)/this.m) + "%")
-    }
-
-
-    division(k){
-        return (k%(this.m))
-    }
-
-    functionSimple(id) {
-        while ((id > 1) || (id == 0)){
-            id = id/10
-        }
-        let posicion = Math.floor(id * this.m-1)
-        if (posicion > this.m){
-            return posicion - this.m
-            
-        }else{
-            return posicion
-        }
-    }
-
-    functionMultiplicacion(id){
-        let posicion = 0
-        posicion = Math.floor((this.m) * (id * this.cte % 1))
-        console.log(posicion)
-        if (posicion > this.m-1){
-            return posicion - this.m-1
-        }else{
-            return posicion
-        }
-    }
-
-    linear(k){
-        let item = ((k+1)%this.m)
-        console.log("la posicion linear: " + item)
-        return item
-    }
-
-    cuadratica(k,i){
-        let item = ((k + i*i) % this.m)
-        console.log("la posicion cuadratica: " + item)
-        return item
-    }
-
-    hash1(key){
-        return (key % this.m)
-    }
-
-    hash2(key){
-        return ((1+key) % (this.m-2))
-    }
-
-
-    dobleHash(k){
-        let item = ((this.hash2(k) + this.hash1(k)) % this.m)
-        console.log("la posicion con doble hash: " + item)
-        return item
-    }
-
-    elegirFuncionString(k, params) {
-        let posicion = 0
-        switch(params){
-            case "simple":
-                posicion = this.functionSimple(this.toAscii(k))
-                break
-            case "division":
-                posicion = this.division(this.toAscii(k))
-                break
-            case "multiplicacion":
-                posicion = this.functionMultiplicacion(this.toAscii(k))
-                break
-        }
-    
-        return posicion
-    }
-    
-    elegirFuncionEnteros(k,params){
-        let posicion = 0
-        switch(params){
-            case "simple":
-                posicion = this.functionSimple(k)
-                break
-            case "division":
-                posicion = this.division(k)
-                break
-            case "multiplicacion":
-                posicion = this.functionMultiplicacion(k)
-                break
-        }
-    
-        return posicion
-    }
-
-}
-
