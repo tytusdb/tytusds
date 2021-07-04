@@ -32,9 +32,9 @@
     <button class="boton" (click)="insertarAbierta(box.value)" type="submit" >Push</button> &nbsp; &nbsp;
     
     <input type="text" #box1 placeholder="Eliminar Datos" name="username"/> 
-    <button class="boton" (click)="value()" >Eliminar</button>&nbsp; &nbsp;&nbsp;
+    <button class="boton" (click)="eliminarAbierta(box1.value)" >Eliminar</button>&nbsp; &nbsp;&nbsp;
     <input type="text" #box3 placeholder="Buscar Datos" name="username"/> 
-    <button class="boton" (click)="value()" >Buscar</button>&nbsp; &nbsp;
+    <button class="boton" (click)="buscarAbierta(box3.value)" >Buscar</button>&nbsp; &nbsp;
     <br>
     <br>
     &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -48,7 +48,7 @@
     <br>
     <label><font color="#000000"><input type="checkbox" id="check" onclick="checkAbiertaSimple()">Simple  </font></label> &nbsp;&nbsp;&nbsp;
     <label><font color="#000000"><input type="checkbox" id="check" onclick="checkAbiertaDivision()">Division  </font></label> &nbsp;&nbsp;&nbsp;
-    <label><font color="#000000"><input type="checkbox" id="check" onclick="checkBox()">Multiplicaicon </font></label> &nbsp;&nbsp;&nbsp;
+    <label><font color="#000000"><input type="checkbox" id="check" onclick="checkAbiertaMultiplicacion()">Multiplicaicon </font></label> &nbsp;&nbsp;&nbsp;
     <br>
     <label><font color="#000000"><input type="checkbox" id="check" onclick="checkAbiertaString()">String?</font></label> &nbsp;&nbsp;&nbsp;
     <label><font color="#000000"><input type="checkbox" id="check" onclick="checkAbiertaInt()">Integer?</font></label> &nbsp;&nbsp;&nbsp;

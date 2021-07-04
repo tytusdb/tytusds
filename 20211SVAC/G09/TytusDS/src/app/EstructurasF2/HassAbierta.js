@@ -22,6 +22,15 @@ function checkAbiertaDivision(){
         console.log("cambioando chek "+ checkBoxabiertaDivision);
     }  
 }
+function checkAbiertaMultiplicacion(){
+    if(checkBoxAbiertaMultiplicacion == true){
+        checkBoxAbiertaMultiplicacion = false;
+        console.log("cambiando chek "+ checkBoxAbiertaMultiplicacion);
+    }else{
+        checkBoxAbiertaMultiplicacion = true;
+        console.log("cambioando chek "+ checkBoxAbiertaMultiplicacion);
+    }  
+}
 function checkAbiertaString(){
     if(checkBoxAbiertaString == true){
         checkBoxAbiertaString = false;
@@ -31,6 +40,7 @@ function checkAbiertaString(){
         console.log("cambioando chek "+ checkBoxAbiertaString);
     }  
 }
+
 
 function checkAbiertaInt(){
     if(checkBoxAbiertaInt == true){
@@ -66,6 +76,7 @@ class Hash{
         this.factorCarga = 0.0; // porcentaje de la tabla
         this.maximo = maximo;
         this.minimo = minimo;
+        this.contador = 0;
 
         //llenado de tabla con valores nulos listos para llenarse
         for(let i = 0; i<size;i++){
@@ -93,7 +104,7 @@ class Hash{
             //console.log(this.vector)
             this.reHashing();  
         }
-
+        this.contador=0
     }
 
     funcionHash(id){ // con el metodo de division
@@ -103,10 +114,38 @@ class Hash{
             if(posicion > this.size){
                 return posicion - this.size;
             }
-        //console.log(posicion);
             return posicion;
         }
-        
+        if(checkBoxAbiertaSimple ==true){
+            while (id >= 1){
+                id = id / 10
+            }        
+            console.log(id)    
+            console.log(this.size - 1)
+            let posicion = id * (this.size - 1) //posicion en donde estara posicionado en el array
+            posicion = Math.trunc(posicion);
+            console.log(posicion)
+            if(posicion > this.size){
+                return posicion - this.size;
+            }
+            console.log(posicion)
+            return posicion;
+        }
+        if(checkBoxAbiertaMultiplicacion ==true){
+            let A = id;
+            this.contador++
+            while (A >= 1){
+                 A = A/ 10
+            }    
+    
+            let posicion =  (this.size - 1)*((id*A)%this.contador);
+            posicion = Math.trunc(posicion);
+            if(posicion > this.size){
+                return posicion - this.size;
+            }
+            console.log(posicion)
+             return posicion;
+        }
     }
 
     reHashing(){
@@ -160,13 +199,86 @@ class Hash{
             if(nodo != null){
                 valores = "";
                 nodo.lista.forEach(llave =>{
-                    valores += "|"+llave.clave + ","+ llave.valor
+                    valores += " | "+ llave.valor
                 });
                 console.log("indice: ",nodo.indice,"Valores:",valores);
             }else{
                 console.log("indice:",null)
             }
         });
+    }
+    buscar(data){
+        if(checkBoxAbiertaMultiplicacion==true){
+            this.contador = 0;
+            console.log(data);
+            //let posicion = this.funcionHash(data);
+            //console.log(posicion);
+            this.vector.forEach(nodo => {
+                if(nodo != null){
+                    //valores = "";
+                    nodo.lista.forEach(llave =>{
+                       // valores += " | "+ llave.valor
+                       //console.log(llave.clave)
+                        if(llave.clave==data){
+                            console.log("Elemento enontrado:"+ data+" "+"En el indice: "+nodo.indice);
+                        }
+                    });
+                    //console.log("indice: ",nodo.indice,"Valores:",valores);
+                }else{
+                    //console.log("indice:",null)
+                }
+            });
+        }
+    }
+    eliminar(data){
+        this.vector.forEach(nodo => {
+            let contadorBorrar = 0;
+            console.log("hola "+nodo)
+            if(nodo != null){
+                nodo.lista.forEach(llave =>{
+                   console.log(llave)
+                    if(llave.valor==data){
+                        console.log(llave)
+                        console.log(nodo.lista)
+                        console.log(nodo.lista.length)
+                        let listaBorrar = [];
+                        console.log(listaBorrar.length);
+                        
+                        for(llave in nodo.lista){
+                            console.log(nodo.lista)
+                            console.log(nodo.lista[llave].valor);
+                            console.log(nodo.indice);
+                            console.log(data)
+                            if(nodo.lista[llave].valor != data){
+                                listaBorrar.push(nodo.lista[llave]);
+                                //contadorBorrar++;
+                            }else{
+                                console.log(contadorBorrar)
+                                if(contadorBorrar==0){
+                                    contadorBorrar++;
+                                }else{
+                                    listaBorrar.push(nodo.lista[llave]);
+                                }
+                            }
+                        }
+                        console.log(nodo.lista)
+                        if(listaBorrar.length == 0){
+                            console.log("es 0");
+                            console.log(nodo.lista);
+                            this.vector[nodo.indice]=null;
+                            
+                        }else{
+                            nodo.lista = listaBorrar;
+                        }                      
+                        console.log(this.vector);
+                    }
+                });
+                //console.log("indice: ",nodo.indice,"Valores:",valores);
+            }else{
+                //console.log("indice:",null)
+            }
+        });
+        
     }
 }
 
@@ -189,6 +301,13 @@ function insertarAbierta(data){
         console.log(tabla1.print());
     }
     
+}
+function buscarAbierta(data){
+    tabla1.buscar(data)
+}
+function eliminarAbierta(data){
+    tabla1.eliminar(data)
+    tabla1.print()
 }
 
 

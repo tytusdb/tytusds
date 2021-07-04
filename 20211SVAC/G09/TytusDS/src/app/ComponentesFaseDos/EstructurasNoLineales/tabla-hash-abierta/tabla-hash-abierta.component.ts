@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 declare var insertarAbierta:any;
+declare var buscarAbierta:any;
+declare var eliminarAbierta:any;
 
 @Component({
   selector: 'app-tabla-hash-abierta',
@@ -14,6 +16,13 @@ export class TablaHashAbiertaComponent implements OnInit {
   }
   insertarAbierta(data:any){
     insertarAbierta(data)
+  }
+  buscarAbierta(data:any){
+    buscarAbierta(data)
+  }
+  eliminarAbierta(data:any){
+    eliminarAbierta(data)
+
   }
   value(){
     
