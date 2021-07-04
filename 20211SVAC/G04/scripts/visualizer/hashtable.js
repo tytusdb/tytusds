@@ -143,26 +143,32 @@ var addOnHashTable = function () {
     }
 };
 var removeOnHashTable = function () {
-    if (hashInstance && oldNodeValue.length) {
-        hashInstance.eliminar(oldNodeValue);
-        setElementsLength(--elementsCounter);
-        addTestCode('eliminar', oldNodeValue.toString());
-    }
+    validateOnHashTable(function () {
+        if (hashInstance && oldNodeValue.length) {
+            hashInstance.eliminar(oldNodeValue);
+            setElementsLength(--elementsCounter);
+            addTestCode('eliminar', oldNodeValue.toString());
+        }
+    });
 };
 var updateOnHashTable = function () {
-    if (hashInstance && oldNodeValue.length && newNodeValue.length) {
-        hashInstance.actualizar(oldNodeValue, newNodeValue);
-        addTestCode('actualizar', oldNodeValue + "," + newNodeValue);
-    }
+    validateOnHashTable(function () {
+        if (hashInstance && oldNodeValue.length && newNodeValue.length) {
+            hashInstance.actualizar(oldNodeValue, newNodeValue);
+            addTestCode('actualizar', oldNodeValue + "," + newNodeValue);
+        }
+    });
 };
-var searchOnHashTable = function () {
+var validateOnHashTable = function (callback) {
     if (hashInstance && oldNodeValue.length) {
         var index = hashInstance.getIndex(oldNodeValue);
         if (index[0] >= 0) {
             hashNodeScaleCounter = 0;
             hashScalePosition = index;
+            callback && callback();
         }
         else
             alert('Valor no encontrado');
     }
 };
+var searchOnHashTable = function () { return validateOnHashTable(); };

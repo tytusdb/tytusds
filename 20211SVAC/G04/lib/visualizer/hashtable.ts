@@ -249,28 +249,36 @@ const addOnHashTable = () => {
 
 // ELIMINAR EN HASH
 const removeOnHashTable = () => {
-	if (hashInstance && oldNodeValue.length) {
-		hashInstance.eliminar(oldNodeValue)
-		setElementsLength(--elementsCounter)
-		addTestCode('eliminar', oldNodeValue.toString())
-	}
+	validateOnHashTable(() => {
+		if (hashInstance && oldNodeValue.length) {
+			hashInstance.eliminar(oldNodeValue)
+			setElementsLength(--elementsCounter)
+			addTestCode('eliminar', oldNodeValue.toString())
+		}
+	})
 }
 
 // ACTUALIZAR EN HASH
 const updateOnHashTable = () => {
-	if (hashInstance && oldNodeValue.length && newNodeValue.length) {
-		hashInstance.actualizar(oldNodeValue, newNodeValue)
-		addTestCode('actualizar', `${oldNodeValue},${newNodeValue}`)
-	}
+	validateOnHashTable(() => {
+		if (hashInstance && oldNodeValue.length && newNodeValue.length) {
+			hashInstance.actualizar(oldNodeValue, newNodeValue)
+			addTestCode('actualizar', `${oldNodeValue},${newNodeValue}`)
+		}
+	})
 }
 
-// BUSCAR EN HASH
-const searchOnHashTable = () => {
+// BUSCAR VALOR
+const validateOnHashTable = (callback?: Function) => {
 	if (hashInstance && oldNodeValue.length) {
 		const index: number[] = hashInstance.getIndex(oldNodeValue)
 		if (index[0] >= 0) {
 			hashNodeScaleCounter = 0
 			hashScalePosition = index
+			callback && callback()
 		} else alert('Valor no encontrado')
 	}
 }
+
+// BUSCAR EN HASH
+const searchOnHashTable = () => validateOnHashTable()
