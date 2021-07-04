@@ -238,10 +238,10 @@ class Arbol{
 
   }
 }
-
+/*
 let a = new Arbol();
 a.ingresoTexto("hola buenas");
-
+*/
 
 
 
