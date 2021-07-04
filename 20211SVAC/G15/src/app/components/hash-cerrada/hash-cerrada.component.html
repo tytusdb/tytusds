@@ -1,0 +1,197 @@
+<body>
+    <div class="container">
+
+        <div class="row opciones p-2">
+            <div class="col-lg-2 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <label for="tamanio" class="mr-1 text-white">Tamaño</label>
+                    <input type="number" class="form-control" id="tamanio" name="tamanio" [(ngModel)]="tamanio"
+                        placeholder="Tamaño">
+
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <label for="dropFuncion" class="mr-1 text-white">Funcion Hash</label>
+                    <select class="form-control" id="dropFuncion" [(ngModel)]="funcionHash">
+                        <option value="1">Simple</option>
+                        <option value="2">Multiplicacion</option>
+                        <option value="3">Division</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <label for="dropPrueba" class="mr-1 text-white">Prueba Hash</label>
+                    <select class="form-control" id="dropPrueba" [(ngModel)]="pruebaHash">
+                        <option value="1">Lineal</option>
+                        <option value="2">Cuadratica</option>
+                        <option value="3">Doble</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <label for="minHash" class="mr-1 text-white">Min</label>
+                    <input type="number" class="form-control" id="minHash" name="minHash" [(ngModel)]="minHash"
+                        placeholder="Min Hash">
+
+                    <label for="maxHash" class="mr-1 text-white">Max</label>
+                    <input type="number" class="form-control" id="maxHash" name="maxHash" [(ngModel)]="maxHash"
+                        placeholder="Max Hash">
+
+                </div>
+            </div>
+
+
+            <div class="col-lg-2 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <label for="tamanio" class="mr-1 text-white">Duracion</label>
+                    <input type="number" class="form-control" id="duracion" name="duracion" [(ngModel)]="duracion"
+                        placeholder="Duracion">
+
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <input type="text" class="form-control" value="" id="numero" name="numero" [(ngModel)]="numero"
+                        placeholder="Ingresa un Numero">
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary " type="button" (click)="add()">Guardar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <input type="text" class="form-control" value="" id="numero" name="numero"
+                        placeholder="Ingresa un Numero"  [(ngModel)]="numeroBuscar">
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary " type="button" (click)="search()">Buscar</button>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="col-lg-3 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="numero" name="numero" [(ngModel)] ="numeroAntiguo"placeholder="Antiguo" >
+                    <input type="text" class="form-control" id="numero" name="numero" [(ngModel)] ="numeroNuevo" placeholder="Nuevo">
+                    <div class="input-group-append">
+                        <button class="btn btn-warning" type="button" (click)="edit()">Actualizar</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-3 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <input type="text" class="form-control" value="" id="numero" name="numero"
+                        placeholder="Ingresa un Numero" [(ngModel)] ="numeroEliminar">
+                    <div class="input-group-append">
+                        <button class="btn btn-warning " type="button" (click)="delete()">Eliminar</button>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-12 col-sm-12 col-lg-2 text-left mt-2 text-white mt-1">
+                <div class="dropdown">
+                    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Opciones
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="numero" name="numero" placeholder="Velocidad">
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+
+            <div class="col-12 col-sm-12 col-lg-3 text-left mt-2 text-white mt-1">
+                <div class="input-group">
+                    <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+                    <div class="file-upload">
+
+                        {{fileName || "No file uploaded yet."}}
+
+                        <button class="btn btn-primary" (click)="fileUpload.click()">
+                            <i class="fas fa-upload"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-12 col-lg-3 text-left mt-2 text-white mt-1">
+                <div class="input-group">
+                    <button class="btn btn-primary" (click)="generarJSON()">
+                        Generar JSON
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="container-fluid mt-2 ">
+        <div class="row">
+            <div class="col-lg-4 col-sm-12 col-12"></div>
+            <div class="col-lg-2 col-sm-12 col-12">
+                <div class="btn btn-primary">
+                    Tamaño <span class="badge badge-light">{{tamanio  | number : '1.2-2'}}</span>
+                </div>
+            </div>
+            <div class="col-lg-2 col-sm-12 col-12">
+                <div class="btn btn-primary">
+                    Ocupacion <span class="badge badge-light">{{ocupacion}} %</span>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-12 col-12"></div>
+            
+        </div>
+        <div class="row mt-2">
+            <div class="col-lg-4 col-sm-12 col-12">
+                <div class="consola" id="consola">
+
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-12 col-12">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 w-100 col-sm-12 mb-2 " *ngFor="let dato of values; let i = index"
+                        [attr.data-index]="i">
+
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title" *ngIf="dato.libre === true || dato.libre ==='borrado'">Libre</h5>
+                                <h5 class="card-title" *ngIf="dato.libre === false">Value: {{dato.value}}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Index: {{i}} </h6>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-12 col-12">
+
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
