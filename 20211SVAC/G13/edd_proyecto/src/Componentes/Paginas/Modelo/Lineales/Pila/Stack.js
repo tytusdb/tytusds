@@ -6,7 +6,7 @@ class Stack{
         this.primero = null
     }
 
-    push = (dato) =>{ //Agrega un valor al final de la lista.
+    insertar = (dato) =>{ //Agrega un valor al final de la lista.
         let  nodo_nuevo = new Nodo(dato)
         if (this.empty() == false){
             nodo_nuevo.set_siguiente(this.get_primero())

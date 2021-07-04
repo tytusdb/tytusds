@@ -17,6 +17,9 @@ import AVL from './Componentes/Paginas/AVL';
 import ArbolB from './Componentes/Paginas/Arbolb';
 import ArbolBPlus from './Componentes/Paginas/Arbolbplus';
 import ArbolMerkle from './Componentes/Paginas/Arbolmerkle';
+import MatrizDispersa from './Componentes/Paginas/MatrizDispersa';
+import TablaHashAbierta from './Componentes/Paginas/HashAbierta';
+import Compuesta from './Componentes/Paginas/Compuesta'
 
 
 
@@ -26,6 +29,7 @@ function App() {
       <Navbar />
       <Switch>
         <Route path='/' exact component={Home} />
+        <Route path='/HashAbierta' exact component={TablaHashAbierta} />
         <Route path='/Listasimplementeenlazada' component={ListaSE} />
         <Route path='/Listadoblementeenlazada' component={ListaDE} />
         <Route path='/Listacircularsimplementeenlazada' component={ListaCSE} />
@@ -41,6 +45,8 @@ function App() {
         <Route path='/Arbolb' component={ArbolB} />
         <Route path='/Arbolbplus' component={ArbolBPlus} />
         <Route path='/Arbolmerkle' component={ArbolMerkle} />
+        <Route path='/MatrizDispersa' component={MatrizDispersa} />
+        <Route path='/Compuesta' component={Compuesta} />
       </Switch>
     </Router>
   );

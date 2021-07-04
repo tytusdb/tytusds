@@ -1,0 +1,100 @@
+.cuadroAnim{
+   
+    margin-left: 30px;
+    width: 325px;
+    float: left;
+    border: none;
+
+}
+.diagram{
+ 
+    width: 800px;
+    height: 480px;
+    margin-top: 27px;
+    margin-left: 720px;
+    padding-top: 24px;
+   
+    /*border: 4px solid black;*/
+
+    
+
+}
+.areaTexto{
+    font-size: 15px;
+    font-family:Arial;
+    font-weight: bolder;
+    resize: none;
+    width: 300px;
+    height: 300px;
+    padding: 10px;
+    margin-right: 20px;
+    text-align: justify;
+}
+.resul{
+    text-align: center;
+}
+.areaTexto.mini{
+    height: 100px;
+
+
+}
+.textDia{
+    float: left;
+    font-size: 12px;
+    font-family:Arial;
+    font-weight: bolder;
+    resize: none;
+    width: 320px;
+
+    height: 110px;
+    padding: 10px;
+    margin-right: 55px;
+    text-align: justify;
+
+}
+.arrow{
+    transform: rotate(90deg);
+}
+.arrow2{
+    transform: rotate(270deg);
+}
+.arrow3{
+    transform: rotate(45deg);
+}
+.arrow4{
+    transform: rotate(135deg);
+}
+
+#a1{
+    margin-left: 140px;
+    
+
+}
+#a2{
+    margin-left: 335px;
+    
+
+}
+#x1{
+    margin-left: 155px;
+}
+#x2{
+    margin-left: 360px;
+}
+
+.datoGrafo{
+    padding: 5px;
+    height: 29px;
+    width: 86px;
+    border: 2px solid #aaa;
+    border-radius: 4px;
+    outline: none;
+   
+    transition: .3s;
+    margin-right: 5px;
+}
+
+.datoGrafo:focus{
+    border-color: dodgerblue;
+    box-shadow: 0 0 8px 0 dodgerblue;
+}

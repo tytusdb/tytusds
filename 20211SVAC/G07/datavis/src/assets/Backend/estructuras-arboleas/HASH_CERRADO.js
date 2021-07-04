@@ -14,7 +14,7 @@ class hash{
     inicializar(){
         for (let i = 0; i < this.tabla.length; i++) {
              this.tabla[i] = "-1";
-            
+
         }
     }
 
@@ -45,13 +45,13 @@ class hash{
     }
 
     rehash(){
-        
+
         let maximo = this.size*100/this.m;
         if(maximo>=this.max){
             console.log("rehash")
             let temp = [];
             for (let k = 0; k < this.tabla.length; k++) {
-                temp.push(this.tabla[k]);  
+                temp.push(this.tabla[k]);
             }
             this.m = this.size*100/this.min;
             this.tabla.length = this.m;
@@ -85,7 +85,7 @@ class hash{
     //Eliminar
     eliminar(valor){
         let calc = this.verificacionDato(valor);
-        
+
         if(this.fun == "Simple" && this.test =="Lineal"){
             let res = Math.trunc(this.simple());
             while(this.tabla[res]!=valor){
@@ -105,7 +105,7 @@ class hash{
             }while(this.tabla[r]!=valor)
             this.tabla[r] = "-1";
             this.size--;
-        
+
         }else if(this.fun == "Simple" && this.test =="Doble"){
             let r;
             let res = Math.trunc(this.simple());
@@ -120,7 +120,7 @@ class hash{
         }else if(this.fun == "Div" && this.test =="Lineal"){
             let res = this.division(calc);
             while(this.tabla[res]!=valor){
-                res = this.lineal(res); 
+                res = this.lineal(res);
             }
             this.tabla[res] = "-1";
             this.size--;
@@ -131,11 +131,11 @@ class hash{
             let iteracion = 0;
 
             do{
-                
+
                 let j = Math.pow(iteracion,2);
                 r = this.cuadratica(res,j);
                 iteracion++;
-                
+
             }while(this.tabla[r]!=valor);
             this.tabla[r] = "-1";
             this.size--;
@@ -154,7 +154,7 @@ class hash{
         }else if(this.fun == "Multi" && this.test =="Lineal" ){
             let res =Math.trunc(this.multiplicacion(calc));
             while(this.tabla[res]!=valor){
-                res = this.lineal(res); 
+                res = this.lineal(res);
             }
             this.tabla[res] = "-1";
             this.size--;
@@ -164,11 +164,11 @@ class hash{
             let res = Math.trunc(this.multiplicacion(calc));
             let iteracion = 0;
             do{
-                
+
                 let j = Math.pow(iteracion,2);
                 r = this.cuadratica(res,j);
                 iteracion++;
-                
+
             }while(this.tabla[r]!=valor);
             this.tabla[r] = "-1";
             this.size--;
@@ -180,18 +180,17 @@ class hash{
             do{
                 r = this.doble(res,iteracion);
                 iteracion++;
-            
+
             }while(this.tabla[r]!=valor);
             this.tabla[r] = "-1";
             this.size--;
         }
     }
 
-
     //Actualizar
     actualizar(valor,sustituto){
         let calc = this.verificacionDato(valor);
-        
+
         if(this.fun == "Simple" && this.test =="Lineal"){
             let res = Math.trunc(this.simple());
             while(this.tabla[res]!=valor){
@@ -209,7 +208,7 @@ class hash{
                 iteracion++;
             }while(this.tabla[r]!=valor)
             this.tabla[r] = sustituto;
-        
+
         }else if(this.fun == "Simple" && this.test =="Doble"){
             let r;
             let res = Math.trunc(this.simple());
@@ -223,7 +222,7 @@ class hash{
         }else if(this.fun == "Div" && this.test =="Lineal"){
             let res = this.division(calc);
             while(this.tabla[res]!=valor){
-                res = this.lineal(res); 
+                res = this.lineal(res);
             }
             this.tabla[res] = sustituto;
 
@@ -233,11 +232,11 @@ class hash{
             let iteracion = 0;
 
             do{
-                
+
                 let j = Math.pow(iteracion,2);
                 r = this.cuadratica(res,j);
                 iteracion++;
-                
+
             }while(this.tabla[r]!=valor);
             this.tabla[r] = sustituto;
 
@@ -254,7 +253,7 @@ class hash{
         }else if(this.fun == "Multi" && this.test =="Lineal" ){
             let res =Math.trunc(this.multiplicacion(calc));
             while(this.tabla[res]!=valor){
-                res = this.lineal(res); 
+                res = this.lineal(res);
             }
             this.tabla[res] = sustituto;
 
@@ -263,11 +262,11 @@ class hash{
             let res = Math.trunc(this.multiplicacion(calc));
             let iteracion = 0;
             do{
-                
+
                 let j = Math.pow(iteracion,2);
                 r = this.cuadratica(res,j);
                 iteracion++;
-                
+
             }while(this.tabla[r]!=valor);
             this.tabla[r] = sustituto;
 
@@ -278,7 +277,7 @@ class hash{
             do{
                 r = this.doble(res,iteracion);
                 iteracion++;
-            
+
             }while(this.tabla[r]!=valor);
              this.tabla[r] = sustituto;
         }
@@ -287,7 +286,7 @@ class hash{
     //Buscar
     buscar(valor){
         let calc = this.verificacionDato(valor);
-        
+
         if(this.fun == "Simple" && this.test =="Lineal"){
             let res = Math.trunc(this.simple());
             while(this.tabla[res]!=valor){
@@ -305,7 +304,7 @@ class hash{
                 iteracion++;
             }while(this.tabla[r]!=valor)
             return this.tabla[r];
-        
+
         }else if(this.fun == "Simple" && this.test =="Doble"){
             let r;
             let res = Math.trunc(this.simple());
@@ -319,7 +318,7 @@ class hash{
         }else if(this.fun == "Div" && this.test =="Lineal"){
             let res = this.division(calc);
             while(this.tabla[res]!=valor){
-                res = this.lineal(res); 
+                res = this.lineal(res);
             }
                 return this.tabla[res];
 
@@ -329,11 +328,11 @@ class hash{
             let iteracion = 0;
 
             do{
-                
+
                 let j = Math.pow(iteracion,2);
                 r = this.cuadratica(res,j);
                 iteracion++;
-                
+
             }while(this.tabla[r]!=valor);
             return this.tabla[r];
 
@@ -350,7 +349,7 @@ class hash{
         }else if(this.fun == "Multi" && this.test =="Lineal" ){
             let res =Math.trunc(this.multiplicacion(calc));
             while(this.tabla[res]!=valor){
-                res = this.lineal(res); 
+                res = this.lineal(res);
             }
             return this.tabla[res];
 
@@ -359,11 +358,11 @@ class hash{
             let res = Math.trunc(this.multiplicacion(calc));
             let iteracion = 0;
             do{
-                
+
                 let j = Math.pow(iteracion,2);
                 r = this.cuadratica(res,j);
                 iteracion++;
-                
+
             }while(this.tabla[r]!=valor);
             return this.tabla[r];
 
@@ -374,7 +373,7 @@ class hash{
             do{
                 r = this.doble(res,iteracion);
                 iteracion++;
-            
+
             }while(this.tabla[r]!=valor);
             return this.tabla[r];
         }
@@ -406,7 +405,7 @@ class hash{
             this.tabla[r] = valor;
             this.size++;
             this.rehash();
-            
+
         }else if(this.fun == "Simple" && this.test=="Doble"){
             let r;
             let res = Math.trunc(this.simple());
@@ -423,7 +422,7 @@ class hash{
         }else if(this.fun == "Div" && this.test=="Lineal"){
             let res = this.division(calculo);
             while(this.tabla[res]!="-1"){
-                res = this.lineal(res); 
+                res = this.lineal(res);
             }
                 this.tabla[res] = valor;
                 this.size++;
@@ -435,11 +434,11 @@ class hash{
             let iteracion = 0;
 
             do{
-                
+
                 let j = Math.pow(iteracion,2);
                 r = this.cuadratica(res,j);
                 iteracion++;
-                
+
             }while(this.tabla[r]!="-1");
             iteracion=0;
             this.tabla[r] = valor;
@@ -462,7 +461,7 @@ class hash{
         }else if(this.fun == "Multi" && this.test=="Lineal"){
             let res =Math.trunc(this.multiplicacion(calculo));
             while(this.tabla[res]!="-1"){
-                res = this.lineal(res); 
+                res = this.lineal(res);
             }
             this.tabla[res] = valor;
             this.size++;
@@ -473,11 +472,11 @@ class hash{
             let res = Math.trunc(this.multiplicacion(calculo));
             let iteracion = 0;
             do{
-                
+
                 let j = Math.pow(iteracion,2);
                 r = this.cuadratica(res,j);
                 iteracion++;
-                
+
             }while(this.tabla[r]!="-1");
 
             iteracion=0;
@@ -491,7 +490,7 @@ class hash{
             do{
                 r = this.doble(res,iteracion);
                 iteracion++;
-            
+
             }while(this.tabla[r]!="-1");
             iteracion=0;
             this.tabla[r] = valor;

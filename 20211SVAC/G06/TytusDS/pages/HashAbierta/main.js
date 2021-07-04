@@ -27,7 +27,17 @@ var largo = 0
 let listita = new Hash()
 let array = []
 let array2 = []
-let letras = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y"]
+let letras = ["A", "B", "C", "D", "E", "F", "G", "H",
+    "I", "J", "K", "L", "M", "N", "O", "P",
+    "Q", "R", "S", "T", "U", "V", "W", "X",
+    "Y", "Z", "AA", "BB", "CC", "DD", "EE", "FF", "GG",
+    "HH", "II", "JJ", "KK", "LL", "MM", "NN",
+    "OO", "PP", "QQ", "RR", "SS", "TT", "UU",
+    "VV", "WW", "XX", "YY", "ZZ", "AAA", "BBB", "CCC",
+    "DDD", "EEE", "FFF", "GGG", "HHH", "III", "JJJ", "KKK", "LLL",
+    "MMM", "NNN", "OOO", "PPP", "QQQ", "RRR", "SSS", "TTT", "UUU",
+    "VVV", "WWW", "XXX", "YYY", "ZZZ"
+]
 
 /*EVENTOS*/
 $('#add').on('click', () => agregar())
@@ -84,33 +94,42 @@ function agregar() {
         id: cont,
         label: inputValue,
     }
-    let pos = listita.insert(inputValue)
-    array.push(prueba)
-        //console.log(listita.crear.tabla[pos])
-    console.log(valor.label + letras[pos] + "VALOR LABEL")
-    var updatedIds = nodes.add([{
-        id: valor.label + letras[pos],
-        label: prueba.toString(),
-        color: "#7BE141"
-    }]);
-    //console.log("ingresar " + array)
-    //console.log("ingresar " + array2)
-    if (listita.crear.tabla[pos].primero.dato == valor.label) {
-        updatedIds = edges.add([
-            { from: pos, to: valor.label + letras[pos], arrows: 'to' }
-        ])
-        updatedIds = edges.add([
-            { from: valor.label + letras[pos], to: pos, arrows: 'to' }
-        ])
+    let repet = listita.search(inputValue)
+    let pos
+    if (repet != true) {
+        pos = listita.insert(inputValue)
     } else {
-        let aux = listita.crear.tabla[pos].ultimo.anterior.dato
-        console.log(aux)
-        updatedIds = edges.add([
-            { from: aux + letras[pos], to: valor.label + letras[pos], arrows: 'to' }
-        ])
-        updatedIds = edges.add([
-            { from: valor.label + letras[pos], to: aux + letras[pos], arrows: 'to' }
-        ])
+        alert("VALOR REPETIDO!!!")
+    }
+    array.push(prueba)
+        //console.log(valor.label + letras[pos] + "VALOR LABEL")
+    try {
+        var updatedIds = nodes.add([{
+            id: valor.label + letras[pos],
+            label: prueba.toString(),
+            color: "#7BE141"
+        }]);
+        //console.log("ingresar " + array)
+        //console.log("ingresar " + array2)
+        if (listita.crear.tabla[pos].primero.dato == valor.label) {
+            updatedIds = edges.add([
+                { from: pos, to: valor.label + letras[pos], arrows: 'to' }
+            ])
+            updatedIds = edges.add([
+                { from: valor.label + letras[pos], to: pos, arrows: 'to' }
+            ])
+        } else {
+            let aux = listita.crear.tabla[pos].ultimo.anterior.dato
+            console.log(aux)
+            updatedIds = edges.add([
+                { from: aux + letras[pos], to: valor.label + letras[pos], arrows: 'to' }
+            ])
+            updatedIds = edges.add([
+                { from: valor.label + letras[pos], to: aux + letras[pos], arrows: 'to' }
+            ])
+        }
+    } catch (error) {
+        console.log(error)
     }
     cont++
     network.selectNodes([updatedIds[0]]);
@@ -431,10 +450,11 @@ function cargarJson() {
     var file = document.getElementById('formFileSm').files[0];
     let reader = new FileReader();
     reader.readAsText(file);
+    let err = []
     reader.onload = function() {
         const obj = JSON.parse(reader.result)
         var updatedIds
-        largo = obj.tamaño
+        largo = obj.m
         listita.crearHash(largo)
         for (let i = 0; i < largo; i++) {
             var valor = {
@@ -450,7 +470,6 @@ function cargarJson() {
             updatedIds = edges.add([
                 { from: i - 1, to: i, arrows: 'to' }
             ]);
-            cont++
         }
         for (let i = 0; i < obj.valores.length; i++) {
             let prueba = obj.valores[i]
@@ -460,40 +479,49 @@ function cargarJson() {
                 obj.valores[i] = 0
                 for (k = 0; k < len; k++) {
                     obj.valores[i] += prueba.toString().charCodeAt(k)
-                    console.log(obj.valores[i])
+                        //console.log(obj.valores[i])
                     if (k == obj.valores[i].length) {
                         bool = false
                     }
                     id = obj.valores[i]
                 }
             } else {
-                console.log(obj.valores[i])
+                //console.log(obj.valores[i])
             }
-            let pos = listita.insert(obj.valores[i])
+            let pos
             array.push(prueba)
-            updatedIds = nodes.add([{
-                id: obj.valores[i] + letras[pos],
-                label: prueba,
-                color: "#7BE141"
-            }]);
-            console.log(listita.crear.tabla[pos].primero.dato)
-            console.log(obj.valores[i])
-            if (listita.crear.tabla[pos].primero.dato == obj.valores[i]) {
-                updatedIds = edges.add([
-                    { from: pos, to: obj.valores[i] + letras[pos], arrows: 'to' }
-                ])
-                updatedIds = edges.add([
-                    { from: obj.valores[i] + letras[pos], to: pos, arrows: 'to' }
-                ])
-            } else {
-                let aux = listita.crear.tabla[pos].ultimo.anterior.dato
-                updatedIds = edges.add([
-                    { from: aux + letras[pos], to: obj.valores[i] + letras[pos], arrows: 'to' }
-                ])
-                updatedIds = edges.add([
-                    { from: obj.valores[i] + letras[pos], to: aux + letras[pos], arrows: 'to' }
-                ])
+            let repetir = listita.search(obj.valores[i])
+            if (repetir != true) {
+                pos = listita.insert(obj.valores[i])
             }
+            try {
+                cont++
+                updatedIds = nodes.add([{
+                    id: obj.valores[i] + letras[pos],
+                    label: prueba,
+                    color: "#7BE141"
+                }]);
+                if (listita.crear.tabla[pos].primero.dato == obj.valores[i]) {
+                    updatedIds = edges.add([
+                        { from: pos, to: obj.valores[i] + letras[pos], arrows: 'to' }
+                    ])
+                    updatedIds = edges.add([
+                        { from: obj.valores[i] + letras[pos], to: pos, arrows: 'to' }
+                    ])
+                } else {
+                    let aux = listita.crear.tabla[pos].ultimo.anterior.dato
+                    updatedIds = edges.add([
+                        { from: aux + letras[pos], to: obj.valores[i] + letras[pos], arrows: 'to' }
+                    ])
+                    updatedIds = edges.add([
+                        { from: obj.valores[i] + letras[pos], to: aux + letras[pos], arrows: 'to' }
+                    ])
+                }
+            } catch (error) {
+                continue
+            }
+            //console.log(listita.crear.tabla[pos].primero.dato)
+            //console.log(obj.valores[i])
             //cont++
         }
         network.selectNodes([updatedIds[0]]);

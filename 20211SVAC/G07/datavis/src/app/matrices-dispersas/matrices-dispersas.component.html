@@ -26,15 +26,12 @@
 
       <form class="form-inline" >
 
-        <input  class="form-control mr-sm-2 " type="text" #filas placeholder="Filas" aria-label="Filas">
-        <input  class="form-control mr-sm-2 " type="text" #columnas placeholder="Columnas" aria-label="Columnas">
-        <button (click)="TamanoMatriz(filas.value, columnas.value)" class="btn btn-outline-light mr-sm-2" type="button">Tamaño de la Matriz</button>
-
         <input class="form-control mr-sm-2" type="text" #Fila placeholder="Fila" aria-label="Fila">
         <input class="form-control mr-sm-2" type="text" #Col placeholder="Columna" aria-label="Columna">
         <input  class="form-control mr-sm-2 " type="text" #nombre placeholder="Agregar" aria-label="Agregar datp">
         <button (click)="AgregarNuevo(nombre.value, Fila.value, Col.value)" class="btn btn-outline-light mr-sm-2" type="button">Agregar dato</button>
-
+        <input style="display:none;" type="file" (change)="abrir($event)" #archivo>
+        <button (click)="archivo.click()" class="btn btn-outline-light mr-sm-2" type="button" >Cargar</button>
 
 
       </form>

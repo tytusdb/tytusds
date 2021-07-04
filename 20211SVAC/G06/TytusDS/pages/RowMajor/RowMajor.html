@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Row Major</title>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <!-- Icon -->
+    <link rel="shortcut icon" href="../../assets/images/favico.ico">
+    <!-- Sidebar -->
+    <link rel="stylesheet" href="../../assets/css/sidebar.css">
+    <!-- Icons Css -->
+    <link href="../../assets/css/icons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;900&display=swap">
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <div class="overlay"></div>
+
+        <!-- Sidebar -->
+        <nav class="navbar navbar-inverse fixed-top" id="sidebar-wrapper" role="navigation">
+            <ul class="nav sidebar-nav">
+                <div class="sidebar-header">
+                    <div class="sidebar-brand">
+                        <h2 class="text-light display-6">Estructuras</h2>
+                    </div>
+                </div>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown"><i class="uil-arrows-resize"></i> Estructuras
+                        Lineales<span class="caret"></span></a>
+                    <ul class="dropdown-menu animated fadeInLeft" role="menu">
+                        <div class="dropdown-header">／人◕ ‿‿ ◕人＼</div>
+                        <li><a href="#"> Lista Simplemente Enlazada</a></li>
+                        <li><a href="#"> Lista Doblemente Enlazada</a></li>
+                        <li><a href="#"> Lista Circular Simplemente Enlazada</a></li>
+                        <li><a href="#"> Lista Circular Doblemente Enlazada</a></li>
+                        <li><a href="#"> Pila</a></li>
+                        <li><a href="#"> Cola</a></li>
+                        <li><a href="#"> Cola de Prioridad</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown"><i class="uil-horizontal-align-left"></i>
+                        Ordenamientos<span class="caret"></span></a>
+                    <ul class="dropdown-menu animated fadeInLeft" role="menu">
+                        <div class="dropdown-header">⊂(◉‿◉)つ</div>
+                        <li><a href="#"> Burbuja</a></li>
+                        <li><a href="#"> Selección</a></li>
+                        <li><a href="#"> Inserción</a></li>
+                        <li><a href="#"> Rápido</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown"><i class="uil-game-structure"></i> Estructuras
+                        Arbóreas<span class="caret"></span></a>
+                    <ul class="dropdown-menu animated fadeInLeft" role="menu">
+                        <div class="dropdown-header">(๑>ᴗ
+                            <๑)< /div>
+                                <li><a href="#"> Árbol Binario de Búsqueda</a></li>
+                                <li><a href="#"> AVL</a></li>
+                                <li><a href="#"> Árbol B</a></li>
+                                <li><a href="#"> Árbol B+</a></li>
+                                <li><a href="#"> Árbol de Merkle</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown"><i class="uil-share-alt"></i> Estructuras No
+                        Lineales<span class="caret"></span></a>
+                    <ul class="dropdown-menu animated fadeInLeft" role="menu">
+                        <div class="dropdown-header">୧〳 ＾ ౪ ＾ 〵୨</div>
+                        <li><a href="#"> Tabla Hask Abierta</a></li>
+                        <li><a href="#"> Tabla Hash Cerrada</a></li>
+                        <li><a href="#"> Recorrido y Búsqueda por Anchura</a></li>
+                        <li><a href="#"> Recorrido y Búsqueda por Profundidad</a></li>
+                        <li><a href="#"> Algoritmo de Costo Uniforme</a></li>
+                        <li><a href="#"> Árbol de Recubrimiento Mínimo</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown"><i class="uil-lock-access "></i> Algoritmno de
+                        Codificación <span class="caret"></span></a>
+                    <ul class="dropdown-menu animated fadeInLeft" role="menu">
+                        <div class="dropdown-header">ɾ⚈▿⚈ɹ</div>
+                        <li><a href="#"> Código de Hamming</a></li>
+                        <li><a href="#"> Algoritmo de Huffman</a></li>
+                        <li><a href="#"> Algoritmo LZW</a></li>
+                        <li><a href="#"> Cifrado Feistel</a></li>
+                        <li><a href="#"> Cifrado RSA</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown"><i class="uil-layer-group "></i> Estructuras
+                        Compuestas <span class="caret"></span></a>
+                    <ul class="dropdown-menu animated fadeInLeft" role="menu">
+                        <div class="dropdown-header">ヽ（◕◡◕❀ฺ ）ノ</div>
+                        <li><a href="#"> Matrices Dispersas</a></li>
+                        <li><a href="#"> Row-Major</a></li>
+                        <li><a href="#"> Col-Major</a></li>
+                        <li><a href="#"> Construcción de Estructuras</a></li>
+                    </ul>
+                </li>
+                <li><a href="https://github.com/tytusdb/tytusds"><i class="uil-github-alt "></i> Contact</a></li>
+                <li><a href="https://www.instagram.com/angelarteaga_/"><i class="uil-instagram"></i> Follow me</a></li>
+            </ul>
+        </nav>
+        <!-- /#sidebar-wrapper -->
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="height: 70px;">
+            <div class="container-fluid">
+                <a class="navbar-brand" style="padding-left: 60px;"><img src="../../assets/images/favico.ico" width="30" height="30" class="d-inline-block align-top">TytusDS</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="../../Index.html">Home</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Archivo
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="width:300px;">
+                                <li><a class="dropdown-item" href="#" id="guardar">Guardar Json</a></li>
+                                <li><a class="dropdown-item" href="#" id="cargar">Cargar Json</a></li>
+                                <li>
+                                    <input class="form-control form-control-sm" id="formFileSm" type="file" />
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <form class="d-flex">
+                      <div class="form-group" style="margin-right:250px; margin-left: 20px;">
+                        <label for="formControlRange" class="text-light" style="margin-right:10px;">Animación</label>
+                        <input type="range" class="form-control-range" id="formControlRange">
+                      </div>
+                    </form>
+                    <form class="d-flex">
+                        <a class="btn btn-outline-light" id="create" style="margin-right: 7px;">Crear</a>
+                    </form>
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="number" placeholder="n" id="n" style="width: 100px;" autocomplete="off">
+                        <input class="form-control me-2" type="number" placeholder="m" id="m" style="width: 100px;" autocomplete="off">
+                        <input class="form-control me-2" type="search" placeholder="Value" autocomplete="off" aria-label="Search" id="valor">
+                        <a class="btn btn-outline-success" id="add" style="margin-right: 7px;">Add</a>
+                    </form>
+                    <a class="btn btn-outline-danger" id="delete" style="margin-right: 7px;">delete</a>
+                    <a class="btn btn-outline-info" id="rowMajor">Row Major</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <button type="button" class="hamburger animated fadeInLeft is-closed" data-toggle="offcanvas">
+                <span class="hamb-top"></span>
+                <span class="hamb-middle"></span>
+                <span class="hamb-bottom"></span>
+            </button>
+
+
+
+            <!--AQUI VA EL CONTENIDO DE LAS ESTRUCTURAS-->
+            <div class="container">
+                <h1 style="font-family: 'Merriweather', serif;">Row Major</h1>
+                <div id="matriz" class="col-12 overflow-auto" style="height: 300px;"></div>
+                <!--<div class="overflow-auto">
+                    <h3></h3>
+
+                </div>-->
+                <!--button class="btn btn-outline-info" type="submit" id="hola">Buscar</button-->
+            </div>
+            <div id="mynetwork" class="col-12" style="height:300px;"></div>
+            <!-- /#TERMINA CONTENIDO DE LAS ESTRUCTURAS-->
+
+
+            <br>
+            <br>
+            <br>
+            <footer class="bg-dark text-center text-white">
+                <!-- Grid container -->
+                <div class="container p-4 pb-0">
+                    <!-- Section: Social media -->
+                    <section class="mb-4">
+                        <!-- Facebook -->
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                                class="fab fa-facebook-f"></i></a>
+
+                        <!-- Twitter -->
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                                class="fab fa-twitter"></i></a>
+
+                        <!-- Google -->
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                                class="fab fa-google"></i></a>
+
+                        <!-- Instagram -->
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                                class="fab fa-instagram"></i></a>
+
+                        <!-- Linkedin -->
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                                class="fab fa-linkedin-in"></i></a>
+
+                        <!-- Github -->
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                                class="fab fa-github"></i></a>
+                    </section>
+                    <!-- Section: Social media -->
+                </div>
+                <!-- Grid container -->
+
+                <!-- Copyright -->
+                <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                    <p>
+                        <script>
+                            document.write(new Date().toLocaleDateString());
+                        </script>
+                        - TytusDS - Copyright
+                    </p>
+                </div>
+                <!-- Copyright -->
+            </footer>
+
+        </div>
+        <!-- /#wrapper -->
+
+        <!-- Scripts exportados -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.4/js/tether.min.js"></script>
+
+        <!-- Scripts de las estructuras -->
+
+        <!-- Scripts para los eventos -->
+        <script type="text/javascript" src="../../index.js"></script>
+        <script type="text/javascript" src="main.js"></script>
+
+</body>
+
+</html>

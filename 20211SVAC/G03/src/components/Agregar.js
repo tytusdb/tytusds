@@ -20,6 +20,10 @@ import ArbolB from '../estructuras/Estructuras_Arboreas/ArbolB'
 
 import ArbolBplus from '../estructuras/Estructuras_Arboreas/ArbolBplus'
 
+
+import TablaHashAbierta from '../estructuras/EstructurasNoLineales/TablaHashAbierta'
+import TablaHashCerrada from '../estructuras/EstructurasNoLineales/TablaHashCerrada'
+
 const countryOptions = [
     { key: 'ini', value: 'Inicio', text: 'Inicio' },
     { key: 'fin', value: 'Final', text: 'Final' },
@@ -129,6 +133,31 @@ export default class Agregar extends Component {
                 }
             edd.insertar(dato)
             break
+        case "Tabla Hash Abierta":
+            if(edd == null){
+                edd = new TablaHashAbierta();
+            }
+            edd.agregar(dato)
+            break
+        case "Tabla Hash Cerrada":
+
+            if(edd == null){
+                edd = new TablaHashCerrada();
+            }
+            edd.agregar(dato)
+            break;
+        case "Col Major":
+                let arreglosplit = opciones.split(",")
+                let x = arreglosplit[0]
+                let y = arreglosplit[1]
+                edd.actualizar(x,y,nombre,dato)
+            break;
+        case "Row Major":    
+                let splitarr = opciones.split(",")
+                let i = splitarr[0]
+                let j = splitarr[1]
+                edd.actualizar(i,j,nombre,dato)
+            break;
             default:
                 break;
         }
@@ -176,7 +205,9 @@ export default class Agregar extends Component {
                 this.props.nombre=== "Lista doblemente enlazada" ||
                 this.props.nombre=== "Lista circular simplemente enlazada" ||
                 this.props.nombre=== "Lista circular doblemente enlazada" ||
-                this.props.nombre === "Arbol B"){
+                this.props.nombre === "Arbol B" ||
+                this.props.nombre === "Col Major" ||
+                this.props.nombre === "Row Major"){
         return (
             <Modal
                 className="modalAgregar"

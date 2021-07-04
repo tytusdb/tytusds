@@ -40,7 +40,28 @@ export class RowMajorComponent implements OnInit {
   texto="";
   abrir(eve:any)
   {
+    let a =eve.target.files[0]
+    let text=""
 
+    if(a){
+      let reader=new FileReader()
+        reader.onload=ev=>{
+        const resultado=ev.target?.result
+        text=String(resultado)
+        var data = JSON.parse(text);  // se parse para obtener solo los datos
+        this.TamanoMatriz(data.m[0],data.m[1]);
+        data.valores.forEach(element => { // se pasa a un arreglo
+          console.log(element.indices[0])
+          console.log(element.indices[1])
+          console.log(element.valor)
+          this.AgregarNuevo(element.valor,element.indices[0],element.indices[1]);
+
+        });
+
+        this.code=text.toString();
+      }
+      reader.readAsText(a)
+    }
   }
   AgregarNuevo(valor: any, fila: number, columna: number){
     fr = fila
@@ -48,7 +69,7 @@ export class RowMajorComponent implements OnInit {
     matriz[fr][cr] = valor
     nodes.update(
       {id: fr+','+cr, label:String(valor)/*, color: "#7BE141"*/}
-    );
+  );
 /*
     nodes.update(
       {id: fr+','+cr, label:String(valor), color: "rgba(97,195,238,0.5)"}
@@ -68,7 +89,7 @@ export class RowMajorComponent implements OnInit {
           nodes.add(
             {id: i+','+j, label:'0',x: this.x1 , y: this.y1, color: "rgba(97,195,238,0.5)",shape: "box"}
           );
-          this.x1 = this.x1 + 50
+          this.x1 = this.x1 + 70
       }
       this.x1 = 0
       this.y1 = this.y1 + 35
@@ -90,7 +111,7 @@ export class RowMajorComponent implements OnInit {
       nodes.update(
         {id: j, label:'0',x: this.x1 , y: this.y1, color: "#7BE141", shape: "box"}
       );
-      this.x1 = this.x1 + 50
+      this.x1 = this.x1 + 70
     }
     console.log(linealizado);
     for (let i = 0; i < m; i++) {
@@ -105,5 +126,8 @@ export class RowMajorComponent implements OnInit {
 		  }
 	  }
     console.log(linealizado);
+  }
+  prueba(valor: any, valor1: any){
+    console.log(valor, valor1)
   }
 }
