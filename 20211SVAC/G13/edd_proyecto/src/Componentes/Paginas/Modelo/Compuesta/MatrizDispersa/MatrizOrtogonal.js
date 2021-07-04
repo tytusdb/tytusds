@@ -177,13 +177,13 @@ class MatrizOrtogonal {
         if(nodo_cabecera != null){
             do{
                 if(this.estado == true){
-                    dot.push({id:parseInt(contador), label:"Fila: "+String(nodo_cabecera.getX()), x:0, y:nodo_cabecera.getX()});
+                    dot.push({id:parseInt(contador), label:"Fila: "+String(nodo_cabecera.getX()), level:parseInt(nodo_cabecera.getX()+1)});
                 }
                 contador++;
                 let nodo_actual = nodo_cabecera.getColumna().getPrimero();
                 if(nodo_actual != null){
                     do{
-                        dot.push({id:parseInt(contador), label:"("+String(nodo_actual.getX())+","+String(nodo_actual.getY())+")"+String(nodo_actual.getDato()), x: parseInt(nodo_actual.getX()), y:parseInt(nodo_actual.getY())}); 
+                        dot.push({id:parseInt(contador), label:"("+String(nodo_actual.getX())+","+String(nodo_actual.getY())+")"+String(nodo_actual.getDato()), level:parseInt(nodo_actual.getX()+1)}); 
                         contador++;
                         nodo_actual = nodo_actual.getAbajo();
                     }while(nodo_actual != null);   
@@ -198,7 +198,7 @@ class MatrizOrtogonal {
             
             do{
                 if(this.estado==true){
-                dot.push({id:parseInt(contador), label: "Columna: "+String(nodo_cabecera.getY()), x:nodo_cabecera.getY(), y:0});
+                dot.push({id:parseInt(contador), label: "Columna: "+String(nodo_cabecera.getY()), level:0});
                 } 
                 contador++;
                 nodo_actual = nodo_cabecera.getFila().getPrimero();    

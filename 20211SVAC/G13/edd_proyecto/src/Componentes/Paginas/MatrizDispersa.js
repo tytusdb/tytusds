@@ -28,7 +28,12 @@ var options = {
                 background: '#FF1F00'
             }
         }
-    }
+    },
+    layout:{
+		hierarchical: {
+		  direction: "UD",
+		},
+  	},
   };
 
 
