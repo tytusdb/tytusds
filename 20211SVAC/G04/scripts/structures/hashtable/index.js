@@ -87,10 +87,10 @@ var TablaHashAbierta = (function () {
         }
     };
     TablaHashAbierta.prototype.getIndex = function (valor) {
-        var index = [0, 0];
+        var index = [-1, -1];
         for (var i = 0; i < this.tamaño; i++)
             for (var j = 0; j < this.tabla[i].valores.length; j++)
-                if (this.tabla[i].valores[j].valor === valor) {
+                if (this.tabla[i].valores[j].valor.toString() === valor.toString()) {
                     index = [i, j];
                     break;
                 }
@@ -181,7 +181,7 @@ var TablaHashCerrada = (function () {
         }
     };
     TablaHashCerrada.prototype.getIndex = function (valor) {
-        var index = [];
+        var index = [-1, -1];
         for (var i = 0; i < this.tamaño; i++)
             if (this.tabla[i].valor === valor) {
                 index = [i, 0];

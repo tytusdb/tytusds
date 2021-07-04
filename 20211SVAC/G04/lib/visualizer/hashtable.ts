@@ -5,9 +5,13 @@ type HashFunction = 'simple' | 'div' | 'times'
 let openHashInstance: TablaHashAbierta | null = null
 let hashInstance: TablaHashAbierta | TablaHashCerrada | null = null
 let openHashFunc: HashFunction = 'div'
-let openHashSize: number = 13
+let openHashSize: number = 10
 let elementsCounter: number = 0
 let isOpenHash: boolean = true
+
+// ANIMACIÓN
+let hashScalePosition: number[] = [-1, -1]
+let hashNodeScaleCounter: number = 0
 
 // INICIAR
 interface SetHashTableProps {
@@ -24,17 +28,6 @@ const setHashTable = (props: SetHashTableProps) => {
 		openHashInstance = props.openHash.hashInstance
 		openHashSize = props.openHash.size
 		openHashFunc = props.openHash.hashFunc
-
-		// VALORES INICIALES
-		openHashInstance.insertar(1)
-		openHashInstance.insertar(2)
-		openHashInstance.insertar(3)
-		openHashInstance.insertar(4)
-		openHashInstance.insertar(5)
-		openHashInstance.insertar(6)
-		openHashInstance.insertar(7)
-		openHashInstance.insertar(8)
-		openHashInstance.print()
 	}
 }
 
@@ -96,11 +89,20 @@ drawInCanvas = () => {
 						]
 
 					// CUADRO
+					// ANIMACIÓN DE ESCALA
+					if (hashScalePosition[0] !== -1 && hashNodeScaleCounter < 10)
+						hashNodeScaleCounter += ANIMATION_VELOCITY * 0.05
+
+					const enableScale: boolean =
+						hashScalePosition[0] === headIndex &&
+						(isOpenHash ? hashScalePosition[1] === nodeIndex : true)
+					const addedScale: number = enableScale ? hashNodeScaleCounter : 0
+
 					canvasCtx.roundRect(
-						headIndex * 70 - 620,
-						155 - (nodeIndex + 1) * 100,
-						50,
-						50,
+						headIndex * 70 - 620 - addedScale / 2,
+						155 - (nodeIndex + 1) * 100 - addedScale / 2,
+						50 + addedScale,
+						50 + addedScale,
 						10,
 					)
 					canvasCtx.stroke()
@@ -110,7 +112,7 @@ drawInCanvas = () => {
 					// TEXTO
 					canvasCtx.beginPath()
 					canvasCtx.fillStyle = '#011f3bcc'
-					canvasCtx.font = `bold 20px Montserrat`
+					canvasCtx.font = `bold ${20 + addedScale * 0.8}px Montserrat`
 					canvasCtx.textAlign = 'center'
 					canvasCtx.textBaseline = 'middle'
 					canvasCtx.fillText(
@@ -168,5 +170,16 @@ const updateOnHashTable = () => {
 	if (hashInstance && oldNodeValue.length && newNodeValue.length) {
 		hashInstance.actualizar(oldNodeValue, newNodeValue)
 		addTestCode('actualizar', `${oldNodeValue},${newNodeValue}`)
+	}
+}
+
+// BUSCAR EN HASH
+const searchOnHashTable = () => {
+	if (hashInstance && oldNodeValue.length) {
+		const index: number[] = hashInstance.getIndex(oldNodeValue)
+		if (index[0] >= 0) {
+			hashNodeScaleCounter = 0
+			hashScalePosition = index
+		} else alert('Valor no encontrado')
 	}
 }

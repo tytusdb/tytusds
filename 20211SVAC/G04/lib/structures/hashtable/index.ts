@@ -113,10 +113,10 @@ class TablaHashAbierta{
     }
 
     getIndex(valor:any){
-        let index = [0, 0]
+        let index = [-1, -1]
         for(let i:number =0;i < this.tamaño; i++)
             for(let j:number =0;j < this.tabla[i].valores.length; j++)
-                if(this.tabla[i].valores[j].valor === valor) {
+                if(this.tabla[i].valores[j].valor.toString() === valor.toString()) {
                     index = [i, j]
                     break
                 }
@@ -247,7 +247,7 @@ class TablaHashCerrada{
     }
 
     getIndex(valor:any){
-        let index:number[] = []
+        let index:number[] = [-1, -1]
         for(let i:number =0;i < this.tamaño; i++)
                 if(this.tabla[i].valor === valor) {
                     index = [i, 0]

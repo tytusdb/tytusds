@@ -2,9 +2,11 @@
 var openHashInstance = null;
 var hashInstance = null;
 var openHashFunc = 'div';
-var openHashSize = 13;
+var openHashSize = 10;
 var elementsCounter = 0;
 var isOpenHash = true;
+var hashScalePosition = [-1, -1];
+var hashNodeScaleCounter = 0;
 var setHashTable = function (props) {
     if (props.openHash) {
         hashInstance = props.openHash.hashInstance;
@@ -12,15 +14,6 @@ var setHashTable = function (props) {
         openHashInstance = props.openHash.hashInstance;
         openHashSize = props.openHash.size;
         openHashFunc = props.openHash.hashFunc;
-        openHashInstance.insertar(1);
-        openHashInstance.insertar(2);
-        openHashInstance.insertar(3);
-        openHashInstance.insertar(4);
-        openHashInstance.insertar(5);
-        openHashInstance.insertar(6);
-        openHashInstance.insertar(7);
-        openHashInstance.insertar(8);
-        openHashInstance.print();
     }
 };
 drawInCanvas = function () {
@@ -58,13 +51,18 @@ drawInCanvas = function () {
                                 canvasObjectColors.length *
                                     Math.floor(headIndex / canvasObjectColors.length)
                             : headIndex];
-                    canvasCtx.roundRect(headIndex * 70 - 620, 155 - (nodeIndex + 1) * 100, 50, 50, 10);
+                    if (hashScalePosition[0] !== -1 && hashNodeScaleCounter < 10)
+                        hashNodeScaleCounter += ANIMATION_VELOCITY * 0.05;
+                    var enableScale = hashScalePosition[0] === headIndex &&
+                        (isOpenHash ? hashScalePosition[1] === nodeIndex : true);
+                    var addedScale = enableScale ? hashNodeScaleCounter : 0;
+                    canvasCtx.roundRect(headIndex * 70 - 620 - addedScale / 2, 155 - (nodeIndex + 1) * 100 - addedScale / 2, 50 + addedScale, 50 + addedScale, 10);
                     canvasCtx.stroke();
                     canvasCtx.fill();
                     canvasCtx.closePath();
                     canvasCtx.beginPath();
                     canvasCtx.fillStyle = '#011f3bcc';
-                    canvasCtx.font = "bold 20px Montserrat";
+                    canvasCtx.font = "bold " + (20 + addedScale * 0.8) + "px Montserrat";
                     canvasCtx.textAlign = 'center';
                     canvasCtx.textBaseline = 'middle';
                     canvasCtx.fillText(nodeValue.valor.toString(), headIndex * 70 - 620 + 25, 155 - (nodeIndex + 1) * 100 + 25);
@@ -102,5 +100,16 @@ var updateOnHashTable = function () {
     if (hashInstance && oldNodeValue.length && newNodeValue.length) {
         hashInstance.actualizar(oldNodeValue, newNodeValue);
         addTestCode('actualizar', oldNodeValue + "," + newNodeValue);
+    }
+};
+var searchOnHashTable = function () {
+    if (hashInstance && oldNodeValue.length) {
+        var index = hashInstance.getIndex(oldNodeValue);
+        if (index[0] >= 0) {
+            hashNodeScaleCounter = 0;
+            hashScalePosition = index;
+        }
+        else
+            alert('Valor no encontrado');
     }
 };
