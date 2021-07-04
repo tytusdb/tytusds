@@ -100,8 +100,12 @@ const onChangeHashSize = (ev: Event) => {
 drawInCanvas = () => {
 	if (canvasCtx) {
 		// DIBUJAR HASH ABIERTA
-		if (isOpenHash && hashInstance) {
-			for (let headIndex: number = 0; headIndex < hashTableSize; headIndex++) {
+		if (hashInstance) {
+			for (
+				let headIndex: number = 0;
+				headIndex < (isOpenHash ? hashTableSize : hashInstance.tabla.length);
+				headIndex++
+			) {
 				// CABECERAS
 				canvasCtx.beginPath()
 				// ESTILOS
@@ -116,8 +120,21 @@ drawInCanvas = () => {
 							: headIndex
 					]
 
+				// ANIMACIÓN DE ESCALA
+				if (hashScalePosition[0] !== -1 && hashNodeScaleCounter < 10)
+					hashNodeScaleCounter += ANIMATION_VELOCITY * 0.05
+
+				const enableScale: boolean = hashScalePosition[0] === headIndex
+				const addedScale: number = enableScale ? hashNodeScaleCounter : 0
+
 				// CUADRO
-				canvasCtx.roundRect(headIndex * 70 - 620, 150, 50, 50, 10)
+				canvasCtx.roundRect(
+					headIndex * 70 - 620 - addedScale / 2,
+					150 - addedScale / 2,
+					50 + addedScale,
+					50 + addedScale,
+					10,
+				)
 				canvasCtx.stroke()
 				canvasCtx.fill()
 				canvasCtx.closePath()
@@ -125,90 +142,97 @@ drawInCanvas = () => {
 				// TEXTO
 				canvasCtx.beginPath()
 				canvasCtx.fillStyle = '#011f3bcc'
-				canvasCtx.font = `bold 20px Montserrat`
+				canvasCtx.font = `bold ${20 + addedScale * 0.8}px Montserrat`
 				canvasCtx.textAlign = 'center'
 				canvasCtx.textBaseline = 'middle'
-				canvasCtx.fillText(headIndex.toString(), headIndex * 70 - 620 + 25, 175)
+				canvasCtx.fillText(
+					isOpenHash
+						? headIndex.toString()
+						: // @ts-ignore
+						  hashInstance.tabla[headIndex]?.valor,
+					headIndex * 70 - 620 + 25,
+					175,
+				)
 				canvasCtx.closePath()
 
 				// LISTAS
-				for (
-					let nodeIndex: number = 0;
-					// @ts-ignore
-					nodeIndex < hashInstance.tabla[headIndex]?.valores.length || 0;
-					nodeIndex++
-				) {
-					// @ts-ignore
-					const nodeValue = hashInstance.tabla[headIndex].valores[nodeIndex]
+				if (isOpenHash)
+					for (
+						let nodeIndex: number = 0;
+						// @ts-ignore
+						nodeIndex < hashInstance.tabla[headIndex]?.valores.length || 0;
+						nodeIndex++
+					) {
+						// @ts-ignore
+						const nodeValue = hashInstance.tabla[headIndex].valores[nodeIndex]
 
-					// VALORES
-					canvasCtx.beginPath()
-					// ESTILOS
-					canvasCtx.lineWidth = 7
-					canvasCtx.fillStyle = isDarkMode ? '#aaa' : 'rgb(248, 248, 248)'
-					canvasCtx.strokeStyle =
-						canvasObjectColors[
-							headIndex > canvasObjectColors.length - 1
-								? headIndex -
-								  canvasObjectColors.length *
-										Math.floor(headIndex / canvasObjectColors.length)
-								: headIndex
-						]
+						// VALORES
+						canvasCtx.beginPath()
+						// ESTILOS
+						canvasCtx.lineWidth = 7
+						canvasCtx.fillStyle = isDarkMode ? '#aaa' : 'rgb(248, 248, 248)'
+						canvasCtx.strokeStyle =
+							canvasObjectColors[
+								headIndex > canvasObjectColors.length - 1
+									? headIndex -
+									  canvasObjectColors.length *
+											Math.floor(headIndex / canvasObjectColors.length)
+									: headIndex
+							]
+						// ANIMACIÓN DE ESCALA
+						if (hashScalePosition[0] !== -1 && hashNodeScaleCounter < 10)
+							hashNodeScaleCounter += ANIMATION_VELOCITY * 0.05
 
-					// CUADRO
-					// ANIMACIÓN DE ESCALA
-					if (hashScalePosition[0] !== -1 && hashNodeScaleCounter < 10)
-						hashNodeScaleCounter += ANIMATION_VELOCITY * 0.05
+						const enableScale: boolean =
+							hashScalePosition[0] === headIndex &&
+							(isOpenHash ? hashScalePosition[1] === nodeIndex : true)
+						const addedScale: number = enableScale ? hashNodeScaleCounter : 0
 
-					const enableScale: boolean =
-						hashScalePosition[0] === headIndex &&
-						(isOpenHash ? hashScalePosition[1] === nodeIndex : true)
-					const addedScale: number = enableScale ? hashNodeScaleCounter : 0
+						// CUADRO
+						canvasCtx.roundRect(
+							headIndex * 70 - 620 - addedScale / 2,
+							155 - (nodeIndex + 1) * 100 - addedScale / 2,
+							50 + addedScale,
+							50 + addedScale,
+							10,
+						)
+						canvasCtx.stroke()
+						canvasCtx.fill()
+						canvasCtx.closePath()
 
-					canvasCtx.roundRect(
-						headIndex * 70 - 620 - addedScale / 2,
-						155 - (nodeIndex + 1) * 100 - addedScale / 2,
-						50 + addedScale,
-						50 + addedScale,
-						10,
-					)
-					canvasCtx.stroke()
-					canvasCtx.fill()
-					canvasCtx.closePath()
+						// TEXTO
+						canvasCtx.beginPath()
+						canvasCtx.fillStyle = '#011f3bcc'
+						canvasCtx.font = `bold ${20 + addedScale * 0.8}px Montserrat`
+						canvasCtx.textAlign = 'center'
+						canvasCtx.textBaseline = 'middle'
+						canvasCtx.fillText(
+							nodeValue.valor.toString(),
+							headIndex * 70 - 620 + 25,
+							155 - (nodeIndex + 1) * 100 + 25,
+						)
+						canvasCtx.closePath()
 
-					// TEXTO
-					canvasCtx.beginPath()
-					canvasCtx.fillStyle = '#011f3bcc'
-					canvasCtx.font = `bold ${20 + addedScale * 0.8}px Montserrat`
-					canvasCtx.textAlign = 'center'
-					canvasCtx.textBaseline = 'middle'
-					canvasCtx.fillText(
-						nodeValue.valor.toString(),
-						headIndex * 70 - 620 + 25,
-						155 - (nodeIndex + 1) * 100 + 25,
-					)
-					canvasCtx.closePath()
-
-					// FLECHA
-					canvasCtx.beginPath()
-					canvasCtx.strokeStyle =
-						canvasObjectColors[
-							headIndex > canvasObjectColors.length - 1
-								? headIndex -
-								  canvasObjectColors.length *
-										Math.floor(headIndex / canvasObjectColors.length)
-								: headIndex
-						]
-					canvasCtx.arrowTo(
-						headIndex * 70 - 620 + 25,
-						180 - (nodeIndex + 1) * 100 + 70,
-						headIndex * 70 - 620 + 25,
-						180 - (nodeIndex + 1) * 100 + 0,
-						30,
-					)
-					canvasCtx.stroke()
-					canvasCtx.closePath()
-				}
+						// FLECHA
+						canvasCtx.beginPath()
+						canvasCtx.strokeStyle =
+							canvasObjectColors[
+								headIndex > canvasObjectColors.length - 1
+									? headIndex -
+									  canvasObjectColors.length *
+											Math.floor(headIndex / canvasObjectColors.length)
+									: headIndex
+							]
+						canvasCtx.arrowTo(
+							headIndex * 70 - 620 + 25,
+							180 - (nodeIndex + 1) * 100 + 70,
+							headIndex * 70 - 620 + 25,
+							180 - (nodeIndex + 1) * 100 + 0,
+							30,
+						)
+						canvasCtx.stroke()
+						canvasCtx.closePath()
+					}
 			}
 		}
 	}

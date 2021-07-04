@@ -249,7 +249,7 @@ class TablaHashCerrada{
     getIndex(valor:any){
         let index:number[] = [-1, -1]
         for(let i:number =0;i < this.tamaño; i++)
-                if(this.tabla[i].valor === valor) {
+                if(this.tabla[i].valor?.toString() === valor.toString()) {
                     index = [i, 0]
                     break
                 }

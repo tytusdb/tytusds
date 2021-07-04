@@ -181,9 +181,10 @@ var TablaHashCerrada = (function () {
         }
     };
     TablaHashCerrada.prototype.getIndex = function (valor) {
+        var _a;
         var index = [-1, -1];
         for (var i = 0; i < this.tamaño; i++)
-            if (this.tabla[i].valor === valor) {
+            if (((_a = this.tabla[i].valor) === null || _a === void 0 ? void 0 : _a.toString()) === valor.toString()) {
                 index = [i, 0];
                 break;
             }
