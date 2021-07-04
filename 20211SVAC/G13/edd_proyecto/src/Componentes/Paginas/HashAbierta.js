@@ -456,4 +456,4 @@ class TablaHashAbierta extends Component {
 	}
   }
   
-  export default TablaHashAbierta;s
+  export default TablaHashAbierta;
