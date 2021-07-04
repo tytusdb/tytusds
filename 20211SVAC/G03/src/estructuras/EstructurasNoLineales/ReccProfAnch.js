@@ -433,6 +433,130 @@ class ListaAdyacencia{
         }
     }
 
+    //Metodo arranque para costo minimo
+    busquedaEspecifica(fin){
+        this.caminoFinal = []
+        let arregloEdge = []
+        this.final = fin
+        console.log("Queremos terminar en: " + this.final)
+        let iniRec = this.ListaAdyacencia.cabeza
+        if(this.final == iniRec.dato.dato && this.caminoFinal.length == 0){
+            let egde = {from: "null", to: iniRec.dato.id }
+            arregloEdge.push(egde)
+            iniRec = null
+        }
+        while(iniRec!=null){
+            let enl = iniRec.dato.enlaces.cabeza
+                while(enl!= null){
+                    let adyman = iniRec.dato.adyacentes.cabeza
+                    while(adyman!=null){
+                        if(adyman.dato.dato == enl.dato.destino.dato){
+                            adyman.dato.distTotal = enl.dato.distancia
+                            adyman.dato.camino.insertar(iniRec.dato)
+                            this.subbusqueda(adyman.dato)
+                            adyman.dato.camino.eliminar(iniRec.dato)                        
+                        }
+                        adyman = adyman.siguiente
+                    }
+                    enl = enl.siguiente
+                }
+                if(this.caminoFinal.length!=0){
+                    break
+                }
+            iniRec = iniRec.siguiente
+        }
+        let borrar = this.ListaAdyacencia.cabeza
+        while(borrar!= null){
+            borrar.dato.camino = new ListaDoble()
+            borrar = borrar.siguiente
+        }
+        console.log("Al parecer funciono, la distancia final total es: "+this.distanciaFinal)
+        if(this.caminoFinal.length!=0){
+            for(let i = 0;i<this.caminoFinal.length-1;i++){
+                let egde = {from: this.caminoFinal[i].id, to: this.caminoFinal[i+1].id }
+                arregloEdge.push(egde)
+                console.log("El camino usado fue: " + this.caminoFinal[i].dato + " con id " + this.caminoFinal[i].id)
+            }    
+        }
+        if(arregloEdge.length == 0){
+            alert("Error1. Valor no existente. ")
+        }
+        return arregloEdge
+    }
+
+    //Metodo Recursivo para busqueda de camino a final
+    subbusqueda(nodo){
+        if(nodo.dato == this.final){
+            if(nodo.distTotal<this.distanciaFinal&&nodo.distTotal!=0){
+                this.caminoFinal = []
+                this.distanciaFinal = nodo.distTotal
+                nodo.camino.insertar(nodo)
+                let cargacamino = nodo.camino.cabeza
+                while (cargacamino != null){
+                    this.caminoFinal.push(cargacamino.dato)
+                    cargacamino = cargacamino.siguiente
+                }
+                nodo.camino.eliminar(nodo)
+                console.log("Hay una nueva carga de datos finales")
+            }else if(this.distanciaFinal == 0){
+                this.distanciaFinal = nodo.distTotal
+                nodo.camino.insertar(nodo)
+                let cargacamino = nodo.camino.cabeza
+                while (cargacamino != null){
+                    this.caminoFinal.push(cargacamino.dato)
+                    cargacamino = cargacamino.siguiente
+                }
+                nodo.camino.eliminar(nodo)
+                console.log("Hay una nueva carga de datos finales")
+            }
+        }else{
+            let nuevosenlaces = nodo.enlaces.cabeza
+            while(nuevosenlaces!= null){
+                if(nodo.camino!=null){
+                    let verificacioncaminodestino = nodo.camino.cabeza
+                    let permiso = false
+                    while(verificacioncaminodestino!=null){
+                        if(verificacioncaminodestino.dato.dato == nuevosenlaces.dato.destino.dato){
+                            permiso = true
+                            break
+                        }
+                        verificacioncaminodestino = verificacioncaminodestino.siguiente
+                    }
+                    if(permiso == false){
+                        let adymandar = nodo.adyacentes.cabeza
+                        while(adymandar!= null){
+                            if(adymandar.dato.dato == nuevosenlaces.dato.destino.dato){
+                                adymandar.dato.distTotal = nuevosenlaces.dato.distancia + nodo.distTotal
+                                nodo.camino.insertar(nodo)
+                                adymandar.dato.camino = nodo.camino
+                                this.subbusqueda(adymandar.dato)
+                                nodo.camino.eliminar(nodo)
+                                adymandar.dato.camino.eliminar(nodo)
+                                break
+                            }
+                            adymandar = adymandar.siguiente
+                        }
+                    }
+                }else{
+                    let adymandar = nodo.adyacentes.cabeza
+                    while(adymandar!= null){
+                        if(adymandar.dato.dato == nuevosenlaces.dato.dato){
+                            adymandar.dato.distTotal = nuevosenlaces.dato.distancia + nodo.distTotal
+                            nodo.camino.insertar(nodo)
+                            adymandar.dato.camino = nodo.camino
+                            subbusqueda(adymandar.dato)
+                            nodo.camino.eliminar(nodo)
+                            adymandar.dato.camino.eliminar(nodo)
+                        break
+                        }
+                        adymandar= adymandar.siguiente
+                    }
+                }
+                nuevosenlaces = nuevosenlaces.siguiente
+            }
+        }        
+    }
+
     //Metodo Buscar
     buscar(dato){
         let bool = false
