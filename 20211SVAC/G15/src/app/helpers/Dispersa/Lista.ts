@@ -21,11 +21,23 @@ export class Lista {
     }
 
 
-    public buscar(value: number | string, apuntador: Apuntador,x:number,y:number) {
+    public buscar(value: number | string, apuntador: Apuntador, x: number, y: number) {
         if (this.primero === null) return null
         let temp: Nodo = this.primero
         while (temp !== null) {
-            if(this.convertir(temp.getPos().x) === this.convertir(x) && this.convertir(temp.getPos().y) === this.convertir(y)) return temp
+            if (this.convertir(temp.getPos().x) === this.convertir(x) && this.convertir(temp.getPos().y) === this.convertir(y)) return temp
+            if (apuntador === Apuntador.FILA) temp = temp.getSiguiente();
+            else temp = temp.getAbajo()
+        }
+        return null
+    }
+
+
+    public buscarValue(value: number | string, apuntador: Apuntador) {
+        if (this.primero === null) return null
+        let temp: Nodo = this.primero
+        while (temp !== null) {
+            if (temp.getValue() === value) return temp
             if (apuntador === Apuntador.FILA) temp = temp.getSiguiente();
             else temp = temp.getAbajo()
         }
@@ -35,13 +47,13 @@ export class Lista {
 
     public add(nuevo: Nodo, tipo: Tipo, apuntador: Apuntador, x: number, y: number) {
 
-        console.log(nuevo.getValue(), x, y,apuntador)
+        console.log(nuevo.getValue(), x, y, apuntador)
         if (this.primero === null) {
             this.primero = nuevo
             this.ultimo = nuevo
             return nuevo
         }
-        
+
 
         let posicion = (apuntador === Apuntador.FILA) ? x : y
         let index = 0
@@ -124,7 +136,7 @@ export class Lista {
     }
 
 
-    public getLista(apuntador: Apuntador, tipo: Tipo) {
+    public getLista(apuntador: Apuntador, tipo: Tipo, pos:number) {
         let data = {
             nodes: [],
             edges: []
@@ -138,7 +150,7 @@ export class Lista {
 
                 id: id,
                 label: '' + temp.getValue(),
-                level: temp.getY() + 1
+                level: pos
 
             })
             index++
@@ -182,8 +194,8 @@ export class Lista {
     }
 
 
-    private convertir(value){
-        if(isNaN(value)) return value 
+    private convertir(value) {
+        if (isNaN(value)) return value
         return +value
     }
 }

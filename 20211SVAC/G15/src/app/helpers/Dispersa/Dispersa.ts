@@ -57,19 +57,22 @@ export class Dispersa {
         return this.filas.buscarCabecera(y)
     }
 
+    public buscarValor(value:number|string){
+        return this.columnas.buscarValor(value)
+    }
 
     public graficar(){
         let data = this.columnas.mostrarCabecera(Apuntador.COLUMNA,this.tipo)
         let data2 = this.filas.mostrarCabecera(Apuntador.FILA,this.tipo)
         let data3 = this.columnas.getNodosHijos(Apuntador.COLUMNA,this.tipo)
-        
         let data4 = this.filas.getNodosHijos(Apuntador.FILA,this.tipo)
         data.nodes = data.nodes.concat(data2.nodes)
         data.edges = data.edges.concat(data2.edges)
-        data.nodes = data.nodes.concat(data3.nodes)
+        //data.nodes = data.nodes.concat(data3.nodes)
+        data.nodes = data.nodes.concat(data4.nodes)
         data.edges = data.edges.concat(data3.edges)
         data.edges = data.edges.concat(data4.edges)
-        console.log(data3.nodes,data4.edges,data3.edges)
+        //console.log(data3.nodes,data4.edges,data3.edges)
         return data
     }
 }
