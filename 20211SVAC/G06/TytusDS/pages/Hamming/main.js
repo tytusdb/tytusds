@@ -80,40 +80,40 @@ function genera_tabla() {
                 if (i == 5) { var textoCelda = document.createTextNode("p8"); }
                 if (i == 6) { var textoCelda = document.createTextNode("p16"); }
                 if (i == 7) { var textoCelda = document.createTextNode("p32"); }
-                celda.setAttribute("style", "background:skyblue");
+                celda.setAttribute("style", "background:skyblue; border: black 1px solid;padding:5px");
             } else if (i == 0) {
                 if (j == 1 || j == 2 || j == 4 || j == 8 || j == 16 || j == 32) {
                     var textoCelda = document.createTextNode(" ");
-                    celda.setAttribute("style", "background:skyblue");
+                    celda.setAttribute("style", "background:skyblue; border: black 1px solid;padding:5px");
                     codigo.push(null)
                 } else {
                     var textoCelda = document.createTextNode(inputValue[pos]);
                     codigo.push(inputValue[pos])
-                    celda.setAttribute("style", "background:skyblue");
+                    celda.setAttribute("style", "background:skyblue; border: black 1px solid;padding:5px");
                     pos++
                 }
             } else if (i == 1) {
                 if (j == 1 || j == 2 || j == 4 || j == 8 || j == 16 || j == 32) {
                     var textoCelda = document.createTextNode("p" + j);
-                    celda.setAttribute("style", "background:pink");
+                    celda.setAttribute("style", "background:pink; border: black 1px solid;padding:5px");
                 } else {
                     var textoCelda = document.createTextNode("d" + cont);
-                    celda.setAttribute("style", "background:pink");
+                    celda.setAttribute("style", "background:pink; border: black 1px solid;padding:5px");
                     cont++
                 }
             } else if (i > 1) {
                 if (j == 1 || j == 2 || j == 4 || j == 8 || j == 16 || j == 32) {
                     var textoCelda = document.createTextNode(" ");
-                    celda.setAttribute("style", "background:white");
+                    celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
                 } else {
                     if (i == 2) {
                         if (j % 2 == 0) {
                             var textoCelda = document.createTextNode(" ");
-                            celda.setAttribute("style", "background:white");
+                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
                         } else {
                             var textoCelda = document.createTextNode(codigo[j]);
                             fila1.push(codigo[j])
-                            celda.setAttribute("style", "background:white");
+                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
 
                         }
                     }
@@ -126,10 +126,10 @@ function genera_tabla() {
                             j == 42 || j == 43 || j == 46 || j == 47) {
                             var textoCelda = document.createTextNode(codigo[j]);
                             fila2.push(codigo[j])
-                            celda.setAttribute("style", "background:white");
+                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
                         } else {
                             var textoCelda = document.createTextNode(" ");
-                            celda.setAttribute("style", "background:white");
+                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
 
                         }
                     }
@@ -142,10 +142,10 @@ function genera_tabla() {
                             j == 44 || j == 45 || j == 46 || j == 47) {
                             var textoCelda = document.createTextNode(codigo[j]);
                             fila3.push(codigo[j])
-                            celda.setAttribute("style", "background:white");
+                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
                         } else {
                             var textoCelda = document.createTextNode(" ");
-                            celda.setAttribute("style", "background:white");
+                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
 
                         }
                     }
@@ -158,10 +158,10 @@ function genera_tabla() {
                             j == 44 || j == 45 || j == 46 || j == 47) {
                             var textoCelda = document.createTextNode(codigo[j]);
                             fila4.push(codigo[j])
-                            celda.setAttribute("style", "background:white");
+                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
                         } else {
                             var textoCelda = document.createTextNode(" ");
-                            celda.setAttribute("style", "background:white");
+                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
 
                         }
                     }
@@ -175,10 +175,10 @@ function genera_tabla() {
                             j == 56 || j == 57 || j == 58 || j == 59) {
                             var textoCelda = document.createTextNode(codigo[j]);
                             fila5.push(codigo[j])
-                            celda.setAttribute("style", "background:white");
+                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
                         } else {
                             var textoCelda = document.createTextNode(" ");
-                            celda.setAttribute("style", "background:white");
+                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
 
                         }
                     }
@@ -193,10 +193,10 @@ function genera_tabla() {
                             j == 60 || j == 61 || j == 62 || j == 63) {
                             var textoCelda = document.createTextNode(codigo[j]);
                             fila6.push(codigo[j])
-                            celda.setAttribute("style", "background:white");
+                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
                         } else {
                             var textoCelda = document.createTextNode(" ");
-                            celda.setAttribute("style", "background:white");
+                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
 
                         }
                     }
@@ -259,11 +259,11 @@ function codigo() {
                 if (i == 5) { var textoCelda = document.createTextNode("p8"); }
                 if (i == 6) { var textoCelda = document.createTextNode("p16"); }
                 if (i == 7) { var textoCelda = document.createTextNode("p32"); }
-                celda.setAttribute("style", "background:skyblue");
+                celda.setAttribute("style", "background:skyblue; border: black 1px solid;padding:5px");
             } else if (i == 0) {
                 if (j == 1 || j == 2 || j == 4 || j == 8 || j == 16 || j == 32) {
                     var textoCelda = document.createTextNode(" ");
-                    celda.setAttribute("style", "background:skyblue");
+                    celda.setAttribute("style", "background:skyblue; border: black 1px solid;padding:5px");
                     if (j == 1) {
                         let value = fila1.reduce(reducer)
                         var textoCelda = document.createTextNode(value);
@@ -312,22 +312,22 @@ function codigo() {
                     var textoCelda = document.createTextNode(inputValue[pos]);
                     respuesta.push(inputValue[pos])
                     codigo.push(inputValue[pos])
-                    celda.setAttribute("style", "background:skyblue");
+                    celda.setAttribute("style", "background:skyblue; border: black 1px solid;padding:5px");
                     pos++
                 }
             } else if (i == 1) {
                 if (j == 1 || j == 2 || j == 4 || j == 8 || j == 16 || j == 32) {
                     var textoCelda = document.createTextNode("p" + j);
-                    celda.setAttribute("style", "background:pink");
+                    celda.setAttribute("style", "background:pink; border: black 1px solid;padding:5px");
                 } else {
                     var textoCelda = document.createTextNode("d" + cont);
-                    celda.setAttribute("style", "background:pink");
+                    celda.setAttribute("style", "background:pink; border: black 1px solid;padding:5px");
                     cont++
                 }
             } else if (i > 1) {
                 if (j == 1 || j == 2 || j == 4 || j == 8 || j == 16 || j == 32) {
                     var textoCelda = document.createTextNode(" ");
-                    celda.setAttribute("style", "background:white");
+                    celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
                     if (j == 1 && i == 2) {
                         let value = fila1.reduce(reducer)
                         var textoCelda = document.createTextNode(value);
@@ -368,10 +368,10 @@ function codigo() {
                     if (i == 2) {
                         if (j % 2 == 0) {
                             var textoCelda = document.createTextNode(" ");
-                            celda.setAttribute("style", "background:white");
+                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
                         } else {
                             var textoCelda = document.createTextNode(codigo[j]);
-                            celda.setAttribute("style", "background:white");
+                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
 
                         }
                     }
@@ -383,10 +383,10 @@ function codigo() {
                             j == 34 || j == 35 || j == 38 || j == 39 ||
                             j == 42 || j == 43 || j == 46 || j == 47) {
                             var textoCelda = document.createTextNode(codigo[j]);
-                            celda.setAttribute("style", "background:white");
+                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
                         } else {
                             var textoCelda = document.createTextNode(" ");
-                            celda.setAttribute("style", "background:white");
+                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
 
                         }
                     }
@@ -398,10 +398,10 @@ function codigo() {
                             j == 36 || j == 37 || j == 38 || j == 39 ||
                             j == 44 || j == 45 || j == 46 || j == 47) {
                             var textoCelda = document.createTextNode(codigo[j]);
-                            celda.setAttribute("style", "background:white");
+                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
                         } else {
                             var textoCelda = document.createTextNode(" ");
-                            celda.setAttribute("style", "background:white");
+                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
 
                         }
                     }
@@ -413,10 +413,10 @@ function codigo() {
                             j == 40 || j == 41 || j == 42 || j == 43 ||
                             j == 44 || j == 45 || j == 46 || j == 47) {
                             var textoCelda = document.createTextNode(codigo[j]);
-                            celda.setAttribute("style", "background:white");
+                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
                         } else {
                             var textoCelda = document.createTextNode(" ");
-                            celda.setAttribute("style", "background:white");
+                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
 
                         }
                     }
@@ -429,10 +429,10 @@ function codigo() {
                             j == 52 || j == 53 || j == 54 || j == 55 ||
                             j == 56 || j == 57 || j == 58 || j == 59) {
                             var textoCelda = document.createTextNode(codigo[j]);
-                            celda.setAttribute("style", "background:white");
+                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
                         } else {
                             var textoCelda = document.createTextNode(" ");
-                            celda.setAttribute("style", "background:white");
+                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
 
                         }
                     }
@@ -447,10 +447,10 @@ function codigo() {
                             j == 60 || j == 61 || j == 62 || j == 63) {
                             var textoCelda = document.createTextNode(codigo[j]);
                             fila6.push(codigo[j])
-                            celda.setAttribute("style", "background:white");
+                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
                         } else {
                             var textoCelda = document.createTextNode(" ");
-                            celda.setAttribute("style", "background:white");
+                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
 
                         }
                     }
