@@ -114,7 +114,7 @@ drawInCanvas = () => {
 				for (
 					let nodeIndex: number = 0;
 					// @ts-ignore
-					nodeIndex < hashInstance.tabla[headIndex].valores.length;
+					nodeIndex < hashInstance.tabla[headIndex]?.valores.length || 0;
 					nodeIndex++
 				) {
 					// @ts-ignore

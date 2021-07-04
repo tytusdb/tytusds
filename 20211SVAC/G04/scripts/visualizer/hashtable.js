@@ -50,6 +50,7 @@ var onChangeHashSize = function (ev) {
     hashTableSize = size;
 };
 drawInCanvas = function () {
+    var _a;
     if (canvasCtx) {
         if (isOpenHash && hashInstance) {
             for (var headIndex = 0; headIndex < hashTableSize; headIndex++) {
@@ -73,7 +74,7 @@ drawInCanvas = function () {
                 canvasCtx.textBaseline = 'middle';
                 canvasCtx.fillText(headIndex.toString(), headIndex * 70 - 620 + 25, 175);
                 canvasCtx.closePath();
-                for (var nodeIndex = 0; nodeIndex < hashInstance.tabla[headIndex].valores.length; nodeIndex++) {
+                for (var nodeIndex = 0; nodeIndex < ((_a = hashInstance.tabla[headIndex]) === null || _a === void 0 ? void 0 : _a.valores.length) || 0; nodeIndex++) {
                     var nodeValue = hashInstance.tabla[headIndex].valores[nodeIndex];
                     canvasCtx.beginPath();
                     canvasCtx.lineWidth = 7;
