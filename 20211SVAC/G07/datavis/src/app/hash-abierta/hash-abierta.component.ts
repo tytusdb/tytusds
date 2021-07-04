@@ -580,6 +580,44 @@ export class HashAbiertaComponent implements OnInit {
     var container = this.el.nativeElement;
     this.network = new vis.Network(container, listaData, options);
   }
+  code = '';
+  array = [];
+  funcion ="";
+  prueba="";
+  m = 0;
+  min = 0;
+  max = 0;
+  texto = "";
+  abrir(eve:any)
+  {
+    let a =eve.target.files[0]
+    let text=""
+
+    if(a){
+      let reader=new FileReader()
+        reader.onload=ev=>{
+        const resultado=ev.target?.result
+        text=String(resultado)
+        var data = JSON.parse(text);  // se parse para obtener solo los datos
+        this.m = data.m;
+        this.min = data.minimo;
+        this.max = data.maximo;
+        this.funcion = data.funcion;
+        this.prueba = data.prueba;
+        this.Tamano(this.m,this.funcion)
+        data.valores.forEach(element => { // se agrego al metodo de agregar
+          console.log(element)
+          this.AgregarNuevo(element)
+        });
+       
+       
+        this.code=text.toString();
+      }
+      reader.readAsText(a)
+    }
+
+
+  }
 
   Tamano(ta: number, dat:any){
     h = new HashAbierta(dat);
