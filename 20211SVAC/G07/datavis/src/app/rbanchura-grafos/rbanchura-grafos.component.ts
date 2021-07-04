@@ -1,5 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ɵsetCurrentInjector } from '@angular/core';
 import * as vis from 'vis';
+
 var options = {
   
   physics: {
@@ -26,18 +27,18 @@ let listaData = { nodes: nodes,
   class vertice {
     id: number;
     valor: any;
-    adyacencia: vertice[];
+    succesors: number[];
     aristas: number[];
 
     constructor(value, id) {
       this.valor=value;
       this.id = id;
+
+      this.succesors = [];
+      this.aristas = [];
     }
 
-    addArista(peso,vertice){
-      this.aristas.push(peso);
-      this.adyacencia.push(vertice);
-    }
+    
   }
 
   class grafo {
@@ -99,13 +100,21 @@ export class RBAnchuraGrafosComponent implements OnInit {
   }
 
   addArista(veri,dist,verf){
-    edges.update(
-      {from: this.ValorPos(veri), to: this.ValorPos(verf) , length:20, label:dist}
-    );
+    if(this.buscarPagina(veri)!=null && this.buscarPagina(verf)!=null){
 
-    var tmp = this.buscarPagina(veri);
-    tmp.aristas.push(dist);
-    tmp.adyacencia.push(verf);
+      edges.update(
+        {from: this.ValorPos(veri), to: this.ValorPos(verf) , length:20, label:dist}
+      );
+  
+      var tmp = this.buscarPagina(veri);
+      var tmp2 = this.buscarPagina(verf);
+
+      tmp.aristas.push(dist);
+      tmp.succesors.push(verf);
+
+      // tmp2.aristas.push(dist);
+      // tmp2.succesors.push(verf);
+    }
   }
 
   deleteVertice(data){
@@ -122,17 +131,67 @@ export class RBAnchuraGrafosComponent implements OnInit {
   buscarVertice(data){
     var tmp = this.buscarPagina(data);
     nodes.update(
-      {id: tmp.id, color: "red"}
+      {id: tmp.id, color: "green"}
     );
   }
 
-  searchAnchura(data){
+  async searchAnchura(data,buscado){
 
-  }
-  searchProfundidad(data){
 
+    var list = [data];
+    
+    while (list.length> 0){
+
+      var current = list.shift();
+      var aver = this.buscarPagina(current);
+      if(current == buscado){
+
+        nodes.update(
+          {id: aver.id, color: "green"}
+        );
+        return;
+      }
+      nodes.update(
+        {id: aver.id, color: "red"}
+      );
+      list = list.concat(this.buscarPagina(current).succesors);
+      await this.delay(500);
+    }
+
+    console.log("Elemento no encontrado...");
+    
   }
+
   
+  
+  async searchProfundidad(data, buscado){
+    var list = [data];
+    var aver = this.buscarPagina(current);
+    while (list.length > 0){
+      var current = list.shift();
+      if(current == buscado){
+        nodes.update(
+          {id: aver.id, color: "green"}
+        );
+        return;
+      }
+      nodes.update(
+        {id: aver.id, color: "red"}
+      );
+      var temp = this.buscarPagina(current).succesors;
+      temp.reverse();
+      list = temp.concat(list);
+      await this.delay(500);
+
+    }
+
+
+
+  }
+
+  delay(ms:number) {
+    return new Promise( resolve => setTimeout(resolve,ms));
+  }
   descargar(){}
 
   buscarPagina(data){

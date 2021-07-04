@@ -45,6 +45,14 @@
         <input  #verticev class="form-control mr-sm-2 " type="text" #nodosearch placeholder="Vertice a Buscar" aria-label="Valor Vertice">
         <button (click)="buscarVertice(nodosearch.value)" class="btn btn-outline-light mr-sm-2" type="button">Buscar Vertice</button>
 
+        <input  #verticev class="form-control mr-sm-2 " type="text" #nodoi placeholder="Vertice de Inicio" aria-label="Valor Vertice">
+        <input  #verticev class="form-control mr-sm-2 " type="text" #nodob placeholder="Valor Buscado" aria-label="Valor Vertice">
+        <button (click)="searchAnchura(nodoi.value,nodob.value)" class="btn btn-outline-light mr-sm-2" type="button">Busqueda por Anchura</button>
+
+        <input  #verticev class="form-control mr-sm-2 " type="text" #nodoip placeholder="Vertice de Inicio" aria-label="Valor Vertice">
+        <input  #verticev class="form-control mr-sm-2 " type="text" #nodobp placeholder="Valor Buscado" aria-label="Valor Vertice">
+        <button (click)="searchProfundidad(nodoip.value,nodobp.value)" class="btn btn-outline-light mr-sm-2" type="button">Busqueda por Profundidad</button>
+
         <input style="display:none;" type="file" (change)="abrir($event)" #archivo>
         <button (click)="archivo.click()" type="button" class="btn btn-outline-light mr-sm-2">Cargar</button>
         <button (click)="descargar()" class="btn btn-outline-light mr-sm-2" type="submit">Guardar</button>
