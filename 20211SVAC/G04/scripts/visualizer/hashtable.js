@@ -1,8 +1,11 @@
 "use strict";
 var hashFunctions = ['simple', 'div', 'times'];
-var openHashInstance = null;
+var hashCoalitions = ['lineal', 'quad', 'times'];
 var hashInstance = null;
-var openHashFunc = 'div';
+var hashFunction = 'div';
+var hashCoalition = 'lineal';
+var hashMin = 20;
+var hashMax = 20;
 var hashTableSize = 10;
 var elementsCounter = 0;
 var isOpenHash = true;
@@ -10,16 +13,24 @@ var hashScalePosition = [-1, -1];
 var hashNodeScaleCounter = 0;
 var setHashTable = function (props) {
     if (props.openHash) {
-        hashInstance = props.openHash.hashInstance;
         isOpenHash = true;
-        openHashInstance = props.openHash.hashInstance;
+        hashInstance = props.openHash.hashInstance;
         hashTableSize = props.openHash.size;
-        openHashFunc = props.openHash.hashFunc;
+        hashFunction = props.openHash.hashFunc;
+    }
+    else if (props.closedHash) {
+        isOpenHash = false;
+        hashInstance = props.closedHash.hashInstance;
+        hashTableSize = props.closedHash.size;
+        hashCoalition = props.closedHash.coalition;
+        hashFunction = props.closedHash.hashFunc;
+        hashMin = props.closedHash.min;
+        hashMax = props.closedHash.max;
     }
 };
 fileUploadCallback = function () {
     hashInstance = isOpenHash
-        ? new TablaHashAbierta(hashTableSize, hashFunctions.indexOf(openHashFunc))
+        ? new TablaHashAbierta(hashTableSize, hashFunctions.indexOf(hashFunction))
         : null;
     console.log(hashInstance);
     globalJSONInput === null || globalJSONInput === void 0 ? void 0 : globalJSONInput.valores.forEach(function (valor) {
@@ -42,7 +53,7 @@ var saveOpenHashTable = function () {
 var onChangeHashFunc = function (ev) {
     var target = ev.target;
     var func = target.value;
-    openHashFunc = func;
+    hashFunction = func;
 };
 var onChangeHashSize = function (ev) {
     var target = ev.target;

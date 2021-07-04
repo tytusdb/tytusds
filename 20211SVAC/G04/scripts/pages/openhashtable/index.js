@@ -5,4 +5,5 @@ setHashTable({
         size: 10,
         hashFunc: 'div',
     },
+    closedHash: null,
 });

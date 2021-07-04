@@ -2,10 +2,15 @@
 type HashFunction = 'simple' | 'div' | 'times'
 const hashFunctions: HashFunction[] = ['simple', 'div', 'times']
 
+type HashCoalition = 'lineal' | 'quad' | 'times'
+const hashCoalitions: HashCoalition[] = ['lineal', 'quad', 'times']
+
 // INSTANCIAS
-let openHashInstance: TablaHashAbierta | null = null
 let hashInstance: TablaHashAbierta | TablaHashCerrada | null = null
-let openHashFunc: HashFunction = 'div'
+let hashFunction: HashFunction = 'div'
+let hashCoalition: HashCoalition = 'lineal'
+let hashMin: number = 20
+let hashMax: number = 20
 let hashTableSize: number = 10
 let elementsCounter: number = 0
 let isOpenHash: boolean = true
@@ -21,14 +26,30 @@ interface SetHashTableProps {
 		size: number
 		hashFunc: HashFunction
 	} | null
+
+	closedHash: {
+		hashInstance: TablaHashCerrada
+		size: number
+		min: number
+		max: number
+		coalition: HashCoalition
+		hashFunc: HashFunction
+	} | null
 }
 const setHashTable = (props: SetHashTableProps) => {
 	if (props.openHash) {
-		hashInstance = props.openHash.hashInstance
 		isOpenHash = true
-		openHashInstance = props.openHash.hashInstance
+		hashInstance = props.openHash.hashInstance
 		hashTableSize = props.openHash.size
-		openHashFunc = props.openHash.hashFunc
+		hashFunction = props.openHash.hashFunc
+	} else if (props.closedHash) {
+		isOpenHash = false
+		hashInstance = props.closedHash.hashInstance
+		hashTableSize = props.closedHash.size
+		hashCoalition = props.closedHash.coalition
+		hashFunction = props.closedHash.hashFunc
+		hashMin = props.closedHash.min
+		hashMax = props.closedHash.max
 	}
 }
 
@@ -36,7 +57,7 @@ const setHashTable = (props: SetHashTableProps) => {
 fileUploadCallback = () => {
 	// INSTANCIA
 	hashInstance = isOpenHash
-		? new TablaHashAbierta(hashTableSize, hashFunctions.indexOf(openHashFunc))
+		? new TablaHashAbierta(hashTableSize, hashFunctions.indexOf(hashFunction))
 		: null
 	console.log(hashInstance)
 	globalJSONInput?.valores.forEach((valor: string | number) => {
@@ -66,7 +87,7 @@ const saveOpenHashTable = () => {
 const onChangeHashFunc = (ev: Event) => {
 	const target = ev.target as HTMLInputElement
 	const func: HashFunction = target.value as HashFunction
-	openHashFunc = func
+	hashFunction = func
 }
 
 const onChangeHashSize = (ev: Event) => {
