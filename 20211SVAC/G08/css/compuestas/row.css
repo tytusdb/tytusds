@@ -58,3 +58,39 @@ td{
 .buscado{
     background-color: #40A4F2;
 }
+/* NUEVOOOOOOOO */
+.listMajor{
+    margin-left: 55px;
+    width: 1400px;
+    height: 400px;
+    margin-top: 70px;
+    border: 3px solid black;
+    background-color: tomato;
+}
+#espacioMaj{
+
+    display: flex;
+    flex-wrap: wrap;
+   
+}
+.cuadrito{
+
+    width: 8em;
+    height: 2em;
+    background-color: white;
+    
+    border: 1px solid black;
+    margin: 2em 1em 1em 0;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 3px;
+    font-size: 15px;
+    font-weight: bold;
+    box-shadow: 1px 1px 2px 1px black;
+    animation: backInUp; 
+    animation-duration: 1s; 
+    
+    /*animation-name: entrada;
+    animation-duration: 1s;*/
+
+}
