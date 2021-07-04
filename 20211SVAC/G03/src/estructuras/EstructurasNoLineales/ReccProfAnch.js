@@ -120,6 +120,7 @@ class ListaAdyacencia{
         this.inicio = inicio
         this.final = final
         this.profundidad = null
+        this.busquedaRecorrido = null
         this.anchura = null
     }
 
@@ -360,6 +361,8 @@ class ListaAdyacencia{
     //Recorrido por anchura
     BFS(){
         this.profundidad = null
+        
+        this.busquedaRecorrido = null
         n = new ListaDoble()
         let aux = this.ListaAdyacencia.cabeza
         while (aux != null){
@@ -403,6 +406,8 @@ class ListaAdyacencia{
 
     //Recorrido por Profundidad
     DFS(){
+        
+        this.busquedaRecorrido = null
         this.anchura = null
         n = new ListaDoble()
         let aux = this.ListaAdyacencia.cabeza
@@ -435,6 +440,8 @@ class ListaAdyacencia{
 
     //Metodo arranque para costo minimo
     busquedaEspecifica(fin){
+        this.profundidad = null
+        this.anchura = null
         this.caminoFinal = []
         let arregloEdge = []
         this.final = fin
@@ -481,6 +488,7 @@ class ListaAdyacencia{
         if(arregloEdge.length == 0){
             alert("Error1. Valor no existente. ")
         }
+        this.busquedaRecorrido = arregloEdge
         return arregloEdge
     }
 
@@ -544,7 +552,7 @@ class ListaAdyacencia{
                             adymandar.dato.distTotal = nuevosenlaces.dato.distancia + nodo.distTotal
                             nodo.camino.insertar(nodo)
                             adymandar.dato.camino = nodo.camino
-                            subbusqueda(adymandar.dato)
+                            this.subbusqueda(adymandar.dato)
                             nodo.camino.eliminar(nodo)
                             adymandar.dato.camino.eliminar(nodo)
                         break
@@ -666,11 +674,26 @@ class ListaAdyacencia{
     } */
 
     //Carga de array para graficacion de nodos
-    graficarNodos(){
+    graficarNodos(valorBusqueda){
         let arreglo = []
         let aux = this.ListaAdyacencia.cabeza
         while(aux!=null){
             let dato = {id: aux.dato.id, label:aux.dato.dato.toString(),}
+            if(aux.dato.dato == valorBusqueda){
+                dato = {id: aux.dato.id, label:aux.dato.dato.toString(), color: "lime"}
+            }
+
+            if(this.busquedaRecorrido != null){
+                for (let x = 0; x < this.busquedaRecorrido.length; x++) {
+                    if(this.busquedaRecorrido[x].from ===aux.dato.id){
+                        dato = {id: aux.dato.id, label:aux.dato.dato.toString(), color: "lime"}   
+                    }else if(this.busquedaRecorrido[x].to === aux.dato.id){
+                        dato = {id: aux.dato.id, label:aux.dato.dato.toString(), color: "lime"}
+                    }
+                    
+                }
+            }
+
             arreglo.push(dato)
             aux = aux.siguiente
         }
@@ -697,6 +720,13 @@ class ListaAdyacencia{
                     for (let x = 0; x < this.profundidad.length; x++) {
                         if(this.profundidad[x].from === tmp.dato.inicio.id && this.profundidad[x].to === tmp.dato.destino.id){
                             egde = {from: tmp.dato.inicio.id, to: tmp.dato.destino.id , label: tmp.dato.distancia.toString(),  color: "rgb(20,24,200)"}   
+                        }
+                        
+                    }
+                }else if(this.busquedaRecorrido != null){
+                    for (let x = 0; x < this.busquedaRecorrido.length; x++) {
+                        if(this.busquedaRecorrido[x].from === tmp.dato.inicio.id && this.busquedaRecorrido[x].to === tmp.dato.destino.id){
+                            egde = {from: tmp.dato.inicio.id, to: tmp.dato.destino.id , label: tmp.dato.distancia.toString(),  color: "lime"}   
                         }
                         
                     }

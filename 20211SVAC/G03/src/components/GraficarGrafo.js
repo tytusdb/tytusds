@@ -4,6 +4,9 @@ import Graph from "react-graph-vis";
 export default function GraficarGrafo(props) {
 
     var nodes = props.estructura.graficarNodos()
+    if(props.valorBusqueda != ""){
+        nodes = props.estructura.graficarNodos(props.valorBusqueda)
+    }
     // create some edges
     var edges = props.estructura.graficarEnlaces()
 

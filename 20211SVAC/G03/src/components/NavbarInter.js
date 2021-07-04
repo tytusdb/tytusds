@@ -48,7 +48,7 @@ export default class NavbarInter extends Component {
       this.setState({
         estrutura: edd
       })
-      if(this.state.nombre ==="Código de Hamming" || this.state.nombre ==="Algoritmo de Huffman" || this.state.nombre ==="Algoritmo LZW"){
+      if(this.state.nombre ==="Código de Hamming" || this.state.nombre ==="Algoritmo de Huffman" || this.state.nombre ==="Algoritmo LZW" || this.state.nombre ==="Cifrado Feistel"){
         this.setState({
           datoaencriptar: this.state.estrutura.dato
         })
@@ -156,7 +156,13 @@ obtenerText = e =>{
 }
 
 encryptado = () =>{
-  this.state.estrutura.cargar(this.state.datoaencriptar)
+  if(this.state.nombre === "Cifrado Feistel"){
+    let splitEntrada = this.state.datoaencriptar.split(",")
+
+    this.state.estrutura.cargar(splitEntrada[0],splitEntrada[1],splitEntrada[2])
+  }else{
+    this.state.estrutura.cargar(this.state.datoaencriptar)
+  }
   this.setState({
     estrutura: this.state.estrutura
   })
@@ -181,7 +187,9 @@ this.setState({
 })
 }
 
-
+busquedaConRecorrido=()=>{
+  this.state.estrutura.busquedaEspecifica(this.state.busqueda)
+}
 
    guardarOrdenamiento=(event) =>{
 
@@ -507,6 +515,9 @@ this.setState({
             <Menu.Item name="Recorrido por Anchura"
                     onClick={this.handleItemClick, this.recorridosAnchura}> 
             </Menu.Item>
+            <Menu.Item name="Buscar con Recorrido"
+                    onClick={this.handleItemClick, this.busquedaConRecorrido}> 
+            </Menu.Item>
           <Menu.Menu position='right'>
             <Menu.Item name="Guardar" icon='save'  onClick={this.handleItemClick, this.guardarEstructuras}>
             </Menu.Item>
@@ -524,7 +535,7 @@ this.setState({
         <GraficarGrafo nombre={this.state.nombre} estructura={this.state.estrutura} valorBusqueda={this.state.busqueda} key={count++}/> 
       </div>
       )
-        }else if(this.state.nombre == "Código de Hamming" || this.state.nombre == "Algoritmo de Huffman" || this.state.nombre == "Algoritmo LZW" ||this.state.nombre == "Cifrado Feiste"
+        }else if(this.state.nombre == "Código de Hamming" || this.state.nombre == "Algoritmo de Huffman" || this.state.nombre == "Algoritmo LZW" ||this.state.nombre == "Cifrado Feistel"
         ){
       return (
       <div>

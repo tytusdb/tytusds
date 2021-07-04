@@ -9,7 +9,10 @@ class LZW {
     }
 
     cargar(mensaje) {
+        this.contador = 0;
         this.dato = mensaje
+        this.diccionario = new Map();
+        this.salida = [];
         this.iniciarDiccionario(mensaje)
         // w vacia
         let w = "";

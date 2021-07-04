@@ -27,6 +27,7 @@ import ListaAdyacencia from '../estructuras/EstructurasNoLineales/ReccProfAnch'
 import Hamming from '../estructuras/AlgoritmosDeCodificacion/Hamming'
 import AlgoritmoHuffman from '../estructuras/AlgoritmosDeCodificacion/Huffman'
 import LZW from '../estructuras/AlgoritmosDeCodificacion/LZW'
+import Feistel from '../estructuras/AlgoritmosDeCodificacion/Feistel'
 let propsG
 function onChange(e){
     let files = e.target.files[0];
@@ -202,6 +203,10 @@ function structW(nombre,edd,json){ // FUNCION PARA SABER QUE TIPO DE ESTRUCTURA 
             edd = new LZW();
             edd.cargar(json)
             break
+        case "Cifrado Feistel":
+            edd = new Feistel();
+            edd.cargar(json,key,num)
+            break
         default:
             break;
     }
@@ -241,36 +246,74 @@ function arrString(arreglo){
     
     return charCodeArr;
   }
-
-
+let key ;
+let num ;
 export default function Cargar(props) {
     propsG = props
-    const [open, setOpen] = React.useState(false)
-    return (
-        <Modal
-            className="modalcargar"
-            basic
-            onClose={() => setOpen(false)}
-            onOpen={() => setOpen(true)}
-            open={open}
-            size='small'
-            trigger={<Menu.Item>Cargar</Menu.Item> }
-            >
-            <Header icon>
-                <Icon name='folder open outline' />
-                Cargar
-            </Header>
-            <Modal.Content>
-            </Modal.Content>
-                <Input className="inputcargar" fluid type="file" accept=".json, .txt" onChange={(e) =>  onChange(e)} />
-            <Modal.Actions>
-                <Button basic color='red' inverted onClick={() => setOpen(false)}>
-                <Icon name='remove' /> No
-                </Button>
-                <Button className="buttoncargar" color='green' inverted onClick={() =>  setOpen(false)}>
-                <Icon name='checkmark' /> Si
-                </Button>
-            </Modal.Actions>
-            </Modal>
-    )
+    const [open, setOpen] = React.useState(false)    
+    const [llave, setLlave] = React.useState("")
+    const [Numero, setNumero] = React.useState(0)
+    key = llave
+    num = Numero
+    if(propsG.nombre === "Cifrado Feistel"){
+        return (
+            <Modal
+                className="modalcargar"
+                basic
+                onClose={() => setOpen(false)}
+                onOpen={() => setOpen(true)}
+                open={open}
+                size='small'
+                trigger={<Menu.Item>Cargar</Menu.Item> }
+                >
+                <Header icon>
+                    <Icon name='folder open outline' />
+                    Cargar
+                </Header>
+                <Modal.Content>
+                </Modal.Content>
+                    <Input className="inputAgregar" type="text" name="llave" value={llave}  fluid placeholder="agregar dato" onChange={e => setLlave(e.target.value)}/>
+                    <br/>
+                    <Input className="inputAgregar" type="text" name="Numero" value={Numero}  fluid placeholder="agregar prioridad" onChange={e => setNumero(e.target.value)}/>
+                    <br/>
+                    <Input className="inputcargar" fluid type="file" accept=".json, .txt" onChange={(e) =>  onChange(e)} />
+                <Modal.Actions>
+                    <Button basic color='red' inverted onClick={() => setOpen(false)}>
+                    <Icon name='remove' /> No
+                    </Button>
+                    <Button className="buttoncargar" color='green' inverted onClick={() =>  setOpen(false)}>
+                    <Icon name='checkmark' /> Si
+                    </Button>
+                </Modal.Actions>
+                </Modal>
+        )
+    }else{
+        return (
+            <Modal
+                className="modalcargar"
+                basic
+                onClose={() => setOpen(false)}
+                onOpen={() => setOpen(true)}
+                open={open}
+                size='small'
+                trigger={<Menu.Item>Cargar</Menu.Item> }
+                >
+                <Header icon>
+                    <Icon name='folder open outline' />
+                    Cargar
+                </Header>
+                <Modal.Content>
+                </Modal.Content>
+                    <Input className="inputcargar" fluid type="file" accept=".json, .txt" onChange={(e) =>  onChange(e)} />
+                <Modal.Actions>
+                    <Button basic color='red' inverted onClick={() => setOpen(false)}>
+                    <Icon name='remove' /> No
+                    </Button>
+                    <Button className="buttoncargar" color='green' inverted onClick={() =>  setOpen(false)}>
+                    <Icon name='checkmark' /> Si
+                    </Button>
+                </Modal.Actions>
+                </Modal>
+        )
+    }
 }

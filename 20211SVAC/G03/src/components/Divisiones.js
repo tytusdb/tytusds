@@ -49,6 +49,10 @@ export default class Divisiones extends Component {
                     <Division title="Algoritmo LZW" descripcion="this a description" color="green" imagen=""/>
                     <Division title="Cifrado Feistel" descripcion="this a description" color="green" imagen=""/>
 
+                    
+                    <Division title="Algoritmo de costo uniforme" descripcion="this a description" color="green" imagen=""/>
+                    <Division title="Árbol de recubrimiento mínimo" descripcion="this a description" color="green" imagen=""/>
+
             </Card.Group>
             </div>
         )

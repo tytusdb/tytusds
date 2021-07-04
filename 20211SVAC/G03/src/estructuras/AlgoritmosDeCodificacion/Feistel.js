@@ -2,11 +2,17 @@ class Feistel{
     constructor(){
         this.entrada = null;
         this.salida = null;
-        this.tablaIzquierda = []
+        this.tablaIzquierda = [];
         this.tablaDerecha = [];   
+
+        this.dato = null;
+        this.ecriptado = null;
     }
 
-    codificarBinario(datos, llave, numeroPasadas){
+    cargar(datos, llave, numeroPasadas){
+        this.tablaIzquierda = [];
+        this.tablaDerecha = [];  
+        this.dato = datos
         let left = "";
         let right = "";
         for(let i = 0; i < datos.length; i++){
@@ -20,7 +26,7 @@ class Feistel{
         this.tablaDerecha.push(right); 
         this.ciclosCodificar(left, right,llave, numeroPasadas);
         this.imprimirTablas();
-
+        this.ecriptado = this.tablaIzquierda[this.tablaIzquierda.length-1] + this.tablaDerecha[this.tablaDerecha.length-1]
 
     }
 
@@ -55,8 +61,8 @@ class Feistel{
                 }
             }    
 
-            this.tablaIzquierda.push(right) 
-            this.tablaDerecha.push(llave);
+           /*  this.tablaIzquierda.push(right) 
+            */ this.tablaDerecha.push(llave);
             this.tablaDerecha.push(xor_uno);  
             this.tablaDerecha.push(left);   
 
@@ -85,5 +91,42 @@ class Feistel{
         }
     }
 
+    graficarencabezados(){
+        let arregloencabeazados = []
+        arregloencabeazados.push("Izquierda")
+        arregloencabeazados.push("Derecha")
+        return arregloencabeazados
+    }
+
+    graficardatos(){
+        let arreglo = []
+        let contador = 0;
+        let contadorTabla = 0;
+        for (let x = 0; x < this.tablaDerecha.length; x++) {
+            let dato = []
+            if(contador == 0){
+                dato.push(this.tablaIzquierda[contadorTabla])
+                contadorTabla++;
+            }else{
+                dato.push("")
+            }
+            dato.push(this.tablaDerecha[x])
+            arreglo.push(dato)
+            contador++;
+            if(contador === 4){
+                contador = 0;
+            }
+
+        }
+        console.log(this.tablaIzquierda)
+        console.log(arreglo)
+        return arreglo
+    }
+
+    guardar(){
+        return this.ecriptado;
+    }
 
 }
+
+export default Feistel;
