@@ -3,6 +3,7 @@ import { DocumentoService } from '../../services/documento.service';
 import { Cow} from './js/cow';
 import { saveAs } from 'file-saver';
 declare var require: any;
+let Lista=require('./js/cow');
 let vis=require('../../../../vis-4.21.0/dist/vis');
 
 @Component({
@@ -11,9 +12,6 @@ let vis=require('../../../../vis-4.21.0/dist/vis');
   styleUrls: ['./cow.component.css']
 })
 export class CowComponent implements OnInit {
-
-  grafo: any;
-  
   opciones = {
     sizeNoLineales: 10,
     funcionHash: "simple",
@@ -23,7 +21,12 @@ export class CowComponent implements OnInit {
     velocidadNoLineales: 2000,
     constante: 0.1625277911
   };
-
+  lista=Lista;
+  m = '';
+  n = '';
+  nx = '';
+  ny = '';
+  nvalor = '';
   valorAgregar = '';
   valorAgregar1 = '';
   valorAgregar2 = '';
@@ -37,7 +40,7 @@ export class CowComponent implements OnInit {
 
 
   constructor(private documentoService: DocumentoService) {
-
+    this.lista=new Lista();
   }
 
   ngOnInit(): void {}
@@ -55,11 +58,17 @@ export class CowComponent implements OnInit {
     });
   }
 
-  agregar(){
-   
+  agregar(v1,v2,v3){
+   this.lista.agregar(v1,v2,v3)
   }
 
+  agregar1(v1,v2){
+    this.lista.matriz(v1,v2)
+   }
+
   eliminar() {
+    this.lista.tabla();
+    this.lista.imprimir2();
     
   }
 
