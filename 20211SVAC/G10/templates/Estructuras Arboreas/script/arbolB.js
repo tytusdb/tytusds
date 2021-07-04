@@ -555,8 +555,8 @@ cargar.addEventListener("click", (e) => {
     salida.lista = valores
     for (let i = 0; i < valores.length; i++) {
         arbolBB.agregar(valores[i])
-        graficaArbol(arbolBB);
     }
+    graficaArbol(arbolBB);
     document.getElementById('mensaje').innerText = ''
     archivo.setAttribute('disabled', '')
 })

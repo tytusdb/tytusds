@@ -46,13 +46,14 @@ nav ul li a:hover {
 nav ul ul {
     position: absolute;
     left: 250px;
-    width: 225px;
+    width: 270px;
     top: 0;
     display: none;
     background: rgba(240, 84, 84);
     border-radius: 5px;
     box-shadow: 2px 2px 2px rgba(0, 0, 0, .5);
 }
+
 
 nav ul span {
     position: absolute;

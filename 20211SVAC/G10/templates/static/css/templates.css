@@ -3,6 +3,10 @@
     padding: 0;
 }
 
+body {
+    background-color: rgb(221, 221, 221);
+}
+
 nav {
     border: black;
     padding: 10px 20px;
@@ -59,13 +63,12 @@ nav h1 {
 }
 
 .panel {
-    height: 480px;
-    background-color: rgb(221, 221, 221);
+    height: 100%;
 }
 
 .controles {
     background-color: rgb(34, 40, 49);
-    height: 55px;
+    height: 100%;
 }
 
 .boton {
@@ -92,6 +95,7 @@ nav h1 {
     background-color: rgb(221, 221, 221);
     border-radius: 5px;
     border: 1px solid rgb(240, 84, 84);
+    width: 90%;
 }
 
 .velocidad_lb {
@@ -100,4 +104,37 @@ nav h1 {
 
 #velocidad {
     margin: 0px 5px 10px 10px;
+}
+
+.configuracion {
+    margin: 15px 0px 15px 20px;
+}
+
+.configuracion label{
+    margin: 10px 0px;
+}
+
+.configuracion input{
+    margin: 5px 0px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid rgb(221, 221, 221);
+    width: 100%;
+}
+
+.configuracion select{
+    margin: 5px 0px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid rgb(221, 221, 221);
+    width: 100%;
+}
+
+#crear {
+    margin: 5px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: rgb(221, 221, 221);
+    border: 1px solid rgb(240, 84, 84);
+    width: 100%;
 }

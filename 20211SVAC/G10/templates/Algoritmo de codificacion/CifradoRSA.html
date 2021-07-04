@@ -1,18 +1,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>Cifrado RSA</title>
     <link rel="icon" href="../static/image/icon.png" type="image/png">
-    <title>Arbol Binario de Búsqueda</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../static/css/templates.css">
 </head>
 <body>
     <nav class="navbar navbar-light" style="background-color: rgb(48, 71, 94)">
-        <a class="navbar-toggler" href="https://tytusdb.github.io/tytusds/20211SVAC/G10/index.html" style="border: 1px solid rgb(34, 40, 49);">
+        <a class="navbar-toggler" href="https://diego1399.github.io/tytusds/20211SVAC/G10/index.html" style="border: 1px solid rgb(34, 40, 49);">
             <span class="navbar-toggler-icon"></span>
         </a>
-        <h1>Árbol Binario de Búsqueda</h1>
+        <h1>Cifrado RSA</h1>
     </nav>
 
     <div class="row">
@@ -32,21 +31,11 @@
                             <div class="col-8 col_input"><input type="text" name="" id="dato2" placeholder="Nuevo dato"></div>
                         </div>
                     </form>
-                    <div class="row">
-                        <div class="row justify-content-end"><button class="boton" id="cambiar">Cambiar</button></div>
-                    </div>
                 </div>
             </div>
-            
 
             <div class="row tablero">
                 <div class="col-6"><button class="boton" id="agregar">Agregar</button></div>
-                <div class="col-6 align-self-end"><button class="boton" id="buscar" >Buscar</button></div>
-                
-            </div>
-            <div class="row">
-                <div class="col-6"><button class="boton" id="actualizar" >Actualizar</button></div>
-                <div class="col-6 align-self-end"><button class="boton" id="eliminar" >Eliminar</button></div>
             </div>
             
             <div class="row archivo">
@@ -68,7 +57,7 @@
 
         <div class="col-9 columna2">
             <div class="row">
-                <div class="panel" id = 'lienzo'><!canvas id='lienzo' width="1000" height="500"><!/canvas></div>
+                <div class="panel"><canvas id='lienzo' width="1000" height="500"></canvas></div>
             </div>
             <div class="row">
                 <div class="controles">
@@ -77,13 +66,12 @@
                             <label for="velocidad" class="velocidad_lb">Velocidad</label>
                         </div>
                     </div>
-                    <input type="range" id="velocidad" name="velocidad" min="0" max="5">
+                    <input type="range" id="velocidad" name="velocidad" min="1" max="5">
                     <label for="velocidad" id="numero" class="velocidad_lb">3</label>
                 </div>
             </div>
         </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis-network.min.js"></script>
-    <script src="script/binarioBusqueda.js"></script>
+    <script src="#"></script>
 </body>
 </html>
