@@ -232,7 +232,7 @@ class TablaHash{
                 if(valor == undefined){
                     return null
                 }else{
-                    return valor.clave
+                    alert("Encontrado!! La clave es: " + valor.clave + " en el indice: " +  pr.indice)
                 }
             }else {
                 return null
