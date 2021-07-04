@@ -28,7 +28,8 @@ import { DispersaComponent } from './components/dispersa/dispersa.component';
 import { CompuestasComponent } from './components/compuestas/compuestas.component';
 import { MajorComponent } from './components/major/major.component';
 import { NoLinealesComponent } from './components/no-lineales/no-lineales.component';
-import { HashCerradaComponent } from './components/hash-cerrada/hash-cerrada.component'
+import { HashCerradaComponent } from './components/hash-cerrada/hash-cerrada.component';
+import { CompuestaComponent } from './components/compuesta/compuesta.component'
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { HashCerradaComponent } from './components/hash-cerrada/hash-cerrada.com
     MajorComponent,
     NoLinealesComponent,
     HashCerradaComponent,
+    CompuestaComponent,
   ],
   imports: [
     BrowserModule,

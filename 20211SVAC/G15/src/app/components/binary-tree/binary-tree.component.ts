@@ -82,7 +82,7 @@ export class BinaryTreeComponent implements OnInit {
         return;
       }
     }
-    await this.binaryTree.addNode(this.convertir(numero), contenedor, this.duracion + 's')
+    await this.binaryTree.addNode(this.convertir(numero), contenedor, this.duracion + 's',true)
     return 1
   }
 

@@ -1,0 +1,83 @@
+<body>
+    <div class="container">
+
+        <div class="row opciones p-2">
+
+            <div class="col-lg-3 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <label for="dropPrueba" class="mr-1 text-white">Estructura Padre</label>
+                    <select class="form-control" id="dropPrueba" [(ngModel)]="estructuraPadre">
+                        <option value="0">Lista Simple Enlazada</option>
+                        
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="col-lg-5 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <input type="text" class="form-control" value="" id="index" name="index" [(ngModel)]="index"
+                        placeholder="Index">
+                    <input type="text" class="form-control" value="" id="value" name="value" [(ngModel)]="value"
+                        placeholder="valor">
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary " type="button" (click)="add()">Guardar</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-lg-3 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <input type="text" class="form-control" value="" id="numero" name="numero"
+                        placeholder="Ingresa un Numero">
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary " type="button">Buscar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="numero" name="numero" placeholder="Antiguo">
+                    <input type="text" class="form-control" id="numero" name="numero" placeholder="Nuevo">
+                    <div class="input-group-append">
+                        <button class="btn btn-warning" type="button">Actualizar</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-12 col-sm-12 col-lg-3 text-left mt-2 text-white mt-1">
+                <div class="input-group">
+                    <input type="file" class="file-input" #fileUpload>
+                    <div class="file-upload">
+
+                        {{fileName || "No file uploaded yet."}}
+
+                        <button class="btn btn-primary" (click)="fileUpload.click()">
+                            <i class="fas fa-upload"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-12 col-lg-3 text-left mt-2 text-white mt-1">
+                <div class="input-group">
+                    <button class="btn btn-primary">
+                        Generar JSON
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="container mt-5 " id="contenedorMatriz">
+        <div id="matriz" class="matriz" #matriz></div>
+    </div>
+
+
+
+</body>
