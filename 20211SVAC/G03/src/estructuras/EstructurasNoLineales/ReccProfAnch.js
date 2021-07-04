@@ -98,6 +98,8 @@ class Nodo{
     constructor(dato){
         this.dato = dato
         this.id = 0
+        this.distTotal = 0
+        this.camino = new ListaDoble()
         this.enlaces = new ListaDoble()
         this.adyacentes = new ListaDoble()
     }
@@ -115,10 +117,12 @@ class Enlaces{
 
 //Clase Lista de Adyacencia Principal
 class ListaAdyacencia{
-    constructor(inicio, final){
+    constructor(){
         this.ListaAdyacencia = new ListaDoble()
-        this.inicio = inicio
-        this.final = final
+        this.caminoFinal = []
+        this.distanciaFinal = 0
+        this.inicio = null
+        this.final = null
         this.profundidad = null
         this.busquedaRecorrido = null
         this.anchura = null
