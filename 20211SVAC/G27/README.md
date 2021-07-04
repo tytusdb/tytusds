@@ -14,7 +14,7 @@
 ### [Arbol AVL](https://tytusdb.github.io/tytusds/20211SVAC/G27/Arboles/AVL.html)
 ### [Hash Abierto](https://tytusdb.github.io/tytusds/20211SVAC/G27/No_Lineales/hash_abierto.html)
 ### [Hash Cerrado](https://tytusdb.github.io/tytusds/20211SVAC/G27/No_Lineales/hash_cerrado.html)
-### [Matriz Dispersa](https://tytusdb.github.io/tytusds/20211SVAC/G27/No_Lineales/hash_abierto.html)
+### [Matriz Dispersa](https://tytusdb.github.io/tytusds/20211SVAC/G27/No_Lineales/matriz_dispersa.html)
 
 ## ORDENAMIENTOS
 ### [Ordenamiento Burbuja](https://tytusdb.github.io/tytusds/20211SVAC/G27/ordenamientos/bubleSort.html)
