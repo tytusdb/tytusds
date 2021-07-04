@@ -79,7 +79,7 @@ class cow{
 
     tabla(){
     matriz=[];
-    var r=parseInt(xx)*parseInt(yy);
+    var r=(parseInt(xx)+1)*(parseInt(yy)+1);
     var contador=0;
     var conx=0;
     var cony=0;
@@ -97,7 +97,8 @@ class cow{
      if(cony==yy){ cony=-1; conx++;}
      cony++;  contador++;
     if(bandera==true){matriz.push("nulo");}
-    }while(contador<=r)
+
+    }while(contador<r)
     console.log(matriz)
     }
 
@@ -117,22 +118,42 @@ class cow{
                 th.style.textAlign="center";
                 th.style.border="5px solid";
                 vx++;
-            }while(vx<=xx);
+            }while(vx<=yy);
             document.getElementById("tabla").appendChild(tr);
-
+            var aux=0;
+            var ca=" ";
             var l=0;
             var tr = document.createElement("tr");
             var th = document.createElement("th");
+                th.innerHTML =aux;
+                tr.appendChild(th);
+                th.style.textAlign="center";
+                th.style.border="5px solid";
+
+            var th = document.createElement("th");
             for(var ii=0; ii<matriz.length; ii++){
+                ca+=" "+matriz[ii];
+                var th = document.createElement("th");
                 th.innerHTML =matriz[ii];
                 tr.appendChild(th);
                 th.style.textAlign="center";
                 th.style.border="5px solid";
-                if(l==xx){
+                if(l==yy){
+                    console.log(ca)
+                    ca=""
                     l=-1;
                     document.getElementById("tabla").appendChild(tr);
                     var tr = document.createElement("tr");
                     var th = document.createElement("th");
+                    
+                if(aux<xx){
+                    aux++;
+                th.innerHTML =aux;
+                tr.appendChild(th);
+                th.style.textAlign="center";
+                th.style.border="5px solid";
+                }
+                   
                 }
                 
                 
@@ -144,6 +165,10 @@ class cow{
         
            
              }
+
+            mapeo(valor){
+
+            }
 
 }
 module.exports = cow;
