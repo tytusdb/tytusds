@@ -1,5 +1,7 @@
 //Contador para identificadores unicos de los nodos
 var idNodos = 0
+//Caminos para recubrimiento minimo
+var recminimos = null
 
 //Clase para la lista de adyacencia como lista doble
 class ListaDoble{
@@ -8,6 +10,33 @@ class ListaDoble{
         this.cabeza = null
         this.cola = null
         this.size = 0
+    }
+
+    //Metodo para validacion de datos ya existentes en una lista
+    contiente(buscando, elemento){
+        let buscar = buscando.cabeza
+        while(buscar!=null){
+            if(buscar.dato.dato == elemento.dato){
+                return true
+            }
+            buscar = buscar.siguiente
+        }
+        return false
+    }
+
+    //Regresar Minimo
+    regresarMinimo(){
+        let aux = this.cabeza
+        let regresar = null
+        while(aux!=null){
+            if(regresar == null){
+                regresar = aux.dato
+            }else if(aux.dato<regresar){
+                regresar = aux.dato
+            }
+            aux = aux.siguiente
+        }
+        return regresar
     }
 
     //Insercion para la lista doble
@@ -400,6 +429,119 @@ class ListaAdyacencia{
         }
     }
 
+    //Metodo de Rebubrimiento Minimo
+    recubrimientoMinimo(ini){
+        let borrar = this.ListaAdyacencia.cabeza
+        while(borrar!= null){
+            borrar.dato.camino = new ListaDoble()
+            borrar = borrar.siguiente
+        }
+        this.caminoFinal = []
+        this.inicio = ini
+        let costos = new ListaDoble()
+        console.log("Empezamos en: "+this.inicio)
+        let iniRec = this.ListaAdyacencia.cabeza
+        while(iniRec!= null){
+            if(iniRec.dato.dato == this.inicio){
+                let enl = iniRec.dato.enlaces.cabeza
+                while(enl!= null){
+                    costos.insertar(enl.dato.distancia)
+                    enl = enl.siguiente
+                }
+                let minimodis = costos.regresarMinimo()
+                enl = iniRec.dato.enlaces.cabeza
+                while(enl!= null){
+                    if(iniRec.dato.dato == enl.dato.inicio.dato){
+                        if(enl.dato.distancia == minimodis){    
+                            enl.dato.destino.camino.insertar(iniRec.dato)
+                            let egde = {from: enl.dato.inicio.id, to: enl.dato.destino.id, label: enl.dato.distancia }
+                            this.caminoFinal.push(egde)
+                            this.seguirRecorriendo(enl.dato.destino)
+                            costos.eliminar(enl.dato.distancia)
+                            minimodis = costos.regresarMinimo()
+                            let enlacesmandar = iniRec.dato.enlaces
+                            enlacesmandar.eliminar(enl.dato)
+                            this.restoCaminos(costos,minimodis,enlacesmandar,iniRec.dato)
+                        }    
+                    }
+                    enl = enl.siguiente
+                }
+            }
+            iniRec = iniRec.siguiente
+        }
+        return this.caminoFinal
+    }
+
+    //submetodo Recubrimiento minimo
+    seguirRecorriendo(nodo){
+        let costos = new ListaDoble()
+        let enl = nodo.enlaces.cabeza
+        while(enl!= null){
+            if(nodo.dato == enl.dato.inicio.dato){
+                if(enl.dato.inicio.camino.contiente(enl.dato.inicio.camino, enl.dato.destino) == false){
+                    costos.insertar(enl.dato.distancia)        
+                }
+            }
+            enl = enl.siguiente
+        }
+        let minimodis = costos.regresarMinimo()
+        enl = nodo.enlaces.cabeza
+        while(enl!= null){            
+            if(enl.dato.distancia == minimodis){
+                if(enl.dato.destino.camino.size == 0){
+                    enl.dato.destino.camino.insertar(nodo)
+                    let egde = {from: enl.dato.inicio.id, to: enl.dato.destino.id, label: enl.dato.distancia }
+                    this.caminoFinal.push(egde)
+                    this.seguirRecorriendo(enl.dato.destino)
+                    costos.eliminar(minimodis)
+                    minimodis = costos.regresarMinimo()
+                    let enlacesmandar = nodo.enlaces
+                    enlacesmandar.eliminar(enl.dato)
+                    this.restoCaminos(costos, minimodis,enlacesmandar,nodo)    
+                }else{
+                    costos.eliminar(minimodis)
+                    minimodis = costos.regresarMinimo()
+                    let enlacesmandar = nodo.enlaces
+                    enlacesmandar.eliminar(enl.dato)
+                    this.restoCaminos(costos, minimodis,enlacesmandar,nodo)
+                }
+            }
+            enl = enl.siguiente
+        }
+    }
+
+    //SubSubMetodoRecorrido
+    restoCaminos(lisCostos,minimodis, lisEnlaces,nodo){
+        let enl = lisEnlaces.cabeza
+        while(enl!= null){
+            if(nodo.dato == enl.dato.inicio.dato){
+                if(enl.dato.distancia == minimodis){
+                    if(enl.dato.destino.camino.size == 0){
+                        enl.dato.destino.camino.insertar(enl.dato.inicio)
+                        let egde = {from: enl.dato.inicio.id, to: enl.dato.destino.id, label: enl.dato.distancia }
+                        this.caminoFinal.push(egde)
+                        this.seguirRecorriendo(enl.dato.destino)
+                        lisCostos.eliminar(minimodis)
+                        minimodis = lisCostos.regresarMinimo()
+                        let enlacesmandar = lisEnlaces
+                        enlacesmandar.eliminar(enl.dato)
+                        if(enlacesmandar.size!=0){
+                            this.restoCaminos(lisCostos,minimodis,enlacesmandar,nodo)
+                        }
+                    }else{
+                        lisCostos.eliminar(minimodis)
+                        minimodis = lisCostos.regresarMinimo()
+                        let enlacesmandar = lisEnlaces
+                        enlacesmandar.eliminar(enl.dato)
+                        if(enlacesmandar.size!=0){
+                            this.restoCaminos(lisCostos,minimodis,enlacesmandar,nodo)
+                        }
+                    }
+                }    
+            }
+            enl = enl.siguiente
+        }
+    }
     //Metodo arranque para costo minimo
     costoMinimo(ini, fin){
         let arregloEdge = []
@@ -418,8 +560,7 @@ class ListaAdyacencia{
                             adyman.dato.distTotal = enl.dato.distancia
                             adyman.dato.camino.insertar(iniRec.dato)
                             this.formarcaminooptimo(adyman.dato)
-                            adyman.dato.camino.eliminar(iniRec.dato)
-                            
+                            adyman.dato.camino.eliminar(iniRec.dato)                        
                         }
                         adyman = adyman.siguiente
                     }
@@ -428,38 +569,10 @@ class ListaAdyacencia{
             }
             iniRec = iniRec.siguiente
         }
-        console.log("Al parecer funciono, la distancia final total es: "+this.distanciaFinal)
-        for(let i = 0;i<this.caminoFinal.length-1;i++){
-            let egde = {from: this.caminoFinal[i].id, to: this.caminoFinal[i+1].id }
-            arregloEdge.push(egde)
-            console.log("El camino usado fue: " + this.caminoFinal[i].dato + " con id " + this.caminoFinal[i].id)
-        }
-        return arregloEdge
-    }
-
-    //Metodo recursivo para arbol de Recubrimiento minimo
-    recubrimientoMinimo(){
-        let arregloEdge = []
-        let iniRec = this.ListaAdyacencia.cabeza
-        while(iniRec!=null){
-            if(iniRec.dato.dato == this.inicio){
-                let enl = iniRec.dato.enlaces.cabeza
-                while(enl!= null){
-                    let adyman = iniRec.dato.adyacentes.cabeza
-                    while(adyman!=null){
-                        if(adyman.dato.dato == enl.dato.destino.dato){
-                            adyman.dato.distTotal = enl.dato.distancia
-                            adyman.dato.camino.insertar(iniRec.dato)
-                            this.formarcaminooptimo(adyman.dato)
-                            adyman.dato.camino.eliminar(iniRec.dato)
-                            
-                        }
-                        adyman = adyman.siguiente
-                    }
-                    enl = enl.siguiente
-                }
-            }
-            iniRec = iniRec.siguiente
+        let borrar = this.ListaAdyacencia.cabeza
+        while(borrar!= null){
+            borrar.dato.camino = new ListaDoble()
+            borrar = borrar.siguiente
         }
         console.log("Al parecer funciono, la distancia final total es: "+this.distanciaFinal)
         for(let i = 0;i<this.caminoFinal.length-1;i++){
@@ -598,11 +711,3 @@ class ListaAdyacencia{
         return arregloEdge
     } 
 }
-
-let lista = new ListaAdyacencia()
-lista.insertar(1,1,2,2)
-lista.insertar(2,2,3,3)
-lista.insertar(4,2,4,1)
-lista.insertar(3,3,1,8)
-lista.insertar(3,3,4,1)
-lista.costoMinimo(1,4)
