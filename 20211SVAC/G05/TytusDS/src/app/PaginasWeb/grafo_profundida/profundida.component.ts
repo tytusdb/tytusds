@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { saveAs } from 'file-saver';
 import { DocumentoService } from '../../services/documento.service';
 declare var require: any;
-let Lista=require('./js/Ganchura');
+let Lista=require('./js/Gprofundida');
 let vis=require('../../../../vis-4.21.0/dist/vis');
 @Component({
-  selector: 'app-anchura',
-  templateUrl: './anchura.component.html',
-  styleUrls: ['./anchura.component.css','../../../../css/bootstrap.min.css','../../../../vis-4.21.0/dist/vis.css']
+  selector: 'app-profundida',
+  templateUrl: './profundida.component.html',
+  styleUrls: ['./profundida.component.css','../../../../css/bootstrap.min.css','../../../../vis-4.21.0/dist/vis.css']
 })
-export class AnchuraComponent implements OnInit {
+export class ProfundidaComponent implements OnInit {
   lista=Lista;
   grafo;
   opcion=true;
