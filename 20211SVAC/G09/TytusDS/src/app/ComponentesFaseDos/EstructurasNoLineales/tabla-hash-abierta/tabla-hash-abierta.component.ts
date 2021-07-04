@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+declare var insertarAbierta:any;
 
 @Component({
   selector: 'app-tabla-hash-abierta',
@@ -11,7 +12,9 @@ export class TablaHashAbiertaComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  insertarAbierta(data:any){
+    insertarAbierta(data)
+  }
   value(){
     
   }
