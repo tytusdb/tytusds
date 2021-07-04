@@ -115,7 +115,10 @@ class hash {
     let contador = 0;
     while(this.areglo[i] != -1){
         if(contador>this.areglo.length){
-            i++
+            i=0
+            while(this.areglo[i] != -1){
+                i++
+            }
         }
         contador++
         i = this.pruebaHash(i,contador);
@@ -143,6 +146,7 @@ class hash {
          //console.log(this.n)
          //console.log(this.min)
          this.m = this.n*100/this.min
+         this.m = Math.trunc(this.m)
          this.init()
          this.n = 0
          console.log(mprev)
@@ -438,6 +442,19 @@ function BuscarHash(k){
             }
         
     }
+}
+
+function ReemplazarHash(k,data){
+    
+    for(w in ListaFinal){
+        if(ListaFinal[w] == k){
+            console.log("El Elemento "+ListaFinal[w]+ " Se reemplazo con: "+ data);
+            ListaFinal[w] = data;
+            break;
+        }
+        
+    }   
+    console.log("lista: "+ListaFinal)
 }
 
 function downloadCerrada(filename, text) {

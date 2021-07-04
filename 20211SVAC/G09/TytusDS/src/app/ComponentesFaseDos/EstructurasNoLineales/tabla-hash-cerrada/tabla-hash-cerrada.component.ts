@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 declare var insertarHashCerrada:any;
 declare var eliminarHash:any;
 declare var BuscarHash:any;
+declare var ReemplazarHash:any;
 @Component({
   selector: 'app-tabla-hash-cerrada',
   templateUrl: './tabla-hash-cerrada.component.html',
@@ -24,6 +25,10 @@ export class TablaHashCerradaComponent implements OnInit {
   }
   buscarHashCerrada(data:any){
     BuscarHash(data);
+  }
+
+  reemplazarHash(data1:any,data2:any){
+    ReemplazarHash(data1,data2)
   }
  
 }
