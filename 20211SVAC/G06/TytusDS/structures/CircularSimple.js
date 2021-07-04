@@ -1,4 +1,4 @@
-class Nodo {
+class NodoCS {
     constructor(dato) {
         this.dato = dato;
         this.siguiente = null;
@@ -12,7 +12,7 @@ class ListaCircularSimple {
     }
 
     agregar(dato) {
-        let nuevo = new Nodo(dato);
+        let nuevo = new NodoCS(dato);
         if (this.primero == null) {
             this.primero = nuevo
             this.ultimo = nuevo
@@ -128,7 +128,7 @@ class ListaCircularSimple {
 }
 
 function lol() {
-    console.log("lol")
+    console.log("lolcircular")
 }
 
 lol();

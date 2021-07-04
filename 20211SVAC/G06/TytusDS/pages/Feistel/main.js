@@ -87,64 +87,64 @@ function genera_tabla() {
             var celda = document.createElement("td");
             if (i == 0) {
                 if (j == 0) {
-                    var textoCelda = document.createTextNode("W" + cont + "|");
-                    celda.setAttribute("style", "background:skyblue");
+                    var textoCelda = document.createTextNode("W" + cont);
+                    celda.setAttribute("style", "background:skyblue; border: black 1px solid;padding:5px");
                 } else if (j == 1) {
-                    var textoCelda = document.createTextNode(LeftValue + "|  ");
-                    celda.setAttribute("style", "background:skyblue");
+                    var textoCelda = document.createTextNode(LeftValue);
+                    celda.setAttribute("style", "background:skyblue; border: black 1px solid;padding:5px");
                 } else if (j == 2) {
-                    var textoCelda = document.createTextNode(RightValue + "|  ");
-                    celda.setAttribute("style", "background:skyblue");
+                    var textoCelda = document.createTextNode(RightValue);
+                    celda.setAttribute("style", "background:skyblue; border: black 1px solid;padding:5px");
                 } else {
                     var textoCelda = document.createTextNode("  ");
-                    celda.setAttribute("style", "background:skyblue");
+                    celda.setAttribute("style", "background:skyblue; border: black 1px solid;padding:5px");
                 }
             } else if (i == 1) {
                 if (j == 0 || j == 1) {
                     var textoCelda = document.createTextNode("");
-                    celda.setAttribute("style", "background:pink");
+                    celda.setAttribute("style", "background:pink; border: black 1px solid;padding:5px");
                 } else if (j == 2) {
-                    var textoCelda = document.createTextNode(KeyValue + "|");
-                    celda.setAttribute("style", "background:pink");
+                    var textoCelda = document.createTextNode(KeyValue);
+                    celda.setAttribute("style", "background:pink; border: black 1px solid;padding:5px");
                 } else {
                     var textoCelda = document.createTextNode("K" + cont);
-                    celda.setAttribute("style", "background:pink");
+                    celda.setAttribute("style", "background:pink; border: black 1px solid;padding:5px");
                 }
             } else if (i == 2) {
                 if (j == 0 || j == 1) {
                     var textoCelda = document.createTextNode("");
-                    celda.setAttribute("style", "background:pink");
+                    celda.setAttribute("style", "background:pink; border: black 1px solid;padding:5px");
                 } else if (j == 2) {
                     for (let k = 0; k < arr1.length; k++) {
                         total += (arr3[k] ^ arr2[k])
                     }
-                    var textoCelda = document.createTextNode(total + "|");
-                    celda.setAttribute("style", "background:pink");
+                    var textoCelda = document.createTextNode(total);
+                    celda.setAttribute("style", "background:pink; border: black 1px solid;padding:5px");
                 } else {
                     var textoCelda = document.createTextNode("F" + cont);
-                    celda.setAttribute("style", "background:pink");
+                    celda.setAttribute("style", "background:pink; border: black 1px solid;padding:5px");
                 }
             } else if (i == 3) {
                 if (j == 0 || j == 1 || j == 3) {
                     var textoCelda = document.createTextNode("");
-                    celda.setAttribute("style", "background:pink");
+                    celda.setAttribute("style", "background:pink; border: black 1px solid;padding:5px");
                 } else {
-                    var textoCelda = document.createTextNode(LeftValue + "|");
-                    celda.setAttribute("style", "background:pink");
+                    var textoCelda = document.createTextNode(LeftValue);
+                    celda.setAttribute("style", "background:pink; border: black 1px solid;padding:5px");
                 }
             } else if (i == 4) {
                 if (j == 0) {
                     cont++
-                    var textoCelda = document.createTextNode("W" + cont + "|");
-                    celda.setAttribute("style", "background:skyblue");
+                    var textoCelda = document.createTextNode("W" + cont);
+                    celda.setAttribute("style", "background:skyblue; border: black 1px solid;padding:5px");
                 } else if (j == 1) {
-                    var textoCelda = document.createTextNode(RightValue + "|");
-                    celda.setAttribute("style", "background:skyblue");
+                    var textoCelda = document.createTextNode(RightValue);
+                    celda.setAttribute("style", "background:skyblue; border: black 1px solid;padding:5px");
                 } else if (j == 2) {
                     for (let k = 0; k < arr1.length; k++) {
                         total2 += (total[k] ^ arr1[k])
                     }
-                    var textoCelda = document.createTextNode(total2 + "|");
+                    var textoCelda = document.createTextNode(total2);
                     LeftValue = RightValue
                     RightValue = total2
                     cripto = LeftValue.toString() + RightValue.toString()
@@ -155,14 +155,14 @@ function genera_tabla() {
                         le += arr3[l]
                     }
                     KeyValue = le
-                    celda.setAttribute("style", "background:skyblue");
+                    celda.setAttribute("style", "background:skyblue; border: black 1px solid;padding:5px");
                 } else {
                     var textoCelda = document.createTextNode("");
-                    celda.setAttribute("style", "background:skyblue");
+                    celda.setAttribute("style", "background:skyblue; border: black 1px solid;padding:5px");
                 }
             } else {
                 var textoCelda = document.createTextNode("00");
-                celda.setAttribute("style", "background:pink");
+                celda.setAttribute("style", "background:pink; border: black 1px solid;padding:5px");
             }
             celda.appendChild(textoCelda);
             hilera.appendChild(celda);

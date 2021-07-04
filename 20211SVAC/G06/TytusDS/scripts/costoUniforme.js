@@ -52,9 +52,9 @@ class Costo {
 
     insercion(array) {
         for (let i = 1; i < array.length; i++) {
-            let key = array[i]
+            let key = array[i].val
             let j = i - 1
-            while (j >= 0 && this.getKey(array[j]) > this.getKey(key)) {
+            while (j >= 0 && this.getKey(array[j].val) > this.getKey(key)) {
                 array[j + 1] = array[j]
                 j = j - 1
             }
@@ -67,7 +67,6 @@ class Costo {
             value: item,
             id: id,
             edges: [],
-            val: []
         }
         this.successors.push(nodo)
         console.log(nodo)
@@ -106,10 +105,13 @@ class Costo {
 
     addEdge(from, to, val) {
         //Obtenemos el nodo from
+        let edg = {
+            val: to,
+            large: val
+        }
         for (let i = 0; i < this.successors.length; i++) {
             if (this.successors[i].value == from) {
-                this.successors[i].edges.push(to)
-                this.successors[i].val.push(val)
+                this.successors[i].edges.push(edg)
                 this.insercion(this.successors[i].edges)
             }
         }
@@ -118,9 +120,9 @@ class Costo {
     getSuccessors(item) {
         for (let i = 0; i < this.successors.length; i++) {
             if (item[0] == this.successors[i].value) {
-                console.log(this.successors[i].val, "val")
+                console.log(this.successors[i], "val")
                 console.log(item, "item1")
-                return [this.successors[i].edges, item[1] + parseInt(this.successors[i].val)]
+                return [this.successors[i].edges[0].val, item[1] + parseInt(this.successors[i].edges[0].large)]
             }
 
         }
@@ -146,7 +148,7 @@ class Costo {
             console.log(temp, "temp")
             list = list.concat(temp)
             console.log(list, "lit")
-                //list = list.sort(function(a, b) { return a[1] - b[1] })
+            list = list.sort(function(a, b) { return a[1] - b[1] })
         }
         console.log("No se ha encontrado una ruta")
     }
