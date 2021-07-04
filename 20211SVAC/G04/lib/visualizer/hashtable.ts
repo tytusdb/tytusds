@@ -1,11 +1,12 @@
 // CONFIGURACIÓN GLOBAL
 type HashFunction = 'simple' | 'div' | 'times'
+const hashFunctions: HashFunction[] = ['simple', 'div', 'times']
 
 // INSTANCIAS
 let openHashInstance: TablaHashAbierta | null = null
 let hashInstance: TablaHashAbierta | TablaHashCerrada | null = null
 let openHashFunc: HashFunction = 'div'
-let openHashSize: number = 10
+let hashTableSize: number = 10
 let elementsCounter: number = 0
 let isOpenHash: boolean = true
 
@@ -26,17 +27,60 @@ const setHashTable = (props: SetHashTableProps) => {
 		hashInstance = props.openHash.hashInstance
 		isOpenHash = true
 		openHashInstance = props.openHash.hashInstance
-		openHashSize = props.openHash.size
+		hashTableSize = props.openHash.size
 		openHashFunc = props.openHash.hashFunc
 	}
+}
+
+// SUBIR ARCHIVO
+fileUploadCallback = () => {
+	// INSTANCIA
+	hashInstance = isOpenHash
+		? new TablaHashAbierta(hashTableSize, hashFunctions.indexOf(openHashFunc))
+		: null
+	console.log(hashInstance)
+	globalJSONInput?.valores.forEach((valor: string | number) => {
+		if (hashInstance) {
+			newNodeValue = valor.toString()
+			addOnHashTable()
+		}
+	})
+	elementsCounter = globalJSONInput?.valores.length || 0
+	setElementsLength(elementsCounter)
+}
+
+// GUARDAR ARCHIVO
+const saveOpenHashTable = () => {
+	const parsedValues = isOpenHash
+		? hashInstance
+			? hashInstance.tabla.map(
+					// @ts-ignore
+					(node) => `[${node.valores.map((node) => node.valor).join(',')}]`,
+			  )
+			: []
+		: []
+	saveJSONFile(parsedValues)
+}
+
+// INPUT DE FUNCIÓN
+const onChangeHashFunc = (ev: Event) => {
+	const target = ev.target as HTMLInputElement
+	const func: HashFunction = target.value as HashFunction
+	openHashFunc = func
+}
+
+const onChangeHashSize = (ev: Event) => {
+	const target = ev.target as HTMLInputElement
+	const size: number = +target.value as number
+	hashTableSize = size
 }
 
 // DIBUJAR
 drawInCanvas = () => {
 	if (canvasCtx) {
 		// DIBUJAR HASH ABIERTA
-		if (isOpenHash && openHashInstance) {
-			for (let headIndex: number = 0; headIndex < openHashSize; headIndex++) {
+		if (isOpenHash && hashInstance) {
+			for (let headIndex: number = 0; headIndex < hashTableSize; headIndex++) {
 				// CABECERAS
 				canvasCtx.beginPath()
 				// ESTILOS
@@ -69,10 +113,12 @@ drawInCanvas = () => {
 				// LISTAS
 				for (
 					let nodeIndex: number = 0;
-					nodeIndex < openHashInstance.tabla[headIndex].valores.length;
+					// @ts-ignore
+					nodeIndex < hashInstance.tabla[headIndex].valores.length;
 					nodeIndex++
 				) {
-					const nodeValue = openHashInstance.tabla[headIndex].valores[nodeIndex]
+					// @ts-ignore
+					const nodeValue = hashInstance.tabla[headIndex].valores[nodeIndex]
 
 					// VALORES
 					canvasCtx.beginPath()

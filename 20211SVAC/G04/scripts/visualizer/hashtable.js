@@ -1,8 +1,9 @@
 "use strict";
+var hashFunctions = ['simple', 'div', 'times'];
 var openHashInstance = null;
 var hashInstance = null;
 var openHashFunc = 'div';
-var openHashSize = 10;
+var hashTableSize = 10;
 var elementsCounter = 0;
 var isOpenHash = true;
 var hashScalePosition = [-1, -1];
@@ -12,14 +13,46 @@ var setHashTable = function (props) {
         hashInstance = props.openHash.hashInstance;
         isOpenHash = true;
         openHashInstance = props.openHash.hashInstance;
-        openHashSize = props.openHash.size;
+        hashTableSize = props.openHash.size;
         openHashFunc = props.openHash.hashFunc;
     }
 };
+fileUploadCallback = function () {
+    hashInstance = isOpenHash
+        ? new TablaHashAbierta(hashTableSize, hashFunctions.indexOf(openHashFunc))
+        : null;
+    console.log(hashInstance);
+    globalJSONInput === null || globalJSONInput === void 0 ? void 0 : globalJSONInput.valores.forEach(function (valor) {
+        if (hashInstance) {
+            newNodeValue = valor.toString();
+            addOnHashTable();
+        }
+    });
+    elementsCounter = (globalJSONInput === null || globalJSONInput === void 0 ? void 0 : globalJSONInput.valores.length) || 0;
+    setElementsLength(elementsCounter);
+};
+var saveOpenHashTable = function () {
+    var parsedValues = isOpenHash
+        ? hashInstance
+            ? hashInstance.tabla.map(function (node) { return "[" + node.valores.map(function (node) { return node.valor; }).join(',') + "]"; })
+            : []
+        : [];
+    saveJSONFile(parsedValues);
+};
+var onChangeHashFunc = function (ev) {
+    var target = ev.target;
+    var func = target.value;
+    openHashFunc = func;
+};
+var onChangeHashSize = function (ev) {
+    var target = ev.target;
+    var size = +target.value;
+    hashTableSize = size;
+};
 drawInCanvas = function () {
     if (canvasCtx) {
-        if (isOpenHash && openHashInstance) {
-            for (var headIndex = 0; headIndex < openHashSize; headIndex++) {
+        if (isOpenHash && hashInstance) {
+            for (var headIndex = 0; headIndex < hashTableSize; headIndex++) {
                 canvasCtx.beginPath();
                 canvasCtx.lineWidth = 7;
                 canvasCtx.fillStyle = isDarkMode ? '#aaa' : 'rgb(248, 248, 248)';
@@ -40,8 +73,8 @@ drawInCanvas = function () {
                 canvasCtx.textBaseline = 'middle';
                 canvasCtx.fillText(headIndex.toString(), headIndex * 70 - 620 + 25, 175);
                 canvasCtx.closePath();
-                for (var nodeIndex = 0; nodeIndex < openHashInstance.tabla[headIndex].valores.length; nodeIndex++) {
-                    var nodeValue = openHashInstance.tabla[headIndex].valores[nodeIndex];
+                for (var nodeIndex = 0; nodeIndex < hashInstance.tabla[headIndex].valores.length; nodeIndex++) {
+                    var nodeValue = hashInstance.tabla[headIndex].valores[nodeIndex];
                     canvasCtx.beginPath();
                     canvasCtx.lineWidth = 7;
                     canvasCtx.fillStyle = isDarkMode ? '#aaa' : 'rgb(248, 248, 248)';

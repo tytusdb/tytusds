@@ -54,7 +54,7 @@
 										/>
 									</li>
 									<li>
-										<button onclick="saveJSONTreeFile()">
+										<button onclick="saveOpenHashTable()">
 											<i class="icon-save"></i>Guardar
 										</button>
 									</li>
@@ -145,7 +145,7 @@
 									<label for="size-input"
 										><i class="icon-grid"></i
 									></label>
-									<input type="text" id="size-input" placeholder="Tamaño" />
+									<input oninput="onChangeHashSize(event)" type="text" id="size-input" placeholder="Tamaño" />
 								</div>
 
 								<ul>
@@ -161,6 +161,7 @@
 													id="simpleHash"
 													name="hashFunc"
 													value="simple"
+													oninput="onChangeHashFunc(event)"
 												/>
 											</li>
 
@@ -172,6 +173,8 @@
 													name="hashFunc"
 													value="div"
 													checked="true"
+
+													oninput="onChangeHashFunc(event)"
 												/>
 											</li>
 											<li>
@@ -181,6 +184,8 @@
 													id="timesHash"
 													name="hashFunc"
 													value="times"
+
+													oninput="onChangeHashFunc(event)"
 												/>
 											</li>
 										</ul>

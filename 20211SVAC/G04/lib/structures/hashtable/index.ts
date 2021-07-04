@@ -125,10 +125,10 @@ class TablaHashAbierta{
 
     insertar(valor:any){
         //Obtiene la posicion del arreglo
-        let clave = this.funcion.funcionHash(valor, this.tamaño)
+        let clave:number = this.funcion.funcionHash(valor, this.tamaño)
+       
         //Le da al arreglo un valor
         if(this.tabla[clave]){
-
             if(this.tabla[clave].clave == -1)
             this.tabla[clave].clave = clave
             //Ingresa el valor al arreglo
