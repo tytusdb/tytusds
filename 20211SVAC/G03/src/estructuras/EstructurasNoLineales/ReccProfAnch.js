@@ -405,6 +405,7 @@ class ListaAdyacencia{
             imp = imp.siguiente
         }
         this.anchura = arregloEdge
+        console.log(arregloEdge)
         return arregloEdge
     }        
 
@@ -420,11 +421,12 @@ class ListaAdyacencia{
         let arregloEdge = []
         while(imp.siguiente!= null){
             let siguiente = imp.siguiente
-            let egde = {from: imp.dato.id, to: siguiente.dato.id, value: 6}
+            let egde = {from: imp.dato.id, to: siguiente.dato.id}
             arregloEdge.push(egde)
             imp = imp.siguiente
         }
         this.profundidad = arregloEdge
+        console.log(arregloEdge)
         return arregloEdge
     }
 
@@ -677,6 +679,24 @@ class ListaAdyacencia{
         fs.writeFile(nombre, json)  
     } */
 
+
+    guardar(){
+        let arreglo = []
+        let aux = this.ListaAdyacencia.cabeza
+        while(aux!=null){
+            let tmp = aux.dato.enlaces.cabeza
+            while(tmp!= null){
+                let arista = []
+                arista.push({arista:tmp.dato.destino.dato , distancia: tmp.dato.distancia.toString()})
+                let dato = {vertice: tmp.dato.inicio.dato, aristas:arista}
+                arreglo.push(dato)
+                tmp = tmp.siguiente
+            }
+            aux = aux.siguiente
+        }
+        
+        return arreglo
+    }
     //Carga de array para graficacion de nodos
     graficarNodos(valorBusqueda){
         let arreglo = []
@@ -718,7 +738,7 @@ class ListaAdyacencia{
                             egde = {from: tmp.dato.inicio.id, to: tmp.dato.destino.id , label: tmp.dato.distancia.toString(),  color: "rgb(20,24,200)"}   
                         }
                         
-                    }
+                    }     
                      
                 }else if(this.profundidad != null){
                     for (let x = 0; x < this.profundidad.length; x++) {

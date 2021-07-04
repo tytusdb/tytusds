@@ -189,6 +189,10 @@ this.setState({
 
 busquedaConRecorrido=()=>{
   this.state.estrutura.busquedaEspecifica(this.state.busqueda)
+
+  this.setState({
+    estrutura: this.state.estrutura
+  })
 }
 
    guardarOrdenamiento=(event) =>{
@@ -496,7 +500,7 @@ busquedaConRecorrido=()=>{
         <GraficarTablaHashCerrada nombre={this.state.nombre} estructura={this.state.estrutura} valorBusqueda={this.state.busqueda} key={count++}/> 
       </div>
       )
-        }else if(this.state.nombre == "Grafo Dirigido" || this.state.nombre == "Grafo No Dirigido"
+        }else if(this.state.nombre == "Grafo Dirigido" || this.state.nombre == "Grafo No Dirigido" || this.state.nombre == "Algoritmo de costo uniforme"
         ){
       return (
       <div>

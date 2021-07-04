@@ -774,7 +774,7 @@ class ListaAdyacencia{
                             adymandar.dato.distTotal = nuevosenlaces.dato.distancia + nodo.distTotal
                             nodo.camino.insertar(nodo)
                             adymandar.dato.camino = nodo.camino
-                            formarcaminooptimo(adymandar.dato)
+                            this.formarcaminooptimo(adymandar.dato)
                             nodo.camino.eliminar(nodo)
                             adymandar.dato.camino.eliminar(nodo)
                         break
@@ -788,39 +788,49 @@ class ListaAdyacencia{
     }
 
     //Metodo Carga
-    cargar(arreglo) {
-        arreglo.array.map(vertice, arista, distancia => {
-            this.insert(vertice, vertice, arista, distancia)
+    cargar(arreglo,nombre) {
+        arreglo.map(elemento=> {
+            let vertice = elemento.vertice
+            if(nombre === "Grafo Dirigido"){
+                if(elemento.aristas.length != 0){    
+                    elemento.aristas.map(e =>{
+                        this.insertar(vertice,vertice, e.arista, e.distancia)
+                    })
+                }
+            }else{
+                if(elemento.aristas.length != 0){    
+                    elemento.aristas.map(e =>{
+                        this.insertarNoDirigido(vertice,vertice, e.arista, e.distancia)
+                    })
+                }
+            }
         })
     }
 
     //Metodo Guardar
-    guardar() {
-        let archivojs = [];
-        let aux = this.ListaAdyacencia.cabeza
-        while (aux != null){
-            archivojs.push("vertice")
-            archivojs.push(aux.dato.dato)
-            let tmp = aux.dato.enlaces.cabeza
-            while(tmp!=null){
-                archivojs.push("arista")
-                archivojs.push(tmp.dato.destino.dato)
-                archivojs.push("distancia")
-                archivojs.push(tmp.dato.distancia)            
-                tmp=tmp.siguiente
-            }       
-            aux=aux.siguiente
-        }
-        let json = JSON.stringify(archivojs)
-        let nombre = "CostoMinimo"
-        fs.writeFile(nombre, json)  
-    }
-
-    //Carga de array para graficacion de nodos
-    graficarNodos(){
+    guardar(){
+        let arreglo = []
         let aux = this.ListaAdyacencia.cabeza
         while(aux!=null){
-            let dato = {id: aux.dato.id, label:aux.dato.dato,}
+            let tmp = aux.dato.enlaces.cabeza
+            while(tmp!= null){
+                let arista = []
+                arista.push({arista:tmp.dato.destino.dato , distancia: tmp.dato.distancia.toString()})
+                let dato = {vertice: tmp.dato.inicio.dato, aristas:arista}
+                arreglo.push(dato)
+                tmp = tmp.siguiente
+            }
+            aux = aux.siguiente
+        }
+        
+        return arreglo
+    }
+    //Carga de array para graficacion de nodos
+    graficarNodos(){
+        let arreglo = []
+        let aux = this.ListaAdyacencia.cabeza
+        while(aux!=null){
+            let dato = {id: aux.dato.id, label:aux.dato.dato.toString(),}
             arreglo.push(dato)
             aux = aux.siguiente
         }
@@ -829,11 +839,12 @@ class ListaAdyacencia{
 
     //Carga de array para graficacion de enlaces
     graficarEnlaces(){
+        let arregloEdge = []
         let aux = this.ListaAdyacencia.cabeza
         while(aux!=null){
             let tmp = aux.dato.enlaces.cabeza
             while(tmp!= null){
-                let egde = {from: tmp.inicio.dato.id, to: tmp.final.dato.id , label: tmp.distancia}
+                let egde = {from: tmp.dato.inicio.id, to: tmp.dato.destino.id , label: tmp.dato.distancia.toString()}
                 arregloEdge.push(egde)
                 tmp = tmp.siguiente
             }
@@ -842,3 +853,5 @@ class ListaAdyacencia{
         return arregloEdge
     } 
 }
+
+export default ListaAdyacencia;

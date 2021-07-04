@@ -37,9 +37,45 @@ class matriz{
     
     }
 
-    graficarMatriz(){
+    graficarMatriz(x,y){
         
         let arreglo = []
+        for(let i = 0; i < this.tamaño[0]; i++){
+            let nodoArreglo = {
+                id: i.toString(),
+                type: 'default',
+                targetPosition: 'top',
+                sourcePosition: 'bottom',
+                data: { label: (
+                    <> <strong>{i}</strong>
+                    </>
+                 ) },
+                position: {  x: 100 , y: 25 + (i+1)*40  },
+                connectable: false, 
+            }
+
+            arreglo.push(nodoArreglo)
+
+        }
+
+        for(let i = 0; i < this.tamaño[1]; i++){
+            let nodoArreglo = {
+                id: i.toString()+20,
+                type: 'default',
+                targetPosition: 'top',
+                sourcePosition: 'bottom',
+                data: { label: (
+                    <> <strong>{i}</strong>
+                    </>
+                 ) },
+                position: {  x: 100  + (i+1)*150, y: 25 },
+                connectable: false, 
+            }
+
+            arreglo.push(nodoArreglo)
+
+        }
+
         for (let i = 0; i < this.tamaño[0]; i++) {
             for (let j = 0; j < this.tamaño[1]; j++) {
                 let nodoArreglo = {
@@ -51,8 +87,21 @@ class matriz{
                         <> <strong>{this.arreglo[i][j]}</strong>
                         </>
                      ) },
-                    position: {  x: 100 + (j)*150, y: 25 + i*40  },
+                    position: {  x: 100 + (j+1)*150, y: 25 + (i+1)*40  },
                     connectable: false, 
+                }
+
+                if(i == x && j == y){
+                    nodoArreglo = {
+                        id: i.toString()+j.toString(),
+                        type: 'special',
+                        targetPosition: 'top',
+                        sourcePosition: 'bottom',
+                        data: {text: "----------"+this.arreglo[i][j]+ "--------" 
+                          },
+                        position: {  x: 100 + (j+1)*150, y: 25 + (i+1)*40 },
+                        connectable: false, 
+                    }
                 }
 
                 arreglo.push(nodoArreglo)
@@ -72,6 +121,7 @@ class matriz{
         }
         
         this.vector[busqueda] = 0
+        this.arreglo[i][j] = 0
     }
 
         actualizar(i,j,nombre,dato){
@@ -84,6 +134,7 @@ class matriz{
         }
         
         this.vector[busqueda] = dato
+        this.arreglo[i][j] = dato
     }
 
     graficarVector(i,j, nombre){
@@ -130,10 +181,16 @@ class matriz{
         return arreglo
     }
 
-    cargar(arr){
+    cargar(arr,nombre){
         arr.map(e => {
             this.agregar(e)
         })
+
+        /* if(nombre === "Row Major"){
+            this.rowMajor();
+        }else if(nombre === "Col Major"){
+            this.colMajor();
+        } */
     }
 
     guardar(){

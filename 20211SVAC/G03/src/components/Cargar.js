@@ -24,6 +24,7 @@ import CRMajor from '../estructuras/EstructurasCompuestas/Col_Major'
 import Matriz from '../estructuras/EstructurasCompuestas/MatrizDis'
 
 import ListaAdyacencia from '../estructuras/EstructurasNoLineales/ReccProfAnch'
+import CostoUniforme from '../estructuras/EstructurasNoLineales/CostoUniforme'
 import Hamming from '../estructuras/AlgoritmosDeCodificacion/Hamming'
 import AlgoritmoHuffman from '../estructuras/AlgoritmosDeCodificacion/Huffman'
 import LZW from '../estructuras/AlgoritmosDeCodificacion/LZW'
@@ -167,12 +168,12 @@ function structW(nombre,edd,json){ // FUNCION PARA SABER QUE TIPO DE ESTRUCTURA 
         case "Row Major":
 
             edd = new CRMajor(json.m);
-            edd.cargar(datos)
+            edd.cargar(datos,nombre)
             edd.imprimirMatriz()
             break
         case "Col Major":
 
-            edd = new CRMajor(json.m);
+            edd = new CRMajor(json.m,nombre);
             edd.cargar(datos)
             edd.imprimirMatriz()
             break
@@ -206,6 +207,10 @@ function structW(nombre,edd,json){ // FUNCION PARA SABER QUE TIPO DE ESTRUCTURA 
         case "Cifrado Feistel":
             edd = new Feistel();
             edd.cargar(json,key,num)
+            break
+        case "Algoritmo de costo uniforme":
+            edd = new CostoUniforme();
+            edd.cargar(datos,nombre)
             break
         default:
             break;

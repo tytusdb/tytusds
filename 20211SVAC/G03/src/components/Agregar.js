@@ -25,6 +25,7 @@ import TablaHashAbierta from '../estructuras/EstructurasNoLineales/TablaHashAbie
 import TablaHashCerrada from '../estructuras/EstructurasNoLineales/TablaHashCerrada'
 import Matriz from '../estructuras/EstructurasCompuestas/MatrizDis'
 import ListaAdyacencia from '../estructuras/EstructurasNoLineales/ReccProfAnch'
+import CostoUniforme from '../estructuras/EstructurasNoLineales/CostoUniforme'
 
 const countryOptions = [
     { key: 'ini', value: 'Inicio', text: 'Inicio' },
@@ -198,6 +199,15 @@ export default class Agregar extends Component {
         case "Grafo No Dirigido":
                 if(edd === null){
                     edd = new ListaAdyacencia();
+                }
+                splitarr = dato.split(",")
+                 i = parseInt(splitarr[0])== NaN ? splitarr[0]: parseInt(splitarr[0])
+                 j = parseInt(splitarr[1])== NaN ? splitarr[1]: parseInt(splitarr[1])
+                edd.insertarNoDirigido(opciones,opciones,i,j)
+            break;
+        case "Algoritmo de costo uniforme":
+                if(edd === null){
+                    edd = new CostoUniforme();
                 }
                 splitarr = dato.split(",")
                  i = parseInt(splitarr[0])== NaN ? splitarr[0]: parseInt(splitarr[0])
