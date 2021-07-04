@@ -25,7 +25,10 @@ import { AVLComponent } from './components/avl/avl.component';
 import { MetodorapidoComponent } from './components/metodorapido/metodorapido.component';
 import { MetodoSeleccionComponent } from './components/metodo-seleccion/metodo-seleccion.component';
 import { HashabiertaComponent } from './components/hashabierta/hashabierta.component';
-import { EstructuranolinealesComponent } from './components/estructuranolineales/estructuranolineales.component'
+import { EstructuranolinealesComponent } from './components/estructuranolineales/estructuranolineales.component';
+import { CodificacionhuffmannComponent } from './components/codificacionhuffmann/codificacionhuffmann.component';
+import { CifradofeisComponent } from './components/cifradofeis/cifradofeis.component';
+import { CodificacionComponent } from './components/codificacion/codificacion.component'
 
 @NgModule({
   declarations: [
@@ -50,6 +53,9 @@ import { EstructuranolinealesComponent } from './components/estructuranolineales
     MetodoSeleccionComponent,
     HashabiertaComponent,
     EstructuranolinealesComponent,
+    CodificacionhuffmannComponent,
+    CifradofeisComponent,
+    CodificacionComponent,
   ],
   imports: [
     BrowserModule,

@@ -25,6 +25,9 @@ import { MetodorapidoComponent } from './components/metodorapido/metodorapido.co
 import { MetodoSeleccionComponent } from './components/metodo-seleccion/metodo-seleccion.component';
 import { HashabiertaComponent } from './components/hashabierta/hashabierta.component';
 import { EstructuranolinealesComponent } from './components/estructuranolineales/estructuranolineales.component';
+import { CodificacionhuffmannComponent } from './components/codificacionhuffmann/codificacionhuffmann.component';
+import { CifradofeisComponent } from './components/cifradofeis/cifradofeis.component';
+import { CodificacionComponent } from './components/codificacion/codificacion.component';
 
 const routes: Routes = [
   {path: 'binaryTree', component: BinaryTreeComponent, pathMatch: 'full'},
@@ -45,8 +48,9 @@ const routes: Routes = [
   {path: 'rapido', component: MetodorapidoComponent, pathMatch: 'full'},
   {path: 'seleccion',component:MetodoSeleccionComponent,pathMatch:'full'},
   {path: 'estructuraNoLineales',component:EstructuranolinealesComponent,pathMatch:'full'},
-
-
+  {path: 'huffman',component:CodificacionhuffmannComponent,pathMatch:'full'},
+  {path: 'feistel',component:CifradofeisComponent,pathMatch:'full'},
+  {path: 'codificacion',component:CodificacionComponent,pathMatch:'full'},
   {path: '', component: HomeComponent, pathMatch: 'full'}
   
 ];
