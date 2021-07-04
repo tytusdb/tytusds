@@ -10,6 +10,7 @@ let guardarArchivo=require('../../../EstructurasF2/guardarArchivo')
 })
 export class CifradoFeistelComponent implements OnInit {
   rondas = 3
+  llave="010001"
   cadena:string ="Primer"
   ingresaString:boolean = false
   a = new Feistel()
@@ -20,7 +21,7 @@ export class CifradoFeistelComponent implements OnInit {
   ngOnInit(): void {}
   codificar(){
     if (!this.ingresaString) {
-      this.a.cifrarCadena(this.cadena,this.rondas)
+      this.a.cifrarCadena(this.cadena,this.rondas, this.llave)
       this.a.graficar()
     } else {
       this.a.convertBinario(this.cadena,this.rondas)

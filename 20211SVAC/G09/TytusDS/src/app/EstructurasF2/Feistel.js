@@ -5,12 +5,12 @@ class Feistel{
         this.table[1]=new Array()
         this.cadenaConvertida=""
     }
-    cifrarCadena(cadena, rondas){
+    cifrarCadena(cadena, rondas, llave){
         var l="",r="",k,f, aux=""
         //Se declaran los l y r de la tabla
         l=cadena.substring(0,parseInt(cadena.length/2))
         r=cadena.substring(parseInt(cadena.length/2),cadena.length)
-        k="00110001"
+        k=llave
 
         f=this.xor(k,r)
         this.table[0][0]=l

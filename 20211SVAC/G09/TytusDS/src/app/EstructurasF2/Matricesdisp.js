@@ -267,6 +267,22 @@ class Matriz {
             cabecera = cabecera.siguiente;
         }
     }
+    returnValores(){
+        let cabecera = this.lista_horizontal.primero, cont=0;
+        let aux, val="";
+        while(cabecera != null){
+            aux = cabecera.abajo;
+            while(aux!= null){
+                val+="{'indices':["+aux.x+","+aux.y+"]"+",'valor':"+ aux.valor+"},"
+                aux = aux.abajo;
+                cont++
+            }
+            cabecera = cabecera.siguiente;
+        }debugger
+        val+="]"
+        //valores={vals: {valores}}
+        return val        
+    }
 }
 //let a= new Matriz()
 
