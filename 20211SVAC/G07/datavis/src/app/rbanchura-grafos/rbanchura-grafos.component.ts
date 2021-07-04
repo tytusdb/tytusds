@@ -1,3 +1,4 @@
+import { ReadVarExpr } from '@angular/compiler';
 import { Component, ElementRef, OnInit, ViewChild, ɵsetCurrentInjector } from '@angular/core';
 import * as vis from 'vis';
 
@@ -64,7 +65,8 @@ export class RBAnchuraGrafosComponent implements OnInit {
 
   @ViewChild('mynetwork', {static: false}) el: ElementRef;
   public network:any;
-
+  array = [];
+  contenido = "{ \"valores\": [\n";
   
 
   constructor() { }
@@ -211,8 +213,70 @@ export class RBAnchuraGrafosComponent implements OnInit {
   
   abrir(eve:any)
   {
-    
+    let a = eve.target.files[0];
+    let text = "";
+    if(a){
+      let reader = new FileReader();
+      reader.onload = ev =>{
+        const resultado = ev.target?.result;
+        text = String(resultado);
+        var data = JSON.parse(text);
+        data.valores.forEach(element=>{
+          this.addVertice(String(element.vertice));
+          
+        });
+        data.valores.forEach(element=>{
+          element.aristas.forEach(linea =>{
+            this.addArista(String(element.vertice),String(linea.distancia),String(linea.arista))
+          });
+          
+        });
+      }
+      reader.readAsText(a);
+    }
+  }
+  generador(){
+    for(var i = 0; i<pagina.vertix.length;i++){
+      
+        if(i+1!=pagina.vertix.length){
 
-
+          this.contenido += "{\"vertice\":"+pagina.vertix[i].valor+",\n";
+          this.contenido += "\"aristas\": [";
+          for(var j = 0; j<pagina.vertix[i].aristas.length;j++){
+            if(j+1!=pagina.vertix[i].aristas.length){
+              this.contenido += "{\"arista\": "+ pagina.vertix[i].succesors[j]+", \n";
+              this.contenido += "\"distancia\":"+ pagina.vertix[i].aristas[j]+"},";
+            }else{
+              this.contenido += "{\"arista\": "+ pagina.vertix[i].succesors[j]+", \n";
+              this.contenido += "\"distancia\":"+ pagina.vertix[i].aristas[j]+"}";
+            }
+          }
+          this.contenido += "]},"
+        }else{
+          this.contenido += "{\"vertice\":"+pagina.vertix[i].valor+",\n";
+          this.contenido += "\"aristas\": [";
+          for(var j = 0; j<pagina.vertix[i].aristas.length;j++){
+            if(j+1!=pagina.vertix[i].aristas.length){
+              this.contenido += "{\"arista\": "+ pagina.vertix[i].succesors[j]+", \n";
+              this.contenido += "\"distancia\":"+ pagina.vertix[i].aristas[j]+"},";
+            }else{
+              this.contenido += "{\"arista\": "+ pagina.vertix[i].succesors[j]+", \n";
+              this.contenido += "\"distancia\":"+ pagina.vertix[i].aristas[j]+"}";
+            }
+          }
+          this.contenido += "]}"
+        }
+      
+    }
+    this.contenido += "]}";
+  }
+  descargarContenido(){
+    this.generador();
+    let downloadfile = "data: text/json;charset=utf-8,"+encodeURIComponent(this.contenido);
+    console.log(downloadfile);
+    var downloader = document.createElement('a');
+    downloader.setAttribute('href', downloadfile);
+    downloader.setAttribute('download', 'data.json');
+    downloader.click();
   }
 }
