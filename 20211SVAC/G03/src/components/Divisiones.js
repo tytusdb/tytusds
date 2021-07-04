@@ -43,6 +43,12 @@ export default class Divisiones extends Component {
                     <Division title="Matriz Dispersa" descripcion="this a description" color="green" imagen=""/>
                     <Division title="Grafo Dirigido" descripcion="this a description" color="green" imagen=""/>
                     <Division title="Grafo No Dirigido" descripcion="this a description" color="green" imagen=""/>
+
+                    <Division title="Código de Hamming" descripcion="this a description" color="green" imagen=""/>
+                    <Division title="Algoritmo de Huffman" descripcion="this a description" color="green" imagen=""/>
+                    <Division title="Algoritmo LZW" descripcion="this a description" color="green" imagen=""/>
+                    <Division title="Cifrado Feistel" descripcion="this a description" color="green" imagen=""/>
+
             </Card.Group>
             </div>
         )

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Menu } from 'semantic-ui-react'
+import { Menu, Input } from 'semantic-ui-react'
 import Cargar from './Cargar'
 import Agregar from './Agregar'
 import Eliminar from './Eliminar'
@@ -23,6 +23,7 @@ import './NavbarInter.css'
 import GraficaLinealizado from './GraficaLinealizado'
 import GraficarMDispersa from './GraficarMDispersa'
 import GraficarGrafo from './GraficarGrafo'
+import TablaCodificacion from './TablaCodificacion'
 
 
 let count = 0;
@@ -32,6 +33,7 @@ export default class NavbarInter extends Component {
       estrutura : null,
       busqueda: "",
       nombre: '',
+      datoaencriptar: '',
       fileDownloadUrl: null
      }
 
@@ -46,6 +48,11 @@ export default class NavbarInter extends Component {
       this.setState({
         estrutura: edd
       })
+      if(this.state.nombre ==="Código de Hamming" || this.state.nombre ==="Algoritmo de Huffman" || this.state.nombre ==="Algoritmo LZW"){
+        this.setState({
+          datoaencriptar: this.state.estrutura.dato
+        })
+      }
     }
 
     obtenerBusqueda = (datoBuscar) =>{
@@ -141,6 +148,20 @@ export default class NavbarInter extends Component {
     })
 }
 
+obtenerText = e =>{
+  this.setState({
+      [e.target.name]: e.target.value
+  })
+  
+}
+
+encryptado = () =>{
+  this.state.estrutura.cargar(this.state.datoaencriptar)
+  this.setState({
+    estrutura: this.state.estrutura
+  })
+}
+
 recorridosProfundidad=()=>{
   switch (this.state.nombre) {
     case "Grafo Dirigido":
@@ -193,6 +214,25 @@ this.setState({
      })    
 
  }
+
+
+ 
+ guardarCodificados=(event) =>{
+
+  event.preventDefault();
+   let archivoJSON = this.state.estrutura.guardar()
+   const blob = new Blob([archivoJSON])
+
+   const fileDownloadUrl = URL.createObjectURL(blob);
+   this.setState ({fileDownloadUrl: fileDownloadUrl}, 
+     () => {
+       this.dofileDownload.click(); 
+       URL.revokeObjectURL(fileDownloadUrl); 
+       this.setState({fileDownloadUrl: ""})
+   })    
+
+}
+
 
     render() {
       const { activeItem } = this.state
@@ -482,6 +522,41 @@ this.setState({
         <h1 style={{ color: 'white' }}>{this.state.nombre}</h1>
         {/* <h3>{this.state.estructura.Imprimir()}</h3> */}
         <GraficarGrafo nombre={this.state.nombre} estructura={this.state.estrutura} valorBusqueda={this.state.busqueda} key={count++}/> 
+      </div>
+      )
+        }else if(this.state.nombre == "Código de Hamming" || this.state.nombre == "Algoritmo de Huffman" || this.state.nombre == "Algoritmo LZW" ||this.state.nombre == "Cifrado Feiste"
+        ){
+      return (
+      <div>
+          <Menu className="ui tpo inverted attached menu">
+            <Menu.Item>
+                        <Link to="/tytusds/20211SVAC/G03/build/">TytusDS</Link>
+            </Menu.Item>
+            <Cargar obtenerDatos={this.obtenerDatos} nombre={this.state.nombre} edd={this.state.estrutura} key={count++}/>
+            <Menu.Item name="Encriptar"
+                    onClick={this.handleItemClick, this.encryptado}> 
+            </Menu.Item>
+          <Menu.Menu position='right'>
+            <Menu.Item name="Guardar" icon='save'  onClick={this.handleItemClick, this.guardarCodificados}>
+            </Menu.Item>
+            
+          </Menu.Menu>
+        </Menu>
+        <br/>
+        <a className="hidden"
+              download={this.state.nombre+".txt"}
+              href={this.state.fileDownloadUrl}
+              ref={e=>this.dofileDownload = e}
+              >download it</a>
+        <h1 style={{ color: 'white' }}>{this.state.nombre}</h1>
+        {/* <h3>{this.state.estructura.Imprimir()}</h3> */}
+        <h3 style={{ color: 'white' }}>Entrada</h3>
+        <Input className="inputAgregar" type="text" name="datoaencriptar" value={this.state.datoaencriptar}  fluid placeholder="agregar dato" onChange={this.obtenerText}/>
+        <br/>
+        <TablaCodificacion nombre={this.state.nombre} estructura={this.state.estrutura} valorBusqueda={this.state.busqueda} key={count++}/> 
+
+        <h3 style={{ color: 'white' }}>Resultado</h3>
+        <Input className="inputAgregar" type="text" name="textoDato" value={this.state.estrutura.ecriptado}  fluid placeholder="agregar dato" />
       </div>
       )
         }else if(this.state.nombre == "Pila"

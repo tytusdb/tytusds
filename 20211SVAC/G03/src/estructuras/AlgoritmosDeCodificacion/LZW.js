@@ -3,9 +3,13 @@ class LZW {
         this.contador = 0;
         this.diccionario = new Map();
         this.salida = [];
+        
+        this.dato = null;
+        this.ecriptado = null;
     }
 
-    codificar(mensaje) {
+    cargar(mensaje) {
+        this.dato = mensaje
         this.iniciarDiccionario(mensaje)
         // w vacia
         let w = "";
@@ -33,13 +37,26 @@ class LZW {
 
         }
         this.salida.push(this.diccionario.get(w));
+
+        this.ecriptado = this.resultado();
     }
 
 
+    resultado(){
+        let result = ""
+
+        for (let x = 0; x < this.salida.length; x++) {
+            result += this.salida[x]
+            
+        }
+
+        return result
+    }
 
 
-
-
+    guardar(){
+        return this.ecriptado
+    }
 
 
 // inicializar el diccionario con los valores
@@ -61,4 +78,35 @@ class LZW {
 
     }
 
+    graficarencabezados(){
+        let arregloencabeazados = []
+        arregloencabeazados.push("Llave")
+        arregloencabeazados.push("valor")
+        return arregloencabeazados
+    }
+    graficardatos(){
+        let arregloLlave = [];
+        let arregloValor = [];
+
+        let arreglogeneral = [];
+
+        for(let llave of this.diccionario.keys()){
+            arregloLlave.push(llave)
+        }
+        for(let valor of this.diccionario.values()){
+            arregloValor.push(valor)
+        }
+
+        for (let x = 0; x < arregloLlave.length; x++) {
+            let dato = []
+            dato.push(arregloLlave[x])
+            dato.push(arregloValor[x])
+
+            arreglogeneral.push(dato)
+        }
+
+        return arreglogeneral
+    }
 }
+
+export default  LZW;

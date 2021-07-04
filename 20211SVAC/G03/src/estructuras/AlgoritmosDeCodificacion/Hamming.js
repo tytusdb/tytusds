@@ -1,9 +1,13 @@
 class Hamming{
     constructor(){
         this.tabla = [];
+        this.dato = null;
+        this.ecriptado = null;
     }
 
     cargar(datos){
+        this.tabla = []
+        this.dato = datos
         let tamanio = datos.length;
         let contadorPotencia = 1 ;
         let potencia = 1;
@@ -102,24 +106,51 @@ y otro que sera la referencia de que dato y que potencia estamos usando */
             }
             refPotencia *= 2;
             potenciaIndice *=2
-            this.tabla.push(arregloNuevo); 
+            this.tabla.push(arregloNuevo);
         }
 
+        let resultado = "";
+
+        for (let x = 1; x < this.tabla[0].length; x++) {
+            resultado += this.tabla[0][x]
+            
+        }
+
+        this.ecriptado = resultado
+
     }
-       
+    
+    graficarencabezados(){
+        let arregloencabeazados = []
 
 
+        arregloencabeazados = this.tabla[0]
 
-
-
+        return arregloencabeazados
     }
 
+    graficardatos(){
+        let arregloDatos = []
 
+        for (let x = 1; x < this.tabla.length; x++) {
+            
+            arregloDatos.push(this.tabla[x])
+            
+        }
+        return arregloDatos
+    }
 
+    guardar(){
+        let resultado = "";
 
+        for (let x = 1; x < this.tabla[0].length; x++) {
+            resultado += this.tabla[0][x]
+            
+        }
 
+        return resultado
+    }
+    
+    }
 
-
-
-
-}
+    export default Hamming;

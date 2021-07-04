@@ -24,7 +24,9 @@ import CRMajor from '../estructuras/EstructurasCompuestas/Col_Major'
 import Matriz from '../estructuras/EstructurasCompuestas/MatrizDis'
 
 import ListaAdyacencia from '../estructuras/EstructurasNoLineales/ReccProfAnch'
-
+import Hamming from '../estructuras/AlgoritmosDeCodificacion/Hamming'
+import AlgoritmoHuffman from '../estructuras/AlgoritmosDeCodificacion/Huffman'
+import LZW from '../estructuras/AlgoritmosDeCodificacion/LZW'
 let propsG
 function onChange(e){
     let files = e.target.files[0];
@@ -33,12 +35,24 @@ function onChange(e){
     reader.onload = (e) => {
         const text = reader.result.toString().trim();
         console.log(text)
-        let data = JSON.parse(text); //parseo de archivo JSON
-        structW(propsG.nombre, data.valores, propsG.edd,data.grado,data.posicion,data) 
+        let data; //parseo de archivo JSON
+        if("Código de Hamming" === propsG.nombre ||
+           "Algoritmo de Huffman" === propsG.nombre ||
+           "Algoritmo LZW" === propsG.nombre ||
+           "Cifrado Feistel" === propsG.nombre ){
+            data = text
+        }else{
+            data = JSON.parse(text);
+        }
+        
+        structW(propsG.nombre, propsG.edd,data) 
     }
     reader.readAsText(files);
 }
-function structW(nombre,datos,edd,grado,posicion,json){ // FUNCION PARA SABER QUE TIPO DE ESTRUCTURA ES.
+function structW(nombre,edd,json){ // FUNCION PARA SABER QUE TIPO DE ESTRUCTURA ES.
+    let datos = json.valores
+    let grado = json.grado
+    let posicion = json.posicion
     switch(nombre){
         case "Pila" :
             if(edd == null){
@@ -176,6 +190,18 @@ function structW(nombre,datos,edd,grado,posicion,json){ // FUNCION PARA SABER QU
             edd = new ListaAdyacencia();
             edd.cargar(datos,nombre)
             break
+        case "Código de Hamming":
+            edd = new Hamming();
+            edd.cargar(json)
+            break
+        case "Algoritmo de Huffman":
+            edd = new AlgoritmoHuffman();
+            edd.cargar(json)
+            break
+        case "Algoritmo LZW":
+            edd = new LZW();
+            edd.cargar(json)
+            break
         default:
             break;
     }
@@ -236,7 +262,7 @@ export default function Cargar(props) {
             </Header>
             <Modal.Content>
             </Modal.Content>
-                <Input className="inputcargar" fluid type="file" accept=".json" onChange={(e) =>  onChange(e)} />
+                <Input className="inputcargar" fluid type="file" accept=".json, .txt" onChange={(e) =>  onChange(e)} />
             <Modal.Actions>
                 <Button basic color='red' inverted onClick={() => setOpen(false)}>
                 <Icon name='remove' /> No

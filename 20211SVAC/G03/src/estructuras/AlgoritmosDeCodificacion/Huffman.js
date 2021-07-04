@@ -93,7 +93,19 @@ class Lista{
         }
     }
 
+    recorrerCodigos(){
+        let temporal = this.primero;
+        let arreglo = []
+        while(temporal != null){
+            let dato = []
+            dato.push(temporal.valor)
+            dato.push(temporal.codigo)
+            arreglo.push(dato)
+            temporal = temporal.siguiente;
+        }
 
+        return arreglo
+    }
 
     
     
@@ -156,11 +168,18 @@ class AlgoritmoHuffman{
         this.listaOrdenada = new Lista();// la raiz 
         this.listaCodigos = new Lista();
         this.textoCodificado = null;
+        
+        this.dato = null;
+        this.ecriptado = null;
     }
 
     cargar(texto){
         let info = texto
         this.texto = texto;
+        this.dato = texto;
+        this.lista = new Lista();
+        this.listaOrdenada = new Lista();// la raiz 
+        this.listaCodigos = new Lista();
         for(let i = 0; i < info.length; i++){
             let nodo = new Nodo()
             nodo.valor = info.charAt(i)
@@ -181,6 +200,7 @@ class AlgoritmoHuffman{
             textoCodi += codigo
         }
         this.textoCodificado = textoCodi;
+        this.ecriptado = this.textoCodificado;
     }
 
     reasignarValores(){
@@ -256,7 +276,23 @@ class AlgoritmoHuffman{
     }
  
 
+    graficarencabezados(){
+        let arregloencabeazados = []
+        arregloencabeazados.push("Letra")
+        arregloencabeazados.push("Codigo")
+        return arregloencabeazados
+    }
 
+    graficardatos(){
+        let arregloDatos = this.listaCodigos.recorrerCodigos()
+        return arregloDatos
+    }
+
+    guardar(){
+        return this.ecriptado;
+    }
 
 
 } 
+
+export default AlgoritmoHuffman;

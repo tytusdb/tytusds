@@ -65,6 +65,17 @@ class ListaDoble{
             aux = aux.siguiente
         }
     }
+
+    contiente(buscando, elemento){
+        let buscar = buscando.cabeza
+        while(buscar!=null){
+            if(buscar.dato.dato == elemento.dato){
+                return true
+            }
+            buscar = buscar.siguiente
+        }
+        return false
+    }
 }
 
 //Lista de nodos para recorridos
@@ -348,6 +359,7 @@ class ListaAdyacencia{
 
     //Recorrido por anchura
     BFS(){
+        this.profundidad = null
         n = new ListaDoble()
         let aux = this.ListaAdyacencia.cabeza
         while (aux != null){
@@ -373,7 +385,7 @@ class ListaAdyacencia{
                 let siguiente = imp.siguiente
                 while(siguiente!= null){
                     if(siguiente.dato.dato== ady.dato.dato){
-                        if(agregado.console(agregado, siguiente.dato) == false){
+                        if(agregado.contiente(agregado, siguiente.dato) == false){
                             egde = {from: imp.dato.id, to: siguiente.dato.id}
                             arregloEdge.push(egde)
                             agregado.insertar(siguiente.dato)
@@ -385,6 +397,7 @@ class ListaAdyacencia{
             }
             imp = imp.siguiente
         }
+        this.anchura = arregloEdge
         return arregloEdge
     }        
 
