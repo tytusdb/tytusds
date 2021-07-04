@@ -14,7 +14,7 @@ var cadena="";
 let arr;
 var co=0;
 
-class Nodocola{
+class Nodopila{
     constructor(valor){
         this.dato=valor;
         this.posterior=null;
@@ -23,53 +23,37 @@ class Nodocola{
 }
 
 
-class cola{
+class pila{
     constructor(){
         this.cuno=null;
-        this.cfin=null;
         this.ctamaño=0;
     }
     insertar(valor){
-        let nodo = new Nodocola(valor)
+        this.ctamaño++;
+        let nodo = new Nodopila(valor)
         nodo.dato=valor;
-        if(this.cuno==null){
-            this.cuno=nodo;
-            this.cfin=nodo
-            }else{
-            nodo.posterior=this.cuno;
+        if (this.cuno==null){
             this.cuno=nodo;}
-            this.ctamaño++
+        else{nodo.posterior=this.cuno;
+            this.cuno=nodo;} 
     }
 
     eliminar(){
         var copia="";
-        let actual = this.cuno;
-        let anterior = null;
-
-        if (this.cuno!=null){
-            do{
-                if(actual==this.cfin){
-                    if(actual==this.cuno){
-                      this.cuno=this.cuno.posterior;
-                }else{
-                  anterior.posterior=null;
-                  this.cfin=anterior;
-                  } copia=actual.dato;
-                } 
-                anterior=actual;
-                actual=actual.posterior;
-                }while(actual!=null);
-                this.ctamaño--
+        if (this.cuno==null){
+            console.log("pila sin datos")}
+        else{
+            this.ctamaño--;
+            copia=this.cuno.dato;
+            this.cuno= this.cuno.posterior;
+        }
                 return copia;
                 }
-                
-        
-         }
 
 
 }
 
-const c = new cola();
+const c = new pila();
 
 
 
@@ -498,6 +482,7 @@ do{
     if (actual==aux2.dato1){
         matriz.push(aux2.dato2);
         c.insertar(aux2.dato2)
+        console.log(aux2.dato2);
         punteros1.push({from: aux2.dato1, to: aux2.dato2  ,label:aux2.dato3});
 }aux2=aux2.sigui;
 }while(aux2!=null)
@@ -507,7 +492,7 @@ if (c.cuno!=null){
 else{
     let str = texto;
     arr = str.split(' '); 
-console.log(texto);
+console.log("texto");
 texto="";
 }
 }
