@@ -33,7 +33,7 @@
 
         <input style="display:none;" type="file" (change)="abrir($event)" #archivo>
         <button (click)="archivo.click()" type="button" class="btn btn-outline-light mr-sm-2">Cargar</button>
-        <button class="btn btn-outline-light mr-sm-2" type="submit">Guardar</button>
+        <button (click)="descargarContenido()" class="btn btn-outline-light mr-sm-2" type="submit">Guardar</button>
 
 
       </form>

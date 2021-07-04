@@ -14,4 +14,5 @@ class Nodo{
 	set_prioridad(valor){this.prioridad=valor;}
 }
 
-module.exports = Nodo;
+export default Nodo;
+// module.exports = Nodo;

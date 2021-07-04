@@ -1,5 +1,5 @@
 import React from 'react'
-import Timeline from 'vis-timeline'
+/*import Timeline from 'vis-timeline'
 
 
 function ascii(txt){
@@ -32,7 +32,7 @@ var options = {
     orientation: "top",
     start: "2014-06-10",
     end: "2014-06-18",
-};
+};*/
 
 function ordena(info){
     return(

@@ -5,8 +5,8 @@ import EstructuraCola from './Modelo/Lineales/Cola/EstructuraCola';
 
 
 var estructuracola = new EstructuraCola();
-var nodos = new DataSet(estructuracola.GenerarNodosDOT());
-var flechas = new DataSet(estructuracola.GenerarEdgesDOT());
+var nodos = new DataSet(estructuracola.setNodesDataSet());
+var flechas = new DataSet(estructuracola.setEdgesDataSet());
 var datos = {nodes:nodos, edges:flechas,};
 var options = {
   physics: {
@@ -69,31 +69,31 @@ class Cola extends Component {
 
 
   AgregarDato = () => { 
-    estructuracola.Encolar(this.state.agregar);
-    nodos = new DataSet(estructuracola.GenerarNodosDOT());
-    flechas = new DataSet(estructuracola.GenerarEdgesDOT());
+    estructuracola.insertar(this.state.agregar);
+    nodos = new DataSet(estructuracola.setNodesDataSet());
+    flechas = new DataSet(estructuracola.setEdgesDataSet());
     datos = {nodes:nodos, edges:flechas,};
     this.network = new Network(this.appRef.current, datos, options);
   }
   EliminarDato = () =>{
     estructuracola.Desencolar();
-    nodos = new DataSet(estructuracola.GenerarNodosDOT());
-    flechas = new DataSet(estructuracola.GenerarEdgesDOT());
+    nodos = new DataSet(estructuracola.setNodesDataSet());
+    flechas = new DataSet(estructuracola.setEdgesDataSet());
     datos = {nodes:nodos, edges:flechas,};
     this.network = new Network(this.appRef.current, datos, options);
   }
   ActualizarDato = () => {
-    estructuracola.Actualizar(this.state.agregar, this.state.dato_actualizado);
-    nodos = new DataSet(estructuracola.GenerarNodosDOT());
-    flechas = new DataSet(estructuracola.GenerarEdgesDOT());
+    estructuracola.update(this.state.agregar, this.state.dato_actualizado);
+    nodos = new DataSet(estructuracola.setNodesDataSet());
+    flechas = new DataSet(estructuracola.setEdgesDataSet());
     datos = {nodes:nodos, edges:flechas,};
     this.network = new Network(this.appRef.current, datos, options);
   }
   BuscarDato = () => {
-    let dato = estructuracola.Buscar(this.state.agregar);
+    let dato = estructuracola.search(this.state.agregar);
     if (0 <= dato){
-      nodos = new DataSet(estructuracola.GenerarNodosDOT());
-      flechas = new DataSet(estructuracola.GenerarEdgesDOT());
+      nodos = new DataSet(estructuracola.setNodesDataSet());
+      flechas = new DataSet(estructuracola.setEdgesDataSet());
       datos = {
         nodes: nodos,
         edges: flechas,
@@ -112,11 +112,11 @@ class Cola extends Component {
 			
 			for (var i=0; i < dataJson.valores.length; i++) {
 				console.log(dataJson.valores[i]);
-				estructuracola.Encolar(dataJson.valores[i].toString());
+				estructuracola.insertar(dataJson.valores[i].toString());
 				
 			}
-			nodos = new DataSet(estructuracola.GenerarNodosDOT());
-      flechas = new DataSet(estructuracola.GenerarEdgesDOT());
+			nodos = new DataSet(estructuracola.setNodesDataSet());
+      flechas = new DataSet(estructuracola.setEdgesDataSet());
       datos = {
         nodes: nodos,
         edges: flechas,

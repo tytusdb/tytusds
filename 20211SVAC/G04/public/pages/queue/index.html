@@ -54,7 +54,7 @@
 										/>
 									</li>
 									<li>
-										<button onclick="hideNavMenu(0)">
+										<button onclick="saveJSONLinearFile()">
 											<i class="icon-save"></i>Guardar
 										</button>
 									</li>
@@ -169,17 +169,6 @@
 													value="end"
 												/>
 											</li>
-
-											<li>
-												<label for="addAtOrder">Orden</label>
-												<input
-													type="radio"
-													id="addAtOrder"
-													onchange="changeInsertMode(event)"
-													name="addAt"
-													value="order"
-												/>
-											</li>
 										</ul>
 									</li>
 
@@ -201,8 +190,10 @@
 										<div class="range-container">
 											<input
 												type="range"
-												min="50"
-												max="800"
+												min="5"
+												step="5"
+												max="30"
+												value="5"
 												id="velocity"
 												onchange="onChangeSortVelocity(event)"
 											/>
@@ -225,6 +216,7 @@
 							<div class="editor">
 								<pre><code><strong style="color:var(--monoConstIce)">const</strong> data <i style='color:var(--graySoda)'>=</i> <strong style='color:var(--keywordSoda)'>new</strong> <strong style="color:var(--monoClassIce)">Cola</strong><strong style="color:var(--gray)">&#x3c;</strong><strong style="color:var(--monoNumberIce)">number</strong><strong style="color:var(--gray)">&#x3e;</strong>()
 
+data.<strong style="color: var(--monoFuncGreen)">push</strong>(<strong style="color: var(--lightPurple)">6</strong>)
 data.<strong style="color: var(--monoFuncGreen)">push</strong>(<strong style="color: var(--lightPurple)">5</strong>)
 data.<strong style="color: var(--monoFuncGreen)">push</strong>(<strong style="color: var(--lightPurple)">4</strong>)
 data.<strong style="color: var(--monoFuncGreen)">push</strong>(<strong style="color: var(--lightPurple)">3</strong>)

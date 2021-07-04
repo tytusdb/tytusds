@@ -8,21 +8,22 @@ const indexSearchUL = document.getElementById('index-search-list')
 
 // GLOBALES
 const indexLinksList: IndexSearchItem[] = [
-	{ name: 'Lista simple', url: '/public/pages/simplelist' },
-	{ name: 'Lista doble', url: '/public/pages/doublelist' },
-	{ name: 'Lista circular', url: '/public/pages/circularsimplelist' },
-	{ name: 'Lista circular doble', url: '/public/pages/circulardoublelist' },
-	{ name: 'Pila', url: '/public/pages/stack' },
-	{ name: 'Cola', url: '/public/pages/queue' },
-	{ name: 'Cola de prioridad', url: '/public/pages/queue' },
-	{ name: 'Ordenamiento burbuja', url: '/public/pages/bubblesort' },
-	{ name: 'Ordenamiento por selección', url: '/public/pages/selectionsort' },
-	{ name: 'Ordenamiento por inserción', url: '/public/pages/insertionsort' },
-	{ name: 'Ordenamiento rápido', url: '/public/pages/quicksort' },
-	{ name: 'Árbol BST', url: '/public/pages/binarytree' },
-	{ name: 'Árbol AVL', url: '/public/pages/avltree' },
-	{ name: 'Árbol B', url: '/public/pages/btree' },
-	{ name: 'Árbol B+', url: '/public/pages/btree' },
+	{ name: 'Lista simple', url: 'public/pages/simplelist' },
+	{ name: 'Lista doble', url: 'public/pages/doublelist' },
+	{ name: 'Lista circular', url: 'public/pages/circularsimplelist' },
+	{ name: 'Lista circular doble', url: 'public/pages/circulardoublelist' },
+	{ name: 'Pila', url: 'public/pages/stack' },
+	{ name: 'Cola', url: 'public/pages/queue' },
+	{ name: 'Cola de prioridad', url: 'public/pages/priorityqueue' },
+	{ name: 'Ordenamiento burbuja', url: 'public/pages/bubblesort' },
+	{ name: 'Ordenamiento por selección', url: 'public/pages/selectionsort' },
+	{ name: 'Ordenamiento por inserción', url: 'public/pages/insertionsort' },
+	{ name: 'Ordenamiento rápido', url: 'public/pages/quicksort' },
+	{ name: 'Árbol BST', url: 'public/pages/binarytree' },
+	{ name: 'Árbol AVL', url: 'public/pages/avltree' },
+	{ name: 'Árbol B', url: 'public/pages/btree' },
+	{ name: 'Árbol B+', url: 'public/pages/bplustree' },
+	{ name: 'Árbol de Merkle', url: 'public/pages/merkletree' },
 ]
 
 // CAMBIAR DARKMODE

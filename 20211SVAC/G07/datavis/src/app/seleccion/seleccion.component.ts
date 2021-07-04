@@ -28,17 +28,30 @@ export class SeleccionComponent implements OnInit {
   @ViewChild('mynetwork', {static: false}) el: ElementRef;
   public network: any;
   constructor() { }
-  contenido = "{ valores: \n";
+  contenido = "{ \"valores\": [\n";
 
 
   generador(){
-    this.array.forEach(valor => this.contenido += valor +",\n");
+    for(var j =0;j<this.array.length;j++){
+      if(j+1!=this.array.length){
+        this.contenido += this.array[j]+",\n";
+      }else{
+        this.contenido += this.array[j]+"\n";
+      }
+
+    }
+    this.contenido += "]}";
+    //this.array.forEach(valor => this.contenido += valor +",\n");
   }
 
   descargarContenido(){
     this.generador();
-    this.contenido += "}";
-    console.log(this.contenido)
+    let downloadfile = "data: text/json;charset=utf-8,"+encodeURIComponent(this.contenido);
+    console.log(downloadfile);
+    var downloader = document.createElement('a');
+    downloader.setAttribute('href', downloadfile);
+    downloader.setAttribute('download', 'data.json');
+    downloader.click();
   }
 
   ngOnInit(): void {
@@ -61,6 +74,8 @@ export class SeleccionComponent implements OnInit {
         reader.onload=ev=>{
         const resultado=ev.target?.result
         text=String(resultado)
+        console.log("Resultado")
+        console.log(resultado)
         var data = JSON.parse(text);  // se parse para obtener solo los datos
         data.valores.forEach(element => { // se pasa a un arreglo
           this.array.push(element)

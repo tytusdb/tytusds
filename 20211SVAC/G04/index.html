@@ -2,7 +2,10 @@
 <html lang="es">
 	<head>
 		<title>Visualización de Estructuras de Datos</title>
-		<meta name="description" content="Open source visualization of data structures and algorithms in JavaScript"/>
+		<meta
+			name="description"
+			content="Open source visualization of data structures and algorithms in JavaScript"
+		/>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -14,6 +17,7 @@
 	<body>
 		<div id="main-container">
 			<nav>
+				<input type='checkbox' style="display: none" id='show-main-info' />
 				<div id="logo">
 					<img src="public/images/fiusac.png" alt="Fiusac" />
 				</div>
@@ -21,7 +25,7 @@
 					<li class="active-path">
 						<i class="icon-code"></i><span>Estructuras</span>
 					</li>
-					<li><i class="icon-info"></i><span>Información</span></li>
+					<li><label for='show-main-info'><i class="icon-info"></i><span>Información</span></label></li>
 					<li><i class="icon-book"></i><span>Documentación</span></li>
 				</ul>
 				<div id="git-info">
@@ -88,7 +92,38 @@
 						</defs>
 					</svg>
 					<p>Este proyecto es OpenSource.</p>
-					<button type="button">Ver Github</button>
+					<a
+						class="btn"
+						target="_blank"
+						href="https://github.com/tytusdb/tytusds/tree/main/20211SVAC/G04"
+						title="Github"
+						>Ver Github</a
+					>
+				</div>
+				<label id="main-info" for='show-main-info'>
+					<div>
+						<img src="public/images/assets/fiusac-logo.png" alt="FIUSAC" />
+						<p>
+							Este proyecto esta desarrollado bajo una licencia de código
+							abierto MIT, con fines educativos y desarrollada en la Facultad de
+							Ingeniería de la Universidad de San Carlos de Guatemala.
+						</p>
+						<h3>Desarrollado por:</h3>
+						<ul>
+							<li>
+								<img
+									src="https://avatars.githubusercontent.com/u/14190671?v=4"
+									alt="alexsan-dev"
+								/>
+								<a
+									href="https://github.com/alexsan-dev"
+									target="_blank"
+									title="Alex Santos"
+									><strong>Alex Santos</strong><span>(alexsan-dev)</span></a
+								>
+							</li>
+						</ul>
+					</label>
 				</div>
 			</nav>
 			<main>
@@ -100,13 +135,134 @@
 						<input
 							placeholder="Buscar estructuras"
 							type="search"
+							autocomplete="off"
+							oninput="onSearchInputChange(event)"
 							id="search"
 							name="search"
 						/>
 					</div>
-					<button type="button" aria-label="Dark mode" onclick="toggleDarkBtn()" id="darkmode-btn">
+					<button
+						type="button"
+						aria-label="Dark mode"
+						onclick="toggleDarkBtn()"
+						id="darkmode-btn"
+					>
 						<i class="icon-moon"></i>
 					</button>
+					<div class="search-results">
+						<ul id="index-search-list">
+							<li>
+								<a
+									target="_blank"
+									href="/public/pages/simplelist"
+									title="Lista Simple"
+									>Lista simple</a
+								>
+							</li>
+							<li>
+								<a
+									target="_blank"
+									href="/public/pages/doublelist"
+									title="Lista doble"
+									>Lista doble</a
+								>
+							</li>
+							<li>
+								<a
+									target="_blank"
+									href="/public/pages/circularsimplelist"
+									title="Lista circular"
+									>Lista circular</a
+								>
+							</li>
+							<li>
+								<a
+									target="_blank"
+									href="/public/pages/circulardoublelist"
+									title="Lista circular doble"
+									>Lista circular doble</a
+								>
+							</li>
+							<li>
+								<a target="_blank" href="/public/pages/stack" title="Pila"
+									>Pila</a
+								>
+							</li>
+							<li>
+								<a target="_blank" href="/public/pages/queue" title="Pila"
+									>Cola</a
+								>
+							</li>
+							<li>
+								<a target="_blank" href="/public/pages/queue" title="Pila"
+									>Cola de prioridad</a
+								>
+							</li>
+							<li>
+								<a
+									target="_blank"
+									href="/public/pages/bubblesort"
+									title="Ordenamiento burbuja"
+									>Ordenamiento burbuja</a
+								>
+							</li>
+							<li>
+								<a
+									target="_blank"
+									href="/public/pages/selectionsort"
+									title="Ordenamiento por selección"
+									>Ordenamiento por selección</a
+								>
+							</li>
+							<li>
+								<a
+									target="_blank"
+									href="/public/pages/insertionsort"
+									title="Ordenamiento por inserción"
+									>Ordenamiento por inserción</a
+								>
+							</li>
+							<li>
+								<a
+									target="_blank"
+									href="/public/pages/quicksort"
+									title="Ordenamiento rápido"
+									>Ordenamiento rápido</a
+								>
+							</li>
+							<li>
+								<a
+									target="_blank"
+									href="/public/pages/binarytree"
+									title="Árbol BST"
+									>Árbol BST</a
+								>
+							</li>
+							<li>
+								<a
+									target="_blank"
+									href="/public/pages/avltree"
+									title="Árbol AVL"
+									>Árbol AVL</a
+								>
+							</li>
+							<li>
+								<a target="_blank" href="/public/pages/btree" title="Árbol B"
+									>Árbol B</a
+								>
+							</li>
+							<li>
+								<a target="_blank" href="/public/pages/bplustree" title="Árbol B+"
+									>Árbol B+</a
+								>
+							</li>
+							<li>
+								<a target="_blank" href="/public/pages/merkletree" title="Árbol de Merkle"
+									>Árbol de Merkle</a
+								>
+							</li>
+						</ul>
+					</div>
 				</div>
 				<div id="topbar-tabs">
 					<h1>Estructuras de datos</h1>
@@ -126,20 +282,47 @@
 										de orden.
 									</p>
 									<ul>
-										<li><a href="public/pages/bubblesort" title="Bubble Sort">Burbuja</a></li>
-										<li><a href="public/pages/selectionsort" title="Selection Sort">Selección</a></li>
-										<li><a href="public/pages/insertionsort" title="Insertion Sort">Inserción</a></li>
-										<li><a href="public/pages/quicksort" title="Fast Sort">Rápido</a></li>
+										<li>
+											<a href="public/pages/bubblesort" title="Bubble Sort"
+												>Burbuja</a
+											>
+										</li>
+										<li>
+											<a
+												href="public/pages/selectionsort"
+												title="Selection Sort"
+												>Selección</a
+											>
+										</li>
+										<li>
+											<a
+												href="public/pages/insertionsort"
+												title="Insertion Sort"
+												>Inserción</a
+											>
+										</li>
+										<li>
+											<a href="public/pages/quicksort" title="Fast Sort"
+												>Rápido</a
+											>
+										</li>
 									</ul>
 								</div>
 							</div>
 							<div class="card-content">
-								<img src="public/images/pages/basics.png" alt="Sorting Banner" />
+								<img
+									src="public/images/pages/basics.png"
+									alt="Sorting Banner"
+								/>
 								<div>
 									<h2>Ordenamientos</h2>
 									<p>4 estructuras</p>
 								</div>
-								<button aria-label="Play Ordering" type="button" class="card-play">
+								<button
+									aria-label="Play Ordering"
+									type="button"
+									class="card-play"
+								>
 									<i class="icon-play"></i>
 								</button>
 								<span>
@@ -159,12 +342,15 @@
 									</p>
 									<ul>
 										<li>
-											<a href="/" title="Tree search">Árbol de búsqueda</a>
+											<a href="public/pages/binarytree" title="Tree search"
+												>Árbol de búsqueda</a>
 										</li>
-										<li><a href="/" title="AVL Tree">AVL</a></li>
-										<li><a href="/" title="B Tree">Árbol B</a></li>
-										<li><a href="/" title="B+ Tree">Árbol B+</a></li>
-										<li><a href="/" title="Merkle Tree">Árbol de Merkle</a></li>
+										<li>
+											<a href="public/pages/avltree" title="AVL Tree">AVL</a>
+										</li>
+										<li><a href="public/pages/btree" title="B Tree">Árbol B</a></li>
+										<li><a href="public/pages/bplustree" title="B+ Tree">Árbol B+</a></li>
+										<li><a href="public/pages/merkletree" title="Merkle Tree">Árbol de Merkle</a></li>
 									</ul>
 								</div>
 							</div>
@@ -177,7 +363,7 @@
 									<h2>Arbóreas</h2>
 									<p>5 estructuras</p>
 								</div>
-								<button  aria-label="Play Trees" type="button" class="card-play">
+								<button aria-label="Play Trees" type="button" class="card-play">
 									<i class="icon-play"></i>
 								</button>
 								<span>
@@ -196,27 +382,52 @@
 										descendencia.
 									</p>
 									<ul>
-										<li><a href="public/pages/simplelist" title="Simple List">Lista simple</a></li>
-										<li><a href="public/pages/doublelist" title="Double List">Lista doble</a></li>
-										<li><a href="public/pages/circularsimplelist" title="Circular List">Lista circular</a></li>
 										<li>
-											<a href="public/pages/circulardoublelist" title="Double Circular List">Lista circular doble</a>
+											<a href="public/pages/simplelist" title="Simple List"
+												>Lista simple</a
+											>
+										</li>
+										<li>
+											<a href="public/pages/doublelist" title="Double List"
+												>Lista doble</a
+											>
+										</li>
+										<li>
+											<a
+												href="public/pages/circularsimplelist"
+												title="Circular List"
+												>Lista circular</a
+											>
+										</li>
+										<li>
+											<a
+												href="public/pages/circulardoublelist"
+												title="Double Circular List"
+												>Lista circular doble</a
+											>
 										</li>
 										<li><a href="public/pages/stack" title="Stack">Pila</a></li>
 										<li><a href="public/pages/queue" title="Queue">Cola</a></li>
 										<li>
-											<a href="/" title="Priority Queue">Cola de prioridad</a>
+											<a href="public/pages/priorityqueue" title="Priority Queue">Cola de prioridad</a>
 										</li>
 									</ul>
 								</div>
 							</div>
 							<div class="card-content">
-								<img src="public/images/pages/indexing.png" alt="Indexing Banner" />
+								<img
+									src="public/images/pages/indexing.png"
+									alt="Indexing Banner"
+								/>
 								<div>
 									<h2>Lineales</h2>
 									<p>5 estructuras</p>
 								</div>
-								<button aria-label="Play Linear"  type="button" class="card-play">
+								<button
+									aria-label="Play Linear"
+									type="button"
+									class="card-play"
+								>
 									<i class="icon-play"></i>
 								</button>
 								<span>
@@ -227,19 +438,88 @@
 					</div>
 					<div class="flip-card">
 						<div class="flip-card-inner">
-							<div class="card-list">
-							</div>
+							<div class="card-list"></div>
 							<div class="card-content">
-								<img src="public/images/pages/sorting.png" alt="Sorting Banner" />
+								<img
+									src="public/images/pages/sorting.png"
+									alt="Sorting Banner"
+								/>
+							</div>
+						</div>
+					</div>
+					<div class="flip-card">
+						<div class="flip-card-inner">
+							<div class="card-list"></div>
+							<div class="card-content">
+								<img
+									src="public/images/pages/nolineal.png"
+									alt="Sorting Banner"
+								/>
 							</div>
 						</div>
 					</div>
 					<div class="flip-card">
 						<div class="flip-card-inner">
 							<div class="card-list">
+								<div>
+									<h2>No lineales</h2>
+									<p>
+										En estas estructuras cada elemento puede estar enlazado a cualquier otro componentes.
+									</p>
+									<ul>
+										<li>
+											<a href="public/pages/openhash" title="Hash abierta"
+												>Hash abierta</a
+											>
+										</li>
+										<li>
+											<a href="public/pages/closedhash" title="Hash cerrada"
+												>Hash cerrada</a
+											>
+										</li>
+										<li>
+											<a
+												href="public/pages/graphos"
+												title="Grafos"
+												>Grafos</a
+											>
+										</li>
+										<li>
+											<a
+												href="public/pages/Uniformcost"
+												title="Costo uniforme"
+												>Costo uniforme</a
+											>
+										</li>
+										<li>
+											<a
+												href="public/pages/minimalcoating"
+												title="Recubrimiento mínimo"
+												>Recubrimiento mínimo</a
+											>
+										</li>
+									</ul>
+								</div>
 							</div>
 							<div class="card-content">
-								<img src="public/images/pages/nolineal.png" alt="Sorting Banner" />
+								<img
+									src="public/images/pages/nolinear.png"
+									alt="Indexing Banner"
+								/>
+								<div>
+									<h2>No lineales</h2>
+									<p>7 estructuras</p>
+								</div>
+								<button
+									aria-label="Play Linear"
+									type="button"
+									class="card-play"
+								>
+									<i class="icon-play"></i>
+								</button>
+								<span>
+									<i class="icon-circle"></i>
+								</span>
 							</div>
 						</div>
 					</div>
@@ -264,17 +544,17 @@
 						<i class="icon-git-commit"></i>
 						<label for="sorting-progress">
 							<span>Lineal</span>
-							<span>4 de 7 edd</span>
+							<span>7 de 7 edd</span>
 						</label>
-						<progress id="lineal-progress" value="4" max="7"></progress>
+						<progress id="lineal-progress" value="7" max="7"></progress>
 					</li>
 					<li>
 						<i class="icon-git-branch"></i>
 						<label for="sorting-progress">
 							<span>Arboles</span>
-							<span>1 de 5 edd</span>
+							<span>4 de 5 edd</span>
 						</label>
-						<progress id="tree-progress" value="1" max="5"></progress>
+						<progress id="tree-progress" value="4" max="5"></progress>
 					</li>
 				</ul>
 			</aside>

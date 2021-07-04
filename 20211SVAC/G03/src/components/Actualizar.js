@@ -52,6 +52,30 @@ export default class Actualizar extends Component {
             case "Arbol B":
                 edd.modificar(datoAnterior,datoNuevo)
                 break
+            case "Arbol B+":
+                edd.actualizar(datoAnterior,datoNuevo)
+            break
+            case "Arbol Merkle":
+                edd.modificar(datoAnterior,datoNuevo)
+            break
+            case "Tabla Hash Cerrada":
+                edd.actualizar(datoAnterior,datoNuevo)
+            break
+            case "Tabla Hash Abierta":
+                edd.actualizar(datoAnterior,datoNuevo)
+            break
+            case "Col Major":
+                let arreglosplit = datoAnterior.split(",")
+                let x = arreglosplit[0]
+                let y = arreglosplit[1]
+                edd.actualizar(x,y,nombre,datoNuevo)
+            break
+            case "Row Major":    
+                let splitarr = datoAnterior.split(",")
+                let i = splitarr[0]
+                let j = splitarr[1]
+                edd.actualizar(i,j,nombre,datoNuevo)
+            break
             default:
                 break;
         }
