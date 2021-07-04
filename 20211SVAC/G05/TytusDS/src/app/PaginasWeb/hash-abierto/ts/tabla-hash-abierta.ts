@@ -42,6 +42,7 @@ export class TablaHashAbierta {
         } else if (this.metodo.toLowerCase() === 'multiplicacion') {
             p = this.hashMultiplicacion(valor, this.constante);
         } else {
+            console.log('NO SE RECONOCE LA FUNCION');
             p = this.hashDivision(valor)
         }
         if (this.arreglo[p] !== null) {
@@ -71,15 +72,16 @@ export class TablaHashAbierta {
         let posicion = 0;
 
         if (this.metodo.toLowerCase() === 'simple') {
-            posicion = this.hashDivision(resultado)
+            posicion = this.hashSimple(resultado)
         } else if (this.metodo.toLowerCase() === 'division') {
             posicion = this.hashDivision(resultado)
         } else if (this.metodo.toLowerCase() === 'multiplicacion') {
             posicion = this.hashMultiplicacion(resultado, this.constante);
         } else {
+            console.log('NO SE RECONOCE LA FUNCION');
             posicion = this.hashDivision(resultado)
         }
-
+        
         if (this.arreglo[posicion] === null) return;
 
         let indice = 0;
@@ -143,7 +145,6 @@ export class TablaHashAbierta {
         while(resultado >= 1) {
             resultado = resultado / 10;
         }
-        console.log(resultado * this.size);
 
         return Math.round(resultado * this.size);
     }

@@ -88,6 +88,21 @@ export class FeistelComponent implements OnInit {
       alert("Escoger un archivo")
     }
   }
-  guardar(){}
+  //GUARDAR
+  guardar(): void {
+    let cadena=[`Cadena a Cifrar: ${this.T_comprimir}`];
+    let cadenaBin=[`Cadena en Binario: ${this.feistel.cadena}`];
+    let key=[`Key: ${this.key}`];
+    let iteraciones=[`No. Iteraciones: ${this.Niteraciones}`];
+    let resultado=[`Cifrado: ${this.resultado}`]
+    let valores=["categoria: Algoritmo de codificacion","nombre: Cifrado Feistel","repeticion:true","animacion:10"]
+    valores=valores.concat(cadena);
+    valores=valores.concat(cadenaBin);
+    valores=valores.concat(key);
+    valores=valores.concat(iteraciones);
+    valores=valores.concat(resultado);
+    let blob = new Blob([valores.toString()], {type: 'txt;charset=utf-8'});
+    saveAs(blob, 'descarga.txt');
+  }
 
 }

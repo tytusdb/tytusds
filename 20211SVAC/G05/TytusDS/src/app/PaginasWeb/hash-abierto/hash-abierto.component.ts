@@ -84,8 +84,6 @@ export class HashAbiertoComponent implements OnInit {
     }
 
     this.hash.agregar(this.valorAgregar);
-    console.log(this.hash.arreglo);
-    console.log(this.hash.getNodos());
     
     this.valorAgregar = '';
 
