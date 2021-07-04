@@ -3,6 +3,14 @@ var checkBoxAbiertaInt=false;
 var checkBoxabiertaDivision=false;
 var checkBoxAbiertaSimple=false;
 var checkBoxAbiertaMultiplicacion=false;
+var categoriaAbierta;
+var nombreAbierta;
+var tamanoAbierta;
+var minimoAbierta;
+var maxicoAbierta;
+var funcionAbierta;
+var pruebaAbierta;
+var animacionAbierta;
 
 function checkAbiertaSimple(){
     if(checkBoxAbiertaSimple == true){
@@ -233,27 +241,14 @@ class Hash{
     eliminar(data){
         this.vector.forEach(nodo => {
             let contadorBorrar = 0;
-            console.log("hola "+nodo)
             if(nodo != null){
                 nodo.lista.forEach(llave =>{
-                   console.log(llave)
                     if(llave.valor==data){
-                        console.log(llave)
-                        console.log(nodo.lista)
-                        console.log(nodo.lista.length)
                         let listaBorrar = [];
-                        console.log(listaBorrar.length);
-                        
                         for(llave in nodo.lista){
-                            console.log(nodo.lista)
-                            console.log(nodo.lista[llave].valor);
-                            console.log(nodo.indice);
-                            console.log(data)
                             if(nodo.lista[llave].valor != data){
                                 listaBorrar.push(nodo.lista[llave]);
-                                //contadorBorrar++;
                             }else{
-                                console.log(contadorBorrar)
                                 if(contadorBorrar==0){
                                     contadorBorrar++;
                                 }else{
@@ -261,16 +256,11 @@ class Hash{
                                 }
                             }
                         }
-                        console.log(nodo.lista)
                         if(listaBorrar.length == 0){
-                            console.log("es 0");
-                            console.log(nodo.lista);
                             this.vector[nodo.indice]=null;
-                            
                         }else{
                             nodo.lista = listaBorrar;
                         }                      
-                        console.log(this.vector);
                     }
                 });
                 //console.log("indice: ",nodo.indice,"Valores:",valores);
@@ -307,7 +297,13 @@ function buscarAbierta(data){
 }
 function eliminarAbierta(data){
     tabla1.eliminar(data)
-    tabla1.print()
+    tabla1.print();
+}
+function actualizaAbierta(data1,data2){
+    tabla1.eliminar(data1);
+    console.log("el dato nuevo es:" +data2)
+    insertarAbierta(data2);
+    tabla1.print();
 }
 
 
