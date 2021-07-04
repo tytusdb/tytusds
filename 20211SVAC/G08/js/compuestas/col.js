@@ -324,3 +324,51 @@ function repeat(){
     
     console.log(conTabla)
 }
+
+// ***** COL-MAJOR *****
+function rowMaj(){
+    console.log("Realizando Row-Major");
+    // preparar contenido de cada cuadro 
+    var cuadroRM = [];
+    for (let i = 0; i < col; i++){
+        for (let j = 0; j < fil; j++){
+            cuadroRM.push({posicion : "("+i+", "+j+")", contenido : conTabla[j][i]})
+            
+        }
+    }
+    console.log("-----------------------------")
+    console.log(cuadroRM);
+    buildCuadros(cuadroRM);
+    cuadroRM =  [];
+   
+}
+
+
+// ***** CONSTRUIR CUADROS *****
+async function buildCuadros(bloques){
+    velocidad = 10;
+    var container = document.getElementById("espacioMaj");
+
+    for (let i = 0; i < bloques.length; i++){
+        const div = document.createElement("div");
+        div.classList.add('cuadrito');
+        if (bloques[i].contenido != undefined){
+            div.textContent = bloques[i].posicion+"  ||  "+bloques[i].contenido;
+
+        } else {
+            div.textContent = bloques[i].posicion+"  ||  ";
+        }
+        
+        
+        
+        container.appendChild(div);
+        await new Promise((resolve) =>
+        setTimeout(() =>{
+        resolve();
+        }, (velocidad*200)) //delay
+    );
+
+    }
+
+    
+}
