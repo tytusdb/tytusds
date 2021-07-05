@@ -1,6 +1,7 @@
 class AnchuraGrafos{
 	constructor(){
-		this.DatoNodo = []
+		this.DatoNodo = [];
+        this.id = 1;
 	}
 
 	ObtenerDato(){
@@ -31,10 +32,10 @@ class AnchuraGrafos{
 		}
 	}
 
-	AgregarNodo(DatoActual, id){
+	AgregarNodo(DatoActual){
 		let nodo = {
 			Vertices: DatoActual,
-			id: id,
+			id: this.id++,
 			Aristas: []
 		}
 		this.DatoNodo.push(nodo)
@@ -105,7 +106,7 @@ class AnchuraGrafos{
 		var ListaNodo = [NodoInicial];
 		while (ListaNodo.length > 0){
 			var current = ListaNodo.shift();
-			NodoRecorrido.push(this.ObtenerArista(current))
+			NodoRecorrido.push(this.ObtenerId(current))
 			console.log(current)
 			if (current == NodoFinal) {
 				console.log("Lo encontramos");
@@ -127,7 +128,7 @@ class AnchuraGrafos{
 			var current = ListaNodo.shift();
 			if(NodoRecorrido.includes(current)) continue
 			NodoRecorrido.push(current)
-			NodoRecorridoIds.push(this.ObtenerArista(current))
+			NodoRecorridoIds.push(this.ObtenerId(current))
 			console.log(current)
 			var auxiliar = this.ObtenerDatoNodo(current);
 			ListaNodo = ListaNodo.concat(auxiliar);
@@ -157,7 +158,7 @@ class AnchuraGrafos{
 		return false
 	}
 
-	ObtenerArista(DatoActual){
+	ObtenerId(DatoActual){
 		for(let i = 0; i < this.DatoNodo.length; i++){
 			if(this.DatoNodo[i].Vertices == DatoActual){
 				return this.DatoNodo[i].id
@@ -181,9 +182,9 @@ module.exports = AnchuraGrafos
 function Prueba(){
 	let grafo = new AnchuraGrafos()
 	//Agregamos los nodos
-	grafo.AgregarNodo(1)
-	grafo.AgregarNodo(2)
-	grafo.AgregarNodo(3)
+	grafo.AgregarNodo(1,1)
+	grafo.AgregarNodo(2,2)
+	grafo.AgregarNodo(3,3)
 	grafo.AgregarNodo(4)
 	grafo.AgregarNodo(5)
 	grafo.AgregarNodo(6)
