@@ -32,7 +32,7 @@
                   <input type="number" id="columna" name="columna" class="form-control" placeholder="Columna">
                   <input type="text" id="valor" name="valor" class="form-control" placeholder="Valor">
               </div>
-              <button class="btn btn-outline-primary" onclick="insert()">Crear Arbol</button>
+              <button class="btn btn-outline-primary" onclick="add()">Agregar</button>
               <button class="btn btn-outline-secondary" onclick="search()">Insertar valor</button>
               <button class="btn btn-outline-success" onclick="update()">Buscar</button>
               <br>
@@ -43,10 +43,6 @@
               <div class="input-group mb-3">
                 <input type="file" class="form-control" id="inputGroupFile01" accept="application/JSON">
                 <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04" onclick="read()" >Cargar archivo</button>
-              </div>
-              <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                <label class="form-check-label" for="flexSwitchCheckDefault">Permitir elementos repetidos</label>
               </div>
               <br>
               <div class="col-sm-8">
@@ -70,7 +66,7 @@
     <script src="https://visjs.github.io/vis-network/standalone/umd/vis-network.min.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis-network.min.css" type="text/css"></script>
 
-    <script src="../../js/MatrizDispersa/matrizDispersa.js"></script>
+    <script src="../../js/estructurasCompuestas/matrizDispersa.js"></script>
 
      <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Promise,fetch"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" crossorigin="anonymous"></script>
