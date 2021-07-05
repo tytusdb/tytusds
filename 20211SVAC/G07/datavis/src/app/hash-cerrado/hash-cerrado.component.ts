@@ -83,7 +83,7 @@ class hash{
               temp.push(this.tabla[k]);
           }
           this.m = Math.trunc( this.size*100/this.min);
-          
+
           this.tabla.length = this.m;
           var id = nodes.get({
             fields:['id', 'label']
@@ -737,8 +737,8 @@ export class HashCerradoComponent implements OnInit {
           console.log(element)
           this.AgregarNuevo(element)
         });
-       
-       
+
+
         this.code=text.toString();
       }
       reader.readAsText(a)
