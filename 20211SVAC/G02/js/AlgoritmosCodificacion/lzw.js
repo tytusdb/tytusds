@@ -14,9 +14,16 @@ class Simbolo{
     }
 }
 
+//Arreglo, para descargar el mensaje encriptado
+class Arreglo{
+    constructor(){
+        this.arraysalida = []
+    }
+}
+
 function read(){
     var fileInput = document.querySelector('input[type="file"]');
-    let textarea = document.getElementById("exampleFormControlTextarea1").value
+    
     var file = fileInput.files.item(0);
     var reader = new FileReader();
 
@@ -24,18 +31,22 @@ function read(){
     
     reader.onload = function() {
         let cadena = reader.result
-        document.getElementById("exampleFormControlTextarea1").value = document.getElementById("exampleFormControlTextarea1").value + cadena
-        algoritmo(cadena)
+        document.getElementById("exampleFormControlTextarea1").value = cadena
     }
 }
+function aplicar() {
+    let text =  document.getElementById("exampleFormControlTextarea1").value
+    algoritmo(text)
+}
 
+let resultado = null
 function algoritmo(cadena){
-
+    
     let w = ""
     let k = ""
     let wk = ""
     let id=0
-
+    resultado = new Arreglo()
     // ingresar caracteres al diccionario.
     for(let i=0; i<cadena.length; i++){
         if(buscarDiccionario(diccionario, cadena.charAt(i)) == false){
@@ -45,7 +56,7 @@ function algoritmo(cadena){
             continue
         }
     }
-
+    //evaluar la cadena 
     for(let i=0; i<cadena.length; i++){
         k = cadena.charAt(i)
         wk = w+k
@@ -70,36 +81,52 @@ function algoritmo(cadena){
     arrayWK.push("")
     diccionario.push("")
     salida.push(buscarId(diccionario, w))
-
-
-    let myTable= "<table><tr><td style='width: 100px; color: red; text-align: center;'>W</td>";
-    myTable+= "<td style='width: 100px; color: red; text-align: center;'>K</td>";
-    myTable+="<td style='width: 100px; color: red; text-align: center;'>WK</td>";
-    myTable+="<td style='width: 100px; color: red; text-align: center;'>Diccionario</td>";
-    myTable+="<td style='width: 100px; color: red; text-align: center;'>Salida</td></tr>";
-    myTable+="<tr><td style='width: 100px; text-align: right;'>---------------</td>";
-    myTable+="<td style='width: 100px; text-align: right;'>---------------</td>";
-    myTable+="<td style='width: 100px; text-align: right;'>---------------</td>";
-    myTable+="<td style='width: 100px; text-align: right;'>---------------</td>";
-    myTable+="<td style='width: 100px; text-align: right;'>---------------</td></tr>";    
-
-    for (let i = 0; i < arrayW.length; i++) {
-  
-        myTable+="<tr><td style='width: 100px;text-align: right;'>" + arrayW[i] + "</td>";        
-        myTable+="<td style='width: 100px;text-align: right;'>" + arrayK[i] + "</td>";    
-        myTable+="<td style='width: 100px;text-align: right;'>" + arrayWK[i] + "</td>";
-        if (diccionario[i].caracter == undefined){
-            myTable+="<td style='width: 100px;text-align: right;'>" + "" +" " + "" + "</td>";
-        }else{
-            myTable+="<td style='width: 100px;text-align: right;'>" + diccionario[i].caracter +", " + diccionario[i].id + "</td>";
-        } 
-        myTable+="<td style='width: 100px;text-align: right;'>" + salida[i] + "</td>";
-        myTable+="</tr>";
+    let result = ""
+    for(let i=0; i<salida.length;i++){
+        result = result + salida[i]
     }
 
-    myTable+="</table>";
-      document.getElementById('tablePrint').innerHTML = myTable;
+    document.getElementById('codificado').value = result
+
+    resultado.arraysalida = salida
+    let tableBody = document.getElementById('tbody');
+    let dic1 = ""
+    let contador=1
+    for (let i = 0; i < arrayW.length; i++) {
+        setTimeout(function (params) {
+            let W = `<td>${arrayW[i]}</td>`;
+            let K = `<td>${arrayK[i]}</td>`;
+            let WK = `<td>${arrayWK[i]}</td>`;
+            let salida1 = `<td>${salida[i]}</td>`;
+            if (diccionario[i].caracter == undefined){
+                dic1 = `<td>  </td>`;
+            }else{
+                dic1 = `<td>${diccionario[i].caracter}, ${diccionario[i].id}</td>`;
+            }
+            tableBody.innerHTML += `<tr>${W + K + WK + dic1 + salida1}</tr>`;
+        },(500)*contador)
+        contador++
+    }  
 }
+
+function descargar() {
+    var blob1 = new Blob(resultado.arraysalida, { type: "text/plain;charset=utf-8" });
+    //Check the Browser.
+    var isIE = false || !!document.documentMode;
+    if (isIE) {
+        window.navigator.msSaveBlob(blob1, "data.txt");
+    } else {
+        var url = window.URL || window.webkitURL;
+        link = url.createObjectURL(blob1);
+        var a = document.createElement("a");
+        a.download = "encriptarlwz.txt";
+        a.href = link;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
+}
+
 
 // buscar en el diccionario y retorna un true o false
 function buscarDiccionario(diccionario, caracter){

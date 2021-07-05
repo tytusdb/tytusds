@@ -127,7 +127,40 @@ class GrafoLista {
         }
     }
 
-    //recorrida costo uniforme
+    recorrerACostoUniforme () {
+        let valTemp = []
+        this.numVertice()
+        for (let key in this.listaAdyacente) {
+            arrayNodes.push({id:diccIds[key], label: key, shape: 'circle'})
+        }
+
+        for (let key in this.listaAdyacente) {
+            let pesos = [];
+            for (let i = 0; i < this.listaAdyacente[key].length; i++) {
+                let dataTemp = this.listaAdyacente[key][i][1];
+                if (!valTemp.includes(dataTemp))
+                {
+                    pesos.push(dataTemp);
+                    valTemp.push(dataTemp);
+                }
+            }
+
+            let indiceRuta = this.menorPeso(pesos);
+            console.log(pesos, 'pesoso')
+            console.log(indiceRuta, 'indice recober')
+
+            for (let i = 0; i < this.listaAdyacente[key].length; i++) {
+                let dataTemp = this.listaAdyacente[key][i];
+                if (i != indiceRuta)
+                {
+                    edges.push({from:diccIds[key], to: diccIds[dataTemp[0]], label: dataTemp[1], color:{color:'#00aae4'}})
+                }else
+                {
+                    edges.push({from:diccIds[key], to: diccIds[dataTemp[0]], label: dataTemp[1], color:{color:'#ffa031'}})
+                }
+            }
+        }
+    }
 
     numVertice (){
         diccIds = {};
@@ -281,6 +314,57 @@ function actualizarT() {
     edges = []
 }
 
+function actualizarTCU() {
+    Costo.recorrerACostoUniforme();
+
+    var nodes = new vis.DataSet(arrayNodes);
+    var container = document.getElementById("mynetwork");
+    var data = {
+        nodes: arrayNodes,
+        edges: edges,
+    };
+    var options = {
+        physics: false,
+        edges: {
+            width:2,
+            arrows:{
+                to:{
+                    enabled: true,
+                    scaleFactor: 0.5,
+                    type: 'arrow'
+                }
+            }
+        },
+        interaction: {
+            zoomView: true,
+            zoomSpeed: 0.001,
+            navigationButtons: true,
+            keyboard: {
+                enabled: true,
+                speed: {
+                    x: 15,
+                    y: 15,
+                    zoom: 0.1
+                },
+            }
+        }
+    };
+    network = new vis.Network(container, data, options);
+    network.on('click', function (properties) {
+        var nodeID = properties.nodes[0];
+        if (nodeID) {
+            clickedNode = this.body.nodes[nodeID];
+            clickedNode = clickedNode.options.id
+            console.log('clicked node:', clickedNode);
+            clickedNodoValue =  this.body.nodes[nodeID]
+            clickedNodoValue = clickedNodoValue.options.label
+            document.getElementById("valueNodo").value = clickedNodoValue;
+        }
+    });
+    arrayNodes = []
+    edges = []
+}
+
 function insertarNodo() {
     let valueNodo = document.getElementById('valueNodo').value;
     let valueArista = document.getElementById('valueArista').value;
@@ -334,6 +418,10 @@ function insertarNodos (array) {
             },(500)*(11 - slider.value)*contador)
         }
     }
+}
+
+function recorridoCostoU() {
+    actualizarTCU()
 }
 
 function readFile(callback) {

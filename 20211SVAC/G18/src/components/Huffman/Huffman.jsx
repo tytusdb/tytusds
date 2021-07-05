@@ -1,19 +1,18 @@
 import React from 'react';
-import hamming from '../../EDD/hamming';
+import huffma from '../../EDD/huffman';
 import { render } from 'react-dom';
-import './Hamming.css';
-import {Viz} from 'viz.js/viz';
+//import './Hamming.css';
 
 
-
-class CodHamming extends React.Component {
+var ahtml = "";
+class CodHuffman extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             elemento: '',
             reemplazado: '',
             data: null,
-            hamm: new hamming()
+            huff: new huffma()
         };
 
         this.ContenidoElemento = this.ContenidoElemento.bind(this);
@@ -33,9 +32,10 @@ class CodHamming extends React.Component {
 
     InsertarCadena() {
         //this.state.hamm.hamming(this.state.elemento);
-        this.state.hamm.PrintM2D(this.state.hamm.hamming(this.state.elemento));
+        const nuevo = this.state.huff.huffman(this.state.elemento);
+        ahtml=this.state.huff.Graficar(nuevo);
         this.setState({
-            hamm: this.state.hamm,
+            huff: this.state.huff,
         });
     }
 
@@ -48,30 +48,12 @@ class CodHamming extends React.Component {
     leerJson(event) {
         const input = event.target
         const reader = new FileReader()
-        reader.onload = (event) => {
-            const text = reader.result
-
-            const json = JSON.parse(text)
-            console.log(json.categoria);
-            const valores = json.valores
-
-            valores.forEach((element, index) => {
-                setTimeout(() => {
-                    this.setState({
-                        elemento: element,
-                    }, () => {
-                        this.InsertarCadena()
-                    })
-
-                }, index * 1000)
-            });
-
-            this.setState({
-                data: json
-            })
-        }
-        reader.readAsText(input.files[0], "UTF-8")
+        ahtml=this.state.huff.Graficar(reader);
+        this.setState({
+            huff: this.state.huff,
+        });
     }
+    
 
 
 
@@ -86,16 +68,18 @@ class CodHamming extends React.Component {
                     </div>
 
                     <div className="col-sm-2 d-grid gap-2">
-                        <input type="file" class="form-control" onChange={this.leerJson} />
+                        <button className="btn btn-success" onClick={this.InsertarCadena} >Insertar Cadena</button>
                     </div>
 
-
+                    <div className="col-sm-2 d-grid gap-2">
+                        <input type="file" class="form-control" onChange={this.leerJson} />
+                    </div>
 
                 </div>
 
                 <div className="card mt-2">
                     <div className="contPadre">
-                            <div dangerouslySetInnerHTML={{ __html: this.state.hamm.Graficar(this.state.hamm.hamming(this.state.elemento)) }} />
+                    <div dangerouslySetInnerHTML={{ __html: ahtml }} />
                     </div>
 
 
@@ -106,4 +90,4 @@ class CodHamming extends React.Component {
     }
 }
 
-export default CodHamming;
+export default CodHuffman;

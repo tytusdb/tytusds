@@ -6,12 +6,12 @@ export const MenuItemsCompuesta = [
 	},
 	{
 		title:'Row Major(3D a 2D)',
-		path:'/MatrizDispersa',
+		path:'/RowMajor',
 		cName:'dropdown-item'
 	},
 	{
 		title:'Col Major(3D a 2D)',
-		path:'/MatrizDispersa',
+		path:'/ColumnMajor',
 		cName:'dropdown-item'
 	},
 	{
