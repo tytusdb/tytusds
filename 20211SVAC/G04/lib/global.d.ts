@@ -13,10 +13,13 @@ type LinearNode = NodoSimple | NodoSimpleQ
 type TreeStructure = ArbolBinario | ArbolAvl
 type TreeNode = NodoBinario | NodoAvl
 
-interface NodePosition {
+interface NodePosition extends PointPosition {
+	value: string
+}
+
+interface PointPosition {
 	x: number
 	y: number
-	value: string
 }
 
 interface EdgePosition {

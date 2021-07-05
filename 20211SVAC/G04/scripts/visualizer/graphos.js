@@ -164,22 +164,25 @@ canvas.addEventListener('mousemove', function (ev) {
     }
     mouseIsDown = false;
 });
+var addNodeOnGraphosAtPosition = function (position) {
+    tmpGraphoNode = __assign(__assign({}, position), { value: newNodeValue });
+    tmpSearchGraphoNode = null;
+    graphoNodeScaleCounter = 0;
+    nodesArray.push(tmpGraphoNode);
+    addTestCode('insertar', newNodeValue);
+    enableAddNode = false;
+    tmpGraphoNode = null;
+};
 canvas.addEventListener('mousedown', function (ev) {
     mouseIsDown = true;
     setTimeout(function () {
         if (mouseIsDown) {
             if (enableAddNode && newNodeValue.length) {
                 ev.preventDefault();
-                tmpGraphoNode = {
+                addNodeOnGraphosAtPosition({
                     x: ev.clientX / cameraZoom - cameraOffset.x - 30,
                     y: ev.clientY / cameraZoom - cameraOffset.y - 80,
-                    value: newNodeValue,
-                };
-                tmpSearchGraphoNode = null;
-                graphoNodeScaleCounter = 0;
-                nodesArray.push(tmpGraphoNode);
-                enableAddNode = false;
-                tmpGraphoNode = null;
+                });
             }
         }
     }, 500);
@@ -262,6 +265,7 @@ var deleteNodeOnGraphos = function () {
                     ((_a = edge.dest) === null || _a === void 0 ? void 0 : _a.x) !== node_1.x &&
                     ((_b = edge.dest) === null || _b === void 0 ? void 0 : _b.y) !== node_1.y;
             });
+            addTestCode('eliminar', oldNodeValue);
         }
         else
             console.log('Nodo no econtrado');
@@ -274,6 +278,7 @@ var updateNodeOnGraphos = function () {
             tmpSearchGraphoNode = node;
             graphoNodeScaleCounter = 0;
             node.value = newNodeValue;
+            addTestCode('actualizar', oldNodeValue + "," + newNodeValue);
         }
         else
             alert('Nodo no econtrado');
@@ -285,6 +290,7 @@ var searchNodeOnGraphos = function () {
         if (node) {
             tmpSearchGraphoNode = node;
             graphoNodeScaleCounter = 0;
+            addTestCode('buscar', oldNodeValue);
         }
         else
             alert('Nodo no econtrado');

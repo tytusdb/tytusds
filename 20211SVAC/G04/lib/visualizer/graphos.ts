@@ -236,6 +236,22 @@ canvas.addEventListener('mousemove', (ev: MouseEvent) => {
 	mouseIsDown = false
 })
 
+const addNodeOnGraphosAtPosition = (position: PointPosition) => {
+	// CREAR NODO
+	tmpGraphoNode = {
+		...position,
+		value: newNodeValue,
+	}
+
+	// AGREGAR A LISTA DE NODOS
+	tmpSearchGraphoNode = null
+	graphoNodeScaleCounter = 0
+	nodesArray.push(tmpGraphoNode)
+	addTestCode('insertar', newNodeValue)
+	enableAddNode = false
+	tmpGraphoNode = null
+}
+
 canvas.addEventListener('mousedown', (ev: MouseEvent) => {
 	mouseIsDown = true
 	setTimeout(function () {
@@ -243,19 +259,10 @@ canvas.addEventListener('mousedown', (ev: MouseEvent) => {
 			if (enableAddNode && newNodeValue.length) {
 				ev.preventDefault()
 
-				// CREAR NODO
-				tmpGraphoNode = {
+				addNodeOnGraphosAtPosition({
 					x: ev.clientX / cameraZoom - cameraOffset.x - 30,
 					y: ev.clientY / cameraZoom - cameraOffset.y - 80,
-					value: newNodeValue,
-				}
-
-				// AGREGAR A LISTA DE NODOS
-				tmpSearchGraphoNode = null
-				graphoNodeScaleCounter = 0
-				nodesArray.push(tmpGraphoNode)
-				enableAddNode = false
-				tmpGraphoNode = null
+				})
 			}
 		}
 	}, 500)
@@ -377,6 +384,7 @@ const deleteNodeOnGraphos = () => {
 					edge.dest?.x !== node.x &&
 					edge.dest?.y !== node.y,
 			)
+			addTestCode('eliminar', oldNodeValue)
 		} else console.log('Nodo no econtrado')
 	}
 }
@@ -393,6 +401,7 @@ const updateNodeOnGraphos = () => {
 			tmpSearchGraphoNode = node
 			graphoNodeScaleCounter = 0
 			node.value = newNodeValue
+			addTestCode('actualizar', `${oldNodeValue},${newNodeValue}`)
 		} else alert('Nodo no econtrado')
 	}
 }
@@ -408,6 +417,7 @@ const searchNodeOnGraphos = () => {
 			// ACTUALIZAR NODO
 			tmpSearchGraphoNode = node
 			graphoNodeScaleCounter = 0
+			addTestCode('buscar', oldNodeValue)
 		} else alert('Nodo no econtrado')
 	}
 }
