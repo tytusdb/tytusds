@@ -146,6 +146,7 @@ var spc_Text = document.getElementById("espacioTxt");
 
 // V  A  R  I  A  B  L  E  S  -  G  L  O  B  A  L  E  S
 var contenido;
+var resulFile;
 
 // I  N  S  T  A  N  C  I  A
 var huf = new Huffman();
@@ -157,7 +158,8 @@ function codificar(){
     var entrada = document.getElementById("espacioTxt").value;
     var salida = document.getElementById("respuesta");
     var respu = huf.buildTabla(entrada);
-
+    // pendiente de poner 
+    // resulFile = respu;
     salida.textContent = respu;
 
 }
@@ -178,8 +180,14 @@ function getVelocidad(){
 
 // ***** GUARDAR ARCHIVO *****
 function guardar(){
-    console.log("Guardando JSON");
-
+    console.log("Guardando .txt"); 
+    let saveArchivo = new Blob([resulFile],{type:"application/txt"});
+    let a = document.createElement("a");
+    a.setAttribute('href', 'data:text/plain;charset=utf-8, ' + encodeURIComponent(resulFile));
+    a.href = URL.createObjectURL(saveArchivo);
+    a.download = "huffman.txt";
+    a.click();
+    
 }
 // ***** LEYENDO ARCHIVO *****
 function readFile(evento){ // lectura del archivo .json
