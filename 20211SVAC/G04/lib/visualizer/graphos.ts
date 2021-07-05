@@ -129,7 +129,8 @@ const saveGraphosJSON = () => {
 				const currentVertex = vertexArray[i]
 				if (
 					currentVertex.aristas.some(
-						(edge) => edge.arista.toString() === vertexArray[j].vertice.toString(),
+						(edge) =>
+							edge.arista.toString() === vertexArray[j].vertice.toString(),
 					)
 				)
 					row.push(1)
@@ -139,7 +140,14 @@ const saveGraphosJSON = () => {
 		}
 
 		// GUARDAR
-		saveJSONFile(matrix.map(row => `[${row.join(',')}]`))
+		saveJSONFile(matrix)
+	} else {
+		const values = vertexArray.map((vertex) =>
+			vertex.aristas.map((edge) => edge.arista),
+		)
+		// GUARDAR
+		// @ts-ignore
+		saveJSONFile(values)
 	}
 }
 

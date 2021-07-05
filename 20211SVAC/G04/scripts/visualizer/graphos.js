@@ -95,7 +95,9 @@ var saveGraphosJSON = function () {
             var row = [];
             var _loop_3 = function (j) {
                 var currentVertex = vertexArray[i];
-                if (currentVertex.aristas.some(function (edge) { return edge.arista.toString() === vertexArray[j].vertice.toString(); }))
+                if (currentVertex.aristas.some(function (edge) {
+                    return edge.arista.toString() === vertexArray[j].vertice.toString();
+                }))
                     row.push(1);
                 else
                     row.push(0);
@@ -105,7 +107,13 @@ var saveGraphosJSON = function () {
             }
             matrix.push(row);
         }
-        saveJSONFile(matrix.map(function (row) { return "[" + row.join(',') + "]"; }));
+        saveJSONFile(matrix);
+    }
+    else {
+        var values = vertexArray.map(function (vertex) {
+            return vertex.aristas.map(function (edge) { return edge.arista; });
+        });
+        saveJSONFile(values);
     }
 };
 var onChangeGraphosInput = function (ev, callback) {

@@ -44,7 +44,7 @@ fileUploadCallback = function () {
 var saveOpenHashTable = function () {
     if (hashInstance) {
         var parsedValues = isOpenHash
-            ? hashInstance.tabla.map(function (node) { return "[" + node.valores.map(function (node) { return node.valor; }).join(',') + "]"; })
+            ? hashInstance.tabla.map(function (node) { return node.valores.map(function (node) { return node.valor; }); })
             :
                 hashInstance.tabla.map(function (node) { return node.valor; });
         saveJSONFile(parsedValues);
