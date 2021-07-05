@@ -25,6 +25,7 @@
     "terser": "3.14.1",
     "tslib": "^2.0.0",
     "velocity-animate": "^1.5.2",
+    "vis": "^4.21.0-EOL",
     "zone.js": "~0.11.3"
   },
   "devDependencies": {
@@ -33,6 +34,7 @@
     "@angular/compiler-cli": "~11.2.6",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
+    "@types/vis": "^4.21.22",
     "angular-cli-ghpages": "^1.0.0-rc.2",
     "codelyzer": "^6.0.0",
     "jasmine-core": "~3.6.0",

@@ -88,6 +88,14 @@ class Animaciones{
 			hilera.classList="animate__animated animate__slideInDown"
 		}, 600*retardo);
 	}
+	graficarArbol(raiz, id, x, y){
+		if (raiz) {//debugger
+			this.crearColocar(raiz.letra+id.toString(),raiz.letra,x,y)
+			this.graficarArbol(raiz.izq,id-1,x-100,y+70)
+			this.graficarArbol(raiz.der,id+1,x+50,y+50)
+		}
+		//else{return}
+	}	
 }
 
 module.exports = Animaciones

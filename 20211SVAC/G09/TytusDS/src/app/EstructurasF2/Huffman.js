@@ -47,6 +47,7 @@ class Huffman{
             cont++
         }
         this.cadenaConvertida=textoCodificado
+        this.graficar()
         console.log("La cadena cifrada es: "+textoCodificado)
     }
     recorrerArbol(nodo, valor, letra, cadenaCodificada, ) {//Esto está fumado para explicar :V
@@ -111,6 +112,11 @@ class Huffman{
     }
     returnCadena(){
         return this.cadenaConvertida
-    }    
+    }
+    graficar(){
+        const Animaciones= require('./Animaciones')
+        let ani=new Animaciones()
+        ani.graficarArbol(this.raiz,0,250,10)        
+    }
 }
 module.exports = Huffman

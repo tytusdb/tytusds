@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
+
 
 declare var require:any;
 let huffman=require('../../../EstructurasF2/Huffman')
@@ -9,6 +10,7 @@ let guardarArchivo=require('../../../EstructurasF2/guardarArchivo')
   styleUrls: ['./algoritmo-huffman.component.css']
 })
 export class AlgoritmoHuffmanComponent implements OnInit {
+
   cadena:string ="Primer"
   a= new huffman()
   constructor() {
@@ -39,5 +41,5 @@ export class AlgoritmoHuffmanComponent implements OnInit {
   download(){
     let dow= new guardarArchivo()
     dow.guardarTexto(this.cadena,this.a.returnCadena())
-  }  
+  }       
 }
