@@ -53,6 +53,10 @@
         <input  #verticev class="form-control mr-sm-2 " type="text" #nodobp placeholder="Valor Buscado" aria-label="Valor Vertice">
         <button (click)="searchProfundidad(nodoip.value,nodobp.value)" class="btn btn-outline-light mr-sm-2" type="button">Busqueda por Profundidad</button>
 
+        <input  #verticev class="form-control mr-sm-2 " type="text" #uni placeholder="Vertice de Inicio" aria-label="Valor Vertice">
+        <input  #verticev class="form-control mr-sm-2 " type="text" #unf placeholder="Valor Buscado" aria-label="Valor Vertice">
+        <button (click)="costo(uni.value,unf.value)" class="btn btn-outline-light mr-sm-2" type="button">Costo Uniforme</button>
+
         <input style="display:none;" type="file" (change)="abrir($event)" #archivo>
         <button (click)="archivo.click()" type="button" class="btn btn-outline-light mr-sm-2">Cargar</button>
         <button (click)="descargarContenido()" class="btn btn-outline-light mr-sm-2" type="submit">Guardar</button>

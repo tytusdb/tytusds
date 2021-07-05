@@ -211,26 +211,30 @@ export class RBAnchuraGrafosComponent implements OnInit {
     }
   }
   
-  abrir(eve:any)
+  async abrir(eve:any)
   {
     let a = eve.target.files[0];
     let text = "";
     if(a){
       let reader = new FileReader();
-      reader.onload = ev =>{
+      reader.onload = async  ev =>{
+
         const resultado = ev.target?.result;
         text = String(resultado);
+
         var data = JSON.parse(text);
+
         data.valores.forEach(element=>{
           this.addVertice(String(element.vertice));
           
         });
+
         data.valores.forEach(element=>{
           element.aristas.forEach(linea =>{
             this.addArista(String(element.vertice),String(linea.distancia),String(linea.arista))
           });
-          
         });
+
       }
       reader.readAsText(a);
     }
@@ -278,5 +282,40 @@ export class RBAnchuraGrafosComponent implements OnInit {
     downloader.setAttribute('href', downloadfile);
     downloader.setAttribute('download', 'data.json');
     downloader.click();
+  }
+
+  async costo(start, end){
+    
+   
+    
+    var list = [start];
+    
+    
+    while(list.length>0){
+      
+      
+
+      var current = list.shift();
+
+      if(current == end){
+        nodes.update({
+          id: this.buscarPagina(current).id, color: "green"
+        });
+        return;
+      }
+      nodes.update({
+        id: this.buscarPagina(current).id, color: "red"
+      });
+      await this.delay(500);
+
+      var temp = this.buscarPagina(current).succesors;
+      list = temp.concat(list);
+      list = list.sort((a,b)=>{return a[1]-b[1]});
+    }
+  }
+  
+  id = 1;
+  inc(){
+    return this.id++;
   }
 }
