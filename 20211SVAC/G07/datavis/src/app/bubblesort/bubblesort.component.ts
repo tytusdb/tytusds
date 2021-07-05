@@ -1,4 +1,5 @@
 import { Component, OnInit,ElementRef,ViewChild } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import * as vis from 'vis';
 
 var edges = new vis.DataSet([]);
@@ -27,19 +28,33 @@ export class BubblesortComponent implements OnInit {
 
   @ViewChild('mynetwork', {static: false}) el: ElementRef;
   public network: any;
-  constructor() { }
-  contenido = "{ valores: \n";
+  constructor(private sanitizer: DomSanitizer) { }
+  contenido = "{ \"valores\": [\n";
 
 
 
   generador(){
-    this.arr.forEach(valor => this.contenido += valor +",\n");
+    for(var j =0;j<this.arr.length;j++){
+      if(j+1!=this.arr.length){
+        this.contenido += this.arr[j]+",\n";
+      }else{
+        this.contenido += this.arr[j]+"\n";
+      }
+      
+    }
+    this.contenido += "]}";
+
+    //this.arr.forEach(valor => this.contenido += valor +",\n");
   }
 
   descargarContenido(){
     this.generador();
-    this.contenido += "}";
-    console.log(this.contenido)
+    let downloadfile = "data: text/json;charset=utf-8,"+encodeURIComponent(this.contenido);
+    console.log(downloadfile);
+    var downloader = document.createElement('a');
+    downloader.setAttribute('href', downloadfile);
+    downloader.setAttribute('download', 'data.json');
+    downloader.click();
   }
 
 

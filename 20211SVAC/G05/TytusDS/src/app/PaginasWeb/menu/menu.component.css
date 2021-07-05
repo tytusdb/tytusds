@@ -1,8 +1,17 @@
+.BotonesP{
+  position: fixed;
+  top:0px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
 
 .Head1{
   background-image: url("../../Componentes/Imagenes/usac.jpg");
   background-size: 200%;
   animation: movimiento 18s infinite linear alternate;
+  position: relative;
+  top:60px;
 }
 .Logo-usac{
   position: absolute;
@@ -57,7 +66,7 @@
   background-color: #BDBDBD;
   opacity: 0.3;
   position: absolute;
-  bottom: -1500px;
+  bottom: -3200px;
   left: 5%;
   border-radius: 50%;
   animation: burbujas 3s linear infinite;
@@ -134,16 +143,24 @@
 }
 @keyframes burbujas {
   0%{
-    bottom: -1500px;
+    bottom: -3100px;
     opacity: 0;
+  }
+  5%{
+    opacity: 0.4;
+    transform: translateX(5px);
+     }
+  15%{
+    opacity: 0.4;
+    transform: translateX(30px);
   }
   30%{
     opacity: 0.2;
-    transform: translateX(50px);
+    transform: translateX(55px);
   }
   50%{
       opacity: 0.4;
-    transform: translateX(20px);
+    transform: translateX(15px);
   }
   75%{
     opacity: 0.4;
@@ -151,7 +168,7 @@
   }
   80%{
     opacity: 0.4;
-    transform: translateX(45px);
+    transform: translateX(-25px);
   }
   85%{
     opacity: 0.4;

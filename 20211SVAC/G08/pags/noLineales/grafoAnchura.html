@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lineales</title>
+    <link rel="icon" href="../../img/logo.png">
+    <link rel="stylesheet" href="../../css/pageStyle.css">
+    <link rel="stylesheet" href="../../css/noLineales/grafos.css">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+</head>
+<body>
+    <!-- Aquí puedes escribir tu comentario -->
+    <header>
+        <nav id="nav" class="nav1">
+            <div class="barra-navegacion">
+                <div></div>
+                <div class="secciones" id="secciones">
+                    <a href="../../index.html#inicio">Inicio</a>
+                    <a href="../../index.html#estructuras">Estructuras</a>
+                    <a href="../../index.html#info">Información</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <br><br>
+    <div class="namE">
+        <h1>Recorrido y busqueda por anchura de grafos</h1>
+    </div>    
+    <div class="cuadroDatos">
+        <h3 class="titulo">Ingrese datos</h3>
+        <br>
+        <input class="dato2 centrado" type="text" placeholder="Nuevo elemento" id="vertice">
+        <a href="#" class="button" id="agregarVertice"><img src="../../svg/add.svg"></a>
+        <br><br>
+        <input class="datoGrafo" type="text" placeholder="Inicio" id="inicio">
+        <input class="datoGrafo" type="text" placeholder="Final" id="final">
+        <br><br>
+        <input class="dato2 centrado" type="text" placeholder="Distancia" id="distancia">
+        <a href="#" class="button" id="agregar"><img src="../../svg/add.svg"></a>
+        <br><br>
+        <a href="#" class="button" id="eliminar"><img src="../../svg/remove.svg"></a>
+        <a href="#" class="button" id="buscar"><img src="../../svg/find.svg"></a>
+        <a href="#" class="button" id="recorrer"><img src="../../svg/recorrer.svg"></a>
+        <br>
+        <br>
+        <div class="two-things">
+            <input class="dato2 centrado" type="text" placeholder="Nuevo elemento" id="nuevoElemento">
+            <a href="#" class="button" id="actualizar"><img src="../../svg/update.svg"></a>
+        </div>
+        <br>
+        <input type="file" id="file" class="button"><label for="file" class="but-file "><img src="../../svg/download.svg"></label>
+        <a href="#" class="button" id="guardar"><img src="../../svg/upload.svg"></a>
+        <a href="#" class="button clear" id="limpiar"><img src="../../svg/clear.svg"></a>  
+        <br>
+        <br>
+        <input class="dato2" type="number" placeholder="Velocidad" id="numVelocidad">
+        <a href="#" class="button" id="velocidad"><img src="../../svg/fast.svg"></a>
+        <br>
+        <br>
+        <select class="almacen" id="opcs">
+            <option disabled selected="">Almacenamiento</option>
+            <option value="matrizAd" >Matriz de adyacencia</option>
+            <option value="listaAd" >Lista de adyacencia</option>
+        </select>
+        <a href="#" class="button" id="almacena"><img src="../../svg/almacenamiento.svg"></a>
+        <br>
+        <br>
+        <input  type="checkbox" name="inicio" id="dirigido"><label for="inicio" class="check ing">  Dirigido</label>     
+        <input  type="checkbox" name="final" id="ponderado"><label for="final" class="check ing">  Ponderado</label>
+        <br>
+        <br>
+    </div>
+    <div class="cuadroAnim" id="espacio">
+        
+    </div>
+    <div class="cuadroBR" id="resBR">
+       
+    </div>
+
+    <script src="../../js/noLineales/grafoAnchura.js">
+
+    </script>
+    <br><br><br><br>
+
+</body>
+</html>

@@ -32,6 +32,7 @@ class QuickSort{
             //Reemplaze low por un menor
             if(i<j)
                 array[i++] = array[j];
+                console.log("1");
                 crearDatos();
             // Encuentre la primera posición mayor que el umbral de izquierda a derecha
 
@@ -41,6 +42,7 @@ class QuickSort{
 
             if(i<j)
                 array[j--]=array[i];
+                console.log("1");
                 crearDatos();
 
         }

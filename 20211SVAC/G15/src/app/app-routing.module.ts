@@ -30,6 +30,16 @@ import { CifradofeisComponent } from './components/cifradofeis/cifradofeis.compo
 import { CodificacionComponent } from './components/codificacion/codificacion.component';
 import { LZWComponent } from './components/lzw/lzw.component';
 
+import { CompuestasComponent } from './components/compuestas/compuestas.component'
+
+
+import { DispersaComponent } from './components/dispersa/dispersa.component'
+import { MajorComponent } from './components/major/major.component'
+
+
+import { NoLinealesComponent } from './components/no-lineales/no-lineales.component'
+import { HashCerradaComponent } from './components/hash-cerrada/hash-cerrada.component'
+
 const routes: Routes = [
   {path: 'binaryTree', component: BinaryTreeComponent, pathMatch: 'full'},
   {path: 'listaDobleCircular', component: ListaDobleCircularComponent, pathMatch: 'full'},
@@ -53,6 +63,16 @@ const routes: Routes = [
   {path: 'feistel',component:CifradofeisComponent,pathMatch:'full'},
   {path: 'codificacion',component:CodificacionComponent,pathMatch:'full'},
   {path: 'LZW',component:LZWComponent,pathMatch:'full'},
+
+  {path: 'compuesta/dispersa', component: DispersaComponent, pathMatch: 'full'},
+  {path: 'AVL', component: AVLComponent, pathMatch: 'full'},
+  {path: 'rapido', component: MetodorapidoComponent, pathMatch: 'full'},
+  {path: 'seleccion',component:MetodoSeleccionComponent,pathMatch:'full'},
+  {path: 'compuestas',component:CompuestasComponent,pathMatch:'full'},
+  {path: 'compuestas/major',component:MajorComponent,pathMatch:'full'},
+  {path: 'NoLineales',component:NoLinealesComponent,pathMatch:'full'},
+  {path: 'nolineales/hash/cerrada',component:HashCerradaComponent,pathMatch:'full'},
+
   {path: '', component: HomeComponent, pathMatch: 'full'}
   
 ];

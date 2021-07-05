@@ -1,13 +1,16 @@
 import { NodoDoble } from './nodo-doble';
+import { OrdenamientoSeleccion } from '../../seleccion/ts/seleccion';
 
 export class ListaDoble{
     primero: any;
     ultimo: any;
     cuenta: number;
+    orden: OrdenamientoSeleccion;
     constructor(){
         this.primero = null;
         this.ultimo = null;
         this.cuenta = 0;
+        this.orden = new OrdenamientoSeleccion();
     }
 
     vacia(): boolean {
@@ -47,6 +50,23 @@ export class ListaDoble{
             this.primero = aux;
         }
         this.cuenta += 1;
+    }
+
+    agregarOrdenado(valor: any): void {
+        let arreglo: any = [];
+        let aux = this.primero;
+        arreglo.push(valor);
+        for (let i = 0; i < this.cuenta; i++) {
+            arreglo.push(aux.valor);
+            aux = aux.siguiente;
+        }
+        this.primero = null;
+        this.ultimo = null;
+        this.cuenta = 0;
+        let final = this.orden.ordenarLista(arreglo);
+        final.forEach( valor => {
+            this.agregarFinal(valor);
+        });
     }
 
     eliminar(posicion: number): void {

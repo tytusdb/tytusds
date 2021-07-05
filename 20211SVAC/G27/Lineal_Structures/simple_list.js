@@ -30,8 +30,13 @@ class simple_list{
 
   delete(valor){
     var anteriorNodo = this.find_before(valor);
+    if(this.primero.valor == valor){
+      this.primero = this.primero.siguiente;
+      return true
+    }
     if(!(anteriorNodo.siguiente == null)){
       anteriorNodo.siguiente = anteriorNodo.siguiente.siguiente;
+      return true
     }
     
   }

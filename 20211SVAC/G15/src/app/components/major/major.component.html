@@ -1,0 +1,73 @@
+<body>
+    <div class="container">
+
+        <div class="row opciones p-2">
+            <div class="col-lg-2 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <button class="btn btn-secondary " type="button" (click)="rowMajor()">Row Major</button>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <button class="btn btn-secondary " type="button" (click)="colMajor()">Col Major</button>
+
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <input type="number" class="form-control" id="numero" name="numero" [(ngModel)]="duracion"
+                        placeholder="Duracion">
+                </div>
+            </div>
+
+
+
+            <div class="col-12 col-sm-12 col-lg-3 text-left mt-2 text-white mt-1">
+                <div class="input-group">
+                    <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+                    <div class="file-upload">
+
+                        {{fileName || "No file uploaded yet."}}
+
+                        <button class="btn btn-primary" (click)="fileUpload.click()">
+                            <i class="fas fa-upload"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-12 col-lg-3 text-left mt-2 text-white mt-1">
+                <div class="input-group">
+                    <button class="btn btn-primary" (click)="generarJSON()">
+                        Generar JSON
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="container mt-5 " id="contenedorMatriz">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 w-100 col-sm-6 mb-2 " *ngFor="let dato of major; let i = index"
+                [attr.data-index]="i">
+
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Value: {{dato}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Index: {{i}} </h6>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+</body>

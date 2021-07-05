@@ -55,4 +55,5 @@ class OrInsercion{
     }
 }
 
-module.exports = OrInsercion;
+export default OrInsercion;
+//module.exports = OrInsercion;

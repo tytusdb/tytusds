@@ -13,11 +13,19 @@ import Burbuja from './Componentes/Paginas/Burbuja';
 import Seleccion from './Componentes/Paginas/Seleccion';
 import Insercion from './Componentes/Paginas/Insercion';
 import Rapido from './Componentes/Paginas/Rapido';
-import ArbolBinario from './Componentes/Paginas/ArbolBinario';
 import AVL from './Componentes/Paginas/AVL';
 import ArbolB from './Componentes/Paginas/Arbolb';
 import ArbolBPlus from './Componentes/Paginas/Arbolbplus';
 import ArbolMerkle from './Componentes/Paginas/Arbolmerkle';
+import MatrizColumnMajor from './Componentes/Paginas/ColumnMajor';
+import MatrizRowMajor from './Componentes/Paginas/RowMajor';
+import MatrizDispersa from './Componentes/Paginas/MatrizDispersa';
+import TablaHashAbierta from './Componentes/Paginas/HashAbierta';
+import TablaHashCerrada from './Componentes/Paginas/HashCerrada';
+import Compuesta from './Componentes/Paginas/Compuesta'
+import Hamming from './Componentes/Paginas/Hamming.js';
+import GrafoProfundidad from './Componentes/Paginas/GrafoProfundidad';
+import GrafoAnchura from './Componentes/Paginas/GrafoAnchura';
 
 
 
@@ -26,7 +34,13 @@ function App() {
     <Router>
       <Navbar />
       <Switch>
+        <Route path='/GrafoAnchura' exact component={GrafoAnchura} />
+        <Route path='/GrafoProfundidad' exact component={GrafoProfundidad} />
         <Route path='/' exact component={Home} />
+        <Route path='/HashAbierta' exact component={TablaHashAbierta} />
+        <Route path='/HashCerrada' exact component={TablaHashCerrada} />
+        <Route path='/ColumnMajor' exact component={MatrizColumnMajor} />
+        <Route path='/RowMajor' exact component={MatrizRowMajor} />
         <Route path='/Listasimplementeenlazada' component={ListaSE} />
         <Route path='/Listadoblementeenlazada' component={ListaDE} />
         <Route path='/Listacircularsimplementeenlazada' component={ListaCSE} />
@@ -38,11 +52,13 @@ function App() {
         <Route path='/Seleccion' component={Seleccion} />
         <Route path='/Insercion' component={Insercion} />
         <Route path='/Rapido' component={Rapido} />
-        <Route path='/ArbolBinario' component={ArbolBinario} />
         <Route path='/AVL' component={AVL} />
         <Route path='/Arbolb' component={ArbolB} />
         <Route path='/Arbolbplus' component={ArbolBPlus} />
         <Route path='/Arbolmerkle' component={ArbolMerkle} />
+        <Route path='/MatrizDispersa' component={MatrizDispersa} />
+        <Route path='/Compuesta' component={Compuesta} />
+        <Route path='/Hamming' component={Hamming} />
       </Switch>
     </Router>
   );

@@ -1,3 +1,3 @@
 # tytusds
 
-Open source visualization of data structures and algorithms in JavaScript
+[Proyecto Grupo #8](./20211SVAC/G08)

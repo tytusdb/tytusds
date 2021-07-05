@@ -1,0 +1,62 @@
+
+  #ed-queue {
+    text-align:center;
+  }
+  #ed-queue div{
+    width:  100%;
+    text-align:center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-flex-direction: column;
+     flex-direction: column;
+  }
+  
+  #ed-queue #service{
+    border-top:1px solid grey;
+    background: lightgrey;
+  }
+  
+  #ed-queue #current-patient{
+    background: white;
+    margin:auto;
+    margin-botton:50px;
+    height:100px;
+  }
+  #ed-queue #current-patient div{
+  /*   border:1px solid red; */
+    background: #5896E6;
+    border-radius:50%;  
+    margin:auto;
+    width: 70px;
+    height:70px;
+  
+  }
+  
+  #ed-queue #patients-queue div{
+    background: #77CBB9;
+    border-radius:50%;
+    margin:auto;
+    width: 80px;
+    height:80px;
+  
+  }
+  
+  .queue-controls{
+    width:100%;
+    background: #77CBB9;
+    paddind: 0 20px;
+  }
+  
+  .queue-controls button{
+    font-size: 1.1rem;
+    padding: 5px 10px;
+    background:  white;
+    color:  #2e2e2e;
+    border:none;
+  }
+  
+  .queue-controls input {
+    font-size:1rem;
+    padding: 5px;
+  }

@@ -1,0 +1,29 @@
+input{
+  padding:5px 5px;
+}
+.estructuras{
+  height: 400px;
+  background-color: #0a58ca;
+}
+.button1{
+  padding: 5px 10px;
+  text-align: center;
+  border: none;
+  color:white;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 7px;
+  box-shadow: 0 9px black;
+  padding-right:5px;
+  padding-left: 5px;
+}
+
+.button1:hover {
+  background-color: #08555b;
+}
+.button1:active {
+  background-color: #08555b;
+  box-shadow: 0 5px black;
+  transform: translateY(4px);
+}

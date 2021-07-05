@@ -11,6 +11,9 @@ class NodoListaTemporal{
     }
 }
 
+var contadorglobal = 0
+var salida = ""
+
 //Clase Lista temporal para carga de datos
 class ListaTemporal{
     //Constructor
@@ -96,6 +99,7 @@ class Nodo{
     constructor(dato, izquierda, derecha, nodohijo){
         this.dato = dato
         this.hash = null
+        this.id = 0
         this.nodohijo = nodohijo
         this.izquierda = izquierda
         this.derecha = derecha
@@ -125,6 +129,7 @@ class MerkleTree{
         }
         //Hasheo de datos en sha256
         this.hashing()
+        contadorglobal = 0
     }
 
     //Metodo de Carga de datos en lista temporal para insercion de arbol
@@ -169,10 +174,14 @@ class MerkleTree{
             lista.eliminarLista(primero.datTemporal)
             lista.eliminarLista(segundo.datTemporal)
             let nodo1 = primero.datTemporal
+            nodo1.id = contadorglobal + 1
             let nodo2 = segundo.datTemporal
+            nodo2.id = contadorglobal + 2 
             let suma = nodo1.dato + nodo2.dato
             let nuevo = new Nodo(suma, nodo1, nodo2,false)
+            nuevo.id = contadorglobal
             lista.insertLista(nuevo)
+            contadorglobal = contadorglobal + 3
         }
         //Asignacion de raiz
         this.raiz = lista.cabeza.datTemporal
@@ -314,6 +323,10 @@ class MerkleTree{
         this.modificando(hasheo, nuevodato, nodo)
     }
 
+
+
+
+    
     //SubMetodo modificar
     modificando(hasheo, nuevodato, nodo){
         if(nodo!= null){
@@ -428,6 +441,48 @@ class MerkleTree{
         let vector = []
 
         return this.graficarApuntadores(this.raiz,vector)
+    }
+
+    //Metodo Graficar
+    graficar(valorBuscar){
+        
+        salida = ""
+        if(this.raiz == null){
+            console.log("No hay nada aun")
+            return
+        }
+        let nodo = this.raiz
+        let contador = 0
+        salida+= "digraph G{\nnode[shape=record]\nedge[color=\"green\"]\n"
+        this.graficando(nodo,valorBuscar)
+        salida+= "}"
+        console.log(salida)
+        contador = 0
+
+        return salida
+    }
+
+    //SubMetodo Buscar
+    graficando(nodo,valorBuscar){
+        if(nodo!= null){
+            if(valorBuscar == nodo.dato){
+                salida += "node"+nodo.id+" [color=\"green\" label = \" iz| "+nodo.dato+"|"+nodo.hash.hex()+" |de \"]; \n"
+            }else{
+                salida += "node"+nodo.id+" [label = \" iz| "+nodo.dato+"|"+nodo.hash.hex()+" |de \"]; \n"
+            }
+            if(nodo.derecha != null){
+                salida += "node"+nodo.id + " -> node" +nodo.derecha.id + "\n"
+            }
+            if(nodo.izquierda != null){
+                salida+= "node"+nodo.id + " -> node" + nodo.izquierda.id + "\n"
+            }
+            if(nodo.izquierda!=null){
+                this.graficando(nodo.izquierda,valorBuscar)
+            }
+            if(nodo.derecha != null){
+                this.graficando(nodo.derecha,valorBuscar)
+            }
+        }
     }
 }
 

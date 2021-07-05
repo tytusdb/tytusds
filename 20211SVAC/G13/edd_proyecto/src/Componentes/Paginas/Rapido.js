@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import AnimacionRapido from './Animaciones/AnimacionRapido';
 
 export default function Rapido(){
 	const [valor,setValor] = useState("");
@@ -43,7 +42,6 @@ export default function Rapido(){
 			</div>
 			<div className="row">
 			</div>
-				<AnimacionRapido />
 		</>
 	);
 }
