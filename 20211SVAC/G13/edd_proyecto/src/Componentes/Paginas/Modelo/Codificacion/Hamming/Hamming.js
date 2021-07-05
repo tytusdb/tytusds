@@ -159,8 +159,16 @@ class Hamming{
         var dot = [];
         var i = 0;
         var nodoId = 0;
+
+
+        i=0
         while(i<this.tabla.length){
+        	if(this.tabla[i].dato!=null){
+
+        		dot.push({id:nodoId, label:String(this.tabla[i].dato)+"\n"+String(this.tabla[i].id), level:this.tabla[i].Nivel});
+	        }else{
         	dot.push({id:nodoId, label:String(this.tabla[i].id), level:this.tabla[i].Nivel});
+	        }
         	i++;
         	nodoId++;
         }
