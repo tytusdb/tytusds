@@ -133,7 +133,7 @@ class Matriz {
         }
 
         if (!agregado) {
-            aux = nodo_y.derecha;
+            aux = nodo_y;
             while (aux.derecha != null) {
                 aux = aux.derecha;
             }
@@ -172,7 +172,7 @@ class Matriz {
         }
 
         if (!agregado) {
-            aux = nodo_x.abajo;
+            aux = nodo_x;
             while (aux.abajo != null) {
                 aux = aux.abajo;
             }
@@ -185,7 +185,7 @@ class Matriz {
     }
 
     caso4(valor, x, y) {
-
+debugger
         let nodo_x = this.lista_horizontal.busqueda(x);
         let nodo_y = this.lista_vertical.busqueda(y);
 
@@ -207,7 +207,7 @@ class Matriz {
             }
         }
         if (!agregado) {
-            aux = nodo_y.derecha;
+            aux = nodo_y;
             while (aux.derecha != null) {
                 aux = aux.derecha;
             }
@@ -233,7 +233,7 @@ class Matriz {
         }
 
         if (!agregado) {
-            aux = nodo_x.abajo;
+            aux = nodo_x;
             while (aux.abajo != null) {
                 aux = aux.abajo;
             }
@@ -283,11 +283,41 @@ class Matriz {
         //valores={vals: {valores}}
         return val        
     }
+    delete(valor){
+        let val=this.search(valor)
+        if (val.existe) {
+            let aux= val.nodo
+            if (aux.derecha) {
+                aux.izquierda.derecha=aux.derecha
+                aux.derecha.izquierda=aux.izquierda
+            }else{aux.izquierda.derecha=null}
+            if (aux.abajo) {
+                aux.arriba.abajo= aux.abajo
+                aux.abajo.arriba= aux.arriba                
+            } else {aux.arriba.abajo=null}
+            
+        } else {
+            console.log("No existe el elemento")
+        }
+    }
+    search(valor){
+        let cabecera = this.lista_horizontal.primero;
+        let aux;
+        while(cabecera != null){
+            aux = cabecera.abajo;
+            while(aux!= null){
+                if (valor==aux.valor) {
+                    return {existe: true, nodo:aux}
+                }
+                aux = aux.abajo;
+            }
+            cabecera = cabecera.siguiente;
+        }
+        return {existe: false, nodo:null}
+    }
+    actualizar(textReplace, textNew){
+        this.search(textReplace).nodo.valor=textNew
+    }
 }
-//let a= new Matriz()
-
-/*function addMatriz(valor, x, y) {
-    a.insertar(valor,x,y)
-}*/
 
 module.exports = Matriz;
