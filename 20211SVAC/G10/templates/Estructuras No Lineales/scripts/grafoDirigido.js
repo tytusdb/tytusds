@@ -719,15 +719,6 @@ limpiar.addEventListener("click", (e) =>{
     reporte.innerHTML = 'Se reinició el grafo.'
 })
 
-archivo.addEventListener('change', () => {
-    let leer = new FileReader()
-    leer.readAsText(archivo.files[0])
-    leer.onload = function() {
-    entrada = JSON.parse(leer.result)
-    }
-    reporte.innerHTML = 'Se cargó el archivo con éxito'
-})
-
 recorridoProfundidad.addEventListener("click", (e) =>{
     e.preventDefault
     if(grafo.nodos.length > 0){
@@ -884,6 +875,15 @@ arbolMinimo.addEventListener("click", (e) =>{
     }else{
         reporte.innerHTML = 'El grafo no tiene nodos.';
     }
+})
+
+archivo.addEventListener('change', () => {
+    let leer = new FileReader()
+    leer.readAsText(archivo.files[0])
+    leer.onload = function() {
+    entrada = JSON.parse(leer.result)
+    }
+    reporte.innerHTML = 'Se cargó el archivo con éxito'
 })
 
 cargar.addEventListener("click", (e) => {
