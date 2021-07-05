@@ -11,6 +11,7 @@ var maxicoAbierta;
 var funcionAbierta;
 var pruebaAbierta;
 var animacionAbierta;
+var ListaFinalAbierta= [];
 
 function checkAbiertaSimple(){
     if(checkBoxAbiertaSimple == true){
@@ -252,8 +253,8 @@ class Hash{
             let contador = 0;
             this.vector[posicion].lista.forEach(llave =>{
                 if(dato == llave.valor){
-                    console.log("Elemento Encontrado Con Funcion Hash, Posicion: "+posicion);
-                    console.log("Posicion en La lista: "+contador);
+                    //console.log("Elemento Encontrado Con Funcion Hash, Posicion: "+posicion);
+                   // console.log("Posicion en La lista: "+contador);
                 }
                 contador++;
                // console.log(llave.valor);
@@ -314,7 +315,25 @@ class Hash{
         });
         
     }
+    llenarLista(){
+        let valores = "";
+        this.vector.forEach(nodo => {
+            if(nodo != null){
+                valores = "";
+                nodo.lista.forEach(llave =>{
+                    valores += " | "+ llave.valor;
+                    ListaFinalAbierta.push(llave.valor);
+                });
+                //console.log("indice: ",nodo.indice,"Valores:",valores);
+            }else{
+               // console.log("indice:",null)
+            }
+        });
+        return ListaFinalAbierta;
+    
+    }
 }
+ 
 
 let tabla1 = new Hash(4,30,70);
 //tabla1.insertar("0","0","0" );
@@ -417,3 +436,22 @@ function guardarAbierta(event) {
     console.log(tabla1.print());
     reader.readAsText(file);
 }//guardar archivo
+function downloadAbierta(filename, text) {
+    //console.log("LISTA PARA GUARDAR: "+quitarUno())
+ 
+  
+    var element = document.createElement('a');
+    let doc = JSON.stringify({ "categoria": categoriaAbierta, 'nombre': nombreAbierta, 'tamaño':tamanoAbierta, 'minimo':minimoAbierta, 'maximo': maxicoAbierta, 'funcion': funcionAbierta
+    ,'prueba': pruebaAbierta, 'animacion': animacionAbierta, 'valores': tabla1.llenarLista() });
+    
+    //console.log(listSimple.print())
+    element.setAttribute('href', 'data:json,' + doc);
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+}
