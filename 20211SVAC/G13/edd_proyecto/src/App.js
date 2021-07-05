@@ -26,6 +26,7 @@ import Compuesta from './Componentes/Paginas/Compuesta'
 import Hamming from './Componentes/Paginas/Hamming.js';
 import GrafoProfundidad from './Componentes/Paginas/GrafoProfundidad';
 import GrafoAnchura from './Componentes/Paginas/GrafoAnchura';
+import Feistel from './Componentes/Paginas/Feistel.js';
 
 
 
@@ -59,6 +60,7 @@ function App() {
         <Route path='/MatrizDispersa' component={MatrizDispersa} />
         <Route path='/Compuesta' component={Compuesta} />
         <Route path='/Hamming' component={Hamming} />
+        <Route path='/Feistel' component={Feistel} />
       </Switch>
     </Router>
   );

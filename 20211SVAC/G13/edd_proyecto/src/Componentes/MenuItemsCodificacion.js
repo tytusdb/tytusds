@@ -16,7 +16,7 @@ export const MenuItemsCodificacion = [
 	},
 	{
 		title:'Cifrado Feistel',
-		path:'/',
+		path:'/Feistel',
 		cName:'dropdown-item'
 	},	
 ]
