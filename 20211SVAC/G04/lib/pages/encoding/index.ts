@@ -1,1 +1,4 @@
-console.log('encode')
+setEncodingData({
+	feistelProps: null,
+	instance: new Huffman(),
+})

@@ -13,16 +13,23 @@
 	<body>
 		<main>
 			<div id="settings-panel">
-				<!-- <img src="../../images/pages/encodingBanner.png" alt="Banner" /> -->
 				<div id="file-container">
 					<h1><i class="icon-file"></i>Archivos de entrada:</h1>
 					<div>
-						<button><i class="icon-upload"></i>Cargar</button>
+						<label class="btn" for="encoding-json-input"
+							><i class="icon-upload"></i>Cargar</label
+						>
+						<input
+							onchange="onChangeUploadEncodingInput(event)"
+							type="file"
+							style="display: none"
+							id="encoding-json-input"
+						/>
 						<button><i class="icon-download"></i>Guardar</button>
 					</div>
 				</div>
 				<div id="encoding-settings">
-					<h1><i class="icon-file"></i>Algoritmo de codificación:</h1>
+					<h1><i class="icon-lock"></i>Algoritmo de codificación:</h1>
 					<ul>
 						<li>
 							<label for="feistelEncode">Feistel</label>
@@ -54,6 +61,7 @@
 								id="huffmanEncode"
 								name="encodeAlgo"
 								value="huffman"
+								checked="true"
 							/>
 						</li>
 
@@ -93,15 +101,23 @@
 					</div>
 				</div>
 				<div id="input-container">
-					<h1><i class="icon-link"></i>Cadena de entrada:</h1>
+					<h1><i class="icon-message-square"></i>Cadena de entrada:</h1>
 					<textarea
 						id="encode-input"
 						placeholder="Mensaje de entrada (UTF-8)"
 					></textarea>
-					<button id="encoding-start">
+					<button id="encoding-start" onclick="startEncoding()">
 						<i class="icon-shuffle"></i>Codificar
 					</button>
 				</div>
+			</div>
+			<div id="encoding-panel">
+				<pre><code><strong style="color:var(--monoConstIce)">const</strong> data <i style='color:var(--graySoda)'>=</i> <strong style='color:var(--keywordSoda)'>new</strong> <strong style="color:var(--monoClassIce)">Hamming</strong>()</code></pre>
+				<textarea
+					id="encode-output"
+					placeholder="Mensaje de salida codificado"
+				></textarea>
+				<img src="../../images/pages/encodingBanner.png" alt="Banner" />
 			</div>
 		</main>
 		<script src="../../../scripts/utils/colors.js"></script>
@@ -109,6 +125,7 @@
 		<script src="../../../scripts/encoding/feistel/index.js"></script>
 		<script src="../../../scripts/encoding/hamming/index.js"></script>
 		<script src="../../../scripts/encoding/huffman/index.js"></script>
+		<script src="../../../scripts/visualizer/encoding.js"></script>
 		<script src="../../../scripts/pages/encoding/index.js"></script>
 	</body>
 </html>

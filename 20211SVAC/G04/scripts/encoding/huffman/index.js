@@ -33,6 +33,7 @@ var Huffman = (function () {
         this.pesos = [];
         this.raiz = null;
         this.codificacion = [];
+        this.cadena = '';
     }
     Huffman.prototype.crearArbol = function (cadena) {
         this.contarCaracteres(cadena);
@@ -47,9 +48,18 @@ var Huffman = (function () {
         this.raiz = this.pesos[0];
     };
     Huffman.prototype.codificar = function (cadena) {
+        this.cadena = cadena;
         this.crearArbol(cadena);
         this.buscar('', this.raiz, cadena);
         this.codificacion = this.ordenar(this.codificacion);
+    };
+    Huffman.prototype.toString = function () {
+        var tmpString = this.cadena;
+        this.codificacion.forEach(function (value) {
+            var char = value.valor.split(' - ')[0];
+            tmpString = tmpString.replaceAll(char, value.binario);
+        });
+        return tmpString;
     };
     Huffman.prototype.buscar = function (binaria, raiz, cadena) {
         if (raiz != null) {
@@ -97,7 +107,10 @@ var Huffman = (function () {
     };
     Huffman.prototype.print = function () {
         for (var i = 0; i < this.codificacion.length; i++) {
-            console.log('Valor: ' + this.codificacion[i].valor + ' - Codigo: ' + this.codificacion[i].binario);
+            console.log('Valor: ' +
+                this.codificacion[i].valor +
+                ' - Codigo: ' +
+                this.codificacion[i].binario);
         }
     };
     return Huffman;

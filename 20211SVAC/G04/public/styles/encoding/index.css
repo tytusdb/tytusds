@@ -13,8 +13,8 @@ main {
 	width: calc(100% - 60px);
 	max-width: 1306px;
 	max-height: 690px;
-	display: grid;
-	grid-template-columns: 230px 1fr 300px;
+	display: flex !important;
+	justify-content: space-between;
 	border-radius: var(--radius);
 	overflow: hidden;
 	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.07);
@@ -22,6 +22,7 @@ main {
 }
 
 #settings-panel {
+	display: block;
 	position: relative;
 	top: 0;
 	width: 400px;
@@ -67,13 +68,14 @@ main {
 	justify-content: flex-start;
 }
 
-#settings-panel > #file-container > div > button {
+#settings-panel > #file-container > div > button,
+#settings-panel > #file-container > div > .btn {
 	font-size: 0.9em;
 	height: 40px;
 	padding: 0 15px;
 }
 
-#settings-panel > #file-container > div > button:first-child {
+#settings-panel > #file-container > div > .btn:first-child {
 	margin-right: 10px;
 }
 
@@ -185,4 +187,41 @@ textarea:first-of-type {
 	right: 10px;
 	padding: 0 15px;
 	bottom: -10px;
+}
+
+#encoding-panel {
+	position: relative;
+	width: 400px;
+	height: 100%;
+	padding: 20px;
+	background-color: var(--boneNight);
+	display: grid;
+	grid-template-columns: 100%;
+	grid-template-rows: auto 1fr;
+}
+
+#encoding-panel > pre {
+	width: 100%;
+	max-height: calc(100vh - 255px);
+	overflow-x: hidden;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow-y: auto;
+	user-select: none;
+	color: var(--monoTextWhite);
+	scrollbar-width: none;
+	padding: 20px;
+	border-radius: var(--radius);
+}
+
+#encoding-panel > textarea {
+	margin-top: 20px;
+	height: calc(100% - 20px);
+}
+
+#encoding-panel > img {
+	position: absolute;
+	bottom: 0px;
+	right: -100px;
+	width: 300px;
 }
