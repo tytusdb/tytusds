@@ -11,7 +11,7 @@ export const MenuItemsCodificacion = [
 	},
 	{
 		title:'Algoritmo LZW',
-		path:'/',
+		path:'/LZW',
 		cName:'dropdown-item'
 	},
 	{

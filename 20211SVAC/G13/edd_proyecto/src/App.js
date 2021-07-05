@@ -27,6 +27,7 @@ import Hamming from './Componentes/Paginas/Hamming.js';
 import GrafoProfundidad from './Componentes/Paginas/GrafoProfundidad';
 import GrafoAnchura from './Componentes/Paginas/GrafoAnchura';
 import Feistel from './Componentes/Paginas/Feistel.js';
+import LZW from './Componentes/Paginas/LZW.js';
 
 
 
@@ -61,6 +62,7 @@ function App() {
         <Route path='/Compuesta' component={Compuesta} />
         <Route path='/Hamming' component={Hamming} />
         <Route path='/Feistel' component={Feistel} />
+        <Route path='/LZW' component={LZW} />
       </Switch>
     </Router>
   );
