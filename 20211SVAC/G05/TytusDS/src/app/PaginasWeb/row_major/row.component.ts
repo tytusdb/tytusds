@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { DocumentoService } from '../../services/documento.service';
-import { Cow} from './js/cow';
+import { Cow} from './js/row';
 import { saveAs } from 'file-saver';
 declare var require: any;
-let Lista=require('./js/cow');
+let Lista=require('./js/row');
 let vis=require('../../../../vis-4.21.0/dist/vis');
 
 @Component({
-  selector: 'app-cow',
-  templateUrl: './cow.component.html',
-  styleUrls: ['./cow.component.css']
+  selector: 'app-row',
+  templateUrl: './row.component.html',
+  styleUrls: ['./row.component.css']
 })
-export class CowComponent implements OnInit {
+export class RowComponent implements OnInit {
   opciones = {
     sizeNoLineales: 10,
     funcionHash: "simple",
@@ -60,7 +60,6 @@ export class CowComponent implements OnInit {
         this.lista.agregar(valor['indices'][0],valor['indices'][1],valor['valor'])
         });   
         this.lista.tabla();
-        this.lista.tabla1();
         this.lista.imprimir2();
        
       
@@ -76,7 +75,6 @@ actual(){
   agregar(v1,v2,v3){
    this.lista.agregar(v1,v2,v3)
    this.lista.tabla();
-   this.lista.tabla1();
     this.lista.imprimir2();
     this.list();
     this.listx(v1,v2)
@@ -95,7 +93,6 @@ actual(){
   eliminar(v1,v2) {
     this.lista.eliminar(v1,v2);
     this.lista.tabla();
-    this.lista.tabla1();
     this.lista.imprimir2();
     this.list();
     this.listx(v1,v2)
@@ -106,7 +103,6 @@ actual(){
   actualizar(v1,v2,nuevo){
     this.lista.modificar(v1,v2,nuevo);
     this.lista.tabla();
-    this.lista.tabla1();
     this.lista.imprimir2();
     this.list();
     this.listx(v1,v2)
@@ -213,7 +209,7 @@ actual(){
               
         
             if(n== h.length){
-              alert("Dato encontrado con: fila + columna*#filas");
+              alert("Dato encontrado con: fila*#columnas +columna");
             
         
               clearInterval(AnimLista);

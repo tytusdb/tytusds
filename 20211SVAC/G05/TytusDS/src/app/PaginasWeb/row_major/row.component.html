@@ -1,6 +1,6 @@
 <app-opciones (opcionesEvento)="getOpciones($event)"></app-opciones>
 <div class="container mt-3 text-white">
-    <h1 class="fw-light">Col-Major</h1>
+    <h1 class="fw-light">Row-Major</h1>
     <hr>
     <div class="row my-3">
         <div class="col-md-1">
@@ -20,10 +20,10 @@
         </div>
 
         <div class="col-md-1">
-            <input #a11 type="text" class="form-control" placeholder="fila" [(ngModel)]="nx">
+            <input #a11 type="text" class="form-control" placeholder="x" [(ngModel)]="nx">
         </div>
         <div class="col-md-1">
-            <input #a12 type="text" class="form-control" placeholder="columna" [(ngModel)]="ny">
+            <input #a12 type="text" class="form-control" placeholder="y" [(ngModel)]="ny">
         </div>
         <div class="col-md-1">
             <input #a13 type="text" class="form-control" placeholder="valor" [(ngModel)]="nvalor">
@@ -58,7 +58,7 @@
         </div>
         <div class="col-md-2">
             <div class="d-grid gap-2">
-                <button class="btn btn-success button1"  (click)="actual()">Col Major</button>
+                <button class="btn btn-success button1"  (click)="actual()">Row Major</button>
             </div>
         </div>
     
