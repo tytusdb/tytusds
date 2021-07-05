@@ -4,8 +4,7 @@ var edges = new vis.DataSet([]);
 var nodes = new vis.DataSet([]);
 var x1 = 0, y1 = 0;
 var sigs: any[];
-var h;
-var tiempo;
+var h, tiempo;
 var pos: any, value:any, nuevo: number, prueba: any;
 var options = {
   physics: {
@@ -36,7 +35,7 @@ class ListaDoble {
       this.tail = null;
       this.size = 0;
   }
-  delay(ms:number) {
+  delay1(ms:number) {
     return new Promise( resolve => setTimeout(resolve,ms));
   }
   async addhead(data: any){
@@ -62,7 +61,6 @@ class ListaDoble {
           nodes.add(
             {id: pos+','+prueba, label:String(data), x: uno , y: dos, color: "rgba(97,195,238,0.5)",shape: "box"}
           );
-          await this.delay(tiempo)
           let men: number;
           var ids = nodes.get({
             fields:['id', 'label']
@@ -75,11 +73,9 @@ class ListaDoble {
           edges.update(
             {from: pos+','+prueba, to: men, length: 20, arrows: 'to'}
           );
-          await this.delay(tiempo)
           edges.update(
             {from: men, to: pos+','+prueba, length: 20, arrows: 'to'}
           );
-          await this.delay(tiempo)
           console.log(prueba)
           sigs[pos] = prueba + 1;
       }
@@ -100,7 +96,6 @@ class ListaDoble {
           nodes.update(
             {id: pos, label:String(data), x: uno , y: dos, color: "rgba(97,195,238,0.5)",shape: "box"}
           );
-          await this.delay(tiempo)
       }
       this.size++;
   }
@@ -123,12 +118,12 @@ class ListaDoble {
                       nodes.update(
                         {id: val.id,label:valor, color: "#FFA807"}
                       );
-                      await this.delay(tiempo)
+                      await this.delay1(tiempo)
                     }else{
                       nodes.update(
                         {id: val.id, label:valor,color: "#FFA807"}
                       );
-                      await this.delay(tiempo)
+                      await this.delay1(tiempo)
                     }
                   }
                 }
@@ -160,12 +155,12 @@ class ListaDoble {
                       nodes.update(
                         {id: val.id, color: "#FFA807"}
                       );
-                      await this.delay(tiempo)
+                      await this.delay1(tiempo)
                     }else{
                       nodes.update(
                         {id: val.id, color: "#FFA807"}
                       );
-                      await this.delay(tiempo)
+                      await this.delay1(tiempo)
                     }
                   }
                 }
@@ -204,7 +199,7 @@ class ListaDoble {
         }
       }
       nodes.remove(primer);
-      await this.delay(tiempo)
+      await this.delay1(tiempo)
       return valoret;
   }
 
@@ -237,7 +232,7 @@ class ListaDoble {
       nodes.update(
         {id: primer, label:"-1"}
       );
-      await this.delay(tiempo)
+      await this.delay1(tiempo)
       return valoret;
   }
 
@@ -248,11 +243,12 @@ class ListaDoble {
       while (actual != null){
           if (actual.data === data){
               if (!anterior){
-                  return this.deletehead();
-                  await this.delay(tiempo)
+
+                return this.deletehead();
+
               }else if(!actual.next){
                   return this.deletetail();
-                  await this.delay(tiempo)
+
               }
               else {
                   anterior.next = actual.next;
@@ -268,7 +264,7 @@ class ListaDoble {
                       }
                     }
                     nodes.remove(primer);
-                    await this.delay(tiempo)
+                    await this.delay1(tiempo)
 
                     let froms: number;
                     for (var val of id){
@@ -285,11 +281,11 @@ class ListaDoble {
                     edges.add(
                       {from: froms, to: to, length: 20, arrows: 'to'}
                     );
-                    await this.delay(tiempo)
+                    await this.delay1(tiempo)
                     edges.add(
                       {from: to, to: froms, length: 20, arrows: 'to'}
                     );
-                    await this.delay(tiempo)
+                    await this.delay1(tiempo)
                   }
                   else{
                     var id = nodes.get({
@@ -302,7 +298,7 @@ class ListaDoble {
                       }
                     }
                     nodes.remove(primer);
-                    await this.delay(tiempo)
+                    await this.delay1(tiempo)
                   }
               }
               this.size--;
@@ -324,9 +320,6 @@ class HashAbierta{
     this.Arreglo = null;
     this.fun = fun;
   }
-  delay(ms:number) {
-    return new Promise( resolve => setTimeout(resolve,ms));
-  }
   simple(){
     let k = 0.5567;
     return k * tama;
@@ -340,7 +333,10 @@ class HashAbierta{
       const A = 0.6180;
       return tama*((k*A) % 1);
   }
-  async NuevaTabla(tamano: number){
+  delay(ms:number) {
+    return new Promise( resolve => setTimeout(resolve,ms));
+  }
+  NuevaTabla(tamano: number){
     tama = tamano;
     this.Arreglo = new Array(tama);//arreglo del tamaño especifico
     sigs = new Array(tama)
@@ -350,7 +346,6 @@ class HashAbierta{
       nodes.update(
         {id: j, label:'-1',x: x1 , y: y1, color: "rgba(97,195,238,0.5)",shape: "box"}
       );
-      await this.delay(tiempo)
       x1 = x1 + 90
     }
   }
@@ -410,7 +405,7 @@ class HashAbierta{
     }
   }
 
-  async actualizar(key:any, nuevo:any){
+  actualizar(key:any, nuevo:any){
     let posicion = this.ValorPos(key);
     var ids = nodes.get({
       fields:['id', 'label', 'color']
@@ -422,7 +417,6 @@ class HashAbierta{
         nodes.update(
           {id: val.id, color: "rgba(97,195,238,0.5)"}
         );
-        await this.delay(tiempo)
       }
     }
     try {
@@ -465,7 +459,7 @@ class HashAbierta{
     }
   }
 
-  async buscar(dato:any){
+  buscar(dato:any){
     let posicion = this.ValorPos(dato);
     var ids = nodes.get({
       fields:['id', 'label', 'color']
@@ -477,7 +471,6 @@ class HashAbierta{
         nodes.update(
           {id: val.id, color: "rgba(97,195,238,0.5)"}
         );
-        await this.delay(tiempo)
       }
     }
     try {
@@ -653,9 +646,8 @@ export class HashAbiertaComponent implements OnInit {
         const resultado=ev.target?.result
         text=String(resultado)
         var data = JSON.parse(text);  // se parse para obtener solo los datos
-        tiempo = data.animacion;
-        console.log("Time: "+tiempo);
         this.m = data.m;
+        tiempo = data.animacion;
         this.min = data.minimo;
         this.max = data.maximo;
         this.funcion = data.funcion;
