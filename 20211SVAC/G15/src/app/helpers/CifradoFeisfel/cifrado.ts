@@ -3,6 +3,12 @@ export class cifrado{
     public KeyBinario=""
     public  binarioK=""
     public  funcion=""
+    data={
+        left:[],
+        right:[],
+        key:[],
+        xor:[]
+    }
     Left=""
     Right=""
     ronda=0;
@@ -116,13 +122,17 @@ export class cifrado{
         //console.log("Izquierda" +  "| Derecha")
         //console.log("-----------------------Ronda"+this.ronda)
         console.log(this.Left +"|"+  this.Right)
+        this.data.left.push(this.Left)
+        this.data.right.push(this.Right)
 
     } 
     imprimir1(){
         console.log("                    |"+  this.binarioK)
         console.log("                    |"+  this.funcion)
         console.log("                    |"+  this.Left)
-        
+        this.data.key.push(this.binarioK)
+        this.data.xor.push(this.funcion)
+      //  this.data.left.push(this.Left)
     }
 
     cifrado(){
