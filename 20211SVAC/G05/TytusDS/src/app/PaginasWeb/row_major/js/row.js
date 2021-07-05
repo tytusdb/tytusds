@@ -1,5 +1,4 @@
 var matriz=[];
-var matriz1=[];
 var xx;
 var yy;
 
@@ -90,7 +89,7 @@ const c = new lista();
 
 
 
-class cow{
+class row{
     constructor(){}
        
     agregar(x,y,valor){
@@ -131,30 +130,7 @@ class cow{
     console.log(matriz)
     }
 
-    tabla1(){
-        matriz1=[];
-        var r=(parseInt(xx)+1)*(parseInt(yy)+1);
-        var contador=0;
-        var conx=0;
-        var cony=0;
-        var aux1=c.cuno;
-        do{var bandera=true;
-            var aux=c.cuno;
-            do{
-                if(aux.dato1==conx && aux.dato2==cony){
-                    matriz1.push(aux.dato3);
-                    bandera=false;
-                    break;
-                }
-                aux=aux.posterior;
-            }while(aux!=null);
-         if(conx==xx){ conx=-1; cony++;}
-         conx++;  contador++;
-        if(bandera==true){matriz1.push("nulo");}
-    
-        }while(contador<r)
-        console.log(matriz1)
-        }
+
 
 
 
@@ -227,8 +203,8 @@ class cow{
     mapeo(vx,vy){
         let b="";
         let arr=[];
-        var r=(parseInt(vx))+((parseInt(vy))*(parseInt(xx)+1))
-        for(var ii=0; ii<matriz1.length; ii++){
+        var r=((parseInt(vx))*(parseInt(yy)+1))+(parseInt(vy))
+        for(var ii=0; ii<matriz.length; ii++){
             b+=ii+" "
             if(ii==r){
                 let str = b;
@@ -242,8 +218,8 @@ class cow{
 
     
     verificar(vx,vy){
-        var r=(parseInt(vx))+((parseInt(vy))*(parseInt(xx)+1))
-        for(var ii=0; ii<matriz1.length; ii++){
+        var r=((parseInt(vx))*(parseInt(yy)+1))+(parseInt(vy))
+        for(var ii=0; ii<matriz.length; ii++){
             if(ii==r){
                 var j=""+ii;
                 return j;
@@ -256,7 +232,7 @@ class cow{
     mapeo1(){
         let b="";
         let arr=[];
-        for(var ii=0; ii<matriz1.length; ii++){
+        for(var ii=0; ii<matriz.length; ii++){
             b+=ii+" "
            
         }  
@@ -278,18 +254,18 @@ class cow{
                   }}); 
                   var ii=0;
                   punteros.push({from: "-1", to: ii, label:ii.toString() });
-                for(var ii=0; ii<matriz1.length; ii++){
+                for(var ii=0; ii<matriz.length; ii++){
                     var m=(parseInt(ii)+1);
-                    if(co<=xx){nodos.push({id:ii, label: matriz1[ii],shape:'box', color:{
+                    if(co<=yy){nodos.push({id:ii, label: matriz[ii],shape:'box', color:{
                         border:"white",background:"#F98323"
                       }});  co2=0; }
-                    else{nodos.push({id:ii, label: matriz1[ii],shape:'box'}); 
+                    else{nodos.push({id:ii, label: matriz[ii],shape:'box'}); 
                     co2++;
-                    if(co2>xx){co=-1}
+                    if(co2>yy){co=0}
                 }
                     co++;
                     
-                    if(ii<matriz1.length){
+                    if(ii<matriz.length){
                         punteros.push({from: ii, to: m, label:m.toString() });
                     }
                     
@@ -301,10 +277,10 @@ class cow{
 
 
     eliminar(vx,vy){
-        var r=(parseInt(vx))+((parseInt(vy))*(parseInt(xx)+1))
-        for(var ii=0; ii<matriz1.length; ii++){
+        var r=((parseInt(vx))*(parseInt(yy)+1))+(parseInt(vy))
+        for(var ii=0; ii<matriz.length; ii++){
             if(ii==r){
-                c.eliminar(matriz1[ii]);
+                c.eliminar(matriz[ii]);
             }
 
         }
@@ -312,10 +288,10 @@ class cow{
     }
 
     modificar(vx,vy,nuevo){
-        var r=(parseInt(vx))+((parseInt(vy))*(parseInt(xx)+1))
-        for(var ii=0; ii<matriz1.length; ii++){
+        var r=((parseInt(vx))*(parseInt(yy)+1))+(parseInt(vy))
+        for(var ii=0; ii<matriz.length; ii++){
             if(ii==r){
-                c.modificar(matriz1[ii],nuevo);
+                c.modificar(matriz[ii],nuevo);
             }
 
         }
@@ -356,4 +332,4 @@ class cow{
         
 
 }
-module.exports = cow;
+module.exports = row;

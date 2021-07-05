@@ -27,6 +27,7 @@ import { HashCerradoComponent } from './PaginasWeb/hash-cerrado/hash-cerrado.com
 import { ProfundidaComponent } from './PaginasWeb/grafo_profundida/profundida.component';
 import { CuComponent } from './PaginasWeb/costo_uniforme/cu.component';
 import { CowComponent } from './PaginasWeb/cow_major/cow.component';
+import { RowComponent } from './PaginasWeb/row_major/row.component';
 
 
 
@@ -58,6 +59,7 @@ const routes: Routes = [
   {path:'Cu', component: CuComponent},
   {path:'Profundida', component: ProfundidaComponent},
   {path:'Cow', component: CowComponent},
+  {path:'Row', component: RowComponent},
   {path:'**', redirectTo: 'menu'},
 
 ];

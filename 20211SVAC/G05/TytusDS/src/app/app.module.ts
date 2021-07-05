@@ -33,6 +33,7 @@ import { CuComponent } from './PaginasWeb/costo_uniforme/cu.component';
 import { ProfundidaComponent } from './PaginasWeb/grafo_profundida/profundida.component';
 import { FeistelComponent } from './PaginasWeb/feistel/feistel.component';
 import { CowComponent } from './PaginasWeb/cow_major/cow.component';
+import { RowComponent } from './PaginasWeb/row_major/row.component';
 
 
 @NgModule({
@@ -65,6 +66,7 @@ import { CowComponent } from './PaginasWeb/cow_major/cow.component';
     HashCerradoComponent,
     ProfundidaComponent,
     CowComponent,
+    RowComponent,
     FeistelComponent
   ],
   imports: [
