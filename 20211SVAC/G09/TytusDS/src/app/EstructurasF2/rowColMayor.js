@@ -1,3 +1,4 @@
+//import ('https://unpkg.com/vis-network/standalone/umd/vis-network.min.js')
 class RowColMayor{
     constructor(){
         this.matriz=[]
@@ -39,6 +40,7 @@ class RowColMayor{
     }
     insertar(text){
         this.matriz.push(text)
+        this.graficar()
     }
     delete(text){
         let dat= this.search(text)
@@ -64,12 +66,33 @@ class RowColMayor{
     }
     imprimir(){
         console.log(this.matriz)
-        /*for (let i = 0; i < this.matriz.length; i++) {
-            if (this.matriz[i]) {
-                console.log()
-            }
-        }*/
     }        
+    graficar(){
+        //let vis=require('../../../vis-4.21.0/dist/vis')
+        let vis=require('../../../node_modules/vis/dist/vis')
+        /*var nodes = new vis.DataSet([
+        ]);*/        
+        let nodes = [];
+
+        // Create a data table with links.
+        let edges = [];
+
+        nodes.push({id: 1, label: 'Get HTML'});
+        nodes.push({id: 2, label: 'Using SVG'});
+        edges.push({from: 1, to: 2, length: 300});
+
+        // create a network
+        var container = document.getElementById("DivInsert")
+
+        //var container = document.getElementById('mynetwork');
+        var data = {
+            nodes: nodes,
+            edges: edges
+        };
+        var options = {};
+        //network = new vis.Network(container, data, options);
+        let garf = new vis.Network(container, data, {});        
+    }
 }
 /*
 let a = new RowColMayor()

@@ -27,11 +27,20 @@
     <em class="fas fa-list"></em>
     ALGORITMO LZW
 </button>
-
+<table>
+  <tr>
+    <td>
+      <input type="file" (change)="leerArchivo($event)">
+    </td>
+    <td>
+      <button class="boton" (click)="codificar()" type="submit" >Codificar</button>
+    </td>
+    <td>
+      <button class="boton" type="submit" (click)="download()">Guardar Conversión</button>
+    </td>
+  </tr>
+</table>
 <textarea [(ngModel)]="cadena" rows="10" cols="50" placeholder="Escriba su cadena" >{{cadena}}</textarea>
-<input type="file" (change)="leerArchivo($event)">
-<button class="boton" (click)="codificar()" type="submit" >Codificar</button> &nbsp; &nbsp;
-<button class="boton" type="submit" (click)="download()">Guardar Conversión</button>
 
 <!--Esto debe quedar abajo de todo ya que es la tabla del algoritmo-->
 <table id="tAnimation"></table>

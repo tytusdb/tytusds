@@ -1,10 +1,16 @@
 class Animaciones{
-	constructor(){}
+	constructor(){
+		this.btns=[]
+	}
 	graficarMatriz(array){
 		//debugger
 		document.getElementById('DivInsert').innerHTML = '';
 		for (let i = 0; i < array.length; i++) {
-			if (array[i][0]) {this.crearColocar("btn"+i.toString()+",0",array[i][0],50*i,0)}
+			if (array[i][0]) {
+				//this.crearBoton("btn"+i.toString()+",0",array[i][0])
+
+				this.crearColocar("btn"+i.toString()+",0",array[i][0],75*i,0)
+			}
 		}//debugger
 		for (let j = 1; j < array[0].length; j++) {
 			for (let i = 0; i < array.length; i++) {
@@ -16,11 +22,11 @@ class Animaciones{
 	graficarMatrizUnaDimension(array){
 		debugger
 		document.getElementById('DivInsert').innerHTML = '';
-		let cont=1
+		let cont=0
 		for (let i = 0; i < array.length; i++) {
 			try {
 				if (array[i][0]!=null) {
-					this.crearColocar("btn"+i.toString()+",0",array[i],50*cont,0)
+					this.crearColocar("btn"+i.toString()+",0",array[i],80*cont,0)
 					cont++}
 			} catch (e) {}
 		}
@@ -54,6 +60,15 @@ class Animaciones{
         btn.classList='animate__animated animate__flipInY'
         btn.style.position="absolute"
         divInsert.appendChild(btn)//Insertando el div en el Div principal        
+		this.btns.push(new BtnAnimate(id,contenido,btn.offsetHeight, btn.offsetWidth))
+	}
+	buscar(val){
+		for (let i = 0; i < this.btns.length; i++) {
+			if(this.btns[i].valor==val){
+				return this.btns[i]
+			}
+		}
+		return null
 	}
 
 	seleccionar(id){
@@ -95,7 +110,20 @@ class Animaciones{
 			this.graficarArbol(raiz.der,id+1,x+50,y+50)
 		}
 		//else{return}
+	}
+	graficarMatrizDispersa(encabezado){
+
 	}	
+}
+class BtnAnimate{
+	constructor(id, valor, btnAlto, btnAncho, x, y){
+		this.id = id
+		this.valor = valor
+		this.btnAlto = btnAlto
+		this.btnAncho = btnAncho
+		this.x = x
+		this.y = y
+	}
 }
 
 module.exports = Animaciones
