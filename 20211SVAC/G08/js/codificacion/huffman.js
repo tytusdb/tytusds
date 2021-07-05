@@ -148,8 +148,9 @@ var huf = new Huffman();
 
 // F  U  N  C  I  O  N  E  S  -  E  V  E  N  T  O  S
 // ***** CODIFICAR *****
-function codificar(){
+async function codificar(){
     console.log("Codificando")
+    velocidad = 10;
     var entrada = document.getElementById("espacioTxt").value;
     var salida = document.getElementById("respuesta");
     var cuadroTabla = document.getElementById("cuadroTabla");
@@ -160,9 +161,22 @@ function codificar(){
     // guardando respuesta para el saveFile
     resulFile = respu;
     efectoMatrix();
-    //cuadroTabla.textContent = "";
+    await new Promise((resolve) =>
+        setTimeout(() =>{
+            resolve();
+        }, (5000)) //delay
+    );  
+    
 
-    //animTabla();
+    cuadroTabla.textContent = "";
+    await new Promise((resolve) =>
+        setTimeout(() =>{
+            resolve();
+        }, (100)) //delay
+    ); 
+
+    animTabla();
+    
     salida.textContent = respu;
 
 }
@@ -213,8 +227,9 @@ function animTabla(){
 }
 
 function efectoMatrix(){
-    velocidad = 1000000;
-    var img = "<img class=\"efectoM\" src=\"../../img/matrix1.gif\">"
+    
+    //var img = "<img class=\"efectoM\" src=\"../../img/matrix1.gif\">"
+    var img = "<img class=\"efectoM\" src=\"https://media.giphy.com/media/AOSwwqVjNZlDO/giphy.gif\">"
     var cuadroTabla = document.getElementById("cuadroTabla");
     cuadroTabla.innerHTML = img;
 }

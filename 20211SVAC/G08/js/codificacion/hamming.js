@@ -132,13 +132,29 @@ var hamon = new Hamming();
 
 // F  U  N  C  I  O  N  E  S  -  E  V  E  N  T  O  S
 // ***** CODIFICAR *****
-function codificar(){
+async function codificar(){
     console.log("Codificando");
     var entrada = document.getElementById("espacioTxt").value;
     var salida = document.getElementById("respuesta");
     var respu = hamon.cifrar(entrada);
     resulFile = respu;
 
+    /*
+    efectoMatrix();
+    await new Promise((resolve) =>
+        setTimeout(() =>{
+            resolve();
+        }, (5000)) //delay
+    );  
+    
+
+    cuadroTabla.textContent = "";
+    await new Promise((resolve) =>
+        setTimeout(() =>{
+            resolve();
+        }, (100)) //delay
+    ); 
+    */
     buildTabla();
     salida.textContent = respu;
 
@@ -167,6 +183,13 @@ function buildTabla(){
     tab += "</table>";
     cuadroTabla.innerHTML = tab;
 
+}
+function efectoMatrix(){
+    
+    //var img = "<img class=\"efectoM\" src=\"../../img/matrix1.gif\">"
+    var img = "<img class=\"efectoM\" src=\"https://media.giphy.com/media/AOSwwqVjNZlDO/giphy.gif\">"
+    var cuadroTabla = document.getElementById("cuadroTabla");
+    cuadroTabla.innerHTML = img;
 }
 */
 
