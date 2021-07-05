@@ -151,8 +151,6 @@ async function codificar(){
 
     var respu = lzw.cifrar(entrada);
     resulFile = respu;
-    // NUEVOOO
-    /*
     efectoMatrix();
     await new Promise((resolve) =>
         setTimeout(() =>{
@@ -168,13 +166,10 @@ async function codificar(){
         }, (100)) //delay
     ); 
     animTabla();
-    */
     salida.textContent = respu;
 
 }
 
-// NUEVOOOO
-/*
 // ***** CONSTRUYENDO TABLA *****
 function animTabla(){
     // espacio donde se colocara la tabla
@@ -215,7 +210,6 @@ function efectoMatrix(){
     var cuadroTabla = document.getElementById("cuadroTabla");
     cuadroTabla.innerHTML = img;
 }
-*/
 // ***** LIMPIAR PANTALLA *****
 function limpiar(){
     console.log("Limpiando");
