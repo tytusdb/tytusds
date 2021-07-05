@@ -34,7 +34,7 @@ import { LZWComponent } from './components/lzw/lzw.component'
 
 import { DispersaComponent } from './components/dispersa/dispersa.component';
 import { CompuestasComponent } from './components/compuestas/compuestas.component';
-import { MajorComponent } from './components/major/major.component';
+//import { MajorComponent } from './components/major/major.component';
 import { NoLinealesComponent } from './components/no-lineales/no-lineales.component';
 import { HashCerradaComponent } from './components/hash-cerrada/hash-cerrada.component';
 import { CompuestaComponent } from './components/compuesta/compuesta.component'
@@ -46,7 +46,8 @@ import { GrafoNoDirigidoComponent } from './components/grafo-no-dirigido/grafo-n
 import { RecubrimientoMinimoComponent } from './components/recubrimiento-minimo/recubrimiento-minimo.component';
 import { EstructurasNoLinealesComponent } from './components/estructuras-no-lineales/estructuras-no-lineales.component';
 import { AlgoritmoCodificacionComponent } from './components/algoritmo-codificacion/algoritmo-codificacion.component';
-import { GrafosConexionComponent } from './components/grafos-conexion/grafos-conexion.component'
+import { GrafosConexionComponent } from './components/grafos-conexion/grafos-conexion.component';
+import { CostComponent } from './components/Components/cost/cost.component'
 
 
 @NgModule({
@@ -92,6 +93,7 @@ import { GrafosConexionComponent } from './components/grafos-conexion/grafos-con
     EstructurasNoLinealesComponent,
     AlgoritmoCodificacionComponent,
     GrafosConexionComponent,
+    CostComponent,
   ],
   imports: [
     BrowserModule,

@@ -29,7 +29,7 @@ import { CodificacionhuffmannComponent } from './components/codificacionhuffmann
 import { CifradofeisComponent } from './components/cifradofeis/cifradofeis.component';
 import { CodificacionComponent } from './components/codificacion/codificacion.component';
 import { LZWComponent } from './components/lzw/lzw.component';
-
+import { CostComponent } from './components/Components/cost/cost.component';
 import { CompuestasComponent } from './components/compuestas/compuestas.component'
 
 import { CostoUniformeComponent } from './components/costo-uniforme/costo-uniforme.component';
@@ -84,11 +84,11 @@ const routes: Routes = [
   {path: 'grafoDirigido', component:GrafoDirigidoComponent,pathMatch:'full'},
   {path:'grafoNoDirigido',component:GrafoNoDirigidoComponent,pathMatch:'full'},
   {path:'noLineal',component:EstructurasNoLinealesComponent,pathMatch:'full'},
-  {path:'codificacion', component:AlgoritmoCodificacionComponent,pathMatch:'full'},
+  {path:'codificacionn', component:AlgoritmoCodificacionComponent,pathMatch:'full'},
   {path:'grafosND',component:GrafosConexionComponent,pathMatch:'full'},
   {path: 'NoLineales',component:NoLinealesComponent,pathMatch:'full'},
   {path: 'nolineales/hash/cerrada',component:HashCerradaComponent,pathMatch:'full'},
-
+  {path: 'costoo',component: CostComponent,pathMatch:'full'},
   {path: 'compuestas/compuesta', component: CompuestaComponent, pathMatch: 'full'},
 
 

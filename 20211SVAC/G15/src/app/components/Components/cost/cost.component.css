@@ -1,8 +1,12 @@
+.mynetwork {
+  width: 100%;
+  height: 100%;
+  border: 1px solid lightgray;
+}
 
 
 body { font: 400 1em/1.5 "Neuton"; 
-	background: #090d00; 
-	color: rgba(255,255,255,.25); 
+	background: #063f6d; 
 	text-align: center; 
 	margin: 0 }	
 
