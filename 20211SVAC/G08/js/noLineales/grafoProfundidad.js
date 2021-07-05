@@ -93,6 +93,8 @@ class Grafo{
         }
     }
     graficar(){
+        nodes = [];
+        edges = [];
         for (let k = 0; k < this.vertices.length; k++){
             nodes.push({
                 id: this.vertices[k].noVer,
@@ -137,6 +139,9 @@ class Grafo{
             }
         }
         return -1;
+    }
+    matrizAdyacencia(){
+        return this.matrizAdy;
     }
 
 
@@ -506,10 +511,36 @@ function buscar(){
     console.log("Buscando");
     var Binicio = document.getElementById('inicio').value;
     var Bfinal = document.getElementById('final').value;
+    var result = document.getElementById('resBR');
+    result.textContent = "";
 
     var find = Bprofundidad(grafo, Binicio, Bfinal);
     console.log(find);
+    animResult(find);
 
+
+}
+// animacion de cuadrito
+async function animResult(cadena){
+    var result = document.getElementById('resBR');
+    cadena = cadena.split("-");
+    console.log(cadena)
+    velocidad = 10;
+
+    for (let i = 0; i < cadena.length; i++){
+        const div = document.createElement("div");
+        div.classList.add('cuadrito');
+        div.textContent = cadena[i];
+        
+        
+        result.appendChild(div);
+        await new Promise((resolve) =>
+        setTimeout(() =>{
+        resolve();
+        }, (velocidad*200)) //delay
+    );
+
+    }
 
 }
 function Bprofundidad(graph, start, end){
@@ -539,7 +570,7 @@ function Bprofundidad(graph, start, end){
         if (j == listOne.length - 1){
             return cadena += listOne[j].id;
         } else {
-            cadena += listOne[j].id + " -> ";
+            cadena += listOne[j].id + " - ";
         }
 
     }
@@ -559,8 +590,10 @@ function search(arr, code){
 function recorrer(){
     console.log("Recorriendo");
     var prime = document.getElementById('inicio').value;
+    var result = document.getElementById('resBR');
+    result.textContent = "";
     var path = Rprofundidad(grafo, prime);
-    console.log(path);
+    animResult(path);
 
 }
 
@@ -588,7 +621,7 @@ function Rprofundidad(graph, start){
         if (j == listOne.length - 1){
             cadena += listOne[j].id;
         } else {
-            cadena += listOne[j].id + " -> ";
+            cadena += listOne[j].id + " - ";
         }
     }
     return cadena;
@@ -629,17 +662,28 @@ function guardar(){
 
     var listGrafo = []
     var arist = []
-
+    var distance = distancia();
+    console.log(distance)
+    
     for (let i = 0; i < nodes.length; i++) {
         var vertex = nodes[i].label;
         var arist = []
         for (let j = 0; j < edges.length; j++) {
-            if (nodes[i].id == edges[j].from){
-                arist.push({arista : nodes[edges[j].to].label, distancia: " - "}); 
-            } 
+            for (let k = 0; k < distance.length; k++){
+                if (nodes[i].id == edges[j].from){
+                    if (nodes[edges[j].from].label == distance[k].inicio && nodes[edges[j].to].label == distance[k].final){
+                        arist.push({arista : nodes[edges[j].to].label, distancia: distance[k].distancia}); 
+
+                    }
+                    
+                }
+                
+            }
+            
         }
         listGrafo.push({vertice : nodes[i].label, aristas : arist});   
     }
+    console.log("-------------")
     console.log(listGrafo)
    
 
@@ -647,14 +691,14 @@ function guardar(){
         "categoria": `Estructura No Lineal`,
         "nombre": "Grafo Dirigido/No Dirigido",
         "almacenamiento": "Matriz/Lista",
-        "animacion": 10,
+        "animacion": velocidad,
         "valores": listGrafo
     }
 
     let saveArchivo = new Blob([JSON.stringify(fileJ)],{type:"application/json"});
     let a = document.createElement("a");
     a.href = URL.createObjectURL(saveArchivo);
-    a.download = "grafoProfundidad.json";
+    a.download = "grafoAnchura.json";
     a.click();
     
 
@@ -662,27 +706,132 @@ function guardar(){
 
 // ***** ALMACENAMIENTO *****
 function almacenar(){
-    //console.log("Almacenando");
-    
-    var nodesV = grafo.getVertices();
-    var edgesA = grafo.getAristas();
-    console.log("---------------");
-    console.log(nodesV);
-    console.log("--------------");
-    console.log(edgesA);
-    
-   
+    console.log("Almacenando");
+    // opcion escogida 
     var opc_Save = document.getElementById('opcs').value;
+    
     if(opc_Save == "matrizAd"){
         console.log("Mostrando matriz de adyacencia");
+        matrizAd();
     } else if (opc_Save == "listaAd"){
         console.log("Mostrando lista de adyacencia");
+        listaAd();
     } else {
         console.log("nada")
     }
     
 
 
+}
+
+// ****** CONSTRUCCION DE TABLA DE MATRIZ DE ADYACENCIA *****
+function matrizAd(){
+    // div donde se pondra la tabla
+    var spc_Ady = document.getElementById('almacenam');
+    var conTabla = grafo.matrizAdyacencia();
+
+    console.log(conTabla)
+    // obtniendo lista de vertices 
+    var listVer = [" "];
+    for (let i = 0; i < nodes.length; i++){
+        listVer.push(nodes[i].label)
+    }
+    // INGRESANDO vertices 
+    conTabla.unshift(listVer);
+    for (let k = 1; k < conTabla.length; k++){
+        conTabla[k].unshift(listVer[k])
+    }
+    console.log(conTabla)
+    
+    console.log(listVer)
+    // CONSTRUYENDO TABLA
+    spc_Ady.innerHTML = "";
+    var tab = "<table class=\"tablero\">";
+    for (let i = 0; i < conTabla.length; i++){
+        tab += "<tr>"
+        for (let j = 0; j < conTabla[i].length; j++){
+            if (i == 0 || j == 0){
+                tab += "<td class =\"encabezado\">"+conTabla[i][j]+"</td>";
+            } else if(conTabla[i][j] > 0){
+                console.log("entre")
+                tab += "<td>"+" 1 "+"</td>";
+                
+            } else {
+                tab += "<td>"+"0"+"</td>";
+            }    
+        }
+        tab += "</tr>"
+    }
+    tab += "</table>";
+    spc_Ady.innerHTML = tab;
+    
+
+
+}
+
+function listaAd(){
+    var conTabla2 = grafo.matrizAdyacencia();
+   
+    // obtniendo lista de vertices 
+    var listVer2 = [];
+    for (let i = 0; i < nodes.length; i++){
+        listVer2.push(nodes[i].label)
+    }
+    // recorriendo matriz de adyacencia para obtener informacion
+    var listAdy2 = [];
+    for (let i = 0; i < conTabla2.length; i++){
+        for (let j = 0; j < conTabla2[i].length; j++){
+            if (conTabla2[i][j] != 0){
+                listAdy2.push({inicio: listVer2[i], final : listVer2[j], distancia: conTabla2[i][j]})
+            }
+        }
+    }
+
+    console.log(listAdy2)
+    buildList(listAdy2, listVer2);
+}
+
+function buildList(adya, verti){
+    var spc_Ady = document.getElementById('almacenam');
+    spc_Ady.innerHTML = "";
+    var tab = "<table class=\"tablero\">";
+    for (let i = 0; i < verti.length; i++){
+        tab += "<tr>"
+        tab += "<td class =\"encabezado\">"+verti[i]+"</td>";
+        for (let j = 0; j < adya.length; j++){
+
+            if (verti[i] == adya[j].inicio){
+                tab += "<td class=\"flechita\">"+"<img src=\"../../svg/flechaAD.svg\">"+"</td>";
+                tab += "<td>"+adya[j].final+" | "+adya[j].distancia+"</td>";
+            }
+
+        }
+        
+        tab += "</tr>"
+    }
+    tab += "</table>";
+    spc_Ady.innerHTML = tab;
+    
+}
+
+function distancia(){
+    var conTabla2 = grafo.matrizAdyacencia();
+   
+    // obtniendo lista de vertices 
+    var listVer2 = [];
+    for (let i = 0; i < nodes.length; i++){
+        listVer2.push(nodes[i].label)
+    }
+    // recorriendo matriz de adyacencia para obtener informacion
+    var listAdy2 = [];
+    for (let i = 0; i < conTabla2.length; i++){
+        for (let j = 0; j < conTabla2[i].length; j++){
+            if (conTabla2[i][j] != 0){
+                listAdy2.push({inicio: listVer2[i], final : listVer2[j], distancia: conTabla2[i][j]})
+            }
+        }
+    }
+    return listAdy2
 }
 
 function matriz(){
