@@ -208,6 +208,10 @@ class Cola{
         return false; 
     
     }
+    mostrar(){
+        console.log(this.vertices)
+        console.log(this.matrizAdy)
+    }
 }
 
 class Nodo{
@@ -216,32 +220,6 @@ class Nodo{
         this.siguiente = null;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -471,6 +449,9 @@ let grafo = new Grafo(grafoDirigido, grafoPonderado);
 
 var nodes = [];
 var edges = [];
+// COPIA DE LISTAS
+var nodes2 = [];
+var edges2 = [];
 
 
 // F  U  N  C  I  O  N  E  S  -  E  V  E  N  T  O  S
@@ -638,9 +619,44 @@ function getVelocidad(){
 
 }
 
+
 // ***** GUARDAR ARCHIVO *****
 function guardar(){
-    console.log("Guardando JSON");
+    console.log("Guardando JSON"); 
+
+    console.log(nodes);
+    console.log(edges);
+
+    var listGrafo = []
+    var arist = []
+
+    for (let i = 0; i < nodes.length; i++) {
+        var vertex = nodes[i].label;
+        var arist = []
+        for (let j = 0; j < edges.length; j++) {
+            if (nodes[i].id == edges[j].from){
+                arist.push({arista : nodes[edges[j].to].label, distancia: " - "}); 
+            } 
+        }
+        listGrafo.push({vertice : nodes[i].label, aristas : arist});   
+    }
+    console.log(listGrafo)
+   
+
+    var fileJ = {
+        "categoria": `Estructura No Lineal`,
+        "nombre": "Grafo Dirigido/No Dirigido",
+        "almacenamiento": "Matriz/Lista",
+        "animacion": 10,
+        "valores": listGrafo
+    }
+
+    let saveArchivo = new Blob([JSON.stringify(fileJ)],{type:"application/json"});
+    let a = document.createElement("a");
+    a.href = URL.createObjectURL(saveArchivo);
+    a.download = "grafoProfundidad.json";
+    a.click();
+    
 
 }
 
@@ -682,6 +698,51 @@ function matriz(){
 
 }
 
+// ***** LEYENDO JSON *****
+function readFile(evento){ // lectura del archivo .json
+    let archivo = evento.target.files[0];
+    if (archivo){
+        let reader = new FileReader();
+        reader.onload = function(e){
+            contenido = e.target.result;
+            // console.log(contenido)
+            console.log("-----------")
+            convert = JSON.parse(contenido);
+        
+            var infGrafo = convert.valores;
+            console.log(infGrafo.length)
+            console.log(infGrafo)
+
+            for (let i = 0; i < infGrafo.length; i++){
+                var vertex = infGrafo[i].vertice;
+                var Laristas = infGrafo[i].aristas;
+                for (let j = 0; j < Laristas.length; j++){
+                    grafo.agregarA(vertex, Laristas[j].arista, Laristas[j].distancia);
+                }
+            }
+            drawGrafo();
+
+
+            /*
+            console.log("Valores sin ordenar")
+
+            listaValores = convert.valores;
+            listaWords = convert.valores;
+            tipoDato = typeof(listaValores[0]);                      
+            generateElements(listaValores, tipoDato);
+            */
+
+        };
+        reader.readAsText(archivo); 
+
+    } else {
+        alert("No se ha seleccionado ningun archivo");
+    }
+}
+
+window.addEventListener('load', ()=>{ // cada vez que cambie 
+    document.getElementById('file').addEventListener('change',readFile)
+});
 
 
 // ***** DIBUJAR GRAFO *****
@@ -727,8 +788,19 @@ function drawGrafo(){
     });
     */
     
+    nodes2 = nodes;
+    edges2 = edges;
+
+    copiaS(nodes, edges);
+    
+    
+}
+
+// copia de seguridad :g
+function copiaS(nodes, edges){
     nodes = [];
     edges = []; 
+
 }
 
 

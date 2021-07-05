@@ -158,8 +158,6 @@ async function buildCuadros(bloques){
             div.textContent = bloques[i].posicion+"  ||  ";
         }
         
-        
-        
         container.appendChild(div);
         await new Promise((resolve) =>
         setTimeout(() =>{
