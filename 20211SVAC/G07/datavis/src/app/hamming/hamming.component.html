@@ -11,7 +11,7 @@
       </a>
       <ol class="breadcrumb" >
         <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Cola de Prioridad</li>
+        <li class="breadcrumb-item active" aria-current="page">Algoriotmo Hamming</li>
       </ol>
     </div>
 
@@ -21,9 +21,10 @@
     <nav class="navbar navbar-dark bg-primary">
 
       <form class="form-inline" >
-        <input class="form-control mr-sm-2 " #data type="text" placeholder="Cadena de caracteres" aria-label="Agregar">
+        <input class="form-control mr-sm-2 " #data type="text" placeholder="Cadena de Caracteres/Bits" aria-label="Agregar">
         
-        <button class="btn btn-outline-light mr-sm-2" type="submit" (click)="getString(data.value)">Codificar</button>
+        <button class="btn btn-outline-light mr-sm-2" type="submit" (click)="getString(data.value)">Codificar Caracteres</button>
+        <button class="btn btn-outline-light mr-sm-2" type="submit" (click)="getBit(data.value)">Codificar Bits</button>
 
         <input style="display:none;" type="file" (change)="abrir($event)" #archivo>
         <button (click)="archivo.click()" type="button" class="btn btn-outline-light mr-sm-2">Cargar</button>
@@ -37,6 +38,144 @@
       <h1 class="mb-3">Hamming code:</h1>
       <h4 class="mb-3" id="code"></h4>
       
+
+
+      <table id="tablehm" class="table table-bordered">
+        <thead>
+          <tr id="header">
+            <th scope="col">Value</th>
+            <th scope="col">P1</th>
+            <th scope="col">P2</th>
+            <th scope="col">D1</th>
+            <th scope="col">P4</th>
+            <th scope="col">D2</th>
+            <th scope="col">D3</th>
+            <th scope="col">D4</th>
+            <th scope="col">P8</th>
+            <th scope="col">D5</th>
+            <th scope="col">D6</th>
+            <th scope="col">D7</th>
+            <th scope="col">D8</th>
+            <th scope="col">D9</th>
+            <th scope="col">D10</th>
+            <th scope="col">P11</th>
+            <th scope="col">P16</th>
+            <th scope="col">D12</th>
+            <th scope="col">D14</th>
+            <th scope="col">D15</th>
+          </tr>
+        </thead>
+        <tbody id="valores">
+          <tr id="datos">
+            <th scope="row">Datos</th>
+          </tr>
+          <!-- <tr>
+            <th scope="row">P1</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+          <tr>
+            <th scope="row">P2</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+          <tr>
+            <th scope="row">P4</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+          <tr>
+            <th scope="row">P16 </th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+          <tr>
+            <th scope="row">Resultado</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr> -->
+        </tbody>
+      </table>
     </div>
     <!-- Jumbotron -->
 
