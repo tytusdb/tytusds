@@ -134,7 +134,7 @@ actual(){
     contenido.m=contenido.m.concat(this.lista.leer1());
     contenido.valores=contenido.valores.concat(this.lista.leer());
     let blob = new Blob([JSON.stringify(contenido)], {type: 'json;charset=utf-8'});
-    saveAs(blob, 'cow major.json');
+    saveAs(blob, 'row major.json');
   }
 
   list(){
