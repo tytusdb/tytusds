@@ -7,8 +7,8 @@ let tmpGraphoNode: NodePosition | null = null
 let newEdgeLength: number = 0
 
 // ARREGLO DE GRAFOS
-const edgesArray: EdgeJoin[] = []
-const nodesArray: NodePosition[] = [
+let edgesArray: EdgeJoin[] = []
+let nodesArray: NodePosition[] = [
 	{
 		x: 0,
 		y: 0,
@@ -189,7 +189,7 @@ canvas.addEventListener('mousedown', (ev: MouseEvent) => {
 	mouseIsDown = true
 	setTimeout(function () {
 		if (mouseIsDown) {
-			if (enableAddNode) {
+			if (enableAddNode && newNodeValue.length) {
 				ev.preventDefault()
 
 				// CREAR NODO
@@ -208,6 +208,15 @@ canvas.addEventListener('mousedown', (ev: MouseEvent) => {
 	}, 500)
 })
 
+// BUSCAR NODO
+const searchNodeOnGrapho = (value: string) => {
+	let currentNode: NodePosition | null = null
+	for (let nodeIndex: number = 0; nodeIndex < nodesArray.length; nodeIndex++)
+		if (nodesArray[nodeIndex].value.toString() === value)
+			currentNode = nodesArray[nodeIndex]
+	return currentNode
+}
+
 // INSERTAR ARISTA
 const addEdgeOnGraphos = () => {
 	hideNavMenu(1)
@@ -215,7 +224,7 @@ const addEdgeOnGraphos = () => {
 }
 
 canvas.addEventListener('click', (ev: MouseEvent) => {
-	if (enableAddEdge) {
+	if (enableAddEdge && newEdgeLength) {
 		// NODO SELECCIONADO
 		let selectedNodeIndex: number = 0
 		let selectedNode: EdgePosition | null = null
@@ -293,3 +302,28 @@ canvas.addEventListener('click', (ev: MouseEvent) => {
 		}
 	}
 })
+
+// ELIMINAR NODO
+const deleteNodeOnGraphos = () => {
+	if (oldNodeValue) {
+		// BUSCAR
+		const node: NodePosition | null = searchNodeOnGrapho(
+			oldNodeValue.toString(),
+		)
+		if (node) {
+			// ELIMINAR NODO
+			nodesArray = nodesArray.filter(
+				(eNode: NodePosition) => node.x !== eNode.x && node.y !== eNode.y,
+			)
+
+			// ELIMINAR ARISTAS QUE CONECTAN A ESE NODO
+			edgesArray = edgesArray.filter(
+				(edge: EdgeJoin) =>
+					edge.origin.x !== node.x &&
+					edge.origin.y !== node.y &&
+					edge.dest?.x !== node.x &&
+					edge.dest?.y !== node.y,
+			)
+		}
+	}
+}

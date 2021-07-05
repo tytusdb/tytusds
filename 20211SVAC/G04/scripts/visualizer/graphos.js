@@ -137,7 +137,7 @@ canvas.addEventListener('mousedown', function (ev) {
     mouseIsDown = true;
     setTimeout(function () {
         if (mouseIsDown) {
-            if (enableAddNode) {
+            if (enableAddNode && newNodeValue.length) {
                 ev.preventDefault();
                 tmpGraphoNode = {
                     x: ev.clientX / cameraZoom - cameraOffset.x - 30,
@@ -151,12 +151,19 @@ canvas.addEventListener('mousedown', function (ev) {
         }
     }, 500);
 });
+var searchNodeOnGrapho = function (value) {
+    var currentNode = null;
+    for (var nodeIndex = 0; nodeIndex < nodesArray.length; nodeIndex++)
+        if (nodesArray[nodeIndex].value.toString() === value)
+            currentNode = nodesArray[nodeIndex];
+    return currentNode;
+};
 var addEdgeOnGraphos = function () {
     hideNavMenu(1);
     enableAddEdge = true;
 };
 canvas.addEventListener('click', function (ev) {
-    if (enableAddEdge) {
+    if (enableAddEdge && newEdgeLength) {
         var selectedNodeIndex = 0;
         var selectedNode_1 = null;
         var currentPosition = {
@@ -210,3 +217,18 @@ canvas.addEventListener('click', function (ev) {
         }
     }
 });
+var deleteNodeOnGraphos = function () {
+    if (oldNodeValue) {
+        var node_1 = searchNodeOnGrapho(oldNodeValue.toString());
+        if (node_1) {
+            nodesArray = nodesArray.filter(function (eNode) { return node_1.x !== eNode.x && node_1.y !== eNode.y; });
+            edgesArray = edgesArray.filter(function (edge) {
+                var _a, _b;
+                return edge.origin.x !== node_1.x &&
+                    edge.origin.y !== node_1.y &&
+                    ((_a = edge.dest) === null || _a === void 0 ? void 0 : _a.x) !== node_1.x &&
+                    ((_b = edge.dest) === null || _b === void 0 ? void 0 : _b.y) !== node_1.y;
+            });
+        }
+    }
+};
