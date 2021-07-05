@@ -123,4 +123,15 @@ export class HammingComponent implements OnInit {
         i++;
     }
   }
+  async anihumming(data){
+
+
+  }
+
+  async abrir (eve: any){
+      
+  }
+  descargarContenido(){
+
+  }
 }
