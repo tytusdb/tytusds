@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ComponentFactoryResolver, ElementRef, OnInit, ViewChild } from '@angular/core';
 import * as vis from 'vis';
 var h;
 var edges = new vis.DataSet([]);
@@ -82,7 +82,8 @@ class hash{
           for (let k = 0; k < this.tabla.length; k++) {
               temp.push(this.tabla[k]);
           }
-          this.m = this.size*100/this.min;
+          this.m = Math.trunc( this.size*100/this.min);
+
           this.tabla.length = this.m;
           var id = nodes.get({
             fields:['id', 'label']
@@ -536,7 +537,7 @@ class hash{
           iteracion=0;
           this.tabla[r] = valor;
           nodes.update(
-            {id: res, label:String(valor)}
+            {id: r, label:String(valor)}
           );
           this.size++;
           this.rehash();
@@ -552,7 +553,7 @@ class hash{
           iteracion=0;
           this.tabla[r] = valor;
           nodes.update(
-            {id: res, label:String(valor)}
+            {id: r, label:String(valor)}
           );
           this.size++;
           this.rehash();
@@ -584,7 +585,7 @@ class hash{
           iteracion=0;
           this.tabla[r] = valor;
           nodes.update(
-            {id: res, label:String(valor)}
+            {id: r, label:String(valor)}
           );
           this.size++;
           this.rehash();
@@ -600,7 +601,7 @@ class hash{
           iteracion=0;
           this.tabla[r] = valor;
           nodes.update(
-            {id: res, label:String(valor)}
+            {id: r, label:String(valor)}
           );
           this.size++;
           this.rehash();
@@ -632,7 +633,7 @@ class hash{
           iteracion=0;
           this.tabla[r] = valor;
           nodes.update(
-            {id: res, label:String(valor)}
+            {id: r, label:String(valor)}
           );
           this.size++;
           this.rehash();
@@ -648,7 +649,7 @@ class hash{
           iteracion=0;
           this.tabla[r] = valor;
           nodes.update(
-            {id: res, label:String(valor)}
+            {id: r, label:String(valor)}
           );
           this.size++;
           this.rehash();
@@ -679,6 +680,7 @@ export class HashCerradoComponent implements OnInit {
   @ViewChild('mynetwork', {static: false}) el: ElementRef;
   public network: any;
   constructor() { }
+  contenido = "";
 
   ngOnInit(): void {
   }
@@ -686,7 +688,66 @@ export class HashCerradoComponent implements OnInit {
     var container = this.el.nativeElement;
     this.network = new vis.Network(container, listaData, options);
   }
+  generador(){
+    this.contenido = "";
+    this.contenido = "{ \"valores\": [\n";
+    for (let i = 0; i < h.tabla.length; i++) {
+      this.contenido +='"'+h.tabla[i]+'"'+ ",\n";
+    }
+    this.contenido += "]}";
+  }
+  descargarContenido(){
+    this.generador();
+    let downloadfile = "data: text/json;charset=utf-8,"+encodeURIComponent(this.contenido);
+    console.log(downloadfile);
+    var downloader = document.createElement('a');
+    downloader.setAttribute('href', downloadfile);
+    downloader.setAttribute('download', 'data.json');
+    downloader.click();
+  }
+  code = '';
+  array = [];
+  funcion ="";
+  prueba="";
+  m = 0;
+  min = 0;
+  max = 0;
+  texto = "";
+  abrir(eve:any)
+  {
+    let a =eve.target.files[0]
+    let text=""
 
+    if(a){
+      let reader=new FileReader()
+        reader.onload=ev=>{
+        const resultado=ev.target?.result
+        text=String(resultado)
+        var data = JSON.parse(text);  // se parse para obtener solo los datos
+        this.m = data.m;
+        this.min = data.minimo;
+        this.max = data.maximo;
+        this.funcion = data.funcion;
+        this.prueba = data.prueba;
+        console.log("m"+this.m)
+        console.log("min"+this.min)
+        console.log("max"+this.max)
+        console.log("fun"+this.funcion)
+        console.log("test"+this.prueba)
+        this.Tamano(this.m,this.max,this.min,this.funcion,this.prueba);
+        data.valores.forEach(element => { // se agrego al metodo de agregar
+          console.log(element)
+          this.AgregarNuevo(element)
+        });
+
+
+        this.code=text.toString();
+      }
+      reader.readAsText(a)
+    }
+
+
+  }
   Tamano(ta: number, max:number, min:number,dat:any,dato:any){
     h = new hash(ta, max,min,dat,dato);
     console.log(h)

@@ -24,6 +24,10 @@
         <input class="form-control mr-sm-2 " #data type="text" placeholder="Cadena de caracteres" aria-label="Agregar">
         
         <button class="btn btn-outline-light mr-sm-2" type="submit" (click)="getString(data.value)">Codificar</button>
+
+        <input style="display:none;" type="file" (change)="abrir($event)" #archivo>
+        <button (click)="archivo.click()" type="button" class="btn btn-outline-light mr-sm-2">Cargar</button>
+        <button (click)="descargarContenido()" class="btn btn-outline-light mr-sm-2" type="submit">Guardar</button>
       </form>
     </nav>
     <!-- Navbar -->
