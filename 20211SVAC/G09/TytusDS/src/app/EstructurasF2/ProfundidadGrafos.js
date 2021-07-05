@@ -136,5 +136,9 @@ class ProfundidadGrafos{
         }
         console.log("No se ha encontrado una ruta")
     }
+
+    MostrarGrafo(){
+		console.log(this.DatoNodo)
+	}
 }
 module.exports = ProfundidadGrafos
