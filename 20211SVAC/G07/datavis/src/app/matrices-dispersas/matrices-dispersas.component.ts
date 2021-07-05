@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import * as vis from 'vis';
-
+var tiempo;
 var n: number; // columnas
 var m: number; // filas
 var matriz: any[][];
@@ -35,6 +35,9 @@ export class MatricesDispersasComponent implements OnInit {
   columns = new Array()
   values = new Array()
   ngOnInit(): void {
+  }
+  delay1(ms:number) {
+    return new Promise( resolve => setTimeout(resolve,ms));
   }
   ngAfterViewInit(): void {
     var container = this.el.nativeElement;
@@ -77,6 +80,8 @@ export class MatricesDispersasComponent implements OnInit {
         const resultado=ev.target?.result
         text=String(resultado)
         var data = JSON.parse(text);  // se parse para obtener solo los datos
+        tiempo = data.animacion;
+        console.log("Time: "+tiempo);
         data.valores.forEach(element => { // se pasa a un arreglo
           this.AgregarNuevo(element.valor,element.indices[0],element.indices[1]);
         });
@@ -87,7 +92,7 @@ export class MatricesDispersasComponent implements OnInit {
     }
 
   }
-  AgregarNuevo(valor: any, fila: number, columna: number){
+  async AgregarNuevo(valor: any, fila: number, columna: number){
     var ids = nodes.get({
       fields:['id', 'label', 'color']
     });
@@ -97,6 +102,7 @@ export class MatricesDispersasComponent implements OnInit {
         nodes.update(
           {id: val.id, color: "rgba(97,195,238,0.5)"}
         );
+        await this.delay1(tiempo)
       }
     }
     console.log("id de los nodos we")
@@ -116,6 +122,7 @@ export class MatricesDispersasComponent implements OnInit {
       nodes.update(
         {id: fr+','+cr, label:String(valor), color: "#7BE141"}
       );
+      await this.delay1(tiempo)
     }
     else{
       var id = nodes.get({
@@ -125,6 +132,7 @@ export class MatricesDispersasComponent implements OnInit {
       console.log(id)
       for (var val of id){
         nodes.remove(val.id);
+        await this.delay1(tiempo)
       }
       let tempA = MaxCols + 1;
       let tempB = MaxRow + 1;
@@ -136,10 +144,11 @@ export class MatricesDispersasComponent implements OnInit {
         nodes.update(
           {id: fr+','+cr, label:String(this.values[i]), color: "#7BE141"}
         );
+        await this.delay1(tiempo)
       }
     }
   }
-  TamanoMatriz(dato1: number, dato2: number){
+  async TamanoMatriz(dato1: number, dato2: number){
     m = dato1 //filas
     n = dato2//columnas
     //se crea un arreglo del Tamaño de matriz m
@@ -153,10 +162,12 @@ export class MatricesDispersasComponent implements OnInit {
           nodes.add(
             {id: i+','+j, label:'0',x: this.x1 , y: this.y1, color: "rgba(97,195,238,0.5)", shape: "box"}
           );
+          await this.delay1(tiempo)
           this.x1 = this.x1 + 85
       }
       this.x1 = 0
       this.y1 = this.y1 + 35
+      await this.delay1(tiempo)
   }
     console.log('LLENO')
     console.log(matriz)// muestra de la matriz
@@ -165,7 +176,7 @@ export class MatricesDispersasComponent implements OnInit {
     });
     console.log(id)
   }
-  SearchData(valor: any){
+  async SearchData(valor: any){
 
     var id = nodes.get({
       fields:['id', 'label', 'color']
@@ -177,6 +188,7 @@ export class MatricesDispersasComponent implements OnInit {
         nodes.update(
           {id: val.id, color: "#7BE141"}
         );
+        await this.delay1(tiempo)
       }
     }
     for (var val of id){
@@ -184,10 +196,11 @@ export class MatricesDispersasComponent implements OnInit {
         nodes.update(
           {id: val.id, label:String(valor), color: "#5A1E5C"}
         );
+        await this.delay1(tiempo)
       }
     }
   }
-  UpdateData(valor: any, actualizable: any){
+  async UpdateData(valor: any, actualizable: any){
     let temps = this.values.indexOf(valor)
     this.values[temps] = actualizable;
     var id = nodes.get({
@@ -200,6 +213,7 @@ export class MatricesDispersasComponent implements OnInit {
         nodes.update(
           {id: val.id, color: "#7BE141"}
         );
+        await this.delay1(tiempo)
       }
     }
     for (var val of id){
@@ -207,10 +221,11 @@ export class MatricesDispersasComponent implements OnInit {
         nodes.update(
           {id: val.id, label:String(actualizable), color: "#5A1E5C"}
         );
+        await this.delay1(tiempo)
       }
     }
   }
-  DeleteData(valor: any){
+  async DeleteData(valor: any){
     let temps = this.values.indexOf(valor)
     delete this.values[temps]
     var id = nodes.get({
@@ -221,6 +236,7 @@ export class MatricesDispersasComponent implements OnInit {
         nodes.update(
           {id: val.id, color: "#7BE141"}
         );
+        await this.delay1(tiempo)
       }
     }
     console.log("id de los nodos we")
@@ -230,6 +246,7 @@ export class MatricesDispersasComponent implements OnInit {
         nodes.update(
           {id: val.id, label:'0', color: "#5A1E5C"}
         );
+        await this.delay1(tiempo)
       }
     }
   }

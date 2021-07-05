@@ -21,7 +21,7 @@
     <nav class="navbar navbar-dark bg-primary">
 
       <form class="form-inline" >
-       
+
 
         <div class="form-outline">
           <label class="form-label" for="textAreaExample">Texto a cifrar</label>
@@ -37,7 +37,7 @@
         <input class="form-control mr-sm-2" #keydescifrado type="text" placeholder="Key" aria-label="Key">
         <button (click)="ingresoDescifradoText(textodescifrado.value,keydescifrado.value)" class="btn btn-outline-light mr-sm-2" type="button">Descifrar</button>
 
-        
+
 
         <input class="form-control mr-sm-2" #rondas type="text" placeholder="Rondas" aria-label="Rondas">
         <button (click)="ingresoRondas(rondas.value)" class="btn btn-outline-light mr-sm-2" type="button">Rondas</button>
@@ -51,12 +51,32 @@
           <textarea class="form-control" id="textResultado" rows="5">{{resultadoCifrado}}</textarea>
         </div>
 
+        <input  class="form-control mr-sm-2" type="text" #animacion placeholder="Animacion" aria-label="Animacion">
+        <button (click)="definirTiempo(animacion.value)" class="btn btn-outline-light mr-sm-2" type="button">Animacion</button>
       </form>
     </nav>
     <!-- Navbar -->
 
     <!-- Jumbotron -->
     <div id="mynetwork" #mynetwork>
+    <table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">Rondas</th>
+      <th scope="col">Derecho</th>
+      <th scope="col">Izquierdo</th>
+      <th scope="col">Resultado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let ind of valor">
+      <td >{{ronda[ind]}}</td>
+      <td >{{ders[ind]}}</td>
+      <td >{{izq[ind]}}</td>
+      <td >{{resultadoCifrado}}</td>
+    </tr>
+  </tbody>
+</table>
     </div>
         <style type="text/css">
           #mynetwork {

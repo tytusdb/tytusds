@@ -4,7 +4,7 @@ var edges = new vis.DataSet([]);
 var nodes = new vis.DataSet([]);
 var x1 = 0, y1 = 0;
 var sigs: any[];
-var h;
+var h, tiempo;
 var pos: any, value:any, nuevo: number, prueba: any;
 var options = {
   physics: {
@@ -35,7 +35,6 @@ class ListaDoble {
       this.tail = null;
       this.size = 0;
   }
-
   addhead(data: any){
       const newNode = new Node(data, this.head, null);
       if (this.head){
@@ -59,7 +58,6 @@ class ListaDoble {
           nodes.add(
             {id: pos+','+prueba, label:String(data), x: uno , y: dos, color: "rgba(97,195,238,0.5)",shape: "box"}
           );
-
           let men: number;
           var ids = nodes.get({
             fields:['id', 'label']
@@ -98,7 +96,7 @@ class ListaDoble {
       }
       this.size++;
   }
-  actualizarValor(dato: any, valor: any) {
+  async actualizarValor(dato: any, valor: any) {
     let aux = this.head;
     var ids = nodes.get({
       fields:['id', 'label', 'color']
@@ -196,7 +194,6 @@ class ListaDoble {
       nodes.remove(primer);
       return valoret;
   }
-
   deletetail(){
       if (!this.tail){
           return null;
@@ -236,9 +233,12 @@ class ListaDoble {
       while (actual != null){
           if (actual.data === data){
               if (!anterior){
-                  return this.deletehead();
+
+                return this.deletehead();
+
               }else if(!actual.next){
                   return this.deletetail();
+
               }
               else {
                   anterior.next = actual.next;
@@ -269,7 +269,8 @@ class ListaDoble {
                     }
                     edges.add(
                       {from: froms, to: to, length: 20, arrows: 'to'}
-                    );edges.add(
+                    );
+                    edges.add(
                       {from: to, to: froms, length: 20, arrows: 'to'}
                     );
                   }
@@ -595,7 +596,10 @@ export class HashAbiertaComponent implements OnInit {
     this.network = new vis.Network(container, listaData, options);
   }
 
-
+  definirTiempo(time:any){
+    tiempo = 0;
+    tiempo = time*10;
+  }
 
   descargarContenido(){
     this.generador();
@@ -626,6 +630,7 @@ export class HashAbiertaComponent implements OnInit {
         text=String(resultado)
         var data = JSON.parse(text);  // se parse para obtener solo los datos
         this.m = data.m;
+        tiempo = data.animacion;
         this.min = data.minimo;
         this.max = data.maximo;
         this.funcion = data.funcion;

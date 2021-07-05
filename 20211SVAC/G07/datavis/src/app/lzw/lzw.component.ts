@@ -3,6 +3,7 @@ import * as vis from 'vis';
 var w="", w1 = [];
 var k, k1 = [];
 var x1 = 0, y1 = 35;
+var tiempo;
 var edges = new vis.DataSet([]);
 var nodes = new vis.DataSet([]);
 var options = {
@@ -69,6 +70,8 @@ export class LZWComponent implements OnInit {
   @ViewChild('mynetwork', {static: false}) el: ElementRef;
   public network: any;
   constructor() { }
+  texto:string;
+  resultadoCifrado:string;
 
   ngOnInit(): void {
   }
@@ -76,29 +79,75 @@ export class LZWComponent implements OnInit {
     var container = this.el.nativeElement;
     this.network = new vis.Network(container, listaData, options);
   }
+  definirTiempo(time:any){
+    tiempo = 0;
+    tiempo = time*10;
+  } 
 
-  pruebas(Texto: any){
+  abrir(eve:any)
+  {
+    let a =eve.target.files[0]
+
+
+    if(a){
+      let reader=new FileReader()
+        reader.onload=ev=>{
+        const resultado=ev.target?.result
+        this.texto=String(resultado)
+        console.log(this.texto)
+      }
+      reader.readAsText(a)
+    }
+
+
+  }
+
+  descargarContenido(){
+    let downloadfile = "data: text/json;charset=utf-8,"+encodeURIComponent(this.resultadoCifrado);
+    console.log(downloadfile);
+    var downloader = document.createElement('a');
+    downloader.setAttribute('href', downloadfile);
+    downloader.setAttribute('download', 'data.txt');
+    downloader.click();
+  }
+
+  enviarResultado(arreglo:any){
+    this.resultadoCifrado = "";
+    for (let i = 0; i < arreglo.length; i++) {
+     this.resultadoCifrado += arreglo[i];
+    }
+  }
+  delay(ms:number) {
+    return new Promise( resolve => setTimeout(resolve,ms));
+  }
+  async pruebas(Texto: any){
     let Lzw = new AlgoritmoLZW(Texto);
     Lzw.Encode();
     console.log(Lzw.Salida);
     console.log(Lzw.diccionario);
+    this.enviarResultado(Lzw.Salida);
     k1.push('')
     nodes.add(
       {id: 'dic', label:'Diccionario',x: 0 , y: 0, color: "#7BE141", shape: "box"}
     );
+    await this.delay(tiempo)
     nodes.add(
       {id: 'w', label:'w',x: 85 , y: 0, color: "#7BE141", shape: "box"}
     );
+    await this.delay(tiempo)
     nodes.add(
       {id: 'k', label:'k',x: 170 , y: 0, color: "#7BE141", shape: "box"}
     );
+    await this.delay(tiempo)
     nodes.add(
       {id: 'salida', label:'Salida',x: 255 , y: 0, color: "#7BE141", shape: "box"}
     );
+    await this.delay(tiempo)
     for(var i = 0; i <Lzw.diccionario.length; i++){
       nodes.add(
         {id: 'Dic'+i, label:Lzw.diccionario[i],x: x1 , y: y1, color: "rgba(97,195,238,0.5)", shape: "box"}
       );
+      await this.delay(tiempo)
       y1 = y1 + 35
     }
     x1 = x1 + 85;
@@ -107,6 +156,7 @@ export class LZWComponent implements OnInit {
       nodes.add(
         {id: 'w'+i, label:w1[i],x: x1 , y: y1, color: "rgba(97,195,238,0.5)", shape: "box"}
       );
+      await this.delay(tiempo)
       y1 = y1 + 35
     }
     x1 = x1 + 85;
@@ -115,6 +165,7 @@ export class LZWComponent implements OnInit {
       nodes.add(
         {id: 'k'+i, label:k1[i],x: x1 , y: y1, color: "rgba(97,195,238,0.5)", shape: "box"}
       );
+      await this.delay(tiempo)
       y1 = y1 + 35
     }
     x1 = x1 + 85;
@@ -123,6 +174,7 @@ export class LZWComponent implements OnInit {
       nodes.add(
         {id: 'C'+i, label:String(Lzw.Salida[i]),x: x1 , y: y1, color: "rgba(97,195,238,0.5)", shape: "box"}
       );
+      await this.delay(tiempo)
       y1 = y1 + 35
     }
     console.log(k1)
@@ -132,82 +184,3 @@ export class LZWComponent implements OnInit {
 }
 
 
-
-/*
-  LZW = {
-    compress: function (uncompressed) {
-        "use strict";
-        // Build the dictionary.
-        var i,
-            dictionary = {},
-            c,
-            wc,
-            w = "",
-            result = [],
-            dictSize = 256;
-        for (i = 0; i < 256; i += 1) {
-            dictionary[String.fromCharCode(i)] = i;
-        }
-
-        for (i = 0; i < uncompressed.length; i += 1) {
-            c = uncompressed.charAt(i);
-            wc = w + c;
-            //Do not use dictionary[wc] because javascript arrays
-            //will return values for array['pop'], array['push'] etc
-           // if (dictionary[wc]) {
-            if (dictionary.hasOwnProperty(wc)) {
-                w = wc;
-            } else {
-                result.push(dictionary[w]);
-                // Add wc to the dictionary.
-                dictionary[wc] = dictSize++;
-                w = String(c);
-            }
-        }
-
-        // Output the code for w.
-        if (w !== "") {
-            result.push(dictionary[w]);
-        }
-        return result;
-    },
-
-
-    decompress: function (compressed) {
-        "use strict";
-        // Build the dictionary.
-        var i,
-            dictionary = [],
-            w,
-            result,
-            k,
-            entry = "",
-            dictSize = 256;
-        for (i = 0; i < 256; i += 1) {
-            dictionary[i] = String.fromCharCode(i);
-        }
-
-        w = String.fromCharCode(compressed[0]);
-        result = w;
-        for (i = 1; i < compressed.length; i += 1) {
-            k = compressed[i];
-            if (dictionary[k]) {
-                entry = dictionary[k];
-            } else {
-                if (k === dictSize) {
-                    entry = w + w.charAt(0);
-                } else {
-                    return null;
-                }
-            }
-
-            result += entry;
-
-            // Add w+entry[0] to the dictionary.
-            dictionary[dictSize++] = w + entry.charAt(0);
-
-            w = entry;
-        }
-        return result;
-    }
-  }*/

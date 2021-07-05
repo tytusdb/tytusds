@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import * as vis from 'vis';
-
+var tiempo;
 var n: number; // columnas
 var m: number; // filas
 var matriz: any[][];//matriz
@@ -29,7 +29,9 @@ export class RowMajorComponent implements OnInit {
 
   constructor() { }
   contenido = "";
- 
+  delay(ms:number) {
+    return new Promise( resolve => setTimeout(resolve,ms));
+  }
   x1 = 0;
   y1 = 0;
   ngOnInit(): void {
@@ -38,6 +40,11 @@ export class RowMajorComponent implements OnInit {
     var container = this.el.nativeElement;
     this.network = new vis.Network(container, listaData, options);
   }
+
+  definirTiempo(time:any){
+    tiempo = 0;
+    tiempo = time*10;
+  }  
   generador(){
     this.contenido = "";
     this.contenido = "{ \"valores\": [\n";
@@ -70,6 +77,8 @@ export class RowMajorComponent implements OnInit {
         const resultado=ev.target?.result
         text=String(resultado)
         var data = JSON.parse(text);  // se parse para obtener solo los datos
+        tiempo = data.animacion*10;
+        console.log("Time: "+tiempo);
         this.TamanoMatriz(data.m[0],data.m[1]);
         data.valores.forEach(element => { // se pasa a un arreglo
           console.log(element.indices[0])
@@ -84,15 +93,16 @@ export class RowMajorComponent implements OnInit {
       reader.readAsText(a)
     }
   }
-  AgregarNuevo(valor: any, fila: number, columna: number){
+  async AgregarNuevo(valor: any, fila: number, columna: number){
     fr = fila
     cr = columna
     matriz[fr][cr] = valor
     nodes.update(
       {id: fr+','+cr, label:String(valor)}
     );
+    await this.delay(tiempo)
   }
-  TamanoMatriz(dato1: number, dato2: number){
+  async TamanoMatriz(dato1: number, dato2: number){
     m = dato1 //filas
     n = dato2//columnas
     //se crea un arreglo del Tamaño de matriz m
@@ -107,9 +117,11 @@ export class RowMajorComponent implements OnInit {
             {id: i+','+j, label:'0',x: this.x1 , y: this.y1, color: "rgba(97,195,238,0.5)",shape: "box"}
           );
           this.x1 = this.x1 + 70
+          await this.delay(tiempo)
       }
       this.x1 = 0
       this.y1 = this.y1 + 35
+      await this.delay(tiempo)
   }
     console.log('LLENO');
     console.log(matriz);// muestra de la matriz
@@ -118,7 +130,7 @@ export class RowMajorComponent implements OnInit {
     });
     console.log(id);
   }
-  Linealizar(){
+  async Linealizar(){
     taman = m*n;
     this.y1 = this.y1 + 50
     this.x1 = -40
@@ -129,6 +141,7 @@ export class RowMajorComponent implements OnInit {
         {id: j, label:'0',x: this.x1 , y: this.y1, color: "#7BE141", shape: "box"}
       );
       this.x1 = this.x1 + 70
+      await this.delay(tiempo)
     }
     console.log(linealizado);
     for (let i = 0; i < m; i++) {
@@ -140,11 +153,13 @@ export class RowMajorComponent implements OnInit {
         nodes.update(
           {id: pos, label:String(matriz[i][j])}
         );
+        await this.delay(tiempo)
 		  }
+      await this.delay(tiempo)
 	  }
     console.log(linealizado);
   }
-  SearchData(chale: any){
+  async SearchData(chale: any){
     let temp1 = linealizado.indexOf(chale)
     var id = nodes.get({
       fields:['id', 'label', 'color']
@@ -156,14 +171,18 @@ export class RowMajorComponent implements OnInit {
         nodes.update(
           {id: val.id, color: "#7BE141"}
         );
+        await this.delay(tiempo)
       }
+      await this.delay(tiempo)
     }
     for (var val of id){
       if(val.id === String(temp1)){
         nodes.update(
           {id: val.id, color: "#5A1E5C"}
         );
+        await this.delay(tiempo)
       }
+      await this.delay(tiempo)
     }
     for(var i=0; i<m; i++) {
       for(var j=0; j<n; j++) {
@@ -173,14 +192,19 @@ export class RowMajorComponent implements OnInit {
                 nodes.update(
                   {id: val.id, color: "#5A1E5C"}
                 );
+                await this.delay(tiempo)
               }
+              await this.delay(tiempo)
             }
+            await this.delay(tiempo)
           }
+          await this.delay(tiempo)
       }
+      await this.delay(tiempo)
     }
 
   }
-  UpdateData(valor: any, valor1: any){
+  async UpdateData(valor: any, valor1: any){
     let temp1 = linealizado.indexOf(valor)
 
     var id = nodes.get({
@@ -193,7 +217,9 @@ export class RowMajorComponent implements OnInit {
         nodes.update(
           {id: val.id, label: String(valor1), color: "#7BE141"}
         );
+        await this.delay(tiempo)
       }
+      await this.delay(tiempo)
     }
     nodes.update(
       {id: temp1, label: String(valor1), color: "#5A1E5C"}
@@ -207,11 +233,13 @@ export class RowMajorComponent implements OnInit {
                 );
                 matriz[i][j] = valor1
           }
+          await this.delay(tiempo)
       }
+      await this.delay(tiempo)
     }
     console.log(valor, valor1)
   }
-  DeleteData(valor: any){
+ async DeleteData(valor: any){
     let temp1 = linealizado.indexOf(valor)
     linealizado[temp1] = 0;
     var id = nodes.get({
@@ -224,7 +252,9 @@ export class RowMajorComponent implements OnInit {
         nodes.update(
           {id: val.id ,color: "#7BE141"}
         );
+        await this.delay(tiempo)
       }
+      await this.delay(tiempo)
     }
     nodes.update(
       {id: temp1, label: '0', color: "#5A1E5C"}
@@ -236,9 +266,13 @@ export class RowMajorComponent implements OnInit {
               {id: i+','+j, label: '0', color: "#5A1E5C"}
             );
             matriz[i][j] = 0
+            await this.delay(tiempo)
           }
+          await this.delay(tiempo)
       }
+      await this.delay(tiempo)
     }
+    await this.delay(tiempo)
   }
 
 }

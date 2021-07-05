@@ -22,10 +22,23 @@
     <nav class="navbar navbar-dark bg-primary">
 
       <form class="form-inline" >
-        <input  class="form-control mr-sm-2 " type="text" #nombre placeholder="Frase a encriptar" aria-label="Agregar Inicio">
+        <div class="form-outline">
+          <label class="form-label" for="textAreaExample">Texto a cifrar</label>
+        <textarea  class="form-control" #nombre id="textCifrar" rows="5" >{{texto}}</textarea>
+        </div>
         <button (click)="pruebas(nombre.value)" class="btn btn-outline-light mr-sm-2" type="button">Encriptar</button>
 
+        <input style="display:none;" type="file" (change)="abrir($event)" #archivo>
+        <button (click)="archivo.click()" type="button" class="btn btn-outline-light mr-sm-2">Cargar</button>
+        <button (click)="descargarContenido()" class="btn btn-outline-light mr-sm-2" type="button">Guardar</button>
 
+        <div class="form-outline">
+          <label class="form-label" for="textAreaExample">Resultado</label>
+          <textarea class="form-control" id="textResultado" rows="5">{{resultadoCifrado}}</textarea>
+        </div>
+
+        <input  class="form-control mr-sm-2" type="text" #animacion placeholder="Animacion" aria-label="Animacion">
+        <button (click)="definirTiempo(animacion.value)" class="btn btn-outline-light mr-sm-2" type="button">Animacion</button>
       </form>
     </nav>
     <!-- Navbar -->

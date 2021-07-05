@@ -1,7 +1,8 @@
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 
-
+var impr1 = new Array, impr2= new Array;
+var tiempo;
 class FeistelC{
   ronda: number;
   key: any[];
@@ -36,7 +37,7 @@ class FeistelC{
     let sizeDerecha = 0;
     let sizeKey =0;
     let sizeResult = 0;
-    
+
     //conversión de llave
     for (let j = 0; j < llave.length; j++) {
         llaveB+= llave.charCodeAt(j).toString(2);
@@ -51,7 +52,7 @@ class FeistelC{
             }
         }
         salidaB+=auxSalida;
-        
+
     }
     //se obtiene el key en un arreglo
     this.key = llaveB.split("");
@@ -60,37 +61,49 @@ class FeistelC{
     medio = salidaB.length/2;
     //for para izquierda
     for (let i = 0; i < medio; i++) {
+
        this.arrayIzquierda.push(auxSalida[i])
     }
-   
+    console.log('auxSalida iz')
+
+      console.log(this.arrayIzquierda[0])
+
     //for para derecha
     for (let j = medio; j < salidaB.length; j++) {
+
         this.arrayDerecha.push(auxSalida[j]);
     }
+    console.log('auxSalida der')
+      console.log(this.arrayDerecha[0])
 
      // para completar key
     sizeDerecha = this.arrayDerecha.length;
     sizeKey = this.key.length;
     sizeResult = sizeDerecha-sizeKey;
-    
+
     for (let k = 0; k < sizeResult; k++) {
        this.key.unshift("0");
     }
 
     for (let l = 0; l < this.ronda; l++) {
-        let iteracion = l+1;
-        this.cifrado(iteracion);
-    }        
+      let iteracion = l+1;
+      this.cifrado(iteracion);
+      impr1.push(this.arrayIzquierda)
+      impr2.push(this.arrayDerecha)
+
+    }
     console.log("Cifrado")
     console.log("Izquierda | Derecha")
     console.log(this.arrayIzquierda +" | "+this.arrayDerecha);
     console.log("Llave: "+this.key);
+    console.log(impr1)
+    console.log(impr2)
 }
 
 cifrado(iteracion:any){
   let resultF = [];
   let auxDerecha = [];
-  
+
   if(iteracion >= 2){
       let aux = this.key.shift();
       this.key.push(aux);
@@ -106,7 +119,7 @@ cifrado(iteracion:any){
 
   //se vacia el arreglo derecha
   this.arrayDerecha = [];
-  
+
   //F con Izquierda XOR = Derecha
   for (let j = 0; j < resultF.length; j++) {
        let aux = resultF[j] ^ this.arrayIzquierda[j];
@@ -126,7 +139,7 @@ ingresoDescifrado(texto:any,llave:any){
 
   //para pasar el binario a un arreglo
   let auxSeparacion = texto.split("");
-  
+
   //para convertir key a arreglo
   this.desKey = llave.split("");
 
@@ -146,10 +159,10 @@ ingresoDescifrado(texto:any,llave:any){
 
   //para ver decifrar a nivel de caracter
   this.descifrarBinario();
- 
+
 
   //para decifrar la llave
-  let binKey = ""; 
+  let binKey = "";
   this.desKey.forEach(element => binKey+=element);
   let resultBinkey = parseInt(binKey,2);
   this.llaveFinal = String.fromCharCode(resultBinkey);
@@ -214,17 +227,27 @@ descifrado(iteracion:any){
   styleUrls: ['./feistel.component.css']
 })
 export class FeistelComponent implements OnInit {
-
+  llaves: any
+  resultados: any;
+  izq: any[]  = impr1;
+  ders: any[] = impr2;
+  ronda: any[] = new Array();
+  valor: any[] = new Array();
   constructor() { }
   feistel:any;
   ngOnInit(): void {
   }
+
+  definirTiempo(time:any){
+    tiempo = 0;
+    tiempo = time*10;
+  } 
   resultadoCifrado:string;
   texto:string;
   abrir(eve:any)
   {
     let a =eve.target.files[0]
-    
+
 
     if(a){
       let reader=new FileReader()
@@ -238,6 +261,9 @@ export class FeistelComponent implements OnInit {
 
 
   }
+  delay(ms:number) {
+    return new Promise( resolve => setTimeout(resolve,ms));
+  }
   descargarContenido(){
     let downloadfile = "data: text/json;charset=utf-8,"+encodeURIComponent(this.resultadoCifrado);
     console.log(downloadfile);
@@ -246,7 +272,12 @@ export class FeistelComponent implements OnInit {
     downloader.setAttribute('download', 'data.txt');
     downloader.click();
   }
-  enviarResultadoCifrado(){
+  async enviarResultadoCifrado(){
+    await this.delay(tiempo)
+    for(var i = 0; i<impr1.length; i++){
+      this.ronda.push(i+1)
+      this.valor.push(i)
+    }
     this.resultadoCifrado = ""; //limpiar variable
 
     this.resultadoCifrado += "Texto: "
@@ -264,7 +295,8 @@ export class FeistelComponent implements OnInit {
     });
   }
 
-  enviarResultadoDescifrado(){
+  async enviarResultadoDescifrado(){
+    await this.delay(tiempo)
     this.resultadoCifrado = "";
     this.resultadoCifrado = "Texto: "+this.feistel.resultadoFinal +"\n"+ "Llave: "+ this.feistel.llaveFinal;
   }

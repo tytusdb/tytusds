@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+var tiempo;
 @Component({
   selector: 'app-hamming',
   templateUrl: './hamming.component.html',
