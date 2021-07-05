@@ -4,6 +4,7 @@ let enableAddEdge: boolean = false
 let selectedFirstEdge: number = 0
 let mouseIsDown: boolean = false
 let tmpGraphoNode: NodePosition | null = null
+let newEdgeLength: number = 0
 
 // ARREGLO DE GRAFOS
 const edgesArray: EdgeJoin[] = []
@@ -15,6 +16,13 @@ const nodesArray: NodePosition[] = [
 	},
 ]
 
+// OBTENER INPUT DE DISTANCIA
+const onChangeEdgeLength = (ev: Event) => {
+	const target = ev.target as HTMLInputElement
+	const value: number = +target.value
+	newEdgeLength = value
+}
+
 // OBTENER DISTANCIA ENTRE PUNTOS
 const getNodesDistance = (x1: number, x2: number, y1: number, y2: number) =>
 	Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
@@ -22,7 +30,7 @@ const getNodesDistance = (x1: number, x2: number, y1: number, y2: number) =>
 // DIBUJAR CADA NODO
 drawInCanvas = () => {
 	if (canvasCtx) {
-		// GRAFICAR ARISTAS
+		// GRAFICA ARISTAS
 		for (
 			let edgeIndex: number = 0;
 			edgeIndex < edgesArray.length;
@@ -51,6 +59,21 @@ drawInCanvas = () => {
 
 				// PINTAR
 				canvasCtx.stroke()
+				canvasCtx.closePath()
+
+				// ESTILO DEL TEXTO ARISTA
+				canvasCtx.beginPath()
+				const textX: number = (currentEdge.dest.x - currentEdge.origin.x) / 2
+				const textY: number = (currentEdge.dest.y - currentEdge.origin.y) / 2
+
+				canvasCtx.textAlign = 'center'
+				canvasCtx.textBaseline = 'middle'
+				canvasCtx.fillStyle = isDarkMode ? '#aaa' : '#011f3bcc'
+				canvasCtx.font = `bold 20px Montserrat`
+
+				// TEXTO
+				canvasCtx.clearRect(textX - 10, textY - 15, 20, 30)
+				canvasCtx.fillText(currentEdge.distance.toString(), textX, textY)
 				canvasCtx.closePath()
 			}
 		}
@@ -128,13 +151,13 @@ drawInCanvas = () => {
 			canvasCtx.beginPath()
 			canvasCtx.textAlign = 'center'
 			canvasCtx.textBaseline = 'middle'
-			canvasCtx.fillStyle = isDarkMode ? '#aaa' : '#011f3bcc'
+			canvasCtx.fillStyle = '#011f3bcc'
 			canvasCtx.font = `bold ${
 				20 - currentNode.value.toString().length * 2.5
 			}px Montserrat`
 
 			// TEXTO
-			canvasCtx.fillText(currentNode.value, currentNode.x, currentNode.y - 45)
+			canvasCtx.fillText(currentNode.value, currentNode.x, currentNode.y)
 			canvasCtx.closePath()
 		}
 	}
@@ -241,7 +264,11 @@ canvas.addEventListener('click', (ev: MouseEvent) => {
 					]
 
 				// AGREGAR
-				edgesArray.push({ origin: selectedNode, dest: null })
+				edgesArray.push({
+					origin: selectedNode,
+					dest: null,
+					distance: newEdgeLength,
+				})
 				selectedFirstEdge = edgesArray.length - 1
 			} else {
 				// VERIFICAR CAMINO DOBLE

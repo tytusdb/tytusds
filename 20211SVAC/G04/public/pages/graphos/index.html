@@ -90,6 +90,15 @@
 										placeholder="Nuevo valor"
 									/>
 								</div>
+								<div class="input">
+									<label for="length-trending-up"><i class="icon-hash"></i></label>
+									<input
+										type="text"
+										id="length-input"
+										oninput="onChangeEdgeLength(event)"
+										placeholder="Longitud"
+									/>
+								</div>
 								<ul>
 									<li>
 										<button
@@ -160,6 +169,33 @@
 							</label>
 							<div class="settings-menu-container">
 								<ul>
+										<li>
+												<button><i class="icon-search"></i> Búsqueda:</button>
+												<ul>
+													<li>
+														<label for="widthSearch">Anchura</label>
+														<input
+															onchange="changeInsertMode(event)"
+															checked="true"
+															type="radio"
+															id="widthSearch"
+															name="graphosSearch"
+															value="width"
+														/>
+													</li>
+		
+													<li>
+														<label for="deepSearch">Profundidad</label>
+														<input
+															type="radio"
+															id="deepSearch"
+															onchange="changeInsertMode(event)"
+															name="graphosSearch"
+															value="deep"
+														/>
+													</li>
+												</ul>
+											</li>
 									<li>
 										<button><i class="icon-grid"></i> Guardar como:</button>
 										<ul>
@@ -220,8 +256,7 @@
 							</label>
 							<div class="editor">
 								<pre><code><strong style="color:var(--monoConstIce)">const</strong> data <i style='color:var(--graySoda)'>=</i> <strong style='color:var(--keywordSoda)'>new</strong> <strong style="color:var(--monoClassIce)">Grapho</strong><strong style="color:var(--gray)">&#x3c;</strong><strong style="color:var(--monoNumberIce)">number</strong><strong style="color:var(--gray)">&#x3e;</strong>()
-
-data.<strong style="color: var(--monoFuncGreen)">iniciar</strong>()</code></pre>
+								</code></pre>
 								<ul>
 									<li>
 										<button class="reset" onclick="resetCanvas()" type="button">

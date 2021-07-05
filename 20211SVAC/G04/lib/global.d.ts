@@ -30,6 +30,7 @@ interface EdgePosition {
 interface EdgeJoin {
 	origin: EdgePosition
 	dest: EdgePosition | null
+	distance: number
 }
 
 interface BTreeData {

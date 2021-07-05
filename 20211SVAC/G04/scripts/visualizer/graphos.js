@@ -15,6 +15,7 @@ var enableAddEdge = false;
 var selectedFirstEdge = 0;
 var mouseIsDown = false;
 var tmpGraphoNode = null;
+var newEdgeLength = 0;
 var edgesArray = [];
 var nodesArray = [
     {
@@ -23,6 +24,11 @@ var nodesArray = [
         value: '1',
     },
 ];
+var onChangeEdgeLength = function (ev) {
+    var target = ev.target;
+    var value = +target.value;
+    newEdgeLength = value;
+};
 var getNodesDistance = function (x1, x2, y1, y2) {
     return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
 };
@@ -39,6 +45,16 @@ drawInCanvas = function () {
                 canvasCtx.moveTo(currentEdge.origin.x, currentEdge.origin.y);
                 canvasCtx.arrowTo(currentEdge.origin.x, currentEdge.origin.y, currentEdge.dest.x, currentEdge.dest.y, 30);
                 canvasCtx.stroke();
+                canvasCtx.closePath();
+                canvasCtx.beginPath();
+                var textX = (currentEdge.dest.x - currentEdge.origin.x) / 2;
+                var textY = (currentEdge.dest.y - currentEdge.origin.y) / 2;
+                canvasCtx.textAlign = 'center';
+                canvasCtx.textBaseline = 'middle';
+                canvasCtx.fillStyle = isDarkMode ? '#aaa' : '#011f3bcc';
+                canvasCtx.font = "bold 20px Montserrat";
+                canvasCtx.clearRect(textX - 10, textY - 15, 20, 30);
+                canvasCtx.fillText(currentEdge.distance.toString(), textX, textY);
                 canvasCtx.closePath();
             }
         }
@@ -91,9 +107,9 @@ drawInCanvas = function () {
             canvasCtx.beginPath();
             canvasCtx.textAlign = 'center';
             canvasCtx.textBaseline = 'middle';
-            canvasCtx.fillStyle = isDarkMode ? '#aaa' : '#011f3bcc';
+            canvasCtx.fillStyle = '#011f3bcc';
             canvasCtx.font = "bold " + (20 - currentNode.value.toString().length * 2.5) + "px Montserrat";
-            canvasCtx.fillText(currentNode.value, currentNode.x, currentNode.y - 45);
+            canvasCtx.fillText(currentNode.value, currentNode.x, currentNode.y);
             canvasCtx.closePath();
         }
     }
@@ -168,7 +184,11 @@ canvas.addEventListener('click', function (ev) {
                             canvasObjectColors.length *
                                 Math.floor(selectedNodeIndex / canvasObjectColors.length)
                         : selectedNodeIndex];
-                edgesArray.push({ origin: selectedNode_1, dest: null });
+                edgesArray.push({
+                    origin: selectedNode_1,
+                    dest: null,
+                    distance: newEdgeLength,
+                });
                 selectedFirstEdge = edgesArray.length - 1;
             }
             else {
