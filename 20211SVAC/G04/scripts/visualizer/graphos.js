@@ -47,8 +47,8 @@ drawInCanvas = function () {
                 canvasCtx.stroke();
                 canvasCtx.closePath();
                 canvasCtx.beginPath();
-                var textX = (currentEdge.dest.x - currentEdge.origin.x) / 2;
-                var textY = (currentEdge.dest.y - currentEdge.origin.y) / 2;
+                var textX = (currentEdge.dest.x + currentEdge.origin.x) / 2;
+                var textY = (currentEdge.dest.y + currentEdge.origin.y) / 2;
                 canvasCtx.textAlign = 'center';
                 canvasCtx.textBaseline = 'middle';
                 canvasCtx.fillStyle = isDarkMode ? '#aaa' : '#011f3bcc';

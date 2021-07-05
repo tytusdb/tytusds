@@ -63,8 +63,8 @@ drawInCanvas = () => {
 
 				// ESTILO DEL TEXTO ARISTA
 				canvasCtx.beginPath()
-				const textX: number = (currentEdge.dest.x - currentEdge.origin.x) / 2
-				const textY: number = (currentEdge.dest.y - currentEdge.origin.y) / 2
+				const textX: number = (currentEdge.dest.x + currentEdge.origin.x) / 2
+				const textY: number = (currentEdge.dest.y + currentEdge.origin.y) / 2
 
 				canvasCtx.textAlign = 'center'
 				canvasCtx.textBaseline = 'middle'
