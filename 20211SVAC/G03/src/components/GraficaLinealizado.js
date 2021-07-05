@@ -23,41 +23,42 @@ const customNodeStyles = {
 
 export default function GraficaLinealizado(props) {
     let elements = props.estructura.graficarMatriz()
-    
+    let linealizado;
     if(props.estructura.vector != null){
-        elements = props.estructura.graficarVector()
+        linealizado = props.estructura.graficarVector();     
         if(props.valorBusqueda != ""){
             let splitarr = props.valorBusqueda.split(",")
             let i = splitarr[0]
             let j = splitarr[1]
-            elements = props.estructura.graficarVector(i,j,props.nombre)
+            elements = props.estructura.graficarMatriz(i,j)
+            linealizado = props.estructura.graficarVector(i,j,props.nombre)
         }
     }
     return (
-        <div style={{ height: 500 }}>
-          < ReactFlowProvider >
-                <ReactFlow elements={elements} nodeTypes={nodeTypes}>
-                <Background
-                variant="dots"
-                gap={12}
-                size={1}
-                />
+       
 
-            <MiniMap
-                    nodeStrokeColor={(n) => {
-                    if (n.type === 'input') return '#0041d0';
-                    if (n.type === 'selectorNode') return "red";
-                    if (n.type === 'default') return "gray";
-                    if (n.type === 'output') return '#ff0072';
-                    if (n.type === 'special') return 'green';
-                    }}
-                    nodeColor={(n) => {
-                    if (n.type === 'selectorNode') return "gray";
-                    return '#fff';
-                    }}
-                />
-                </ReactFlow>
-            </ ReactFlowProvider >
-        </div>
+      <div style={{ height: 250 }}>
+      <h1 style={{ color: 'white' }}>Matriz</h1>
+      < ReactFlowProvider >
+          <ReactFlow elements={elements} nodeTypes={nodeTypes}>
+          <Background
+          variant="dots"
+          gap={12}
+          size={1}
+          />
+          </ReactFlow>
+
+      </ ReactFlowProvider >
+      < ReactFlowProvider >
+      <h1>Vector</h1>
+          <ReactFlow elements={linealizado} nodeTypes={nodeTypes}>
+          <Background
+          variant="dots"
+          gap={12}
+          size={1}
+          />
+          </ReactFlow>
+      </ ReactFlowProvider >
+      </div>
     )
 }

@@ -14,6 +14,9 @@ export default class Actualizar extends Component {
         let edd = this.props.edd
         let datoAnterior = this.state.datoAnterior
         let datoNuevo = this.state.datoNuevo
+        let splitarr ;
+        let i;
+        let j;
         switch(nombre){
             case "Pila" :
                 edd.actualizar(datoAnterior,datoNuevo)
@@ -71,10 +74,19 @@ export default class Actualizar extends Component {
                 edd.actualizar(x,y,nombre,datoNuevo)
             break
             case "Row Major":    
-                let splitarr = datoAnterior.split(",")
-                let i = splitarr[0]
-                let j = splitarr[1]
+                 splitarr = datoAnterior.split(",")
+                 i = splitarr[0]
+                 j = splitarr[1]
                 edd.actualizar(i,j,nombre,datoNuevo)
+            break
+            case "Matriz Dispersa":    
+                edd.modificar(datoAnterior,datoNuevo)
+            break
+            case "Grafo No Dirigido":    
+                edd.modificar(datoAnterior,datoNuevo)
+            break
+            case "Grafo Dirigido":    
+                edd.modificar(datoAnterior,datoNuevo)
             break
             default:
                 break;
