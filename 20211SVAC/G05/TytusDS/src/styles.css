@@ -12,3 +12,6 @@ body{
     height: 400px;
 }
 
+:root {
+  --animate-delay: 2s;
+}
