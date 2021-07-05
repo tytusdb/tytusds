@@ -690,7 +690,7 @@ export class HashCerradoComponent implements OnInit {
   }
   generador(){
     for (let i = 0; i < h.tabla.length; i++) {
-      this.contenido += h.tabla[i] + ",\n";
+      this.contenido +='"'+h.tabla[i]+'"'+ ",\n";
     }
     this.contenido += "]}";
   }
