@@ -16,3 +16,35 @@ class NodoEncabezado {
         this.nodoacceso = nodoacceso
     }
 }
+
+class NodoM {
+
+    public valor: any
+    public fila: any
+    public columna: any
+  
+    public derecha: any
+    public izquierda: any
+    public abajo: any
+    public arriba: any
+  
+    constructor(valor: any, fila: any, columna: any, derecha: any, izquierda: any, abajo: any, arriba: any)
+    
+    {
+  
+        this.valor = valor
+  
+        this.fila = fila
+  
+        this.columna = columna
+  
+        this.derecha = derecha
+  
+        this.izquierda = izquierda
+  
+        this.abajo = abajo
+  
+        this.arriba = arriba
+    }
+  
+}
