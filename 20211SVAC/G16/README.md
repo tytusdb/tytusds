@@ -1,6 +1,6 @@
 # TytusDS - Grupo 16
 
-Open source visualization of data structures and algorithms in JavaScript [Website](https://legalmentemiguel.github.io/TytusDS/frontend/build/).
+Open source visualization of data structures and algorithms in JavaScript [Website](https://tytusdb.github.io/tytusds/20211SVAC/G16/frontend/build/).
 
 This project was developed using:
 * [ReactJS](https://github.com/facebook/react)
