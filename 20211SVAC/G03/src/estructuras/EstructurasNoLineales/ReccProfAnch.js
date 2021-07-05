@@ -1090,14 +1090,14 @@ class ListaAdyacencia{
                         
                     }
                 }
-               /*  else if(this.caminoFinal != null){
+                else if(this.caminoFinal != null){
                     for (let x = 0; x < this.caminoFinal.length; x++) {
                         if(this.caminoFinal[x].from === tmp.dato.inicio.id && this.caminoFinal[x].to === tmp.dato.destino.id){
                             egde = {from: tmp.dato.inicio.id, to: tmp.dato.destino.id , label: tmp.dato.distancia.toString(),  color: "orange"}   
                         }
                         
                     }
-                } */
+                }
                 arregloedge.push(egde)
                 tmp = tmp.siguiente
             }

@@ -89,7 +89,7 @@ class TablaHashCerrada {
       }
 
     agregar(dato){
-        if(typeof dato === 'number'){
+        if(typeof parseInt(dato) === 'number'){
             dato = parseInt(dato)
         }
         let posicion =this.funcion_Hash(dato, this.funcion)
