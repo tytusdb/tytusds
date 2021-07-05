@@ -1,6 +1,7 @@
 class ProfundidadGrafos{
     constructor() {
-        this.DatoNodo = []
+        this.DatoNodo = [];
+        this.id = 1;
     }
 
     getKey(DatoActual) {
@@ -21,7 +22,7 @@ class ProfundidadGrafos{
 
     ObtenerArista(DatoActual) {
         for (let i = 0; i < this.DatoNodo.length; i++) {
-            if (this.DatoNodo[i].value == DatoActual) {
+            if (this.DatoNodo[i].Vertices == DatoActual) {
                 return this.DatoNodo[i].id
             }
         }
@@ -31,15 +32,15 @@ class ProfundidadGrafos{
     ActualizarNodo(DatoActual, NuevoDato) {
         var NodoActualizar
         for (let i = 0; i < this.DatoNodo.length; i++) {
-            if (this.DatoNodo[i].value == DatoActual) {
+            if (this.DatoNodo[i].Vertices == DatoActual) {
                 NodoActualizar = this.DatoNodo[i].id
-                this.DatoNodo[i].value = NuevoDato
+                this.DatoNodo[i].Vertices = NuevoDato
                 continue
             }
-            for (let j = 0; j < this.DatoNodo[i].edges.length; j++) {
-                if (this.DatoNodo[i].edges[j] == DatoActual) {
-                    this.DatoNodo[i].edges[j] = NuevoDato
-                    this.Insertar(this.DatoNodo[i].edges)
+            for (let j = 0; j < this.DatoNodo[i].Aristas.length; j++) {
+                if (this.DatoNodo[i].Aristas[j] == DatoActual) {
+                    this.DatoNodo[i].Aristas[j] = NuevoDato
+                    this.Insertar(this.DatoNodo[i].Aristas)
                     continue
                 }
 
@@ -60,18 +61,18 @@ class ProfundidadGrafos{
         }
     }
 
-    AgregarNodo(DatoActual, id) {
+    AgregarNodo(DatoActual) {
         let nodo = {
-            value: DatoActual,
-            id: id,
-            edges: []
+            Vertices: DatoActual,
+            id: this.id++,
+            Aristas: []
         }
         this.DatoNodo.push(nodo)
     }
 
     VerificarExisteNodo(DatoActual) {
         for (let i = 0; i < this.DatoNodo.length; i++) {
-            if (this.DatoNodo[i].value == DatoActual) {
+            if (this.DatoNodo[i].Vertices == DatoActual) {
                 return true
             }
         }
@@ -81,15 +82,15 @@ class ProfundidadGrafos{
     EliminarNodo(DatoActual) {
         var NodoEliminar
         for (let i = 0; i < this.DatoNodo.length; i++) {
-            if (this.DatoNodo[i].value == DatoActual) {
+            if (this.DatoNodo[i].Vertices == DatoActual) {
                 NodoEliminar = this.DatoNodo[i].id
                 this.DatoNodo.splice(i, 1)
                 continue
             }
-            for (let j = 0; j < this.DatoNodo[i].edges.length; j++) {         
-                if (this.DatoNodo[i].edges[j] == DatoActual) {
-                    this.DatoNodo[i].edges.splice(j, 1)
-                    this.Insertar(this.DatoNodo[i].edges)
+            for (let j = 0; j < this.DatoNodo[i].Aristas.length; j++) {         
+                if (this.DatoNodo[i].Aristas[j] == DatoActual) {
+                    this.DatoNodo[i].Aristas.splice(j, 1)
+                    this.Insertar(this.DatoNodo[i].Aristas)
                     continue
                 }
 
@@ -101,17 +102,17 @@ class ProfundidadGrafos{
     AgregarVertice(from, to) {
         //Obtenemos el nodo from
         for (let i = 0; i < this.DatoNodo.length; i++) {
-            if (this.DatoNodo[i].value == from) {
-                this.DatoNodo[i].edges.push(to)
-                this.Insertar(this.DatoNodo[i].edges)
+            if (this.DatoNodo[i].Vertices == from) {
+                this.DatoNodo[i].Aristas.push(to)
+                this.Insertar(this.DatoNodo[i].Aristas)
             }
         }
     }
 
     ObtenerDatoNodo(DatoActual) {
         for (let i = 0; i < this.DatoNodo.length; i++) {
-            if (DatoActual == this.DatoNodo[i].value) {
-                return this.DatoNodo[i].edges
+            if (DatoActual == this.DatoNodo[i].Vertices) {
+                return this.DatoNodo[i].Aristas
             }
         }
         return []
