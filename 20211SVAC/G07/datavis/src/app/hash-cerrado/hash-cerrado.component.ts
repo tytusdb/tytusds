@@ -537,7 +537,7 @@ class hash{
           iteracion=0;
           this.tabla[r] = valor;
           nodes.update(
-            {id: res, label:String(valor)}
+            {id: r, label:String(valor)}
           );
           this.size++;
           this.rehash();
@@ -553,7 +553,7 @@ class hash{
           iteracion=0;
           this.tabla[r] = valor;
           nodes.update(
-            {id: res, label:String(valor)}
+            {id: r, label:String(valor)}
           );
           this.size++;
           this.rehash();
@@ -585,7 +585,7 @@ class hash{
           iteracion=0;
           this.tabla[r] = valor;
           nodes.update(
-            {id: res, label:String(valor)}
+            {id: r, label:String(valor)}
           );
           this.size++;
           this.rehash();
@@ -601,7 +601,7 @@ class hash{
           iteracion=0;
           this.tabla[r] = valor;
           nodes.update(
-            {id: res, label:String(valor)}
+            {id: r, label:String(valor)}
           );
           this.size++;
           this.rehash();
@@ -633,7 +633,7 @@ class hash{
           iteracion=0;
           this.tabla[r] = valor;
           nodes.update(
-            {id: res, label:String(valor)}
+            {id: r, label:String(valor)}
           );
           this.size++;
           this.rehash();
@@ -649,7 +649,7 @@ class hash{
           iteracion=0;
           this.tabla[r] = valor;
           nodes.update(
-            {id: res, label:String(valor)}
+            {id: r, label:String(valor)}
           );
           this.size++;
           this.rehash();
