@@ -419,7 +419,7 @@ main > #cards > .flip-card:nth-child(2) > .flip-card-inner > .card-list {
 }
 
 main > #cards > .flip-card:nth-child(3) {
-	grid-column: 2/4;
+	grid-column: 1/3;
 	grid-row: 3/5;
 }
 
@@ -435,9 +435,8 @@ main > #cards > .flip-card:nth-child(3) .card-content > img {
 }
 
 main > #cards > .flip-card:nth-child(4) {
-	grid-column: 1/2;
-	grid-row: 3/5;
-	pointer-events: none;
+	grid-column: 3/6;
+	grid-row: 4/6;
 }
 
 main > #cards > .flip-card:nth-child(4) > .flip-card-inner > .card-content,
@@ -452,9 +451,8 @@ main > #cards > .flip-card:nth-child(4) .card-content > img {
 }
 
 main > #cards > .flip-card:nth-child(5) {
-	grid-column: 4/6;
-	grid-row: 4/5;
-	pointer-events: none;
+	grid-column: 1/3;
+	grid-row: 5/7;
 }
 
 main > #cards > .flip-card:nth-child(5) > .flip-card-inner > .card-content,
@@ -468,38 +466,6 @@ main > #cards > .flip-card:nth-child(5) .card-content > img {
 	left: 45px;
 	height: 150%;
 	object-fit: contain;
-}
-
-main > #cards > .flip-card:nth-child(6) {
-	grid-column: 3/6;
-	grid-row: 5/7;
-}
-
-main > #cards > .flip-card:nth-child(6) > .flip-card-inner > .card-content,
-main > #cards > .flip-card:nth-child(6) > .flip-card-inner > .card-list {
-	background-color: var(--lightRose);
-}
-
-main > #cards > .flip-card:nth-child(6) .card-content > img {
-	position: relative;
-	left: 40px;
-	top: 10px;
-}
-
-main > #cards > .flip-card:nth-child(7) {
-	grid-column: 1/3;
-	grid-row: 6/8;
-}
-
-main > #cards > .flip-card:nth-child(7) > .flip-card-inner > .card-content,
-main > #cards > .flip-card:nth-child(7) > .flip-card-inner > .card-list {
-	background-color: var(--grape);
-}
-
-main > #cards > .flip-card:nth-child(7) .card-content > img {
-	position: relative;
-	left: 0px;
-	top: 10px;
 }
 
 main > #cards > .flip-card {
