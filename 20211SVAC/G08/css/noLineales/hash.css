@@ -21,6 +21,15 @@
     
 }
 
+.eliminado{
+    animation: flipOutX; 
+    animation-duration: 2s; 
+}
+.busqueda{
+    animation: shakeX;
+    animation-duration: 2s;
+}
+
 #espacio{
     display: flex;
     flex-wrap: wrap;
