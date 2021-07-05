@@ -72,7 +72,7 @@ class NodoBinaryTree1 {
       }
   
       var aux = this.raiz
-      //console.log(aux)
+      console.log(aux)
       if (aux.value === value) {
        
         return aux
@@ -83,7 +83,7 @@ class NodoBinaryTree1 {
         // paramos de iterar.
         if (aux.value === value) {
   
-          //console.log(aux)
+          
           break
         }
         // seguimos buscando a la derecha
@@ -97,6 +97,7 @@ class NodoBinaryTree1 {
       // retornamos el nodo encontrado.
       // si no encontramos el nodo con el valor
       // aux, toma el valor null.
+      console.log(aux)
       return aux
     }
   
@@ -111,6 +112,7 @@ class NodoBinaryTree1 {
         while (node.izquierda) {
           node = node.izquierda
         }
+        
         return node
       }
     }
@@ -393,6 +395,53 @@ class DoubleLinkedList {
 
         //return regreso;
       }
+
+      buscarNodo(data,arbol){
+        let current = this.head;
+        let result = '';
+        let regreso;
+        while(current) {
+          if(current.data==data){
+            //console.log(current.arbol)
+            current.arbol.find(arbol);
+            //console.log(current.arbol)
+            regreso = current
+          }
+          //console.log("cabecera: " + current.data);
+          //console.log(current.arbol)
+          //current.arbol.addBinary(15);
+         // console.log(current.arbol)
+          result += current.data +' <-> ';
+          current = current.next;
+          
+          
+        };
+
+        //return regreso;
+      }
+      eliminarNodo(data,arbol){
+        let current = this.head;
+        let result = '';
+        let regreso;
+        while(current) {
+          if(current.data==data){
+            //console.log(current.arbol)
+            current.arbol.delete(arbol)
+            //console.log(current.arbol)
+            regreso = current
+          }
+          //console.log("cabecera: " + current.data);
+          //console.log(current.arbol)
+          //current.arbol.addBinary(15);
+         // console.log(current.arbol)
+          result += current.data +' <-> ';
+          current = current.next;
+          
+          
+        };
+
+        //return regreso;
+      }
     reversePrint() {
         let current = this.tail;
         let result = '';
@@ -437,6 +486,14 @@ function insertarCombinada(lista,arbol){
 }
 function insertarCombinadaa(data1,data2){
   insertarCombinada(data1,data2);
+}
+function eliminarCompuesta(data1,data2){
+  doubleLinkedList.eliminarNodo(data1,data2)
+  doubleLinkedList.print()
+}
+function buscarCompuesta(data1,data2){
+  doubleLinkedList.buscarNodo(data1,data2)
+  //doubleLinkedList.print()
 }
 //insertarCombinada(8,50)
 //insertarCombinada(9,55)
