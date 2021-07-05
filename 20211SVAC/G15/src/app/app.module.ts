@@ -26,7 +26,15 @@ import { MetodorapidoComponent } from './components/metodorapido/metodorapido.co
 import { MetodoSeleccionComponent } from './components/metodo-seleccion/metodo-seleccion.component';
 import { DispersaComponent } from './components/dispersa/dispersa.component';
 import { CompuestasComponent } from './components/compuestas/compuestas.component';
-import { MajorComponent } from './components/major/major.component'
+import { MajorComponent } from './components/major/major.component';
+import { CostoUniformeComponent } from './components/costo-uniforme/costo-uniforme.component';
+import { CodigoHammingComponent } from './components/codigo-hamming/codigo-hamming.component';
+import { GrafoDirigidoComponent } from './components/grafo-dirigido/grafo-dirigido.component';
+import { GrafoNoDirigidoComponent } from './components/grafo-no-dirigido/grafo-no-dirigido.component';
+import { RecubrimientoMinimoComponent } from './components/recubrimiento-minimo/recubrimiento-minimo.component';
+import { EstructurasNoLinealesComponent } from './components/estructuras-no-lineales/estructuras-no-lineales.component';
+import { AlgoritmoCodificacionComponent } from './components/algoritmo-codificacion/algoritmo-codificacion.component';
+import { GrafosConexionComponent } from './components/grafos-conexion/grafos-conexion.component'
 
 @NgModule({
   declarations: [
@@ -52,6 +60,14 @@ import { MajorComponent } from './components/major/major.component'
     DispersaComponent,
     CompuestasComponent,
     MajorComponent,
+    CostoUniformeComponent,
+    CodigoHammingComponent,
+    GrafoDirigidoComponent,
+    GrafoNoDirigidoComponent,
+    RecubrimientoMinimoComponent,
+    EstructurasNoLinealesComponent,
+    AlgoritmoCodificacionComponent,
+    GrafosConexionComponent,
   ],
   imports: [
     BrowserModule,
