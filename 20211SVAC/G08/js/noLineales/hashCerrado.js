@@ -83,7 +83,7 @@ class Hash{
 
         this.vector[posicion] = nuevo;
         this.elementos++;
-        this.porcentaje = this.elementos/this.size;
+        this.porcentaje = (this.elementos/this.size)*100;
 
         if(this.porcentaje > this.max){
             this.reHashing(fun);
@@ -93,9 +93,10 @@ class Hash{
     reHashing(fun){
         let siguiente = this.size;
         let factor = 0;
+        let posicion;
 
-        while(factor < this.minimo){
-            factor = this.elementos/siguiente;
+        while(factor < this.min){
+            factor = (this.elementos/siguiente)*100;
             siguiente++;
         }
 
@@ -120,7 +121,7 @@ class Hash{
                     posicion = this.funcionHash_multipli(this.valorASCII(nodo.clave));
                 }
                 
-                this.print("nueva posicion:", posicion);
+                //this.print("nueva posicion:", posicion);
                 nodo.indice = posicion;
                 vectorTemporal[posicion] = nodo;
             }
@@ -204,20 +205,25 @@ let tabla = new Hash(tamano, mini, maxi);
 
 //-----------MOSTRAR TABLA HASH-----------
 async function tam_tabla(valor){
+    velocidad = 10;
     let arreglo = valor;
     for (let i = 0; i < arreglo; i++){
         // Creando los cuadros y agregandole el elemento ingresado
         const div = document.createElement("div");
         div.classList.add('cuadrito');
-        div.textContent =(i+"||");
+
+        if (tabla.vector[i] == null){
+            div.textContent =(i+"||");
+        }else{
+            div.textContent =(i+"||"+tabla.vector[i].clave);
+        }
+        
         container.appendChild(div);
         await new Promise((resolve) =>
             setTimeout(() =>{
             resolve();
             }, (velocidad*200)) //delay
         ); 
-
-        //contenido_tabla(i);
     }
     
 }
@@ -308,7 +314,6 @@ function readFile(evento){ // lectura del archivo .json
             mini = convert.minimo;
             values = convert.valores;
             func = convert.funcion;
-            tam_tabla(tamano);
             tabla.size = tamano;
             tabla.min = mini;
             tabla.max = maxi;
@@ -324,9 +329,9 @@ function readFile(evento){ // lectura del archivo .json
                 tabla.insertar(tabla.valorASCII(values[i]), values[i], i, val_fun);
                 
             }
-            tabla.print();
+            //tabla.print();
             console.log(tabla.porcentaje);
-            agregarFile();
+            tam_tabla(tabla.size);
         };
         reader.readAsText(archivo); 
 
@@ -339,24 +344,6 @@ window.addEventListener('load', ()=>{ // cada vez que cambie
     document.getElementById('file').addEventListener('change',readFile)
 });
 
-//-----------AGREGAR ELEMENTOS - JSON-----------
-async function agregarFile(){
-    velocidad = 10;
-    
-    for(let i = 0; i < tamano.length; i++){
-        // Creando los cuadros y agregandole el elemento ingresado
-        const div = document.createElement("div");
-        div.classList.add('cuadrito');
-        div.textContent = Llave.clave;
-        container.appendChild(div);
-        await new Promise((resolve) =>
-            setTimeout(() =>{
-            resolve();
-            }, (velocidad*200)) //delay
-        ); 
-        
-    }
-}
 
 function listaNums(numso){
     let hola = [];
