@@ -586,7 +586,7 @@ export class HashAbiertaComponent implements OnInit {
   @ViewChild('mynetwork', {static: false}) el: ElementRef;
   public network: any;
   constructor() { }
-  contenido = "{ \"valores\": [\n";
+  contenido = "";
 
   ngOnInit(): void {
   }
@@ -672,6 +672,8 @@ export class HashAbiertaComponent implements OnInit {
     h.eliminar(valor);
   }
   generador(){
+    this.contenido = "";
+    this.contenido = "{ \"valores\": [\n";
     for (let i = 0; i < h.Arreglo.length; i++) {
       if(typeof h.Arreglo[i] == "object"){
         let aux = h.Arreglo[i].head;
