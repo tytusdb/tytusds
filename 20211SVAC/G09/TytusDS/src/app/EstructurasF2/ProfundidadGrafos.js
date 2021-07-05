@@ -124,7 +124,7 @@ class ProfundidadGrafos{
         while (ListaNodo.length > 0) {
             var current = ListaNodo.shift();
             res.push(current)
-              console.log("current", current)
+                console.log("current", current)
             if (current == NodoFinal) {
                 console.log("Lo encontramos");
                 return res
@@ -136,3 +136,4 @@ class ProfundidadGrafos{
         console.log("No se ha encontrado una ruta")
     }
 }
+module.exports = ProfundidadGrafos
