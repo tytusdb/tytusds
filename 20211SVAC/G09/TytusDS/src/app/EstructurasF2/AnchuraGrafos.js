@@ -33,7 +33,7 @@ class AnchuraGrafos{
 
 	AgregarNodo(DatoActual, id){
 		let nodo = {
-			value: DatoActual,
+			Vertice: DatoActual,
 			id: id,
 			edges: []
 		}
