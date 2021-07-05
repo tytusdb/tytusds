@@ -687,6 +687,23 @@ as(){
 }
 
 
+
+mapa(){
+    let array=[];
+    let aux=p.uno;
+    do{
+        array.push(aux.dato)
+
+    aux=aux.post;
+    }while(aux!=null)
+    return array;
+}
+
+
+
+
+
+
 leer(){
 var aux1=p.uno;
 let ldatos=[];
