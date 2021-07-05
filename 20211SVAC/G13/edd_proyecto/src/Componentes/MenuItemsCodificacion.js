@@ -1,7 +1,7 @@
 export const MenuItemsCodificacion = [
 	{
 		title:'Codigo Hamming',
-		path:'/',
+		path:'/Hamming',
 		cName:'dropdown-item'
 	},
 	{
