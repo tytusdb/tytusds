@@ -193,7 +193,8 @@ async function deleteEdgeMode(nodeId) {
 
 function cargarJson() {
     var opcion = document.getElementById('struct1').value
-    console.log(opcion)
+    let arregloCircular = []
+    let map = new Map()
     var file = document.getElementById('formFileSm').files[0];
     let reader = new FileReader();
     reader.readAsText(file);
@@ -202,12 +203,18 @@ function cargarJson() {
         var updatedIds
         var updatedIds2
         for (let i = 0; i < obj.valores.length; i++) {
+            let encontrado = array2.indexOf(obj.valores[i].principal.toString())
+            if (encontrado == -1) {
+                listita.agregar(obj.valores[i].principal.toString())
+            } else {
+                continue
+            }
             var valor = {
-                id: i,
+                id: cont,
                 label: obj.valores[i].principal.toString(),
             }
             updatedIds = nodes.add([{
-                id: i,
+                id: cont,
                 label: listita.agregar(obj.valores[i].principal.toString()),
                 shape: "hexagon",
                 color: "#7BE141"
@@ -215,15 +222,15 @@ function cargarJson() {
             array.push(valor)
             array2.push(valor.label) //elemento guardado solo label
             updatedIds = edges.add([
-                { from: i - 1, to: i, arrows: 'to' }
+                { from: cont - 1, to: cont, arrows: 'to' }
             ])
             updatedIds = edges.add([
-                    { from: i, to: i - 1, arrows: 'to' }
-                ])
-                //cont++
-                //CIRCULAR SIMPLE//
-            let dato = circular.agregar(obj.valores[i].secundario.toString())
-            let primero = circular.primero
+                { from: cont, to: cont - 1, arrows: 'to' }
+            ])
+            cont++
+            //cont++
+            //CIRCULAR SIMPLE//
+            /*let primero = circular.primero
             let actual = circular.ultimo
             var valor2 = {
                 id: i + letras[i],
@@ -261,10 +268,56 @@ function cargarJson() {
             ])
             updatedIds2 = edges.add([
                 { from: cont + letras[i], to: id, arrows: 'to' }
-            ])
-            cont++
+            ])*/
         }
+        for (let k = 0; k < obj.valores.length; k++) {
+            let circular = listita.agregarCircular(obj.valores[k].principal.toString(), obj.valores[k].secundario.toString())
+            map.set(obj.valores[k].principal.toString(), circular)
+            let primero = circular.primero
+            let actual = circular.ultimo
+            var valor2 = {
+                id: k + letras[k],
+                label: obj.valores[k].secundario.toString(),
+            }
+            arrayPrueba.push(k)
+            arrayC.push(valor2)
+            array3C.push(actual)
+            array2C.push(valor2.label) //elemento guardado solo label
+            let antes = 0
+            if (obj.valores[k].secundario.toString() != primero.dato) {
+                let pos = array2C.indexOf(actual.dato)
+                antes = (arrayPrueba[pos] - 1)
+            }
+            next = actual.siguiente.dato //el valor de la posicion siguiente
+            let id = arrayC[array2C.indexOf(next)].id //el id del valor siguiente
+            let noditos = network.getConnectedEdges(antes + letras[k - 1])
+            for (let l = 0; l < noditos.length; l++) {
+                let link = edges.get(noditos[l])
+                if (link.to == id) {
+                    network.selectEdges([link.id])
+                    network.deleteSelected()
+                }
+            }
+            updatedIds2 = nodes.add([{
+                id: k + letras[k],
+                shape: "diamond",
+                color: "#ba76ff",
+                label: obj.valores[k].secundario.toString(),
+            }]);
+            updatedIds2 = edges.add([
+                { from: antes + letras[k - 1], to: k + letras[k], arrows: 'to' }
+            ])
+            updatedIds2 = edges.add([
+                { from: k + letras[k], to: id, arrows: 'to' }
+            ])
+        }
+        console.log(map)
+        console.log(map.entries())
+        map.forEach((value, key) => {
+            console.log(value.length)
+        });
         network.selectNodes([updatedIds[0]]);
+        network.editNode();
         network.selectNodes([updatedIds2[0]]);
         network.editNode();
     };
