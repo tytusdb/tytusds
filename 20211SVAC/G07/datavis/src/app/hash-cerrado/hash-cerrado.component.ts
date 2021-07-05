@@ -680,12 +680,28 @@ export class HashCerradoComponent implements OnInit {
   @ViewChild('mynetwork', {static: false}) el: ElementRef;
   public network: any;
   constructor() { }
+  contenido = "{ \"valores\": [\n";
 
   ngOnInit(): void {
   }
   ngAfterViewInit(): void {
     var container = this.el.nativeElement;
     this.network = new vis.Network(container, listaData, options);
+  }
+  generador(){
+    for (let i = 0; i < h.tabla.length; i++) {
+      this.contenido += h.tabla[i] + ",\n";
+    }
+    this.contenido += "]}";
+  }
+  descargarContenido(){
+    this.generador();
+    let downloadfile = "data: text/json;charset=utf-8,"+encodeURIComponent(this.contenido);
+    console.log(downloadfile);
+    var downloader = document.createElement('a');
+    downloader.setAttribute('href', downloadfile);
+    downloader.setAttribute('download', 'data.json');
+    downloader.click();
   }
   code = '';
   array = [];
