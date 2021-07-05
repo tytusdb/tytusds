@@ -253,7 +253,7 @@ class hash{
   }
 
   //Actualizar
-  async actualizar(valor: any,sustituto: any){
+  actualizar(valor: any,sustituto: any){
       let calc = this.verificacionDato(valor);
 
       if(this.fun == "Simple" && this.test =="Lineal"){
@@ -376,7 +376,7 @@ class hash{
   }
 
   //Buscar
-  async buscar(valor: any){
+  buscar(valor: any){
       let calc = this.verificacionDato(valor);
       var ids = nodes.get({
         fields:['id', 'label', 'color']

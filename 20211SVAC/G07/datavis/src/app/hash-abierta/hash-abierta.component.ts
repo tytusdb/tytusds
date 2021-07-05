@@ -35,10 +35,7 @@ class ListaDoble {
       this.tail = null;
       this.size = 0;
   }
-  delay1(ms:number) {
-    return new Promise( resolve => setTimeout(resolve,ms));
-  }
-  async addhead(data: any){
+  addhead(data: any){
       const newNode = new Node(data, this.head, null);
       if (this.head){
           newNode.next = this.head;
@@ -118,12 +115,10 @@ class ListaDoble {
                       nodes.update(
                         {id: val.id,label:valor, color: "#FFA807"}
                       );
-                      await this.delay1(tiempo)
                     }else{
                       nodes.update(
                         {id: val.id, label:valor,color: "#FFA807"}
                       );
-                      await this.delay1(tiempo)
                     }
                   }
                 }
@@ -135,7 +130,7 @@ class ListaDoble {
     }
   }
 
-  async buscar(dato: any) {
+  buscar(dato: any) {
     let aux = this.head;
     var ids = nodes.get({
       fields:['id', 'label', 'color']
@@ -155,12 +150,10 @@ class ListaDoble {
                       nodes.update(
                         {id: val.id, color: "#FFA807"}
                       );
-                      await this.delay1(tiempo)
                     }else{
                       nodes.update(
                         {id: val.id, color: "#FFA807"}
                       );
-                      await this.delay1(tiempo)
                     }
                   }
                 }
@@ -174,7 +167,7 @@ class ListaDoble {
     }
   }
 
-  async deletehead(){
+  deletehead(){
       if (!this.head){
           return null;
       }
@@ -199,11 +192,9 @@ class ListaDoble {
         }
       }
       nodes.remove(primer);
-      await this.delay1(tiempo)
       return valoret;
   }
-
-  async deletetail(){
+  deletetail(){
       if (!this.tail){
           return null;
       }
@@ -232,11 +223,10 @@ class ListaDoble {
       nodes.update(
         {id: primer, label:"-1"}
       );
-      await this.delay1(tiempo)
       return valoret;
   }
 
-  async delete(data: any){
+  delete(data: any){
       let actual = this.head;
       let anterior = null;
 
@@ -264,7 +254,6 @@ class ListaDoble {
                       }
                     }
                     nodes.remove(primer);
-                    await this.delay1(tiempo)
 
                     let froms: number;
                     for (var val of id){
@@ -281,11 +270,9 @@ class ListaDoble {
                     edges.add(
                       {from: froms, to: to, length: 20, arrows: 'to'}
                     );
-                    await this.delay1(tiempo)
                     edges.add(
                       {from: to, to: froms, length: 20, arrows: 'to'}
                     );
-                    await this.delay1(tiempo)
                   }
                   else{
                     var id = nodes.get({
@@ -298,7 +285,6 @@ class ListaDoble {
                       }
                     }
                     nodes.remove(primer);
-                    await this.delay1(tiempo)
                   }
               }
               this.size--;
@@ -332,9 +318,6 @@ class HashAbierta{
   multiplicacion(k:any){
       const A = 0.6180;
       return tama*((k*A) % 1);
-  }
-  delay(ms:number) {
-    return new Promise( resolve => setTimeout(resolve,ms));
   }
   NuevaTabla(tamano: number){
     tama = tamano;
@@ -616,7 +599,7 @@ export class HashAbiertaComponent implements OnInit {
   definirTiempo(time:any){
     tiempo = 0;
     tiempo = time*10;
-  } 
+  }
 
   descargarContenido(){
     this.generador();
