@@ -84,17 +84,26 @@ const saveOpenHashTable = () => {
 }
 
 // INPUT DE FUNCIÓN
-const onChangeHashFunc = (ev: Event) => {
+const onChangeInput = (ev: Event, callback: (value: any) => void) => {
 	const target = ev.target as HTMLInputElement
-	const func: HashFunction = target.value as HashFunction
-	hashFunction = func
+	const value: any = target.value as any
+	callback(value)
 }
 
-const onChangeHashSize = (ev: Event) => {
-	const target = ev.target as HTMLInputElement
-	const size: number = +target.value as number
-	hashTableSize = size
-}
+const onChangeHashFunc = (ev: Event) =>
+	onChangeInput(ev, (value) => (hashFunction = value))
+
+const onChangeHashCoalition = (ev: Event) =>
+	onChangeInput(ev, (value) => (hashCoalition = value))
+
+const onChangeHashSize = (ev: Event) =>
+	onChangeInput(ev, (value) => (hashTableSize = +value))
+
+const onChangeHashMin = (ev: Event) =>
+	onChangeInput(ev, (value) => (hashMin = +value))
+
+const onChangeHashMax = (ev: Event) =>
+	onChangeInput(ev, (value) => (hashMax = +value))
 
 // DIBUJAR
 drawInCanvas = () => {

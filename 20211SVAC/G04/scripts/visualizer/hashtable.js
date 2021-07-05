@@ -50,15 +50,25 @@ var saveOpenHashTable = function () {
         : [];
     saveJSONFile(parsedValues);
 };
-var onChangeHashFunc = function (ev) {
+var onChangeInput = function (ev, callback) {
     var target = ev.target;
-    var func = target.value;
-    hashFunction = func;
+    var value = target.value;
+    callback(value);
+};
+var onChangeHashFunc = function (ev) {
+    return onChangeInput(ev, function (value) { return (hashFunction = value); });
+};
+var onChangeHashCoalition = function (ev) {
+    return onChangeInput(ev, function (value) { return (hashCoalition = value); });
 };
 var onChangeHashSize = function (ev) {
-    var target = ev.target;
-    var size = +target.value;
-    hashTableSize = size;
+    return onChangeInput(ev, function (value) { return (hashTableSize = +value); });
+};
+var onChangeHashMin = function (ev) {
+    return onChangeInput(ev, function (value) { return (hashMin = +value); });
+};
+var onChangeHashMax = function (ev) {
+    return onChangeInput(ev, function (value) { return (hashMax = +value); });
 };
 drawInCanvas = function () {
     var _a, _b;

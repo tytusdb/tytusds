@@ -152,14 +152,14 @@
 									<label for="max-input"
 										><i class="icon-maximize-2"></i
 									></label>
-									<input oninput="onChangeHashSize(event)" type="text" id="max-input" placeholder="Máximo" />
+									<input oninput="onChangeHashMax(event)" type="text" id="max-input" placeholder="Máximo" />
 								</div>
 
 								<div class="input">
 									<label for="min-input"
 										><i class="icon-minimize-2"></i
 									></label>
-									<input oninput="onChangeHashSize(event)" type="text" id="min-input" placeholder="Mínimo" />
+									<input oninput="onChangeHashMin(event)" type="text" id="min-input" placeholder="Mínimo" />
 								</div>
 
 								<ul>
@@ -218,7 +218,7 @@
 													name="hashCol"
 													value="lineal"
 													checked="true"
-													oninput="onChangeHashFunc(event)"
+													oninput="onChangeHashCoalition(event)"
 												/>
 											</li>
 
@@ -229,7 +229,7 @@
 													id="quadCol"
 													name="hashCol"
 													value="quad"
-													oninput="onChangeHashFunc(event)"
+													oninput="onChangeHashCoalition(event)"
 												/>
 											</li>
 											<li>
@@ -239,7 +239,7 @@
 													id="timesCol"
 													name="hashCol"
 													value="times"
-													oninput="onChangeHashFunc(event)"
+													oninput="onChangeHashCoalition(event)"
 												/>
 											</li>
 										</ul>
