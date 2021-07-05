@@ -534,6 +534,27 @@ class HashAbierta{
 
         return [dotNode,dotEdges];
     }
+    generateJSON=(funcion)=>{
+    	var json = "{\n  \"categoria\": \"Estructura No Lineal\",\n  \"nombre\": \"Tabla Hash Abierta\",\n  \"m\": "+this.m+",\n  \"minimo\": "+this.min+",\n  \"maximo\": "+this.max+",\n  \"funcion\": \""+funcion+"\",\n  \"animacion\": 10,\n  \"valores\": [\n";
+    	for(let i=0; i<this.arrreglo.length; i++){
+    		for(let j=0; j<this.arrreglo[i].length; j++){
+    			let esentero = true;
+				let entero = parseInt(this.arrreglo[i][j]); 
+				if(isNaN(entero)){
+					esentero=false;
+				}
+				if(esentero==true){
+					if(this.arrreglo[i][j]!=-1){
+						json = json + "\t"+this.arrreglo[i][j]+",\n";
+					}
+				}else{
+					json = json + "\t\""+ this.arrreglo[i][j] +"\",\n";
+				}
+    		}
+    	}
+    	json = json +"  ]\n}" 
+    	return json;
+    }
 
 }
 export default HashAbierta;

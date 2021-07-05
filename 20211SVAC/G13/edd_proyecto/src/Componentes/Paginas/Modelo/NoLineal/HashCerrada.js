@@ -653,6 +653,25 @@ class HashCerrada{
 
         return [dotNode,dotEdges];
     }
+    generateJSON=(funcion,prueba)=>{
+    	var json = "{\n  \"categoria\": \"Estructura No Lineal\",\n  \"nombre\": \"Tabla Hash Cerrada\",\n  \"m\": "+this.m+",\n  \"minimo\": "+this.min+",\n  \"maximo\": "+this.max+",\n  \"funcion\": \""+funcion+"\",\n  \"prueba\": \""+prueba+"\",\n  \"animacion\": 10,\n  \"valores\": [\n";
+    	for(let i=0; i<this.arrreglo.length; i++){
+    		let esentero = true;
+			let entero = parseInt(this.arrreglo[i]); 
+			if(isNaN(entero)){
+				esentero=false;
+			}
+			if(esentero==true){
+				if(this.arrreglo[i]!=-1){
+					json = json + "\t"+this.arrreglo[i]+",\n";
+				}
+			}else{
+				json = json + "\t\""+ this.arrreglo[i] +"\",\n";
+			}
+    	}
+    	json = json +"  ]\n}" 
+    	return json;
+    }
 
 }
 

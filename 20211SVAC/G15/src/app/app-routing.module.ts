@@ -40,6 +40,8 @@ import { MajorComponent } from './components/major/major.component'
 import { NoLinealesComponent } from './components/no-lineales/no-lineales.component'
 import { HashCerradaComponent } from './components/hash-cerrada/hash-cerrada.component'
 
+import { CompuestaComponent } from './components/compuesta/compuesta.component'
+
 const routes: Routes = [
   {path: 'binaryTree', component: BinaryTreeComponent, pathMatch: 'full'},
   {path: 'listaDobleCircular', component: ListaDobleCircularComponent, pathMatch: 'full'},
@@ -71,6 +73,9 @@ const routes: Routes = [
   {path: 'compuestas/major',component:MajorComponent,pathMatch:'full'},
   {path: 'NoLineales',component:NoLinealesComponent,pathMatch:'full'},
   {path: 'nolineales/hash/cerrada',component:HashCerradaComponent,pathMatch:'full'},
+
+  {path: 'compuestas/compuesta', component: CompuestaComponent, pathMatch: 'full'},
+
 
   {path: '', component: HomeComponent, pathMatch: 'full'}
   

@@ -121,7 +121,7 @@ class matriz{
         }
         
         this.vector[busqueda] = 0
-        this.arreglo[i][j] = 0
+        this.arreglo[parseInt(i)][parseInt(j)] = 0
     }
 
         actualizar(i,j,nombre,dato){
@@ -134,7 +134,7 @@ class matriz{
         }
         
         this.vector[busqueda] = dato
-        this.arreglo[i][j] = dato
+        this.arreglo[parseInt(i)][parseInt(j)] = dato
     }
 
     graficarVector(i,j, nombre){

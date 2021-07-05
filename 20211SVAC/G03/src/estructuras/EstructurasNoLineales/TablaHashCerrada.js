@@ -35,7 +35,7 @@ class TablaHashCerrada {
 
     funcion_Hash(dato, forma){
         let valorretorno;
-        if(dato.charCodeAt){
+        if(typeof dato === 'string'){
             dato = this.getCharCodes(dato)
         }
         switch(forma){
@@ -68,11 +68,11 @@ class TablaHashCerrada {
     division(valor){
         let hash = valor % this.tabla.length
 
-        return hash
+        return Math.floor(hash)
     }
 
     multiplicacion(valor){
-        let hash = (this.tabla.length*(valor*0.2520 % 1))
+        let hash = (this.tabla.length*(valor*0.61803 % 1))
 
         return Math.floor(hash)
     }
@@ -89,10 +89,12 @@ class TablaHashCerrada {
       }
 
     agregar(dato){
-        dato = parseInt(dato)== NaN ? dato: parseInt(dato)
+        if(typeof parseInt(dato) === 'number'){
+            dato = parseInt(dato)
+        }
         let posicion =this.funcion_Hash(dato, this.funcion)
         let i = 1;
-        while(this.tabla[posicion] !== -1 && posicion < this.tamaño){
+        while(this.tabla[posicion] !== -1){
             
             posicion = this.colisiones(dato, i, this.colision, this.funcion_Hash(dato, this.funcion))
             i++;
@@ -105,7 +107,7 @@ class TablaHashCerrada {
 
      colisiones(dato, i, colision, h1){
         let retorno;
-        if(dato.charCodeAt){
+        if(typeof dato === 'string'){
             dato = this.getCharCodes(dato)
         }
         console.log(dato)
@@ -117,7 +119,7 @@ class TablaHashCerrada {
                 retorno = this.colisionCuadratica(dato, i)
                 break;
             case "Doble":
-                retorno= this.colisionDobleHash(h1,dato, i)
+                retorno= this.colisionDobleHash(dato, i)
                 break;
             default:
                 break;
@@ -134,14 +136,17 @@ class TablaHashCerrada {
 
     colisionCuadratica(dato, i){
         let prueba = (dato +(i*i)) % this.tamaño
-        return prueba
+        return Math.floor(prueba)
     }
 
-    colisionDobleHash(h1,dato,i){
+    colisionDobleHash(dato,i){
+        let h1 = dato % this.tamaño
+        h1 = Math.floor(h1)
         let  h2 = 1 + (dato %(this.tamaño-1))
+        h2 = Math.floor(h2)
         let prueba = ((h1 + (i*h2)) % this.tamaño)
 
-        return prueba
+        return Math.floor(prueba)
     }
 
     imprimir(){

@@ -187,8 +187,14 @@ class MatrizColumnMajor extends Component {
 	}
 
 	handleSaveFile = () => {
-
-		//listaSimple.generateJSON(listaSimple)
+		const element = document.createElement("a");
+		var contenido = columnmajor.generateJSONColumnMajor();
+		const blob = new Blob([contenido]);                   
+		element.href = URL.createObjectURL(blob);
+	    element.download = "ColumnMajor.json";
+	    document.body.appendChild(element);
+	    element.click();
+	    alert("Documento Creado!")
 	}
 
 

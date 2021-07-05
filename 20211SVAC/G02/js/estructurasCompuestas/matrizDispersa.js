@@ -178,6 +178,7 @@ class MatrizDispersa{
         }
         console.log("****************************")
     }
+    
     recorrerGraficar(){
         let ecolumna = this.ecolumnas.primero
         //console.log("recorrido por columnas")
@@ -221,6 +222,38 @@ class MatrizDispersa{
         }
         console.log("************************")
     }
+
+
+    graficar(){
+        let ecolumna = this.ecolumnas.primero
+        console.log("recorrido por columnas")
+        arrayNodes.push({id: "centrar", label: "Central", level: 0, shape: "box"})
+        let idFila=0
+        let idColumna=0
+        while (ecolumna != null){
+            let actual = ecolumna.accesoNodo
+            console.log("\nColumna " + actual.columna)
+            arrayNodes.push({id: "C"+idColumna, label: actual.columna.toString(), level: 0, shape: "box"})
+            edges.push({from: "centrar", to: "C"+idColumna, shape: "box", arrows: "to"})
+            console.log("Fila   valor")
+            while (actual != null){
+                arrayNodes.push({id: "F"+idFila, label: actual.fila.toString(), level: idFila, shape: "box"})
+                arrayNodes.push({id: idFila + "," + idColumna, label: actual.valor.toString(), level: idFila, shape: "box"})
+                edges.push({from: "F"+idFila, to: idFila + "," + idColumna, shape: "box", arrows: "to"})
+                edges.push({from: "C"+idColumna, to: idFila + "," + idColumna, shape: "box", arrows: "to"})
+                console.log(actual.fila+ "       " + actual.valor)
+                actual = actual.abajo
+                idFila++
+                if(idFila >1){
+                    edges.push({from: "F"+idFila, to: "F"+idFila-1, shape: "box", arrows: "to"})
+                }
+            }
+            idColumna++
+            ecolumna = ecolumna.siguiente
+        }
+        console.log("************************")
+    }
+
     
     devolverValor(fila, columna){
         let ecolumna = this.ecolumnas.primero
@@ -248,7 +281,7 @@ class MatrizDispersa{
 m = new MatrizDispersa()
 
 function actualizarTablero(){
-    m.recorrerGraficar();
+    m.graficar();
     var nodes = new vis.DataSet(arrayNodes);
     var container = document.getElementById("mynetwork");
     var data = {

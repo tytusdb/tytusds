@@ -172,5 +172,67 @@ class Grafo{
 
 		}while(auxiliar!=[])
 	}
+	generateJSONMatriz=(dirigido)=>{
+    	var json = "{\n  \"categoria\": \"Estructura No Lineal\",\n  \"nombre\": \"Grafo "+dirigido+"\",\n  \"almacenamiento\": \"Matriz\",\n  \"animacion\": 10,\n  \"valores\": [\n";
+    	for(let i=0; i<this.vertices.length; i++){
+    		let esentero = true;
+			let entero = parseInt(this.vertices[i][0]); 
+			if(isNaN(entero)){
+				esentero=false;
+			}
+			if(esentero==true){
+				json = json + "   {\n\t\"vertice\": "+this.vertices[i][0]+",";
+			}else{
+				json = json + "   {\n\t\"vertice\": \""+this.vertices[i][0]+"\",";
+			}
+    		json = json + "\n\t\"aristas\": [";
+    		for(let j=0; j<this.vertices[i][1].length; j++){
+    			let esentero2 = true;
+				let entero2 = parseInt(this.vertices[i][1][j][0]); 
+				if(isNaN(entero2)){
+					esentero2=false;
+				}
+				if(esentero2==true){
+					json = json + "\n\t  { \n\t  \"arista\": "+this.vertices[i][1][j][0]+",\n\t   \"distancia\": "+this.vertices[i][1][j][1]+"\n\t  },\n";
+				}else{
+					json = json + "\n\t  { \n\t  \"arista\": \""+this.vertices[i][1][j][0]+"\",\n\t   \"distancia\": "+this.vertices[i][1][j][1]+"\n\t  },\n";	
+				}
+    		}
+    		json=json+" ]\n },\n";
+    	}
+    	json = json +"  ]\n}" 
+    	return json;
+    }
+    generateJSONFila=(dirigido)=>{
+    	var json = "{\n  \"categoria\": \"Estructura No Lineal\",\n  \"nombre\": \"Grafo "+dirigido+"\",\n  \"almacenamiento\": \"Lista\",\n  \"animacion\": 10,\n  \"valores\": [\n";
+    	for(let i=0; i<this.vertices.length; i++){
+    		let esentero = true;
+			let entero = parseInt(this.vertices[i][0]); 
+			if(isNaN(entero)){
+				esentero=false;
+			}
+			if(esentero==true){
+				json = json + "   {\n\t\"vertice\": "+this.vertices[i][0]+",";
+			}else{
+				json = json + "   {\n\t\"vertice\": \""+this.vertices[i][0]+"\",";
+			}
+    		json = json + "\n\t\"aristas\": [";
+    		for(let j=0; j<this.vertices[i][1].length; j++){
+    			let esentero2 = true;
+				let entero2 = parseInt(this.vertices[i][1][j][0]); 
+				if(isNaN(entero2)){
+					esentero2=false;
+				}
+				if(esentero2==true){
+					json = json + "\n\t  { \n\t  \"arista\": "+this.vertices[i][1][j][0]+",\n\t   \"distancia\": "+this.vertices[i][1][j][1]+"\n\t  },\n";
+				}else{
+					json = json + "\n\t  { \n\t  \"arista\": \""+this.vertices[i][1][j][0]+"\",\n\t   \"distancia\": "+this.vertices[i][1][j][1]+"\n\t  },\n";	
+				}
+    		}
+    		json=json+" ]\n },\n";
+    	}
+    	json = json +"  ]\n}" 
+    	return json;
+    }
 }
 export default Grafo;

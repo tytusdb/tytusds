@@ -235,7 +235,7 @@ function cargarJson() {
             var valor2 = {
                 id: i + letras[i],
                 label: obj.valores[i].secundario.toString(),
-            }
+            }//sdsds
             arrayPrueba.push(i)
             arrayC.push(valor2)
             array3C.push(actual)
