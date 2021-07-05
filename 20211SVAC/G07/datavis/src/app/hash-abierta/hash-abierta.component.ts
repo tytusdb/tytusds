@@ -678,13 +678,13 @@ export class HashAbiertaComponent implements OnInit {
         console.log(aux)
        while(aux!=null){
         console.log(aux.data)
-        this.contenido += aux.data+",\n";
+        this.contenido += '"'+aux.data+'"'+",\n";
         aux = aux.next;
        }
 
       }else{
         console.log(h.Arreglo[i])
-        this.contenido += h.Arreglo[i]+",\n";
+        this.contenido += '"'+h.Arreglo[i]+'"'+",\n";
       }
     }
     this.contenido += "]}";
