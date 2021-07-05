@@ -11,7 +11,99 @@
 		<link href="../../styles/normalize.css" rel="stylesheet" />
 	</head>
 	<body>
-		<main></main>
+		<main>
+			<div id="settings-panel">
+				<!-- <img src="../../images/pages/encodingBanner.png" alt="Banner" /> -->
+				<div id="file-container">
+					<h1><i class="icon-file"></i>Archivos de entrada:</h1>
+					<div>
+						<button><i class="icon-upload"></i>Cargar</button>
+						<button><i class="icon-download"></i>Guardar</button>
+					</div>
+				</div>
+				<div id="encoding-settings">
+					<h1><i class="icon-file"></i>Algoritmo de codificación:</h1>
+					<ul>
+						<li>
+							<label for="feistelEncode">Feistel</label>
+							<input
+								onchange="changeInsertMode(event)"
+								type="radio"
+								id="feistelEncode"
+								name="encodeAlgo"
+								value="feistel"
+							/>
+						</li>
+
+						<li>
+							<label for="hammingEncode">Hamming</label>
+							<input
+								onchange="changeInsertMode(event)"
+								type="radio"
+								id="hammingEncode"
+								name="encodeAlgo"
+								value="hamming"
+							/>
+						</li>
+
+						<li>
+							<label for="huffmanEncode">Huffman</label>
+							<input
+								onchange="changeInsertMode(event)"
+								type="radio"
+								id="huffmanEncode"
+								name="encodeAlgo"
+								value="huffman"
+							/>
+						</li>
+
+						<li>
+							<label for="lzwEncode">LZW</label>
+							<input
+								onchange="changeInsertMode(event)"
+								type="radio"
+								id="lzwEncode"
+								name="encodeAlgo"
+								value="lzw"
+							/>
+						</li>
+					</ul>
+				</div>
+				<div id="feistel-settings">
+					<h1><i class="icon-link"></i>Configuración Feistel:</h1>
+					<div>
+						<div class="input">
+							<label for="key-input"><i class="icon-key"></i></label>
+							<input
+								type="text"
+								id="key-input"
+								oninput="onChangeInputGrade(event)"
+								placeholder="Llave"
+							/>
+						</div>
+						<div class="input">
+							<label for="iter-input"><i class="icon-layers"></i></label>
+							<input
+								type="text"
+								id="iter-input"
+								oninput="onChangeInputGrade(event)"
+								placeholder="Iteración"
+							/>
+						</div>
+					</div>
+				</div>
+				<div id="input-container">
+					<h1><i class="icon-link"></i>Cadena de entrada:</h1>
+					<textarea
+						id="encode-input"
+						placeholder="Mensaje de entrada (UTF-8)"
+					></textarea>
+					<button id="encoding-start">
+						<i class="icon-shuffle"></i>Codificar
+					</button>
+				</div>
+			</div>
+		</main>
 		<script src="../../../scripts/utils/colors.js"></script>
 		<script src="../../../scripts/encoding/LZW/index.js"></script>
 		<script src="../../../scripts/encoding/feistel/index.js"></script>
