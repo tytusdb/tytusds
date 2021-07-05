@@ -595,10 +595,6 @@ class ListaAdyacencia{
 
     //Metodo de Rebubrimiento Minimo
     recubrimientoMinimo(ini){
-        this.anchura = null
-        this.profundidad = null
-        this.busquedaRecorrido = null
-        this.costoUnfi = null
         let borrar = this.ListaAdyacencia.cabeza
         while(borrar!= null){
             borrar.dato.camino = new ListaDoble()
@@ -622,12 +618,13 @@ class ListaAdyacencia{
                     if(iniRec.dato.dato == enl.dato.inicio.dato){
                         if(enl.dato.distancia == minimodis){    
                             enl.dato.destino.camino.insertar(iniRec.dato)
-                            let egde = {from: enl.dato.inicio.id, to: enl.dato.destino.id, label: enl.dato.distancia, color:"orange" }
+                            let egde = {from: enl.dato.inicio.id, to: enl.dato.destino.id, label: enl.dato.distancia }
                             this.caminoFinal.push(egde)
                             this.seguirRecorriendo(enl.dato.destino)
                             costos.eliminar(enl.dato.distancia)
                             minimodis = costos.regresarMinimo()
-                            let enlacesmandar = iniRec.dato.enlaces
+                            let enlacesmandar = new ListaDoble()
+                            enlacesmandar = iniRec.dato.enlaces
                             enlacesmandar.eliminar(enl.dato)
                             this.restoCaminos(costos,minimodis,enlacesmandar,iniRec.dato)
                         }    
@@ -640,7 +637,6 @@ class ListaAdyacencia{
         if(this.caminoFinal.length == 0){
             alert("Error1. Valor no existente. ")
         }
-        this.recminimo = this.caminoFinal
         return this.caminoFinal
     }
 
@@ -662,18 +658,20 @@ class ListaAdyacencia{
             if(enl.dato.distancia == minimodis){
                 if(enl.dato.destino.camino.size == 0){
                     enl.dato.destino.camino.insertar(nodo)
-                    let egde = {from: enl.dato.inicio.id, to: enl.dato.destino.id, label: enl.dato.distancia, color:"orange" }
+                    let egde = {from: enl.dato.inicio.id, to: enl.dato.destino.id, label: enl.dato.distancia}
                     this.caminoFinal.push(egde)
                     this.seguirRecorriendo(enl.dato.destino)
                     costos.eliminar(minimodis)
                     minimodis = costos.regresarMinimo()
-                    let enlacesmandar = nodo.enlaces
+                    let enlacesmandar = new ListaDoble()
+                    enlacesmandar = nodo.enlaces
                     enlacesmandar.eliminar(enl.dato)
                     this.restoCaminos(costos, minimodis,enlacesmandar,nodo)    
                 }else{
                     costos.eliminar(minimodis)
                     minimodis = costos.regresarMinimo()
-                    let enlacesmandar = nodo.enlaces
+                    let enlacesmandar = new ListaDoble()
+                    enlacesmandar = nodo.enlaces
                     enlacesmandar.eliminar(enl.dato)
                     this.restoCaminos(costos, minimodis,enlacesmandar,nodo)
                 }
@@ -690,12 +688,13 @@ class ListaAdyacencia{
                 if(enl.dato.distancia == minimodis){
                     if(enl.dato.destino.camino.size == 0){
                         enl.dato.destino.camino.insertar(enl.dato.inicio)
-                        let egde = {from: enl.dato.inicio.id, to: enl.dato.destino.id, label: enl.dato.distancia, color:"orange" }
+                        let egde = {from: enl.dato.inicio.id, to: enl.dato.destino.id, label: enl.dato.distancia }
                         this.caminoFinal.push(egde)
                         this.seguirRecorriendo(enl.dato.destino)
                         lisCostos.eliminar(minimodis)
                         minimodis = lisCostos.regresarMinimo()
-                        let enlacesmandar = lisEnlaces
+                        let enlacesmandar = new ListaDoble()
+                        enlacesmandar = lisEnlaces
                         enlacesmandar.eliminar(enl.dato)
                         if(enlacesmandar.size!=0){
                             this.restoCaminos(lisCostos,minimodis,enlacesmandar,nodo)
@@ -703,7 +702,8 @@ class ListaAdyacencia{
                     }else{
                         lisCostos.eliminar(minimodis)
                         minimodis = lisCostos.regresarMinimo()
-                        let enlacesmandar = lisEnlaces
+                        let enlacesmandar = new ListaDoble()
+                        enlacesmandar = lisEnlaces
                         enlacesmandar.eliminar(enl.dato)
                         if(enlacesmandar.size!=0){
                             this.restoCaminos(lisCostos,minimodis,enlacesmandar,nodo)
