@@ -148,6 +148,20 @@
 									<input oninput="onChangeHashSize(event)" type="text" id="size-input" placeholder="Tamaño" />
 								</div>
 
+								<div class="input">
+									<label for="max-input"
+										><i class="icon-maximize-2"></i
+									></label>
+									<input oninput="onChangeHashSize(event)" type="text" id="max-input" placeholder="Máximo" />
+								</div>
+
+								<div class="input">
+									<label for="min-input"
+										><i class="icon-minimize-2"></i
+									></label>
+									<input oninput="onChangeHashSize(event)" type="text" id="min-input" placeholder="Mínimo" />
+								</div>
+
 								<ul>
 									<li>
 										<button>
@@ -185,6 +199,46 @@
 													name="hashFunc"
 													value="times"
 
+													oninput="onChangeHashFunc(event)"
+												/>
+											</li>
+										</ul>
+									</li>
+
+									<li>
+										<button>
+											<i class="icon-activity"></i>Colisión:
+										</button>
+										<ul>
+											<li>
+												<label for="linealCol">Simple</label>
+												<input
+													type="radio"
+													id="linealCol"
+													name="hashCol"
+													value="lineal"
+													checked="true"
+													oninput="onChangeHashFunc(event)"
+												/>
+											</li>
+
+											<li>
+												<label for="quadCol">Cuadrática</label>
+												<input
+													type="radio"
+													id="quadCol"
+													name="hashCol"
+													value="quad"
+													oninput="onChangeHashFunc(event)"
+												/>
+											</li>
+											<li>
+												<label for="timesCol">Mult</label>
+												<input
+													type="radio"
+													id="timesCol"
+													name="hashCol"
+													value="times"
 													oninput="onChangeHashFunc(event)"
 												/>
 											</li>

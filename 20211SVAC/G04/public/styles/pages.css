@@ -167,10 +167,15 @@ nav > div > ul > li > .settings-menu-container > ul > li > ul > li > label {
 	cursor: pointer;
 }
 
+nav > div > ul > li > .settings-menu-container > ul > li > ul > li > input {
+	margin-right: 10px;
+}
+
 nav > div > ul > li > .settings-menu-container > ul > li > ul > li {
 	display: flex;
+	flex-direction: row-reverse;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: flex-end;
 	width: 80px;
 	height: 30px;
 }
