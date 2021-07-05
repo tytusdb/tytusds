@@ -1,7 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import * as vis from 'vis';
 let mapOrder; // diccionario en donde ya esta ordenado todo
 let cola // cola de prioridad
 let codigo;
+var edges = new vis.DataSet([]);
+var nodes = new vis.DataSet([]);
+var options = {
+  physics: {
+    enabled: false,
+  },
+}
+let listaData = { nodes: nodes,
+                edges: edges };
 //COLA DE PRIORIDAD ------------------------------------------------------------------------------
 class Node {
   value: any;
@@ -159,15 +169,42 @@ class Arbol{
   }
 
  }
+ x1 = 0;
+y1 = 0;
+i=0;
+j=2
  verTabla(){
      console.log("------------------------")
      console.log("Caracter   |Codigo  ")
-     for (let i = 0; i < this.tablaCode.length; i++) {
-                console.log(this.tablaCaracter[i] +"         |  "+this.tablaCode[i]);
-     }
- }
+     nodes.add(
+      {id: this.i, label:'Tabla Caracter',x: 0 , y: 0, color: "#7BE141"}
+    );
+    this.i++;
+    nodes.add(
+      {id: this.i, label:'Tabla Code',x: 110 , y: 0, color: "#7BE141"}
+    );
+    this.i++
+    this.y1 = this.y1 + 35
+     this.arrayTexto.forEach(element => {
+      for (let i = 0; i < this.tablaCaracter.length; i++) {
+        if(element == this.tablaCaracter[i]){
+            console.log(this.tablaCaracter[i] +"         |  "+this.tablaCode[i]);
+            nodes.add(
+              {id: this.j, label:String(this.tablaCaracter[i]),x: this.x1 , y: this.y1, color: "rgba(97,195,238,0.5)"}
+            );
+            this.j++;
+            this.x1 = this.x1 + 110
+            nodes.add(
+              {id: this.j, label:String(this.tablaCode[i]),x: this.x1 , y: this.y1, color: "rgba(97,195,238,0.5)"}
+            );
+            this.j++;
+            this.x1 = 0
+          this.y1 = this.y1 + 35
+        }
+      }
 
-
+  });
+}
   ingresoTexto(texto){
 
       let diccionario = new Map();
@@ -203,7 +240,7 @@ class Arbol{
       this.arrayTexto.forEach(element => {
           for (let i = 0; i < this.tablaCaracter.length; i++) {
               if(element == this.tablaCaracter[i]){
-                  resCode += this.tablaCode[i];
+                  resCode += ' '+ this.tablaCode[i];
                   resText+= element;
               }
           }
@@ -252,9 +289,66 @@ a.ingresoTexto("hola buenas");
 })
 export class HuffmanComponent implements OnInit {
 
+  @ViewChild('mynetwork', {static: false}) el: ElementRef;
+  public network: any;
+
   constructor() { }
 
   ngOnInit(): void {
   }
+  ngAfterViewInit(): void {
+    var container = this.el.nativeElement;
+    this.network = new vis.Network(container, listaData, options);
+  }
+
+  descargarContenido(){
+    let downloadfile = "data: text/json;charset=utf-8,"+encodeURIComponent(this.resultadoCifrado);
+    console.log(downloadfile);
+    var downloader = document.createElement('a');
+    downloader.setAttribute('href', downloadfile);
+    downloader.setAttribute('download', 'data.txt');
+    downloader.click();
+  }
+
+  
+
+  resultadoCifrado:string;
+  texto:string;
+  abrir(eve:any)
+  {
+    let a =eve.target.files[0]
+    
+
+    if(a){
+      let reader=new FileReader()
+        reader.onload=ev=>{
+        const resultado=ev.target?.result
+        this.texto=String(resultado)
+        console.log(this.texto)
+      }
+      reader.readAsText(a)
+    }
+
+
+  }
+  enviarResultado(){
+    this.resultadoCifrado = ""
+    for (let i = 0; i < this.huff.tablaCode.length; i++) {
+      this.resultadoCifrado += this.huff.tablaCode[i];
+    }
+  }
+  huff:any;
+  insercion(valor:any){
+    this.huff = new Arbol();
+    this.huff.ingresoTexto(valor);
+    this.enviarResultado();
+  }
+  
+  // pruebas(){
+  //   let a = new Arbol();
+  //   a.ingresoTexto("hola buenas");
+  //   console.log(a)
+
+  // }
 
 }
