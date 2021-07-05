@@ -24,7 +24,7 @@ export class CifradoFeistelComponent implements OnInit {
       this.a.cifrarCadena(this.cadena,this.rondas, this.llave)
       this.a.graficar()
     } else {
-      this.a.convertBinario(this.cadena,this.rondas)
+      this.a.convertBinario(this.cadena,this.rondas, this.llave)
       if(this.a.returnTable().length<50){
         this.a.graficar()
       }else{
@@ -50,7 +50,6 @@ export class CifradoFeistelComponent implements OnInit {
   }
   checkString(){
     this.ingresaString=!this.ingresaString
-    //console.log(this.ingresaString)
   }
   download(){
     let dow= new guardarArchivo()

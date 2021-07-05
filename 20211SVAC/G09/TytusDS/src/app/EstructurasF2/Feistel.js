@@ -40,12 +40,12 @@ class Feistel{
         }
         return result
     }
-    convertBinario(cadena, rondas){
+    convertBinario(cadena, rondas, llave){
         //Se importa el la clase Hamming para usar su método de converión a binario
         const Hamming= require('./Hamming')
         var Hm= new Hamming()
         cadena=Hm.convertTextToBinary(cadena)
-        this.cifrarCadena(cadena, rondas)
+        this.cifrarCadena(cadena, rondas,Hm.convertTextToBinary(llave))
     }
     calcularCifrado(l,r,k,j,rondas){
         var aux, f

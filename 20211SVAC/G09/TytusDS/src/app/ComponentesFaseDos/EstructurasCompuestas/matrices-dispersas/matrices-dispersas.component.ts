@@ -31,4 +31,22 @@ export class MatricesDispersasComponent implements OnInit {
     let dow= new guardarArchivo()
     dow.guardarMatriz(this.md.returnValores(),"Matriz Dispersa")
   }
+  insert(text:string, x:string, y:string){
+    this.md.insertar(text,parseInt(x),parseInt(y))
+    console.log("______________________")
+    this.md.imprimir_horizontal()
+  }
+  delete(text:string){
+    this.md.delete(text)
+    console.log("______________________")
+    this.md.imprimir_horizontal()
+  }
+  search(text:string){
+    console.log(this.md.search(text).existe)
+  }
+  actualizar(textReplace:string, textNew:string){
+    this.md.actualizar(textReplace,textNew)
+    console.log("______________________")
+    this.md.imprimir_horizontal()
+  }
 }
