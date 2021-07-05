@@ -3,12 +3,17 @@ export class NodeBinary{
     private id:number
     private left:NodeBinary
     private right:NodeBinary
+    private estructura:any
+
+    
+
 
     constructor(numero:number|string,id:number){
         this.numero = numero
         this.id = id
         this.left = null 
         this.right = null
+        
     }
 
     public setNumero(numero:number|string){
@@ -42,6 +47,14 @@ export class NodeBinary{
 
     public getRight(){
         return this.right
+    }
+
+    public getEstructura(): any {
+        return this.estructura;
+    }
+
+    public setEstructura(estructura: any): void {
+        this.estructura = estructura;
     }
 
 }

@@ -28,11 +28,19 @@ export class Compuestas {
             let existe = this.estructura.search(index)
             if (existe === null) {
                 existe = await this.estructura.InsertarFinal(index, null, null, 0, false)
-                if (this.hijo === Estructura.ABB) existe.setEstructura(new BinaryTree())
+                existe.setEstructura(new BinaryTree())
             }
-            if (this.hijo === Estructura.ABB) existe.getEstructura().addNode(this.convertir(value), 0, false)
-            console.log(existe)
+            await existe.getEstructura().addNode(this.convertir(value), 0, false)
+            return existe
         }
+
+        let existe = await this.estructura.searchWithOutAnimation(this.convertir(index))
+        if(existe === null){
+            existe = await this.estructura.addNode(this.convertir(index),null,0,false)
+            existe.setEstructura(new listaSimple())
+        }
+        await existe.getEstructura().InsertarFinal(value,null,null,0,false)
+        return existe
 
     }
 
@@ -43,7 +51,7 @@ export class Compuestas {
 
 
     public graficar() {
-        let data = this.estructura.getViz(0)
-        return data
+        if (this.padre === Estructura.SIMPLE_ENLAZADA) return this.estructura.getViz(0)
+        return this.estructura.getVizPadre(0)
     }
 }

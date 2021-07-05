@@ -113,7 +113,7 @@ export class listaSimple {
         if (!isNaN(dato)) {
             if (this.primero.getSiguiente() === null) {
                 if (Number(dato) <= Number(this.primero.getDato())) await this.InsertarInicio(dato, svg, dibujo, duracion, true)
-                else await this.InsertarFinal(dato, svg, dibujo, duracion,true)
+                else await this.InsertarFinal(dato, svg, dibujo, duracion, true)
                 return 1
             }
             if (Number(this.primero.getDato()) > Number(dato)) {
@@ -170,12 +170,12 @@ export class listaSimple {
 
             } while (aux != this.primero)
 
-            await this.InsertarFinal(dato, svg, dibujo, duracion,true)
+            await this.InsertarFinal(dato, svg, dibujo, duracion, true)
             return 1
         } else {
             if (this.primero.getSiguiente() === null) {
                 if (dato <= this.primero.getDato()) await this.InsertarInicio(dato, svg, dibujo, duracion, true)
-                else await this.InsertarFinal(dato, svg, dibujo, duracion,true)
+                else await this.InsertarFinal(dato, svg, dibujo, duracion, true)
                 return 1
             }
             if (this.primero.getDato() > dato) {
@@ -232,7 +232,7 @@ export class listaSimple {
 
             } while (aux != this.primero)
 
-            await this.InsertarFinal(dato, svg, dibujo, duracion,true)
+            await this.InsertarFinal(dato, svg, dibujo, duracion, true)
             return 1
         }
     }
@@ -548,33 +548,68 @@ export class listaSimple {
      */
 
 
-    async getViz(level){
+    async getViz(level) {
         let data = {
-            nodes : [],
+            nodes: [],
             edges: []
         }
         let temp = this.primero
 
-        while(temp !== null){
+        while (temp !== null) {
             let siguiente = temp.getSiguiente()
             let id = "simple" + temp.getId()
             data.nodes.push({
-                id: id ,
-                label: '' + temp.getDato(), 
+                id: id,
+                label: '' + temp.getDato(),
                 level: level
             })
-            
-            let result:any = await temp.getEstructura().getViz(level + 1,id)
+
+            let result: any = await temp.getEstructura().getViz(level + 1, id)
             //console.log(result)
-            
+
             data.nodes = data.nodes.concat(result.nodes)
             data.edges = data.edges.concat(result.edges)
-            
-            
-            if(temp.getSiguiente() === this.primero) break;
-            if(siguiente !== null){
+
+
+            if (temp.getSiguiente() === this.primero) break;
+            if (siguiente !== null) {
                 let id2 = "simple" + siguiente.getId()
-                 data.edges.push({
+                data.edges.push({
+                    from: id,
+                    to: id2
+                })
+            }
+            temp = temp.getSiguiente()
+        }
+
+        return data
+    }
+
+
+    async getVizHijo(level, padre) {
+        let data = {
+            nodes: [],
+            edges: []
+        }
+        let temp = this.primero
+        let id = padre + "simple" + this.primero.getId()
+        data.edges.push({
+            from: padre,
+            to: id
+        })
+
+        while (temp !== null) {
+            let siguiente = temp.getSiguiente()
+            let id = padre + "simple" + temp.getId()
+            data.nodes.push({
+                id: id,
+                label: '' + temp.getDato(),
+                level: level
+            })
+            if (temp.getSiguiente() === this.primero) break;
+            if (siguiente !== null) {
+                let id2 = padre + "simple" + siguiente.getId()
+                data.edges.push({
                     from: id,
                     to: id2
                 })

@@ -37,7 +37,7 @@ export class BinaryTree {
         if (this.raiz === null) {
             this.setRaiz(nodo)
             if (dibujar) this.drawTree.addNode(nodo, "center", -1, contenedor, duracion, this.raiz)
-            return true
+            return nodo
         }
 
         return this.insertNode(nodo, this.raiz, this.raiz.getId(), contenedor, duracion, dibujar)
@@ -214,14 +214,14 @@ export class BinaryTree {
         if (raiz === null) {
             raiz = nodo
             if (dibujar) this.drawTree.addNode(nodo, "center", -1, contenedor, duracion, this.raiz)
-            return true
+            return nodo
         }
 
         if (raiz.getNumero() >= nodo.getNumero()) {
             if (raiz.getLeft() === null) {
                 raiz.setLeft(nodo)
                 if (dibujar) this.drawTree.addNode(nodo, "left", raiz.getId(), contenedor, duracion, this.raiz)
-                return true
+                return nodo
             }
             return this.insertNode(nodo, raiz.getLeft(), raiz.getId(), contenedor, duracion, dibujar)
         }
@@ -229,11 +229,11 @@ export class BinaryTree {
             if (raiz.getRight() === null) {
                 raiz.setRight(nodo)
                 if (dibujar) this.drawTree.addNode(nodo, "right", raiz.getId(), contenedor, duracion, this.raiz)
-                return true
+                return nodo
             }
             return this.insertNode(nodo, raiz.getRight(), raiz.getId(), contenedor, duracion, dibujar)
         }
-        else return false
+        else return null
     }
 
 
@@ -288,6 +288,22 @@ export class BinaryTree {
 
     }
 
+    public async getVizPadre(level) {
+        let data = {
+            nodes: [],
+            edges: []
+        }
+
+        let result: any =  await this.preOrdenPadre(level,this.raiz)
+        //console.log(result)
+        data.nodes = data.nodes.concat(result.nodes)
+        data.edges = data.edges.concat(result.edges)
+        return data
+
+    }
+
+
+
     private preOrden(level, padre, raiz: NodeBinary) {
         let data = {
             nodes: [],
@@ -326,6 +342,56 @@ export class BinaryTree {
         data.edges = data.edges.concat(result.edges)
 
         result = this.preOrden(level + 1,padre,raiz.getRight())
+        data.nodes = data.nodes.concat(result.nodes)
+        data.edges = data.edges.concat(result.edges)
+
+        return data
+
+    }
+
+
+    private async preOrdenPadre(level, raiz: NodeBinary) {
+        let data = {
+            nodes: [],
+            edges: []
+        }
+
+
+        if (raiz === null) return data
+
+        let id = "abb" + raiz.getId()
+        data.nodes.push({
+            id: id,
+            label: '' + raiz.getNumero(),
+            level: level
+        })
+
+        let resultado = await raiz.getEstructura().getVizHijo(level,id)
+        data.nodes = data.nodes.concat(resultado.nodes)
+        data.edges = data.edges.concat(resultado.edges)
+
+        if (raiz.getLeft() !== null) {
+            let id2 = "abb" + raiz.getLeft().getId()
+            data.edges.push({
+                from: id,
+                to: id2
+            })
+        }
+
+
+        if (raiz.getRight() !== null) {
+            let id2 = "abb" + raiz.getRight().getId()
+            data.edges.push({
+                from: id,
+                to: id2
+            })
+        }
+
+        let result:any = await this.preOrdenPadre(level + 1,raiz.getLeft())
+        data.nodes = data.nodes.concat(result.nodes)
+        data.edges = data.edges.concat(result.edges)
+
+        result = await this.preOrdenPadre(level + 1,raiz.getRight())
         data.nodes = data.nodes.concat(result.nodes)
         data.edges = data.edges.concat(result.edges)
 

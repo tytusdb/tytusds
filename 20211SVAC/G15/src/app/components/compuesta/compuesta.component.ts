@@ -70,7 +70,7 @@ export class CompuestaComponent implements OnInit {
 
   async add() {
     if (!this.flagExsite) {
-      this.estructuraCompuesta = new Compuestas(this.getEstructuraPadre(), Estructura.ABB)
+      this.estructuraCompuesta = new Compuestas(this.getEstructuraPadre(), Estructura.SIMPLE_ENLAZADA)
       this.flagExsite = true
     }
     await this.estructuraCompuesta.add(this.index,this.value)
@@ -89,6 +89,7 @@ export class CompuestaComponent implements OnInit {
 
   getEstructuraPadre() {
     if (this.estructuraPadre === 0) return Estructura.SIMPLE_ENLAZADA
+    else return Estructura.ABB
   }
 
 }
