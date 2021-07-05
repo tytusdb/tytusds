@@ -159,8 +159,16 @@ class Hamming{
         var dot = [];
         var i = 0;
         var nodoId = 0;
+
+
+        i=0
         while(i<this.tabla.length){
+        	if(this.tabla[i].dato!=null){
+
+        		dot.push({id:nodoId, label:String(this.tabla[i].dato)+"\n"+String(this.tabla[i].id), level:this.tabla[i].Nivel});
+	        }else{
         	dot.push({id:nodoId, label:String(this.tabla[i].id), level:this.tabla[i].Nivel});
+	        }
         	i++;
         	nodoId++;
         }
@@ -268,6 +276,22 @@ class Hamming{
         return dot;
 
 
+    }
+
+    generateJSON = () => {
+
+    	var json ="";
+    	console.log(this.resultado)
+    	var i = 0;
+    	while(i<this.resultado.length){
+    		if(this.resultado[i].id != "Resultado:"){
+    			console.log("_>"+this.resultado[i].dato)
+    			json = json + String(this.resultado[i].dato)	
+    		}
+    		i++;
+    	}
+    	console.log(json)
+    	return json
     }
 
 

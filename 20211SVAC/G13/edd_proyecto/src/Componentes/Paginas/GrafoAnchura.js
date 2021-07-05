@@ -273,9 +273,25 @@ class GrafoAnchura extends Component {
 		}
 	}
 
-	handleSaveFile = () => {
-
-		//listaSimple.generateJSON(listaSimple)
+	handleSaveFileMatriz = () => {
+		const element = document.createElement("a");
+		var contenido = grafo.generateJSONMatriz(this.state.opcion);
+		const blob = new Blob([contenido]);                   
+		element.href = URL.createObjectURL(blob);
+	    element.download = "Grafo.json";
+	    document.body.appendChild(element);
+	    element.click();
+	    alert("Documento Creado!")
+	}
+	handleSaveFileLista = () => {
+		const element = document.createElement("a");
+		var contenido = grafo.generateJSONFila(this.state.opcion);
+		const blob = new Blob([contenido]);                   
+		element.href = URL.createObjectURL(blob);
+	    element.download = "Grafo.json";
+	    document.body.appendChild(element);
+	    element.click();
+	    alert("Documento Creado!")
 	}
 
 
@@ -355,11 +371,14 @@ class GrafoAnchura extends Component {
 				<div className="col-md-2">
 					<button type="button" className="btn btn-danger" onClick={() => this.handleUpdate()} >Actualizar Vertice</button>
 				</div>				
-				<div className="col-md-2" style={{marginLeft: 1 + 'em'}}>
+				<div className="col-md-1" style={{marginLeft: 1 + 'em'}}>
 					<button type="button" class="btn btn-dark" onClick={() => this.handleOpenFile()}>Leer</button>
 				</div>
 				<div className="col-md-1">
-					<button type="button" class="btn btn-success" onClick={() => this.handleSaveFile()}>Guardar</button>
+					<button type="button" class="btn btn-success" onClick={() => this.handleSaveFileMatriz()}>Guardar Matriz</button>
+				</div>
+				<div className="col-md-1">
+					<button type="button" class="btn btn-success" onClick={() => this.handleSaveFileLista()}>Guardar Lista</button>
 				</div>
 				
 			</div>
