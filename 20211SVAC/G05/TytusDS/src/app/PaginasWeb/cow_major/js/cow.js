@@ -33,28 +33,54 @@ class lista{
             this.ctamaño++
     }
 
-    eliminar(){
+    eliminar(valor){
         let actual = this.cuno;
         let anterior = null;
 
         if (this.cuno!=null){
             do{
-                if(actual==this.cfin){
+                if(actual.dato3==valor){
                     if(actual==this.cuno){
                       this.cuno=this.cuno.posterior;
                 }else{
                   anterior.posterior=null;
                   this.cfin=anterior;
-                  } copia=actual.dato;
+                  } 
                 } 
                 anterior=actual;
                 actual=actual.posterior;
                 }while(actual!=null);
                 this.ctamaño--
                 }
-                
-        
          }
+
+         modificar(actual,nuevo){
+            let aux = this.cuno;
+        if (this.cuno!=null){
+            do{
+                if(aux.dato3==actual){
+                    aux.dato3=nuevo; 
+                console.log("modi")}
+                console.log(aux.dato3+"    l  "+actual)
+                aux=aux.posterior;
+                }while(aux!=null);}
+                
+                console.log("no modi")
+        
+            }
+   
+    buscar(actual){
+        let aux = this.cuno;
+    if (this.cuno!=null){
+        do{
+            if(aux.dato3==actual){
+                aux.dato3=nuevo;
+            break; }
+            aux=aux.posterior;
+            }while(aux!=null);}
+    
+        }
+
 
 
 }
@@ -78,6 +104,8 @@ class cow{
     }
 
     tabla(){
+    var ele= document.getElementById("tabla");
+    while (ele.firstChild) {ele.removeChild(ele.firstChild);}   
     matriz=[];
     var r=(parseInt(xx)+1)*(parseInt(yy)+1);
     var contador=0;
@@ -137,7 +165,7 @@ class cow{
                 th.innerHTML =matriz[ii];
                 tr.appendChild(th);
                 th.style.textAlign="center";
-                th.style.border="5px solid";
+                th.style.border="1px solid";
                 if(l==yy){
                     console.log(ca)
                     ca=""
@@ -158,17 +186,98 @@ class cow{
                 
                 
                 l++; }
-
             document.getElementById("tabla").appendChild(tr);
-    
-            
-        
-           
+            var elem=document.getElementById("tabla").appendChild(tr);
+            elem.style.background = 'white';
+            elem.style.borderCollapse="collapse";
+            elem.style.width="70%";
+            elem.style.backgroundColor="#ffffff";
+            elem.style.color="black";
+            elem.style.margin="0px auto";
+            elem.style.textAlign="center";
+            elem.style.border="1px solid";
              }
 
-            mapeo(valor){
-
+    mapeo(vx,vy){
+        var r=((parseInt(vx))*(parseInt(yy)+1))+(parseInt(vy))
+        for(var ii=0; ii<matriz.length; ii++){
+            if(ii==r){
+                return matriz[ii];
             }
+
+        }  
+
+
+    }
+
+            vector(){
+                let ldatos=[];
+                let nodos=[]
+                let punteros=[]
+                for(var ii=0; ii<matriz.length; ii++){
+                    var m=(parseInt(ii)+1);
+                    nodos.push({id:ii, label: matriz[ii],shape:'box'}); 
+                    if(ii<matriz.length){
+                        punteros.push({from: ii, to: m, label:ii.toString() });
+                    }
+                }
+                ldatos.push(nodos)
+                ldatos.push(punteros)
+                return ldatos;
+            }
+
+
+    eliminar(vx,vy){
+        var r=((parseInt(vx))*(parseInt(yy)+1))+(parseInt(vy))
+        for(var ii=0; ii<matriz.length; ii++){
+            if(ii==r){
+                c.eliminar(matriz[ii]);
+            }
+
+        }
+        
+    }
+
+    modificar(vx,vy,nuevo){
+        var r=((parseInt(vx))*(parseInt(yy)+1))+(parseInt(vy))
+        for(var ii=0; ii<matriz.length; ii++){
+            if(ii==r){
+                c.modificar(matriz[ii],nuevo);
+            }
+
+        }
+    }
+    
+    leer1(){
+        let ldatos=[];
+            ldatos.push(xx);
+            ldatos.push(yy);
+            
+            return ldatos;
+          }
+
+
+
+    leer(){
+        var aux1=c.cuno;
+        let ldatos=[];
+        
+            if (c.cuno!=null){
+                do{ 
+                    var padre =new Object();
+                    let hijo=[];
+                    hijo.push(aux1.dato1);
+                    hijo.push(aux1.dato2);
+                    padre.indices=hijo;
+                    padre.valor=aux1.dato3;
+                    ldatos.push(padre);
+                    aux1=aux1.posterior
+                }while(aux1!=null);
+            }
+            else{console.log("sin datos"); }
+            return ldatos;
+          }
+        
 
 }
 module.exports = cow;

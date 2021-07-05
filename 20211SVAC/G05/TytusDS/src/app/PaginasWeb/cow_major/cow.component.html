@@ -1,6 +1,6 @@
 <app-opciones (opcionesEvento)="getOpciones($event)"></app-opciones>
 <div class="container mt-3 text-white">
-    <h1 class="fw-light">Cow Major</h1>
+    <h1 class="fw-light">Col-Major</h1>
     <hr>
     <div class="row my-3">
         <div class="col-md-1">
@@ -11,6 +11,12 @@
         </div>
         <div class="col-md-1">
             <button class="btn btn-primary button1"  (click)="agregar1(a1.value,a2.value)">Crear Matriz</button>
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-primary button1"  (click)="buscar(a1.value,a2.value)">Buscar</button>
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-danger button1"  (click)="eliminar(a1.value,a2.value)">Eliminar</button>
         </div>
 
         <div class="col-md-1">
@@ -28,10 +34,7 @@
             <button class="btn btn-primary button1" (click)="agregar(a11.value,a12.value,a13.value)">Agregar</button>
         </div>
         <div class="col-md-1">
-            <input type="text" class="form-control" placeholder="valor" [(ngModel)]="valorEliminar">
-        </div>
-        <div class="col-md-1">
-            <button class="btn btn-danger button1"  (click)="eliminar()">Eliminar</button>
+            <button class="btn btn-primary button1"  (click)="actualizar(a11.value,a12.value,a13.value)">Actualizar</button>
         </div>
 
         <div class="col-md-2">
@@ -43,23 +46,8 @@
     </div>
 
     <div class="row my-3">
-        <div class="col-md-2">
-            <input type="text" class="form-control" placeholder="valor antiguo" [(ngModel)]="valorAntiguo">
-        </div>
-        <div class="col-md-2">
-            <input type="text" class="form-control" placeholder="valor nuevo" [(ngModel)]="valorActualizar">
-        </div>
-        <div class="col-md-1">
-            <button class="btn btn-primary button1"  (click)="actualizar()">Actualizar</button>
-        </div>
+       
 
-
-        <div class="col-md-1">
-            <input type="text" class="form-control" placeholder="valor" [(ngModel)]="valorBuscar">
-        </div>
-        <div class="col-md-1">
-            <button class="btn btn-primary button1"  (click)="buscar()">Buscar</button>
-        </div>
         
 
 
@@ -79,7 +67,7 @@
         </table>
      </div>
      
-     <div style="width: 50%; float:right"  class="bg-light animacion mt-5" id="contenedor" >
+     <div style="width: 50%; float:right"  class="bg-light animacion mt-5" id="myDiv1" >
         
      </div>
     <div>

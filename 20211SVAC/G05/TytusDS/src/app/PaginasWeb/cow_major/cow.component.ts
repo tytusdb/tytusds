@@ -22,6 +22,7 @@ export class CowComponent implements OnInit {
     constante: 0.1625277911
   };
   lista=Lista;
+  grafo;
   m = '';
   n = '';
   nx = '';
@@ -50,42 +51,111 @@ export class CowComponent implements OnInit {
     console.log(opciones);
   }
 
-  getDocumento(documento: any): void {
+  getDocumento(documento: any): void{
     this.documentoService.getDocumento(documento).then( contenido => {
-     
       
-   
-    });
-  }
+        this.agregar1(contenido['m'][0],contenido['m'][1])
+
+      contenido['valores'].forEach(valor => { 
+        this.lista.agregar(valor['indices'][0],valor['indices'][1],valor['valor'])
+        });   
+        this.lista.tabla();
+        this.lista.imprimir2();
+        this.list();
+      alert("Datos guardados");  
+      });
+}
+
 
   agregar(v1,v2,v3){
    this.lista.agregar(v1,v2,v3)
+   this.lista.tabla();
+    this.lista.imprimir2();
+    this.list();
   }
 
   agregar1(v1,v2){
     this.lista.matriz(v1,v2)
    }
 
-  eliminar() {
+  eliminar(v1,v2) {
+    this.lista.eliminar(v1,v2);
     this.lista.tabla();
     this.lista.imprimir2();
-    
+    this.list();
   }
 
-  actualizar(){
-   
+  actualizar(v1,v2,nuevo){
+    this.lista.modificar(v1,v2,nuevo);
+    this.lista.tabla();
+    this.lista.imprimir2();
+    this.list();
   }
 
-  buscar(){
-  
+  buscar(x,y){
+  this.lista.mapeo(x,y);
+
   }
 
   graficar(){
    
   }
 
-  guardar() {
-   
+  guardar(): void {
+    const contenido: any = {
+      categoria: "Estructura No Lineal",
+      nombre: "Row/Column Major",
+      animacion:10,
+      m: [],
+      valores: []
+    };
+    contenido.m=contenido.m.concat(this.lista.leer1());
+    contenido.valores=contenido.valores.concat(this.lista.leer());
+    let blob = new Blob([JSON.stringify(contenido)], {type: 'json;charset=utf-8'});
+    saveAs(blob, 'cow major.json');
   }
+
+  list(){
+    let contenedor= document.getElementById("myDiv1");
+    let datos=this.lista.vector();
+    let Nodos=datos[0];
+    let edges=datos[1];
+    let data={nodes:Nodos,edges:edges};
+  
+    let opciones={
+      edges:{
+        font: {
+          align: "top"
+        },
+        arrows:{
+          to:{
+            enabled:false
+          }
+        },
+        color:{
+          color:"#013ADF"
+        }
+      },
+      nodes:{
+        color:{
+          border:"white",background:"rgb(25, 25, 112)"
+        },
+        font:{
+          color:"white"
+        }
+      },
+      physics:{
+        enabled: false},
+      layout:{
+        hierarchical: {
+          direction: "LR",
+          sortMethod: "directed",
+          nodeSpacing: 20,
+          treeSpacing: 50
+        }
+      }
+    };
+    this.grafo= new vis.Network(contenedor,data,opciones);
+    }
 
 }
