@@ -21,6 +21,7 @@ export class AnchuraComponent implements OnInit {
   ag5 = '';
   ag6 = '';
   ag7 = '';
+  ag8 = '';
   opciones = {
     ingreso: 'final',
     velocidadLineales: 1000,
@@ -57,7 +58,7 @@ export class AnchuraComponent implements OnInit {
         var s=this.lista.identificar();
       if (s==true){this.graficar1();  this.opcion=false;}
       else{this.graficarb1();  this.opcion=true;}
-      alert("Datos guardados");  
+      this.list1();
       
       
       
@@ -234,11 +235,172 @@ graficaranchura(){
   
 }
 
+graficaranchura2(){
+  let contenedor= document.getElementById("myDiv1");
+  let datos=this.lista.asbus2();
+  let Nodos=datos[0];
+  let edges=datos[1];
+    let data={nodes:Nodos,edges:edges};
+    let duracion=this.opciones['velocidadLineales'];
+    //OPCIONES PARA LOS NODOS----------------------------------------------------------
+    let opciones={
+      edges:{
+  
+        color:{
+          color:"#013ADF"
+        }, 
+        arrows:{ 
+          to:{
+            enabled:true
+          }
+        }
+      },
+      nodes:{
+        color:{
+          border:"white",background:"red"
+        },
+        font:{
+          color:"white"
+        }
+      },
+      physics:{
+        enabled: true,
+        barnesHut: {
+          gravitationalConstant: -1000,
+          centralGravity: 0.3,
+          springLength: 95
+        }},
+      layout:{
+        hierarchical: {
+          sortMethod: 'directed',
+          nodeSpacing: 200,
+          treeSpacing: 400
+        }
+      } 
+      
+    };
+    //------------------------------------------------------------------------
+    this.grafo= new vis.Network(contenedor,data,opciones);
+    
+  
+}
+
+buscaranimacion(){
+  let h=this.lista.bb();
+  let datos=this.lista.asbus();
+  let gl=this.grafo;
+  let contenedor= document.getElementById("myDiv1");
+  let Nodos=datos[0];
+  let edges=datos[1];
+  let data={nodes:Nodos,edges:edges};
+
+  var n=0;
+    let AnimLista = setInterval(function(){
+      if(n<=h.length){
+        let nodo=h[n];
+        if(nodo!=""){
+          if(nodo!=null){
+            //id:F#C#
+            let id=nodo;
+            let options={
+              scale: 5,
+              locked: false,
+              animation: {
+                //duración en ms
+                duration: 1000,
+                easingFunction: "easeInOutQuad"
+              }
+            }
+            gl.focus(id,options);
+          }
+        }
+
+        if(n== h.length){
+ 
+    //OPCIONES PARA LOS NODOS----------------------------------------------------------
+    let opciones={
+      edges:{color:{color:"#013ADF" },  arrows:{  to:{
+            enabled:true }}},
+      nodes:{ color:{border:"white",background:"red" },
+        font:{  color:"white"  } },
+      physics:{  enabled: true, barnesHut: { gravitationalConstant: -1000,
+          centralGravity: 0.3,springLength: 95  }},
+      layout:{   hierarchical: { sortMethod: 'directed',  nodeSpacing: 200,
+          treeSpacing: 400 }  }   };
+    gl= new vis.Network(contenedor,data,opciones);
+    
+          clearInterval(AnimLista);
+        }
+        n++;
+
+      }
+    
+    },1000); 
+    
+}
+
+
+buscaranimacion2(){
+  let h=this.lista.bb();
+  let datos=this.lista.asbus2();
+  let gl=this.grafo;
+  let contenedor= document.getElementById("myDiv1");
+  let Nodos=datos[0];
+  let edges=datos[1];
+  let data={nodes:Nodos,edges:edges};
+
+  var n=0;
+    let AnimLista = setInterval(function(){
+      if(n<=h.length){
+        let nodo=h[n];
+        if(nodo!=""){
+          if(nodo!=null){
+            //id:F#C#
+            let id=nodo;
+            let options={
+              scale: 5,
+              locked: false,
+              animation: {
+                //duración en ms
+                duration: 1000,
+                easingFunction: "easeInOutQuad"
+              }
+            }
+            gl.focus(id,options);
+          }
+        }
+
+        if(n== h.length){
+ 
+    //OPCIONES PARA LOS NODOS----------------------------------------------------------
+    let opciones={
+      edges:{color:{color:"#013ADF" },  arrows:{  to:{
+            enabled:true }}},
+      nodes:{ color:{border:"white",background:"red" },
+        font:{  color:"white"  } },
+      physics:{  enabled: true, barnesHut: { gravitationalConstant: -1000,
+          centralGravity: 0.3,springLength: 95  }},
+      layout:{   hierarchical: { sortMethod: 'directed',  nodeSpacing: 200,
+          treeSpacing: 400 }  }   };
+    gl= new vis.Network(contenedor,data,opciones);
+    
+          clearInterval(AnimLista);
+        }
+        n++;
+
+      }
+    
+    },1000); 
+    
+}
+
+
 
   bus(valor){
     this.lista.bus(valor);
     this.ag3 = '';
-    this.graficaranchura()
+    this.buscaranimacion();
+    
   }
 
   delete(valor){
@@ -267,6 +429,13 @@ graficaranchura(){
      this.lista.matriz();
    }
  
+   buscar(valor1,valor2){
+    this.lista.busx(valor1,valor2);
+    this.buscaranimacion2();
+    this.lista.limpiarcola();
+    this.ag7 = '';
+    this.ag8 = '';
+   }
  
    list(){
    let contenedor= document.getElementById("myDiv1");
@@ -308,6 +477,55 @@ graficaranchura(){
    this.grafo= new vis.Network(contenedor,data,opciones);
    }
 
+
+actualizar(){
+  if (this.opcion==true){
+    this.graficarb1();
+      }else{
+    this.graficar1();
+      }
+}
+
+list1(){
+  let h=this.lista.mapa();
+  let gl=this.grafo;
+  var n=0;
+    let AnimLista = setInterval(function(){
+      if(n<=h.length){
+        let nodo=h[n];
+        if(nodo!=""){
+          if(nodo!=null){
+            //id:F#C#
+            let id=nodo;
+            let options={
+              scale: 5,
+             
+              locked: false,
+              animation: {
+                //duración en ms
+                duration: 1000,
+                easingFunction: "easeInOutQuad"
+              }
+            }
+      
+            gl.focus(id,options);
+          }
+        }
+          
+    
+        if(n== h.length){
+          alert("Datos guardados");  
+        
+    
+          clearInterval(AnimLista);
+        }
+        n++;
+
+      }
+    
+    },1000);
+
+}
 
 
 

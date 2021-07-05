@@ -1,15 +1,24 @@
+.BotonesP{
+  position: fixed;
+  top:0px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
 
 .Head1{
   background-image: url("../../Componentes/Imagenes/usac.jpg");
   background-size: 200%;
   animation: movimiento 18s infinite linear alternate;
+  position: relative;
+  top:60px;
 }
 .Logo-usac{
   position: absolute;
   height: 170px;
   width: 170px;
   top: -7px;
-  right: 120px;
+  right: 0px;
   background-image: url("../../Componentes/Imagenes/usac_icono.png");
   background-size: 100%;
 }
