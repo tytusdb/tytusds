@@ -28,6 +28,9 @@ export class RowMajorComponent implements OnInit {
   public network: any;
 
   constructor() { }
+  contenido = "";
+  mfila = 0;
+  mcolumn = 0;
   x1 = 0;
   y1 = 0;
   ngOnInit(): void {
@@ -36,6 +39,33 @@ export class RowMajorComponent implements OnInit {
     var container = this.el.nativeElement;
     this.network = new vis.Network(container, listaData, options);
   }
+  generador(){
+    this.contenido = "";
+    this.contenido = "{ \"valores\": [\n ";
+    for (let i = 0; i < this.mfila; i++) {
+     
+      for (let j = 0; j < this.mcolumn; j++) {
+      this.contenido +=' { \n  "indices": [ \n   ';
+      this.contenido += i+",\n";
+      this.contenido +="   "+j+"\n    ],\n";
+      this.contenido += '   "valor": '+'"'+matriz[i][j]+'"';
+      this.contenido += "\n   },\n"
+        
+      }
+    }
+    this.contenido += "\n ]\n}"
+  }
+
+  descargarContenido(){
+    this.generador();
+    let downloadfile = "data: text/json;charset=utf-8,"+encodeURIComponent(this.contenido);
+    console.log(downloadfile);
+    var downloader = document.createElement('a');
+    downloader.setAttribute('href', downloadfile);
+    downloader.setAttribute('download', 'data.json');
+    downloader.click();
+  }
+
   code = '';
   texto="";
   abrir(eve:any)
@@ -50,6 +80,8 @@ export class RowMajorComponent implements OnInit {
         text=String(resultado)
         var data = JSON.parse(text);  // se parse para obtener solo los datos
         this.TamanoMatriz(data.m[0],data.m[1]);
+        this.mfila = data.m[0];
+        this.mcolumn = data.m[1];
         data.valores.forEach(element => { // se pasa a un arreglo
           console.log(element.indices[0])
           console.log(element.indices[1])
