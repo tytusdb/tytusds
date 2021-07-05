@@ -114,6 +114,8 @@ fileUploadCallback = () => {
 				distance: edge.distancia,
 			})
 		}
+	selectedFirstEdge = -1
+	enableAddEdge = false
 }
 
 // INPUT DE FUNCIÓN
@@ -381,8 +383,10 @@ const searchNodeOnGrapho = (value: string) => {
 
 // INSERTAR ARISTA
 const addEdgeOnGraphos = () => {
-	hideNavMenu(1)
-	enableAddEdge = true
+	if (newEdgeLength >= 0) {
+		hideNavMenu(1)
+		enableAddEdge = true
+	}
 }
 
 canvas.addEventListener('click', (ev: MouseEvent) => {

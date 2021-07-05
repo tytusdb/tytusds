@@ -85,6 +85,8 @@ fileUploadCallback = function () {
     for (var vertexIndex = 0; vertexIndex < values.length; vertexIndex++) {
         _loop_1(vertexIndex);
     }
+    selectedFirstEdge = -1;
+    enableAddEdge = false;
 };
 var onChangeGraphosInput = function (ev, callback) {
     var target = ev.target;
@@ -268,8 +270,10 @@ var searchNodeOnGrapho = function (value) {
     return currentNode;
 };
 var addEdgeOnGraphos = function () {
-    hideNavMenu(1);
-    enableAddEdge = true;
+    if (newEdgeLength >= 0) {
+        hideNavMenu(1);
+        enableAddEdge = true;
+    }
 };
 canvas.addEventListener('click', function (ev) {
     if (enableAddEdge && newEdgeLength >= 0) {
