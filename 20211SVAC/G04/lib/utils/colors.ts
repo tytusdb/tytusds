@@ -15,6 +15,7 @@ interface IColor {
 
 // COLORES PRIMARIOS
 const primaryColors: IPColor[] = [
+	{ name: '--grape', value: '#A9A8F6' },
 	{ name: '--monoLight', value: '#fafafa' },
 	{ name: '--monoConst', value: '#299cbf' },
 	{ name: '--monoText', value: '#65645c' },
@@ -60,7 +61,7 @@ const primaryColors: IPColor[] = [
 
 // COLORES INMUTABLES
 const localDarkValue: string | null = window.localStorage.getItem('darkmode')
-const isDarkMode:boolean = localDarkValue === '1'
+const isDarkMode: boolean = localDarkValue === '1'
 const baseColors: IColor[] = []
 
 // PERMUTACIÓN DE COLORES
