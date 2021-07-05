@@ -4,7 +4,7 @@
 // 4 Estructuras compuestas
 class CargaArchivo{
     constructor(){
-
+        this.Matriz=["Hi"]
     }
     leerMatriz(event,indexClase, variante){
         var file = event.target.files[0];
@@ -52,24 +52,31 @@ class CargaArchivo{
             }
             //console.log(key)
         }*/
+        /*this.Matriz=[]
+        for (var k in doc.valores){
+            this.Matriz.push({valor:doc.valores[k].valor, x:doc.valores[k].indices[0], y:doc.valores[k].indices[1]})
+            //md.insertar(doc.valores[k].valor,doc.valores[k].indices[0],doc.valores[k].indices[1])
+        }debugger*/
     }
     reader.readAsText(file);
+    //var Matriz=[]
     setTimeout(() => {
         const Animaciones= require('./Animaciones')
         let animate= new Animaciones()
+        
         switch (indexClase) {
             case 1:
-                const Matricesdisp= require('./Matricesdisp')
-                var md= new Matricesdisp()
+                /*const Matricesdisp= require('./Matricesdisp')
+                let md= new Matricesdisp()*/
+                this.Matriz=[]
                 for (var k in doc.valores){
-                    md.insertar(doc.valores[k].valor,doc.valores[k].indices[0],doc.valores[k].indices[1])
+                    this.Matriz[k]={valor:doc.valores[k].valor, x:doc.valores[k].indices[0], y:doc.valores[k].indices[1]}
                 }
-                md.imprimir_horizontal()
                 break;
             case 2:
-                const RowColMayor= require('./rowColMayor') 
+                /*const RowColMayor= require('./rowColMayor') 
                 debugger
-                var rc= new RowColMayor()
+                var rc= new RowColMayor()*/
                 let Matriz= new Array(doc.m[0])
                 for (let i = 0; i < Matriz.length; i++) {
                     Matriz[i]= new Array(doc.m[1])
@@ -77,21 +84,26 @@ class CargaArchivo{
                 for (let k in doc.valores){
                     Matriz[doc.valores[k].indices[0]][doc.valores[k].indices[1]]=doc.valores[k].valor
                 }
+                this.Matriz=Matriz
                 animate.graficarMatriz(Matriz)
-                setTimeout(() => {
+                /*setTimeout(() => {
                     if (variante=="row") {
                         animate.graficarMatrizUnaDimension(rc.convertRowmayor(Matriz))
                     } else {
                         animate.graficarMatrizUnaDimension(rc.convertColmayor(Matriz))
                     }                    
-                }, 1000);
+                }, 1000);*/
                 break;
             default:
                 console.log("Indice indefinido")
                 break;
         }
-        
+        //return Matriz
     }, 500);    
     }
+    returnMatriz(){
+        return this.Matriz
+    }
+    addMatriz(array){this.Matriz=array}
 }
 module.exports = CargaArchivo

@@ -5,12 +5,12 @@ class Feistel{
         this.table[1]=new Array()
         this.cadenaConvertida=""
     }
-    cifrarCadena(cadena, rondas){
+    cifrarCadena(cadena, rondas, llave){
         var l="",r="",k,f, aux=""
         //Se declaran los l y r de la tabla
         l=cadena.substring(0,parseInt(cadena.length/2))
         r=cadena.substring(parseInt(cadena.length/2),cadena.length)
-        k="00110001"
+        k=llave
 
         f=this.xor(k,r)
         this.table[0][0]=l
@@ -40,12 +40,12 @@ class Feistel{
         }
         return result
     }
-    convertBinario(cadena, rondas){
+    convertBinario(cadena, rondas, llave){
         //Se importa el la clase Hamming para usar su método de converión a binario
         const Hamming= require('./Hamming')
         var Hm= new Hamming()
         cadena=Hm.convertTextToBinary(cadena)
-        this.cifrarCadena(cadena, rondas)
+        this.cifrarCadena(cadena, rondas,Hm.convertTextToBinary(llave))
     }
     calcularCifrado(l,r,k,j,rondas){
         var aux, f
@@ -68,7 +68,7 @@ class Feistel{
     graficar(){
         const Animaciones= require('./Animaciones')
         let ani=new Animaciones()
-        ani.graficarMatriz(this.table)
+        ani.animarTabla(this.table)
     }
     returnTable(){return this.table}
     returnCadena(){return this.cadenaConvertida}    

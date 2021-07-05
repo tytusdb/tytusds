@@ -22,8 +22,7 @@ class Hamming{
     graficar(){
         const Animaciones= require('./Animaciones')
         let ani=new Animaciones()
-        //debugger
-        ani.graficarMatriz(this.returnMatriz())
+        ani.animarTabla(this.returnMatriz())
     }
     HammingCadena(cadena){
         cadena=this.convertTextToBinary(cadena)

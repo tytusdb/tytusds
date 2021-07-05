@@ -21,7 +21,6 @@ export class CodigoHammingComponent implements OnInit {
 
   ngOnInit(): void {}
   codificar(){
-    //let a= new Hamming()
     if (!this.ingresaString) {
       this.a.Hamming(this.cadena)
       this.a.graficar()
@@ -37,11 +36,10 @@ export class CodigoHammingComponent implements OnInit {
   leerArchivo(event: any){
     console.log(event)
     let archivo = event.target.files[0]
-    //debugger
     if (archivo) {
       let reader= new FileReader()
       var contenido, text=""
-      reader.onload = function (e) {//debugger
+      reader.onload = function (e) {
         contenido = e.target?.result
         text+=contenido?.toString()
       }
@@ -53,11 +51,9 @@ export class CodigoHammingComponent implements OnInit {
   }
   checkString(){
     this.ingresaString=!this.ingresaString
-    //console.log(this.ingresaString)
   }
   download(){
     let dow= new guardarArchivo()
     dow.guardarTexto(this.cadena,this.a.returnCadena())
   }
 }
-
