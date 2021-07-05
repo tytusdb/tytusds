@@ -261,7 +261,7 @@ class row{
                       }});  co2=0; }
                     else{nodos.push({id:ii, label: matriz[ii],shape:'box'}); 
                     co2++;
-                    if(co2>yy){co=0}
+                    if(co2>yy){co=-1}
                 }
                     co++;
                     
