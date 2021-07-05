@@ -99,7 +99,6 @@ function algoritmo(cadena){
 
     myTable+="</table>";
       document.getElementById('tablePrint').innerHTML = myTable;
-
 }
 
 // buscar en el diccionario y retorna un true o false
