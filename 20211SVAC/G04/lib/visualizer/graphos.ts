@@ -642,7 +642,7 @@ const graphosDeepSearch = () => {
 
 	// BUSCAR
 	while (usedNodes.length < vertexArray.length) {
-		if (vertexArray[currentNodeIndex]) {
+		if (currentNodeIndex >= 0) {
 			// ULTIMA ARISTA DISPONIBLE
 			let lastEdge  = graphoType === 'dir' ? undefined : vertexArray[currentNodeIndex].aristas[0]
 

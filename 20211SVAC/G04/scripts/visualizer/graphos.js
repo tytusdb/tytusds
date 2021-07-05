@@ -446,7 +446,7 @@ var graphosDeepSearch = function () {
     var usedNodes = [textValues[0]];
     var deepSearchEdges = [];
     while (usedNodes.length < vertexArray.length) {
-        if (vertexArray[currentNodeIndex]) {
+        if (currentNodeIndex >= 0) {
             var lastEdge = graphoType === 'dir' ? undefined : vertexArray[currentNodeIndex].aristas[0];
             var _loop_5 = function (edgesIndex) {
                 if (!usedNodes.some(function (node) {
