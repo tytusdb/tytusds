@@ -249,7 +249,7 @@ async function search(){
     alert("El nodo '" + To + "' no existe :c")
     return
   }
-  let recorrido = grafito.searchPrim(From, To)
+  let recorrido = grafito.searchCostoUniforme(From, To)
   for(let i = 0; i < recorrido.recorrido.length; i++){
     network.selectNodes([recorrido.recorrido[i]])
     network.focus(recorrido.recorrido[i], animation)
@@ -257,7 +257,7 @@ async function search(){
   }
   network.fit()
   if(recorrido.encontrado){
-    alert("Se ha encontrado el fin exitosamente :D")
+    alert("Se ha encontrado el fin exitosamente :D, distancia acumulada: " + recorrido.distancia)
   } else {
     alert("No se ha encontrado el fin :c")
   }
@@ -282,7 +282,7 @@ async function recorrer(){
     alert("El nodo '" + From + "' no existe :c")
     return
   }
-  let recorrido = grafito.recorrerPrim(From)
+  let recorrido = grafito.recorrerCostoUniforme(From)
   for(let i = 0; i < recorrido.recorrido.length; i++){
     network.selectNodes([recorrido.recorrido[i]])
     network.focus(recorrido.recorrido[i], animation)

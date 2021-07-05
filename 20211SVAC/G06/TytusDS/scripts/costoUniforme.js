@@ -1,14 +1,16 @@
-class Costo {
-    constructor() {
+class Graph{
+    constructor(){
         this.successors = []
-        this.id = 1
     }
 
+    getData(){
+        return this.successors
+    }
 
-    getKey(item) {
+    getKey(item){
         let hash = 0
-        if (typeof item === 'string') {
-            for (let i = 0; i < item.length; i++) {
+        if(typeof item === 'string'){
+            for(let i = 0; i < item.length; i++){
                 hash += item.charCodeAt(i)
             }
         } else {
@@ -17,159 +19,282 @@ class Costo {
         return hash
     }
 
-    getData() {
-        return this.successors
+    insercion(array){
+        for(let i = 1; i < array.length; i++){
+            let keyCompare = array[i].value
+            let key = array[i]
+            let j = i-1
+            while(j>=0 && this.getKey(array[j].value) > this.getKey(keyCompare)){
+                array[j+1] = array[j]
+                j = j-1
+            }
+            array[j+1] = key
+        }
     }
 
-    getId(item) {
-        for (let i = 0; i < this.successors.length; i++) {
-            if (this.successors[i].value == item) {
-                return this.successors[i].id
+    insercionDistance(array){
+        for(let i = 1; i < array.length; i++){
+            let keyCompare = array[i].distance
+            let key = array[i]
+            let j = i-1
+            while(j>=0 && this.getKey(array[j].distance) > this.getKey(keyCompare)){
+                array[j+1] = array[j]
+                j = j-1
+            }
+            array[j+1] = key
+        }
+    }
+
+    addNode(item, id){
+        let nodo = {
+            value: item,
+            id: id,
+            edges: []
+        }
+        this.successors.push(nodo)
+    }
+
+    deleteNode(item){
+        var eliminado
+        for(let i = 0; i < this.successors.length; i++){
+            if(this.successors[i].value == item){
+                eliminado = this.successors[i].id
+                this.successors.splice(i, 1);
+                break
             }
         }
-        return null
+        for(let i = 0; i < this.successors.length; i++){
+            for(let j = 0; j < this.successors[i].edges.length; j++){
+                if(this.successors[i].edges[j].value == item){
+                    this.successors[i].edges.splice(j, 1);
+                    break
+                }
+            }
+        }
+        return eliminado
     }
 
-    update(item, change) {
+    updateNode(item, newItem){
         var actualizado
-        for (let i = 0; i < this.successors.length; i++) {
-            if (this.successors[i].value == item) {
+        for(let i = 0; i < this.successors.length; i++){
+            if(this.successors[i].value == item){
                 actualizado = this.successors[i].id
-                this.successors[i].value = change
-                continue
+                this.successors[i].value = newItem;
+                break
             }
-            for (let j = 0; j < this.successors[i].edges.length; j++) {
-                if (this.successors[i].edges[j] == item) {
-                    this.successors[i].edges[j] = change
+        }
+        for(let i = 0; i < this.successors.length; i++){
+            for(let j = 0; j < this.successors[i].edges.length; j++){
+                if(this.successors[i].edges[j].value == item){
+                    this.successors[i].edges[j].value = newItem;
                     this.insercion(this.successors[i].edges)
-                    continue
+                    break
                 }
-
             }
         }
         return actualizado
     }
 
-    insercion(array) {
-        for (let i = 1; i < array.length; i++) {
-            let key = array[i].val
-            let j = i - 1
-            while (j >= 0 && this.getKey(array[j].val) > this.getKey(key)) {
-                array[j + 1] = array[j]
-                j = j - 1
+    addEdge(from, to, distance){
+        //Obtenemos el nodo from
+        let arista = {
+            value: to,
+            distance: distance
+        }
+        for(let i = 0; i < this.successors.length; i++){
+            if(this.successors[i].value == from){
+                this.successors[i].edges.push(arista)
+                this.insercion(this.successors[i].edges)
             }
-            array[j + 1] = key
         }
     }
 
-    addNode(item, id) {
-        let nodo = {
-            value: item,
-            id: id,
-            edges: [],
+    getSuccessors(item, distance){
+        for(let i = 0; i < this.successors.length; i++){
+            if(item == this.successors[i].value){
+                let tmp = []
+                for(let j = 0; j < this.successors[i].edges.length; j++){
+                    let edge = Object.assign({}, this.successors[i].edges[j]);
+                    edge.distance = edge.distance + distance
+                    tmp.push(edge)
+                }
+                return tmp
+            }
         }
-        this.successors.push(nodo)
-        console.log(nodo)
+        return []
     }
 
-    existNode(item) {
-        for (let i = 0; i < this.successors.length; i++) {
-            if (this.successors[i].value == item) {
+    searchCostoUniforme(start, end){
+        let recorrido = []
+        let realStart = {
+            value: start,
+            distance: 0,
+            padre: null
+        }
+        let list = [realStart]
+        while (list.length > 0){
+            var current = list.shift();
+            console.log("Padre: " + current.value + ", Distancia Acumulada: " + current.distance)
+            if (current.value == end) {
+                console.log("Lo encontramos bb:")
+                console.log(current)
+                //Intentamos ingresar el recorrido
+                let tmp = current
+                while(tmp != null){
+                    recorrido.push(this.getId(tmp.value))
+                    tmp = tmp.padre
+                }
+                recorrido.reverse()
+                return {recorrido: recorrido, distancia: current.distance, encontrado: true}
+            }
+            var hijos = this.getSuccessors(current.value, current.distance);
+            var temp = []
+            hijos.forEach(val =>{
+                console.log(current.value + "->" + val.value)
+                let hijo = {
+                    value: val.value,
+                    distance: val.distance,
+                    padre: current
+                }
+                temp.push(hijo)
+            })
+            list = temp.concat(list);
+            this.insercionDistance(list)
+        }
+        //Intentamos ingresar el recorrido
+        let tmp = current
+        while(tmp != null){
+            recorrido.push(this.getId(tmp.value))
+            tmp = tmp.padre
+        }
+        recorrido.reverse()
+        return {recorrido: recorrido, distancia: current.distance, encontrado: false}
+    }
+
+    recorrerCostoUniforme(start, end){
+        let recorrido = []
+        let recorridoIds = []
+        let realStart = {
+            value: start,
+            distance: 0,
+            padre: null
+        }
+        let list = [realStart]
+        while (list.length > 0){
+            var current = list.shift();
+            if(recorrido.includes(current.value)) continue
+            recorrido.push(current.value)
+            recorridoIds.push(this.getId(current.value))
+            console.log("Padre: " + current.value + ", Distancia Acumulada: " + current.distance)
+            var hijos = this.getSuccessors(current.value, current.distance);
+            var temp = []
+            hijos.forEach(val =>{
+                console.log(current.value + "->" + val.value)
+                let hijo = {
+                    value: val.value,
+                    distance: val.distance,
+                    padre: current
+                }
+                temp.push(hijo)
+            })
+            list = temp.concat(list);
+            this.insercionDistance(list)
+        }
+        return {recorrido: recorridoIds, distancia: current.distance, encontrado: false}
+    }
+
+    recorrerPrim(start){
+        let recorrido = []
+        let recorridoIds = []
+        console.log("PROFUNDIDAD:")
+        let realStart = {
+            value: start,
+            distance: 0
+        }
+        var list = [realStart];
+        while (list.length > 0){
+            var current = list.shift();
+            if(recorrido.includes(current.value)) continue
+            recorrido.push(current.value)
+            recorridoIds.push(this.getId(current.value))
+            console.log("Nodo: " + current.value + ", Distancia: " + current.distance)
+            var temp = this.getSuccessors(current.value);
+            list = list.concat(temp);
+            this.insercionDistance(list)
+        }
+        return {recorrido: recorridoIds, encontrado: false}
+    }
+
+    existNode(item){
+        for(let i = 0; i < this.successors.length; i++){
+            if(this.successors[i].value == item){
                 return true
             }
         }
         return false
     }
 
-    deleteNode(item) {
-        var eliminado
-        for (let i = 0; i < this.successors.length; i++) {
-            if (this.successors[i].value == item) {
-                eliminado = this.successors[i].id
-                this.successors.splice(i, 1)
-                continue
-            }
-            for (let j = 0; j < this.successors[i].edges.length; j++) {
-                //console.log(this.successors[i].edges)
-                if (this.successors[i].edges[j] == item) {
-                    this.successors[i].edges.splice(j, 1)
-                        // console.log(this.successors[i].edges)
-                    this.insercion(this.successors[i].edges)
-                    continue
+    existEdge(from, to){
+        for(let i = 0; i < this.successors.length; i++){
+            if(this.successors[i].value == from){
+                for(let j = 0; j < this.successors[i].edges.length; j++){
+                    if(this.successors[i].edges[j].value == to){
+                        return true
+                    }
                 }
-
             }
         }
-        return eliminado
+        return false
     }
 
-    addEdge(from, to, val) {
-        //Obtenemos el nodo from
-        let edg = {
-            val: to,
-            large: val
-        }
-        for (let i = 0; i < this.successors.length; i++) {
-            if (this.successors[i].value == from) {
-                this.successors[i].edges.push(edg)
-                this.insercion(this.successors[i].edges)
+    getId(item){
+        for(let i = 0; i < this.successors.length; i++){
+            if(this.successors[i].value == item){
+                return this.successors[i].id
             }
         }
+        return null
     }
 
-    getSuccessors(item) {
-        for (let i = 0; i < this.successors.length; i++) {
-            if (item[0] == this.successors[i].value) {
-                console.log(this.successors[i], "val")
-                console.log(item, "item1")
-                return [this.successors[i].edges[0].val, item[1] + parseInt(this.successors[i].edges[0].large)]
-            }
-
-        }
-        return []
-    }
-
-    inc() {
-        return this.id++
-    }
-
-    Ucs(start, end) {
-        var list = [
-            [start, 0]
-        ];
-        console.log(list)
-        while (list.length > 0) {
-            var current = list.shift();
-            if (current[0] == end) {
-                console.log("Solucion ", current);
-                return current[1]
-            }
-            var temp = this.getSuccessors(current);
-            console.log(temp, "temp")
-            list = list.concat(temp)
-            console.log(list, "lit")
-            list = list.sort(function(a, b) { return a[1] - b[1] })
-        }
-        console.log("No se ha encontrado una ruta")
+    print(){
+        console.log(this.successors)
     }
 }
 
-function Exec() {
-    let grafito = new Costo()
+function exec(){
+    let grafito = new Graph()
+    grafito.addNode("A", 0)
+    grafito.addNode("B", 1)
+    grafito.addNode("C", 2)
+    grafito.addNode("D", 3)
+    grafito.addNode("E", 4)
+    grafito.addNode("F", 5)
 
-    //Agregamos los nodos
-    grafito.addNode(1, 1)
-    grafito.addNode(2, 2)
-    grafito.addNode(3, 3)
-    grafito.addNode(5, 5)
+    grafito.addEdge("A", "B", 5)
+    grafito.addEdge("A", "C", 6)
 
-    //Agregamos los edges
-    //1
-    grafito.addEdge(1, 2, 10)
-    grafito.addEdge(1, 3, 20)
-    grafito.addEdge(2, 5, 2)
-    grafito.addEdge(3, 5, 3)
-    grafito.Ucs(1, 5)
+    grafito.addEdge("B", "A", 5)
+    grafito.addEdge("B", "C", 6)
+    grafito.addEdge("B", "D", 3)
+    grafito.addEdge("B", "E", 5)
+
+    grafito.addEdge("C", "A", 6)
+    grafito.addEdge("C", "B", 6)
+    grafito.addEdge("C", "E", 2)
+
+    grafito.addEdge("D", "B", 3)
+    grafito.addEdge("D", "E", 3)
+    grafito.addEdge("D", "F", 4)
+
+    grafito.addEdge("E", "B", 5)
+    grafito.addEdge("E", "C", 2)
+    grafito.addEdge("E", "D", 3)
+    grafito.addEdge("E", "F", 1)
+
+    grafito.addEdge("F", "D", 4)
+    grafito.addEdge("F", "E", 1)
+
+    grafito.searchCostoUniforme("A", "F")
 }
 
-Exec()
+//exec()
