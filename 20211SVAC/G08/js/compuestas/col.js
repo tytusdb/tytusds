@@ -105,11 +105,6 @@ function buildTabla(){
     cuadroTabla.innerHTML = tab;
 }
 
-// ***** ROW-MAJOR *****
-function colMa(){
-    console.log("Realizando Row-Major");
-   
-}
 
 // ***** ELIMINAR ELEMENTO *****
 function eliminar(){
@@ -326,7 +321,7 @@ function repeat(){
 }
 
 // ***** COL-MAJOR *****
-function rowMaj(){
+function colMa(){
     console.log("Realizando Row-Major");
     // preparar contenido de cada cuadro 
     var cuadroRM = [];
