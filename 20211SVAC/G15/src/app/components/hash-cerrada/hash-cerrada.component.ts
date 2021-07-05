@@ -136,6 +136,7 @@ export class HashCerradaComponent implements OnInit {
       this.minHash = +data.minimo 
       this.maxHash = +data.maximo
       data = data.valores
+
       for (let i = 0; i < data.length; i++) {
         await this.agregar(data[i])
       }

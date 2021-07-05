@@ -164,7 +164,7 @@ export class DispersaComponent implements OnInit {
       data = data.valores
       for (let i = 0; i < data.length; i++) {
         let valor = data[i]
-        this.agregar(+valor.indices[0], +valor.indices[1], valor.valor)
+        this.agregar(valor.indices[0], valor.indices[1], valor.valor)
         await this.sleep(duracion * 1000)
       }
 

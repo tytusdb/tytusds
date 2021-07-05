@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2'
+
 @Component({
   selector: 'app-major',
   templateUrl: './major.component.html',
@@ -7,24 +8,137 @@ import Swal from 'sweetalert2'
 })
 export class MajorComponent implements OnInit {
   fileName
+  m: number = 5
+  n: number = 6
+
+  mAdd: number = 0
+  nAdd: number = 0
+  value: number | string = ''
+
+  valueBuscar: number | string = ''
+
+
+  valueViejo: number | string = ''
+  valueNuevo: number | string = ''
+
+  valueEliminar: number | string = ''
+
+
+  flagCrado: boolean = false
 
   arreglo: any[][] = []
   major: any[]
 
-  duracion: number = 0.3
+  duracion: number = 1
   constructor() { }
 
   ngOnInit(): void {
-    this.llenarArreglo()
+
   }
 
 
-  llenarArreglo() {
 
-    this.arreglo = [
-      [3, 4, 8, 6, 9],
-      [1, 6, 7, 5, 10]
-    ]
+
+  async add() {
+
+    if (this.mAdd >= this.m || this.mAdd < 0 || this.nAdd >= this.n || this.nAdd < 0) {
+      Swal.fire({
+        icon: 'error',
+        title: ':(',
+        text: `Ingresa Coordenadas Correctas`
+      })
+      return
+    }
+
+    if (!this.flagCrado) {
+      this.arreglo = Array.from(Array(this.n), () => new Array(this.m))
+      this.flagCrado = true
+    }
+
+    this.arreglo[this.nAdd][this.mAdd] = this.convertir(this.value)
+
+    await this.sleep(100)
+    let id = "nodo" + this.mAdd + "-" + this.nAdd
+    await this.animateNode(id, 'headShake', this.duracion + 's')
+
+    this.mAdd = 0
+    this.nAdd = 0
+    this.value = 0
+  }
+  async search() {
+    let flag: boolean = false
+    let x = 0
+    let y = 0
+    for (let i = 0; i < this.n; i++) {
+      for (let j = 0; j < this.m; j++) {
+        let id = "nodo" + j + "-" + i
+        await this.animateNode(id, 'jello', this.duracion + 's')
+        if (flag) break;
+        if (this.convertir(this.arreglo[i][j]) === this.convertir(this.valueBuscar)) {
+          x = j
+          y = i
+          flag = true
+          break;
+        }
+      }
+      if (flag) break;
+    }
+
+    if (flag) {
+      Swal.fire({
+        icon: 'success',
+        title: ':)',
+        text: `Se encontro el valor ${this.valueBuscar} en la coordenada x: ${x} y: ${y} `
+      })
+      this.valueBuscar = ''
+    }
+    else {
+      Swal.fire({
+        icon: 'error',
+        title: ':/',
+        text: `No se encontro el valor ${this.valueBuscar} `
+      })
+    }
+
+  }
+
+  async edit() {
+    let flag: boolean = false
+    let x = 0
+    let y = 0
+    for (let i = 0; i < this.n; i++) {
+      for (let j = 0; j < this.m; j++) {
+        let id = "nodo" + j + "-" + i
+        await this.animateNode(id, 'jello', this.duracion + 's')
+        if (flag) break;
+        if (this.convertir(this.arreglo[i][j]) === this.convertir(this.valueViejo)) {
+          this.arreglo[i][j] = this.convertir(this.valueNuevo)
+          x = j
+          y = i
+          flag = true
+          break;
+        }
+      }
+      if (flag) break;
+    }
+
+    if (flag) {
+      Swal.fire({
+        icon: 'success',
+        title: ':)',
+        text: `Se Edit el valor ${this.valueViejo} en la coordenada x: ${x} y: ${y} `
+      })
+      this.valueViejo = ''
+      this.valueNuevo = ''
+    }
+    else {
+      Swal.fire({
+        icon: 'error',
+        title: ':/',
+        text: `No se encontro el valor ${this.valueViejo} `
+      })
+    }
+
   }
 
   async rowMajor() {
@@ -69,6 +183,44 @@ export class MajorComponent implements OnInit {
     }
   }
 
+  async delete() {
+    let flag: boolean = false
+    let x = 0
+    let y = 0
+    for (let i = 0; i < this.n; i++) {
+      for (let j = 0; j < this.m; j++) {
+        let id = "nodo" + j + "-" + i
+        await this.animateNode(id, 'jello', this.duracion + 's')
+        if (flag) break;
+        if (this.convertir(this.arreglo[i][j]) === this.convertir(this.valueEliminar)) {
+          await this.animateNode(id, 'fadeOut', this.duracion + 's')
+          this.arreglo[i][j] = ''
+          x = j
+          y = i
+          flag = true
+          break;
+        }
+      }
+      if (flag) break;
+    }
+
+    if (flag) {
+      Swal.fire({
+        icon: 'success',
+        title: ':)',
+        text: `Se Elimino el valor ${this.valueEliminar} en la coordenada x: ${x} y: ${y} `
+      })
+      this.valueEliminar = ''
+    }
+    else {
+      Swal.fire({
+        icon: 'error',
+        title: ':/',
+        text: `No se encontro el valor ${this.valueEliminar} `
+      })
+    }
+  }
+
 
 
   async onFileSelected(event) {
@@ -79,15 +231,19 @@ export class MajorComponent implements OnInit {
       let data: any = await this.processFile(file)
       data = JSON.parse(data)
       this.duracion = +data.animacion
-      let x = +data.m[0]
-      let y = +data.m[1]
-      let temp = Array.from(Array(x), () => new Array(y));
+      this.m = +data.m[0]
+      this.n = +data.m[1]
+      this.flagCrado = true
+      this.arreglo = Array.from(Array(this.n), () => new Array(this.m));
       data = data.valores
       for (let i = 0; i < data.length; i++) {
         let valor = data[i]
-        temp[+valor.indices[0]][+valor.indices[1]] = valor.valor
+        this.arreglo[+valor.indices[1]][+valor.indices[0]] = valor.valor
+        await this.sleep(100)
+        let id = "nodo" + +valor.indices[0] + "-" + +valor.indices[1]
+        await this.animateNode(id, 'headShake', this.duracion + 's')
       }
-      this.arreglo = temp
+     
 
       Swal.fire({
         icon: 'success',
@@ -124,7 +280,7 @@ export class MajorComponent implements OnInit {
       for (let j = 0; j < this.arreglo[i].length; j++) {
         if (this.arreglo[i][j]) {
           data.valores.push({
-            indices : [i,j],
+            indices: [i, j],
             valor: this.arreglo[i][j]
           })
         }
@@ -137,6 +293,32 @@ export class MajorComponent implements OnInit {
     link.href = "data:" + info;
     link.click();
     link.remove()
+  }
+
+
+  animateNode(element, animation, duration) {
+    let prefix = 'animate__'
+    return new Promise((resolve, reject) => {
+      const animationName = `${prefix}${animation}`;
+      const node = document.getElementById(element);
+      node.classList.add(animationName)
+      node.style.setProperty('--animate-duration', duration);
+
+      function handleAnimationEnd(event) {
+        event.stopPropagation();
+        node.classList.remove(animationName);
+        resolve('Animation ended');
+      }
+
+      node.addEventListener('animationend', handleAnimationEnd, { once: true });
+
+      //resolve('Animation ended');
+    });
+  }
+
+  private convertir(value) {
+    if (isNaN(value)) return value
+    return +value
   }
 
   sleep(ms) {
