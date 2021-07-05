@@ -1,6 +1,6 @@
 //LZW Compression/Decompression for Strings
-var LZW = {
-    compress: function (uncompressed) {
+class LZW  {
+    compress(uncompressed) {
         "use strict";
         // Build the dictionary.
         var i,
@@ -35,10 +35,10 @@ var LZW = {
             result.push(dictionary[w]);
         }
         return result;
-    },
+    }
  
  
-    decompress: function (compressed) {
+    decompress (compressed) {
         "use strict";
         // Build the dictionary.
         var i,
