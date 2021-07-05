@@ -28,23 +28,61 @@
     RECORRIDO Y BUSQUEDA POR ANCHURA DE GRAFOS
     </button>
     <br>
-    <input type="text" #box placeholder="Ingrese Datos" name="Ingrese Datos"/> 
-    <button class="boton" (click)="value()" type="submit" >Push</button> &nbsp; &nbsp;
-    
-    <input type="text" #box1 placeholder="Eliminar Datos" name="username"/> 
-    <button class="boton" (click)="value()" >Eliminar</button>&nbsp; &nbsp;&nbsp;
-    <input type="text" #box3 placeholder="Buscar Datos" name="username"/> 
-    <button class="boton" (click)="value()" >Buscar</button>&nbsp; &nbsp;
-    <br>
-    <br>
-    &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <button class="boton" (click)="value()" >Recorrer Grafo</button>&nbsp; &nbsp;&nbsp; &nbsp;
-    <input type="text" #box2 placeholder="Dato a Reemplazar" name="username"/> &nbsp;
-    <input type="text" #box21 placeholder="Nuevo Dato" name="username"/> 
-    <button class="boton" (click)="value()" >Actualizar</button>&nbsp;&nbsp;&nbsp;
-    <!--<p>La lista es: {{displayVal}}</p>!-->
-    <br>
+    <table>
+      <tr style="border: hidden;">
+          <td style="border: hidden; width: 150px;" >
+              <input type="text" #box placeholder="Ingrese nodo" /> 
+          </td>
+          <td>
+              <button class="boton" (click)="insert(box.value)" type="submit" >Push</button>
+          </td>
+      </tr> 
+      <tr>
+        <td>
+          <input type="text" #boxfrom placeholder="from" /> 
+      </td>
+      <td>
+        <input type="text" #boxto placeholder="to" /> 
+      </td>
+      <td>
+          <button class="boton" (click)="insertVertice(boxfrom.value,boxto.value)" type="submit" >Push</button>
+      </td>        
+      </tr>
+      <tr>
+        <td style="width: 150px;">
+            <input type="text" #box1 placeholder="Eliminar Datos" name="username"/> 
+        </td>
+        <td>
+            <button class="boton" (click)="delete(box1.value)" >Eliminar</button>&nbsp; &nbsp;&nbsp;
+        </td>
+    </tr>
+    <tr>
+        <br>
+    </tr>
+    <tr>
+        <td style="border: hidden; width: 50px;">
+            <input type="text" #box3 placeholder="Buscar Datos" name="username"/> 
+        </td>
+        <td>
+            <button class="boton" (click)="search(box3.value)" >Buscar</button>&nbsp; &nbsp;
+        </td>
+    </tr>
+    <tr><br></tr>
+    <tr>
+        <td>
+            <input type="text" #box2 placeholder="Nuevo Dato" name="username"/>
+        </td>
+        <td>
+            <input type="text" #box21 placeholder="Dato a Reemplazar" name="username"/> 
+        </td>
+        <td>
+            <button class="boton" (click)="actualizar(box21.value,box2.value)" >Actualizar</button>
+        </td>
+    </tr>
+    <tr><td>
+      <button class="boton" (click)="value()" >Recorrer Grafo</button>&nbsp; &nbsp;&nbsp; &nbsp;
+    </td></tr>      
+  </table>
 <table >
     <tr>
         <td>

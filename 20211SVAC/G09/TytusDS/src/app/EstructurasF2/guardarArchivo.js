@@ -10,6 +10,10 @@ class GuardarArchivo{
         let doc = JSON.stringify({'categoria': "Estructura Compuesta",'nombre': nombre,'animacion': 10,'valores':valores}, null, '\t');
         this.generarGuardado(doc, nombre+".json")        
     }
+    guardarGrafo(valores, nombre){
+        let doc = JSON.stringify({'categoria': "Estructura No Lineal",'nombre': nombre,'animacion': 10,'valores':valores}, null, '\t');
+        this.generarGuardado(doc, nombre+".json")        
+    }    
     generarGuardado(doc, nameFile){
         let element = document.createElement('a');
         element.setAttribute('href', 'data:json,' + doc);

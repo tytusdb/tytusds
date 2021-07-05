@@ -169,6 +169,12 @@ class AnchuraGrafos{
 	MostrarGrafo(){
 		console.log(this.DatoNodo)
 	}
+	returnValores(){
+		/*let val="["
+
+		val+="]"*/
+		return this.DatoNodo
+	}
 }
 module.exports = AnchuraGrafos
 
