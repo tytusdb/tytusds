@@ -239,4 +239,22 @@ export class CodigoHammingComponent implements OnInit {
     limpiarerror() {
         this.error = ""
     }
+
+    generarJSON1() {
+        let data = this.generarJSON()
+        var link = document.createElement("a");
+        link.download = "hamming.txt";
+        var info = "text/json;charset=utf-8," + encodeURIComponent(data);
+        link.href = "data:" + info;
+        link.click();
+        link.remove()
+      }
+      
+      generarJSON() {
+        const area = document.getElementById('resultado') as HTMLTextAreaElement;
+        var p1 = area.value
+      
+      
+        return JSON.stringify(p1)
+      }
 }
