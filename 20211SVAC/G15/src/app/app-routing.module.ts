@@ -32,9 +32,17 @@ import { LZWComponent } from './components/lzw/lzw.component';
 
 import { CompuestasComponent } from './components/compuestas/compuestas.component'
 
+import { CostoUniformeComponent } from './components/costo-uniforme/costo-uniforme.component';
+import { GrafoDirigidoComponent } from './components/grafo-dirigido/grafo-dirigido.component';
 
 import { DispersaComponent } from './components/dispersa/dispersa.component'
 import { MajorComponent } from './components/major/major.component'
+
+import { CodigoHammingComponent } from './components/codigo-hamming/codigo-hamming.component';
+import { GrafoNoDirigidoComponent } from './components/grafo-no-dirigido/grafo-no-dirigido.component';
+import { EstructurasNoLinealesComponent } from './components/estructuras-no-lineales/estructuras-no-lineales.component';
+import { AlgoritmoCodificacionComponent } from './components/algoritmo-codificacion/algoritmo-codificacion.component';
+import { GrafosConexionComponent } from './components/grafos-conexion/grafos-conexion.component';
 
 
 import { NoLinealesComponent } from './components/no-lineales/no-lineales.component'
@@ -69,8 +77,15 @@ const routes: Routes = [
   {path: 'AVL', component: AVLComponent, pathMatch: 'full'},
   {path: 'rapido', component: MetodorapidoComponent, pathMatch: 'full'},
   {path: 'seleccion',component:MetodoSeleccionComponent,pathMatch:'full'},
+  {path: 'costo', component:CostoUniformeComponent,pathMatch:'full'},
   {path: 'compuestas',component:CompuestasComponent,pathMatch:'full'},
   {path: 'compuestas/major',component:MajorComponent,pathMatch:'full'},
+  {path: 'hamming', component:CodigoHammingComponent,pathMatch:'full'},
+  {path: 'grafoDirigido', component:GrafoDirigidoComponent,pathMatch:'full'},
+  {path:'grafoNoDirigido',component:GrafoNoDirigidoComponent,pathMatch:'full'},
+  {path:'noLineal',component:EstructurasNoLinealesComponent,pathMatch:'full'},
+  {path:'codificacion', component:AlgoritmoCodificacionComponent,pathMatch:'full'},
+  {path:'grafosND',component:GrafosConexionComponent,pathMatch:'full'},
   {path: 'NoLineales',component:NoLinealesComponent,pathMatch:'full'},
   {path: 'nolineales/hash/cerrada',component:HashCerradaComponent,pathMatch:'full'},
 
