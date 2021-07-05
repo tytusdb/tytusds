@@ -300,11 +300,55 @@ export class HuffmanComponent implements OnInit {
     var container = this.el.nativeElement;
     this.network = new vis.Network(container, listaData, options);
   }
-  pruebas(){
-    let a = new Arbol();
-    a.ingresoTexto("hola buenas");
-    console.log(a)
+
+  descargarContenido(){
+    let downloadfile = "data: text/json;charset=utf-8,"+encodeURIComponent(this.resultadoCifrado);
+    console.log(downloadfile);
+    var downloader = document.createElement('a');
+    downloader.setAttribute('href', downloadfile);
+    downloader.setAttribute('download', 'data.txt');
+    downloader.click();
+  }
+
+  
+
+  resultadoCifrado:string;
+  texto:string;
+  abrir(eve:any)
+  {
+    let a =eve.target.files[0]
+    
+
+    if(a){
+      let reader=new FileReader()
+        reader.onload=ev=>{
+        const resultado=ev.target?.result
+        this.texto=String(resultado)
+        console.log(this.texto)
+      }
+      reader.readAsText(a)
+    }
+
 
   }
+  enviarResultado(){
+    this.resultadoCifrado = ""
+    for (let i = 0; i < this.huff.tablaCode.length; i++) {
+      this.resultadoCifrado += this.huff.tablaCode[i];
+    }
+  }
+  huff:any;
+  insercion(valor:any){
+    this.huff = new Arbol();
+    this.huff.ingresoTexto(valor);
+    this.enviarResultado();
+  }
+  
+  // pruebas(){
+  //   let a = new Arbol();
+  //   a.ingresoTexto("hola buenas");
+  //   console.log(a)
+
+  // }
 
 }
