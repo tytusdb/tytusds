@@ -1,0 +1,109 @@
+<body>
+    <div class="container">
+
+        <div class="row opciones p-2">
+
+            <div class="col-lg-3 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <label for="dropPrueba" class="mr-1 text-white">Estructura Padre</label>
+                    <select class="form-control" id="dropPrueba" [(ngModel)]="estructuraPadre">
+                        <option value="0">Lista </option>
+                        <option value="1">Arbol</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="dropPrueba" class="mr-3 text-white">Estructura Hija</label>
+                    <select class="form-control" id="dropPrueba">
+                        <option value="0">Lista </option>
+                        <option value="1">Arbol</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="col-lg-5 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <input type="text" class="form-control" value="" id="index" name="index" [(ngModel)]="index"
+                        placeholder="Index">
+                    <input type="text" class="form-control" value="" id="value" name="value" [(ngModel)]="value"
+                        placeholder="valor">
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary " type="button" (click)="add()">Guardar</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-lg-3 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <input type="text" class="form-control" value="" id="indexBuscar" name="indexBuscar" [(ngModel)]="indexBuscar"
+                        placeholder="Index">
+                    <input type="text" class="form-control" value="" id="valueBuscar" name="valueBuscar" [(ngModel)]="valueBuscar"
+                        placeholder="valor">
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary " type="button" (click)="search()">Buscar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <input type="text" class="form-control" value="" id="indexEditar" name="indexEditar" [(ngModel)]="indexEditar"
+                        placeholder="Index">
+                    <input type="text" class="form-control" value="" id="valueViejo" name="valueViejo" [(ngModel)]="valueViejo"
+                        placeholder="Antiguo">
+                        <input type="text" class="form-control" value="" id="valueNuevo" name="valueNuevo" [(ngModel)]="valueNuevo"
+                        placeholder="Nuevo">
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary " type="button" (click)="edit()">Editar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <input type="text" class="form-control" value="" id="indexEliminar" name="indexEliminar" [(ngModel)]="indexEliminar"
+                        placeholder="Index">
+                    <input type="text" class="form-control" value="" id="valueEliminar" name="valueEliminar" [(ngModel)]="valueEliminar"
+                        placeholder="valor">
+                    <div class="input-group-append">
+                        <button class="btn btn-danger " type="button" (click)="delete()">Eliminar</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-12 col-sm-12 col-lg-3 text-left mt-2 text-white mt-1">
+                <div class="input-group">
+                    <input type="file" class="file-input" #fileUpload>
+                    <div class="file-upload">
+
+                        {{fileName || "No file uploaded yet."}}
+
+                        <button class="btn btn-primary" (click)="fileUpload.click()">
+                            <i class="fas fa-upload"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-12 col-lg-3 text-left mt-2 text-white mt-1">
+                <div class="input-group">
+                    <button class="btn btn-primary">
+                        Generar JSON
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="container mt-5 " id="contenedorMatriz">
+        <div id="matriz" class="matriz" #matriz></div>
+    </div>
+
+
+
+</body>

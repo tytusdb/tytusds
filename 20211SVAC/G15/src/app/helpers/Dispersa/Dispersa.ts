@@ -28,8 +28,8 @@ export class Dispersa {
         let resultY = this.addFila(y)
         let nuevo = new Nodo(x + "x" + y + "y" + this.id, value,resultY.index,{x:x,y:y})
         this.id++
-        this.columnas.addValor(nuevo, resultX.index, resultY.index, Apuntador.COLUMNA, this.tipo)
-        this.filas.addValor(nuevo, resultX.index, resultY.index, Apuntador.FILA, this.tipo)
+        this.columnas.addValor(nuevo, x, y, Apuntador.COLUMNA, this.tipo)
+        this.filas.addValor(nuevo, x, y, Apuntador.FILA, this.tipo)
 
         //this.filas.mostrarCabecera(Apuntador.FILA)
         return nuevo
