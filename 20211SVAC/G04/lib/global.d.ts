@@ -30,9 +30,7 @@ interface PointPosition {
 	y: number
 }
 
-interface EdgePosition {
-	x: number
-	y: number
+interface EdgePosition extends NodePosition {
 	color: string
 	isDouble: boolean
 	randPhase: number

@@ -103,11 +103,13 @@ fileUploadCallback = () => {
 					...positions[vertexIndex],
 					color: edgeColor,
 					isDouble: false,
+					value: values[vertexIndex].vertice.toString(),
 					randPhase: 0,
 				},
 				dest: {
 					...positions[nodeIndex],
 					color: isDouble ? edgeDestColor : edgeColor,
+					value: edge.arista.toString(),
 					isDouble,
 					randPhase: 0,
 				},
@@ -140,6 +142,7 @@ const saveGraphosJSON = () => {
 		}
 
 		// GUARDAR
+		// @ts-ignore
 		saveJSONFile(matrix)
 	} else {
 		const values = vertexArray.map((vertex) =>
@@ -499,7 +502,7 @@ canvas.addEventListener('click', (ev: MouseEvent) => {
 						.map((vert) => vert.vertice.toString())
 						// @ts-ignore
 						.indexOf(lastEdge.origin.value)
-				].aristas.push({
+				]?.aristas.push({
 					// @ts-ignore
 					arista: selectedNode.value,
 					distancia: newEdgeLength,
@@ -522,18 +525,26 @@ const deleteNodeOnGraphos = () => {
 		if (node) {
 			// ELIMINAR NODO
 			nodesArray = nodesArray.filter(
-				(eNode: NodePosition) => node.x !== eNode.x && node.y !== eNode.y,
+				(eNode: NodePosition) => eNode.value.toString() !== oldNodeValue,
 			)
 
 			// ELIMINAR ARISTAS QUE CONECTAN A ESE NODO
+			vertexArray = vertexArray.filter(
+				(vertex) => vertex.vertice.toString() !== oldNodeValue,
+			)
+			vertexArray.forEach((vertex) => {
+				const edges = vertex.aristas.filter(
+					(edge) => edge.arista.toString() !== oldNodeValue,
+					)
+				vertex.aristas = edges
+			})
 			edgesArray = edgesArray.filter(
 				(edge: EdgeJoin) =>
-					edge.origin.x !== node.x &&
-					edge.origin.y !== node.y &&
-					edge.dest?.x !== node.x &&
-					edge.dest?.y !== node.y,
+					edge.origin.value !== oldNodeValue &&
+					edge.dest?.value !== oldNodeValue,
 			)
 			addTestCode('eliminar', oldNodeValue)
+			hideNavMenu(1)
 		} else console.log('Nodo no econtrado')
 	}
 }
@@ -550,7 +561,19 @@ const updateNodeOnGraphos = () => {
 			tmpSearchGraphoNode = node
 			graphoNodeScaleCounter = 0
 			node.value = newNodeValue
+
+			// ACTUALIZAR EN VERTICES
+			for (
+				let vertexIndex: number = 0;
+				vertexIndex < vertexArray.length;
+				vertexIndex++
+			)
+				if (vertexArray[vertexIndex].vertice.toString() === oldNodeValue)
+					vertexArray[vertexIndex].vertice = +newNodeValue
+
+			// CÓDIGO
 			addTestCode('actualizar', `${oldNodeValue},${newNodeValue}`)
+			hideNavMenu(1)
 		} else alert('Nodo no econtrado')
 	}
 }
@@ -567,6 +590,7 @@ const searchNodeOnGraphos = () => {
 			tmpSearchGraphoNode = node
 			graphoNodeScaleCounter = 0
 			addTestCode('buscar', oldNodeValue)
+			hideNavMenu(1)
 		} else alert('Nodo no econtrado')
 	}
 }
@@ -606,4 +630,5 @@ const graphosWidthSearch = () => {
 
 	// AGREGAR CÓDIGO
 	addTestCode('recorrer', graphoWaySearch)
+	hideNavMenu(1)
 }

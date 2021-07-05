@@ -73,8 +73,8 @@ fileUploadCallback = function () {
                     ((_b = edge.dest) === null || _b === void 0 ? void 0 : _b.y) === positions[vertexIndex].y;
             });
             edgesArray.push({
-                origin: __assign(__assign({}, positions[vertexIndex]), { color: edgeColor, isDouble: false, randPhase: 0 }),
-                dest: __assign(__assign({}, positions[nodeIndex]), { color: isDouble ? edgeDestColor : edgeColor, isDouble: isDouble, randPhase: 0 }),
+                origin: __assign(__assign({}, positions[vertexIndex]), { color: edgeColor, isDouble: false, value: values[vertexIndex].vertice.toString(), randPhase: 0 }),
+                dest: __assign(__assign({}, positions[nodeIndex]), { color: isDouble ? edgeDestColor : edgeColor, value: edge.arista.toString(), isDouble: isDouble, randPhase: 0 }),
                 distance: edge.distancia,
             });
         };
@@ -304,6 +304,7 @@ var addEdgeOnGraphos = function () {
     }
 };
 canvas.addEventListener('click', function (ev) {
+    var _a;
     if (enableAddEdge && newEdgeLength >= 0) {
         var selectedNodeIndex = 0;
         var selectedNode_1 = null;
@@ -351,9 +352,9 @@ canvas.addEventListener('click', function (ev) {
                     selectedNode_1.isDouble = true;
                     selectedNode_1.randPhase = Math.random() * (0.5 - 0.3) + 0.3;
                 }
-                vertexArray[vertexArray
+                (_a = vertexArray[vertexArray
                     .map(function (vert) { return vert.vertice.toString(); })
-                    .indexOf(lastEdge_1.origin.value)].aristas.push({
+                    .indexOf(lastEdge_1.origin.value)]) === null || _a === void 0 ? void 0 : _a.aristas.push({
                     arista: selectedNode_1.value,
                     distancia: newEdgeLength,
                 });
@@ -366,17 +367,21 @@ canvas.addEventListener('click', function (ev) {
 });
 var deleteNodeOnGraphos = function () {
     if (oldNodeValue.length) {
-        var node_1 = searchNodeOnGrapho(oldNodeValue.toString());
-        if (node_1) {
-            nodesArray = nodesArray.filter(function (eNode) { return node_1.x !== eNode.x && node_1.y !== eNode.y; });
+        var node = searchNodeOnGrapho(oldNodeValue.toString());
+        if (node) {
+            nodesArray = nodesArray.filter(function (eNode) { return eNode.value.toString() !== oldNodeValue; });
+            vertexArray = vertexArray.filter(function (vertex) { return vertex.vertice.toString() !== oldNodeValue; });
+            vertexArray.forEach(function (vertex) {
+                var edges = vertex.aristas.filter(function (edge) { return edge.arista.toString() !== oldNodeValue; });
+                vertex.aristas = edges;
+            });
             edgesArray = edgesArray.filter(function (edge) {
-                var _a, _b;
-                return edge.origin.x !== node_1.x &&
-                    edge.origin.y !== node_1.y &&
-                    ((_a = edge.dest) === null || _a === void 0 ? void 0 : _a.x) !== node_1.x &&
-                    ((_b = edge.dest) === null || _b === void 0 ? void 0 : _b.y) !== node_1.y;
+                var _a;
+                return edge.origin.value !== oldNodeValue &&
+                    ((_a = edge.dest) === null || _a === void 0 ? void 0 : _a.value) !== oldNodeValue;
             });
             addTestCode('eliminar', oldNodeValue);
+            hideNavMenu(1);
         }
         else
             console.log('Nodo no econtrado');
@@ -389,7 +394,11 @@ var updateNodeOnGraphos = function () {
             tmpSearchGraphoNode = node;
             graphoNodeScaleCounter = 0;
             node.value = newNodeValue;
+            for (var vertexIndex = 0; vertexIndex < vertexArray.length; vertexIndex++)
+                if (vertexArray[vertexIndex].vertice.toString() === oldNodeValue)
+                    vertexArray[vertexIndex].vertice = +newNodeValue;
             addTestCode('actualizar', oldNodeValue + "," + newNodeValue);
+            hideNavMenu(1);
         }
         else
             alert('Nodo no econtrado');
@@ -402,6 +411,7 @@ var searchNodeOnGraphos = function () {
             tmpSearchGraphoNode = node;
             graphoNodeScaleCounter = 0;
             addTestCode('buscar', oldNodeValue);
+            hideNavMenu(1);
         }
         else
             alert('Nodo no econtrado');
@@ -427,4 +437,5 @@ var graphosWidthSearch = function () {
         });
     });
     addTestCode('recorrer', graphoWaySearch);
+    hideNavMenu(1);
 };

@@ -83,7 +83,7 @@ const saveOpenHashTable = () => {
 		const parsedValues = isOpenHash
 			? hashInstance.tabla.map(
 					// @ts-ignore
-					(node) => node.valores.map((node) => node.valor,
+					(node) => node.valores.map((node) => node.valor),
 			  )
 			: // @ts-ignore
 			  hashInstance.tabla.map((node) => node.valor)
