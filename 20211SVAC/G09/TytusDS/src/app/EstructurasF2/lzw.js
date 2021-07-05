@@ -84,7 +84,8 @@ class LZW{
     graficar(){
         const Animaciones= require('./Animaciones')
         let ani=new Animaciones()
-        ani.graficarMatriz(this.Matriz)
+        //ani.graficarMatriz(this.Matriz)
+        ani.animarTabla(this.Matriz)
     }
     returnCadena(){
         return this.cadenaConvertida

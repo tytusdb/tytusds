@@ -68,7 +68,7 @@ class Feistel{
     graficar(){
         const Animaciones= require('./Animaciones')
         let ani=new Animaciones()
-        ani.graficarMatriz(this.table)
+        ani.animarTabla(this.table)
     }
     returnTable(){return this.table}
     returnCadena(){return this.cadenaConvertida}    

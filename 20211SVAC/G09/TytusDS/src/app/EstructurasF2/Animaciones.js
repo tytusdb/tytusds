@@ -59,6 +59,35 @@ class Animaciones{
 	seleccionar(id){
 		return document.getElementById(id)
 	}
+	animarTabla(array){
+		//const table=document.getElementById("tAnimation")
+		let fila=[]
+		for (let j = 0; j < array[0].length; j++) {
+			fila=[]
+			for (let i = 0; i < array.length; i++) {
+				fila.push(array[i][j])
+			}
+			this.construirfila(fila,j+1)
+		}
+
+	}
+	construirfila(fila, retardo){
+		const table=document.getElementById("tAnimation")
+		setTimeout(() => {
+			var hilera = document.createElement("tr")
+			for (let i = 0; i < fila.length; i++) {
+				var celda = document.createElement("td");
+				if (fila[i]) {
+					var textoCelda = document.createTextNode(fila[i]);
+					celda.appendChild(textoCelda);
+				}
+				hilera.appendChild(celda);
+				celda.style.border="1px solid black"				
+			}
+			table.appendChild(hilera)
+			hilera.classList="animate__animated animate__slideInDown"
+		}, 600*retardo);
+	}
 }
 
 module.exports = Animaciones
