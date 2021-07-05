@@ -118,9 +118,9 @@ class CargaArchivo{
             this.aristas=[];this.vertices=[]
             for (let k in doc.valores){
                 for (const key in doc.valores[k].aristas) {
-                    //if (!this.vertices.includes(doc.valores[k].vertice)) {
+                    if (!this.vertices.includes(doc.valores[k].vertice)) {
                     this.vertices.push(doc.valores[k].vertice)
-                    //}
+                    }
                     this.aristas.push({vertice: doc.valores[k].vertice, arista:doc.valores[k].aristas[key].arista})
                 }
                 if(doc.valores[k].aristas.length==0){

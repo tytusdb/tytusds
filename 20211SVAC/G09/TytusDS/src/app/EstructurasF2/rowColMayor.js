@@ -69,7 +69,7 @@ class RowColMayor{
     }        
     graficar(){
         //let vis=require('../../../vis-4.21.0/dist/vis')
-        //let vis=require('../../../node_modules/vis/dist/vis')
+        let vis=require('../../../node_modules/vis/dist/vis')
         /*var nodes = new vis.DataSet([
         ]);*/        
         let nodes = [];
@@ -79,7 +79,7 @@ class RowColMayor{
 
         nodes.push({id: 1, label: 'Get HTML'});
         nodes.push({id: 2, label: 'Using SVG'});
-        edges.push({from: 1, to: 2, length: 300});
+        edges.push({from: 1, to: 2, length: 100});
 
         // create a network
         var container = document.getElementById("DivInsert")
@@ -91,19 +91,7 @@ class RowColMayor{
         };
         var options = {};
         //network = new vis.Network(container, data, options);
-        //let garf = new vis.Network(container, data, {});        
+        let garf = new vis.Network(container, data, {});        
     }
 }
-/*
-let a = new RowColMayor()
-
-function convertRow(matriz) {
-    a.convertRowmayor(matriz)
-}
-function convertCol(matriz) {
-    a.convertColmayor(matriz)
-}
-*/
 module.exports = RowColMayor
-//convertRow([[0,1,2],[3,4,5],[6,7,8]])
-//convertCol([[0,1,2],[3,4,5],[6,7,8]])

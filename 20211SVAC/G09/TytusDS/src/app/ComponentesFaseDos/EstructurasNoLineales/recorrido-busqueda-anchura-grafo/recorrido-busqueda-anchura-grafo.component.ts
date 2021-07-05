@@ -18,12 +18,12 @@ export class RecorridoBusquedaAnchuraGrafoComponent implements OnInit {
   }
 
   value(){
-    
+    this.aG.graficarGrafo()
   }
   leerArchivo(event: any){
     let ca= new CargaArchivo()
     ca.leerGrafo(event,2)
-    setTimeout(() => {//debugger
+    setTimeout(() => {debugger
       let grafo=ca.returnGrafo()
       for (let i = 0; i < grafo.vertices.length; i++) {
         this.aG.AgregarNodo(grafo.vertices[i])
@@ -31,7 +31,8 @@ export class RecorridoBusquedaAnchuraGrafoComponent implements OnInit {
       for (let i = 0; i < grafo.aristas.length; i++) {
         this.aG.AgregarVertice(grafo.aristas[i].vertice,grafo.aristas[i].arista)
       }
-      this.aG.MostrarGrafo()      
+      this.aG.MostrarGrafo()
+      this.aG.graficarGrafo()
     }, 600);
   }
   download(){
