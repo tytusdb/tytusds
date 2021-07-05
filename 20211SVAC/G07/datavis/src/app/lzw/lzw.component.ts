@@ -69,6 +69,8 @@ export class LZWComponent implements OnInit {
   @ViewChild('mynetwork', {static: false}) el: ElementRef;
   public network: any;
   constructor() { }
+  texto:string;
+  resultadoCifrado:string;
 
   ngOnInit(): void {
   }
@@ -77,11 +79,45 @@ export class LZWComponent implements OnInit {
     this.network = new vis.Network(container, listaData, options);
   }
 
+  abrir(eve:any)
+  {
+    let a =eve.target.files[0]
+    
+
+    if(a){
+      let reader=new FileReader()
+        reader.onload=ev=>{
+        const resultado=ev.target?.result
+        this.texto=String(resultado)
+        console.log(this.texto)
+      }
+      reader.readAsText(a)
+    }
+
+
+  }
+
+  descargarContenido(){
+    let downloadfile = "data: text/json;charset=utf-8,"+encodeURIComponent(this.resultadoCifrado);
+    console.log(downloadfile);
+    var downloader = document.createElement('a');
+    downloader.setAttribute('href', downloadfile);
+    downloader.setAttribute('download', 'data.txt');
+    downloader.click();
+  }
+
+  enviarResultado(arreglo:any){
+    this.resultadoCifrado = "";
+    for (let i = 0; i < arreglo.length; i++) {
+     this.resultadoCifrado += arreglo[i];
+    }
+  }
   pruebas(Texto: any){
     let Lzw = new AlgoritmoLZW(Texto);
     Lzw.Encode();
     console.log(Lzw.Salida);
     console.log(Lzw.diccionario);
+    this.enviarResultado(Lzw.Salida);
     k1.push('')
     nodes.add(
       {id: 'dic', label:'Diccionario',x: 0 , y: 0, color: "#7BE141", shape: "box"}
