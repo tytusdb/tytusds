@@ -2,7 +2,7 @@ import { LocalConvenienceStoreOutlined } from "@material-ui/icons"
 import { v4 as uuidv4 } from 'uuid';
 //Contador para identificadores unicos de los nodos
 var idNodos = 0
-
+var contadorGrap = 0;
 //Clase Lista Doble
 class ListaDoble{
     //Constructor
@@ -134,7 +134,7 @@ class Enlaces{
 
 //Clase Lista de Adyacencia Principal
 class ListaAdyacencia{
-    constructor(){
+    constructor(almacenamiento){
         this.ListaAdyacencia = new ListaDoble()
         this.caminoFinal = []
         this.distanciaFinal = 0
@@ -145,6 +145,7 @@ class ListaAdyacencia{
         this.anchura = null
         this.costoUnfi = null
         this.recminimo = null
+        this.almacenamiento = almacenamiento
     }
 
     //Metodo de obtencion de vertices no dirigos
@@ -1005,13 +1006,20 @@ class ListaAdyacencia{
         }
         return arreglo
     }
-
     //Graficar Matriz
     graficarMatriz(){
         let array = [this.ListaAdyacencia.size]
         for (let x = 0; x < this.ListaAdyacencia.size; x++) {
             array[x] = [this.ListaAdyacencia.size]
         }
+       /*  for (let i = 0; i < array.length; i++) {
+            for (let j = 0; j < array[i].length; j++) {
+                array [i][j] = 0;
+                
+            }
+            
+        }  */
+
         let aux = this.ListaAdyacencia.cabeza
         while(aux!= null){
             let tmp = aux.dato.enlaces.cabeza
@@ -1116,8 +1124,73 @@ class ListaAdyacencia{
         return arregloedge
     }
 
-    graficarMatriz(){
+    graficarML(){
+        if(this.almacenamiento === "Matriz"){
+            return this.graficarM();
+        }else{
+            return this.graficarLista();
+        }
+    }
 
+    graficarM(){
+        this.arregloM = this.graficarMatriz()
+        let arreglo = []
+        for(let i = 0; i < this.arregloM.length; i++){
+            let nodoArreglo = {
+                id: i.toString(),
+                type: 'default',
+                targetPosition: 'top',
+                sourcePosition: 'bottom',
+                data: { label: (
+                    <> <strong>{i}</strong>
+                    </>
+                 ) },
+                position: {  x: 100 , y: 25 + (i+1)*40  },
+                connectable: false, 
+            }
+
+            arreglo.push(nodoArreglo)
+
+        }
+
+        for(let i = 0; i < this.arregloM.length; i++){
+            let nodoArreglo = {
+                id: i.toString()+20,
+                type: 'default',
+                targetPosition: 'top',
+                sourcePosition: 'bottom',
+                data: { label: (
+                    <> <strong>{i}</strong>
+                    </>
+                 ) },
+                position: {  x: 100  + (i+1)*150, y: 25 },
+                connectable: false, 
+            }
+
+            arreglo.push(nodoArreglo)
+
+        }
+        for (let i = 0; i < this.arregloM.length; i++) {
+            for (let j = 0; j < this.arregloM.length; j++) {
+                let nodoArreglo = {
+                    id: i.toString()+j.toString(),
+                    type: 'default',
+                    targetPosition: 'top',
+                    sourcePosition: 'bottom',
+                    data: { label: (
+                        <> <strong>{this.arregloM[i][j] != null ? this.arregloM[i][j]: 0}</strong>
+                        </>
+                     ) },
+                    position: {  x: 100 + (j+1)*150, y: 25 + (i+1)*40  },
+                    connectable: false, 
+                }
+
+                arreglo.push(nodoArreglo)
+            }
+            
+        }
+
+        return arreglo
     }
 
     graficarLista(){

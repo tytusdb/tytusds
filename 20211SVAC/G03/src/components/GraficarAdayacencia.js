@@ -22,13 +22,12 @@ const customNodeStyles = {
   };
 
 export default function GraficarAdayacencia(props) {
-    let elements = props.estructura.graficarMatriz()
-    let linealizado = props.estructura.graficarLista(); 
+    let elements = props.estructura.graficarML() 
     return (
        
 
       <div style={{ height: 250 }}>
-      <h1 style={{ color: 'white' }}>Matriz</h1>
+      <h1 style={{ color: 'white' }}>{props.estructura.almacenamiento}</h1>
       < ReactFlowProvider >
           <ReactFlow elements={elements} nodeTypes={nodeTypes}>
           <Background
@@ -39,16 +38,7 @@ export default function GraficarAdayacencia(props) {
           </ReactFlow>
 
       </ ReactFlowProvider >
-      < ReactFlowProvider >
-      <h1>Vector</h1>
-          <ReactFlow elements={linealizado} nodeTypes={nodeTypes}>
-          <Background
-          variant="dots"
-          gap={12}
-          size={1}
-          />
-          </ReactFlow>
-      </ ReactFlowProvider >
+      
       </div>
     )
 }
