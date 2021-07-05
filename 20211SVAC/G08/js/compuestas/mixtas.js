@@ -91,6 +91,7 @@ btn_Buscar.addEventListener('click', buscar);
 // I  N  S  T  A  N  C  I  A
 var bst = new BST();
 var bst1 = new BST();
+var bst2 = new BST();
 
 var cambio = 0;
 
@@ -99,6 +100,8 @@ var allEdges = [];
 
 var fromValor = [];
 var toValor = [];
+var fromValor2 = [];
+
 
 
 // V  A  R  I  A  B  L  E  S  -  G  L  O  B  A  L  E  S
@@ -106,7 +109,7 @@ var toValor = [];
 // ***** AGREGAR ELEMENTO A LA LISTA *****
 function agregarLista(){
     const elementoL = document.getElementById('elementoLista').value;
-    console.log("Elemento lista: "+elementoL)
+    console.log("Nuevo elemento")
     cambio++;
 
 
@@ -124,6 +127,10 @@ function agregarArbol(){
         
         bst1.add(parseInt(elementoT))
         toValor.push(parseInt(elementoT));
+
+    } else if (cambio == 2){
+        bst2.add(parseInt(elementoT))
+        fromValor2.push(parseInt(elementoT));
 
     } else {
         console.log("nada")
@@ -153,20 +160,31 @@ function infoTre2(){
     bst1.dot += '}'
     return bst1.dot
 }
+function infoTre3(){
+    bst2.dot = '{'
+    bst2.dotgen(bst2.root)
+    bst2.dot += '}'
+    return bst2.dot;
+}
 
 var entre1 = false;
 var entre2 = false; 
 function buildTre(){
     var container = document.getElementById("espacioDraw");
     var DOTstring1
+    var DOTstring2;
     if (cambio == 0){
         DOTstring1 = infoTree()
         var DOTstring = DOTstring1;
 
 
     } else if (cambio == 1){
-        var DOTstring2 = infoTre2()
+        DOTstring2 = infoTre2()
         var DOTstring = DOTstring1 + DOTstring2;
+    } else if (cambio == 2){
+        var DOTstring3 = infoTre3()
+        var DOTstring = DOTstring1 + DOTstring2 + DOTstring3;
+
     } else {
         console.log("nada")
     }
@@ -183,6 +201,11 @@ function buildTre(){
     }
     if (cambio == 1){
         allEdges.push({from: fromValor[0], to: toValor[0], arrows: "to"})
+    } else if (cambio == 2){
+        allEdges.push({from: toValor[0], to: fromValor2[0], arrows: "to"})
+
+    } else {
+        console.log("nada")
     }
 
     var nodoCuadro = parsedData.nodes[0];
