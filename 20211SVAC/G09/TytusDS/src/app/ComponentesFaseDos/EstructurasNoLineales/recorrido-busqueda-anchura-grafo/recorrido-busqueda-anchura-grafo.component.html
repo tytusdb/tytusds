@@ -45,10 +45,15 @@
     <button class="boton" (click)="value()" >Actualizar</button>&nbsp;&nbsp;&nbsp;
     <!--<p>La lista es: {{displayVal}}</p>!-->
     <br>
-    <br>
-    <button class="btn btn-primary btn-block text-white" type="submit" onclick="download('ListaSimple.js','hola')">Guardar Arreglo</button>
-    <input type="file" onchange="onChange(event)">
+<table >
+    <tr>
+        <td>
+            <input type="file" (change)="leerArchivo($event)">
+        </td>
+        <td>
+            <button class="" type="submit" (click)="download()">Guardar Conversión</button>
+        </td>
+    </tr>
+</table>    
       <div id="divInsert" style="position: absolute;">
-        <div id="divInsert1" style="position: absolute; top: 0px; left: 0px; width: 50%;"></div>
-      <div id="divInsert">
-    </div>  
+      </div>  

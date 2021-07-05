@@ -4,7 +4,9 @@
 // 4 Estructuras compuestas
 class CargaArchivo{
     constructor(){
-        this.Matriz=["Hi"]
+        this.Matriz=[]
+        this.aristas=[]
+        this.vertices=[]
     }
     leerMatriz(event,indexClase, variante){
         var file = event.target.files[0];
@@ -105,5 +107,30 @@ class CargaArchivo{
         return this.Matriz
     }
     addMatriz(array){this.Matriz=array}
+
+    leerGrafo(event, indexClase){
+        var file = event.target.files[0];
+        var reader = new FileReader();
+        var doc
+        reader.onload = function(e) {doc = JSON.parse(e.target.result);};
+        reader.readAsText(file);
+        setTimeout(() => {debugger
+            this.aristas=[];this.vertices=[]
+            for (let k in doc.valores){
+                for (const key in doc.valores[k].aristas) {
+                    //if (!this.vertices.includes(doc.valores[k].vertice)) {
+                    this.vertices.push(doc.valores[k].vertice)
+                    //}
+                    this.aristas.push({vertice: doc.valores[k].vertice, arista:doc.valores[k].aristas[key].arista})
+                }
+                if(doc.valores[k].aristas.length==0){
+                    this.vertices.push(doc.valores[k].vertice)
+                }
+            }            
+        }, 500);
+    }
+    returnGrafo(){
+        return{vertices:this.vertices, aristas:this.aristas}
+    }
 }
 module.exports = CargaArchivo

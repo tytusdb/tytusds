@@ -170,6 +170,7 @@ class AnchuraGrafos{
 		console.log(this.DatoNodo)
 	}
 }
+module.exports = AnchuraGrafos
 
 function Prueba(){
 	let grafo = new AnchuraGrafos()
@@ -238,9 +239,5 @@ function Prueba(){
     grafo.MostrarGrafo();
 
     grafo.RecorrerAnchura(3,5);
-   
-
-	
-	
 }
-Prueba()
+//Prueba()
