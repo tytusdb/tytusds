@@ -3,6 +3,7 @@ import * as vis from 'vis';
 var w="", w1 = [];
 var k, k1 = [];
 var x1 = 0, y1 = 35;
+var tiempo;
 var edges = new vis.DataSet([]);
 var nodes = new vis.DataSet([]);
 var options = {

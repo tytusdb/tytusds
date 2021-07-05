@@ -2,6 +2,7 @@ import { ReadVarExpr } from '@angular/compiler';
 import { Component, ElementRef, OnInit, ViewChild, ɵsetCurrentInjector } from '@angular/core';
 import * as vis from 'vis';
 
+var tiempo;
 var options = {
   
   physics: {
@@ -223,7 +224,8 @@ export class RBAnchuraGrafosComponent implements OnInit {
         text = String(resultado);
 
         var data = JSON.parse(text);
-
+        tiempo = data.animacion;
+        console.log("Time: "+tiempo);
         data.valores.forEach(element=>{
           this.addVertice(String(element.vertice));
           

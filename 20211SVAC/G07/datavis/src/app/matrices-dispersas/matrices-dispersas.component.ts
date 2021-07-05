@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import * as vis from 'vis';
-
+var tiempo;
 var n: number; // columnas
 var m: number; // filas
 var matriz: any[][];
@@ -77,6 +77,8 @@ export class MatricesDispersasComponent implements OnInit {
         const resultado=ev.target?.result
         text=String(resultado)
         var data = JSON.parse(text);  // se parse para obtener solo los datos
+        tiempo = data.animacion;
+        console.log("Time: "+tiempo);
         data.valores.forEach(element => { // se pasa a un arreglo
           this.AgregarNuevo(element.valor,element.indices[0],element.indices[1]);
         });

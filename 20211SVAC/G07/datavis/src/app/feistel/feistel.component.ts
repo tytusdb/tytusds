@@ -2,7 +2,7 @@ import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 
 var impr1 = new Array, impr2= new Array;
-
+var tiempo;
 class FeistelC{
   ronda: number;
   key: any[];

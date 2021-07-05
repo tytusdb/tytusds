@@ -3,6 +3,7 @@ import * as vis from 'vis';
 let mapOrder; // diccionario en donde ya esta ordenado todo
 let cola // cola de prioridad
 let codigo;
+var tiempo;
 var edges = new vis.DataSet([]);
 var nodes = new vis.DataSet([]);
 var options = {
