@@ -114,7 +114,7 @@ class CargaArchivo{
         var doc
         reader.onload = function(e) {doc = JSON.parse(e.target.result);};
         reader.readAsText(file);
-        setTimeout(() => {debugger
+        setTimeout(() => {//debugger
             this.aristas=[];this.vertices=[]
             for (let k in doc.valores){
                 for (const key in doc.valores[k].aristas) {
