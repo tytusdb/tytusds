@@ -75,7 +75,8 @@ class ListaDoble {
           edges.update(
             {from: men, to: pos+','+prueba, length: 20, arrows: 'to'}
           );
-          sigs[pos] = prueba++;
+          console.log(prueba)
+          sigs[pos] = prueba + 1;
       }
       else {
           this.head = newNode;
@@ -594,7 +595,7 @@ export class HashAbiertaComponent implements OnInit {
     this.network = new vis.Network(container, listaData, options);
   }
 
-  
+
 
   descargarContenido(){
     this.generador();
@@ -643,7 +644,7 @@ export class HashAbiertaComponent implements OnInit {
 
 
   }
-  
+
   Tamano(ta: number, dat:any){
     h = new HashAbierta(dat);
     h.NuevaTabla(ta);
@@ -680,7 +681,7 @@ export class HashAbiertaComponent implements OnInit {
         this.contenido += aux.data+",\n";
         aux = aux.next;
        }
-        
+
       }else{
         console.log(h.Arreglo[i])
         this.contenido += h.Arreglo[i]+",\n";
