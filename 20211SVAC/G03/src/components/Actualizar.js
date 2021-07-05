@@ -14,6 +14,9 @@ export default class Actualizar extends Component {
         let edd = this.props.edd
         let datoAnterior = this.state.datoAnterior
         let datoNuevo = this.state.datoNuevo
+        let splitarr ;
+        let i;
+        let j;
         switch(nombre){
             case "Pila" :
                 edd.actualizar(datoAnterior,datoNuevo)
@@ -56,6 +59,33 @@ export default class Actualizar extends Component {
                 edd.actualizar(datoAnterior,datoNuevo)
             break
             case "Arbol Merkle":
+                edd.modificar(datoAnterior,datoNuevo)
+            break
+            case "Tabla Hash Cerrada":
+                edd.actualizar(datoAnterior,datoNuevo)
+            break
+            case "Tabla Hash Abierta":
+                edd.actualizar(datoAnterior,datoNuevo)
+            break
+            case "Col Major":
+                let arreglosplit = datoAnterior.split(",")
+                let x = arreglosplit[0]
+                let y = arreglosplit[1]
+                edd.actualizar(x,y,nombre,datoNuevo)
+            break
+            case "Row Major":    
+                 splitarr = datoAnterior.split(",")
+                 i = splitarr[0]
+                 j = splitarr[1]
+                edd.actualizar(i,j,nombre,datoNuevo)
+            break
+            case "Matriz Dispersa":    
+                edd.modificar(datoAnterior,datoNuevo)
+            break
+            case "Grafo No Dirigido":    
+                edd.modificar(datoAnterior,datoNuevo)
+            break
+            case "Grafo Dirigido":    
                 edd.modificar(datoAnterior,datoNuevo)
             break
             default:

@@ -36,6 +36,8 @@
         <button (click)="AgregarNuevo(nombre.value, Fila.value, Col.value)" class="btn btn-outline-light mr-sm-2" type="button">Agregar dato</button>
 
         <button (click)="Linealizar()" class="btn btn-outline-light mr-sm-2" type="button">Linealizar</button>
+        <input style="display:none;" type="file" (change)="abrir($event)" #archivo>
+        <button (click)="archivo.click()" class="btn btn-outline-light mr-sm-2" type="button" >Cargar</button>
 
       </form>
     </nav>

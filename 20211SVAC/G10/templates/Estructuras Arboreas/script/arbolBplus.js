@@ -653,8 +653,8 @@ cargar.addEventListener("click", (e) => {
     salida.lista = valores
     for (let i = 0; i < valores.length; i++) {
         arbolBP.agregar(valores[i])
-        graficaArbol(arbolBP);
     }
+    graficaArbol(arbolBP);
     document.getElementById('mensaje').innerText = ''
     archivo.setAttribute('disabled', '')
 })
@@ -670,6 +670,19 @@ guardar.addEventListener("click", (e) => {
     let texto = JSON.stringify(salida);
     download('ArbolBPlus.json', texto);
 })
+
+function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+  
+    element.style.display = 'none';
+    document.body.appendChild(element);
+  
+    element.click();
+  
+    document.body.removeChild(element);
+}
 
 function graficaArbol(arbolBP){
     let lista = new NodoArista();

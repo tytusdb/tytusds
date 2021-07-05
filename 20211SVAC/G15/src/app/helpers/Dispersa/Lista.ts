@@ -21,11 +21,12 @@ export class Lista {
     }
 
 
-    public buscar(value: number | string, apuntador: Apuntador,x:number,y:number) {
+    public buscar(value: number | string, apuntador: Apuntador, x: number|string, y: number|string) {
         if (this.primero === null) return null
         let temp: Nodo = this.primero
         while (temp !== null) {
-            if(this.convertir(temp.getPos().x) === this.convertir(x) && this.convertir(temp.getPos().y) === this.convertir(y)) return temp
+            //console.log(x,y,temp.getPos(),temp.getValue())
+            if (this.convertir(temp.getPos().x) === this.convertir(x) && this.convertir(temp.getPos().y) === this.convertir(y)) return temp
             if (apuntador === Apuntador.FILA) temp = temp.getSiguiente();
             else temp = temp.getAbajo()
         }
@@ -33,98 +34,98 @@ export class Lista {
     }
 
 
-    public add(nuevo: Nodo, tipo: Tipo, apuntador: Apuntador, x: number, y: number) {
+    public buscarValue(value: number | string, apuntador: Apuntador) {
+        if (this.primero === null) return null
+        let temp: Nodo = this.primero
+        while (temp !== null) {
+            if (temp.getValue() === value) return temp
+            if (apuntador === Apuntador.FILA) temp = temp.getSiguiente();
+            else temp = temp.getAbajo()
+        }
+        return null
+    }
 
-        console.log(nuevo.getValue(), x, y,apuntador)
+
+    public add(nuevo: Nodo, tipo: Tipo, apuntador: Apuntador, x: number|string, y: number|string) {
+
+        console.log(nuevo.getValue(), x, y)
         if (this.primero === null) {
             this.primero = nuevo
             this.ultimo = nuevo
             return nuevo
         }
-        
 
-        let posicion = (apuntador === Apuntador.FILA) ? x : y
-        let index = 0
-        let temp = this.primero
-        while (index <= posicion) {
-            if (index === posicion) break;
-            if (temp === null) break;
-            if (apuntador === Apuntador.FILA) temp = temp.getSiguiente()
-            else temp = temp.getAbajo()
-            index++
-        }
-        if (temp === this.primero) {
-            if (apuntador === Apuntador.FILA) {
-                let siguiente = temp.getSiguiente()
-                nuevo.setSiguiente(temp)
-                if (Tipo.DOBLE === tipo && siguiente) temp.setAnterior(nuevo)
-                this.primero = nuevo
+        // Insertar Columnas
+        if(apuntador === Apuntador.COLUMNA){
+            if(this.convertir(this.primero.getPos().y) >= this.convertir(y)){
+                nuevo.setAbajo(this.primero)
+                if(tipo === Tipo.DOBLE) this.primero.setArriba(nuevo)
+                this.primero = nuevo 
                 return nuevo
             }
 
-            let siguiente = temp.getAbajo()
-            nuevo.setAbajo(temp)
-            if (Tipo.DOBLE === tipo && siguiente) temp.setArriba(nuevo)
-            this.primero = nuevo
-            return nuevo
-        }
-        else if (temp === this.ultimo) {
-            let anterior = this.obtenerAnterior(temp, apuntador);
-            if (apuntador === Apuntador.FILA) {
-                anterior.setSiguiente(nuevo)
-                nuevo.setSiguiente(this.ultimo)
-                if (Tipo.DOBLE === tipo) {
-                    nuevo.setAnterior(anterior)
-                    this.ultimo.setAnterior(nuevo)
+            if(this.convertir(this.ultimo.getPos().y) <= this.convertir(y)){
+                this.ultimo.setAbajo(nuevo)
+                if(tipo === Tipo.DOBLE) nuevo.setArriba(this.ultimo)
+                this.ultimo = nuevo 
+                return nuevo
+            }
+
+            let temp = this.primero 
+            while(temp !== null){
+                let siguiente = temp.getAbajo() 
+                if(this.convertir(temp.getPos().y) < this.convertir(y) && this.convertir(y) < this.convertir(siguiente.getPos().y)){
+                    temp.setAbajo(nuevo)
+                    nuevo.setAbajo(siguiente)
+                    if(tipo === Tipo.DOBLE){
+                        nuevo.setArriba(temp)
+                        siguiente.setArriba(nuevo)
+                        return nuevo
+                    }
                 }
-                return nuevo
+                temp = temp.getAbajo()
             }
-            nuevo.setAbajo(this.ultimo)
-            anterior.setAbajo(nuevo)
-            if (Tipo.DOBLE === tipo) {
-                nuevo.setArriba(anterior)
-                this.ultimo.setArriba(nuevo)
-            }
+            return null
+        }
+
+        // Insertar Filas
+
+        if(this.convertir(this.primero.getPos().x) >= this.convertir(x)){
+            nuevo.setSiguiente(this.primero)
+            if(tipo === Tipo.DOBLE) this.primero.setAnterior(nuevo)
+            this.primero = nuevo 
             return nuevo
         }
-        else if (temp === null) {
-            if (apuntador === Apuntador.FILA) {
-                this.ultimo.setSiguiente(nuevo)
-                if (Tipo.DOBLE === tipo) nuevo.setAnterior(this.ultimo)
-                this.ultimo = nuevo
-                return nuevo
-            }
-            this.ultimo.setAbajo(nuevo)
-            if (Tipo.DOBLE === tipo) nuevo.setArriba(this.ultimo)
-            this.ultimo = nuevo
+
+        if(this.convertir(this.ultimo.getPos().x) <= this.convertir(x)){
+            this.ultimo.setSiguiente(nuevo)
+            if(tipo === Tipo.DOBLE) nuevo.setAnterior(this.ultimo)
+            this.ultimo = nuevo 
             return nuevo
         }
-        else {
-            let anterior = this.obtenerAnterior(temp, apuntador);
-            if (apuntador === Apuntador.FILA) {
-                anterior.setSiguiente(nuevo)
-                nuevo.setSiguiente(temp)
-                if (Tipo.DOBLE === tipo) {
-                    nuevo.setAnterior(anterior)
-                    temp.setAnterior(nuevo)
+
+        let temp = this.primero 
+        while(temp !== null){
+            let siguiente = temp.getSiguiente() 
+            if(this.convertir(temp.getPos().x) < this.convertir(x) && this.convertir(x) < this.convertir(siguiente.getPos().x)){
+                temp.setSiguiente(nuevo)
+                nuevo.setSiguiente(siguiente)
+                if(tipo === Tipo.DOBLE){
+                    nuevo.setAnterior(temp)
+                    siguiente.setAnterior(nuevo)
+                    return nuevo
                 }
-                return nuevo
             }
-
-            anterior.setAbajo(nuevo)
-            nuevo.setAbajo(temp)
-            if (Tipo.DOBLE === tipo) {
-                nuevo.setArriba(anterior)
-                temp.setArriba(nuevo)
-            }
-
-            return nuevo
+            temp = temp.getSiguiente()
         }
+        return null
+
+      
 
     }
 
 
-    public getLista(apuntador: Apuntador, tipo: Tipo) {
+    public getLista(apuntador: Apuntador, tipo: Tipo, pos:number) {
         let data = {
             nodes: [],
             edges: []
@@ -138,7 +139,7 @@ export class Lista {
 
                 id: id,
                 label: '' + temp.getValue(),
-                level: temp.getY() + 1
+                level: pos
 
             })
             index++
@@ -169,6 +170,28 @@ export class Lista {
     }
 
 
+    
+    public getListaJSON(apuntador: Apuntador) {
+        let valores = []
+        let temp = this.primero
+        while (temp != null) {
+
+            valores.push({
+                indices: [this.convertir(temp.getPos().x),this.convertir(temp.getPos().y)],
+                valor: this.convertir(temp.getValue())
+            })
+            
+            if (apuntador === Apuntador.COLUMNA) temp = temp.getAbajo()
+            else temp = temp.getSiguiente()
+
+            
+
+        }
+
+        return valores
+    }
+
+
     private obtenerAnterior(nodo: Nodo, apuntador: Apuntador): Nodo {
         let temp = this.primero
         while (temp !== null) {
@@ -182,8 +205,8 @@ export class Lista {
     }
 
 
-    private convertir(value){
-        if(isNaN(value)) return value 
+    private convertir(value) {
+        if (isNaN(value)) return value
         return +value
     }
 }

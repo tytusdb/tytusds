@@ -120,7 +120,7 @@ export class ListaCabecera {
                 group: (apuntador === Apuntador.COLUMNA) ? 'horizontal' : 'vertical',
                 level: level
             })
-            if(apuntador === Apuntador.FILA) level++
+            if (apuntador === Apuntador.FILA) level++
             temp = temp.getSiguiente()
             if (temp !== null) {
                 let id2 = ((apuntador === Apuntador.COLUMNA) ? 'x' : 'y') + temp.getId()
@@ -146,6 +146,7 @@ export class ListaCabecera {
 
     public getNodosHijos(apuntador: Apuntador, tipo: Tipo) {
         let temp: NodoCabecera = this.primero
+        let index = 1
         let res =
         {
             nodes: [],
@@ -154,7 +155,7 @@ export class ListaCabecera {
 
         while (temp !== null) {
             let id = ((apuntador === Apuntador.COLUMNA) ? 'x' : 'y') + temp.getId()
-            let data = temp.getLista().getLista(apuntador, tipo)
+            let data = temp.getLista().getLista(apuntador, tipo, index)
 
             if (data.nodes.length > 0) {
                 let hijoId = 'xy' + temp.getLista().getPrimero().getId()
@@ -171,44 +172,75 @@ export class ListaCabecera {
                 })
             }
 
-       
 
-            if (apuntador === Apuntador.COLUMNA)  res.nodes = res.nodes.concat(data.nodes)
-            
+
+            if (apuntador === Apuntador.FILA) res.nodes = res.nodes.concat(data.nodes)
+
             res.edges = res.edges.concat(data.edges)
 
 
             temp = temp.getSiguiente()
+            index++
 
         }
         return res
     }
 
 
-    public async addValor(nuevo: Nodo, x: number, y: number, apuntador: Apuntador, tipo: Tipo) {
-        let index = 0
+    public getJson(apuntador: Apuntador) {
+        if (this.primero === null) return []
+        let temp: NodoCabecera = this.primero
+        let dato = []
+        while (temp !== null) {
+            let result = temp.getLista().getListaJSON(apuntador)
+            dato = dato.concat(result)
+            temp = temp.getSiguiente()
+
+        }
+        return dato
+    }
+
+
+    public async addValor(nuevo: Nodo, x: number|string, y: number|string, apuntador: Apuntador, tipo: Tipo) {
         let temp = this.primero
         while (temp !== null) {
             if (apuntador === Apuntador.FILA) {
-                if (index === y) break
+                if (this.convertir(temp.getValue()) === this.convertir(y)) break
             }
             else if (apuntador === Apuntador.COLUMNA) {
-                if (index === x) break
+                if (this.convertir(temp.getValue()) === this.convertir(x)) break
             }
-            index++
             
+
             temp = temp.getSiguiente()
         }
-        
-        let resultado = temp.getLista().buscar(nuevo.getValue(), apuntador,x,y)
+
+        let resultado = temp.getLista().buscar(nuevo.getValue(), apuntador, x, y)
         if (resultado !== null) return resultado
-        return await temp.getLista().add(nuevo, tipo, apuntador, x,y)
+        return await temp.getLista().add(nuevo, tipo, apuntador, x, y)
 
 
     }
 
-    private convertir(value){
-        if(isNaN(value)) return value 
+    private convertir(value) {
+        if (isNaN(value)) return value
         return +value
     }
+
+
+    public buscarValor(value: number | string) {
+        if (this.primero === null) return null
+        let temp: NodoCabecera = this.primero
+        while (temp !== null) {
+            let result = temp.getLista().buscarValue(value, Apuntador.COLUMNA)
+            if (result !== null) return result
+            temp = temp.getSiguiente()
+
+        }
+        return null
+    }
+
+
+
+
 }

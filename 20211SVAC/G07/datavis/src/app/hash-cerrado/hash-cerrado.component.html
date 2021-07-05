@@ -1,1 +1,181 @@
-<p>hash-cerrado works!</p>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css" rel="stylesheet" type="text/css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis-timeline-graph2d.min.css" rel="stylesheet" type="text/css" />
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
+
+<div>
+
+  <nav aria-label="breadcrumb" class="navbar navbar-dark bg-primary" >
+    <div class="d-flex justify-content-between">
+      <h1 class="navbar-brand"  class = "text-center" style="text-decoration:none"  routerLink="/" routerLinkActive="active">
+        TytusDs &nbsp; &nbsp; &nbsp;
+      </h1>
+      <ol class="breadcrumb" >
+        <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Tabla Hash Cerrada</li>
+      </ol>
+    </div>
+
+
+  </nav>
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark bg-primary">
+
+      <form class="form-inline" >
+
+        <input  class="form-control mr-sm-2 " type="text" #amano placeholder="tamaño" aria-label="Tamaño">
+        <input  class="form-control mr-sm-2 " type="text" #Maxi placeholder="Maximo" aria-label="Maximo">
+        <input  class="form-control mr-sm-2 " type="text" #Mini placeholder="Minimo" aria-label="Minimo">
+        <select #seleccionar class="form-select form-select-lg mb-3">
+        <option>Simple</option>
+        <option>Division</option>
+        <option>Multiplicacion</option>
+        </select>
+        <br>
+        <br>
+        <br>
+        <select #Re class="form-select form-select-lg mb-3">
+        <option>Lineal</option>
+        <option>Cuadratica</option>
+        <option>Doble</option>
+        </select>
+        <button (click)="Tamano(amano.value, Maxi.value, Mini.value, seleccionar.value, Re.value)" class="btn btn-outline-light mr-sm-2" type="button">Crear Tabla</button>
+        <input  class="form-control mr-sm-2" type="text" #dato placeholder="Valor" aria-label="Valor">
+        <button (click)="AgregarNuevo(dato.value)" class="btn btn-outline-light mr-sm-2" type="button">Agregar Valor</button>
+        <input  class="form-control mr-sm-2" type="text" #elim placeholder="Eliminar" aria-label="Eliminar">
+        <button (click)="Eliminar(elim.value)" class="btn btn-outline-light mr-sm-2" type="button">Eliminar Valor</button>
+        <input class="form-control mr-sm-2" type="text" #actu placeholder="Actualizar" aria-label="actualizar">
+        <input class="form-control mr-sm-2" type="text" #sus placeholder="Sustituto" aria-label="Sustituto">
+        <button (click)="Actualizars(actu.value, sus.value)" class="btn btn-outline-light mr-sm-2" type="button">Actualizar Valor</button>
+        <input  class="form-control mr-sm-2" type="text" #busc placeholder="Buscar" aria-label="Buscar">
+        <button (click)="buscar(busc.value)" class="btn btn-outline-light mr-sm-2" type="button">Buscar Valor</button>
+
+
+      </form>
+    </nav>
+
+    <!-- Navbar -->
+
+    <!-- Jumbotron -->
+    <div id="mynetwork" #mynetwork>
+    </div>
+        <style type="text/css">
+          #mynetwork {
+        width: 100%;
+        height: 700px;
+        border: 1px solid lightgray;
+    }
+      </style>
+    <!-- Jumbotron -->
+
+
+  <!-- Footer -->
+<footer class="text-center text-lg-start bg-light text-muted">
+  <!-- Section: Social media -->
+  <section
+    class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom"
+  >
+
+
+  </section>
+  <!-- Section: Social media -->
+
+  <!-- Section: Links  -->
+  <section class="">
+    <div class="container text-center text-md-start mt-5">
+      <!-- Grid row -->
+      <div class="row mt-3">
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+          <!-- Content -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            <i class="fas fa-gem me-3"></i>Ingreso
+          </h6>
+          <!-- Default radio -->
+
+
+<!-- Default checked radio -->
+<div class="form-check">
+  <input
+    class="form-check-input"
+    type="radio"
+    name="flexRadioDefaultRepeticion"
+    id="alinicio"
+    checked
+  />
+  <label class="form-check-label" for="alinicio"> Al inicio </label>
+</div>
+<div class="form-check">
+  <input
+    class="form-check-input"
+    type="radio"
+    name="flexRadioDefaultRepeticion"
+    id="alfinal"
+  />
+  <label class="form-check-label" for="alfina"> Al final </label>
+</div>
+
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            Repetición
+          </h6>
+          <!-- Default checked radio -->
+<div class="form-check">
+  <input
+    class="form-check-input"
+    type="radio"
+    name="flexRadioDefaultActivacion"
+    id="desacivada"
+    checked
+  />
+  <label class="form-check-label" for="desactivada"> Desactivada </label>
+</div>
+<div class="form-check">
+  <input
+    class="form-check-input"
+    type="radio"
+    name="flexRadioDefaultActivacion"
+    id="activada"
+  />
+  <label class="form-check-label" for="activada"> Activada </label>
+</div>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            Velocidad de animación
+          </h6>
+<div class="range">
+  <input type="range" class="form-range" min="0" max="5" id="customRange2" />
+</div>
+        </div>
+        <!-- Grid column -->
+
+
+      </div>
+      <!-- Grid row -->
+    </div>
+  </section>
+  <!-- Section: Links  -->
+
+  <!-- Copyright -->
+  <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+    © 2021 Copyright:
+    <a class="text-reset fw-bold" href="https://mdbootstrap.com/">EDD</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->
+
+</div><style id="iw-user-style"></style><script id="iw-user-script"></script>

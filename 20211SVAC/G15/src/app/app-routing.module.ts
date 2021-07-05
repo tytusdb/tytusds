@@ -23,6 +23,12 @@ import { AVLComponent } from './components/avl/avl.component';
 
 import { MetodorapidoComponent } from './components/metodorapido/metodorapido.component';
 import { MetodoSeleccionComponent } from './components/metodo-seleccion/metodo-seleccion.component';
+import { HashabiertaComponent } from './components/hashabierta/hashabierta.component';
+import { EstructuranolinealesComponent } from './components/estructuranolineales/estructuranolineales.component';
+import { CodificacionhuffmannComponent } from './components/codificacionhuffmann/codificacionhuffmann.component';
+import { CifradofeisComponent } from './components/cifradofeis/cifradofeis.component';
+import { CodificacionComponent } from './components/codificacion/codificacion.component';
+import { LZWComponent } from './components/lzw/lzw.component';
 
 import { CompuestasComponent } from './components/compuestas/compuestas.component'
 
@@ -38,6 +44,12 @@ import { EstructurasNoLinealesComponent } from './components/estructuras-no-line
 import { AlgoritmoCodificacionComponent } from './components/algoritmo-codificacion/algoritmo-codificacion.component';
 import { GrafosConexionComponent } from './components/grafos-conexion/grafos-conexion.component';
 
+
+import { NoLinealesComponent } from './components/no-lineales/no-lineales.component'
+import { HashCerradaComponent } from './components/hash-cerrada/hash-cerrada.component'
+
+import { CompuestaComponent } from './components/compuesta/compuesta.component'
+
 const routes: Routes = [
   {path: 'binaryTree', component: BinaryTreeComponent, pathMatch: 'full'},
   {path: 'listaDobleCircular', component: ListaDobleCircularComponent, pathMatch: 'full'},
@@ -52,6 +64,16 @@ const routes: Routes = [
   {path: 'listaSimple', component: ListasimpleComponent, pathMatch: 'full'},
   {path: 'estructuraArborea', component: EstructuraArboreaComponent, pathMatch: 'full'},
   {path: 'ordenamiento/insercion', component: InsertionSortComponent, pathMatch: 'full'},
+  {path: 'hashabierta', component: HashabiertaComponent, pathMatch: 'full'},
+  {path: 'AVL', component: AVLComponent, pathMatch: 'full'},
+  {path: 'rapido', component: MetodorapidoComponent, pathMatch: 'full'},
+  {path: 'seleccion',component:MetodoSeleccionComponent,pathMatch:'full'},
+  {path: 'estructuraNoLineales',component:EstructuranolinealesComponent,pathMatch:'full'},
+  {path: 'huffman',component:CodificacionhuffmannComponent,pathMatch:'full'},
+  {path: 'feistel',component:CifradofeisComponent,pathMatch:'full'},
+  {path: 'codificacion',component:CodificacionComponent,pathMatch:'full'},
+  {path: 'LZW',component:LZWComponent,pathMatch:'full'},
+
   {path: 'compuesta/dispersa', component: DispersaComponent, pathMatch: 'full'},
   {path: 'AVL', component: AVLComponent, pathMatch: 'full'},
   {path: 'rapido', component: MetodorapidoComponent, pathMatch: 'full'},
@@ -65,6 +87,11 @@ const routes: Routes = [
   {path:'noLineal',component:EstructurasNoLinealesComponent,pathMatch:'full'},
   {path:'codificacion', component:AlgoritmoCodificacionComponent,pathMatch:'full'},
   {path:'grafosND',component:GrafosConexionComponent,pathMatch:'full'},
+  {path: 'NoLineales',component:NoLinealesComponent,pathMatch:'full'},
+  {path: 'nolineales/hash/cerrada',component:HashCerradaComponent,pathMatch:'full'},
+
+  {path: 'compuestas/compuesta', component: CompuestaComponent, pathMatch: 'full'},
+
 
   {path: '', component: HomeComponent, pathMatch: 'full'}
   

@@ -32,3 +32,11 @@ l.print();
 l.appendO(4)
 console.log(l.Size());
 l.print();
+
+let md=new matriz();
+md.append("lisa",2,6)
+md.append("wanda",4,1);
+md.append("Joan",3,1);
+md.append("Oscar",2,1);
+md.append("Katherina",1,2);
+md.printV();

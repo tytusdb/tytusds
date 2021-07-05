@@ -2,6 +2,79 @@
     <div class="container">
 
         <div class="row opciones p-2">
+
+            <div class="col-lg-2 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <input type="number" class="form-control" value="" id="m" name="m" [(ngModel)]="m" placeholder="M">
+                    <input type="number" class="form-control" value="" id="n" name="n" [(ngModel)]="n" placeholder="N">
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-2 col-sm-12 col-12 mt-1">
+                <div class="input-group ">
+                    <label class="text-white" for="duracion">Duracion</label>
+                    <input type="number" class="form-control" value="" id="duracion" name="duracion"
+                        [(ngModel)]="duracion" placeholder="duracion">
+                </div>
+
+            </div>
+
+            <div class="col-lg-5 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <input type="number" class="form-control" value="" id="m" name="m" [(ngModel)]="mAdd"
+                        placeholder="X">
+                    <input type="number" class="form-control" value="" id="n" name="n" [(ngModel)]="nAdd"
+                        placeholder="Y">
+                    <input type="text" class="form-control" value="" id="value" name="value" [(ngModel)]="value"
+                        placeholder="value">
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary " type="button" (click)="add()">Guardar</button>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-3 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                   
+                    <input type="text" class="form-control" value="" id="valueBuscar" name="valueBuscar" [(ngModel)]="valueBuscar"
+                        placeholder="value Buscar">
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary " type="button" (click)="search()">Buscar</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-lg-4 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <input type="text" class="form-control" value="" id="valueViejo" name="valueViejo" [(ngModel)]="valueViejo"
+                        placeholder="value Viejo">
+                    <input type="text" class="form-control" value="" id="valueNuevo" name="valueNuevo" [(ngModel)]="valueNuevo"
+                        placeholder="value Nuevo">
+                    <div class="input-group-append">
+                        <button class="btn btn-warning " type="button" (click)="edit()">Editar</button>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-3 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    
+                    <input type="text" class="form-control" value="" id="valueEliminar" name="valueEliminar" [(ngModel)]="valueEliminar"
+                        placeholder="value Eliminar">
+                    <div class="input-group-append">
+                        <button class="btn btn-danger " type="button" (click)="delete()">Eliminar</button>
+                    </div>
+                </div>
+
+            </div>
+
             <div class="col-lg-2 col-sm-12 col-12 mt-1">
                 <div class="input-group">
                     <button class="btn btn-secondary " type="button" (click)="rowMajor()">Row Major</button>
@@ -15,18 +88,12 @@
                 </div>
             </div>
 
-            <div class="col-lg-2 col-sm-12 col-12 mt-1">
-                <div class="input-group">
-                    <input type="number" class="form-control" id="numero" name="numero" [(ngModel)]="duracion"
-                        placeholder="Duracion">
-                </div>
-            </div>
 
 
 
             <div class="col-12 col-sm-12 col-lg-3 text-left mt-2 text-white mt-1">
                 <div class="input-group">
-                    <input type="file" class="file-input" #fileUpload>
+                    <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
                     <div class="file-upload">
 
                         {{fileName || "No file uploaded yet."}}
@@ -40,7 +107,7 @@
 
             <div class="col-12 col-sm-12 col-lg-3 text-left mt-2 text-white mt-1">
                 <div class="input-group">
-                    <button class="btn btn-primary">
+                    <button class="btn btn-primary" (click)="generarJSON()">
                         Generar JSON
                     </button>
                 </div>
@@ -51,6 +118,18 @@
     </div>
 
     <div class="container mt-5 " id="contenedorMatriz">
+        <div class="row w-100" *ngFor="let dato of arreglo; let i = index" [attr.data-index]="i">
+
+            <div class="card animate__animated" style="width: 8rem; height: 5rem;"
+                *ngFor="let sub of dato; let j = index" [attr.data-index]="j" [attr.id]="'nodo' + j + '-' + i">
+                <div class="card-body">
+                    <h5 class="card-title">{{sub}}</h5>
+                </div>
+            </div>
+
+
+
+        </div>
         <div class="row">
             <div class="col-lg-4 col-md-6 w-100 col-sm-6 mb-2 " *ngFor="let dato of major; let i = index"
                 [attr.data-index]="i">
