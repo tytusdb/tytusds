@@ -21,21 +21,35 @@
     <nav class="navbar navbar-dark bg-primary">
 
       <form class="form-inline" >
-        <textarea class="form-control" #textocifrado id="textAreaExample" rows="5" ></textarea>
+       
+
+        <div class="form-outline">
+          <label class="form-label" for="textAreaExample">Texto a cifrar</label>
+        <textarea  class="form-control" #textocifrado id="textCifrar" rows="5" >{{texto}}</textarea>
+        </div>
         <input class="form-control mr-sm-2" #keycifrado type="text" placeholder="Key" aria-label="Key">
         <button (click)="ingresoCifradoText(textocifrado.value,keycifrado.value)" class="btn btn-outline-light mr-sm-2" type="button">Cifrar</button>
 
-        <textarea class="form-control" #textodescifrado id="textAreaExample" rows="5"></textarea>
+        <div class="form-outline">
+          <label class="form-label" for="textAreaExample">Texto a descifrar</label>
+        <textarea class="form-control" #textodescifrado id="textDescifrar" rows="5"></textarea>
+        </div>
         <input class="form-control mr-sm-2" #keydescifrado type="text" placeholder="Key" aria-label="Key">
         <button (click)="ingresoDescifradoText(textodescifrado.value,keydescifrado.value)" class="btn btn-outline-light mr-sm-2" type="button">Descifrar</button>
+
+        
 
         <input class="form-control mr-sm-2" #rondas type="text" placeholder="Rondas" aria-label="Rondas">
         <button (click)="ingresoRondas(rondas.value)" class="btn btn-outline-light mr-sm-2" type="button">Rondas</button>
 
-        <button  class="btn btn-outline-light mr-sm-2" type="button">Cargar</button>
-        <button  class="btn btn-outline-light mr-sm-2" type="button">Descargar</button>
+        <input style="display:none;" type="file" (change)="abrir($event)" #archivo>
+        <button (click)="archivo.click()" type="button" class="btn btn-outline-light mr-sm-2">Cargar</button>
+        <button (click)="descargarContenido()" class="btn btn-outline-light mr-sm-2" type="button">Guardar</button>
 
-
+        <div class="form-outline">
+          <label class="form-label" for="textAreaExample">Resultado</label>
+          <textarea class="form-control" id="textResultado" rows="5">{{resultadoCifrado}}</textarea>
+        </div>
 
       </form>
     </nav>

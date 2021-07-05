@@ -219,16 +219,69 @@ export class FeistelComponent implements OnInit {
   feistel:any;
   ngOnInit(): void {
   }
+  resultadoCifrado:string;
+  texto:string;
+  abrir(eve:any)
+  {
+    let a =eve.target.files[0]
+    
+
+    if(a){
+      let reader=new FileReader()
+        reader.onload=ev=>{
+        const resultado=ev.target?.result
+        this.texto=String(resultado)
+        console.log(this.texto)
+      }
+      reader.readAsText(a)
+    }
+
+
+  }
+  descargarContenido(){
+    let downloadfile = "data: text/json;charset=utf-8,"+encodeURIComponent(this.resultadoCifrado);
+    console.log(downloadfile);
+    var downloader = document.createElement('a');
+    downloader.setAttribute('href', downloadfile);
+    downloader.setAttribute('download', 'data.txt');
+    downloader.click();
+  }
+  enviarResultadoCifrado(){
+    this.resultadoCifrado = ""; //limpiar variable
+
+    this.resultadoCifrado += "Texto: "
+    this.feistel.arrayIzquierda.forEach(element => {
+      this.resultadoCifrado += element;
+    });
+
+    this.feistel.arrayDerecha.forEach(element => {
+      this.resultadoCifrado += element;
+    });
+
+    this.resultadoCifrado +="\nLLave: ";
+    this.feistel.key.forEach(element => {
+      this.resultadoCifrado += element;
+    });
+  }
+
+  enviarResultadoDescifrado(){
+    this.resultadoCifrado = "";
+    this.resultadoCifrado = "Texto: "+this.feistel.resultadoFinal +"\n"+ "Llave: "+ this.feistel.llaveFinal;
+  }
+
   ingresoRondas(ronda:number){
     console.log(ronda)
     this.feistel = new FeistelC(ronda);
   }
   ingresoCifradoText(texto:any,llave:any){
+    console.log(texto)
     this.feistel.ingresoTexto(texto,llave);
+    this.enviarResultadoCifrado();
   }
 
   ingresoDescifradoText(texto:any,llave:any){
     this.feistel.ingresoDescifrado(texto,llave);
+    this.enviarResultadoDescifrado();
   }
 
 }
