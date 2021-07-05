@@ -122,7 +122,9 @@ class Arbol{
       this.tablaCaracter = [];
       this.arrayTexto = []
   }
-
+  delay(ms:number) {
+    return new Promise( resolve => setTimeout(resolve,ms));
+  }
 
   insertar(valor,caracter){
       this.contador++;
@@ -174,25 +176,28 @@ class Arbol{
 y1 = 0;
 i=0;
 j=2
- verTabla(){
+ async verTabla(){
      console.log("------------------------")
      console.log("Caracter   |Codigo  ")
      nodes.add(
       {id: this.i, label:'Tabla Caracter',x: 0 , y: 0, color: "#7BE141"}
     );
+    await this.delay(tiempo)
     this.i++;
     nodes.add(
       {id: this.i, label:'Tabla Code',x: 110 , y: 0, color: "#7BE141"}
     );
+    await this.delay(tiempo)
     this.i++
     this.y1 = this.y1 + 35
-     this.arrayTexto.forEach(element => {
+     this.arrayTexto.forEach(async element => {
       for (let i = 0; i < this.tablaCaracter.length; i++) {
         if(element == this.tablaCaracter[i]){
             console.log(this.tablaCaracter[i] +"         |  "+this.tablaCode[i]);
             nodes.add(
               {id: this.j, label:String(this.tablaCaracter[i]),x: this.x1 , y: this.y1, color: "rgba(97,195,238,0.5)"}
             );
+            await this.delay(tiempo)
             this.j++;
             this.x1 = this.x1 + 110
             nodes.add(
@@ -201,7 +206,9 @@ j=2
             this.j++;
             this.x1 = 0
           this.y1 = this.y1 + 35
+          await this.delay(tiempo)
         }
+        await this.delay(tiempo)
       }
 
   });
@@ -311,14 +318,14 @@ export class HuffmanComponent implements OnInit {
     downloader.click();
   }
 
-  
+
 
   resultadoCifrado:string;
   texto:string;
   abrir(eve:any)
   {
     let a =eve.target.files[0]
-    
+
 
     if(a){
       let reader=new FileReader()
@@ -344,7 +351,7 @@ export class HuffmanComponent implements OnInit {
     this.huff.ingresoTexto(valor);
     this.enviarResultado();
   }
-  
+
   // pruebas(){
   //   let a = new Arbol();
   //   a.ingresoTexto("hola buenas");
