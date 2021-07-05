@@ -118,6 +118,31 @@ fileUploadCallback = () => {
 	enableAddEdge = false
 }
 
+// GUARDAR JSON
+const saveGraphosJSON = () => {
+	if (graphoSaveType === 'matrix') {
+		// GENERAR MATRIZ
+		let matrix: number[][] = []
+		for (let i: number = 0; i < nodesArray.length; i++) {
+			const row: number[] = []
+			for (let j: number = 0; j < nodesArray.length; j++) {
+				const currentVertex = vertexArray[i]
+				if (
+					currentVertex.aristas.some(
+						(edge) => edge.arista.toString() === vertexArray[j].vertice.toString(),
+					)
+				)
+					row.push(1)
+				else row.push(0)
+			}
+			matrix.push(row)
+		}
+
+		// GUARDAR
+		saveJSONFile(matrix.map(row => `[${row.join(',')}]`))
+	}
+}
+
 // INPUT DE FUNCIÓN
 const onChangeGraphosInput = (ev: Event, callback: (value: any) => void) => {
 	const target = ev.target as HTMLInputElement

@@ -88,6 +88,26 @@ fileUploadCallback = function () {
     selectedFirstEdge = -1;
     enableAddEdge = false;
 };
+var saveGraphosJSON = function () {
+    if (graphoSaveType === 'matrix') {
+        var matrix = [];
+        for (var i = 0; i < nodesArray.length; i++) {
+            var row = [];
+            var _loop_3 = function (j) {
+                var currentVertex = vertexArray[i];
+                if (currentVertex.aristas.some(function (edge) { return edge.arista.toString() === vertexArray[j].vertice.toString(); }))
+                    row.push(1);
+                else
+                    row.push(0);
+            };
+            for (var j = 0; j < nodesArray.length; j++) {
+                _loop_3(j);
+            }
+            matrix.push(row);
+        }
+        saveJSONFile(matrix.map(function (row) { return "[" + row.join(',') + "]"; }));
+    }
+};
 var onChangeGraphosInput = function (ev, callback) {
     var target = ev.target;
     var value = target.value;
@@ -112,7 +132,7 @@ var getNodesDistance = function (x1, x2, y1, y2) {
 };
 drawInCanvas = function () {
     if (canvasCtx) {
-        var _loop_3 = function (edgeIndex) {
+        var _loop_4 = function (edgeIndex) {
             var currentEdge = edgesArray[edgeIndex];
             var currentSearchEdge = searchGraphoPositions.find(function (node) {
                 var _a, _b, _c, _d;
@@ -151,7 +171,7 @@ drawInCanvas = function () {
             }
         };
         for (var edgeIndex = 0; edgeIndex < edgesArray.length; edgeIndex++) {
-            _loop_3(edgeIndex);
+            _loop_4(edgeIndex);
         }
         for (var nodeIndex = 0; nodeIndex < nodesArray.length; nodeIndex++) {
             var currentColorIndex = nodeIndex > canvasObjectColors.length - 1
