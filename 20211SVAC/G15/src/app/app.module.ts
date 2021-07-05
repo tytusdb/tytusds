@@ -28,7 +28,8 @@ import { HashabiertaComponent } from './components/hashabierta/hashabierta.compo
 import { EstructuranolinealesComponent } from './components/estructuranolineales/estructuranolineales.component';
 import { CodificacionhuffmannComponent } from './components/codificacionhuffmann/codificacionhuffmann.component';
 import { CifradofeisComponent } from './components/cifradofeis/cifradofeis.component';
-import { CodificacionComponent } from './components/codificacion/codificacion.component'
+import { CodificacionComponent } from './components/codificacion/codificacion.component';
+import { LZWComponent } from './components/lzw/lzw.component'
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { CodificacionComponent } from './components/codificacion/codificacion.co
     CodificacionhuffmannComponent,
     CifradofeisComponent,
     CodificacionComponent,
+    LZWComponent,
   ],
   imports: [
     BrowserModule,

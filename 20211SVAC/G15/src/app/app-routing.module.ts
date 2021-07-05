@@ -28,6 +28,7 @@ import { EstructuranolinealesComponent } from './components/estructuranolineales
 import { CodificacionhuffmannComponent } from './components/codificacionhuffmann/codificacionhuffmann.component';
 import { CifradofeisComponent } from './components/cifradofeis/cifradofeis.component';
 import { CodificacionComponent } from './components/codificacion/codificacion.component';
+import { LZWComponent } from './components/lzw/lzw.component';
 
 const routes: Routes = [
   {path: 'binaryTree', component: BinaryTreeComponent, pathMatch: 'full'},
@@ -51,6 +52,7 @@ const routes: Routes = [
   {path: 'huffman',component:CodificacionhuffmannComponent,pathMatch:'full'},
   {path: 'feistel',component:CifradofeisComponent,pathMatch:'full'},
   {path: 'codificacion',component:CodificacionComponent,pathMatch:'full'},
+  {path: 'LZW',component:LZWComponent,pathMatch:'full'},
   {path: '', component: HomeComponent, pathMatch: 'full'}
   
 ];
