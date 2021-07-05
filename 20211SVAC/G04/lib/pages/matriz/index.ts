@@ -130,7 +130,7 @@ class listaencabezado {
 }
 
 
-class matrizortogonal {
+class matrizdispersa {
 
 
     public eFilas: any
@@ -146,8 +146,170 @@ class matrizortogonal {
 
     }
 
+    insertar(valor: any, fila: any, columna: any) 
     
+    {
+
+        let nuevo = new NodoM(valor, fila, columna, null, null, null, null)
+
+        // Inserccion de encabezado Filas
+
+        let efila = this.eFilas.getEncabezado(fila)
+
+        if (efila == null) {
+
+            efila = new NodoEncabezado(fila, null, null, null)
+
+            efila.nodoacceso = nuevo
+
+            this.eFilas.setEncabezado(efila)
 
 
+        } else {
 
+            if (nuevo.columna < efila.nodoacceso.columna) {
+
+                nuevo.derecha = efila.nodoacceso
+
+                efila.nodoacceso.izquierda = nuevo
+
+                efila.nodoacceso = nuevo
+
+            } else {
+
+                let actual = efila.nodoacceso
+
+                while (actual.derecha != null) {
+
+                    if (nuevo.columna < actual.derecha.columna) {
+
+                        nuevo.derecha = actual.derecha
+
+                        actual.derecha.izquierda = nuevo
+
+                        nuevo.izquierda = actual
+
+                        actual.derecha = nuevo
+
+                        break
+                    }
+
+                    actual = actual.derecha
+                }
+
+                if (actual.derecha == null) {
+
+                    actual.derecha = nuevo
+
+                    nuevo.izquierda = actual
+
+                }
+
+                let ecolumna = this.eColumnas.getEncabezado(columna)
+
+
+                if (ecolumna == null) {
+
+                    ecolumna = new NodoEncabezado(columna, null, null, null)
+
+                    ecolumna.nodoacceso = nuevo
+
+                    this.eColumnas.setEncabezado(ecolumna)
+
+                } else {
+
+                    if (nuevo.fila < ecolumna.nodoacceso.fila) {
+
+                        nuevo.abajo = ecolumna.nodoacceso
+
+                        ecolumna.nodoacceso.arriba = nuevo
+
+                        ecolumna.nodoacceso = nuevo
+
+                    } else {
+
+                        actual = ecolumna.nodoacceso
+
+                        while (actual.abajo != null) {
+
+                            if (nuevo.fila < actual.abajo.fila) {
+
+                                nuevo.abajo = actual.abajo
+
+                                actual.abajo.arriba = nuevo
+
+                                nuevo.arriba = actual
+
+                                actual.abajo = nuevo
+
+                                break
+
+                            }
+
+                            actual = actual.abajo
+                        }
+
+                        if (actual.abajo == null) {
+
+                            actual.abajo = nuevo
+
+                            nuevo.arriba = actual
+
+
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
+    //PRUEBA -------->
+
+    recorrerfilas() {
+
+        let efila = this.eFilas.primero
+    
+        while (efila != null) {
+    
+            let actual = efila.nodoacceso
+    
+            while (actual != null) {
+    
+                console.log("Valor :  " + actual.valor + "       Fila:     " + actual.fila)
+    
+                if (efila.siguiente != null || actual.derecha != null){
+    
+                        console.log("->")
+                    
+                }
+                    
+                actual = actual.derecha
+    
+                }
+    
+            efila = efila.siguiente
+        }
+            
+        console.log("Finaliza el recorrido")
+    
+    }
+    
+    
+    print()
+    {
+    
+        let matz = new matrizdispersa()
+    
+        matz.insertar(1,1,'test')
+    
+        matz.insertar(1,2,'test3')
+    
+        matz.insertar(2,4,'test2')
+    
+        matz.recorrerfilas()
+    }
+    
 }
+
+
