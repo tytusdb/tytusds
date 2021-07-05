@@ -79,6 +79,10 @@ export class LZWComponent implements OnInit {
     var container = this.el.nativeElement;
     this.network = new vis.Network(container, listaData, options);
   }
+  definirTiempo(time:any){
+    tiempo = 0;
+    tiempo = time*10;
+  } 
 
   abrir(eve:any)
   {

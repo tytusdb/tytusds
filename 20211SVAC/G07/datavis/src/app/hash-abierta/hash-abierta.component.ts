@@ -620,7 +620,10 @@ export class HashAbiertaComponent implements OnInit {
     this.network = new vis.Network(container, listaData, options);
   }
 
-
+  definirTiempo(time:any){
+    tiempo = 0;
+    tiempo = time*10;
+  } 
 
   descargarContenido(){
     this.generador();

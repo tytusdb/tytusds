@@ -40,7 +40,7 @@
         <button (click)="descargarContenido()" class="btn btn-outline-light mr-sm-2" type="button">Guardar</button>
         
         <input  class="form-control mr-sm-2" type="text" #animacion placeholder="Animacion" aria-label="Animacion">
-        <button class="btn btn-outline-light mr-sm-2" type="button">Animacion</button>
+        <button (click)="definirTiempo(animacion.value)" class="btn btn-outline-light mr-sm-2" type="button">Animacion</button>
       </form>
     </nav>
 

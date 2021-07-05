@@ -237,6 +237,11 @@ export class FeistelComponent implements OnInit {
   feistel:any;
   ngOnInit(): void {
   }
+
+  definirTiempo(time:any){
+    tiempo = 0;
+    tiempo = time*10;
+  } 
   resultadoCifrado:string;
   texto:string;
   abrir(eve:any)
