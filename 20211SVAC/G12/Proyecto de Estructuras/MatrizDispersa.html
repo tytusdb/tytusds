@@ -22,7 +22,10 @@
            m.Graficar()
         }
         function rmayor(){
-           m.RowMayor()
+           m.RowMajor()
+        }
+        function cmayor(){
+            m.ColumnMajor()
         }
 
         window.addEventListener('load',function (){
@@ -71,7 +74,8 @@
 <input type="text" placeholder="y" id="y">
 <input type="text" placeholder="v" id="v">
 <button onclick="ins()">Insertar</button>
-<button onclick="rmayor()">Row Mayor</button>
+<button onclick="rmayor()">Row Major</button>
+<button onclick="cmayor()">Column Major</button>
 <input type="file" id="loadedFile">
 <div id="result">
 

@@ -357,7 +357,7 @@ class Matriz {
 
     }
 
-    async RowMayor(){
+    async RowMajor(){
         this.arreglo=[this.rows*this.columns]
         let y=this.head.down
         let x=null
@@ -372,6 +372,24 @@ class Matriz {
                 x=x.right
             }
             y=y.down
+        }
+
+    }
+    async ColumnMajor(){
+        this.arreglo=[this.rows*this.columns]
+        let x=this.head.right
+        let y=null
+        while (x!=null){
+            y=x.down
+            while (y!=null){
+                let pos=1*(this.rows*(y.x)+(y.y))
+                console.log(pos)
+                this.arreglo[pos]=y
+                let element=document.getElementById(y.x+"-"+y.y)
+                await movexy((pos)*150,90,element,500)
+                y=y.down
+            }
+            x=x.right
         }
 
     }
