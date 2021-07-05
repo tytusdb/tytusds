@@ -6,6 +6,10 @@ let mouseIsDown: boolean = false
 let tmpGraphoNode: NodePosition | null = null
 let newEdgeLength: number = 0
 
+// ANIMACIÓN
+let tmpSearchGraphoNode: NodePosition | null = null
+let graphoNodeScaleCounter: number = 0
+
 // ARREGLO DE GRAFOS
 let edgesArray: EdgeJoin[] = []
 let nodesArray: NodePosition[] = [
@@ -95,12 +99,27 @@ drawInCanvas = () => {
 			// COLOR
 			canvasCtx.strokeStyle = canvasObjectColors[currentColorIndex]
 
+			// ANIMACIÓN DE ESCALA
+			if (tmpSearchGraphoNode !== null && graphoNodeScaleCounter < 6)
+				graphoNodeScaleCounter += ANIMATION_VELOCITY * 0.5
+
+			const enableScale: boolean =
+				tmpSearchGraphoNode?.x === currentNode.x &&
+				tmpSearchGraphoNode?.y === currentNode.y
+			const addedScale: number = enableScale ? graphoNodeScaleCounter : 0
+
 			// CIRCULO
 			canvasCtx.beginPath()
 			canvasCtx.fillStyle = isDarkMode ? '#aaa' : 'rgb(248, 248, 248)'
 			canvasCtx.lineWidth = 7
 
-			canvasCtx.arc(currentNode.x, currentNode.y, 25, 0, 2 * Math.PI)
+			canvasCtx.arc(
+				currentNode.x,
+				currentNode.y,
+				25 + addedScale,
+				0,
+				2 * Math.PI,
+			)
 
 			// DIBUJAR BORDE Y CIRCULO
 			canvasCtx.stroke()
@@ -153,7 +172,9 @@ drawInCanvas = () => {
 			canvasCtx.textBaseline = 'middle'
 			canvasCtx.fillStyle = '#011f3bcc'
 			canvasCtx.font = `bold ${
-				20 - currentNode.value.toString().length * 2.5
+				20 -
+				currentNode.value.toString().length * 2.5 +
+				(enableScale ? graphoNodeScaleCounter * 0.6 : 0)
 			}px Montserrat`
 
 			// TEXTO
@@ -200,6 +221,8 @@ canvas.addEventListener('mousedown', (ev: MouseEvent) => {
 				}
 
 				// AGREGAR A LISTA DE NODOS
+				tmpSearchGraphoNode = null
+				graphoNodeScaleCounter = 0
 				nodesArray.push(tmpGraphoNode)
 				enableAddNode = false
 				tmpGraphoNode = null
@@ -305,7 +328,7 @@ canvas.addEventListener('click', (ev: MouseEvent) => {
 
 // ELIMINAR NODO
 const deleteNodeOnGraphos = () => {
-	if (oldNodeValue) {
+	if (oldNodeValue.length) {
 		// BUSCAR
 		const node: NodePosition | null = searchNodeOnGrapho(
 			oldNodeValue.toString(),
@@ -324,6 +347,37 @@ const deleteNodeOnGraphos = () => {
 					edge.dest?.x !== node.x &&
 					edge.dest?.y !== node.y,
 			)
-		}
+		} else console.log('Nodo no econtrado')
+	}
+}
+
+// ACTUALIZAR NODOS
+const updateNodeOnGraphos = () => {
+	if (oldNodeValue.length && newNodeValue.length) {
+		// BUSCAR
+		const node: NodePosition | null = searchNodeOnGrapho(
+			oldNodeValue.toString(),
+		)
+		if (node) {
+			// ACTUALIZAR NODO
+			tmpSearchGraphoNode = node
+			graphoNodeScaleCounter = 0
+			node.value = newNodeValue
+		} else alert('Nodo no econtrado')
+	}
+}
+
+// BUSCAR  NODO POR VALOR
+const searchNodeOnGraphos = () => {
+	if (oldNodeValue.length) {
+		// BUSCAR
+		const node: NodePosition | null = searchNodeOnGrapho(
+			oldNodeValue.toString(),
+		)
+		if (node) {
+			// ACTUALIZAR NODO
+			tmpSearchGraphoNode = node
+			graphoNodeScaleCounter = 0
+		} else alert('Nodo no econtrado')
 	}
 }

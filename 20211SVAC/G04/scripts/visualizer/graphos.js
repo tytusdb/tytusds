@@ -16,6 +16,8 @@ var selectedFirstEdge = 0;
 var mouseIsDown = false;
 var tmpGraphoNode = null;
 var newEdgeLength = 0;
+var tmpSearchGraphoNode = null;
+var graphoNodeScaleCounter = 0;
 var edgesArray = [];
 var nodesArray = [
     {
@@ -66,10 +68,15 @@ drawInCanvas = function () {
                 : nodeIndex;
             var currentNode = nodesArray[nodeIndex];
             canvasCtx.strokeStyle = canvasObjectColors[currentColorIndex];
+            if (tmpSearchGraphoNode !== null && graphoNodeScaleCounter < 6)
+                graphoNodeScaleCounter += ANIMATION_VELOCITY * 0.5;
+            var enableScale = (tmpSearchGraphoNode === null || tmpSearchGraphoNode === void 0 ? void 0 : tmpSearchGraphoNode.x) === currentNode.x &&
+                (tmpSearchGraphoNode === null || tmpSearchGraphoNode === void 0 ? void 0 : tmpSearchGraphoNode.y) === currentNode.y;
+            var addedScale = enableScale ? graphoNodeScaleCounter : 0;
             canvasCtx.beginPath();
             canvasCtx.fillStyle = isDarkMode ? '#aaa' : 'rgb(248, 248, 248)';
             canvasCtx.lineWidth = 7;
-            canvasCtx.arc(currentNode.x, currentNode.y, 25, 0, 2 * Math.PI);
+            canvasCtx.arc(currentNode.x, currentNode.y, 25 + addedScale, 0, 2 * Math.PI);
             canvasCtx.stroke();
             canvasCtx.fill();
             canvasCtx.closePath();
@@ -108,7 +115,9 @@ drawInCanvas = function () {
             canvasCtx.textAlign = 'center';
             canvasCtx.textBaseline = 'middle';
             canvasCtx.fillStyle = '#011f3bcc';
-            canvasCtx.font = "bold " + (20 - currentNode.value.toString().length * 2.5) + "px Montserrat";
+            canvasCtx.font = "bold " + (20 -
+                currentNode.value.toString().length * 2.5 +
+                (enableScale ? graphoNodeScaleCounter * 0.6 : 0)) + "px Montserrat";
             canvasCtx.fillText(currentNode.value, currentNode.x, currentNode.y);
             canvasCtx.closePath();
         }
@@ -144,6 +153,8 @@ canvas.addEventListener('mousedown', function (ev) {
                     y: ev.clientY / cameraZoom - cameraOffset.y - 80,
                     value: newNodeValue,
                 };
+                tmpSearchGraphoNode = null;
+                graphoNodeScaleCounter = 0;
                 nodesArray.push(tmpGraphoNode);
                 enableAddNode = false;
                 tmpGraphoNode = null;
@@ -218,7 +229,7 @@ canvas.addEventListener('click', function (ev) {
     }
 });
 var deleteNodeOnGraphos = function () {
-    if (oldNodeValue) {
+    if (oldNodeValue.length) {
         var node_1 = searchNodeOnGrapho(oldNodeValue.toString());
         if (node_1) {
             nodesArray = nodesArray.filter(function (eNode) { return node_1.x !== eNode.x && node_1.y !== eNode.y; });
@@ -230,5 +241,30 @@ var deleteNodeOnGraphos = function () {
                     ((_b = edge.dest) === null || _b === void 0 ? void 0 : _b.y) !== node_1.y;
             });
         }
+        else
+            console.log('Nodo no econtrado');
+    }
+};
+var updateNodeOnGraphos = function () {
+    if (oldNodeValue.length && newNodeValue.length) {
+        var node = searchNodeOnGrapho(oldNodeValue.toString());
+        if (node) {
+            tmpSearchGraphoNode = node;
+            graphoNodeScaleCounter = 0;
+            node.value = newNodeValue;
+        }
+        else
+            alert('Nodo no econtrado');
+    }
+};
+var searchNodeOnGraphos = function () {
+    if (oldNodeValue.length) {
+        var node = searchNodeOnGrapho(oldNodeValue.toString());
+        if (node) {
+            tmpSearchGraphoNode = node;
+            graphoNodeScaleCounter = 0;
+        }
+        else
+            alert('Nodo no econtrado');
     }
 };
