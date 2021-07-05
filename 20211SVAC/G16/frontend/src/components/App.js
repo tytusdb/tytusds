@@ -11,10 +11,10 @@ import NoLineal from '../pages/Menus/mNoLineal'
 import Codificacion from '../pages/Menus/mCodificacion'
 import Compuesta from '../pages/Menus/mCompuesta'
 //Lineales
-import Simple from '../pages/lineal/pSimpleEC'
+import Enlazadas from '../pages/lineal/pEnlazadas'
 import PilaCola from '../pages/lineal/pPilaCola'
 import ColaPrioridad from '../pages/lineal/pColaPrioridad'
-import Dobles from '../pages/lineal/pDobleEC'
+import Circulares from '../pages/lineal/pCirculares'
 //Ordenamientos
 import Ordenamiento from '../pages/pOrdenamiento'
 //Arboreas
@@ -33,6 +33,7 @@ import Feistel from '../pages/cadificacion/pFeistel'
 //Compuesta
 import RCMajor from '../pages/compuesta/pRCMayor'
 import mDispersa from '../pages/compuesta/pMatrizD'
+import Construccion from '../pages/compuesta/pConstruccion'
 
 function  App(){
     return (
@@ -47,10 +48,10 @@ function  App(){
             <Route exact path="/tytusds/20211SVAC/G16/frontend/build/Codificacion" component={Codificacion} />
             <Route exact path="/tytusds/20211SVAC/G16/frontend/build/Compuestas" component={Compuesta} />
             {/*Lineales*/}
-            <Route exact path="/tytusds/20211SVAC/G16/frontend/build/Lineales/EnlazadaSimple" component={Simple} />
-            <Route exact path="/tytusds/20211SVAC/G16/frontend/build/Lineales/EnlazadaDoble" component={Dobles} />
-            <Route exact path="/tytusds/20211SVAC/G16/frontend/build/Lineales/CircularSimple" component={Simple} />
-            <Route exact path="/tytusds/20211SVAC/G16/frontend/build/Lineales/CircularDoble" component={Dobles} />
+            <Route exact path="/tytusds/20211SVAC/G16/frontend/build/Lineales/EnlazadaSimple" component={Enlazadas} />
+            <Route exact path="/tytusds/20211SVAC/G16/frontend/build/Lineales/EnlazadaDoble" component={Enlazadas} />
+            <Route exact path="/tytusds/20211SVAC/G16/frontend/build/Lineales/CircularSimple" component={Circulares} />
+            <Route exact path="/tytusds/20211SVAC/G16/frontend/build/Lineales/CircularDoble" component={Circulares} />
             <Route exact path="/tytusds/20211SVAC/G16/frontend/build/Lineales/Pila" component={PilaCola} />
             <Route exact path="/tytusds/20211SVAC/G16/frontend/build/Lineales/Cola" component={PilaCola} />
             <Route exact path="/tytusds/20211SVAC/G16/frontend/build/Lineales/ColaPrioridad" component={ColaPrioridad} />
@@ -77,6 +78,7 @@ function  App(){
             <Route exact path="/tytusds/20211SVAC/G16/frontend/build/Compuestas/RowMajor" component={RCMajor} />
             <Route exact path="/tytusds/20211SVAC/G16/frontend/build/Compuestas/ColMajor" component={RCMajor} />
             <Route exact path="/tytusds/20211SVAC/G16/frontend/build/Compuestas/MatrizDispersa" component={mDispersa} />
+            <Route exact path="/tytusds/20211SVAC/G16/frontend/build/Compuestas/Construccion" component={Construccion} />
             <Route component={NotFound} />
           </Switch>
         </Layout>

@@ -25,16 +25,26 @@ const options = {
         dragNodes :true
     },
     physics: {
-        enabled: true
+        enabled: false
+    },
+    layout: {
+        hierarchical: {
+            levelSeparation: 80,
+            nodeSpacing: 160,
+            parentCentralization: true,
+            direction: 'UD',        // UD, DU, LR, RL
+            sortMethod: 'directed',  // hubsize, directed
+            shakeTowards: 'roots'  // roots, leaves                        
+        },
     }
 };
 
-function lineal(info){
+function enlazada(info){
     return (
-        <div style={{ height: "540px", width: "1200 px", border: "1px" }}>
+        <div style={{ height: "750px", width: "1200 px", border: "1px" }}>
             <VisNetwork data= {info} options = {options} />
         </div>
     );
 }
 
-export default lineal;
+export default enlazada

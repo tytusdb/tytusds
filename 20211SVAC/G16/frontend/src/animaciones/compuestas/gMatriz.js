@@ -1,17 +1,16 @@
-//Recorrido y busquedas de grafos VISJS
+//Matriz dispersa vis js
 import React from 'react'
 import VisNetwork from 'vis-network-react'
 
 const options = {
-    autoResize: true,
+    autoResize: false,
     edges:{
         color: "010101",
         arrows:{
-            to:{ enabled:true },
-            from:{ enabled: false, },
+            to:{ enabled:false },
+            from:{ enabled: true, },
         },
-        shadow: true,
-        length: 400
+        shadow: true
     },
     nodes:{
         widthConstraint:100,
@@ -24,11 +23,12 @@ const options = {
         dragNodes :true
     },
     physics: {
-        enabled: true,
-    }
+        enabled: false,
+    },
+
 };
 
-function busquedaG(info){
+function matrizG(info){
     return (
         <div style={{ height: "750px", width: "1200 px", border: "1px" }}>
             <VisNetwork data= {info} options = {options} />
@@ -36,4 +36,4 @@ function busquedaG(info){
     );
 }
 
-export default busquedaG;
+export default matrizG;

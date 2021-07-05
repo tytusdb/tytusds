@@ -8,10 +8,7 @@ const options = {
         arrows:{
             to:{
                 enabled:true
-            },
-            from:{
-                enabled:true
-            },            
+            }           
         },
         
         shadow: true
@@ -31,12 +28,12 @@ const options = {
     }
 };
 
-function doble(info){
+function circular(info){
     return (
-        <div style={{ height: "540px", width: "1200 px", border: "1px" }}>
+        <div style={{ height: "750px", width: "1200 px", border: "1px" }}>
             <VisNetwork data= {info} options = {options} />
         </div>
     );
 }
 
-export default doble;
+export default circular;

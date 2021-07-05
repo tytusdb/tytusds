@@ -1,17 +1,17 @@
-//Pagina para graficar Enlazadas Simples, Circulares Simples 
-import React from 'react'
+//Pagina para graficar Enlazadas Simples y Enlazada Doble
+import React from 'react';
 
 import EnlazadaS from '../../Estructuras/lineal/Simple'
-import CircularS from '../../Estructuras/lineal/CircularSimple'
+import EnlazadaD from '../../Estructuras/lineal/Doble'
 
 import Funciones from '../../Estructuras/Funciones.js'
 
-import lineal from '../../animaciones/lineal/gLineal'
+import lineal from '../../animaciones/lineal/gEnlazada'
 
 
 import '../styles/Grafica.css'
 
-class pSimpleEC extends React.Component {
+class pEnlazadas extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -95,11 +95,7 @@ class pSimpleEC extends React.Component {
     setLista = (path, repeticion, ingreso) => {
         if(path.includes("EnlazadaSimple")) return new EnlazadaS(ingreso, repeticion)
         
-       
-        
-        else if(path.includes("CircularSimple")) return new CircularS(ingreso, repeticion)
-
-        
+        else if(path.includes("EnlazadaDoble")) return new EnlazadaD(ingreso, repeticion)
     }
 
     render(){
@@ -151,7 +147,7 @@ class pSimpleEC extends React.Component {
                     </table>
                 </nav>
                 <div>
-                    {lineal(this.lista.dotG())}
+                    {lineal(this.lista.dotG(0))}
                 </div>
                 <nav className="Sub_bar">
                     <table>
@@ -186,4 +182,4 @@ class pSimpleEC extends React.Component {
 
 }
 
-export default pSimpleEC
+export default pEnlazadas

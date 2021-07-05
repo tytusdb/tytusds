@@ -1,32 +1,37 @@
-//Pagina para graficar  Enlazadas Dobles y Circulares Dobles
+//Pagina para graficar Compuestas Simples
 import React from 'react'
 
-import EnlazadaD from '../../Estructuras/lineal/Doble'
-import CircularD from '../../Estructuras/lineal/CircularDoble'
+import CSimple from '../../Estructuras/compuesta/CSimple'
+import CDoble from '../../Estructuras/compuesta/CDoble'
 
-import Funciones from '../../Estructuras/Funciones.js'
+import Funciones from '../../Estructuras/Funciones'
 
-import doble from '../../animaciones/lineal/gDobles'
+import lineal from '../../animaciones/lineal/gEnlazada'
 
 import '../styles/Grafica.css'
 
-
-class pDobleEC extends React.Component {
+class pCSimple extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
           repeticion: true,
           ingreso: "Final",
           velocidad: 5,
-          entrada: "",
+          primario: "",
+          secundario: "",
           nuevo: "",
-          path: this.props.location.pathname,
+          tipo: "Simple",
+          subtipo: "Simple"
         }
-        this.lista = this.setLista(this.state.path, this.state.repeticion, this.state.ingreso)
+        this.lista = this.setLista(this.state.tipo)
       }
     
-    handleEntrada = e => {
-        this.setState({ entrada: e.target.value })
+    handlePrimario = e => {
+        this.setState({ primario: e.target.value })
+    }
+
+    handleSecundario = e => {
+        this.setState({ secundario: e.target.value })
     }
 
     handleNuevo = e => {
@@ -41,6 +46,14 @@ class pDobleEC extends React.Component {
         this.setState({ ingreso: e.target.value })
     }
 
+    handleTipo = e => {
+        this.setState({ tipo: e.target.value })
+    }
+
+    handleSubTipo = e => {
+        this.setState({ subtipo: e.target.value })
+    }
+
     handleVelocidad = e => {
         this.setState({ velocidad: e.target.value })
     }
@@ -51,7 +64,6 @@ class pDobleEC extends React.Component {
         reader.onload = e =>{
             const json = JSON.parse(e.target.result)
             this.setState({ velocidad: json.animaicon })
-            this.lista = this.setLista(this.state.path, json.repeticion, json.posicion)
             this.lista.cargar(json.valores)
         }
         reader.readAsText(files[0])
@@ -59,43 +71,43 @@ class pDobleEC extends React.Component {
 
     handleClick = e => {
         const id = e.target.id
-        if(this.state.entrada === "" && id !== "Nuevo" && id !== "Guardar") alert("Ingrese un valor")
+        if(this.state.primario === "" && id !== "Nuevo" && id !== "Guardar") alert("Ingrese un valor")
         
         else{
-            if(id === "Agregar") this.lista.agregar(this.state.entrada)
+            if(id === "Agregar") this.lista.agregar(this.state.primario, this.state.secundario)
             
-            else if(id === "Eliminar") this.lista.eliminar(this.state.entrada)
+            else if(id === "Eliminar") this.lista.eliminar(this.state.primario, this.state.secundario)
             
             else if(id === "Buscar"){
-                var aux = this.lista.buscar(this.state.entrada)
+                var aux = this.lista.buscar(this.state.primario, this.state.secundario)
                 if(aux) alert("Se encontro el valor")
                 else alert("No se encontro el valor")
             }
             else if(id === "Actualizar"){
                 if(this.state.nuevo === "") alert("Ingrese el Nuevo valor")
-                else this.lista.actualizar(this.state.entrada, this.state.nuevo)
+                else this.lista.actualizar(this.state.primario, this.state.secundario, this.state.nuevo)
             } 
                 
-            else if(id === "Nuevo") this.lista = this.setLista(this.state.path,this.state.repeticion, this.state.ingreso)
+            else if(id === "Nuevo") this.lista = this.setLista(this.state.tipo)
             
             else if(id === "Guardar"){
                 var output = this.lista.guardar()
                 Funciones(output.nombre, output.text)
             }
-            
-            document.getElementById("input").reset()
-            document.getElementById("nuevo").reset()
             this.setState({
-                entrada: "",
+                primario: "",
+                secundario: "",
                 nuevo: ""
             })
+            document.getElementById("input").reset()
+            document.getElementById("nuevo").reset()
         }
     }
 
-    setLista = (path, repeticion, ingreso) => {
-        if(path.includes("EnlazadaDoble")) return new EnlazadaD(ingreso, repeticion)
-        
-        else if(path.includes("CircularDoble")) return new CircularD(ingreso, repeticion)
+    setLista(tipo){
+        if(tipo === "Simple") return new CSimple(this.state.ingreso, this.state.repeticion, this.state.subtipo)
+
+        else if(tipo === "Doble") return new CDoble(this.state.ingreso, this.state.repeticion, this.state.subtipo)
     }
 
     render(){
@@ -105,8 +117,10 @@ class pDobleEC extends React.Component {
                     <table>
                         <td>
                             <form id="input">
-                                <input type="text" style={{width: "100px"}} placeholder="Valor"
-                                onChange={this.handleEntrada}/>
+                                <input type="text" style={{width: "100px"}} placeholder="Primario"
+                                onChange={this.handlePrimario}/>
+                                <input type="text" style={{width: "100px"}} placeholder="Secundario"
+                                onChange={this.handleSecundario}/>
                             </form>
                         </td>
                         <td>
@@ -147,7 +161,7 @@ class pDobleEC extends React.Component {
                     </table>
                 </nav>
                 <div>
-                    {doble(this.lista.dotG())}
+                    {lineal(this.lista.dotG())}
                 </div>
                 <nav className="Sub_bar">
                     <table>
@@ -160,6 +174,18 @@ class pDobleEC extends React.Component {
                                 <option>Final</option>
                                 <option>Inicio</option>
                                 <option>Orden</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select multiple="" onChange={this.handleTipo} >
+                                <option>Simple</option>
+                                <option>Doble</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select multiple="" onChange={this.handleSubTipo} >
+                                <option>Simple</option>
+                                <option>Doble</option>
                             </select>
                         </td>
                         <td>
@@ -182,4 +208,4 @@ class pDobleEC extends React.Component {
 
 }
 
-export default pDobleEC
+export default pCSimple
