@@ -33,7 +33,7 @@ class AnchuraGrafos{
 
 	AgregarNodo(DatoActual, id){
 		let nodo = {
-			Vertice: DatoActual,
+			Vertices: DatoActual,
 			id: id,
 			edges: []
 		}
@@ -43,7 +43,7 @@ class AnchuraGrafos{
 	EliminarNodo(DatoActual){
 		var nodoEliminado;
 		for(let i = 0; i < this.DatoNodo.length; i++){
-			if(this.DatoNodo[i].value == DatoActual){
+			if(this.DatoNodo[i].Vertices == DatoActual){
 				nodoEliminado = this.DatoNodo[i].id;
 				this.DatoNodo.splice(i, 1);
 				break
@@ -63,9 +63,9 @@ class AnchuraGrafos{
 	ActualizarNodo(DatoActual, NuevoDato){
 		var actualizado
 		for(let i = 0; i < this.DatoNodo.length; i++){
-			if(this.DatoNodo[i].value == DatoActual){
+			if(this.DatoNodo[i].Vertices == DatoActual){
 				actualizado = this.DatoNodo[i].id
-				this.DatoNodo[i].value = NuevoDato;
+				this.DatoNodo[i].Vertices = NuevoDato;
 				break
 			}
 		}
@@ -83,7 +83,7 @@ class AnchuraGrafos{
 
 	AgregarVertice(from, to){
 		for(let i = 0; i < this.DatoNodo.length; i++){
-			if(this.DatoNodo[i].value == from){
+			if(this.DatoNodo[i].Vertices == from){
 				this.DatoNodo[i].edges.push(to)
 				this.Insertar(this.DatoNodo[i].edges)
 			}
@@ -92,7 +92,7 @@ class AnchuraGrafos{
 
 	ObtenerDatoNodo(DatoActual){
 		for(let i = 0; i < this.DatoNodo.length; i++){
-			if(DatoActual == this.DatoNodo[i].value){
+			if(DatoActual == this.DatoNodo[i].Vertices){
 				return this.DatoNodo[i].edges
 			}
 		}
@@ -137,7 +137,7 @@ class AnchuraGrafos{
 
 	VerificarExisteNodo(DatoActual){
 		for(let i = 0; i < this.DatoNodo.length; i++){
-			if(this.DatoNodo[i].value == DatoActual){
+			if(this.DatoNodo[i].Vertices == DatoActual){
 				return true
 			}
 		}
@@ -146,7 +146,7 @@ class AnchuraGrafos{
 
 	VerificarExisteVertice(from, to){
 		for(let i = 0; i < this.DatoNodo.length; i++){
-			if(this.DatoNodo[i].value == from){
+			if(this.DatoNodo[i].Vertices == from){
 				for(let j = 0; j < this.DatoNodo[i].edges.length; j++){
 					if(this.DatoNodo[i].edges[j] == to){
 						return true
@@ -159,7 +159,7 @@ class AnchuraGrafos{
 
 	ObtenerArista(DatoActual){
 		for(let i = 0; i < this.DatoNodo.length; i++){
-			if(this.DatoNodo[i].value == DatoActual){
+			if(this.DatoNodo[i].Vertices == DatoActual){
 				return this.DatoNodo[i].id
 			}
 		}
