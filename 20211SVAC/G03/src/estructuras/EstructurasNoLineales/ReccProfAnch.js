@@ -1,5 +1,5 @@
 import { LocalConvenienceStoreOutlined } from "@material-ui/icons"
-
+import { v4 as uuidv4 } from 'uuid';
 //Contador para identificadores unicos de los nodos
 var idNodos = 0
 
@@ -114,6 +114,7 @@ class Nodo{
     constructor(dato){
         this.dato = dato
         this.id = 0
+        this.ident = uuidv4()
         this.distTotal = 0
         this.camino = new ListaDoble()
         this.enlaces = new ListaDoble()
@@ -1026,6 +1027,14 @@ class ListaAdyacencia{
                         
                     }
                 }
+               /*  else if(this.caminoFinal != null){
+                    for (let x = 0; x < this.caminoFinal.length; x++) {
+                        if(this.caminoFinal[x].from === tmp.dato.inicio.id && this.caminoFinal[x].to === tmp.dato.destino.id){
+                            egde = {from: tmp.dato.inicio.id, to: tmp.dato.destino.id , label: tmp.dato.distancia.toString(),  color: "orange"}   
+                        }
+                        
+                    }
+                } */
                 arregloedge.push(egde)
                 tmp = tmp.siguiente
             }
@@ -1042,7 +1051,66 @@ class ListaAdyacencia{
         }
         console.log(arregloedge) */
         return arregloedge
-    } 
+    }
+
+    graficarMatriz(){
+
+    }
+
+    graficarLista(){
+        let principal = []
+        let secundario = []
+        let arreglo  = []
+        let aux = this.ListaAdyacencia.cabeza
+        let contadorfuera = 0;
+        while(aux != null){
+            let tmp = aux.dato.enlaces.cabeza
+            let contador = 0
+            let nodoArregloFuera = {
+                id: aux.dato.ident,
+                type: 'input', // input node
+                data: { label: "Vertice: "+aux.dato.dato },
+                position: { x: 100, y: 25 + contadorfuera*75 },
+                connectable: false, 
+            }
+            arreglo.push(nodoArregloFuera)
+            while(tmp != null){
+                let nodoArreglo = {
+                    id: tmp.dato.inicio.ident,
+                    type: 'default',
+                    targetPosition: 'left',
+                    sourcePosition: 'right',
+                    data: { label: "Arista: "+tmp.dato.destino.dato.toString()+" " +"Distancia: " + tmp.dato.distancia.toString() },
+                    position: { x: 100 + (contador+1)*200, y: 25 +contadorfuera *75 },
+                    connectable: false, 
+                }
+                arreglo.push(nodoArreglo)
+                if(tmp.siguiente != null){
+                    let nodoArreglo = {
+                        id:  tmp.dato.inicio.ident+'-'+tmp.dato.destino.ident, source:  tmp.dato.inicio.ident, target: tmp.dato.destino.ident  }
+                        arreglo.push(nodoArreglo)
+                }
+                
+                contador++;
+                tmp = tmp.siguiente
+            }
+            
+            if(tmp != null){
+                let nodoArreglo = {
+                    id:  aux.dato.ident+'-'+tmp.dato.inicio.ident, source:  aux.dato.ident, target: tmp.dato.inicio.ident  }
+                    arreglo.push(nodoArreglo)
+            }
+            if(aux.siguiente != null){
+                let nodoArreglo = {
+                    id:   aux.dato.ident+'-'+aux.siguiente.dato.ident, source:aux.dato.ident, target: aux.siguiente.dato.ident  }
+                    arreglo.push(nodoArreglo)
+            }
+            contadorfuera++;
+            aux = aux.siguiente;
+        }
+
+        return arreglo
+    }
 }
 
 export default ListaAdyacencia;
