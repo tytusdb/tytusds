@@ -1,6 +1,8 @@
+import { LocalConvenienceStoreOutlined } from "@material-ui/icons"
+import { v4 as uuidv4 } from 'uuid';
 //Contador para identificadores unicos de los nodos
 var idNodos = 0
-
+var contadorGrap = 0;
 //Clase Lista Doble
 class ListaDoble{
     //Constructor
@@ -95,7 +97,6 @@ class ListaDoble{
 
 //Lista de nodos para recorridos
 var n = null
-
 //Clase Nodo para Lista Doble
 class NodoListaDoble{
     //Constructor
@@ -113,6 +114,7 @@ class Nodo{
     constructor(dato){
         this.dato = dato
         this.id = 0
+        this.ident = uuidv4()
         this.distTotal = 0
         this.camino = new ListaDoble()
         this.enlaces = new ListaDoble()
@@ -132,7 +134,7 @@ class Enlaces{
 
 //Clase Lista de Adyacencia Principal
 class ListaAdyacencia{
-    constructor(){
+    constructor(almacenamiento){
         this.ListaAdyacencia = new ListaDoble()
         this.caminoFinal = []
         this.distanciaFinal = 0
@@ -142,6 +144,8 @@ class ListaAdyacencia{
         this.busquedaRecorrido = null
         this.anchura = null
         this.costoUnfi = null
+        this.recminimo = null
+        this.almacenamiento = almacenamiento
     }
 
     //Metodo de obtencion de vertices no dirigos
@@ -593,10 +597,6 @@ class ListaAdyacencia{
 
     //Metodo de Rebubrimiento Minimo
     recubrimientoMinimo(ini){
-        this.anchura = null
-        this.profundidad = null
-        this.busquedaRecorrido = null
-        this.costoUnfi = null
         let borrar = this.ListaAdyacencia.cabeza
         while(borrar!= null){
             borrar.dato.camino = new ListaDoble()
@@ -605,6 +605,8 @@ class ListaAdyacencia{
         this.caminoFinal = []
         this.inicio = ini
         let costos = new ListaDoble()
+        let permiso = false
+        let enlacesmandar = []
         console.log("Empezamos en: "+this.inicio)
         let iniRec = this.ListaAdyacencia.cabeza
         while(iniRec!= null){
@@ -612,6 +614,7 @@ class ListaAdyacencia{
                 let enl = iniRec.dato.enlaces.cabeza
                 while(enl!= null){
                     costos.insertar(enl.dato.distancia)
+                    enlacesmandar.push(enl.dato)
                     enl = enl.siguiente
                 }
                 let minimodis = costos.regresarMinimo()
@@ -619,15 +622,33 @@ class ListaAdyacencia{
                 while(enl!= null){
                     if(iniRec.dato.dato == enl.dato.inicio.dato){
                         if(enl.dato.distancia == minimodis){    
+                            let enlaces2 = []
+                            for(let i = 0;i<enlacesmandar.length;i++){
+                                if(enlacesmandar[i] != "."){
+                                    enlaces2.push(enlacesmandar[i])
+                                }
+                            }
+                            if(enlaces2.length!=0){
+                                enlacesmandar = enlaces2
+                            }
+                            for(let i = 0;i<this.caminoFinal.length;i++){
+                                if(this.caminoFinal[i].from == enlacesmandar[0].inicio.id && this.caminoFinal[i].to == enlacesmandar[0].destino.id && this.caminoFinal[i].label == enlacesmandar[0].distancia){
+                                    permiso = true
+                                }
+                            }
                             enl.dato.destino.camino.insertar(iniRec.dato)
-                            let egde = {from: enl.dato.inicio.id, to: enl.dato.destino.id, label: enl.dato.distancia, color:"orange" }
-                            this.caminoFinal.push(egde)
+                            let egde = {from: enl.dato.inicio.id, to: enl.dato.destino.id, label: enl.dato.distancia }
+                            if(permiso == false){
+                                this.caminoFinal.push(egde)
+                            }
                             this.seguirRecorriendo(enl.dato.destino)
                             costos.eliminar(enl.dato.distancia)
                             minimodis = costos.regresarMinimo()
-                            let enlacesmandar = iniRec.dato.enlaces
-                            enlacesmandar.eliminar(enl.dato)
+                            if(enlacesmandar.length != 0){
+                                enlacesmandar[0]="."
+                            }
                             this.restoCaminos(costos,minimodis,enlacesmandar,iniRec.dato)
+                        
                         }    
                     }
                     enl = enl.siguiente
@@ -645,34 +666,46 @@ class ListaAdyacencia{
     seguirRecorriendo(nodo){
         let costos = new ListaDoble()
         let enl = nodo.enlaces.cabeza
+        let enlacesmandar = []
         while(enl!= null){
             if(nodo.dato == enl.dato.inicio.dato){
                 if(enl.dato.inicio.camino.contiente(enl.dato.inicio.camino, enl.dato.destino) == false){
                     costos.insertar(enl.dato.distancia)        
+                    enlacesmandar.push(enl.dato)
                 }
             }
             enl = enl.siguiente
         }
         let minimodis = costos.regresarMinimo()
+        let permiso = false
         enl = nodo.enlaces.cabeza
         while(enl!= null){            
             if(enl.dato.distancia == minimodis){
                 if(enl.dato.destino.camino.size == 0){
+                    for(let i = 0;i<this.caminoFinal.length;i++){
+                        if(this.caminoFinal[i].from == enlacesmandar[0].inicio.id && this.caminoFinal[i].to == enlacesmandar[0].destino.id && this.caminoFinal[i].label == enlacesmandar[0].distancia){
+                            permiso = true
+                        }
+                    }
                     enl.dato.destino.camino.insertar(nodo)
-                    let egde = {from: enl.dato.inicio.id, to: enl.dato.destino.id, label: enl.dato.distancia }
-                    this.caminoFinal.push(egde)
+                    let egde = {from: enl.dato.inicio.id, to: enl.dato.destino.id, label: enl.dato.distancia}
+                    if(permiso == false){
+                        this.caminoFinal.push(egde)
+                    }
                     this.seguirRecorriendo(enl.dato.destino)
                     costos.eliminar(minimodis)
                     minimodis = costos.regresarMinimo()
-                    let enlacesmandar = nodo.enlaces
-                    enlacesmandar.eliminar(enl.dato)
+                    if(enlacesmandar.length != 0){
+                        enlacesmandar[0]="."
+                    }
                     this.restoCaminos(costos, minimodis,enlacesmandar,nodo)    
                 }else{
                     costos.eliminar(minimodis)
                     minimodis = costos.regresarMinimo()
-                    let enlacesmandar = nodo.enlaces
-                    enlacesmandar.eliminar(enl.dato)
-                    this.restoCaminos(costos, minimodis,enlacesmandar,nodo)
+                    if(enlacesmandar.length != 0){
+                        enlacesmandar[0]="."
+                    }
+                    this.restoCaminos(costos, minimodis,enlacesmandar,nodo)                    
                 }
             }
             enl = enl.siguiente
@@ -681,34 +714,48 @@ class ListaAdyacencia{
 
     //SubSubMetodoRecorrido
     restoCaminos(lisCostos,minimodis, lisEnlaces,nodo){
-        let enl = lisEnlaces.cabeza
-        while(enl!= null){
-            if(nodo.dato == enl.dato.inicio.dato){
-                if(enl.dato.distancia == minimodis){
-                    if(enl.dato.destino.camino.size == 0){
-                        enl.dato.destino.camino.insertar(enl.dato.inicio)
-                        let egde = {from: enl.dato.inicio.id, to: enl.dato.destino.id, label: enl.dato.distancia }
-                        this.caminoFinal.push(egde)
-                        this.seguirRecorriendo(enl.dato.destino)
+        let enlacesmandar = []
+        for(let i = 0;i<lisEnlaces.length;i++){
+            if(lisEnlaces[i] != "."){
+                enlacesmandar.push(lisEnlaces[i])
+            }
+        }
+        let permiso = false
+        let enl = null
+        if(enlacesmandar.length == 0){
+            return
+        }else{
+            enl = enlacesmandar[0]
+            if(nodo.dato == enl.inicio.dato){
+                if(enl.distancia == minimodis){
+                    if(enl.destino.camino.size == 0){
+                        for(let i = 0;i<this.caminoFinal.length;i++){
+                            if(this.caminoFinal[i].from == enlacesmandar[0].inicio.id && this.caminoFinal[i].to == enlacesmandar[0].destino.id && this.caminoFinal[i].label == enlacesmandar[0].distancia){
+                                permiso = true
+                            }
+                        }
+                        enl.destino.camino.insertar(nodo)
+                        let egde = {from: enl.inicio.id, to: enl.destino.id, label: enl.distancia}
+                        if(permiso == false){
+                            this.caminoFinal.push(egde)
+                        }
+                        this.seguirRecorriendo(enl.destino)
                         lisCostos.eliminar(minimodis)
                         minimodis = lisCostos.regresarMinimo()
-                        let enlacesmandar = lisEnlaces
-                        enlacesmandar.eliminar(enl.dato)
-                        if(enlacesmandar.size!=0){
+                        if(enlacesmandar.length!=0){
+                            enlacesmandar[0] = "."
                             this.restoCaminos(lisCostos,minimodis,enlacesmandar,nodo)
                         }
                     }else{
                         lisCostos.eliminar(minimodis)
                         minimodis = lisCostos.regresarMinimo()
-                        let enlacesmandar = lisEnlaces
-                        enlacesmandar.eliminar(enl.dato)
-                        if(enlacesmandar.size!=0){
+                        if(enlacesmandar.length!=0){
+                            enlacesmandar[0] = "."
                             this.restoCaminos(lisCostos,minimodis,enlacesmandar,nodo)
                         }
                     }
                 }    
             }
-            enl = enl.siguiente
         }
     }
 
@@ -947,18 +994,45 @@ class ListaAdyacencia{
         let aux = this.ListaAdyacencia.cabeza
         while(aux!=null){
             let tmp = aux.dato.enlaces.cabeza
+            let arista = []
+            let dato
             while(tmp!= null){
-                let arista = []
+                dato = {vertice: tmp.dato.inicio.dato, aristas:arista}
                 arista.push({arista:tmp.dato.destino.dato , distancia: tmp.dato.distancia.toString()})
-                let dato = {vertice: tmp.dato.inicio.dato, aristas:arista}
-                arreglo.push(dato)
+                tmp = tmp.siguiente
+            }
+            arreglo.push(dato)
+            aux = aux.siguiente
+        }
+        return arreglo
+    }
+    //Graficar Matriz
+    graficarMatriz(){
+        let array = [this.ListaAdyacencia.size]
+        for (let x = 0; x < this.ListaAdyacencia.size; x++) {
+            array[x] = [this.ListaAdyacencia.size]
+        }
+       /*  for (let i = 0; i < array.length; i++) {
+            for (let j = 0; j < array[i].length; j++) {
+                array [i][j] = 0;
+                
+            }
+            
+        }  */
+
+        let aux = this.ListaAdyacencia.cabeza
+        while(aux!= null){
+            let tmp = aux.dato.enlaces.cabeza
+            while(tmp!=null){
+                array[tmp.dato.inicio.id][tmp.dato.destino.id] = tmp.dato.distancia
                 tmp = tmp.siguiente
             }
             aux = aux.siguiente
         }
-        
-        return arreglo
+        console.table(array)
+        return array
     }
+    
     //Carga de array para graficacion de nodos
     graficarNodos(valorBusqueda){
         let arreglo = []
@@ -988,7 +1062,7 @@ class ListaAdyacencia{
 
     //Carga de array para graficacion de enlaces
     graficarEnlaces(){
-        let arregloEdge = []
+        let arregloedge = []
         let aux = this.ListaAdyacencia.cabeza
         while(aux!=null){
             let tmp = aux.dato.enlaces.cabeza
@@ -1023,7 +1097,8 @@ class ListaAdyacencia{
                         }
                         
                     }
-                }else if(this.caminoFinal != null){
+                }
+                else if(this.caminoFinal != null){
                     for (let x = 0; x < this.caminoFinal.length; x++) {
                         if(this.caminoFinal[x].from === tmp.dato.inicio.id && this.caminoFinal[x].to === tmp.dato.destino.id){
                             egde = {from: tmp.dato.inicio.id, to: tmp.dato.destino.id , label: tmp.dato.distancia.toString(),  color: "orange"}   
@@ -1031,26 +1106,147 @@ class ListaAdyacencia{
                         
                     }
                 }
-                
-                arregloEdge.push(egde)
+                arregloedge.push(egde)
                 tmp = tmp.siguiente
             }
             aux = aux.siguiente
         }
-        /* if(this.anchura != null){
-            
-            return arregloEdge.concat(this.anchura)
-        }
         
-        if(this.profundidad != null){
-            return arregloEdge.concat(this.profundidad)
-        } */
-
-        if(this.caminoFinal != null){
-            return arregloEdge.concat(this.caminoFinal)
+       /*  console.log(this.caminoFinal)
+        console.log(arregloedge)
+        let arregloGen = []
+        if(this.recminimo != null){
+            for (let x = 0; x < this.recminimo.length; x++) {
+                arregloedge.push(this.recminimo[x])
+            }
         }
-        return arregloEdge
-    } 
+        console.log(arregloedge) */
+        return arregloedge
+    }
+
+    graficarML(){
+        if(this.almacenamiento === "Matriz"){
+            return this.graficarM();
+        }else{
+            return this.graficarLista();
+        }
+    }
+
+    graficarM(){
+        this.arregloM = this.graficarMatriz()
+        let arreglo = []
+        for(let i = 0; i < this.arregloM.length; i++){
+            let nodoArreglo = {
+                id: i.toString(),
+                type: 'default',
+                targetPosition: 'top',
+                sourcePosition: 'bottom',
+                data: { label: (
+                    <> <strong>{i}</strong>
+                    </>
+                 ) },
+                position: {  x: 100 , y: 25 + (i+1)*40  },
+                connectable: false, 
+            }
+
+            arreglo.push(nodoArreglo)
+
+        }
+
+        for(let i = 0; i < this.arregloM.length; i++){
+            let nodoArreglo = {
+                id: i.toString()+20,
+                type: 'default',
+                targetPosition: 'top',
+                sourcePosition: 'bottom',
+                data: { label: (
+                    <> <strong>{i}</strong>
+                    </>
+                 ) },
+                position: {  x: 100  + (i+1)*150, y: 25 },
+                connectable: false, 
+            }
+
+            arreglo.push(nodoArreglo)
+
+        }
+        for (let i = 0; i < this.arregloM.length; i++) {
+            for (let j = 0; j < this.arregloM.length; j++) {
+                let nodoArreglo = {
+                    id: i.toString()+j.toString(),
+                    type: 'default',
+                    targetPosition: 'top',
+                    sourcePosition: 'bottom',
+                    data: { label: (
+                        <> <strong>{this.arregloM[i][j] != null ? this.arregloM[i][j]: 0}</strong>
+                        </>
+                     ) },
+                    position: {  x: 100 + (j+1)*150, y: 25 + (i+1)*40  },
+                    connectable: false, 
+                }
+
+                arreglo.push(nodoArreglo)
+            }
+            
+        }
+
+        return arreglo
+    }
+
+    graficarLista(){
+        let principal = []
+        let secundario = []
+        let arreglo  = []
+        let aux = this.ListaAdyacencia.cabeza
+        let contadorfuera = 0;
+        while(aux != null){
+            let tmp = aux.dato.enlaces.cabeza
+            let contador = 0
+            let nodoArregloFuera = {
+                id: aux.dato.ident,
+                type: 'input', // input node
+                data: { label: "Vertice: "+aux.dato.dato },
+                position: { x: 100, y: 25 + contadorfuera*75 },
+                connectable: false, 
+            }
+            arreglo.push(nodoArregloFuera)
+            while(tmp != null){
+                let nodoArreglo = {
+                    id: tmp.dato.inicio.ident,
+                    type: 'default',
+                    targetPosition: 'left',
+                    sourcePosition: 'right',
+                    data: { label: "Arista: "+tmp.dato.destino.dato.toString()+" " +"Distancia: " + tmp.dato.distancia.toString() },
+                    position: { x: 100 + (contador+1)*200, y: 25 +contadorfuera *75 },
+                    connectable: false, 
+                }
+                arreglo.push(nodoArreglo)
+                if(tmp.siguiente != null){
+                    let nodoArreglo = {
+                        id:  tmp.dato.inicio.ident+'-'+tmp.dato.destino.ident, source:  tmp.dato.inicio.ident, target: tmp.dato.destino.ident  }
+                        arreglo.push(nodoArreglo)
+                }
+                
+                contador++;
+                tmp = tmp.siguiente
+            }
+            
+            if(tmp != null){
+                let nodoArreglo = {
+                    id:  aux.dato.ident+'-'+tmp.dato.inicio.ident, source:  aux.dato.ident, target: tmp.dato.inicio.ident  }
+                    arreglo.push(nodoArreglo)
+            }
+            if(aux.siguiente != null){
+                let nodoArreglo = {
+                    id:   aux.dato.ident+'-'+aux.siguiente.dato.ident, source:aux.dato.ident, target: aux.siguiente.dato.ident  }
+                    arreglo.push(nodoArreglo)
+            }
+            contadorfuera++;
+            aux = aux.siguiente;
+        }
+
+        return arreglo
+    }
 }
 
 export default ListaAdyacencia;

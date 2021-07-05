@@ -144,12 +144,13 @@ export default class Agregar extends Component {
             edd.insertar(dato)
             break
         case "Tabla Hash Abierta":
-            splitarr = opciones.split(",")
-            tamaño = i = parseInt(splitarr[0])== NaN ? splitarr[0]: parseInt(splitarr[0])
-            i = parseInt(splitarr[1])== NaN ? splitarr[1]: parseInt(splitarr[1])
-            j = parseInt(splitarr[2])== NaN ? splitarr[2]: parseInt(splitarr[2])
-            funcion = splitarr[3]
+
             if(edd == null){
+                splitarr = opciones.split(",")
+                tamaño = i = parseInt(splitarr[0])== NaN ? splitarr[0]: parseInt(splitarr[0])
+                i = parseInt(splitarr[1])== NaN ? splitarr[1]: parseInt(splitarr[1])
+                j = parseInt(splitarr[2])== NaN ? splitarr[2]: parseInt(splitarr[2])
+                funcion = splitarr[3]
                 edd = new TablaHashAbierta(tamaño,i,j,funcion);
             }
             edd.agregar(dato)

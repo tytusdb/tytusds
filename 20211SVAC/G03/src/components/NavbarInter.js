@@ -17,6 +17,7 @@ import Ordenamiento from '../estructuras/Ordenamientos/OrdBurbuja'
 
 import GraficarArboles from './GraficarArboles'
 import GraficarArbol from './GraficarArbol'
+import GraficarAdayacencia from './GraficarAdayacencia'
 
 
 import './NavbarInter.css'
@@ -570,6 +571,7 @@ recubrimientoMinimo=()=>{
         <Input className="inputAgregar" type="text" name="valorGrafo" value={this.state.valorGrafo}  fluid placeholder="opciones" onChange={this.obtenerText}/>
         <br/>
         <GraficarGrafo nombre={this.state.nombre} estructura={this.state.estrutura} valorBusqueda={this.state.busqueda} key={count++}/> 
+        <GraficarAdayacencia nombre={this.state.nombre} estructura={this.state.estrutura} valorBusqueda={this.state.busqueda} key={count++}/> 
       </div>
       )
         }else if(this.state.nombre == "Código de Hamming" || this.state.nombre == "Algoritmo de Huffman" || this.state.nombre == "Algoritmo LZW" ||this.state.nombre == "Cifrado Feistel"
