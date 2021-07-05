@@ -24,6 +24,8 @@ import TablaHashAbierta from './Componentes/Paginas/HashAbierta';
 import TablaHashCerrada from './Componentes/Paginas/HashCerrada';
 import Compuesta from './Componentes/Paginas/Compuesta'
 import Hamming from './Componentes/Paginas/Hamming.js';
+import GrafoProfundidad from './Componentes/Paginas/GrafoProfundidad';
+import GrafoAnchura from './Componentes/Paginas/GrafoAnchura';
 
 
 
@@ -32,6 +34,8 @@ function App() {
     <Router>
       <Navbar />
       <Switch>
+        <Route path='/GrafoAnchura' exact component={GrafoAnchura} />
+        <Route path='/GrafoProfundidad' exact component={GrafoProfundidad} />
         <Route path='/' exact component={Home} />
         <Route path='/HashAbierta' exact component={TablaHashAbierta} />
         <Route path='/HashCerrada' exact component={TablaHashCerrada} />
