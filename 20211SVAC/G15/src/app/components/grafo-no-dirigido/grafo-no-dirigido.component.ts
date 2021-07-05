@@ -151,10 +151,14 @@ export class GrafoNoDirigidoComponent implements OnInit {
     this.vector = this.distancia = this.arista = ""
   }
 
-  buscar() {
-    console.log("entre al metodo")
-    this.GraficarBusqueda(this.GrafoInicio, 0, "");
+  buscar(){
+    // console.log("entre al metodo")
+    this.GraficarBusqueda(this.GrafoInicio,0,"");
+    var result = this.GrafoInicio.buscar(this.datoBuscar)
+    if(result===null) { alert("No existe el Vector Ingresado")}
+    else{alert("Se encontro el vector")}
   }
+
 
   //Busqueda por profundidad :v
   GraficarBusqueda(nodo: NodoGrafo, distancia: number, nodos: string) {
@@ -172,17 +176,7 @@ export class GrafoNoDirigidoComponent implements OnInit {
           // console.log("rutas de nodos activos ")
           
           this.mostrarRecorrido = `${this.mostrarRecorrido}  Nodo ${this.datoBuscar}, Distancia:${distancia + nodito.distancia}, Recorrido:${nodos}${this.datoBuscar}\n`
-          
-          // console.log(`${this.mostrarRecorrido}  Nodo ${this.datoBuscar}, Distancia:${distancia+nodito.distancia}, Recorrido:${nodos}${this.datoBuscar}\n`)
-          //this.arregloDistancias.push(arreglo)
-          
-         var arreglo = distancia + nodito.distancia
 
-         this.arregloDistancias.push(arreglo)
-         for (let index = 0; index < this.arregloDistancias.length; index++) {
-           const hola = this.arregloDistancias[index];
-           console.log(hola)          
-         }
         
         }
 
@@ -426,7 +420,7 @@ export class GrafoNoDirigidoComponent implements OnInit {
   generarJSON() {
     // let data = this.ListaDobleEnlazada.generarJSON()
     var link = document.createElement("a");
-    link.download = "ListaDobleEnlazada.json";
+    link.download = "grafoNoDirigido.json";
     //var info = "text/json;charset=utf-8," + encodeURIComponent(data);
     // link.href = "data:" + info;
     link.click();

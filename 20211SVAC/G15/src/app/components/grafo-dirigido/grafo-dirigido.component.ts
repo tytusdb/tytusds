@@ -143,9 +143,9 @@ export class GrafoDirigidoComponent implements OnInit, AfterViewInit {
   buscar(){
     // console.log("entre al metodo")
     this.GraficarBusqueda(this.GrafoInicio,0,"");
-    // var result = this.GrafoInicio.buscar(this.datoBuscar)
-    // if(result===null) { alert("No existe el Vector Ingresado")}
-    // else{alert("Se encontro el vector")}
+    var result = this.GrafoInicio.buscar(this.datoBuscar)
+    if(result===null) { alert("No existe el Vector Ingresado")}
+    else{alert("Se encontro el vector")}
   }
 
   GraficarBusqueda(nodo: NodoGrafo, distancia: number, nodos: string) {
