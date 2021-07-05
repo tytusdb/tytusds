@@ -604,6 +604,8 @@ class ListaAdyacencia{
         this.caminoFinal = []
         this.inicio = ini
         let costos = new ListaDoble()
+        let permiso = false
+        let enlacesmandar = []
         console.log("Empezamos en: "+this.inicio)
         let iniRec = this.ListaAdyacencia.cabeza
         while(iniRec!= null){
@@ -611,6 +613,7 @@ class ListaAdyacencia{
                 let enl = iniRec.dato.enlaces.cabeza
                 while(enl!= null){
                     costos.insertar(enl.dato.distancia)
+                    enlacesmandar.push(enl.dato)
                     enl = enl.siguiente
                 }
                 let minimodis = costos.regresarMinimo()
@@ -618,16 +621,33 @@ class ListaAdyacencia{
                 while(enl!= null){
                     if(iniRec.dato.dato == enl.dato.inicio.dato){
                         if(enl.dato.distancia == minimodis){    
+                            let enlaces2 = []
+                            for(let i = 0;i<enlacesmandar.length;i++){
+                                if(enlacesmandar[i] != "."){
+                                    enlaces2.push(enlacesmandar[i])
+                                }
+                            }
+                            if(enlaces2.length!=0){
+                                enlacesmandar = enlaces2
+                            }
+                            for(let i = 0;i<this.caminoFinal.length;i++){
+                                if(this.caminoFinal[i].from == enlacesmandar[0].inicio.id && this.caminoFinal[i].to == enlacesmandar[0].destino.id && this.caminoFinal[i].label == enlacesmandar[0].distancia){
+                                    permiso = true
+                                }
+                            }
                             enl.dato.destino.camino.insertar(iniRec.dato)
                             let egde = {from: enl.dato.inicio.id, to: enl.dato.destino.id, label: enl.dato.distancia }
-                            this.caminoFinal.push(egde)
+                            if(permiso == false){
+                                this.caminoFinal.push(egde)
+                            }
                             this.seguirRecorriendo(enl.dato.destino)
                             costos.eliminar(enl.dato.distancia)
                             minimodis = costos.regresarMinimo()
-                            let enlacesmandar = new ListaDoble()
-                            enlacesmandar = iniRec.dato.enlaces
-                            enlacesmandar.eliminar(enl.dato)
+                            if(enlacesmandar.length != 0){
+                                enlacesmandar[0]="."
+                            }
                             this.restoCaminos(costos,minimodis,enlacesmandar,iniRec.dato)
+                        
                         }    
                     }
                     enl = enl.siguiente
@@ -645,36 +665,46 @@ class ListaAdyacencia{
     seguirRecorriendo(nodo){
         let costos = new ListaDoble()
         let enl = nodo.enlaces.cabeza
+        let enlacesmandar = []
         while(enl!= null){
             if(nodo.dato == enl.dato.inicio.dato){
                 if(enl.dato.inicio.camino.contiente(enl.dato.inicio.camino, enl.dato.destino) == false){
                     costos.insertar(enl.dato.distancia)        
+                    enlacesmandar.push(enl.dato)
                 }
             }
             enl = enl.siguiente
         }
         let minimodis = costos.regresarMinimo()
+        let permiso = false
         enl = nodo.enlaces.cabeza
         while(enl!= null){            
             if(enl.dato.distancia == minimodis){
                 if(enl.dato.destino.camino.size == 0){
+                    for(let i = 0;i<this.caminoFinal.length;i++){
+                        if(this.caminoFinal[i].from == enlacesmandar[0].inicio.id && this.caminoFinal[i].to == enlacesmandar[0].destino.id && this.caminoFinal[i].label == enlacesmandar[0].distancia){
+                            permiso = true
+                        }
+                    }
                     enl.dato.destino.camino.insertar(nodo)
                     let egde = {from: enl.dato.inicio.id, to: enl.dato.destino.id, label: enl.dato.distancia}
-                    this.caminoFinal.push(egde)
+                    if(permiso == false){
+                        this.caminoFinal.push(egde)
+                    }
                     this.seguirRecorriendo(enl.dato.destino)
                     costos.eliminar(minimodis)
                     minimodis = costos.regresarMinimo()
-                    let enlacesmandar = new ListaDoble()
-                    enlacesmandar = nodo.enlaces
-                    enlacesmandar.eliminar(enl.dato)
+                    if(enlacesmandar.length != 0){
+                        enlacesmandar[0]="."
+                    }
                     this.restoCaminos(costos, minimodis,enlacesmandar,nodo)    
                 }else{
                     costos.eliminar(minimodis)
                     minimodis = costos.regresarMinimo()
-                    let enlacesmandar = new ListaDoble()
-                    enlacesmandar = nodo.enlaces
-                    enlacesmandar.eliminar(enl.dato)
-                    this.restoCaminos(costos, minimodis,enlacesmandar,nodo)
+                    if(enlacesmandar.length != 0){
+                        enlacesmandar[0]="."
+                    }
+                    this.restoCaminos(costos, minimodis,enlacesmandar,nodo)                    
                 }
             }
             enl = enl.siguiente
@@ -683,36 +713,48 @@ class ListaAdyacencia{
 
     //SubSubMetodoRecorrido
     restoCaminos(lisCostos,minimodis, lisEnlaces,nodo){
-        let enl = lisEnlaces.cabeza
-        while(enl!= null){
-            if(nodo.dato == enl.dato.inicio.dato){
-                if(enl.dato.distancia == minimodis){
-                    if(enl.dato.destino.camino.size == 0){
-                        enl.dato.destino.camino.insertar(enl.dato.inicio)
-                        let egde = {from: enl.dato.inicio.id, to: enl.dato.destino.id, label: enl.dato.distancia }
-                        this.caminoFinal.push(egde)
-                        this.seguirRecorriendo(enl.dato.destino)
+        let enlacesmandar = []
+        for(let i = 0;i<lisEnlaces.length;i++){
+            if(lisEnlaces[i] != "."){
+                enlacesmandar.push(lisEnlaces[i])
+            }
+        }
+        let permiso = false
+        let enl = null
+        if(enlacesmandar.length == 0){
+            return
+        }else{
+            enl = enlacesmandar[0]
+            if(nodo.dato == enl.inicio.dato){
+                if(enl.distancia == minimodis){
+                    if(enl.destino.camino.size == 0){
+                        for(let i = 0;i<this.caminoFinal.length;i++){
+                            if(this.caminoFinal[i].from == enlacesmandar[0].inicio.id && this.caminoFinal[i].to == enlacesmandar[0].destino.id && this.caminoFinal[i].label == enlacesmandar[0].distancia){
+                                permiso = true
+                            }
+                        }
+                        enl.destino.camino.insertar(nodo)
+                        let egde = {from: enl.inicio.id, to: enl.destino.id, label: enl.distancia}
+                        if(permiso == false){
+                            this.caminoFinal.push(egde)
+                        }
+                        this.seguirRecorriendo(enl.destino)
                         lisCostos.eliminar(minimodis)
                         minimodis = lisCostos.regresarMinimo()
-                        let enlacesmandar = new ListaDoble()
-                        enlacesmandar = lisEnlaces
-                        enlacesmandar.eliminar(enl.dato)
-                        if(enlacesmandar.size!=0){
+                        if(enlacesmandar.length!=0){
+                            enlacesmandar[0] = "."
                             this.restoCaminos(lisCostos,minimodis,enlacesmandar,nodo)
                         }
                     }else{
                         lisCostos.eliminar(minimodis)
                         minimodis = lisCostos.regresarMinimo()
-                        let enlacesmandar = new ListaDoble()
-                        enlacesmandar = lisEnlaces
-                        enlacesmandar.eliminar(enl.dato)
-                        if(enlacesmandar.size!=0){
+                        if(enlacesmandar.length!=0){
+                            enlacesmandar[0] = "."
                             this.restoCaminos(lisCostos,minimodis,enlacesmandar,nodo)
                         }
                     }
                 }    
             }
-            enl = enl.siguiente
         }
     }
 
@@ -952,8 +994,9 @@ class ListaAdyacencia{
         while(aux!=null){
             let tmp = aux.dato.enlaces.cabeza
             let arista = []
-            let dato = {vertice: tmp.dato.inicio.dato, aristas:arista}
+            let dato
             while(tmp!= null){
+                dato = {vertice: tmp.dato.inicio.dato, aristas:arista}
                 arista.push({arista:tmp.dato.destino.dato , distancia: tmp.dato.distancia.toString()})
                 tmp = tmp.siguiente
             }
@@ -962,6 +1005,26 @@ class ListaAdyacencia{
         }
         return arreglo
     }
+
+    //Graficar Matriz
+    graficarMatriz(){
+        let array = [this.ListaAdyacencia.size]
+        for (let x = 0; x < this.ListaAdyacencia.size; x++) {
+            array[x] = [this.ListaAdyacencia.size]
+        }
+        let aux = this.ListaAdyacencia.cabeza
+        while(aux!= null){
+            let tmp = aux.dato.enlaces.cabeza
+            while(tmp!=null){
+                array[tmp.dato.inicio.id][tmp.dato.destino.id] = tmp.dato.distancia
+                tmp = tmp.siguiente
+            }
+            aux = aux.siguiente
+        }
+        console.table(array)
+        return array
+    }
+    
     //Carga de array para graficacion de nodos
     graficarNodos(valorBusqueda){
         let arreglo = []
