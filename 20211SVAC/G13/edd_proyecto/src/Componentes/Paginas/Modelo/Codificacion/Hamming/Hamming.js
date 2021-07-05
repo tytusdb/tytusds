@@ -270,6 +270,22 @@ class Hamming{
 
     }
 
+    generateJSON = () => {
+
+    	var json ="";
+    	console.log(this.resultado)
+    	var i = 0;
+    	while(i<this.resultado.length){
+    		if(this.resultado[i].id != "Resultado:"){
+    			console.log("_>"+this.resultado[i].dato)
+    			json = json + String(this.resultado[i].dato)	
+    		}
+    		i++;
+    	}
+    	console.log(json)
+    	return json
+    }
+
 
 }
 export default Hamming;

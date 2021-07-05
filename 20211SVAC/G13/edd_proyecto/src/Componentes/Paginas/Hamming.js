@@ -111,6 +111,18 @@ class Hamming extends Component {
 
 	}
 
+	handleSaveFile = () => {
+		const element = document.createElement("a");
+		var contenido = encodeHamming.generateJSON()
+		const blob = new Blob([contenido]);                   
+		element.href = URL.createObjectURL(blob);
+	    element.download = "hamming.txt";
+	    document.body.appendChild(element);
+	    element.click();
+	    alert("Documento Creado!")
+		
+	}
+
 
 	render() {
 		
@@ -138,7 +150,7 @@ class Hamming extends Component {
 					<button type="button" className="btn btn-primary" onClick={() => this.handleEncode()}>Codificar</button>
 				</div>
 				<div className="col-md-2" style={{marginRight: 1 + 'em'}}>
-					<button type="button" class="btn btn-success">Guardar</button>
+					<button type="button" class="btn btn-success" onClick={() => this.handleSaveFile()}>Guardar</button>
 				</div>
 			</div>
 			<div className="row">

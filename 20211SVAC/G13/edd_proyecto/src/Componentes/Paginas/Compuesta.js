@@ -549,8 +549,16 @@ class Compuesta extends Component {
 	}
 
 	handleSaveFile = () => {
-		// compuesta.generateJSON(compuesta)
-		console.log("Guardar :c")
+		
+
+		const element = document.createElement("a");
+		var contenido = compuesta.generateJSON()
+		const blob = new Blob([contenido]);                   
+		element.href = URL.createObjectURL(blob);
+	    element.download = "compuesta.json";
+	    document.body.appendChild(element);
+	    element.click();
+	    alert("Documento Creado!")
 	}
 
 
