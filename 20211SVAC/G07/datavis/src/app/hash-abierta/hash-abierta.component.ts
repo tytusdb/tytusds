@@ -36,8 +36,10 @@ class ListaDoble {
       this.tail = null;
       this.size = 0;
   }
-
-  addhead(data: any){
+  delay(ms:number) {
+    return new Promise( resolve => setTimeout(resolve,ms));
+  }
+  async addhead(data: any){
       const newNode = new Node(data, this.head, null);
       if (this.head){
           newNode.next = this.head;
@@ -60,7 +62,7 @@ class ListaDoble {
           nodes.add(
             {id: pos+','+prueba, label:String(data), x: uno , y: dos, color: "rgba(97,195,238,0.5)",shape: "box"}
           );
-
+          await this.delay(tiempo)
           let men: number;
           var ids = nodes.get({
             fields:['id', 'label']
@@ -73,9 +75,11 @@ class ListaDoble {
           edges.update(
             {from: pos+','+prueba, to: men, length: 20, arrows: 'to'}
           );
+          await this.delay(tiempo)
           edges.update(
             {from: men, to: pos+','+prueba, length: 20, arrows: 'to'}
           );
+          await this.delay(tiempo)
           console.log(prueba)
           sigs[pos] = prueba + 1;
       }
@@ -96,10 +100,11 @@ class ListaDoble {
           nodes.update(
             {id: pos, label:String(data), x: uno , y: dos, color: "rgba(97,195,238,0.5)",shape: "box"}
           );
+          await this.delay(tiempo)
       }
       this.size++;
   }
-  actualizarValor(dato: any, valor: any) {
+  async actualizarValor(dato: any, valor: any) {
     let aux = this.head;
     var ids = nodes.get({
       fields:['id', 'label', 'color']
@@ -118,10 +123,12 @@ class ListaDoble {
                       nodes.update(
                         {id: val.id,label:valor, color: "#FFA807"}
                       );
+                      await this.delay(tiempo)
                     }else{
                       nodes.update(
                         {id: val.id, label:valor,color: "#FFA807"}
                       );
+                      await this.delay(tiempo)
                     }
                   }
                 }
@@ -133,7 +140,7 @@ class ListaDoble {
     }
   }
 
-  buscar(dato: any) {
+  async buscar(dato: any) {
     let aux = this.head;
     var ids = nodes.get({
       fields:['id', 'label', 'color']
@@ -153,10 +160,12 @@ class ListaDoble {
                       nodes.update(
                         {id: val.id, color: "#FFA807"}
                       );
+                      await this.delay(tiempo)
                     }else{
                       nodes.update(
                         {id: val.id, color: "#FFA807"}
                       );
+                      await this.delay(tiempo)
                     }
                   }
                 }
@@ -170,7 +179,7 @@ class ListaDoble {
     }
   }
 
-  deletehead(){
+  async deletehead(){
       if (!this.head){
           return null;
       }
@@ -195,10 +204,11 @@ class ListaDoble {
         }
       }
       nodes.remove(primer);
+      await this.delay(tiempo)
       return valoret;
   }
 
-  deletetail(){
+  async deletetail(){
       if (!this.tail){
           return null;
       }
@@ -227,10 +237,11 @@ class ListaDoble {
       nodes.update(
         {id: primer, label:"-1"}
       );
+      await this.delay(tiempo)
       return valoret;
   }
 
-  delete(data: any){
+  async delete(data: any){
       let actual = this.head;
       let anterior = null;
 
@@ -238,8 +249,10 @@ class ListaDoble {
           if (actual.data === data){
               if (!anterior){
                   return this.deletehead();
+                  await this.delay(tiempo)
               }else if(!actual.next){
                   return this.deletetail();
+                  await this.delay(tiempo)
               }
               else {
                   anterior.next = actual.next;
@@ -255,6 +268,7 @@ class ListaDoble {
                       }
                     }
                     nodes.remove(primer);
+                    await this.delay(tiempo)
 
                     let froms: number;
                     for (var val of id){
@@ -270,9 +284,12 @@ class ListaDoble {
                     }
                     edges.add(
                       {from: froms, to: to, length: 20, arrows: 'to'}
-                    );edges.add(
+                    );
+                    await this.delay(tiempo)
+                    edges.add(
                       {from: to, to: froms, length: 20, arrows: 'to'}
                     );
+                    await this.delay(tiempo)
                   }
                   else{
                     var id = nodes.get({
@@ -285,6 +302,7 @@ class ListaDoble {
                       }
                     }
                     nodes.remove(primer);
+                    await this.delay(tiempo)
                   }
               }
               this.size--;
@@ -306,6 +324,9 @@ class HashAbierta{
     this.Arreglo = null;
     this.fun = fun;
   }
+  delay(ms:number) {
+    return new Promise( resolve => setTimeout(resolve,ms));
+  }
   simple(){
     let k = 0.5567;
     return k * tama;
@@ -319,7 +340,7 @@ class HashAbierta{
       const A = 0.6180;
       return tama*((k*A) % 1);
   }
-  NuevaTabla(tamano: number){
+  async NuevaTabla(tamano: number){
     tama = tamano;
     this.Arreglo = new Array(tama);//arreglo del tamaño especifico
     sigs = new Array(tama)
@@ -329,6 +350,7 @@ class HashAbierta{
       nodes.update(
         {id: j, label:'-1',x: x1 , y: y1, color: "rgba(97,195,238,0.5)",shape: "box"}
       );
+      await this.delay(tiempo)
       x1 = x1 + 90
     }
   }
@@ -388,7 +410,7 @@ class HashAbierta{
     }
   }
 
-  actualizar(key:any, nuevo:any){
+  async actualizar(key:any, nuevo:any){
     let posicion = this.ValorPos(key);
     var ids = nodes.get({
       fields:['id', 'label', 'color']
@@ -400,6 +422,7 @@ class HashAbierta{
         nodes.update(
           {id: val.id, color: "rgba(97,195,238,0.5)"}
         );
+        await this.delay(tiempo)
       }
     }
     try {
@@ -442,7 +465,7 @@ class HashAbierta{
     }
   }
 
-  buscar(dato:any){
+  async buscar(dato:any){
     let posicion = this.ValorPos(dato);
     var ids = nodes.get({
       fields:['id', 'label', 'color']
@@ -454,6 +477,7 @@ class HashAbierta{
         nodes.update(
           {id: val.id, color: "rgba(97,195,238,0.5)"}
         );
+        await this.delay(tiempo)
       }
     }
     try {

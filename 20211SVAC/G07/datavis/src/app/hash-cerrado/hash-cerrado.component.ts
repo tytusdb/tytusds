@@ -33,8 +33,10 @@ class hash{
       this.letra = "";
       this.inicializar();
   }
-
-  inicializar(){
+  delay(ms:number) {
+    return new Promise( resolve => setTimeout(resolve,ms));
+  }
+  async inicializar(){
     console.log(this.tabla.length);
     this.tabla.length = this.m
     console.log(this.tabla.length);
@@ -44,6 +46,7 @@ class hash{
           nodes.add(
             {id: i, label:'-1',x: x1 , y: y1, color: "rgba(97,195,238,0.5)",shape: "box"}
           );
+          await this.delay(tiempo)
           x1 = x1 + 90
       }
   }
@@ -74,7 +77,7 @@ class hash{
       return (((k % this.m) + i * (7-(k % 7))) % this.m);
   }
 
-  rehash(){
+  async rehash(){
 
       let maximo = this.size*100/this.m;
       if(maximo>=this.max){
@@ -93,6 +96,7 @@ class hash{
           console.log(id)
           for (var val of id){
             nodes.remove(val.id);
+            await this.delay(tiempo)
           }
           this.inicializar();
           this.size = 0;
@@ -122,7 +126,7 @@ class hash{
   }
 
   //Eliminar
-  eliminar(valor: any){
+  async eliminar(valor: any){
       let calc = this.verificacionDato(valor);
 
       if(this.fun == "Simple" && this.test =="Lineal"){
@@ -134,6 +138,7 @@ class hash{
           nodes.update(
             {id: res, label:"-1"}
           );
+          await this.delay(tiempo)
           this.size--;
 
       }else if(this.fun == "Simple" && this.test =="Cuadratica"){
@@ -148,7 +153,8 @@ class hash{
           this.tabla[r] = "-1"
           nodes.update(
             {id: r, label:"-1"}
-          );;
+          );
+          await this.delay(tiempo)
           this.size--;
 
       }else if(this.fun == "Simple" && this.test =="Doble"){
@@ -163,6 +169,7 @@ class hash{
           nodes.update(
             {id: r, label:"-1"}
           );
+          await this.delay(tiempo)
           this.size--;
 
       }else if(this.fun == "Division" && this.test =="Lineal"){
@@ -174,6 +181,7 @@ class hash{
           nodes.update(
             {id: res, label:"-1"}
           );
+          await this.delay(tiempo)
           this.size--;
 
       }else if(this.fun == "Division" && this.test =="Cuadratica" ){
@@ -192,6 +200,7 @@ class hash{
           nodes.update(
             {id: r, label:"-1"}
           );
+          await this.delay(tiempo)
           this.size--;
 
       }else if(this.fun == "Division" && this.test =="Doble" ){
@@ -206,6 +215,7 @@ class hash{
           nodes.update(
             {id: r, label:"-1"}
           );
+          await this.delay(tiempo)
           this.size--;
 
       }else if(this.fun == "Multiplicacion" && this.test =="Lineal" ){
@@ -217,6 +227,7 @@ class hash{
           nodes.update(
             {id: res, label:"-1"}
           );
+          await this.delay(tiempo)
           this.size--;
 
       }else if(this.fun == "Multiplicacion" && this.test =="Cuadratica" ){
@@ -234,6 +245,7 @@ class hash{
           nodes.update(
             {id: r, label:"-1"}
           );
+          await this.delay(tiempo)
           this.size--;
 
       }else if(this.fun == "Multiplicacion" && this.test =="Doble" ){
@@ -249,12 +261,13 @@ class hash{
           nodes.update(
             {id: r, label:"-1"}
           );
+          await this.delay(tiempo)
           this.size--;
       }
   }
 
   //Actualizar
-  actualizar(valor: any,sustituto: any){
+  async actualizar(valor: any,sustituto: any){
       let calc = this.verificacionDato(valor);
 
       if(this.fun == "Simple" && this.test =="Lineal"){
@@ -266,6 +279,7 @@ class hash{
           nodes.update(
             {id: res, label:String(sustituto)}
           );
+          await this.delay(tiempo)
 
       }else if(this.fun == "Simple" && this.test =="Cuadratica"){
           let r;
@@ -280,6 +294,7 @@ class hash{
           nodes.update(
             {id: r, label:String(sustituto)}
           );
+          await this.delay(tiempo)
 
       }else if(this.fun == "Simple" && this.test =="Doble"){
           let r;
@@ -293,6 +308,7 @@ class hash{
           nodes.update(
             {id: r, label:String(sustituto)}
           );
+          await this.delay(tiempo)
 
       }else if(this.fun == "Division" && this.test =="Lineal"){
           let res = this.division(calc);
@@ -303,6 +319,7 @@ class hash{
           nodes.update(
             {id: res, label:String(sustituto)}
           );
+          await this.delay(tiempo)
 
       }else if(this.fun == "Division" && this.test =="Cuadratica" ){
           let r;
@@ -320,6 +337,7 @@ class hash{
           nodes.update(
             {id: r, label:String(sustituto)}
           );
+          await this.delay(tiempo)
 
       }else if(this.fun == "Division" && this.test =="Doble" ){
           let r;
@@ -333,6 +351,7 @@ class hash{
           nodes.update(
             {id: r, label:String(sustituto)}
           );
+          await this.delay(tiempo)
 
       }else if(this.fun == "Multiplicacion" && this.test =="Lineal" ){
           let res =Math.trunc(this.multiplicacion(calc));
@@ -343,6 +362,7 @@ class hash{
           nodes.update(
             {id: res, label:String(sustituto)}
           );
+          await this.delay(tiempo)
 
       }else if(this.fun == "Multiplicacion" && this.test =="Cuadratica" ){
           let r;
@@ -359,6 +379,7 @@ class hash{
           nodes.update(
             {id: r, label:String(sustituto)}
           );
+          await this.delay(tiempo)
 
       }else if(this.fun == "Multiplicacion" && this.test =="Doble" ){
           let r;
@@ -373,11 +394,12 @@ class hash{
            nodes.update(
             {id: r, label:String(sustituto)}
           );
+          await this.delay(tiempo)
       }
   }
 
   //Buscar
-  buscar(valor: any){
+  async buscar(valor: any){
       let calc = this.verificacionDato(valor);
       var ids = nodes.get({
         fields:['id', 'label', 'color']
@@ -389,6 +411,7 @@ class hash{
           nodes.update(
             {id: val.id, color: "rgba(97,195,238,0.5)"}
           );
+          await this.delay(tiempo)
         }
       }
       if(this.fun == "Simple" && this.test =="Lineal"){
@@ -399,6 +422,7 @@ class hash{
           nodes.update(
             {id: res, color: "#FFA807"}
           );
+          await this.delay(tiempo)
           return this.tabla[res];
 
       }else if(this.fun == "Simple" && this.test =="Cuadratica"){
@@ -413,6 +437,7 @@ class hash{
           nodes.update(
             {id: r, color: "#FFA807"}
           );
+          await this.delay(tiempo)
           return this.tabla[r];
 
       }else if(this.fun == "Simple" && this.test =="Doble"){
@@ -426,6 +451,7 @@ class hash{
           nodes.update(
             {id: r, color: "#FFA807"}
           );
+          await this.delay(tiempo)
           return this.tabla[r];
 
       }else if(this.fun == "Division" && this.test =="Lineal"){
@@ -436,6 +462,7 @@ class hash{
           nodes.update(
             {id: res, color: "#FFA807"}
           );
+          await this.delay(tiempo)
           return this.tabla[res];
 
       }else if(this.fun == "Division" && this.test =="Cuadratica" ){
@@ -453,6 +480,7 @@ class hash{
           nodes.update(
             {id: r, color: "#FFA807"}
           );
+          await this.delay(tiempo)
           return this.tabla[r];
 
       }else if(this.fun == "Division" && this.test =="Doble" ){
@@ -466,6 +494,7 @@ class hash{
           nodes.update(
             {id: r, color: "#FFA807"}
           );
+          await this.delay(tiempo)
           return this.tabla[r];
 
       }else if(this.fun == "Multiplicacion" && this.test =="Lineal" ){
@@ -476,6 +505,7 @@ class hash{
           nodes.update(
             {id: res, color: "#FFA807"}
           );
+          await this.delay(tiempo)
           return this.tabla[res];
 
       }else if(this.fun == "Multiplicacion" && this.test =="Cuadratica" ){
@@ -492,6 +522,7 @@ class hash{
           nodes.update(
             {id: r, color: "#FFA807"}
           );
+          await this.delay(tiempo)
           return this.tabla[r];
 
       }else if(this.fun == "Multiplicacion" && this.test =="Doble" ){
@@ -506,12 +537,13 @@ class hash{
           nodes.update(
             {id: r, color: "#FFA807"}
           );
+          await this.delay(tiempo)
           return this.tabla[r];
       }
   }
 
   //Insercion
-  insertar(valor: any){
+  async insertar(valor: any){
       let calculo = this.verificacionDato(valor);
       if(this.fun == "Simple" && this.test=="Lineal"){
           let res = Math.trunc(this.simple());
@@ -522,6 +554,7 @@ class hash{
           nodes.update(
             {id: res, label:String(valor)}
           );
+          await this.delay(tiempo)
           this.size++;
           this.rehash();
 
@@ -540,6 +573,7 @@ class hash{
           nodes.update(
             {id: r, label:String(valor)}
           );
+          await this.delay(tiempo)
           this.size++;
           this.rehash();
 
@@ -556,6 +590,7 @@ class hash{
           nodes.update(
             {id: r, label:String(valor)}
           );
+          await this.delay(tiempo)
           this.size++;
           this.rehash();
 
@@ -568,6 +603,7 @@ class hash{
               nodes.update(
                 {id: res, label:String(valor)}
               );
+              await this.delay(tiempo)
               this.size++;
               this.rehash();
 
@@ -588,6 +624,7 @@ class hash{
           nodes.update(
             {id: r, label:String(valor)}
           );
+          await this.delay(tiempo)
           this.size++;
           this.rehash();
 
@@ -604,6 +641,7 @@ class hash{
           nodes.update(
             {id: r, label:String(valor)}
           );
+          await this.delay(tiempo)
           this.size++;
           this.rehash();
 
@@ -616,6 +654,7 @@ class hash{
           nodes.update(
             {id: res, label:String(valor)}
           );
+          await this.delay(tiempo)
           this.size++;
           this.rehash();
 
@@ -636,6 +675,7 @@ class hash{
           nodes.update(
             {id: r, label:String(valor)}
           );
+          await this.delay(tiempo)
           this.size++;
           this.rehash();
       }else if(this.fun == "Multiplicacion" && this.test=="Doble"){
@@ -652,6 +692,7 @@ class hash{
           nodes.update(
             {id: r, label:String(valor)}
           );
+          await this.delay(tiempo)
           this.size++;
           this.rehash();
       }
