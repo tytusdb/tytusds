@@ -5,6 +5,7 @@ let CargaArchivo=require('../../../EstructurasF2/CargarArchivo')
 let guardarArchivo=require('../../../EstructurasF2/guardarArchivo')
 let rowColMayor= require('../../../EstructurasF2/rowColMayor')
 let Animaciones= require('../../../EstructurasF2/Animaciones')
+//let vis=require('../../../../../node_modules/vis/dist/vis')
 @Component({
   selector: 'app-row-major',
   templateUrl: './row-major.component.html',
@@ -47,4 +48,26 @@ export class RowMajorComponent implements OnInit {
     console.log("______________________")
     this.rcM.imprimir()
   }
+  graficar(){
+    let nodes = [];
+
+    // Create a data table with links.
+    let edges = [];
+
+    nodes.push({id: 1, label: 'Get HTML', shape: 'image'});
+    nodes.push({id: 2, label: 'Using SVG', shape: 'image'});
+    edges.push({from: 1, to: 2, length: 300});
+
+    // create a network
+    var container = document.getElementById("DivInsert")
+
+    //var container = document.getElementById('mynetwork');
+    var data = {
+        nodes: nodes,
+        edges: edges
+    };
+    var options = {};
+    //network = new vis.Network(container, data, options);
+    //let garf = new vis.Network(container, data, {});        
+}  
 }

@@ -2,7 +2,8 @@
     <em class="fas fa-list"></em>
     ROW MAJOR
 </button>
-
+<!--<script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>-->
+<script type="module" src="../../../EstructurasF2/rowColMayor.js"></script>
 <table>
     <tr style="border: hidden;">
         <td style="border: hidden; width: 150px;" >
@@ -58,6 +59,10 @@
         </td>
     </tr>
 </table>
-
+<script>try {
+    window.vis = require('vis-network/standalone');
+} catch (e) {
+    console.error(e);
+}</script>
 <!--Esto debe quedar abajo de todo ya que es la tabla del algoritmo-->
 <div id="DivInsert" style="position: absolute;"></div>
