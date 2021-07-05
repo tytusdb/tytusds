@@ -585,12 +585,25 @@ export class HashAbiertaComponent implements OnInit {
   @ViewChild('mynetwork', {static: false}) el: ElementRef;
   public network: any;
   constructor() { }
+  contenido = "{ \"valores\": [\n";
 
   ngOnInit(): void {
   }
   ngAfterViewInit(): void {
     var container = this.el.nativeElement;
     this.network = new vis.Network(container, listaData, options);
+  }
+
+  
+
+  descargarContenido(){
+    this.generador();
+    let downloadfile = "data: text/json;charset=utf-8,"+encodeURIComponent(this.contenido);
+    console.log(downloadfile);
+    var downloader = document.createElement('a');
+    downloader.setAttribute('href', downloadfile);
+    downloader.setAttribute('download', 'data.json');
+    downloader.click();
   }
   code = '';
   array = [];
@@ -630,7 +643,7 @@ export class HashAbiertaComponent implements OnInit {
 
 
   }
-
+  
   Tamano(ta: number, dat:any){
     h = new HashAbierta(dat);
     h.NuevaTabla(ta);
@@ -656,6 +669,24 @@ export class HashAbiertaComponent implements OnInit {
     console.log("Entro??")
     console.log(h);
     h.eliminar(valor);
+  }
+  generador(){
+    for (let i = 0; i < h.Arreglo.length; i++) {
+      if(typeof h.Arreglo[i] == "object"){
+        let aux = h.Arreglo[i].head;
+        console.log(aux)
+       while(aux!=null){
+        console.log(aux.data)
+        this.contenido += aux.data+",\n";
+        aux = aux.next;
+       }
+        
+      }else{
+        console.log(h.Arreglo[i])
+        this.contenido += h.Arreglo[i]+",\n";
+      }
+    }
+    this.contenido += "]}";
   }
 
 }
