@@ -198,6 +198,14 @@ class Feistel{
         	i++;
         	nodoId++;
         }
+
+        i = 0;
+        while(i<this.resultado.length){
+			dot.push({id:nodoId, label:String(this.resultado[i]), level:this.nivel+1});    
+        	i++;
+        	nodoId++;
+
+        }
        	
         return dot;
 
@@ -222,6 +230,17 @@ class Feistel{
         	}
         	i++;
         	nodoId++;
+        }
+
+
+         i = 0;
+        while(i<this.resultado.length){
+        	if(this.resultado[i+1]!=null){
+				dot.push({from:parseInt(nodoId), to:parseInt(nodoId+1), arrows: "to"});
+        	}
+    		i++;
+        	nodoId++;
+
         }
         
         return dot;
