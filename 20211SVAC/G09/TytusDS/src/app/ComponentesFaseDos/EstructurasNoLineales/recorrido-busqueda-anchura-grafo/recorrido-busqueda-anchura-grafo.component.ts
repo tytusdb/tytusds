@@ -36,6 +36,25 @@ export class RecorridoBusquedaAnchuraGrafoComponent implements OnInit {
   }
   download(){
     let dow= new guardarArchivo()
-    //dow.guardarMatriz(this.rcM.returnValores(),"RowMajor")
-  }  
+    dow.guardarGrafo(this.aG.returnValores(),"Grafo Dirigido/No Dirigido")
+  }
+  insert(text:string){
+    this.aG.AgregarNodo(text)
+    this.aG.MostrarGrafo()
+  }
+  insertVertice(from:string, to:string){
+    this.aG.AgregarVertice(from,to)
+    this.aG.MostrarGrafo()
+  }
+  delete(text:string){
+    this.aG.EliminarNodo(text)
+    this.aG.MostrarGrafo()
+  }
+  search(text:string){
+    console.log(this.aG.VerificarExisteNodo(text))
+  }
+  actualizar(textReplace:string, textNew:string){
+    this.aG.ActualizarNodo(textReplace,textNew)
+    this.aG.MostrarGrafo()
+  }    
 }
