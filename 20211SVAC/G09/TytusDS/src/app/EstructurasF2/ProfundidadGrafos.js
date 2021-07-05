@@ -117,6 +117,7 @@ class ProfundidadGrafos{
         return []
     }
 
+    //Primer Intento, falta comprobar si es correcto
     RecorrerProfundidad(NodoInicial, NodoFinal) {
         var ListaNodo = [NodoInicial];
         var res = []
