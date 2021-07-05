@@ -950,16 +950,15 @@ class ListaAdyacencia{
         let aux = this.ListaAdyacencia.cabeza
         while(aux!=null){
             let tmp = aux.dato.enlaces.cabeza
+            let arista = []
+            let dato = {vertice: tmp.dato.inicio.dato, aristas:arista}
             while(tmp!= null){
-                let arista = []
                 arista.push({arista:tmp.dato.destino.dato , distancia: tmp.dato.distancia.toString()})
-                let dato = {vertice: tmp.dato.inicio.dato, aristas:arista}
-                arreglo.push(dato)
                 tmp = tmp.siguiente
             }
+            arreglo.push(dato)
             aux = aux.siguiente
         }
-        
         return arreglo
     }
     //Carga de array para graficacion de nodos
