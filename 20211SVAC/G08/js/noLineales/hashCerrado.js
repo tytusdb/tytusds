@@ -11,7 +11,7 @@ class Hash{
         this.vector = [];
         this.elementos = 0;
         this.size = size;
-        this.porcentaje = 0.0;
+        this.porcentaje = 0;
         this.max = max;
         this.min = min;
         this.constante = 0.1625277911;
@@ -131,6 +131,60 @@ class Hash{
         this.vector = vectorTemporal;
     }
 
+    buscar(elemento){
+        let valor = false;
+        let ret = false;
+        let busq;
+        let num = -1;
+
+        while(valor !== true){
+            for(let i = 0; i< this.size; i++){
+                busq = this.vector[i];
+                if(busq != null){
+                    if(busq.clave == elemento){
+                        ret = true;
+                        valor = true;
+                        num = i;
+                    }else{
+                        valor = false;
+                    }
+                }else{
+                }
+            }
+            valor = true;
+        }
+
+        return num;
+    }
+
+    eliminar(elemento){
+
+        let valor = false;
+        let ret = false;
+        let busq;
+        let num = -1;
+
+        while(valor !== true){
+            for(let i = 0; i< this.size; i++){
+                busq = this.vector[i];
+                if(busq != null){
+                    if(busq.clave == elemento){
+                        this.vector.splice(i, 1);
+                        ret = true;
+                        valor = true;
+                        num = i;
+                    }else{
+                        valor = false;
+                    }
+                }else{
+                }
+            }
+            valor = true;
+        }
+
+        return num;
+    }
+
     valorASCII(cadena){
         let resultado = 0;
         for(let i = 0; i < cadena.length; i++){
@@ -224,6 +278,8 @@ async function tam_tabla(valor){
             resolve();
             }, (velocidad*200)) //delay
         ); 
+
+        //contenido_tabla(i);
     }
     
 }
@@ -250,50 +306,96 @@ function agregar(){
 //-----------BUSCAR ELEMENTO-----------
 function buscar(){
     let elemento = document.getElementById("elemento").value;
-    let elemento2 = tabla.valorASCII(elemento);
-    let posicion;
-    var cod = document.getElementById("funcion").value;
-    
-    if(cod === "division"){
-        posicion = tabla.funcionHash_division(elemento2);
-    }else if (cod === "multiplicacion"){
-        posicion = tabla.funcionHash_division(elemento2);
-    }else{
-        posicion = tabla.funcionHash_simple(elemento2);
-    }
-    let busqueda = tabla.buscar(elemento, posicion);
-    if (busqueda == true){
-        console.log("---------->" + elemento + " en el indice " + posicion);
+
+    let busqueda = tabla.buscar(elemento);
+    if (busqueda >= 0){
+        console.log("---------->" + elemento + " en el indice " + busqueda);
+        pathBloques(busqueda);
     }
     else{
         console.log("---------->" + elemento + " no encontrado");
+        pathBloques2();
     }
     
 }
 
-//-----------ELIMINAR ELEMENTO-----------
-function eliminar(){
-    let elemento = document.getElementById("elemento").value;
-    let elemento2 = tabla.valorASCII(elemento);
-    let posicion;
-    var cod = document.getElementById("funcion").value;
+async function pathBloques(pos){
+    var bloques = document.querySelectorAll(".cuadrito");
+    velocidad = 10;
+    for (let i = 0; i < bloques.length; i++){
+        if( i == pos){
+            bloques[i].style.backgroundColor = "#13CE66";
+            
+            bloques[i].classList.add("busqueda");
     
-    if(cod === "division"){
-        posicion = tabla.funcionHash_division(elemento2);
-    }else if (cod === "multiplicacion"){
-        posicion = tabla.funcionHash_division(elemento2);
-    }else{
-        posicion = tabla.funcionHash_simple(elemento2);
+            await new Promise((resolve) =>
+                setTimeout(() =>{
+                resolve();
+                }, (1800)) //delay
+            );
+            bloques[i].style.backgroundColor = 	"#FFFFFF";
+            break;
+        } else {
+            bloques[i].style.backgroundColor = "#FF4949";
+            await new Promise((resolve) =>
+            setTimeout(() =>{
+            resolve();
+            }, (velocidad*200)) //delay
+            );                 
+        }
+        bloques[i].style.backgroundColor = 	"#FFFFFF";   
     }
-    let busqueda = tabla.eliminar(elemento, posicion);
-    if (busqueda == true){
+}
+
+async function pathBloques2(){
+    var bloques = document.querySelectorAll(".cuadrito");
+    velocidad = 10;
+    for (let i = 0; i < bloques.length; i++){
+        bloques[i].style.backgroundColor = "#FF4949";
+            await new Promise((resolve) =>
+            setTimeout(() =>{
+            resolve();
+            }, (velocidad*200)) //delay
+            );  
+        bloques[i].style.backgroundColor = 	"#FFFFFF";   
+    }
+    alert("No se encuentra el elemento")
+}
+
+
+//-----------ELIMINAR ELEMENTO-----------
+async function eliminar(){
+    let elemento = document.getElementById("elemento").value;
+    var bloques = document.querySelectorAll(".cuadrito");
+
+    let busqueda = tabla.eliminar(elemento);
+    if (busqueda >= 0){
         console.log("---------->" + elemento + " eliminado");
+        bloques[busqueda].style.backgroundColor = "#DC143C";
+        await new Promise((resolve) =>
+            setTimeout(() =>{
+            resolve();
+            }, (10*100)) //delay
+        );
+        bloques[busqueda].classList.add("eliminado");
+        
+        await new Promise((resolve) =>
+            setTimeout(() =>{
+            resolve();
+            }, (1500)) //delay
+        );
+        // Eliminando de la pantalla
+        bloques[busqueda].textContent = (busqueda+"||");
+        bloques[busqueda].style.backgroundColor = "white";
     }
     else{
         console.log("---------->" + elemento + " no encontrado");
     }
 
     tabla.print();
+
+    
+    console.log("Eliminando");
     
 }
 
@@ -314,6 +416,7 @@ function readFile(evento){ // lectura del archivo .json
             mini = convert.minimo;
             values = convert.valores;
             func = convert.funcion;
+            //
             tabla.size = tamano;
             tabla.min = mini;
             tabla.max = maxi;
@@ -331,7 +434,9 @@ function readFile(evento){ // lectura del archivo .json
             }
             //tabla.print();
             console.log(tabla.porcentaje);
+            //agregarFile();
             tam_tabla(tabla.size);
+            //
         };
         reader.readAsText(archivo); 
 
@@ -344,7 +449,6 @@ window.addEventListener('load', ()=>{ // cada vez que cambie
     document.getElementById('file').addEventListener('change',readFile)
 });
 
-
 function listaNums(numso){
     let hola = [];
     for (let i = 0; i < numso.length; i++){
@@ -355,6 +459,7 @@ function listaNums(numso){
 }
 //-----------GUARDAR JSON-----------
 function guardar(){
+    var repetic = btn_Repetir.checked;
     velocidad = 10;
     var content = cola.imprimir().split(",");
     if (tipoDato == 'number'){
@@ -364,7 +469,7 @@ function guardar(){
     var fileJ = {
         "categoria": "Estructura No Lineal",
         "nombre": "Tabla Hash",
-        "direccionamiento": "Cerrado",
+        "direccionamiento": "Abierto",
         "metodo": "Multiplicacion",
         "resolucion": "Lineal",
         "size": tamano,
