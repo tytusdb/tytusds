@@ -58,7 +58,9 @@ class Feistel{
 		i = 0;
 		while(i<this.binario.length){
 			if(this.binario[i+1]!=null){
+				let temp = this.key
 				this.shift(this.binario[i],this.binario[i+1], 1)
+				this.key = temp;
 				i++;
 			}
 			i++;
