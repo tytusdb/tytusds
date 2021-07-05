@@ -90,14 +90,9 @@ function buildTabla(){
             if(conTabla[i][j] != null){
                 console.log("entre")
                 tab += "<td>"+conTabla[i][j]+"</td>";
-                
             } else {
                 tab += "<td>"+" "+"</td>";
-
-
-            }
-
-            
+            }  
         }
         
         tab += "</tr>"

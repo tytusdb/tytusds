@@ -101,6 +101,12 @@ class LZW{
         }
         return false;
     }
+    // NUEVO
+    aniMatriz(){
+
+        return this.matriz;
+
+    }
 
 
 
@@ -139,13 +145,56 @@ function codificar(){
     console.log("Codificando")
     var entrada = document.getElementById("espacioTxt").value;
     var salida = document.getElementById("respuesta");
+    var cuadroTabla = document.getElementById("tablaCod");
+    salida.textContent = "";
+    cuadroTabla.textContent = "";
+
     var respu = lzw.cifrar(entrada);
     resulFile = respu;
-
+    // NUEVOOO
+    /*
+    animTabla();
+    */
     salida.textContent = respu;
 
 }
 
+// NUEVOOOO
+/*
+// ***** CONSTRUYENDO TABLA *****
+function animTabla(){
+    // espacio donde se colocara la tabla
+    var cuadroTabla = document.getElementById("tablaCod");
+    // contenido de la matriz 
+    var conTabla = lzw.aniMatriz();
+    console.log(conTabla.length)
+    cuadroTabla.innerHTML = "";
+    var tab = "<table class=\"tablero\">";
+    // cambie la implementacion y orden para que la tabla fuera vertical
+    for (let i = 0; i < conTabla[0].length; i++){
+        tab += "<tr>"
+        for (let j = 0; j < conTabla.length; j++){
+
+            if (conTabla[j][i] != undefined){
+                if (i == 0 && (j == 0 || j == 1 || j == 2 || j == 3 || j == 4)){
+                    tab += "<td class =\"encabezado\">"+conTabla[j][i]+"</td>";
+
+                } else {
+                    tab += "<td>"+conTabla[j][i]+"</td>";
+
+                }
+                
+            } else {
+                tab += "<td>"+"  "+"</td>";
+            }
+     
+        }
+        tab += "</tr>"
+    }
+    tab += "</table>";
+    cuadroTabla.innerHTML = tab;
+}
+*/
 // ***** LIMPIAR PANTALLA *****
 function limpiar(){
     console.log("Limpiando");

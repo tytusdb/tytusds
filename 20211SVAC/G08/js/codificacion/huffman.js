@@ -31,7 +31,7 @@ class Huffman{
         while (ite < texto.length){
             for (let i = 0; i < this.diccio.length; i++){
                 if (this.diccio[i].letra == texto[ite]){
-                    respuesta += this.diccio[i].code + " - ";
+                    respuesta += this.diccio[i].code ;
                     break;
                 }
             }
@@ -40,7 +40,6 @@ class Huffman{
         this.convert = respuesta;
         return this.convert;
     }
-
 
     noLet(listChar, cadena){
         var i = 1;
@@ -103,13 +102,9 @@ class Huffman{
         }
 
     }
-
-
-
-
-
-
-
+    animHuf(){
+        return this.diccio;
+    }
 
 }
 
@@ -157,11 +152,71 @@ function codificar(){
     console.log("Codificando")
     var entrada = document.getElementById("espacioTxt").value;
     var salida = document.getElementById("respuesta");
+    var cuadroTabla = document.getElementById("cuadroTabla");
+    salida.textContent = "";
+    cuadroTabla.textContent = "";
+ 
     var respu = huf.buildTabla(entrada);
-    // pendiente de poner 
-    // resulFile = respu;
+    // guardando respuesta para el saveFile
+    resulFile = respu;
+    efectoMatrix();
+    //cuadroTabla.textContent = "";
+
+    //animTabla();
     salida.textContent = respu;
 
+}
+
+// ***** CONSTRUIR TABLA *****
+function animTabla(){
+    console.log("construyendo tabla")
+    // espacio donde ira la tabla
+    var cuadroTabla = document.getElementById("cuadroTabla");
+
+    var conTabla = huf.animHuf();
+   
+    console.log(conTabla[0].code)
+    console.log(conTabla[0].letra)
+    
+    cuadroTabla.innerHTML = "";
+    var tab = "<table class=\"tablero\">";
+    // cambie la implementacion y orden para que la tabla fuera vertical
+    for (let i = 0; i < conTabla.length + 1; i++){
+        tab += "<tr>"
+        for (let j = 0; j < 2; j++){
+           
+            if (j == 0){
+                if(i == 0){
+                    tab += "<td class =\"encabezado\">"+"LETRA"+"</td>";
+
+                } else {
+                    tab += "<td>"+conTabla[i-1].letra+"</td>";
+
+                }
+                
+            } else if (j == 1){
+                if (i == 0){
+                    tab += "<td class =\"encabezado\">"+"CODIGO"+"</td>";
+
+                } else {
+                    tab += "<td>"+conTabla[i-1].code+"</td>";
+
+                }
+                
+            }
+                
+        }
+        tab += "</tr>"
+    }
+    tab += "</table>";
+    cuadroTabla.innerHTML = tab;
+}
+
+function efectoMatrix(){
+    velocidad = 1000000;
+    var img = "<img class=\"efectoM\" src=\"../../img/matrix1.gif\">"
+    var cuadroTabla = document.getElementById("cuadroTabla");
+    cuadroTabla.innerHTML = img;
 }
 
 // ***** LIMPIAR PANTALLA *****

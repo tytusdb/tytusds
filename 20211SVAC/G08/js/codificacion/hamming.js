@@ -24,8 +24,8 @@ class Hamming{
 
     }
     fillM(listW, limite){
-        listW[0][1] = "Posicion";
-        listW[0][2] = "Palabra Original";
+        listW[0][1] = "Bits";
+        listW[0][2] = "Entrada";
         var noPar = [];
         for (let i = 0; i <= limite; i++){
             noPar.push(Math.pow(2,i));
@@ -35,19 +35,19 @@ class Hamming{
         for (let i = 1; i < listW.length; i++){
             listW[i][1] = i.toString(2);
             if (noPar.includes(i)){
-                listW[i][0] = "P" + contP;
+                listW[i][0] = "p" + contP;
                 contP++;
             } else {
-                listW[i][0] = "D" + contI;
+                listW[i][0] = "d" + contI;
                 contI++;
             }
         }
         contP = 1;
         for (let j = 3; j < listW[0].length - 1; j++){
-            listW[0][j] = "P"+contP;
+            listW[0][j] = "p"+contP;
             contP++;
         }
-        listW[0][listW[0].length - 1] = "Palabra con paridad"
+        listW[0][listW[0].length - 1] = "Salida"
 
     }
     paridad(contenido){
@@ -60,7 +60,7 @@ class Hamming{
     agregarW(listW, charac){
         var ind = 0;
         for (let i = 3; i < listW.length; i++){
-            if (listW[i][0].includes("D")){
+            if (listW[i][0].includes("d")){
                 listW[i][2] = charac[ind];
                 ind++;            
             }
@@ -83,7 +83,7 @@ class Hamming{
     paridadC(listW, f){
         var cont = 0;
         for (let i = 3; i < listW.length; i++){
-            if(listW[i][0].includes("D")){
+            if(listW[i][0].includes("d")){
                 try{
                     if ((listW[i][1])[listW[i][1].length - f] == "1"){
                         listW[i][2 + f] = listW[i][2];
@@ -99,6 +99,9 @@ class Hamming{
         } else {
             listW[Math.pow(2, f - 1)][2 + f] = "1";
         }
+    }
+    aniMatriz(){
+        return this.matriz;
     }
 }
 // ----- VELOCIDAD -----
@@ -135,9 +138,37 @@ function codificar(){
     var salida = document.getElementById("respuesta");
     var respu = hamon.cifrar(entrada);
     resulFile = respu;
+
+    buildTabla();
     salida.textContent = respu;
 
 }
+// NUEVOOOOOOOO
+/*
+function buildTabla(){
+    var cuadroTabla = document.getElementById("spcTabla");
+    var conTabla = hamon.aniMatriz();
+    cuadroTabla.innerHTML = "";
+    var tab = "<table class=\"tablero\">";
+    // cambie la implementacion y orden para que la tabla fuera vertical
+    for (let i = 0; i < conTabla[0].length; i++){
+        tab += "<tr>"
+        for (let j = 0; j < conTabla.length; j++){
+            if (conTabla[j][i] != undefined){
+                tab += "<td>"+conTabla[j][i]+"</td>";
+  
+            } else {
+                tab += "<td>"+"  "+"</td>";
+            }
+     
+        }
+        tab += "</tr>"
+    }
+    tab += "</table>";
+    cuadroTabla.innerHTML = tab;
+
+}
+*/
 
 // ***** LIMPIAR PANTALLA *****
 function limpiar(){
