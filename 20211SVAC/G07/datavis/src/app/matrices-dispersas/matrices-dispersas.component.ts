@@ -40,6 +40,30 @@ export class MatricesDispersasComponent implements OnInit {
     var container = this.el.nativeElement;
     this.network = new vis.Network(container, listaData, options);
   }
+  contenido = "";
+
+  descargarContenido(){
+    this.generador();
+    let downloadfile = "data: text/json;charset=utf-8,"+encodeURIComponent(this.contenido);
+    console.log(downloadfile);
+    var downloader = document.createElement('a');
+    downloader.setAttribute('href', downloadfile);
+    downloader.setAttribute('download', 'data.json');
+    downloader.click();
+  }
+
+  generador(){
+    this.contenido = "";
+    this.contenido = "{ \"valores\": [\n ";
+    for (let i = 0; i < this.rows.length; i++) {
+      this.contenido +=' { \n  "indices": [ \n   ';
+      this.contenido += this.rows[i]+",\n";
+      this.contenido +="   "+this.columns[i]+"\n    ],\n";
+      this.contenido += '   "valor": '+'"'+this.values[i]+'"';
+      this.contenido += "\n   },\n"
+    }
+    this.contenido += "\n ]\n}"
+  }
   code = '';
   texto="";
   abrir(eve:any)
