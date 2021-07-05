@@ -95,7 +95,7 @@ class TablaHashAbierta {
         if(this.iscargar){
 
         }else{
-            if(typeof dato === 'number'){
+            if(typeof  parseInt(dato) === 'number'){
                 dato = parseInt(dato)
             }
         }

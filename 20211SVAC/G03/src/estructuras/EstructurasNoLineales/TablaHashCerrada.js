@@ -68,7 +68,7 @@ class TablaHashCerrada {
     division(valor){
         let hash = valor % this.tabla.length
 
-        return hash
+        return Math.floor(hash)
     }
 
     multiplicacion(valor){
@@ -89,7 +89,7 @@ class TablaHashCerrada {
       }
 
     agregar(dato){
-        if(typeof dato === 'number'){
+        if(typeof parseInt(dato) === 'number'){
             dato = parseInt(dato)
         }
         let posicion =this.funcion_Hash(dato, this.funcion)
@@ -136,14 +136,14 @@ class TablaHashCerrada {
 
     colisionCuadratica(dato, i){
         let prueba = (dato +(i*i)) % this.tamaño
-        return prueba
+        return Math.floor(prueba)
     }
 
     colisionDobleHash(h1,dato,i){
         let  h2 = 1 + (dato %(this.tamaño-1))
         let prueba = ((h1 + (i*h2)) % this.tamaño)
 
-        return prueba
+        return Math.floor(prueba)
     }
 
     imprimir(){
