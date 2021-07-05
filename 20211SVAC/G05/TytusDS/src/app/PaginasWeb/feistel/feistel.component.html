@@ -1,0 +1,36 @@
+<div class="container">
+  <app-opciones (opcionesEvento)="getOpciones($event)"></app-opciones>
+  <h1 class="text-white">Cifrado Feistel</h1>
+
+  <div class="row p-2">
+
+  </div>
+  <div class="row p-1">
+    <div class="col-md-6"><textarea class="form-control" [(ngModel)]="T_comprimir"></textarea></div>
+    <div class="col-md-6"><textarea id="Resultado" class="form-control" [(ngModel)]="resultado"></textarea></div>
+  </div>
+  <div class="row p-2 pb-3">
+    <div class="col-md-2"><input type="text" placeholder="key" class="form-control" [(ngModel)]="key"></div>
+    <div class="col-md-1"><h6 class="text-white">Iteraciones</h6></div>
+    <div class="col-md-1"><input #niteracion type="number" class="form-control"></div>
+    <div class="col-md-1"><button class="btn btn-success button1" (click)="cifrar(niteracion.value)">Comprimir</button></div>
+    <div class="col-md-1"><button class="btn btn-success button1" (click)="guardar()">Guardar</button></div>
+    <div class="col-md-6"><input class="form-control" type="file" id="formFile" (change)="getDocumento($event.target)"></div>
+  </div>
+  <!--TH: CELDAS TR:FILAS THEAD: HEAD THBODY:BODY-->
+  <!--TH: CELDAS TR:FILAS THEAD: HEAD THBODY:BODY-->
+  <table class="table table-dark pt-4" *ngIf="eIteraciones">
+    <thead>
+    <tr>
+      <th colspan="1"></th>
+      <th [attr.colspan]="mitad" *ngFor="let x of cabecera" class="text-center">{{x}}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let iteracion of iteraciones; let index=index">
+      <td *ngFor="let elemento of iteracion" class="text-center">{{elemento}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+

@@ -122,10 +122,12 @@ class hash{
 
     simpleHash(llave){
         var hash = 0;
+        var K = 0.618033
         for (let index = 0; index < llave.length; index++) {
             hash += llave.charCodeAt(index);
         }
-        console.log(hash);
+        //console.logMath.round((m*(hash * A % 1)));
+        return Math.round(m*K);
         
     }
 
@@ -281,7 +283,7 @@ function eliminar(){
     draw();
 }
 
-const myHash = new hash(20);
+const myHash = new hash(13);
 var contents;
 
 function setSize(){
@@ -330,6 +332,7 @@ function AbrirArchivo(files){
     reader.onload = function(event){
       contents = event.target.result;
       var json = JSON.parse(contents);
+      myHash.table.length = json.m;
       var count = Object.keys(json.valores).length;
       for (let index = 0; index < count; index++) {
         myHash.insert(json.valores[index]); 

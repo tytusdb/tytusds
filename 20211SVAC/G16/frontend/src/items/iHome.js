@@ -1,6 +1,8 @@
 import Lineal from '../images/Lineal.png'
 import Ordenamiento from '../images/Ordenamiento.png'
 import Arborea from '../images/Arborea.png'
+import NoLinieal from '../images/noLineal.png'
+import Compuesta from '../images/compuestas.png'
 import Working from '../images/Working.png'
 
 const ItemHome = [
@@ -30,7 +32,7 @@ const ItemHome = [
     {
         title: "Estructuras",
         name: "No Lineales",
-        logo: Working,
+        logo: NoLinieal,
         path: "NoLineales",
         header: "Header_empty",
         class: "Button Top_right"
@@ -46,7 +48,7 @@ const ItemHome = [
     {
         title: "Estructuras",
         name: "Compuestas",
-        logo: Working,
+        logo: Compuesta,
         path: "Compuestas",
         header: "",
         class: "Button Top_left"

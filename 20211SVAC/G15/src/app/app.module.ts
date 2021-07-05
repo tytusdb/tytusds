@@ -24,7 +24,11 @@ import { InsertionSortComponent } from './components/insertion-sort/insertion-so
 import { AVLComponent } from './components/avl/avl.component';
 import { MetodorapidoComponent } from './components/metodorapido/metodorapido.component';
 import { MetodoSeleccionComponent } from './components/metodo-seleccion/metodo-seleccion.component';
-import { DispersaComponent } from './components/dispersa/dispersa.component'
+import { DispersaComponent } from './components/dispersa/dispersa.component';
+import { CompuestasComponent } from './components/compuestas/compuestas.component';
+import { MajorComponent } from './components/major/major.component';
+import { NoLinealesComponent } from './components/no-lineales/no-lineales.component';
+import { HashCerradaComponent } from './components/hash-cerrada/hash-cerrada.component'
 
 @NgModule({
   declarations: [
@@ -48,6 +52,10 @@ import { DispersaComponent } from './components/dispersa/dispersa.component'
     MetodorapidoComponent,
     MetodoSeleccionComponent,
     DispersaComponent,
+    CompuestasComponent,
+    MajorComponent,
+    NoLinealesComponent,
+    HashCerradaComponent,
   ],
   imports: [
     BrowserModule,

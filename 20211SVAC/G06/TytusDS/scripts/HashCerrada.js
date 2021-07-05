@@ -1,8 +1,9 @@
 class HashCerrada{
-	constructor(m){
+	constructor(m, min, max){
 		this.array = new Array(m)
 		this.size = 0
-		//this.prime = this.getPrime()
+		this.max = max
+		this.min = min
 		this.prime = 7
 		this.tmp = []
 	}
@@ -27,7 +28,7 @@ class HashCerrada{
 			if(this.array[i] == null){
 				this.array[i] = item
 				this.size++
-				return {recorrido: this.tmp, actualizar: i}
+				return {recorrido: this.tmp, actualizar: i, rehashing:this.rehashing("linear")}
 			}
 		}
 		for(let i = 0; i < key; i++){
@@ -35,10 +36,10 @@ class HashCerrada{
 			if(this.array[i] == null){
 				this.array[i] = item
 				this.size++
-				return {recorrido: this.tmp, actualizar: i}
+				return {recorrido: this.tmp, actualizar: i, rehashing:this.rehashing("linear")}
 			}
 		}
-		return {recorrido: this.tmp, actualizar: null}
+		return {recorrido: this.tmp, actualizar: null, rehashing:this.rehashing("linear")}
 	}
 
 	searchLinearHash(item){
@@ -118,12 +119,12 @@ class HashCerrada{
 			if(this.array[i] == null){
 				this.array[i] = item
 				this.size++
-				return {recorrido: this.tmp, actualizar: i}
+				return {recorrido: this.tmp, actualizar: i, rehashing:this.rehashing("quadratic")}
 			}
 			h++
 			i = (i+((h + h)-1)) % this.array.length
 		}while(i != key)
-		return {recorrido: this.tmp, actualizar: null}
+		return {recorrido: this.tmp, actualizar: null, rehashing:this.rehashing("quadratic")}
 	}
 
 	searchQuadraticHash(item){
@@ -190,7 +191,12 @@ class HashCerrada{
 		}
 		let hashing1 = this.hash1(this.getKey(item))
 		let hashing2 = this.hash2(this.getKey(item))
+		let cont = 0
 		while(this.array[hashing1] != null){
+			cont++
+			if(cont > this.size*2){
+				return {recorrido: this.tmp, actualizar: null, rehashing:this.rehashing("double")}
+			}
 			this.tmp.push(hashing1)
 			hashing1 += hashing2
 			hashing1 %= this.array.length
@@ -198,7 +204,7 @@ class HashCerrada{
 		this.tmp.push(hashing1)
 		this.array[hashing1] = item
 		this.size++
-		return {recorrido: this.tmp, actualizar: hashing1}
+		return {recorrido: this.tmp, actualizar: hashing1, rehashing:this.rehashing("double")}
 	}
 
 	searchDoubleHash(item){
@@ -274,12 +280,15 @@ class HashCerrada{
 		return (this.prime - (key2 % this.prime))
 	}
 
-	rehashing(max, min, modo){
+	rehashing(modo){
+		let max = this.max
+		let min = this.min
 		if((this.size*100/this.array.length) >= max){
 			let tmp = [...this.array];
 			let mprev = tmp.length
-			let m = this.size*100/min
+			let m = Math.round(this.size*100/min)
 			this.array = new Array(m)
+			this.size = 0
 			for(let i = 0; i < mprev; i++){
 				if(tmp[i] != undefined){
 					if(modo == "linear"){

@@ -66,32 +66,32 @@ function crear(){
     edges:{
       color:"#17202A",
       arrows:'to'
-    }/*,
-    physics:{
-      wind: {
-        x: 0.5
-      }
-    }*/
-  };
+    }
+  }
   network = new vis.Network(container, data, options);
   cont = 0
 
   let inputValue = parseInt(document.getElementById("m").value);
-  tablita = new HashCerrada(inputValue)
+  let min = parseInt(document.getElementById("min").value);
+  let max = parseInt(document.getElementById("max").value);
+  if(isNaN(inputValue)){
+    alert("Porfavor ingrese el tamaño inicial de la tabla")
+    return
+  }
+  if(isNaN(min)){
+    alert("Porfavor ingrese el tamaño mínimo de la tabla")
+    return
+  }
+  if(isNaN(max)){
+    alert("Porfavor ingrese el tamaño máximo de la tabla")
+    return
+  }
+  tablita = new HashCerrada(inputValue, min, max)
   for(let i = 0; i < inputValue; i++){
-    /*if(i == 0){
-      updatedIds = nodes.add([{
-        id: cont,
-        label:i.toString()+"|",
-        fixed: true,
-        x: -600
-      }]);
-    } else {*/
       updatedIds = nodes.add([{
         id: cont,
         label:i.toString()+"|" 
       }]);
-    //}
     updatedIds = edges.add([
       {from: cont-1, to: cont}
     ])
@@ -113,9 +113,7 @@ function rehashing(){
   else {
     modo = "double"
   }
-  let Max = parseInt(document.getElementById("max").value);
-  let Min = parseInt(document.getElementById("min").value);
-  let array = tablita.rehashing(Max, Min, modo)
+  let array = tablita.rehashing(modo)
   if(array != null){
     //Reset all options
     nodes = new vis.DataSet([]);
@@ -131,13 +129,8 @@ function rehashing(){
       edges:{
         color:"#17202A",
         arrows:'to'
-      }/*,
-      physics:{
-        wind: {
-          x: 0.5
-        }
-      }*/
-    };
+      }
+    }
     network = new vis.Network(container, data, options);
     cont = 0
 
@@ -160,7 +153,6 @@ function rehashing(){
     }
     network.selectNodes([updatedIds[0]]);
     network.editNode();
-
   } else {
     alert("La tabla no está lo suficientemente llena");
   }
@@ -177,7 +169,7 @@ async function cargarJson(){
     //SETEAMOS LA ANIMACION
     document.getElementById("formControlRange").value = (objeto.animacion*10).toString();
     //SETEAMOS LA RESOLUSION
-    let resolucion = objeto.resolucion
+    let resolucion = objeto.prueba
     if(resolucion == "Lineal"){
       document.getElementById("hash").selectedIndex = 1;
     }
@@ -187,11 +179,21 @@ async function cargarJson(){
     else {
       document.getElementById("hash").selectedIndex = 3;
     }
+    let modo = objeto.funcion
+    if(modo == "Simple"){
+      document.getElementById("modo").selectedIndex = 1;
+    }
+    else if(modo == "Division"){
+      document.getElementById("modo").selectedIndex = 2;
+    }
+    else {
+      document.getElementById("modo").selectedIndex = 3;
+    }
     //SETEAMOS EL MINIMO Y MAXIMO
     document.getElementById("max").value = objeto.maximo.toString();
     document.getElementById("min").value = objeto.minimo.toString();
     //SETEAMOS EL TAMANIO
-    tablita = new HashCerrada(objeto.size)
+    tablita = new HashCerrada(objeto.m, objeto.minimo, objeto.maximo)
     //AQUI YA AGREGAMOS
     for(let i = 0; i < objeto.valores.length; i++){
       if(resolucion == "Lineal"){
@@ -218,13 +220,8 @@ async function cargarJson(){
       edges:{
         color:"#17202A",
         arrows:'to'
-      }/*,
-      physics:{
-        wind: {
-          x: 0.5
-        }
-      }*/
-    };
+      }
+    }
     network = new vis.Network(container, data, options);
     cont = 0
 
@@ -275,10 +272,9 @@ function guardarJson(){
   }
   var size = tablita.getArray().length
   var constante = 0.1625277911
-  var minimo = parseInt(document.getElementById("min").value)
-  var maximo = parseInt(document.getElementById("max").value)
+  var minimo = tablita.min
+  var maximo = tablita.max
   var speed = document.getElementById("formControlRange").value;
-  var tipo = "String/Integer"
   let array = tablita.getArray()
   let valores = []
   for(let i = 0; i < array.length; i++){
@@ -289,14 +285,12 @@ function guardarJson(){
   var objeto = {
     categoria: categoria,
     nombre: nombre,
-    metodo: metodo,
-    resolucion: resolucion,
-    size: size,
-    constante: constante,
+    m: size,
     minimo: minimo,
     maximo: maximo,
+    funcion: metodo,
+    prueba: resolucion,
     animacion: speed/10,
-    tipo: tipo,
     valores: valores
   }
   var JsonString = JSON.stringify(objeto);
@@ -368,7 +362,48 @@ async function agregar(){
   } else {
     network.selectNodes([])
     network.fit()
-    alert("La tabla ya está llena :c");
+    alert("No se ha podido ingresar el valor :c");
+  }
+  if(actualizacion.rehashing != null){
+    let array = actualizacion.rehashing
+    //Reset all options
+    nodes = new vis.DataSet([]);
+    edges = new vis.DataSet([]);
+    container = document.getElementById('mynetwork');
+    data = {nodes: nodes,edges: edges};
+    options = {
+        nodes: {
+        shape: 'triangle',
+        size: 20,
+        color:"#F63535"
+      },
+      edges:{
+        color:"#17202A",
+        arrows:'to'
+      }
+    }
+    network = new vis.Network(container, data, options);
+    cont = 0
+
+    for(let i = 0; i < array.length; i++){
+      if(array[i] != null){
+        updatedIds = nodes.add([{
+          id: cont,
+          label:i.toString()+"|"+array[i]
+        }]);
+      } else {
+        updatedIds = nodes.add([{
+          id: cont,
+          label:i.toString()+"|" 
+        }]);
+      }
+      updatedIds = edges.add([
+        {from: cont-1, to: cont}
+      ])
+      cont++
+    }
+    network.selectNodes([updatedIds[0]]);
+    network.editNode();
   }
 }
 

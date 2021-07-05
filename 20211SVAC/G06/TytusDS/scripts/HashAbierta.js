@@ -165,7 +165,7 @@ class Hash {
         let aux = parseInt(valor)
         try {
             if (parseInt(valor) < this.crear.largo) {
-                console.log("menor")
+                c //onsole.log("menor")
                 if (this.crear.tabla[valor] == 0) {
                     this.crear.tabla[valor] = new ListaDoble();
                     this.crear.tabla[valor].agregar(valor)
@@ -173,11 +173,11 @@ class Hash {
                     this.crear.tabla[valor].agregar(valor)
                 }
             } else {
-                console.log("mayor")
+                //console.log("mayor")
                 while (aux >= this.crear.largo) {
                     aux -= this.crear.largo
                 }
-                console.log("aux", aux)
+                //console.log("aux", aux)
                 if (aux < this.crear.largo) {
                     if (this.crear.tabla[aux] == 0) {
                         this.crear.tabla[aux] = new ListaDoble();
@@ -199,7 +199,8 @@ class Hash {
         var estado = ""
         if (valor < this.crear.largo) {
             if (this.crear.tabla[valor] != 0) {
-                this.crear.tabla[valor].buscar(valor)
+                estado = this.crear.tabla[valor].buscar(valor)
+                console.log(estado, "e")
             } else {
                 estado = "vacio"
                 console.log("vacio")
@@ -211,11 +212,12 @@ class Hash {
             }
             if (this.crear.tabla[aux] != 0) {
                 if (aux < this.crear.largo) {
-                    this.crear.tabla[aux].buscar(valor)
+                    estado = this.crear.tabla[aux].buscar(valor)
+                    console.log(estado, "e")
                 }
             } else {
                 estado = "vacio"
-                console.log("vacio")
+                    //console.log("vacio")
             }
         }
         return estado
@@ -255,18 +257,22 @@ class Hash {
 }
 
 
-/*function lol() {
+function lol() {
     var no = new Hash()
+    let array = [1, 4, 6, 9, 11, 100]
     no.crearHash(5)
-    no.insert(1)
-    no.insert(4)
-    no.insert(6)
-    no.insert(9)
-    no.insert(11)
-    no.insert(100)
+    for (let i = 0; i < array.length; i++) {
+        no.insert(array[i])
+    }
+    console.log(no.search(6), "l")
+        /*no.insert(4)
+        no.insert(6)
+        no.insert(9)
+        no.insert(11)
+        no.insert(100)*/
 }
 
-lol();*/
+lol();
 
 /*function lol() {
     var no = new ListaDoble();

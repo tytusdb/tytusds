@@ -1,15 +1,30 @@
 <div class="container">
   <app-opciones (opcionesEvento)="getOpciones($event)"></app-opciones>
   <h1 class="text-white">Algoritmo LZW</h1>
+
   <div class="row p-2">
-    <div class="col-md-6"><input class="form-control" type="file" id="formFile" (change)="getDocumento($event.target)" ></div>
+
   </div>
-  <div class="row p-2">
-  <div class="col-md-6"><button class="btn btn-success button1" (click)="comprimir(tcomprimir.value)">Comprimir</button></div>
-    <div class="col-md-6"><button class="btn btn-success button1" (click)="clear()">Guardar</button></div>
+  <div class="row p-1">
+    <div class="col-md-6"><textarea #tcomprimir class="form-control" [ngModel]="T_comprimir"></textarea></div>
+    <div class="col-md-6"><textarea id="Resultado" class="form-control" [ngModel]="resultado"></textarea></div>
   </div>
-  <div class="row p-4">
-    <div class="col-md-6"><textarea #tcomprimir class="form-control"></textarea></div>
-    <div class="col-md-6"><textarea id="Resultado" class="form-control"></textarea></div>
+  <div class="row p-2 pb-3">
+    <div class="col-md-6"><input class="form-control" type="file" id="formFile" (change)="getDocumento($event.target)"></div>
+    <div class="col-md-1"><button class="btn btn-success button1" (click)="comprimir(tcomprimir.value)">Comprimir</button></div>
+    <div class="col-md-1"><button class="btn btn-success button1" (click)="guardar()">Guardar</button></div>
   </div>
+  <!--TH: CELDAS TR:FILAS THEAD: HEAD THBODY:BODY-->
+  <table class="table table-dark pt-4" *ngIf="eIteraciones">
+    <thead>
+    <tr>
+      <th *ngFor="let x of cabecera" class="text-center">{{x}}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let iteracion of iteraciones">
+      <td *ngFor="let elemento of iteracion" class="text-center">{{elemento}}</td>
+    </tr>
+    </tbody>
+  </table>
 </div>

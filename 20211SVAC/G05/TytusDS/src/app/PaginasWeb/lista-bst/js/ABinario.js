@@ -4,12 +4,22 @@ let lista=require('./listaaux')
 class ABinario{
   constructor() {
     this.l_horizontal= new l();
-    //this.listaaux=new lista();
+    this.listaaux=new lista();
     this.l_edges=[];
     this.l_nodos=[];
-
+    this.datos=[];
     this.size=0;
   }
+  //RELLENAR LISTA CON LOS CABECALES AUXILIAR Y LA QUE CUENTA LAS REPETICIONES DE ESTOS
+  Re_aux(){
+    this.listaaux.Reset();
+    let current=this.l_horizontal.head;
+    while (current!=null){
+      this.listaaux.append(current.valor);
+      current=current.next;
+    }
+  }
+
   //APPEND
   append(columna,valor){
     let nodo=this.l_horizontal.buscar(columna);
@@ -78,7 +88,7 @@ class ABinario{
     }
   }
   ////APARTADO DE ARBOL-------------------------------------------------------------------
-  //ELIMINAR
+  //APARTADO DE ELIMINACION
   //4 tipos de eliminación,1 que el nodo no tenga hijos, 2 que el nodo tenga un hijo a la derecha, 3 que el nodo tenga un hijo a la izquierda, 4 que el nodo tenga dos hijos
   delete(valor){
     let nodo=this.buscar(valor);
@@ -92,7 +102,7 @@ class ABinario{
   }
   _eliminar(nodo){
     if(nodo.izquierda!=null && nodo.derecha!=null){
-      let nodoMin=this.minimo(nodo.derecha);
+      let nodoMin=this.Min(nodo.derecha);
       nodo.valor=nodoMin.valor;
       this._eliminar(nodoMin);
     }
@@ -103,8 +113,10 @@ class ABinario{
       this.E_NcH(nodo,nodo.izquierda);
       this.E_Nodo(nodo);
     }else{
+      if(nodo.padre==null){
+      this.l_horizontal.eliminar(nodo.valor);}else{
       this.E_NcH(nodo,null);
-      this.E_Nodo(nodo);
+      this.E_Nodo(nodo);}
     }
   }
   Min(nodo){
@@ -112,16 +124,16 @@ class ABinario{
       return null
     }
     if(nodo.izquierda!=null) {
-      return this.minimo(nodo.izquierda);
+      return this.Min(nodo.izquierda);
     }else{
       return nodo
     }
   }
   //eliminar nodo
   E_Nodo(nodo){
-    nodo.izquierda=null;
-    nodo.derecha=null;
-    nodo=null;
+      nodo.izquierda=null;
+      nodo.derecha=null;
+      nodo=null;
   }
 
   //Eliminar nodo con un hijo
@@ -144,12 +156,32 @@ class ABinario{
         nodo_hijo.padre=nodo.padre
         nodo_hijo.nivel=nodo.nivel;
       }
+      console.log("-----------------------------------------------------")
+     if(nodo.padre==null){
+       //SE ELIMINA EL NODO DE LA LISTA HORIZONTAL
+       this.l_horizontal.eliminar(nodo.valor);
+       //INSERTAR EL NODO HIJO EN LA LISTA
+       this.l_horizontal.appendO(nodo_hijo.valor);
+       let new_nodo= this.l_horizontal.buscar(nodo_hijo.valor);
+       //ENLAZO EL NODO INSERTADO CON LOS NODOS IZQUIERDO Y DERECHO DEL NODO HIJO  NULL-NODO-NODO_HIJO
+       new_nodo.izquierda=nodo_hijo.izquierda;
+       new_nodo.derecha=nodo_hijo.derecha
+       if(nodo_hijo.izquierda!=null){
+         nodo_hijo.izquierda.padre=new_nodo;
+       }
+       if(nodo_hijo.derecha!=null){
+         nodo_hijo.derecha.padre=new_nodo;
+       }
+     }
+    console.log("-----------------------------------------------------")
+    this.recorrer();
   }
   buscar(valor){
     let current= this.l_horizontal.head;
     let nodo=null;
-    while (current!=null|| nodo==null){
+    while (current!=null){
       nodo=this._buscar(current,valor);
+      if(nodo!=null) break;
       current=current.next
     }
     return nodo;
@@ -159,16 +191,19 @@ class ABinario{
     let l=[]
     let current= this.l_horizontal.head;
     let nodo=null;
+    let n=0;
     while (current!=null){
       nodo=this._buscar(current,valor);
       if(nodo!=null){
         l.push(current);
         break;
       }
+      n+=1;
       current=current.next
     }
     l.push(nodo);
-    //[cabecera, nodobuscado]
+    l.push(n);
+    //[cabecera, nodobuscado,n]
     return l;
   }
   //BUSCAR
@@ -186,26 +221,55 @@ class ABinario{
       return nodo;
     }
   }
+
+  //MODIFICAR
+  modificar(valor,valor_nuevo){
+    let nodo=this.buscar(valor);
+    if(nodo!=null ){
+      this._eliminar(nodo);
+      if(this.l_horizontal.head!=null){
+        this._append(valor_nuevo,this.l_horizontal.head,null,0);
+      }else{
+        this.l_horizontal.appendO(valor_nuevo);
+      }
+      return true;
+    }else{
+      alert('No existe tal valor en la lista de arboles')
+      return false;
+    }
+
+  }
   //id= cabezal#nivel#(elemento)
   Rlnodos(){
+    //SOLO SE AGREGO LO DEL CABEZAL EN ESTE RLNODOS
      this.l_nodos=[];
      this.Cniveles();
      let current= this.l_horizontal.head;
+     let n=0;
      while (current!=null){
-       this.pre_orden1(current,current.valor);
+       //PARA REVISAR SI HAY REPETICIONES;
+       //LO QUE SE MANDA DE CABEZAL ES EL VALOR DE LA CABECERA JUTNO A SU REPETICION
+       let cabezal1=`${current.valor}(${n})`;
+       n+=1;
+       this.pre_orden1(current,cabezal1);
        current=current.next;
 
      }
      return this.l_nodos;
   }
   pre_orden1(nodo,cabezal){
-    function NodoE(id,label,level=null){
+    function NodoE(id,label,level=null,color="red"){
       this.id= id;
       this.label= label.toString();
       this.level=level;
+      this.color=color
     }
     if (nodo!=null){
-      this.l_nodos.push(new NodoE(`C${cabezal}N${nodo.nivel}(${nodo.valor})`,nodo.valor,nodo.nivel))
+      if(nodo.padre==null){
+        this.l_nodos.push(new NodoE(`C${cabezal}N${nodo.nivel}(${nodo.valor})`,nodo.valor,nodo.nivel,'red'))
+      }else{
+        this.l_nodos.push(new NodoE(`C${cabezal}N${nodo.nivel}(${nodo.valor})`,nodo.valor,nodo.nivel,'purple'))
+      }
       this.pre_orden1(nodo.izquierda,cabezal);
       this.pre_orden1(nodo.derecha,cabezal);
     }
@@ -218,17 +282,25 @@ class ABinario{
     }
     this.l_edges=[];
     this.Cniveles();
+    let n=0;
     //enlazando del nodo raiz al resto de hijos
     let current= this.l_horizontal.head;
     while (current!=null){
-      this.pre_orden2(current,current.valor);
+      let cabezal1=`${current.valor}(${n})`
+      this.pre_orden2(current,cabezal1);
+      n+=1;
       current=current.next;
     }
+    n=0;
+    this.Re_aux();
     //enlazando entre nodos raices
     current=this.l_horizontal.head;
     if (current!=null){
       while (current.next!=null){
-        this.l_edges.push(new Edge(`C${current.valor}N${current.nivel}(${current.valor})`,`C${current.next.valor}N${current.next.nivel}(${current.next.valor})`))
+        let cabezal1=`${current.valor}(${n})`
+        n+=1;
+        let cabezal2=`${current.next.valor}(${n})`
+        this.l_edges.push(new Edge(`C${cabezal1}N${current.nivel}(${current.valor})`,`C${cabezal2}N${current.next.nivel}(${current.next.valor})`))
         current=current.next;
       }
     }
@@ -271,9 +343,29 @@ class ABinario{
       this._Cniveles(nodo.derecha);
     }
   }
-
-
-
+  Rdatos(){
+    this.datos=[];
+    let current= this.l_horizontal.head;
+    while (current!=null){
+      this._Rdatos(current,current);
+      current=current.next;
+    }
+    console.log(this.datos);
+    return this.datos;
+  }
+  _Rdatos(nodo,cabezal){
+    function nodo_json(principal,secundario){
+      this.principal=principal
+      this.secundario=secundario;
+    }
+    if (nodo!=null){
+      if(nodo.padre!=null){
+        this.datos.push(new nodo_json(cabezal.valor,nodo.valor))
+      }
+      this._Rdatos(nodo.izquierda,cabezal);
+      this._Rdatos(nodo.derecha,cabezal);
+    }
+  }
 }
 
 module.exports = ABinario;

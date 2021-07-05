@@ -24,8 +24,15 @@ import { AVLComponent } from './components/avl/avl.component';
 import { MetodorapidoComponent } from './components/metodorapido/metodorapido.component';
 import { MetodoSeleccionComponent } from './components/metodo-seleccion/metodo-seleccion.component';
 
+import { CompuestasComponent } from './components/compuestas/compuestas.component'
+
 
 import { DispersaComponent } from './components/dispersa/dispersa.component'
+import { MajorComponent } from './components/major/major.component'
+
+
+import { NoLinealesComponent } from './components/no-lineales/no-lineales.component'
+import { HashCerradaComponent } from './components/hash-cerrada/hash-cerrada.component'
 
 const routes: Routes = [
   {path: 'binaryTree', component: BinaryTreeComponent, pathMatch: 'full'},
@@ -45,8 +52,10 @@ const routes: Routes = [
   {path: 'AVL', component: AVLComponent, pathMatch: 'full'},
   {path: 'rapido', component: MetodorapidoComponent, pathMatch: 'full'},
   {path: 'seleccion',component:MetodoSeleccionComponent,pathMatch:'full'},
-
-
+  {path: 'compuestas',component:CompuestasComponent,pathMatch:'full'},
+  {path: 'compuestas/major',component:MajorComponent,pathMatch:'full'},
+  {path: 'NoLineales',component:NoLinealesComponent,pathMatch:'full'},
+  {path: 'nolineales/hash/cerrada',component:HashCerradaComponent,pathMatch:'full'},
   {path: '', component: HomeComponent, pathMatch: 'full'}
   
 ];

@@ -1,1 +1,75 @@
-<p>hash-cerrado works!</p>
+<app-opciones (opcionesEvento)="getOpciones($event)"></app-opciones>
+<div class="container mt-3 text-white">
+    <h1 class="fw-light">Tabla Hash Cerrada</h1>
+    <hr>
+    <div class="row my-3">
+        <div class="col-md-1">
+            <input type="text" class="form-control" placeholder="clave" [(ngModel)]="valorAgregar">
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-primary button1" (click)="agregar()">Agregar</button>
+        </div>
+        <div class="col-md-1">
+            <input type="text" class="form-control" placeholder="valor" [(ngModel)]="valorEliminar">
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-danger button1" [disabled]="primero" (click)="eliminar()">Eliminar</button>
+        </div>
+        <div class="col-md-2">
+            <input type="text" class="form-control" placeholder="valor antiguo" [(ngModel)]="valorAntiguo">
+        </div>
+        <div class="col-md-2">
+            <input type="text" class="form-control" placeholder="valor nuevo" [(ngModel)]="valorActualizar">
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-primary button1" [disabled]="primero" (click)="actualizar()">Actualizar</button>
+        </div>
+        <div class="col-md-2">
+            <input type="text" class="form-control" placeholder="buscar valor" [(ngModel)]="valorBuscar">
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-primary button1" [disabled]="primero" (click)="buscar()">Buscar</button>
+        </div>
+    </div>
+    <div class="row my-3">
+        <div class="col-md-6">
+            <input class="form-control" type="file" id="formFile" (change)="getDocumento($event.target)">
+        </div>
+        <div class="col-md-2">
+            <div class="d-grid gap-2">
+                <button class="btn btn-success button1" [disabled]="primero" (click)="guardar()">Guardar</button>
+            </div>
+        </div>
+    </div>
+    <div class="bg-light animacion mt-5" id="contenedor">
+    </div>
+    <ng-container *ngIf="!primero">
+        <div class="row mt-3">
+            <div class="col-md-4">
+                <div class="card text-dark bg-light">
+                    <div class="card-body">
+                        <h5 class="card-title">Tamaño:</h5>
+                        <p class="card-text">{{hash.size}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-dark bg-light">
+                    <div class="card-body">
+                        <h5 class="card-title">Factor de Carga:</h5>
+                        <p class="card-text">{{hash.factorCarga}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-dark bg-light">
+                    <div class="card-body">
+                        <h5 class="card-title">Elementos Cargados:</h5>
+                        <p class="card-text">{{hash.elementosCargados}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br><br>
+    </ng-container>
+</div>

@@ -10,6 +10,12 @@ let lzw=require('./js/lzw');
   styleUrls: ['./lzw.component.css']
 })
 export class LZWComponent implements OnInit {
+  resultado="";
+  T_comprimir="";
+  cabecera=["w","K","wK","Agregar al diccionario","Salida"];
+  eIteraciones=false;
+  iteraciones=[];
+
   lzw=lzw;
   opciones = {
     ingreso: 'final',
@@ -33,29 +39,35 @@ export class LZWComponent implements OnInit {
   //COMPRIMIR
   comprimir(texto){
     if(texto!=""){
-
-      let R=document.getElementById('Resultado');
       this.lzw.text=texto;
       this.lzw.Gcodigo();
       texto=this.lzw.codigo;
-      console.log(texto);
-      R!.innerHTML=texto;
-
+      this.resultado=texto
+      console.log(this.lzw.iteraciones);
+      this.eIteraciones=true;
+      this.iteraciones=this.lzw.iteraciones;
     }
   }
-  clear(){
-    (<HTMLInputElement>document.getElementById('Resultado')).innerHTML='';
+  //GUARDAR
+  guardar(): void {
+    let diccionario=[`Diccinario: ${this.lzw.diccionario}`]
+    let codigo=[`codigo: ${this.lzw.codigo} `]
+    let valores=["categoria: Algoritmo de codificacion","nombre: Algoritmo LZW","repeticion:true","animacion:10"]
+    valores=valores.concat(diccionario);
+    valores=valores.concat(codigo);
+    let blob = new Blob([valores.toString()], {type: 'txt;charset=utf-8'});
+    saveAs(blob, 'descarga.txt');
   }
   //LEER ARCHIVOS DE ENTRADA--------------------------------
   getDocumento(documento: any): void {
     try{
-      this.documentoService.getDocumento(documento).then(contenido => {
-        contenido['valores'].forEach(valor => {
-        });
+      this.documentoService.getDocumento2(documento).then(contenido => {
+       this.T_comprimir=contenido;
       });
     }catch (e){
       alert("Escoger un archivo")
     }
   }
+
 
 }

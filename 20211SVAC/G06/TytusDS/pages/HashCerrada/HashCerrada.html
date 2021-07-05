@@ -139,10 +139,9 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li>
-                <input class="form-control me-2" type="number" placeholder="Max" aria-label="Search" id="max" style="width: 100px;">
-                <input class="form-control me-2" type="number" placeholder="Min" aria-label="Search" id="min" style="width: 100px;">
+                <input class="form-control me-2" type="number" placeholder="Min" aria-label="Search" id="min">
+                <input class="form-control me-2" type="number" placeholder="Max" aria-label="Search" id="max">
               </li>
-              <li><a class="dropdown-item" id="rehashing">Rehash</a></li>
             </ul>
           </li>
           <li>
@@ -164,7 +163,7 @@
           </select>
           <select class="form-select" aria-label="Default select example" style="margin-right: 5px;" id="modo" 
           onchange="this.className=this.options[this.selectedIndex].className">
-            <option value="0" selected>Elegir Hash</option>
+            <option value="0" selected>Hash</option>
             <option value="0" class="doble">Simple</option>
             <option value="1" class="cuadratica">División</option>
             <option value="2" class="lineal">Multiplicación</option>
@@ -200,13 +199,13 @@
 
 
 
-        <!--AQUI VA EL CONTENIDO DE LAS ESTRUCTURAS-->
-        <div class="container">
-          <h1 style="font-family: 'Merriweather', serif;">Tabla Hash Cerrada</h1>
-          <!--button class="btn btn-outline-info" type="submit" id="hola">Buscar</button-->       
-        </div>
-        <div id="mynetwork" class="col-12" style="height:600px;"></div>   
-        <!-- /#TERMINA CONTENIDO DE LAS ESTRUCTURAS-->
+    <!--AQUI VA EL CONTENIDO DE LAS ESTRUCTURAS-->
+    <div class="container">
+      <h1 style="font-family: 'Merriweather', serif;">Tabla Hash Cerrada</h1>
+      <!--button class="btn btn-outline-info" type="submit" id="hola">Buscar</button-->       
+    </div>
+    <div id="mynetwork" class="col-12" style="height:600px;"></div>   
+    <!-- /#TERMINA CONTENIDO DE LAS ESTRUCTURAS-->
 
 
     <br>
