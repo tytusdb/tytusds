@@ -63,7 +63,6 @@ const routes: Routes = [
   {path: 'feistel',component:CifradofeisComponent,pathMatch:'full'},
   {path: 'codificacion',component:CodificacionComponent,pathMatch:'full'},
   {path: 'LZW',component:LZWComponent,pathMatch:'full'},
-
   {path: 'compuesta/dispersa', component: DispersaComponent, pathMatch: 'full'},
   {path: 'AVL', component: AVLComponent, pathMatch: 'full'},
   {path: 'rapido', component: MetodorapidoComponent, pathMatch: 'full'},

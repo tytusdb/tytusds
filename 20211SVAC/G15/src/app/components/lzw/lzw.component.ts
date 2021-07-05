@@ -19,9 +19,15 @@ export class LZWComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
+
+  }
+  cifrado(){
+    const area = document.getElementById('textarea') as HTMLTextAreaElement;
+    var p1 = area.value
     this.probando = new LZW();
-    this.probando.iniciarValores("Pablo papa de pablito");
-    this.probando.LeerCadena("Pablo papa de pablito")
+    this.probando.iniciarValores(p1);
+    this.probando.LeerCadena(p1)
     this.w=this.probando.W
     this.k=this.probando.K
     this.kw=this.probando.WK
@@ -37,9 +43,16 @@ export class LZWComponent implements OnInit {
     //this.diccionario=this.probando.diccionario
     this.salida=this.probando.Salida
     console.log(this.diccionario)
-
+    this.imprimir();
   }
-  cifrado(){}
+
+  imprimir(){
+    let dto=""
+     for (let index = 0; index < this.salida.length; index++) {
+       dto = dto+" "+this.salida[index]
+     }
+    document.getElementById("textareaResultado").innerHTML = dto
+  }
   getFile(event) {
     const input = event.target
     if ('files' in input && input.files.length > 0) {
@@ -81,10 +94,11 @@ generarJSON1() {
 }
 
 generarJSON() {
-  let dto =""
+  const area = document.getElementById('textareaResultado') as HTMLTextAreaElement;
+  var p1 = area.value
 
 
-  return JSON.stringify(dto)
+  return JSON.stringify(p1)
 }
 
 
