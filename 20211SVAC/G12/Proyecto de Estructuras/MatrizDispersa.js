@@ -112,25 +112,19 @@ class Matriz {
     }
 
     insert(xe, ye, distancia) {
+        xe=parseInt(xe);
+        ye=parseInt(ye);
         let x;
         let y;
         let t;
         let t2;
         x = this.getx(xe);
         y = this.gety(ye);
-        t = this.gety(ye);
-        t2 = this.getx(xe);
         if (x == null) {
             this.addColumn(xe);
         }
         if (y == null) {
             this.addRow(ye);
-        }
-        if (t == null) {
-            this.addRow(ye)
-        }
-        if (t2 == null) {
-            this.addColumn(xe)
         }
         x = this.getx(xe);
         y = this.gety(ye);
@@ -273,6 +267,7 @@ class Matriz {
         let y=this.head
         let x=this.head
         let res=""
+        document.getElementById("result").innerHTML=""
 
         while (y!=null){
             if(y!=this.head){

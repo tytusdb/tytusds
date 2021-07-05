@@ -14,9 +14,20 @@
            m.insert(3,3,6)
            m.Graficar()
        }
+       function ins(){
+            let x=document.getElementById("x").value
+            let y=document.getElementById("y").value
+            let v=document.getElementById("v").value
+           m.insert(x,y,v)
+           m.Graficar()
+        }
     </script>
 </head>
 <body onload="init()">
+<input type="text" placeholder="x" id="x">
+<input type="text" placeholder="y" id="y">
+<input type="text" placeholder="v" id="v">
+<button onclick="ins()">Insertar</button>
 <div id="result">
 
 </div>
