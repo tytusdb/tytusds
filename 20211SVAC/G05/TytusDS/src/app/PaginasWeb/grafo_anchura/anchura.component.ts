@@ -58,7 +58,7 @@ export class AnchuraComponent implements OnInit {
         var s=this.lista.identificar();
       if (s==true){this.graficar1();  this.opcion=false;}
       else{this.graficarb1();  this.opcion=true;}
-      alert("Datos guardados");  
+      this.list1();
       
       
       
@@ -485,5 +485,48 @@ actualizar(){
     this.graficar1();
       }
 }
+
+list1(){
+  let h=this.lista.mapa();
+  let gl=this.grafo;
+  var n=0;
+    let AnimLista = setInterval(function(){
+      if(n<=h.length){
+        let nodo=h[n];
+        if(nodo!=""){
+          if(nodo!=null){
+            //id:F#C#
+            let id=nodo;
+            let options={
+              scale: 5,
+             
+              locked: false,
+              animation: {
+                //duración en ms
+                duration: 1000,
+                easingFunction: "easeInOutQuad"
+              }
+            }
+      
+            gl.focus(id,options);
+          }
+        }
+          
+    
+        if(n== h.length){
+          alert("Datos guardados");  
+        
+    
+          clearInterval(AnimLista);
+        }
+        n++;
+
+      }
+    
+    },1000);
+
+}
+
+
 
 }

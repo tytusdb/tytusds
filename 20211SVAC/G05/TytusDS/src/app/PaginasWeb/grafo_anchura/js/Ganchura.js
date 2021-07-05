@@ -728,7 +728,16 @@ let ldatos=[];
     return ldatos;
   }
 
+  mapa(){
+    let array=[];
+    let aux=p.uno;
+    do{
+        array.push(aux.dato)
 
+    aux=aux.post;
+    }while(aux!=null)
+    return array;
+}
 
 
 
