@@ -1,284 +1,138 @@
-class Nodo{
-    constructor(DatoNodo) {
-        this.DatoNodo = DatoNodo;
+class ProfundidadGrafos{
+    constructor() {
+        this.DatoNodo = []
+    }
+
+    getKey(DatoActual) {
+        let hash = 0
+        if (typeof DatoActual === 'string') {
+            for (let i = 0; i < DatoActual.length; i++) {
+                hash += DatoActual.charCodeAt(i)
+            }
+        } else {
+            hash = DatoActual
+        }
+        return hash
+    }
+
+    ObtenerDato() {
+        return this.DatoNodo
+    }
+
+    ObtenerArista(DatoActual) {
+        for (let i = 0; i < this.DatoNodo.length; i++) {
+            if (this.DatoNodo[i].value == DatoActual) {
+                return this.DatoNodo[i].id
+            }
+        }
+        return null
+    }
+
+    ActualizarNodo(DatoActual, NuevoDato) {
+        var NodoActualizar
+        for (let i = 0; i < this.DatoNodo.length; i++) {
+            if (this.DatoNodo[i].value == DatoActual) {
+                NodoActualizar = this.DatoNodo[i].id
+                this.DatoNodo[i].value = NuevoDato
+                continue
+            }
+            for (let j = 0; j < this.DatoNodo[i].edges.length; j++) {
+                if (this.DatoNodo[i].edges[j] == DatoActual) {
+                    this.DatoNodo[i].edges[j] = NuevoDato
+                    this.Insertar(this.DatoNodo[i].edges)
+                    continue
+                }
+
+            }
+        }
+        return NodoActualizar
+    }
+
+    Insertar(array) {
+        for (let i = 1; i < array.length; i++) {
+            let key = array[i]
+            let j = i - 1
+            while (j >= 0 && this.getKey(array[j]) > this.getKey(key)) {
+                array[j + 1] = array[j]
+                j = j - 1
+            }
+            array[j + 1] = key
+        }
+    }
+
+    AgregarNodo(DatoActual, id) {
+        let nodo = {
+            value: DatoActual,
+            id: id,
+            edges: []
+        }
+        this.DatoNodo.push(nodo)
+    }
+
+    VerificarExisteNodo(DatoActual) {
+        for (let i = 0; i < this.DatoNodo.length; i++) {
+            if (this.DatoNodo[i].value == DatoActual) {
+                return true
+            }
+        }
+        return false
+    }
+
+    EliminarNodo(DatoActual) {
+        var NodoEliminar
+        for (let i = 0; i < this.DatoNodo.length; i++) {
+            if (this.DatoNodo[i].value == DatoActual) {
+                NodoEliminar = this.DatoNodo[i].id
+                this.DatoNodo.splice(i, 1)
+                continue
+            }
+            for (let j = 0; j < this.DatoNodo[i].edges.length; j++) {         
+                if (this.DatoNodo[i].edges[j] == DatoActual) {
+                    this.DatoNodo[i].edges.splice(j, 1)
+                    this.Insertar(this.DatoNodo[i].edges)
+                    continue
+                }
+
+            }
+        }
+        return NodoEliminar
+    }
+
+    AgregarVertice(from, to) {
+        //Obtenemos el nodo from
+        for (let i = 0; i < this.DatoNodo.length; i++) {
+            if (this.DatoNodo[i].value == from) {
+                this.DatoNodo[i].edges.push(to)
+                this.Insertar(this.DatoNodo[i].edges)
+            }
+        }
+    }
+
+    ObtenerDatoNodo(DatoActual) {
+        for (let i = 0; i < this.DatoNodo.length; i++) {
+            if (DatoActual == this.DatoNodo[i].value) {
+                return this.DatoNodo[i].edges
+            }
+        }
+        return []
+    }
+
+    //Primer Intento, falta comprobar si es correcto
+    RecorrerProfundidad(NodoInicial, NodoFinal) {
+        var ListaNodo = [NodoInicial];
+        var res = []
+        while (ListaNodo.length > 0) {
+            var current = ListaNodo.shift();
+            res.push(current)
+              console.log("current", current)
+            if (current == NodoFinal) {
+                console.log("Lo encontramos");
+                return res
+            }
+            var auxiliar = this.ObtenerDatoNodo(current);
+            auxiliar.reverse()
+            ListaNodo = auxiliar.concat(ListaNodo);
+        }
+        console.log("No se ha encontrado una ruta")
     }
 }
-
-let GuardarNodos = [];
-let GuardarVertices = [];
-let NodoVisitado;
-let NodoActual;
-let Vertices = null;
-
-class CrearVertice{
-    constructor(IdVertice, NumeroVerticetice){
-        this.IdVertice = IdVertice;
-        this.NumeroVerticetice = NumeroVerticetice;
-    }
-}
-
-class CrearGrafo{
-    constructor(GrafoDirigido, PonderacionGrafo){
-       this.GrafoDirigido = GrafoDirigido;
-       this.PonderacionGrafo = PonderacionGrafo;
-       let Vertices = [];
-       let GuardarGrafo =[];
-    }
-
-    VerticeGrafo(nombreVertice){
-        for(var i = 0; i < Vertices.length; i++){
-            if(this.Vertices[i] == nombreVertice){
-                return this.Vertices[i].NumeroVerticetice;
-            }
-
-        }
-        return -1;
-    }
-
-    VerificarExisteVertice(nombreVertice){
-        for(var i = 0; i < Vertices.length; i++){
-            if(this.Vertices[i] == nombreVertice){
-                return this.Vertices[i].NumeroVerticetice;
-
-            }
-
-        }
-        return false;
-    }
-
-    CrearNuevoVertice(){
-        if(!this.VerificarExisteVertice(nombreVertice)){
-            this.Vertices.push(new CrearVertice(nombreVertice, this.Vertices.length));
-            for(var i = 0; i < this.Vertices.length; i++){
-                if(this.GuardarGrafo[i] == undefined){
-                    this.GuardarGrafo[i] = [];
-                }
-                for(var j = 0; j < this.Vertices.length; j++){
-                    if(this.GuardarGrafo[i][j] == undefined){
-                        this.GuardarGrafo[i][j] = 0;
-                    }
-                }
-            }
-        }else{
-            Console.log("El vertice ya se encuentra en el grafo");
-        }
-    }
-
-    CrearNuevoArco(NombreArco, NombreArco1, valor){
-        var numero1 = this.VerticeGrafo(NombreArco);
-        var numero2 = this.VerticeGrafo(NombreArco1);
-        if(numero1 != -1 && numero2 != -1){
-            if(this.GuardarGrafo[numero1][numero2] == 0){
-                if(valor == undefined || valor == 0){
-                    this.GuardarGrafo[numero1][numero2] = 1;
-                }else{
-                    this.GuardarGrafo[numero1][numero2] = valor;
-                }
-            }
-        }else{
-            if(numero1 == -1 && numero2 == -1){
-                this.CrearNuevoVertice(NombreArco);
-                this.CrearNuevoVertice(NombreArco1);
-            }else if(numero1 == -1 && numero2 != -1){
-                this.CrearNuevoVertice(NombreArco);
-            }else{
-                this.CrearNuevoVertice(NombreArco1);
-            }
-            this.CrearNuevoArco(NombreArco, NombreArco1, valor);
-        }
-    }
-
-    ActualizarGrafo(NombreAnterior, NombreNuevo){
-        var NumeroVertice = this.VerticeGrafo(NombreAnterior);
-        if(NumeroVertice != -1){
-            this.Vertices[NumeroVertice].NombreAnterior = NombreNuevo;
-        }
-    }
-
-    EliminarVertice(NombreVertice){
-        var NumeroVertice = this.VerticeGrafo(NombreVertice)
-        var auxiliar = []
-        var auxiliarGuardarGrafo = []
-        if(NumeroVertice != -1){
-            for(var i = 0; i<this.Vertices.length; i++){
-                if(i != NumeroVertice){
-                    this.vertices[i].NumeroVertice = auxiliar.length
-                    auxiliar.push(this.Vertices[i])
-                }
-            }
-
-            for(var i = 0; i < this.Vertices.length; i++){
-                if( i != NumeroVertice){
-                    if(auxiliarGuardarGrafo[i] == undefined){
-                        auxiliarGuardarGrafo[i] = []
-                    }
-                    for(var j = 0; j < this.Vertices.length; j++){
-                        if(j != NumeroVertice){
-                            if(j< NumeroVertice){
-                                auxiliarGuardarGrafo[i][j] = this.GuardarGrafo[i][j]
-                            }else{
-                                auxiliarGuardarGrafo[i][j-1] = this.GuardarGrafo[i][j]
-                            }
-                        }
-                    }
-                }
-            }
-            this.Vertices = auxiliar
-            this.GuardarGrafo = auxiliarGuardarGrafo
-        }
-    }
-
-
-}
-
-
-
-
-
-
-
-
-
-
-class Nodo{
-    constructor(DatoNodo) {
-        this.DatoNodo = DatoNodo;
-    }
-}
-
-let GuardarNodos = [];
-let GuardarVertices = [];
-let NodoVisitado;
-let NodoActual;
-let Vertices = null;
-
-class CrearVertice{
-    constructor(IdVertice, NumeroVerticetice){
-        this.IdVertice = IdVertice;
-        this.NumeroVerticetice = NumeroVerticetice;
-    }
-}
-
-class CrearGrafo{
-    constructor(GrafoDirigido, PonderacionGrafo){
-       this.GrafoDirigido = GrafoDirigido;
-       this.PonderacionGrafo = PonderacionGrafo;
-       let Vertices = [];
-       let GuardarGrafo =[];
-    }
-
-    VerticeGrafo(nombreVertice){
-        for(var i = 0; i < Vertices.length; i++){
-            if(this.Vertices[i] == nombreVertice){
-                return this.Vertices[i].NumeroVerticetice;
-            }
-
-        }
-        return -1;
-    }
-
-    VerificarExisteVertice(nombreVertice){
-        for(var i = 0; i < Vertices.length; i++){
-            if(this.Vertices[i] == nombreVertice){
-                return this.Vertices[i].NumeroVerticetice;
-
-            }
-
-        }
-        return false;
-    }
-
-    CrearNuevoVertice(){
-        if(!this.VerificarExisteVertice(nombreVertice)){
-            this.Vertices.push(new CrearVertice(nombreVertice, this.Vertices.length));
-            for(var i = 0; i < this.Vertices.length; i++){
-                if(this.GuardarGrafo[i] == undefined){
-                    this.GuardarGrafo[i] = [];
-                }
-                for(var j = 0; j < this.Vertices.length; j++){
-                    if(this.GuardarGrafo[i][j] == undefined){
-                        this.GuardarGrafo[i][j] = 0;
-                    }
-                }
-            }
-        }else{
-            Console.log("El vertice ya se encuentra en el grafo");
-        }
-    }
-
-    CrearNuevoArco(NombreArco, NombreArco1, valor){
-        var numero1 = this.VerticeGrafo(NombreArco);
-        var numero2 = this.VerticeGrafo(NombreArco1);
-        if(numero1 != -1 && numero2 != -1){
-            if(this.GuardarGrafo[numero1][numero2] == 0){
-                if(valor == undefined || valor == 0){
-                    this.GuardarGrafo[numero1][numero2] = 1;
-                }else{
-                    this.GuardarGrafo[numero1][numero2] = valor;
-                }
-            }
-        }else{
-            if(numero1 == -1 && numero2 == -1){
-                this.CrearNuevoVertice(NombreArco);
-                this.CrearNuevoVertice(NombreArco1);
-            }else if(numero1 == -1 && numero2 != -1){
-                this.CrearNuevoVertice(NombreArco);
-            }else{
-                this.CrearNuevoVertice(NombreArco1);
-            }
-            this.CrearNuevoArco(NombreArco, NombreArco1, valor);
-        }
-    }
-
-    ActualizarGrafo(NombreAnterior, NombreNuevo){
-        var NumeroVertice = this.VerticeGrafo(NombreAnterior);
-        if(NumeroVertice != -1){
-            this.Vertices[NumeroVertice].NombreAnterior = NombreNuevo;
-        }
-    }
-
-    EliminarVertice(NombreVertice){
-        var NumeroVertice = this.VerticeGrafo(NombreVertice);
-        var auxiliar = [];
-        var auxiliarGuardarGrafo = [];
-        if(NumeroVertice != -1){
-            for(var i = 0; i<this.Vertices.length; i++){
-                if(i != NumeroVertice){
-                    this.vertices[i].NumeroVertice = auxiliar.length;
-                    auxiliar.push(this.Vertices[i]);
-                }
-            }
-
-            for(var i = 0; i < this.Vertices.length; i++){
-                if( i != NumeroVertice){
-                    if(auxiliarGuardarGrafo[i] == undefined){
-                        auxiliarGuardarGrafo[i] = [];
-                    }
-                    for(var j = 0; j < this.Vertices.length; j++){
-                        if(j != NumeroVertice){
-                            if(j< NumeroVertice){
-                                auxiliarGuardarGrafo[i][j] = this.GuardarGrafo[i][j];
-                            }else{
-                                auxiliarGuardarGrafo[i][j-1] = this.GuardarGrafo[i][j];
-                            }
-                        }
-                    }
-                }
-            }
-            this.Vertices = auxiliar;
-            this.GuardarGrafo = auxiliarGuardarGrafo;
-        }
-    }
-
-
-}
-
-
-
-
-
-
-
-
-
-
