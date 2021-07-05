@@ -37,7 +37,10 @@ export class ColMajorComponent implements OnInit {
     var container = this.el.nativeElement;
     this.network = new vis.Network(container, listaData, options);
   }
-
+  definirTiempo(time:any){
+    tiempo = 0;
+    tiempo = time*10;
+  } 
   generador(){
     this.contenido = "";
     this.contenido = "{ \"valores\": [\n";
@@ -72,7 +75,7 @@ export class ColMajorComponent implements OnInit {
         const resultado=ev.target?.result
         text=String(resultado)
         var data = JSON.parse(text);  // se parse para obtener solo los datos
-        tiempo = data.animacion;
+        tiempo = data.animacion *10;
         console.log("Time: "+tiempo);
         this.TamanoMatriz(data.m[0],data.m[1]);
         data.valores.forEach(element => { // se pasa a un arreglo
