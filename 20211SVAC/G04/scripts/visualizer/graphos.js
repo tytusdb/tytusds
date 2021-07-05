@@ -10,6 +10,9 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
+var graphoType = 'dir';
+var graphoWaySearch = 'width';
+var graphoSaveType = 'matrix';
 var enableAddNode = false;
 var enableAddEdge = false;
 var selectedFirstEdge = 0;
@@ -26,6 +29,20 @@ var nodesArray = [
         value: '1',
     },
 ];
+var onChangeGraphosInput = function (ev, callback) {
+    var target = ev.target;
+    var value = target.value;
+    callback(value);
+};
+var onChangeGraphosType = function (ev) {
+    return onChangeGraphosInput(ev, function (value) { return (graphoType = value); });
+};
+var onChangeGraphosSearch = function (ev) {
+    return onChangeGraphosInput(ev, function (value) { return (graphoWaySearch = value); });
+};
+var onChangeGraphosSave = function (ev) {
+    return onChangeGraphosInput(ev, function (value) { return (graphoSaveType = value); });
+};
 var onChangeEdgeLength = function (ev) {
     var target = ev.target;
     var value = +target.value;
@@ -45,7 +62,12 @@ drawInCanvas = function () {
                     : currentEdge.origin.color;
                 canvasCtx.lineWidth = 5;
                 canvasCtx.moveTo(currentEdge.origin.x, currentEdge.origin.y);
-                canvasCtx.arrowTo(currentEdge.origin.x, currentEdge.origin.y, currentEdge.dest.x, currentEdge.dest.y, 30);
+                if (graphoType === 'dir')
+                    canvasCtx.arrowTo(currentEdge.origin.x, currentEdge.origin.y, currentEdge.dest.x, currentEdge.dest.y, 30);
+                else {
+                    canvasCtx.moveTo(currentEdge.origin.x, currentEdge.origin.y);
+                    canvasCtx.lineTo(currentEdge.dest.x, currentEdge.dest.y);
+                }
                 canvasCtx.stroke();
                 canvasCtx.closePath();
                 canvasCtx.beginPath();

@@ -63,6 +63,7 @@ fileUploadCallback = () => {
 				hashMin,
 				hashMax,
 				hashCoalitions.indexOf(hashCoalition),
+				hashFunctions.indexOf(hashFunction),
 		  )
 
 	globalJSONInput?.valores.forEach((valor: string | number) => {
@@ -84,32 +85,33 @@ const saveOpenHashTable = () => {
 					// @ts-ignore
 					(node) => `[${node.valores.map((node) => node.valor).join(',')}]`,
 			  )
-			: hashInstance.tabla.map((node) => node.valor)
+			: // @ts-ignore
+			  hashInstance.tabla.map((node) => node.valor)
 		saveJSONFile(parsedValues)
 	}
 }
 
 // INPUT DE FUNCIÓN
-const onChangeInput = (ev: Event, callback: (value: any) => void) => {
+const onChangeHashTableInput = (ev: Event, callback: (value: any) => void) => {
 	const target = ev.target as HTMLInputElement
 	const value: any = target.value as any
 	callback(value)
 }
 
 const onChangeHashFunc = (ev: Event) =>
-	onChangeInput(ev, (value) => (hashFunction = value))
+	onChangeHashTableInput(ev, (value) => (hashFunction = value))
 
 const onChangeHashCoalition = (ev: Event) =>
-	onChangeInput(ev, (value) => (hashCoalition = value))
+	onChangeHashTableInput(ev, (value) => (hashCoalition = value))
 
 const onChangeHashSize = (ev: Event) =>
-	onChangeInput(ev, (value) => (hashTableSize = +value))
+	onChangeHashTableInput(ev, (value) => (hashTableSize = +value))
 
 const onChangeHashMin = (ev: Event) =>
-	onChangeInput(ev, (value) => (hashMin = +value))
+	onChangeHashTableInput(ev, (value) => (hashMin = +value))
 
 const onChangeHashMax = (ev: Event) =>
-	onChangeInput(ev, (value) => (hashMax = +value))
+	onChangeHashTableInput(ev, (value) => (hashMax = +value))
 
 // DIBUJAR
 drawInCanvas = () => {

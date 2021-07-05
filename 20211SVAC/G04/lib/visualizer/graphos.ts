@@ -1,3 +1,12 @@
+// CONFIGURACIÓN
+type GraphoType = 'dir' | 'noDir'
+type GraphoWaySearch = 'deep' | 'width'
+type GraphoSaveType = 'matrix' | 'list'
+
+let graphoType: GraphoType = 'dir'
+let graphoWaySearch: GraphoWaySearch = 'width'
+let graphoSaveType: GraphoSaveType = 'matrix'
+
 // GLOBALES
 let enableAddNode: boolean = false
 let enableAddEdge: boolean = false
@@ -19,6 +28,21 @@ let nodesArray: NodePosition[] = [
 		value: '1',
 	},
 ]
+// INPUT DE FUNCIÓN
+const onChangeGraphosInput = (ev: Event, callback: (value: any) => void) => {
+	const target = ev.target as HTMLInputElement
+	const value: any = target.value as any
+	callback(value)
+}
+
+const onChangeGraphosType = (ev: Event) =>
+	onChangeGraphosInput(ev, (value) => (graphoType = value))
+
+const onChangeGraphosSearch = (ev: Event) =>
+	onChangeGraphosInput(ev, (value) => (graphoWaySearch = value))
+
+const onChangeGraphosSave = (ev: Event) =>
+	onChangeGraphosInput(ev, (value) => (graphoSaveType = value))
 
 // OBTENER INPUT DE DISTANCIA
 const onChangeEdgeLength = (ev: Event) => {
@@ -53,13 +77,19 @@ drawInCanvas = () => {
 
 				// DIBUJAR LINEA
 				canvasCtx.moveTo(currentEdge.origin.x, currentEdge.origin.y)
-				canvasCtx.arrowTo(
-					currentEdge.origin.x,
-					currentEdge.origin.y,
-					currentEdge.dest.x,
-					currentEdge.dest.y,
-					30,
-				)
+
+				if (graphoType === 'dir')
+					canvasCtx.arrowTo(
+						currentEdge.origin.x,
+						currentEdge.origin.y,
+						currentEdge.dest.x,
+						currentEdge.dest.y,
+						30,
+					)
+				else {
+					canvasCtx.moveTo(currentEdge.origin.x, currentEdge.origin.y)
+					canvasCtx.lineTo(currentEdge.dest.x, currentEdge.dest.y)
+				}
 
 				// PINTAR
 				canvasCtx.stroke()

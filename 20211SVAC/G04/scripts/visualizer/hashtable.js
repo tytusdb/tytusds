@@ -31,7 +31,7 @@ var setHashTable = function (props) {
 fileUploadCallback = function () {
     hashInstance = isOpenHash
         ? new TablaHashAbierta(hashTableSize, hashFunctions.indexOf(hashFunction))
-        : new TablaHashCerrada(hashTableSize, hashMin, hashMax, hashCoalitions.indexOf(hashCoalition));
+        : new TablaHashCerrada(hashTableSize, hashMin, hashMax, hashCoalitions.indexOf(hashCoalition), hashFunctions.indexOf(hashFunction));
     globalJSONInput === null || globalJSONInput === void 0 ? void 0 : globalJSONInput.valores.forEach(function (valor) {
         if (hashInstance) {
             newNodeValue = valor.toString();
@@ -45,29 +45,30 @@ var saveOpenHashTable = function () {
     if (hashInstance) {
         var parsedValues = isOpenHash
             ? hashInstance.tabla.map(function (node) { return "[" + node.valores.map(function (node) { return node.valor; }).join(',') + "]"; })
-            : hashInstance.tabla.map(function (node) { return node.valor; });
+            :
+                hashInstance.tabla.map(function (node) { return node.valor; });
         saveJSONFile(parsedValues);
     }
 };
-var onChangeInput = function (ev, callback) {
+var onChangeHashTableInput = function (ev, callback) {
     var target = ev.target;
     var value = target.value;
     callback(value);
 };
 var onChangeHashFunc = function (ev) {
-    return onChangeInput(ev, function (value) { return (hashFunction = value); });
+    return onChangeHashTableInput(ev, function (value) { return (hashFunction = value); });
 };
 var onChangeHashCoalition = function (ev) {
-    return onChangeInput(ev, function (value) { return (hashCoalition = value); });
+    return onChangeHashTableInput(ev, function (value) { return (hashCoalition = value); });
 };
 var onChangeHashSize = function (ev) {
-    return onChangeInput(ev, function (value) { return (hashTableSize = +value); });
+    return onChangeHashTableInput(ev, function (value) { return (hashTableSize = +value); });
 };
 var onChangeHashMin = function (ev) {
-    return onChangeInput(ev, function (value) { return (hashMin = +value); });
+    return onChangeHashTableInput(ev, function (value) { return (hashMin = +value); });
 };
 var onChangeHashMax = function (ev) {
-    return onChangeInput(ev, function (value) { return (hashMax = +value); });
+    return onChangeHashTableInput(ev, function (value) { return (hashMax = +value); });
 };
 drawInCanvas = function () {
     var _a, _b;
