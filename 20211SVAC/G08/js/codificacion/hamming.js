@@ -139,7 +139,6 @@ async function codificar(){
     var respu = hamon.cifrar(entrada);
     resulFile = respu;
 
-    /*
     efectoMatrix();
     await new Promise((resolve) =>
         setTimeout(() =>{
@@ -154,13 +153,10 @@ async function codificar(){
             resolve();
         }, (100)) //delay
     ); 
-    */
     buildTabla();
     salida.textContent = respu;
 
 }
-// NUEVOOOOOOOO
-/*
 function buildTabla(){
     var cuadroTabla = document.getElementById("spcTabla");
     var conTabla = hamon.aniMatriz();
@@ -191,7 +187,6 @@ function efectoMatrix(){
     var cuadroTabla = document.getElementById("cuadroTabla");
     cuadroTabla.innerHTML = img;
 }
-*/
 
 // ***** LIMPIAR PANTALLA *****
 function limpiar(){
