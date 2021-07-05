@@ -145,7 +145,7 @@ var TablaHashCerrada = (function () {
     };
     TablaHashCerrada.prototype.insertar = function (valor) {
         var clave = this.funcion.funcionHash(valor, this.tamaño);
-        if (this.tabla[clave].clave == -1) {
+        if (!this.tabla[clave] || this.tabla[clave].clave == -1) {
             this.tabla[clave] = new Tupla(this.funcion.stringToAscii(valor), valor);
         }
         else {

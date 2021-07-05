@@ -203,7 +203,7 @@ class TablaHashCerrada{
         //Obtiene la posicion del arreglo
         let clave = this.funcion.funcionHash(valor, this.tamaño)
         //Insertar el valor en el arreglo
-        if(this.tabla[clave].clave == -1){
+        if(!this.tabla[clave] || this.tabla[clave].clave == -1){
             //Si la posición no tiene ningun valor solo se agrega
             this.tabla[clave] = new Tupla(this.funcion.stringToAscii(valor),valor)
         }else{
