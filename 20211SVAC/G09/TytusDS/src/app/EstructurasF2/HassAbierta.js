@@ -215,7 +215,7 @@ class Hash{
             }
         });
     }
-    buscar(data){
+    buscar(data,dato){
         if(checkBoxAbiertaMultiplicacion==true){
             this.contador = 0;
             console.log(data);
@@ -237,6 +237,50 @@ class Hash{
                 }
             });
         }
+        if(checkBoxAbiertaSimple == true){
+            let posicion;
+            if(checkBoxAbiertaInt==true){
+                posicion = this.funcionHash(data);
+            }
+            if(checkBoxAbiertaString ==true){
+                posicion = this.funcionHash(this.toASCII(data));
+            }
+            
+            //console.log(data);
+            console.log(posicion);
+            console.log(this.vector[posicion].lista);
+            let contador = 0;
+            this.vector[posicion].lista.forEach(llave =>{
+                if(dato == llave.valor){
+                    console.log("Elemento Encontrado Con Funcion Hash, Posicion: "+posicion);
+                    console.log("Posicion en La lista: "+contador);
+                }
+                contador++;
+               // console.log(llave.valor);
+            });
+
+        }
+        if(checkBoxabiertaDivision==true){
+            let posicion;
+            if(checkBoxAbiertaInt ==true){
+                posicion = this.funcionHash(data);
+            }
+            if(checkBoxAbiertaString ==true){
+                posicion = this.funcionHash(this.toASCII(data));
+            }
+        //console.log(data);
+        //console.log(posicion);
+        //console.log(this.vector[posicion].lista);
+            let contador = 0;
+            this.vector[posicion].lista.forEach(llave =>{
+            if(dato == llave.valor){
+                console.log("Elemento Encontrado Con Funcion Hash, Posicion: "+posicion);
+                console.log("Posicion en La lista: "+contador);
+            }
+            contador++;
+           // console.log(llave.valor);
+        });
+        }   
     }
     eliminar(data){
         this.vector.forEach(nodo => {
@@ -293,7 +337,8 @@ function insertarAbierta(data){
     
 }
 function buscarAbierta(data){
-    tabla1.buscar(data)
+    console.log("buscando");
+    tabla1.buscar(data,data)
 }
 function eliminarAbierta(data){
     tabla1.eliminar(data)
@@ -303,7 +348,7 @@ function actualizaAbierta(data1,data2){
     tabla1.eliminar(data1);
     console.log("el dato nuevo es:" +data2)
     insertarAbierta(data2);
-    tabla1.print();
+    //tabla1.print();
 }
 
 
@@ -321,53 +366,41 @@ function guardarAbierta(event) {
       for (var key in doc) {
         //console.log('name=' + key + ' value=' + doc[key]);
         if(key=='categoria'){
-            categoriaCerrada = doc[key]
-            console.log(categoria)
+            categoriaAbierta = doc[key]
+            console.log(categoriaAbierta)
         }
         if(key=='m'){
-            tamanoCerrada = doc[key];
-            console.log(tamanoCerrada);
+            tamanoAbierta = doc[key];
+            console.log(tamanoAbierta);
         }
         if(key=='nombre'){
-            nombreCerrada = doc[key]
-            console.log(nombre)
+            nombreAbierta = doc[key]
+            console.log(nombreAbierta)
         }
         if(key=='minimo'){
-            minimoCerrada = doc[key]
-            console.log(minimoCerrada)
+            minimoAbierta = doc[key]
+            console.log(this.minimo)
         }
         if(key=='maximo'){
-            maxicoCerrada = doc[key]
-            console.log(maxicoCerrada)
+            maxicoAbierta = doc[key]
+            console.log(this.maximo)
         }
         if(key=='funcion'){
-            funcionCerrada = doc[key]
-            if(funcionCerrada == 'Multiplicacion'){
-                checkBoxMultiplicacion = true;
+            funcionAbierta = doc[key]
+            if(funcionAbierta == 'Multiplicacion'){
+                checkBoxAbiertaMultiplicacion = true;
             }
-            if(funcionCerrada == 'Division'){
-                checkBoxCerradaDivision = true;
+            if(funcionAbierta == 'Division'){
+                checkBoxabiertaDivision = true;
             }
-            if(funcionCerrada== 'Simple')
-                checkBoxHashCerradaSimple = true;
-            console.log(funcionCerrada)
-        }
-        if(key=='prueba'){
-            pruebaCerrada = doc[key]
-            if(pruebaCerrada=='Doble'){
-                checkBoxCerradaDobleHash=true;
-            }
-            if(pruebaCerrada=='Lineal'){
-                checkBoxHashCerradaLineal=true;
-            }
-            if(pruebaCerrada=='Cuadratica'){
-                checkBoxCerradaCuadratica=true;
-            }
-            p.hash(tamanoCerrada,minimoCerrada,maxicoCerrada)
+            if(funcionAbierta= 'Simple')
+                checkBoxAbiertaSimple = true;
+            console.log(funcionAbierta)
         }
         if(key=='animacion'){
-            animacionCerrada = doc[key]
+            animacionAbierta = doc[key]
             console.log(animacionCerrada)
+            tabla1 = new Hash(tamanoAbierta,minimoAbierta,maxicoAbierta);
         }
         if(key=='valores'){
             //console.log(doc[key].length)
@@ -381,6 +414,6 @@ function guardarAbierta(event) {
      
 
     };
-    
+    console.log(tabla1.print());
     reader.readAsText(file);
 }//guardar archivo

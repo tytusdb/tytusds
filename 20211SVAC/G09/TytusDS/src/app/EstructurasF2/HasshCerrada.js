@@ -394,8 +394,9 @@ function guardarCerrada(event) {
             p.hash(tamanoCerrada,minimoCerrada,maxicoCerrada)
         }
         if(key=='animacion'){
-            animacionCerrada = doc[key]
-            console.log(animacionCerrada)
+            animacionCerrada = doc[key];
+            console.log(animacionCerrada);
+        
         }
         if(key=='valores'){
             //console.log(doc[key].length)
