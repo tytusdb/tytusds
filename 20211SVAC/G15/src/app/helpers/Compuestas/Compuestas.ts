@@ -35,11 +35,11 @@ export class Compuestas {
         }
 
         let existe = await this.estructura.searchWithOutAnimation(this.convertir(index))
-        if(existe === null){
-            existe = await this.estructura.addNode(this.convertir(index),null,0,false)
+        if (existe === null) {
+            existe = await this.estructura.addNode(this.convertir(index), null, 0, false)
             existe.setEstructura(new listaSimple())
         }
-        await existe.getEstructura().InsertarFinal(value,null,null,0,false)
+        await existe.getEstructura().InsertarFinal(value, null, null, 0, false)
         return existe
 
     }
@@ -53,5 +53,50 @@ export class Compuestas {
     public graficar() {
         if (this.padre === Estructura.SIMPLE_ENLAZADA) return this.estructura.getViz(0)
         return this.estructura.getVizPadre(0)
+    }
+
+    public async buscar(index, value) {
+        if (this.padre === Estructura.SIMPLE_ENLAZADA) {
+            let result = this.estructura.search(this.convertir(index))
+            if (result === null) return null
+            result = result.getEstructura().searchWithOutAnimation(this.convertir(value))
+            return result
+        }
+
+        let result = this.estructura.searchWithOutAnimation(this.convertir(index))
+        if (result === null) return null
+        result = result.getEstructura().search(this.convertir(value))
+        return result
+    }
+
+
+    public async editar(index, viejo, nuevo) {
+        if (this.padre === Estructura.SIMPLE_ENLAZADA) {
+            let result = this.estructura.search(this.convertir(index))
+            if (result === null) return null
+            result = result.getEstructura().update(this.convertir(viejo), this.convertir(nuevo), 0, false)
+            return result
+        }
+
+        let result = this.estructura.searchWithOutAnimation(this.convertir(index))
+        if (result === null) return null
+        result = result.getEstructura().search(this.convertir(viejo))
+        if (result === null) return null
+        result.setDato(this.convertir(nuevo))
+        return result
+    }
+
+    public async eliminar(index, value) {
+        if (this.padre === Estructura.SIMPLE_ENLAZADA) {
+            let result = this.estructura.search(this.convertir(index))
+            if (result === null) return null
+            result = await result.getEstructura().delete(this.convertir(value), 0, false)
+            return result
+        }
+
+        let result = this.estructura.searchWithOutAnimation(this.convertir(index))
+        if (result === null) return null
+        result = await result.getEstructura().Delete(this.convertir(value), 0, null, false)
+        return (result === -1) ? null : true
     }
 }

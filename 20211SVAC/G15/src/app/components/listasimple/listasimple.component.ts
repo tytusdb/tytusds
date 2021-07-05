@@ -40,7 +40,7 @@ export class ListasimpleComponent implements OnInit {
   }
 
   async eliminar() {
-    let result = await this.lista.Delete(this.datoEliminar, `${this.velocidad}s`, this.svg1)
+    let result = await this.lista.Delete(this.datoEliminar, `${this.velocidad}s`, this.svg1,true)
     if (result === -1) {
       Swal.fire({
         target: document.getElementById('form-modal'),

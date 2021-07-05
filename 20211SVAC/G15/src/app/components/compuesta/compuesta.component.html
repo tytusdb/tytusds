@@ -11,6 +11,14 @@
                         <option value="1">Arbol</option>
                     </select>
                 </div>
+
+                <div class="input-group">
+                    <label for="dropPrueba" class="mr-3 text-white">Estructura Hija</label>
+                    <select class="form-control" id="dropPrueba">
+                        <option value="0">Lista </option>
+                        <option value="1">Arbol</option>
+                    </select>
+                </div>
             </div>
 
 
@@ -29,20 +37,38 @@
 
             <div class="col-lg-3 col-sm-12 col-12 mt-1">
                 <div class="input-group">
-                    <input type="text" class="form-control" value="" id="numero" name="numero"
-                        placeholder="Ingresa un Numero">
+                    <input type="text" class="form-control" value="" id="indexBuscar" name="indexBuscar" [(ngModel)]="indexBuscar"
+                        placeholder="Index">
+                    <input type="text" class="form-control" value="" id="valueBuscar" name="valueBuscar" [(ngModel)]="valueBuscar"
+                        placeholder="valor">
                     <div class="input-group-append">
-                        <button class="btn btn-secondary " type="button">Buscar</button>
+                        <button class="btn btn-secondary " type="button" (click)="search()">Buscar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <input type="text" class="form-control" value="" id="indexEditar" name="indexEditar" [(ngModel)]="indexEditar"
+                        placeholder="Index">
+                    <input type="text" class="form-control" value="" id="valueViejo" name="valueViejo" [(ngModel)]="valueViejo"
+                        placeholder="Antiguo">
+                        <input type="text" class="form-control" value="" id="valueNuevo" name="valueNuevo" [(ngModel)]="valueNuevo"
+                        placeholder="Nuevo">
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary " type="button" (click)="edit()">Editar</button>
                     </div>
                 </div>
             </div>
 
             <div class="col-lg-3 col-sm-12 col-12 mt-1">
                 <div class="input-group">
-                    <input type="text" class="form-control" id="numero" name="numero" placeholder="Antiguo">
-                    <input type="text" class="form-control" id="numero" name="numero" placeholder="Nuevo">
+                    <input type="text" class="form-control" value="" id="indexEliminar" name="indexEliminar" [(ngModel)]="indexEliminar"
+                        placeholder="Index">
+                    <input type="text" class="form-control" value="" id="valueEliminar" name="valueEliminar" [(ngModel)]="valueEliminar"
+                        placeholder="valor">
                     <div class="input-group-append">
-                        <button class="btn btn-warning" type="button">Actualizar</button>
+                        <button class="btn btn-danger " type="button" (click)="delete()">Eliminar</button>
                     </div>
                 </div>
             </div>

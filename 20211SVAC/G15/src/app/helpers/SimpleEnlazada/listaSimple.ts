@@ -237,15 +237,17 @@ export class listaSimple {
         }
     }
 
-    async Delete(dato, duracion, svg) {
-        this.draw.removerElemento("arrowultimo-primero")
+    async Delete(dato, duracion, svg, animacion) {
+        if (animacion) this.draw.removerElemento("arrowultimo-primero")
         let aux = this.primero
         if (aux === null) return -1
         //para numero
         if (!isNaN(dato)) {
             if (Number(aux.getDato()) === Number(dato)) {
-                await this.draw.animateNode("nodo" + aux.getId(), 'zoomOut', duracion)
-                this.draw.removerElemento("nodo" + aux.getId())
+                if (animacion) {
+                    await this.draw.animateNode("nodo" + aux.getId(), 'zoomOut', duracion)
+                    this.draw.removerElemento("nodo" + aux.getId())
+                }
 
                 if (aux.getSiguiente() === null) {
                     this.primero = null
@@ -256,27 +258,36 @@ export class listaSimple {
                 this.ultimo.setSiguiente(aux.getSiguiente())
                 let id1 = this.primero.getId();
                 let id2 = this.primero.getSiguiente().getId()
-                this.draw.removerElemento("arrow" + id1 + "-" + id2)
+                if (animacion) this.draw.removerElemento("arrow" + id1 + "-" + id2)
                 //this.draw.removerElemento("arrow" + id2 + "-" + id1)
                 this.primero = aux.getSiguiente()
-                this.draw.removerElemento("arrowultimo-primero")
-                this.corregirPaths(svg, this.primero)
+                if (animacion) {
+                    this.draw.removerElemento("arrowultimo-primero")
+                    this.corregirPaths(svg, this.primero)
+                }
+
 
                 return 1;
             }
 
             else if (Number(this.ultimo.getDato()) === Number(dato)) {
                 let id1 = this.ultimo.getId();
-                await this.draw.animateNode("nodo" + id1, 'zoomOut', duracion)
-                this.draw.removerElemento("nodo" + id1)
+                if (animacion) {
+                    await this.draw.animateNode("nodo" + id1, 'zoomOut', duracion)
+                    this.draw.removerElemento("nodo" + id1)
+                }
+
                 if (this.primero.getSiguiente() === this.ultimo) {
                     this.primero.setSiguiente(null)
                     this.ultimo = this.primero
                     let id2 = this.primero.getId()
-                    this.draw.removerElemento("arrow" + id1 + "-" + id2)
-                    this.draw.removerElemento("arrow" + id2 + "-" + id1)
-                    this.draw.removerElemento("arrowultimo-primero")
-                    this.corregirPaths(svg, this.primero)
+                    if (animacion) {
+                        this.draw.removerElemento("arrow" + id1 + "-" + id2)
+                        this.draw.removerElemento("arrow" + id2 + "-" + id1)
+                        this.draw.removerElemento("arrowultimo-primero")
+                        this.corregirPaths(svg, this.primero)
+                    }
+
                     return 1
                 }
                 let temp = this.primero
@@ -289,11 +300,14 @@ export class listaSimple {
                 let id2 = temp.getId()
                 this.ultimo = temp
 
+                if (animacion) {
+                    this.draw.removerElemento("arrow" + id1 + "-" + id2)
+                    this.draw.removerElemento("arrow" + id2 + "-" + id1)
+                    this.draw.removerElemento("arrowultimo-primero")
+                    this.corregirPaths(svg, this.ultimo)
+                }
 
-                this.draw.removerElemento("arrow" + id1 + "-" + id2)
-                this.draw.removerElemento("arrow" + id2 + "-" + id1)
-                this.draw.removerElemento("arrowultimo-primero")
-                this.corregirPaths(svg, this.ultimo)
+
 
 
 
@@ -313,13 +327,19 @@ export class listaSimple {
                     let id1 = aux.getId();
                     let id2 = temp.getId();
                     let id3 = siguiente.getId()
-                    await this.draw.animateNode("nodo" + id1, 'zoomOut', duracion)
-                    this.draw.removerElemento("nodo" + id1)
+                    if (animacion) {
+                        await this.draw.animateNode("nodo" + id1, 'zoomOut', duracion)
+                        this.draw.removerElemento("nodo" + id1)
+                    }
+
                     temp.setSiguiente(temp.getSiguiente())
-                    this.draw.removerElemento("arrow" + id1 + "-" + id3)
-                    this.draw.removerElemento("arrow" + id2 + "-" + id1)
-                    console.log(temp)
-                    this.corregirPaths(svg, temp)
+                    if (animacion) {
+                        this.draw.removerElemento("arrow" + id1 + "-" + id3)
+                        this.draw.removerElemento("arrow" + id2 + "-" + id1)
+                        console.log(temp)
+                        this.corregirPaths(svg, temp)
+                    }
+
                     return 1
                 }
 
@@ -335,8 +355,11 @@ export class listaSimple {
         }
         else {
             if (aux.getDato() === dato) {
-                await this.draw.animateNode("nodo" + aux.getId(), 'zoomOut', duracion)
-                this.draw.removerElemento("nodo" + aux.getId())
+                if (animacion) {
+                    await this.draw.animateNode("nodo" + aux.getId(), 'zoomOut', duracion)
+                    this.draw.removerElemento("nodo" + aux.getId())
+                }
+
 
                 if (aux.getSiguiente() === null) {
                     this.primero = null
@@ -347,27 +370,37 @@ export class listaSimple {
                 this.ultimo.setSiguiente(aux.getSiguiente())
                 let id1 = this.primero.getId();
                 let id2 = this.primero.getSiguiente().getId()
-                this.draw.removerElemento("arrow" + id1 + "-" + id2)
+
+                if (animacion) this.draw.removerElemento("arrow" + id1 + "-" + id2)
                 //this.draw.removerElemento("arrow" + id2 + "-" + id1)
                 this.primero = aux.getSiguiente()
-                this.draw.removerElemento("arrowultimo-primero")
-                this.corregirPaths(svg, this.primero)
+                if (animacion) {
+                    this.draw.removerElemento("arrowultimo-primero")
+                    this.corregirPaths(svg, this.primero)
+                }
+
 
                 return 1;
             }
 
             else if (this.ultimo.getDato() === dato) {
                 let id1 = this.ultimo.getId();
-                await this.draw.animateNode("nodo" + id1, 'zoomOut', duracion)
-                this.draw.removerElemento("nodo" + id1)
+                if (animacion) {
+                    await this.draw.animateNode("nodo" + id1, 'zoomOut', duracion)
+                    this.draw.removerElemento("nodo" + id1)
+                }
+
                 if (this.primero.getSiguiente() === this.ultimo) {
                     this.primero.setSiguiente(null)
                     this.ultimo = this.primero
                     let id2 = this.primero.getId()
-                    this.draw.removerElemento("arrow" + id1 + "-" + id2)
-                    this.draw.removerElemento("arrow" + id2 + "-" + id1)
-                    this.draw.removerElemento("arrowultimo-primero")
-                    this.corregirPaths(svg, this.primero)
+                    if (animacion) {
+                        this.draw.removerElemento("arrow" + id1 + "-" + id2)
+                        this.draw.removerElemento("arrow" + id2 + "-" + id1)
+                        this.draw.removerElemento("arrowultimo-primero")
+                        this.corregirPaths(svg, this.primero)
+                    }
+
                     return 1
                 }
                 let temp = this.primero
@@ -379,11 +412,13 @@ export class listaSimple {
                 let id2 = temp.getId()
                 this.ultimo = temp
 
+                if (animacion) {
+                    this.draw.removerElemento("arrow" + id1 + "-" + id2)
+                    this.draw.removerElemento("arrow" + id2 + "-" + id1)
+                    this.draw.removerElemento("arrowultimo-primero")
+                    this.corregirPaths(svg, this.ultimo)
+                }
 
-                this.draw.removerElemento("arrow" + id1 + "-" + id2)
-                this.draw.removerElemento("arrow" + id2 + "-" + id1)
-                this.draw.removerElemento("arrowultimo-primero")
-                this.corregirPaths(svg, this.ultimo)
 
 
 
@@ -404,13 +439,19 @@ export class listaSimple {
                         let id1 = aux.getId();
                         let id2 = temp.getId();
                         let id3 = siguiente.getId()
-                        await this.draw.animateNode("nodo" + id1, 'zoomOut', duracion)
-                        this.draw.removerElemento("nodo" + id1)
-                        temp.setSiguiente(temp.getSiguiente())
-                        this.draw.removerElemento("arrow" + id1 + "-" + id3)
-                        this.draw.removerElemento("arrow" + id2 + "-" + id1)
+                        if (animacion) {
+                            await this.draw.animateNode("nodo" + id1, 'zoomOut', duracion)
+                            this.draw.removerElemento("nodo" + id1)
+                        }
 
-                        this.corregirPaths(svg, temp)
+                        temp.setSiguiente(temp.getSiguiente())
+                        if (animacion) {
+                            this.draw.removerElemento("arrow" + id1 + "-" + id3)
+                            this.draw.removerElemento("arrow" + id2 + "-" + id1)
+
+                            this.corregirPaths(svg, temp)
+                        }
+
                     } catch (error) {
 
                     }
@@ -433,7 +474,7 @@ export class listaSimple {
         let temp = this.primero
         if (temp === null) return null
         do {
-            if (temp.getDato() === dato) return temp;
+            if (this.convertir(temp.getDato()) === this.convertir(dato)) return temp;
             temp = temp.getSiguiente()
             if (temp === null) break;
         } while (temp != this.primero)
@@ -591,7 +632,9 @@ export class listaSimple {
             nodes: [],
             edges: []
         }
+        
         let temp = this.primero
+        if(temp === null) return data
         let id = padre + "simple" + this.primero.getId()
         data.edges.push({
             from: padre,
@@ -618,6 +661,11 @@ export class listaSimple {
         }
 
         return data
+    }
+
+    private convertir(value) {
+        if (isNaN(value)) return value
+        return +value
     }
 
 }

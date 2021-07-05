@@ -21,13 +21,13 @@ export class BinaryTree {
     }
 
 
-    public async update(numero: number | string, nuevo: number | string, duracion) {
-        let result = await this.delete(numero, duracion)
+    public async update(numero: number | string, nuevo: number | string, duracion,animacion) {
+        let result = await this.delete(numero, duracion,animacion)
         if (result !== undefined) {
-            result = await this.addNode(nuevo, document.getElementById('tree'), duracion, true)
+            result = await this.addNode(nuevo, document.getElementById('tree'), duracion, animacion)
             return 1
         }
-        return 0
+        return null
     }
 
     public addNode(numero: number | string, contenedor, duracion, dibujar) {
@@ -72,36 +72,36 @@ export class BinaryTree {
     }
 
 
-    public async delete(numero: number | string, duracion) {
-        let result = await this.removeNode(this.raiz, numero, null, duracion)
-        await this.drawTree.ajustarNodos(this.raiz)
+    public async delete(numero: number | string, duracion,animacion) {
+        let result = await this.removeNode(this.raiz, numero, null, duracion,animacion)
+        if(animacion) await this.drawTree.ajustarNodos(this.raiz)
         return result
     }
 
-    private async removeNode(node: NodeBinary, numero: number | string, padre: NodeBinary, duracion): Promise<NodeBinary> {
+    private async removeNode(node: NodeBinary, numero: number | string, padre: NodeBinary, duracion, animacion): Promise<NodeBinary> {
         if (node === null) return undefined
 
         if (numero < node.getNumero()) {
 
-            let subTree: NodeBinary = await this.removeNode(node.getLeft(), numero, node, duracion)
+            let subTree: NodeBinary = await this.removeNode(node.getLeft(), numero, node, duracion, animacion)
             node.setLeft(subTree)
             return node
         }
         else if (numero > node.getNumero()) {
-            let subTree: NodeBinary = await this.removeNode(node.getRight(), numero, node, duracion)
+            let subTree: NodeBinary = await this.removeNode(node.getRight(), numero, node, duracion, animacion)
             node.setRight(subTree)
             return node
         }
         else {
             if (node.getLeft() === null && node.getRight() === null) {
-                await this.eliminarNodoHoja(node, duracion)
+                if (animacion) await this.eliminarNodoHoja(node, duracion)
                 if (node === this.raiz) this.raiz = null
                 else node = null
                 return null;
             }
 
             if (node.getLeft() === null) {
-                await this.recalcularNodos(node.getRight(), node, padre, "right", duracion, true)
+                if (animacion) await this.recalcularNodos(node.getRight(), node, padre, "right", duracion, true)
                 if (node === this.raiz) this.raiz = this.raiz.getRight()
                 else node = node.getRight()
 
@@ -109,7 +109,7 @@ export class BinaryTree {
             }
 
             if (node.getRight() === null) {
-                await this.recalcularNodos(node.getLeft(), node, padre, "left", duracion, true)
+                if (animacion) await this.recalcularNodos(node.getLeft(), node, padre, "left", duracion, true)
                 if (node === this.raiz) this.raiz = this.raiz.getLeft()
                 else node = node.getLeft()
 
@@ -121,14 +121,17 @@ export class BinaryTree {
             let aux: NodeBinary = await this.findMinNode(node.getRight())
             node.setNumero(aux.getNumero())
 
-            let div = document.getElementById('node-' + node.getId())
-            div.innerHTML = '';
-            let p = document.createElement('p');
-            p.append('' + node.getNumero());
-            div.appendChild(p);
-            let result = await this.removeNode(node.getRight(), aux.getNumero(), null, duracion)
+            if (animacion) {
+                let div = document.getElementById('node-' + node.getId())
+                div.innerHTML = '';
+                let p = document.createElement('p');
+                p.append('' + node.getNumero());
+                div.appendChild(p);
+            }
 
-            if (result !== null) {
+            let result = await this.removeNode(node.getRight(), aux.getNumero(), null, duracion, animacion)
+
+            if (result !== null && animacion) {
                 document.getElementById('tree').removeChild(document.getElementById('arrow-node-' + node.getRight().getId()))
                 await this.drawTree.crearLinea('node-' + result.getId(), 'node-' + node.getId(), document.getElementById('tree'))
             }
@@ -274,14 +277,14 @@ export class BinaryTree {
             edges: []
         }
 
-        if(this.raiz !== null){
+        if (this.raiz !== null) {
             let id = padre + "abb" + this.raiz.getId()
             data.edges.push({
                 from: padre,
                 to: id
             })
         }
-        let result: any = this.preOrden(level,padre,this.raiz)
+        let result: any = this.preOrden(level, padre, this.raiz)
         data.nodes = data.nodes.concat(result.nodes)
         data.edges = data.edges.concat(result.edges)
         return data
@@ -294,7 +297,7 @@ export class BinaryTree {
             edges: []
         }
 
-        let result: any =  await this.preOrdenPadre(level,this.raiz)
+        let result: any = await this.preOrdenPadre(level, this.raiz)
         //console.log(result)
         data.nodes = data.nodes.concat(result.nodes)
         data.edges = data.edges.concat(result.edges)
@@ -337,11 +340,11 @@ export class BinaryTree {
             })
         }
 
-        let result:any = this.preOrden(level + 1,padre,raiz.getLeft())
+        let result: any = this.preOrden(level + 1, padre, raiz.getLeft())
         data.nodes = data.nodes.concat(result.nodes)
         data.edges = data.edges.concat(result.edges)
 
-        result = this.preOrden(level + 1,padre,raiz.getRight())
+        result = this.preOrden(level + 1, padre, raiz.getRight())
         data.nodes = data.nodes.concat(result.nodes)
         data.edges = data.edges.concat(result.edges)
 
@@ -366,7 +369,7 @@ export class BinaryTree {
             level: level
         })
 
-        let resultado = await raiz.getEstructura().getVizHijo(level,id)
+        let resultado = await raiz.getEstructura().getVizHijo(level, id)
         data.nodes = data.nodes.concat(resultado.nodes)
         data.edges = data.edges.concat(resultado.edges)
 
@@ -387,11 +390,11 @@ export class BinaryTree {
             })
         }
 
-        let result:any = await this.preOrdenPadre(level + 1,raiz.getLeft())
+        let result: any = await this.preOrdenPadre(level + 1, raiz.getLeft())
         data.nodes = data.nodes.concat(result.nodes)
         data.edges = data.edges.concat(result.edges)
 
-        result = await this.preOrdenPadre(level + 1,raiz.getRight())
+        result = await this.preOrdenPadre(level + 1, raiz.getRight())
         data.nodes = data.nodes.concat(result.nodes)
         data.edges = data.edges.concat(result.edges)
 
