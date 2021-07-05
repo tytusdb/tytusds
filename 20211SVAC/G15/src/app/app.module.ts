@@ -24,12 +24,21 @@ import { InsertionSortComponent } from './components/insertion-sort/insertion-so
 import { AVLComponent } from './components/avl/avl.component';
 import { MetodorapidoComponent } from './components/metodorapido/metodorapido.component';
 import { MetodoSeleccionComponent } from './components/metodo-seleccion/metodo-seleccion.component';
+
+import { HashabiertaComponent } from './components/hashabierta/hashabierta.component';
+import { EstructuranolinealesComponent } from './components/estructuranolineales/estructuranolineales.component';
+import { CodificacionhuffmannComponent } from './components/codificacionhuffmann/codificacionhuffmann.component';
+import { CifradofeisComponent } from './components/cifradofeis/cifradofeis.component';
+import { CodificacionComponent } from './components/codificacion/codificacion.component';
+import { LZWComponent } from './components/lzw/lzw.component'
+
 import { DispersaComponent } from './components/dispersa/dispersa.component';
 import { CompuestasComponent } from './components/compuestas/compuestas.component';
 import { MajorComponent } from './components/major/major.component';
 import { NoLinealesComponent } from './components/no-lineales/no-lineales.component';
 import { HashCerradaComponent } from './components/hash-cerrada/hash-cerrada.component';
 import { CompuestaComponent } from './components/compuesta/compuesta.component'
+
 
 @NgModule({
   declarations: [
@@ -52,6 +61,14 @@ import { CompuestaComponent } from './components/compuesta/compuesta.component'
     AVLComponent,
     MetodorapidoComponent,
     MetodoSeleccionComponent,
+
+    HashabiertaComponent,
+    EstructuranolinealesComponent,
+    CodificacionhuffmannComponent,
+    CifradofeisComponent,
+    CodificacionComponent,
+    LZWComponent,
+
     DispersaComponent,
     CompuestasComponent,
     MajorComponent,

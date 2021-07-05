@@ -33,6 +33,7 @@ async function cargarJson(){
 }
 
 function Codificar(inputValue){
+  resultado = ""
   // Obtiene una referencia a la tabla
   var tableRef = document.getElementById("contenido");
   tableRef.innerHTML = "";

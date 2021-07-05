@@ -1,5 +1,11 @@
 // NODO MATRIZ DISPERSA
 var contador = 1
+var clickedNode
+var clickedNodoValue
+var network = null
+var arrayNodes = []
+var edges = []
+var slider = document.getElementById("customRange2")
 class Nodo{
     constructor(fila, columna, valor, id){
         this.id = id
@@ -131,9 +137,11 @@ class MatrizDispersa{
             this.ecolumnas.setEncabezado(eColumna)
         }else{
             if(nuevo.fila < eColumna.accesoNodo.fila){
-                nuevo.abajo = eColumna.accesoNodo
-                eColumna.accessoNodo.arriba = nuevo
-                eColumna.accesoNodo = nuevo
+                try{
+                    nuevo.abajo = eColumna.accesoNodo
+                    eColumna.accessoNodo.arriba = nuevo
+                    eColumna.accesoNodo = nuevo
+                }catch{}
             } else {
                 let actual = eColumna.accesoNodo
                 while(actual.abajo != null){
@@ -170,7 +178,34 @@ class MatrizDispersa{
         }
         console.log("****************************")
     }
-    
+    recorrerGraficar(){
+        let ecolumna = this.ecolumnas.primero
+        //console.log("recorrido por columnas")
+        while (ecolumna != null){
+            let actual = ecolumna.accesoNodo
+            //console.log("\nColumna " + actual.columna)
+            arrayNodes.push({id: ecolumna.id2, label: ecolumna.id2.toString(), shape: "box"})
+            if(actual!= null){
+                edges.push({from: ecolumna.id2, to: actual.id, shape: "box", arrows: "to"})
+            }
+            //console.log("Fila   valor")
+            while (actual != null){
+                arrayNodes.push({id: actual.id, label: actual.valor, shape: "box"})
+                //console.log(actual.fila+ "       " + actual.valor)
+                if(actual.abajo != null){
+                    edges.push({from: actual.id, to: actual.abajo.id, shape: "box", arrows: "to"})
+                    edges.push({from: actual.abajo.id, to: actual.id, shape: "box", arrows: "to"})
+                }
+                actual = actual.abajo
+            }
+            if(ecolumna.siguiente!= null){
+                edges.push({from: ecolumna.id2, to: ecolumna.siguiente.id2, shape: "box", arrows: "to"})
+            }
+            ecolumna = ecolumna.siguiente
+        }
+        //console.log("************************")
+    }
+
     recorrerColumnas(){
         let ecolumna = this.ecolumnas.primero
         console.log("recorrido por columnas")
@@ -211,13 +246,110 @@ class MatrizDispersa{
 }
 
 m = new MatrizDispersa()
-m.agregar(1,1, "*")
-m.agregar(1,2, "*")
-m.agregar(1,3, "*")
-m.agregar(1,5, "*")
-m.agregar(1,6, "encontrado")
-m.agregar(1,7, "*")
-m.agregar(2,2, "-")
-m.agregar(2,5, "*")
-m.agregar(2,6, "$")
-m.agregar(2,7, "-")
+
+function actualizarTablero(){
+    m.recorrerGraficar();
+    var nodes = new vis.DataSet(arrayNodes);
+    var container = document.getElementById("mynetwork");
+    var data = {
+        nodes: nodes,
+        edges: edges,
+    };
+    var options = { 
+        physics: {
+            solver: "barnesHut"
+            ,barnesHut: {
+                avoidOverlap: 1
+            }
+        },
+        layout: {
+            hierarchical: {
+                direction: "UD",
+                sortMethod: "directed",
+                nodeSpacing: 200,
+                treeSpacing: 400
+            }
+        } 
+    };
+    network = new vis.Network(container, data, options);
+    network.on('click', function (properties) {
+        var nodeID = properties.nodes[0];
+        if (nodeID) {
+            clickedNode = this.body.nodes[nodeID];
+            clickedNode = clickedNode.options.id
+            console.log('clicked node:', clickedNode);
+            clickedNodoValue =  this.body.nodes[nodeID]
+            clickedNodoValue = clickedNodoValue.options.label
+            document.getElementById("valueNodo").value = clickedNodoValue;
+        }
+    });
+    arrayNodes = []
+    edges = []  
+}
+
+function add(){
+    valor = document.getElementById("valor").value
+    x = document.getElementById("columna").value
+    y = document.getElementById("fila").value
+    m.agregar( x, y, valor)
+    document.getElementById("valor").value = ""
+    document.getElementById("columna").value = ""
+    document.getElementById("fila").value = ""
+    actualizarTablero()
+}
+
+
+function read(){
+    var fileInput = document.querySelector('input[type="file"]');
+
+    var file = fileInput.files.item(0);
+    var reader = new FileReader();
+
+    reader.readAsText(file);
+    
+    reader.onload = function() {
+        var obj = JSON.parse(reader.result)
+        let val = obj.valores
+        slider.value = obj.animacion
+        
+        let contador =0
+
+        for(let i=0; i<val.length; i++){
+            contador = contador + 0.5
+            setTimeout(function (params) {
+                console.log(val[i].valor)
+                m.agregar(val[i].indices[0], val[i].indices[1], val[i].valor)
+                actualizarTablero()
+            },(1000)*Math.round(11-parseInt(slider.value))*contador) 
+        }
+    }
+    m.recorrerColumnas()
+}
+
+/*function descargar(){
+    arbolbb.enPreOrden(arbolbb.raiz)
+    let array = {
+        categoria: "Estructura Arboreas",
+        nombre: "ABB/AVL",
+        repeticion: switchToggle.checked,
+        animacion: parseInt(slider.value),
+        valores: arregloaux
+    }
+    arregloaux = []
+    var json = JSON.stringify(array, null, "\t");
+    json = [json];
+    var blob1 = new Blob(json, { type: "text/json;charset=utf-8" });
+    var isIE = false || !!document.documentMode;
+    if (isIE) {
+        window.navigator.msSaveBlob(blob1, "data.json");
+    } else {
+        var url = window.URL || window.webkitURL;
+        link = url.createObjectURL(blob1);
+        var a = document.createElement("a");
+        a.download = "dataArbolBinarioDeBusqueda.json";
+        a.href = link;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
+}*/
