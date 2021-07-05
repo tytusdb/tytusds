@@ -76,6 +76,7 @@ class Animaciones{
 	}
 	animarTabla(array){
 		//const table=document.getElementById("tAnimation")
+		document.getElementById('tAnimation').innerHTML = '';
 		let fila=[]
 		for (let j = 0; j < array[0].length; j++) {
 			fila=[]
@@ -113,6 +114,17 @@ class Animaciones{
 	}
 	graficarMatrizDispersa(encabezado){
 
+	}
+	graficarGrafo(data, options){
+		//document.getElementById('DivInsert').innerHTML = ''
+		let container=document.getElementById('DivInsert')
+		let vis=require('../../../node_modules/vis/dist/vis')
+		let graf = new vis.Network(container, data, options)
+		try {
+			this.seleccionar(1).classList='animate__animated animate__slideInDown'
+		} catch (error) {
+			console.log(error)
+		}
 	}	
 }
 class BtnAnimate{
