@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { saveAs } from 'file-saver';
 import { DocumentoService } from '../../services/documento.service';
 declare var require: any;
-let Lista=require('./js/Ganchura');
+let Lista=require('./js/Gprofundida');
 let vis=require('../../../../vis-4.21.0/dist/vis');
 @Component({
-  selector: 'app-anchura',
-  templateUrl: './anchura.component.html',
-  styleUrls: ['./anchura.component.css','../../../../css/bootstrap.min.css','../../../../vis-4.21.0/dist/vis.css']
+  selector: 'app-profundida',
+  templateUrl: './profundida.component.html',
+  styleUrls: ['./profundida.component.css','../../../../css/bootstrap.min.css','../../../../vis-4.21.0/dist/vis.css']
 })
-export class AnchuraComponent implements OnInit {
+export class ProfundidaComponent implements OnInit {
   lista=Lista;
   grafo;
   opcion=true;
@@ -57,7 +57,7 @@ export class AnchuraComponent implements OnInit {
         });   
         var s=this.lista.identificar();
       if (s==true){this.graficar1();  this.opcion=false;}
-      else{this.graficarb1();  this.opcion=true;}
+      else{this.graficarb1();  this.opcion=true;} 
       this.list1();
       
       
@@ -395,6 +395,50 @@ buscaranimacion2(){
 }
 
 
+list1(){
+  let h=this.lista.mapa();
+  let gl=this.grafo;
+  var n=0;
+    let AnimLista = setInterval(function(){
+      if(n<=h.length){
+        let nodo=h[n];
+        if(nodo!=""){
+          if(nodo!=null){
+            //id:F#C#
+            let id=nodo;
+            let options={
+              scale: 5,
+             
+              locked: false,
+              animation: {
+                //duración en ms
+                duration: 1000,
+                easingFunction: "easeInOutQuad"
+              }
+            }
+      
+            gl.focus(id,options);
+          }
+        }
+          
+    
+        if(n== h.length){
+          alert("Datos guardados");  
+        
+    
+          clearInterval(AnimLista);
+        }
+        n++;
+
+      }
+    
+    },1000);
+
+}
+
+
+
+
 
   bus(valor){
     this.lista.bus(valor);
@@ -485,48 +529,5 @@ actualizar(){
     this.graficar1();
       }
 }
-
-list1(){
-  let h=this.lista.mapa();
-  let gl=this.grafo;
-  var n=0;
-    let AnimLista = setInterval(function(){
-      if(n<=h.length){
-        let nodo=h[n];
-        if(nodo!=""){
-          if(nodo!=null){
-            //id:F#C#
-            let id=nodo;
-            let options={
-              scale: 5,
-             
-              locked: false,
-              animation: {
-                //duración en ms
-                duration: 1000,
-                easingFunction: "easeInOutQuad"
-              }
-            }
-      
-            gl.focus(id,options);
-          }
-        }
-          
-    
-        if(n== h.length){
-          alert("Datos guardados");  
-        
-    
-          clearInterval(AnimLista);
-        }
-        n++;
-
-      }
-    
-    },1000);
-
-}
-
-
 
 }
