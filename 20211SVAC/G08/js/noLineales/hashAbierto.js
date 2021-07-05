@@ -40,7 +40,7 @@ class Hash{
 
     funcionHash_multipli(id){
         let posicion = 0;
-        posicion = Math.floor((this.size) * (id * this.cte % 1));
+        posicion = Math.floor((this.size) * (id * this.constante % 1));
         console.log(posicion);
         if (posicion > this.size-1){
             return posicion - (this.size-1);
@@ -84,7 +84,9 @@ class Hash{
             this.vector[posicion] = nodo;
             this.elementos++;
             this.porcentaje = (this.elementos / this.size)*100;
+            
         }
+        //colocar(posicion, clave);
 
         if(this.porcentaje > this.max){
             this.reHashing();
@@ -152,7 +154,7 @@ class Hash{
         for(let i = 0; i< nodo.Lista.length; i++){
             valor = nodo.Lista[i];
             if(valor.clave == elemento){
-                nodo.Lista.splice(valor,1);
+                nodo.Lista.splice(i,1);
             }else{
                 ret = false;
             }
@@ -212,6 +214,10 @@ btn_Buscar.addEventListener('click', buscar);
 const btn_tamano= document.getElementById('tamano');
 btn_tamano.addEventListener('click', getTam);
 
+//-----------GUARDAR JSON-----------
+const btn_Guardar = document.getElementById('guardar');
+btn_Guardar.addEventListener('click', guardar);
+
 //-----------VARIABLES GLOBALES-----------
 var tamano;
 var values = [];
@@ -223,6 +229,7 @@ let maxi;
 let mini;
 let func;
 let val_fun;
+let prueb;
 let tabla = new Hash(tamano, mini, maxi);
 
 //-----------MOSTRAR TABLA HASH-----------
@@ -233,10 +240,24 @@ function tam_tabla(valor){
         const div = document.createElement("div");
         div.classList.add('cuadrito');
         div.textContent = i;
-        container.appendChild(div);
-
-        //contenido_tabla(i);
+        container.appendChild(div); 
     }
+    
+}
+
+//-----------COLOCAR LOS CUADRITOS-----------
+async function colocar(posi, letras){
+    let div1 = document.getElementById("espacio");
+    let div = div1.childNodes(posi);
+    
+    div.classList.add('cuadrito');
+    div.textContent = letras;
+    container.appendChild(div);
+    await new Promise((resolve) =>
+        setTimeout(() =>{
+        resolve();
+        }, (velocidad*200)) //delay
+    ); 
     
 }
 
@@ -326,8 +347,8 @@ function readFile(evento){ // lectura del archivo .json
             mini = convert.minimo;
             values = convert.valores;
             func = convert.funcion;
+            prueb = convert.prueba;
             tam_tabla(tamano);
-            //let tabla = new Hash(tamano, mini, maxi);
             tabla.size = tamano;
             tabla.min = mini;
             tabla.max = maxi;
@@ -345,7 +366,6 @@ function readFile(evento){ // lectura del archivo .json
             }
             tabla.print();
             console.log(tabla.porcentaje);
-            agregarFile();
         };
         reader.readAsText(archivo); 
 
@@ -377,34 +397,36 @@ async function agregarFile(){
     }
 }
 
-function listaNums(numso){
-    let hola = [];
-    for (let i = 0; i < numso.length; i++){
-        hola.push(parseInt(numso[i]));
+function listaNums(){
 
-    }
-    return hola;
+    let valores = [];
+    tabla.vector.forEach(nodo => {
+        if(nodo != null){
+            nodo.Lista.forEach(Llave => {
+                valores.push(Llave.clave);
+            })
+        }else{
+            console.log("Indice:", null);
+        }
+    })
+
+    return valores;
 }
 //-----------GUARDAR JSON-----------
 function guardar(){
     velocidad = 10;
-    var content = cola.imprimir().split(",");
-    if (tipoDato == 'number'){
-        content = listaNums(content);
-    } 
+
+    let listaValores = listaNums();  
     
     var fileJ = {
         "categoria": "Estructura No Lineal",
-        "nombre": "Tabla Hash",
-        "direccionamiento": "Abierto",
-        "metodo": "Multiplicacion",
-        "resolucion": "Lineal",
-        "size": tamano,
-        "constante":0.1625277911,
-        "minimo": 45,
-        "maximo":85,
-        "animacion":5,
-        "tipo": "String/Integer",
+        "nombre": "Tabla Hash Abierta",
+        "m": tamano,
+        "minimo": mini,
+        "maximo": maxi,
+        "funcion": func,
+        "prueba": prueb,
+        "animacion": 10,
         "valores":listaValores
     }
 
