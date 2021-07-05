@@ -29,18 +29,45 @@
             <div class="input-group mb-3">
                 <input type="file" class="form-control" id="inputGroupFile01">
                 <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04" onclick="read()" >Cargar archivo</button>
-              </div>
+            </div>
+            <button class="btn btn-dark" onclick="descargar()">Guardar</button>
+            <button class="btn btn-info" onclick="aplicar()">Aplicar Algoritmo</button>
+            <br>
+            <br>
         </div>
         <div class="row">
             <!-- TEXT AREA  -->
             <div class="col">
                 <div class="mb-3">
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="20"></textarea>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="20"></textarea> 
                 </div>
+                <div class="container">
+                  <div class="row">
+                    <div class="col-6 col-md-4">
+                      <p>Resultado: </p>
+                      <textarea type="text" id="codificado" placeholder="Cadena cifrada" name="codificado" rows="10" cols="25" disabled></textarea>
+                    </div>
+                    <div class="col-md-8"></div>
+                  </div>
+                </div>
+                
             </div>
             <!-- TABLA -->
             <div class="col">
-                <div id="tablePrint"></div>
+                <!-- <div id="tablePrint"></div> -->
+                <table class="table">
+                  <thead>
+                      <tr>
+                        <th>W</th>
+                        <th>K</th>
+                        <th>WK</th>
+                        <th>Diccionario</th>
+                        <th>Salida</th>
+                      </tr>
+                  </thead>
+                  <tbody id="tbody">
+                  </tbody>
+              </table>
             </div>
         </div>
         
