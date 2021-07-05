@@ -129,3 +129,25 @@ class listaencabezado {
 
 }
 
+
+class matrizortogonal {
+
+
+    public eFilas: any
+
+    public eColumnas: any
+
+
+    constructor() {
+
+        this.eFilas = new listaencabezado(null)
+
+        this.eColumnas = new listaencabezado(null)
+
+    }
+
+    
+
+
+
+}
