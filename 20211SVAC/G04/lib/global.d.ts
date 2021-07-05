@@ -17,6 +17,14 @@ interface NodePosition extends PointPosition {
 	value: string
 }
 
+interface GraphoInputValues {
+	vertice: number
+	aristas: {
+		arista: number
+		distancia: number
+	}[]
+}
+
 interface PointPosition {
 	x: number
 	y: number

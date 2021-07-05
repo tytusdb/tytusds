@@ -18,17 +18,74 @@ var enableAddEdge = false;
 var selectedFirstEdge = 0;
 var mouseIsDown = false;
 var tmpGraphoNode = null;
-var newEdgeLength = 0;
+var newEdgeLength = -1;
 var tmpSearchGraphoNode = null;
 var graphoNodeScaleCounter = 0;
 var edgesArray = [];
-var nodesArray = [
-    {
-        x: 0,
+var nodesArray = [];
+var searchGraphoPositions = [];
+var vertexArray = [];
+fileUploadCallback = function () {
+    var values = globalJSONInput === null || globalJSONInput === void 0 ? void 0 : globalJSONInput.valores;
+    vertexArray = values;
+    var valueCounter = 0;
+    var matrixLength = Math.floor(Math.sqrt(2 * (values.length - 1)));
+    var rootPosition = {
+        x: -((matrixLength - 1) * 130) / 2 - 100,
         y: 0,
-        value: '1',
-    },
-];
+    };
+    var positions = [rootPosition];
+    newNodeValue = values[0].vertice.toString();
+    addNodeOnGraphosAtPosition(rootPosition);
+    for (var i = 0; i < matrixLength; i++)
+        for (var j = 0; j < matrixLength; j++)
+            if (valueCounter < values.length) {
+                valueCounter++;
+                newNodeValue = values[valueCounter].vertice.toString();
+                var position = {
+                    x: i * 130 - ((matrixLength - 1) * 130) / 2,
+                    y: j * 130 - ((matrixLength - 1) * 130) / 2,
+                };
+                addNodeOnGraphosAtPosition(position);
+                positions.push(position);
+            }
+    var _loop_1 = function (vertexIndex) {
+        var _loop_2 = function (edgeIndex) {
+            var edge = values[vertexIndex].aristas[edgeIndex];
+            var nodeIndex = values
+                .map(function (value) { return value.vertice; })
+                .indexOf(edge.arista);
+            var edgeColor = canvasObjectColors[vertexIndex > canvasObjectColors.length - 1
+                ? vertexIndex -
+                    canvasObjectColors.length *
+                        Math.floor(vertexIndex / canvasObjectColors.length)
+                : vertexIndex];
+            var edgeDestColor = canvasObjectColors[nodeIndex > canvasObjectColors.length - 1
+                ? nodeIndex -
+                    canvasObjectColors.length *
+                        Math.floor(nodeIndex / canvasObjectColors.length)
+                : nodeIndex];
+            var isDouble = edgesArray.some(function (edge) {
+                var _a, _b;
+                return edge.origin.x === positions[nodeIndex].x &&
+                    edge.origin.y === positions[nodeIndex].y &&
+                    ((_a = edge.dest) === null || _a === void 0 ? void 0 : _a.x) === positions[vertexIndex].x &&
+                    ((_b = edge.dest) === null || _b === void 0 ? void 0 : _b.y) === positions[vertexIndex].y;
+            });
+            edgesArray.push({
+                origin: __assign(__assign({}, positions[vertexIndex]), { color: edgeColor, isDouble: false, randPhase: 0 }),
+                dest: __assign(__assign({}, positions[nodeIndex]), { color: isDouble ? edgeDestColor : edgeColor, isDouble: isDouble, randPhase: 0 }),
+                distance: edge.distancia,
+            });
+        };
+        for (var edgeIndex = 0; edgeIndex < values[vertexIndex].aristas.length; edgeIndex++) {
+            _loop_2(edgeIndex);
+        }
+    };
+    for (var vertexIndex = 0; vertexIndex < values.length; vertexIndex++) {
+        _loop_1(vertexIndex);
+    }
+};
 var onChangeGraphosInput = function (ev, callback) {
     var target = ev.target;
     var value = target.value;
@@ -53,13 +110,22 @@ var getNodesDistance = function (x1, x2, y1, y2) {
 };
 drawInCanvas = function () {
     if (canvasCtx) {
-        for (var edgeIndex = 0; edgeIndex < edgesArray.length; edgeIndex++) {
+        var _loop_3 = function (edgeIndex) {
             var currentEdge = edgesArray[edgeIndex];
+            var currentSearchEdge = searchGraphoPositions.find(function (node) {
+                var _a, _b, _c, _d;
+                return ((_a = node === null || node === void 0 ? void 0 : node.dest) === null || _a === void 0 ? void 0 : _a.x) === ((_b = currentEdge === null || currentEdge === void 0 ? void 0 : currentEdge.dest) === null || _b === void 0 ? void 0 : _b.x) &&
+                    ((_c = node === null || node === void 0 ? void 0 : node.dest) === null || _c === void 0 ? void 0 : _c.y) === ((_d = currentEdge === null || currentEdge === void 0 ? void 0 : currentEdge.dest) === null || _d === void 0 ? void 0 : _d.y) &&
+                    node.origin.x === currentEdge.origin.x &&
+                    node.origin.y === currentEdge.origin.y;
+            });
             if (currentEdge.dest) {
                 canvasCtx.beginPath();
-                canvasCtx.strokeStyle = currentEdge.dest.isDouble
-                    ? currentEdge.dest.color
-                    : currentEdge.origin.color;
+                canvasCtx.strokeStyle = !currentSearchEdge
+                    ? currentEdge.dest.isDouble
+                        ? currentEdge.dest.color
+                        : currentEdge.origin.color
+                    : currentSearchEdge === null || currentSearchEdge === void 0 ? void 0 : currentSearchEdge.origin.color;
                 canvasCtx.lineWidth = 5;
                 canvasCtx.moveTo(currentEdge.origin.x, currentEdge.origin.y);
                 if (graphoType === 'dir')
@@ -81,6 +147,9 @@ drawInCanvas = function () {
                 canvasCtx.fillText(currentEdge.distance.toString(), textX, textY);
                 canvasCtx.closePath();
             }
+        };
+        for (var edgeIndex = 0; edgeIndex < edgesArray.length; edgeIndex++) {
+            _loop_3(edgeIndex);
         }
         for (var nodeIndex = 0; nodeIndex < nodesArray.length; nodeIndex++) {
             var currentColorIndex = nodeIndex > canvasObjectColors.length - 1
@@ -183,6 +252,10 @@ canvas.addEventListener('mousedown', function (ev) {
                     x: ev.clientX / cameraZoom - cameraOffset.x - 30,
                     y: ev.clientY / cameraZoom - cameraOffset.y - 80,
                 });
+                vertexArray.push({
+                    vertice: +newNodeValue,
+                    aristas: [],
+                });
             }
         }
     }, 500);
@@ -199,7 +272,7 @@ var addEdgeOnGraphos = function () {
     enableAddEdge = true;
 };
 canvas.addEventListener('click', function (ev) {
-    if (enableAddEdge && newEdgeLength) {
+    if (enableAddEdge && newEdgeLength >= 0) {
         var selectedNodeIndex = 0;
         var selectedNode_1 = null;
         var currentPosition = {
@@ -246,6 +319,12 @@ canvas.addEventListener('click', function (ev) {
                     selectedNode_1.isDouble = true;
                     selectedNode_1.randPhase = Math.random() * (0.5 - 0.3) + 0.3;
                 }
+                vertexArray[vertexArray
+                    .map(function (vert) { return vert.vertice.toString(); })
+                    .indexOf(lastEdge_1.origin.value)].aristas.push({
+                    arista: selectedNode_1.value,
+                    distancia: newEdgeLength,
+                });
                 lastEdge_1.dest = selectedNode_1;
                 enableAddEdge = false;
                 selectedFirstEdge = -1;
@@ -295,4 +374,25 @@ var searchNodeOnGraphos = function () {
         else
             alert('Nodo no econtrado');
     }
+};
+var graphosWidthSearch = function () {
+    console.log(vertexArray);
+    var textValues = vertexArray.map(function (value) {
+        return value.vertice.toString();
+    });
+    var usedNodes = [textValues[0]];
+    vertexArray.forEach(function (currentNode, currentIndex) {
+        currentNode.aristas.forEach(function (edge) {
+            var destEdge = edge.arista.toString();
+            if (!usedNodes.some(function (node) { return node === destEdge; })) {
+                usedNodes.push(destEdge);
+                searchGraphoPositions.push({
+                    origin: __assign(__assign({}, nodesArray[textValues.indexOf(textValues[currentIndex])]), { color: '#ADD8E6', isDouble: false, randPhase: 0 }),
+                    dest: __assign(__assign({}, nodesArray[textValues.indexOf(destEdge)]), { color: '#ADD8E6', isDouble: false, randPhase: 0 }),
+                    distance: edge.distancia,
+                });
+            }
+        });
+    });
+    addTestCode('recorrer', graphoWaySearch);
 };

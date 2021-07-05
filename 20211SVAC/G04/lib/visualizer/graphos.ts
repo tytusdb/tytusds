@@ -13,7 +13,7 @@ let enableAddEdge: boolean = false
 let selectedFirstEdge: number = 0
 let mouseIsDown: boolean = false
 let tmpGraphoNode: NodePosition | null = null
-let newEdgeLength: number = 0
+let newEdgeLength: number = -1
 
 // ANIMACIÓN
 let tmpSearchGraphoNode: NodePosition | null = null
@@ -21,13 +21,101 @@ let graphoNodeScaleCounter: number = 0
 
 // ARREGLO DE GRAFOS
 let edgesArray: EdgeJoin[] = []
-let nodesArray: NodePosition[] = [
-	{
-		x: 0,
+let nodesArray: NodePosition[] = []
+const searchGraphoPositions: EdgeJoin[] = []
+let vertexArray: GraphoInputValues[] = []
+
+// SUBIR JSON
+fileUploadCallback = () => {
+	const values: GraphoInputValues[] =
+		// @ts-ignore
+		globalJSONInput?.valores as GraphoInputValues[]
+	vertexArray = values
+	let valueCounter: number = 0
+	let matrixLength: number = Math.floor(Math.sqrt(2 * (values.length - 1)))
+	const rootPosition: PointPosition = {
+		x: -((matrixLength - 1) * 130) / 2 - 100,
 		y: 0,
-		value: '1',
-	},
-]
+	}
+	const positions: PointPosition[] = [rootPosition]
+
+	// NODO RAÍZ
+	newNodeValue = values[0].vertice.toString()
+	addNodeOnGraphosAtPosition(rootPosition)
+
+	// MATRIZ
+	for (let i: number = 0; i < matrixLength; i++)
+		for (let j: number = 0; j < matrixLength; j++)
+			if (valueCounter < values.length) {
+				valueCounter++
+				newNodeValue = values[valueCounter].vertice.toString()
+				const position: PointPosition = {
+					x: i * 130 - ((matrixLength - 1) * 130) / 2,
+					y: j * 130 - ((matrixLength - 1) * 130) / 2,
+				}
+				addNodeOnGraphosAtPosition(position)
+				positions.push(position)
+			}
+
+	// ARISTAS
+	for (let vertexIndex: number = 0; vertexIndex < values.length; vertexIndex++)
+		for (
+			let edgeIndex: number = 0;
+			edgeIndex < values[vertexIndex].aristas.length;
+			edgeIndex++
+		) {
+			// ARISTA
+			const edge = values[vertexIndex].aristas[edgeIndex]
+			const nodeIndex: number = values
+				.map((value) => value.vertice)
+				.indexOf(edge.arista)
+
+			// COLOR
+			const edgeColor =
+				canvasObjectColors[
+					vertexIndex > canvasObjectColors.length - 1
+						? vertexIndex -
+						  canvasObjectColors.length *
+								Math.floor(vertexIndex / canvasObjectColors.length)
+						: vertexIndex
+				]
+
+			const edgeDestColor =
+				canvasObjectColors[
+					nodeIndex > canvasObjectColors.length - 1
+						? nodeIndex -
+						  canvasObjectColors.length *
+								Math.floor(nodeIndex / canvasObjectColors.length)
+						: nodeIndex
+				]
+
+			// ES UNA ARISTA DOBLE
+			const isDouble = edgesArray.some(
+				(edge: EdgeJoin) =>
+					edge.origin.x === positions[nodeIndex].x &&
+					edge.origin.y === positions[nodeIndex].y &&
+					edge.dest?.x === positions[vertexIndex].x &&
+					edge.dest?.y === positions[vertexIndex].y,
+			)
+
+			edgesArray.push({
+				origin: {
+					...positions[vertexIndex],
+					color: edgeColor,
+					isDouble: false,
+					randPhase: 0,
+				},
+				dest: {
+					...positions[nodeIndex],
+					color: isDouble ? edgeDestColor : edgeColor,
+					isDouble,
+					randPhase: 0,
+				},
+				distance: edge.distancia,
+			})
+		}
+}
+
 // INPUT DE FUNCIÓN
 const onChangeGraphosInput = (ev: Event, callback: (value: any) => void) => {
 	const target = ev.target as HTMLInputElement
@@ -65,14 +153,25 @@ drawInCanvas = () => {
 			edgeIndex++
 		) {
 			const currentEdge: EdgeJoin = edgesArray[edgeIndex]
+			// @ts-ignore
+			const currentSearchEdge: EdgeJoin = searchGraphoPositions.find(
+				(node: EdgeJoin) =>
+					// @ts-ignore
+					node?.dest?.x === currentEdge?.dest?.x &&
+					node?.dest?.y === currentEdge?.dest?.y &&
+					node.origin.x === currentEdge.origin.x &&
+					node.origin.y === currentEdge.origin.y,
+			)
 
 			if (currentEdge.dest) {
 				canvasCtx.beginPath()
 
 				// LINEA
-				canvasCtx.strokeStyle = currentEdge.dest.isDouble
-					? currentEdge.dest.color
-					: currentEdge.origin.color
+				canvasCtx.strokeStyle = !currentSearchEdge
+					? currentEdge.dest.isDouble
+						? currentEdge.dest.color
+						: currentEdge.origin.color
+					: currentSearchEdge?.origin.color
 				canvasCtx.lineWidth = 5
 
 				// DIBUJAR LINEA
@@ -258,10 +357,13 @@ canvas.addEventListener('mousedown', (ev: MouseEvent) => {
 		if (mouseIsDown) {
 			if (enableAddNode && newNodeValue.length) {
 				ev.preventDefault()
-
 				addNodeOnGraphosAtPosition({
 					x: ev.clientX / cameraZoom - cameraOffset.x - 30,
 					y: ev.clientY / cameraZoom - cameraOffset.y - 80,
+				})
+				vertexArray.push({
+					vertice: +newNodeValue,
+					aristas: [],
 				})
 			}
 		}
@@ -284,7 +386,7 @@ const addEdgeOnGraphos = () => {
 }
 
 canvas.addEventListener('click', (ev: MouseEvent) => {
-	if (enableAddEdge && newEdgeLength) {
+	if (enableAddEdge && newEdgeLength >= 0) {
 		// NODO SELECCIONADO
 		let selectedNodeIndex: number = 0
 		let selectedNode: EdgePosition | null = null
@@ -355,6 +457,16 @@ canvas.addEventListener('click', (ev: MouseEvent) => {
 				}
 
 				// AGREGAR
+				vertexArray[
+					vertexArray
+						.map((vert) => vert.vertice.toString())
+						// @ts-ignore
+						.indexOf(lastEdge.origin.value)
+				].aristas.push({
+					// @ts-ignore
+					arista: selectedNode.value,
+					distancia: newEdgeLength,
+				})
 				lastEdge.dest = selectedNode
 				enableAddEdge = false
 				selectedFirstEdge = -1
@@ -420,4 +532,41 @@ const searchNodeOnGraphos = () => {
 			addTestCode('buscar', oldNodeValue)
 		} else alert('Nodo no econtrado')
 	}
+}
+
+// BUSQUEDA POR ANCHURA
+const graphosWidthSearch = () => {
+	console.log(vertexArray)
+	const textValues: string[] = vertexArray.map((value) =>
+		value.vertice.toString(),
+	)
+	const usedNodes: string[] = [textValues[0]]
+
+	// ARISTAS
+	vertexArray.forEach((currentNode, currentIndex) => {
+		currentNode.aristas.forEach((edge) => {
+			const destEdge = edge.arista.toString()
+			if (!usedNodes.some((node) => node === destEdge)) {
+				usedNodes.push(destEdge)
+				searchGraphoPositions.push({
+					origin: {
+						...nodesArray[textValues.indexOf(textValues[currentIndex])],
+						color: '#ADD8E6',
+						isDouble: false,
+						randPhase: 0,
+					},
+					dest: {
+						...nodesArray[textValues.indexOf(destEdge)],
+						color: '#ADD8E6',
+						isDouble: false,
+						randPhase: 0,
+					},
+					distance: edge.distancia,
+				})
+			}
+		})
+	})
+
+	// AGREGAR CÓDIGO
+	addTestCode('recorrer', graphoWaySearch)
 }
