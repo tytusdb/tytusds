@@ -1,51 +1,16 @@
-class NodoGrafo {
-    constructor(valor, visitado) {
-        this.valor = valor;
-        this.visitado = visitado;
-        this.enlace = [];
-    }
-
-    insertar(vertice){
-        let nuevoNodo = new NodoGrafo(vertice, false)
-        
-    }
-
-}
-
-class Enlace {
-    constructor(peso, nEnlace) {
-        this.peso = peso;
-        this.nodografo = new NodoGrafo(nEnlace, null);
-    }
-}
-
-
-class GrafoNoDirigido {
+class Graph {
     constructor() {
-      this.cabeza = null;
+      this.nodes = 0;
+      this.adjacentList = {};
     }
-
-    
-
-    
-
-}
-
-
-let nodito = new NodoGrafo(1, false);
-for (let i = 0; i < 5; i++) {
-    nodito.enlace[i] = new Enlace(3, 2);
-}
-
-function leerJson(){
-    const reader = new FileReader()
-    const text = reader.result
-    const json = JSON.parse(text)
-    console.log(json);
-}
-
-leerJson()
-
-
-
-
+    addVertex(node) {
+      this.adjacentList[node] = [];
+      this.nodes++;
+    }
+    addEdge(node1, node2) {
+      this.adjacentList[node1].push(node2);
+      this.adjacentList[node2].push(node1);
+    }
+  }
+  
+  const myGraph = new Graph();
