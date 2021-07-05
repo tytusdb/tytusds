@@ -1,9 +1,233 @@
-class Node {
-    constructor(data, next, anterior) {
+let listaVerificaion = [];
+class NodoBinaryTree1 {
+    constructor (value) {
+      this.value = value
+      this.derecha = null
+      this.izquierda = null
+    }
+  }
+  
+  class Tree2 {
+    constructor () {
+      this.raiz = null
+    }
+  
+    isEmpty () {
+      return this.raiz === null
+    }
+  
+    addBinary (value) {
+      // arbol no tiene elementos
+      if (this.isEmpty()) {
+        //console.log(this.raiz)
+        this.raiz = new NodoBinaryTree1(value)
+        return this.raiz;
+      }
+      var aux = this.raiz
+  
+      while (aux) {
+        // vamos hacia la izquierda
+        if (value < aux.value) {
+          if (aux.izquierda) {
+            aux = aux.izquierda
+          } else {
+            aux.izquierda = new NodoBinaryTree1(value)
+            return
+          }
+        } else { // vamos hacia la derecha
+          if (aux.derecha) {
+            aux = aux.derecha
+          } else {
+            aux.derecha = new NodoBinaryTree1(value)
+            return
+          }
+        }
+      }
+    }
+  
+     agregarRecursivo (value, node = this.raiz) {
+      if (!node) {
+        this.raiz = new NodoBinaryTree1(value)
+        return
+      }
+  
+      if (value < node.value) {
+        if (node.izquierda) {
+          return this.agregarRecursivo(value, node.izquierda)
+        }
+        node.izquierda = new NodoBinaryTree1(value)
+        return
+      } else { // vamos hacia la derecha
+        if (node.derecha) {
+          return this.agregarRecursivo(value, node.derecha)
+        }
+        node.derecha = new NodoBinaryTree1(value)
+        return
+      }
+    }
+  
+    find (value) {
+      if (this.isEmpty()) {
+        return null
+      }
+  
+      var aux = this.raiz
+      console.log(aux)
+      if (aux.value === value) {
+       
+        return aux
+      }
+  
+      while(aux) {
+        // si encontramos el nodo con el valor
+        // paramos de iterar.
+        if (aux.value === value) {
+  
+          
+          break
+        }
+        // seguimos buscando a la derecha
+        if (aux.value < value) {
+          aux = aux.derecha
+        } else if (aux.value > value) {
+          // seguimos buscando a la izquierda
+          aux = aux.izquierda
+        }
+      }
+      // retornamos el nodo encontrado.
+      // si no encontramos el nodo con el valor
+      // aux, toma el valor null.
+      console.log(aux)
+      return aux
+    }
+  
+  
+    findMin(node = this.raiz) {
+      if (!this.isEmpty()) {
+        /**
+          * siempre a la izquierda de cualquier nodo
+          * estará el menor valor.
+          * iteramos hasta el último menor.
+          */
+        while (node.izquierda) {
+          node = node.izquierda
+        }
+        
+        return node
+      }
+    }
+  
+    delete (value, node = this.raiz) {
+      if (!node) {
+        return null
+      }
+      if (node.value === value) {
+        // no tiene hijos
+        if (!node.izquierda && !node.derecha) {
+          return null
+        }
+        // no tiene hijo izquierdo
+        if (!node.izquierda) {
+          return node.derecha
+        }
+        // no tiene hijo derecho
+        if (!node.derecha) {
+          return node.izquierda
+        }
+  
+        // tiene dos hijos
+        // buscamos el menor de los hijos
+        var temp = this.findMin(node.derecha)
+        // con ese valor reemplazamos el valor del nodo que queremos eliminar.
+        node.value = temp.value;
+        // seguimos iterando para reemplazar la rama que cambio,
+        // eliminando el nodo que está repetido
+        node.derecha = this.delete(temp.value, node.derecha)
+        return node;
+      }
+      // buscamos a la derecha
+      if (node.value < value) {
+        node.derecha = this.delete(value, node.derecha)
+        return node
+      }
+      // buscamos a la izquierda
+      if (node.value > value) {
+        node.izquierda = this.delete(value, node.izquierda)
+        return node
+      }
+    }
+    
+    imprimir (node = this.raiz) {
+      
+      if (!node) {
+        return
+      }
+      this.imprimir(node.izquierda);
+      console.log(node.value)
+  
+      this.imprimir(node.derecha);
+    }
+    imprimirCombinada (node) {
+      console.log(node)
+      if (!node) {
+        return
+      }
+      this.imprimir(node.izquierda);
+      console.log(node.value)
+  
+      this.imprimir(node.derecha);
+    }
+    /**
+      * recorre primero toda la rama izquierda
+      * de izquierda al centro.
+      * Luego imprime la raíz, y finalmente
+      * recorre la rama derecha, del centro hacia
+      * la derecha.
+      */
+    inOrder (node = this.raiz) {
+      if (!node) {
+        return
+      }
+      this.inOrder(node.izquierda)
+      console.log(node.value)
+      
+      this.inOrder(node.derecha)
+    }
+    /**
+      * Imprime primero la raíz, luego
+      * toda la rama izquierda de izquierda al centro.
+      * y finalmente recorre la rama derecha,
+      * del centro hacia la derecha.
+      */
+    preOrder (node = this.raiz) {
+      if (!node) {
+        return
+      }
+      console.log(node.value)
+      this.preOrder(node.izquierda)
+    }
+    /**
+      * Recorre el árbol de izquierda hacia el centro.
+      * Luego del centro hacia la derecha, y finalmente
+      * imprime la raíz.
+      */
+    postOrder (node = this.raiz) {
+      if (!node) {
+        return
+      }
+      this.postOrder(node.izquierda)
+      this.postOrder(node.derecha)
+      console.log(node.value)
+    }
+  }
+///////////////////////////////////////////////////////////
+  class Node2 {
+    constructor(data, next, anterior,arbol) {
         this.data = data;
         this.next = next;
         this.anterior = anterior;
-        this.arbol = tree;
+        //this.arbol = new Tree2();
+        this.arbol = arbol;
     };
 };
 
@@ -14,9 +238,13 @@ class DoubleLinkedList {
         this.size = 0;
     };
 
-    addToHead(data,arbol) {
-        const newNode = new Node(data, this.head, null,arbol);
-        //console.log(arbol)
+    addToHead(data,arbolito) {
+        //console.log(data)
+        //console.log(arbolito)
+        const newNode = new Node2(data, this.head,null, new Tree2() );
+        newNode.arbol.addBinary(arbolito)
+        //console.log(newNode)
+        //console.log(k.imprimirCombinada(newNode.arbol.raiz));
         if (this.head) {
             newNode.next = this.head;
             this.head.anterior = newNode;
@@ -30,7 +258,7 @@ class DoubleLinkedList {
     };
 
     addToTail(data) {
-        const newNode = new Node(data, null, this.tail);
+        const newNode = new Node2(data, null, this.tail);
 
         if (this.tail) {
             newNode.anterior = this.tail;
@@ -48,7 +276,7 @@ class DoubleLinkedList {
             return null
         };
 
-        const newNode = new Node(data, null, null);
+        const newNode = new Node2(data, null, null);
         let current = this.head;
         let previous;
 
@@ -132,11 +360,10 @@ class DoubleLinkedList {
     print() {
         let current = this.head;
         let result = '';
+        console.log("******************************")
         while(current) {
-            //hola = current.arbol.print();
-            //console.log(hola);
-            console.log("cabecera: " + current.data);
-            console.log(hola)
+            console.log("Posicion:  " + current.data);
+            console.log(current)
             result += current.data +' <-> ';
             current = current.next;
             
@@ -145,7 +372,76 @@ class DoubleLinkedList {
 
         return result += ' X ';
     };
+      encontrarNodo(data,arbol){
+        let current = this.head;
+        let result = '';
+        let regreso;
+        while(current) {
+          if(current.data==data){
+            //console.log(current.arbol)
+            current.arbol.addBinary(arbol)
+            //console.log(current.arbol)
+            regreso = current
+          }
+          //console.log("cabecera: " + current.data);
+          //console.log(current.arbol)
+          //current.arbol.addBinary(15);
+         // console.log(current.arbol)
+          result += current.data +' <-> ';
+          current = current.next;
+          
+          
+        };
 
+        //return regreso;
+      }
+
+      buscarNodo(data,arbol){
+        let current = this.head;
+        let result = '';
+        let regreso;
+        while(current) {
+          if(current.data==data){
+            //console.log(current.arbol)
+            current.arbol.find(arbol);
+            //console.log(current.arbol)
+            regreso = current
+          }
+          //console.log("cabecera: " + current.data);
+          //console.log(current.arbol)
+          //current.arbol.addBinary(15);
+         // console.log(current.arbol)
+          result += current.data +' <-> ';
+          current = current.next;
+          
+          
+        };
+
+        //return regreso;
+      }
+      eliminarNodo(data,arbol){
+        let current = this.head;
+        let result = '';
+        let regreso;
+        while(current) {
+          if(current.data==data){
+            //console.log(current.arbol)
+            current.arbol.delete(arbol)
+            //console.log(current.arbol)
+            regreso = current
+          }
+          //console.log("cabecera: " + current.data);
+          //console.log(current.arbol)
+          //current.arbol.addBinary(15);
+         // console.log(current.arbol)
+          result += current.data +' <-> ';
+          current = current.next;
+          
+          
+        };
+
+        //return regreso;
+      }
     reversePrint() {
         let current = this.tail;
         let result = '';
@@ -165,442 +461,50 @@ class DoubleLinkedList {
         return this.size === 0;
     };
 }
-let listaGuardar =[]
-class BST {
-    #root = null;
-    #compare;
-    
-    constructor(compareFn = null) {
-      if(compareFn && typeof compareFn === 'function') {
-        this.#compare = compareFn;
-      } else {
-        this.#compare = (a, b) => {
-          if(a > b) return BST.comparison.BIGGER;
-          if(a < b) return BST.comparison.SMALLER;
-        
-          return BST.comparison.EQUAL;
-        }
-      }
-    }
-    
-    get root() {
-      return this.#root;
-    }
-  
-    get min() {
-      if(this.root === null) return null;
-      
-      return this.#minNode(this.root).key;
-    }
-  
-    get max() {
-      if(this.root === null) return null;
-      
-      return this.#maxNode(this.root).key;
-    }
-  
-    static get comparison() {
-      return Object.freeze({
-        BIGGER: 1,
-        BIGGER_OR_EQUAL: [1, 0],
-        SMALLER: -1,
-        SMALLER_OR_EQUAL: [-1, 0],
-        EQUAL: 0
-      })
-    }
-  
-    createNode(key) {
-      return Object.seal({
-        key, left: null, right: null
-      })
-    }
-  
-    insert(key) {
-      const newNode = this.createNode(key);
-      
-      if(this.root === null) {
-        this.#root = newNode;
-      } else {
-        this.#insertNode(newNode);
-      }
-    }
-  
-    print() {
-      this.#printNode();
-    }
-  
-    traverseInOrder(cb) {
-      this.#inOrder(this.root, cb);
-    }
-  
-    traverseReversedOrder(cb) {
-      this.#reverseOrder(this.root, cb);
-    }
-  
-    traversePreOrder(cb) {
-      this.#preOrder(this.root, cb);
-    }
-  
-    traversePostOrder(cb) {
-      this.#postOrder(this.root, cb);
-    }
-  
-    search(key) {
-      return this.#searchTree(key);
-    }
-  
-    remove(key) {
-      this.#root = this.#removeNode(key);
-    }
-  
-    #removeNode = (key, node = this.root) => {
-      if(node === null) return null;
-  
-      if(this.#compare(key, node.key) === BST.comparison.SMALLER) {
-        node.left = this.#removeNode(key, node.left);
-        return node;
-      }
-      
-      if(this.#compare(key, node.key) === BST.comparison.BIGGER) {
-        node.right = this.#removeNode(key, node.right);
-        return node;
-      }
-      
-      if(node.left === null && node.right === null) {
-        node = null;
-      } else if(node.left === null) {
-        node = node.right;
-      } else if(node.right === null) {
-        node = node.left;
-      } else {
-        const max = this.#maxNode(node.left);
-        node.key = max.key;
-        node.left = this.#removeNode(max.key, node.left)
-      }
-  
-      return node;
-    }
-    
-    #maxNode = (node) => {
-      while(node && node.right) {
-        node = node.right;
-      }
-  
-      return node;
-    }
-    
-    #minNode = (node) => {
-      while(node && node.left) {
-        node = node.left;
-      }
-  
-      return node;
-    }
-  
-    #searchTree = (key, node = this.root) => {
-      if(node === null) return false;
-  
-      if(this.#compare(key, node.key) === BST.comparison.EQUAL) return true;
-         
-      if(this.#compare(key, node.key) === BST.comparison.SMALLER) {
-         return this.#searchTree(key, node.left);
-      }
-      
-      return this.#searchTree(key, node.right);
-    }
-  
-    #postOrder = (node, cb) => {
-      if(node !== null) {
-        this.#postOrder(node.left, cb);
-        this.#postOrder(node.right, cb);
-        cb(node.key);
-      }
-    }
-  
-    #preOrder = (node, cb) => {
-      if(node !== null) {
-        cb(node.key);
-        this.#preOrder(node.left, cb);
-        this.#preOrder(node.right, cb);
-      }
-    }
-  
-    #reverseOrder = (node, cb) => {
-      if(node !== null) {
-        this.#reverseOrder(node.right, cb);
-        cb(node.key);
-        this.#reverseOrder(node.left, cb);
-      }
-    }
-  
-    #inOrder = (node, cb) => {
-      if(node !== null) {
-        this.#inOrder(node.left, cb);
-        cb(node.key);
-        this.#inOrder(node.right, cb);
-      }
-    }
-  
-    #insertNode = (newNode, currentNode = this.root) => {
-      if(this.#compare(newNode.key, currentNode.key) === BST.comparison.SMALLER) {
-         if(currentNode.left === null) {
-           currentNode.left = newNode;
-         } else {
-          this.#insertNode(newNode, currentNode.left)
-        }                            
-      } else {
-         if(currentNode.right === null) {
-           currentNode.right = newNode;
-         } else {
-           this.#insertNode(newNode, currentNode.right)
-         }  
-      }
-    }
-    
-    #printNode = (node = this.root, spaceCount = 0, label = '* ') => {
-      if(node === null) {
-        return console.log(`${' -'.repeat(spaceCount)}${label}null`);
-      }
-  
-      console.log(`${' -'.repeat(spaceCount)}${label}${node.key}`);
-      this.#printNode(node.right, spaceCount + 2, 'R: ');
-      this.#printNode(node.left, spaceCount + 2, 'L: ');
-    }
-  }
-  
-  class AVLTree extends BST {
-    #root = null;
-    #compare;
-    #Balance = Object.freeze({
-      UNBALANCED_LEFT: 2,
-      SEMIUNBALANCED_LEFT: 1,
-      SEMIUNBALANCED_RIGHT: -1,
-      UNBALANCED_RIGHT: -2,
-      BALANCED: 0,
-    });
-    
-    constructor(compareFn = null) {
-      let fn = null;
-      
-      if(compareFn && typeof compareFn === 'function') {
-        fn = compareFn;
-      } else {
-        fn = (a, b) => {
-          if(a > b) return BST.comparison.BIGGER;
-          if(a < b) return BST.comparison.SMALLER;
-        
-          return BST.comparison.EQUAL;
-        }
-      }
-  
-      super(fn);
-      this.#compare = fn;
-    }
-  
-    get root() {
-      return this.#root;
-    }
-  
-    insert(key) {
-      const newNode = this.createNode(key);
-  
-      if (this.root === null) {
-        this.#root = newNode;
-      } else {
-        this.#root = this.#insertNode(newNode);
-      }
-    }
-  
-    remove(key) {
-      this.#root = this.#removeNode(key);
-    }
-  
-    print() {
-      let node = this.#printNode();
-      return node
-    }
-  
-    #removeNode = (key, node = this.root) => {
-      if (node === null) return null;
-  
-      if (this.#compare(key, node.key) === BST.comparison.SMALLER) {
-        node.left = this.#removeNode(key, node.left);
-        return this.#balanceNode(node);
-      }
-  
-      if (this.#compare(key, node.key) === BST.comparison.BIGGER) {
-        node.right = this.#removeNode(key, node.right);
-        return this.#balanceNode(node);
-      }
-  
-      // match node is the leaf node
-      if (node.left === null && node.right === null) {
-        node = null;
-      } else if (node.left === null) {// match node lack left or right node
-        node = node.right;
-      } else if (node.right === null) {
-        node = node.left;
-      } else { // match node has both of its nodes
-        const max = this.#maxNode(node.left);
-        node.key = max.key;
-        node.left = this.#removeNode(max.key, node.left);
-      }
-  
-      return this.#balanceNode(node, key);
-    };
-  
-    #maxNode = (node) => {
-      while (node !== null && node.right !== null) {
-        node = node.right;
-      }
-  
-      return node;
-    };
-  
-    #insertNode(newNode, currentNode = this.root) {
-      if (this.#compare(newNode.key, currentNode.key) === BST.comparison.SMALLER) {
-        currentNode.left = currentNode.left === null
-            ? newNode
-            : this.#insertNode(newNode, currentNode.left);
-      } else {
-        currentNode.right = currentNode.right === null
-            ? newNode
-            : this.#insertNode(newNode, currentNode.right);
-      }
-  
-      return this.#balanceNode(currentNode, newNode.key);
-    }
-  
-    #balanceNode(node, key = null) {
-      if (node === null) {
-        return node;
-      }
-  
-      const balance = this.#getNodeBalanceFactor(node);
-  
-      if (balance === this.#Balance.UNBALANCED_LEFT) {
-        if (key) {
-          node = this.#compare(key, node.left.key) === BST.comparison.SMALLER 
-            ? this.#RRotation(node) 
-            : this.#LRRotation(node);
-        } else if (node.left) {
-          const leftBalance = this.#getNodeBalanceFactor(node.left);
-  
-          if (
-            // leftBalance === this.#Balance.BALANCED ||
-            leftBalance === this.#Balance.SEMIUNBALANCED_LEFT
-          ) {
-            console.log('no key left 1', leftBalance)
-            return this.#RRotation(node);
-          }
-  
-          if (leftBalance === this.#Balance.SEMIUNBALANCED_RIGHT) {
-            console.log('no key left 2', leftBalance)
-            return this.#LRRotation(node);
-          }
-        }
-      }
-  
-      if (balance === this.#Balance.UNBALANCED_RIGHT) {
-        if (key) {
-          node = BST.comparison.BIGGER_OR_EQUAL.includes(this.#compare(key, node.right.key))
-            ? this.#LRotation(node)
-            : this.#RLRotation(node);
-        } else if (node.right) {
-          const rightBalance = this.#getNodeBalanceFactor(node.right);
-          console.log('right', rightBalance)
-  
-          if (
-            // rightBalance === this.#Balance.BALANCED ||
-            rightBalance === this.#Balance.SEMIUNBALANCED_RIGHT
-          ) {
-             console.log('no key right 1', rightBalance)
-            return this.#LRotation(node);
-          }
-  
-          if (rightBalance === this.#Balance.SEMIUNBALANCED_LEFT) {
-              console.log('no key right 2', rightBalance)
-            return this.#RLRotation(node);
-          }
-        }
-      }
-  
-      return node;
-    }
-  
-    #RRotation(node) {
-      const detached = node.left;
-      node.left = detached.right;
-      detached.right = node;
-      return detached;
-    }
-  
-    #LRotation(node) {
-      const detached = node.right;
-      node.right = detached.left;
-      detached.left = node;
-      return detached;
-    }
-  
-    #LRRotation(node) {
-      node.left = this.#LRotation(node.left);
-      return this.#RRotation(node);
-    }
-  
-    #RLRotation(node) {
-      node.right = this.#RRotation(node.right);
-      return this.#LRotation(node);
-    }
-  
-    #getNodeHeight(node) {
-      if (node === null) {
-        return 0;
-      }
-  
-      return (
-        Math.max(
-          this.#getNodeHeight(node.left),
-          this.#getNodeHeight(node.right)
-        ) + 1
-      );
-    }
-  
-    #getNodeBalanceFactor(node) {
-      return this.#getNodeHeight(node.left) - this.#getNodeHeight(node.right);
-    }
-  
-    #printNode = (node = this.root, spaceCount = 0, label = '* ') => {
-      if (node === null) return console.log(`${' -'.repeat(spaceCount)}${label}[0/0] null`);
-  
-      console.log(
-        `${' -'.repeat(spaceCount)}${label}` +
-        `[${this.#getNodeHeight(node)}/${this.#getNodeBalanceFactor(node)}] ${node.key}`
-      );
-      listaGuardar.push(node.key)
-  
-      this.#printNode(node.right, spaceCount + 2, 'R: ');
-      this.#printNode(node.left, spaceCount + 2, 'L: ');
-      return node
-    };
-  }
-  
-const tree = new AVLTree();
-tree.insert(70) 
-tree.insert(50)
-tree.insert(80)
-//tree.remove(40)
-hola = tree.print()
-//console.log(hola)
-
 const doubleLinkedList = new DoubleLinkedList();
-doubleLinkedList.addToHead(3,hola);
-doubleLinkedList.addToHead(2,hola);
+function verificar(lista){
+  let verificador = false;
+  for(k in listaVerificaion){
+      if(listaVerificaion[k]==lista){
+        return verificador = true
+      }
+  }return false
+
+}
+function insertarCombinada(lista,arbol){
+  //console.log(lista)
+  let verificacion = verificar(lista);
+  //console.log(verificacion)
+  if(verificacion == false){
+    doubleLinkedList.addToHead(lista,arbol);
+    listaVerificaion.push(lista);
+  }else{
+   // console.log(arbol)
+    doubleLinkedList.encontrarNodo(lista,arbol);
+  }
+  doubleLinkedList.print()
+}
+function insertarCombinadaa(data1,data2){
+  insertarCombinada(data1,data2);
+}
+function eliminarCompuesta(data1,data2){
+  doubleLinkedList.eliminarNodo(data1,data2)
+  doubleLinkedList.print()
+}
+function buscarCompuesta(data1,data2){
+  doubleLinkedList.buscarNodo(data1,data2)
+  //doubleLinkedList.print()
+}
+//insertarCombinada(8,50)
+//insertarCombinada(9,55)
+//insertarCombinada(8,100)
+//insertarCombinada(10,100)
+//doubleLinkedList.addToHead(5,m);
 //doubleLinkedList.addToTail(7);
 //doubleLinkedList.addToTail(8);
 //doubleLinkedList.insertAt(4, 2);
 //doubleLinkedList.removeFromHead();
 //doubleLinkedList.removeFromTail();
-//doubleLinkedList.removeData(4);
-console.log(doubleLinkedList.getSize());
+//console.log(doubleLinkedList.getSize());
 
-console.log(doubleLinkedList.print())
+//console.log(doubleLinkedList.print())

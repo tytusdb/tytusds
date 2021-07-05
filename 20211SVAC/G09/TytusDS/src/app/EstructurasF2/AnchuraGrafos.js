@@ -35,7 +35,7 @@ class AnchuraGrafos{
 		let nodo = {
 			Vertices: DatoActual,
 			id: id,
-			edges: []
+			Aristas: []
 		}
 		this.DatoNodo.push(nodo)
 	}
@@ -50,9 +50,9 @@ class AnchuraGrafos{
 			}
 		}
 		for(let i = 0; i < this.DatoNodo.length; i++){
-			for(let j = 0; j < this.DatoNodo[i].edges.length; j++){
-				if(this.DatoNodo[i].edges[j] == DatoActual){
-					this.DatoNodo[i].edges.splice(j, 1);
+			for(let j = 0; j < this.DatoNodo[i].Aristas.length; j++){
+				if(this.DatoNodo[i].Aristas[j] == DatoActual){
+					this.DatoNodo[i].Aristas.splice(j, 1);
 					break
 				}
 			}
@@ -70,10 +70,10 @@ class AnchuraGrafos{
 			}
 		}
 		for(let i = 0; i < this.DatoNodo.length; i++){
-			for(let j = 0; j < this.DatoNodo[i].edges.length; j++){
-				if(this.DatoNodo[i].edges[j] == DatoActual){
-					this.DatoNodo[i].edges[j] = NuevoDato;
-					this.Insertar(this.DatoNodo[i].edges)
+			for(let j = 0; j < this.DatoNodo[i].Aristas.length; j++){
+				if(this.DatoNodo[i].Aristas[j] == DatoActual){
+					this.DatoNodo[i].Aristas[j] = NuevoDato;
+					this.Insertar(this.DatoNodo[i].Aristas)
 					break
 				}
 			}
@@ -84,8 +84,8 @@ class AnchuraGrafos{
 	AgregarVertice(from, to){
 		for(let i = 0; i < this.DatoNodo.length; i++){
 			if(this.DatoNodo[i].Vertices == from){
-				this.DatoNodo[i].edges.push(to)
-				this.Insertar(this.DatoNodo[i].edges)
+				this.DatoNodo[i].Aristas.push(to)
+				this.Insertar(this.DatoNodo[i].Aristas)
 			}
 		}
 	}
@@ -93,7 +93,7 @@ class AnchuraGrafos{
 	ObtenerDatoNodo(DatoActual){
 		for(let i = 0; i < this.DatoNodo.length; i++){
 			if(DatoActual == this.DatoNodo[i].Vertices){
-				return this.DatoNodo[i].edges
+				return this.DatoNodo[i].Aristas
 			}
 		}
 		return []
@@ -147,8 +147,8 @@ class AnchuraGrafos{
 	VerificarExisteVertice(from, to){
 		for(let i = 0; i < this.DatoNodo.length; i++){
 			if(this.DatoNodo[i].Vertices == from){
-				for(let j = 0; j < this.DatoNodo[i].edges.length; j++){
-					if(this.DatoNodo[i].edges[j] == to){
+				for(let j = 0; j < this.DatoNodo[i].Aristas.length; j++){
+					if(this.DatoNodo[i].Aristas[j] == to){
 						return true
 					}
 				}
