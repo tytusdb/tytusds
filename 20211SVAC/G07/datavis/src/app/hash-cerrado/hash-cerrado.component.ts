@@ -680,7 +680,7 @@ export class HashCerradoComponent implements OnInit {
   @ViewChild('mynetwork', {static: false}) el: ElementRef;
   public network: any;
   constructor() { }
-  contenido = "{ \"valores\": [\n";
+  contenido = "";
 
   ngOnInit(): void {
   }
@@ -689,6 +689,8 @@ export class HashCerradoComponent implements OnInit {
     this.network = new vis.Network(container, listaData, options);
   }
   generador(){
+    this.contenido = "";
+    this.contenido = "{ \"valores\": [\n";
     for (let i = 0; i < h.tabla.length; i++) {
       this.contenido +='"'+h.tabla[i]+'"'+ ",\n";
     }
