@@ -418,17 +418,17 @@ var searchNodeOnGraphos = function () {
     }
 };
 var graphosWidthSearch = function () {
-    console.log(vertexArray);
     var textValues = vertexArray.map(function (value) {
         return value.vertice.toString();
     });
     var usedNodes = [textValues[0]];
+    var widthSearchEdges = [];
     vertexArray.forEach(function (currentNode, currentIndex) {
         currentNode.aristas.forEach(function (edge) {
             var destEdge = edge.arista.toString();
             if (!usedNodes.some(function (node) { return node === destEdge; })) {
                 usedNodes.push(destEdge);
-                searchGraphoPositions.push({
+                widthSearchEdges.push({
                     origin: __assign(__assign({}, nodesArray[textValues.indexOf(textValues[currentIndex])]), { color: '#ADD8E6', isDouble: false, randPhase: 0 }),
                     dest: __assign(__assign({}, nodesArray[textValues.indexOf(destEdge)]), { color: '#ADD8E6', isDouble: false, randPhase: 0 }),
                     distance: edge.distancia,
@@ -436,6 +436,55 @@ var graphosWidthSearch = function () {
             }
         });
     });
+    searchGraphoPositions = widthSearchEdges;
+};
+var graphosDeepSearch = function () {
+    var textValues = vertexArray.map(function (value) {
+        return value.vertice.toString();
+    });
+    var currentNodeIndex = 0;
+    var usedNodes = [textValues[0]];
+    var deepSearchEdges = [];
+    while (usedNodes.length < vertexArray.length) {
+        if (vertexArray[currentNodeIndex]) {
+            var lastEdge = graphoType === 'dir' ? undefined : vertexArray[currentNodeIndex].aristas[0];
+            var _loop_5 = function (edgesIndex) {
+                if (!usedNodes.some(function (node) {
+                    return node ===
+                        vertexArray[currentNodeIndex].aristas[edgesIndex].arista.toString();
+                })) {
+                    lastEdge = vertexArray[currentNodeIndex].aristas[edgesIndex];
+                    return "break";
+                }
+            };
+            for (var edgesIndex = 0; edgesIndex < vertexArray[currentNodeIndex].aristas.length; edgesIndex++) {
+                var state_1 = _loop_5(edgesIndex);
+                if (state_1 === "break")
+                    break;
+            }
+            if (lastEdge) {
+                var nextNodeIndex = textValues.indexOf(lastEdge.arista.toString());
+                usedNodes.push(lastEdge.arista.toString());
+                deepSearchEdges.push({
+                    origin: __assign(__assign({}, nodesArray[currentNodeIndex]), { color: '#ADD8E6', isDouble: false, randPhase: 0 }),
+                    dest: __assign(__assign({}, nodesArray[nextNodeIndex]), { color: '#ADD8E6', isDouble: false, randPhase: 0 }),
+                    distance: lastEdge.distancia,
+                });
+                currentNodeIndex = nextNodeIndex;
+            }
+            else
+                currentNodeIndex--;
+        }
+        else
+            break;
+    }
+    searchGraphoPositions = deepSearchEdges;
+};
+var handleWaySearchOnGraphos = function () {
+    if (graphoWaySearch === 'deep')
+        graphosDeepSearch();
+    else
+        graphosWidthSearch();
     addTestCode('recorrer', graphoWaySearch);
     hideNavMenu(1);
 };

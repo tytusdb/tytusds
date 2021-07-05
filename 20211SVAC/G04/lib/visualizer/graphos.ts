@@ -22,7 +22,7 @@ let graphoNodeScaleCounter: number = 0
 // ARREGLO DE GRAFOS
 let edgesArray: EdgeJoin[] = []
 let nodesArray: NodePosition[] = []
-const searchGraphoPositions: EdgeJoin[] = []
+let searchGraphoPositions: EdgeJoin[] = []
 let vertexArray: GraphoInputValues[] = []
 
 // SUBIR JSON
@@ -535,7 +535,7 @@ const deleteNodeOnGraphos = () => {
 			vertexArray.forEach((vertex) => {
 				const edges = vertex.aristas.filter(
 					(edge) => edge.arista.toString() !== oldNodeValue,
-					)
+				)
 				vertex.aristas = edges
 			})
 			edgesArray = edgesArray.filter(
@@ -597,11 +597,11 @@ const searchNodeOnGraphos = () => {
 
 // BUSQUEDA POR ANCHURA
 const graphosWidthSearch = () => {
-	console.log(vertexArray)
 	const textValues: string[] = vertexArray.map((value) =>
 		value.vertice.toString(),
 	)
 	const usedNodes: string[] = [textValues[0]]
+	const widthSearchEdges: EdgeJoin[] = []
 
 	// ARISTAS
 	vertexArray.forEach((currentNode, currentIndex) => {
@@ -609,7 +609,7 @@ const graphosWidthSearch = () => {
 			const destEdge = edge.arista.toString()
 			if (!usedNodes.some((node) => node === destEdge)) {
 				usedNodes.push(destEdge)
-				searchGraphoPositions.push({
+				widthSearchEdges.push({
 					origin: {
 						...nodesArray[textValues.indexOf(textValues[currentIndex])],
 						color: '#ADD8E6',
@@ -627,6 +627,76 @@ const graphosWidthSearch = () => {
 			}
 		})
 	})
+
+	searchGraphoPositions = widthSearchEdges
+}
+
+// BUSQUEDA POR PROFUNDIDAD
+const graphosDeepSearch = () => {
+	const textValues: string[] = vertexArray.map((value) =>
+		value.vertice.toString(),
+	)
+	let currentNodeIndex: number = 0
+	const usedNodes: string[] = [textValues[0]]
+	let deepSearchEdges: EdgeJoin[] = []
+
+	// BUSCAR
+	while (usedNodes.length < vertexArray.length) {
+		if (vertexArray[currentNodeIndex]) {
+			// ULTIMA ARISTA DISPONIBLE
+			let lastEdge  = graphoType === 'dir' ? undefined : vertexArray[currentNodeIndex].aristas[0]
+
+			// BUSCAR ARISTA
+			for (
+				let edgesIndex: number = 0;
+				edgesIndex < vertexArray[currentNodeIndex].aristas.length;
+				edgesIndex++
+			) {
+				if (
+					!usedNodes.some(
+						(node) =>
+							node ===
+							vertexArray[currentNodeIndex].aristas[
+								edgesIndex
+							].arista.toString(),
+					)
+				) {
+					lastEdge = vertexArray[currentNodeIndex].aristas[edgesIndex]
+					break
+				}
+			}
+
+			// AGREGAR A ARISTA USADA
+			if (lastEdge) {
+				const nextNodeIndex = textValues.indexOf(lastEdge.arista.toString())
+				usedNodes.push(lastEdge.arista.toString())
+				deepSearchEdges.push({
+					origin: {
+						...nodesArray[currentNodeIndex],
+						color: '#ADD8E6',
+						isDouble: false,
+						randPhase: 0,
+					},
+					dest: {
+						...nodesArray[nextNodeIndex],
+						color: '#ADD8E6',
+						isDouble: false,
+						randPhase: 0,
+					},
+					distance: lastEdge.distancia,
+				})
+				currentNodeIndex = nextNodeIndex
+			} else currentNodeIndex--
+		} else break
+	}
+
+	searchGraphoPositions = deepSearchEdges
+}
+
+// BUSQUEDA POR ANCHURA O PROFUNDIDA
+const handleWaySearchOnGraphos = () => {
+	if (graphoWaySearch === 'deep') graphosDeepSearch()
+	else graphosWidthSearch()
 
 	// AGREGAR CÓDIGO
 	addTestCode('recorrer', graphoWaySearch)
