@@ -34,7 +34,8 @@ export default class NavbarInter extends Component {
       busqueda: "",
       nombre: '',
       datoaencriptar: '',
-      fileDownloadUrl: null
+      fileDownloadUrl: null,
+      valorGrafo: ""
      }
 
 
@@ -194,6 +195,26 @@ busquedaConRecorrido=()=>{
     estrutura: this.state.estrutura
   })
 }
+
+costoUniforme=()=>{
+
+  let splitEntrada = this.state.valorGrafo.split(",")
+  this.state.estrutura.costoMinimo(splitEntrada[0], splitEntrada[1])
+
+  this.setState({
+    estrutura: this.state.estrutura
+  })
+}
+
+recubrimientoMinimo=()=>{
+  this.state.estrutura.recubrimientoMinimo(this.state.valorGrafo)
+
+  this.setState({
+    estrutura: this.state.estrutura
+  })
+}
+
+
 
    guardarOrdenamiento=(event) =>{
 
@@ -513,14 +534,24 @@ busquedaConRecorrido=()=>{
             <Eliminar obtenerDatos={this.obtenerDatos} nombre={this.state.nombre} edd={this.state.estrutura} key={count++}/> 
             <Actualizar obtenerDatos={this.obtenerDatos} nombre={this.state.nombre} edd={this.state.estrutura} key={count++}/>
             <Buscar busqueda={this.obtenerBusqueda} key={count++}/>
-            <Menu.Item name="Recorrido por Profundidad"
-                    onClick={this.handleItemClick, this.recorridosProfundidad}>
-            </Menu.Item>
-            <Menu.Item name="Recorrido por Anchura"
-                    onClick={this.handleItemClick, this.recorridosAnchura}> 
-            </Menu.Item>
+            
             <Menu.Item name="Buscar con Recorrido"
                     onClick={this.handleItemClick, this.busquedaConRecorrido}> 
+            </Menu.Item>
+
+            <Menu.Item name="Profundidad"
+                    onClick={this.handleItemClick, this.recorridosProfundidad}>
+            </Menu.Item>
+            <Menu.Item name="Anchura"
+                    onClick={this.handleItemClick, this.recorridosAnchura}> 
+            </Menu.Item>
+            
+            <Menu.Item name="Costo Uniforme"
+                    onClick={this.handleItemClick, this.costoUniforme}> 
+            </Menu.Item>
+
+            <Menu.Item name="Recubrimiento mínimo"
+                    onClick={this.handleItemClick, this.recubrimientoMinimo}> 
             </Menu.Item>
           <Menu.Menu position='right'>
             <Menu.Item name="Guardar" icon='save'  onClick={this.handleItemClick, this.guardarEstructuras}>
@@ -536,6 +567,8 @@ busquedaConRecorrido=()=>{
               >download it</a>
         <h1 style={{ color: 'white' }}>{this.state.nombre}</h1>
         {/* <h3>{this.state.estructura.Imprimir()}</h3> */}
+        <Input className="inputAgregar" type="text" name="valorGrafo" value={this.state.valorGrafo}  fluid placeholder="opciones" onChange={this.obtenerText}/>
+        <br/>
         <GraficarGrafo nombre={this.state.nombre} estructura={this.state.estrutura} valorBusqueda={this.state.busqueda} key={count++}/> 
       </div>
       )

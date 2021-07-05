@@ -141,6 +141,7 @@ class ListaAdyacencia{
         this.profundidad = null
         this.busquedaRecorrido = null
         this.anchura = null
+        this.costoUnfi = null
     }
 
     //Metodo de obtencion de vertices no dirigos
@@ -380,8 +381,10 @@ class ListaAdyacencia{
     //Recorrido por anchura
     BFS(){
         this.profundidad = null
-        
+        this.costoUnfi = null
+        this.busquedaRecorrido  = null
         this.busquedaRecorrido = null
+        this.caminoFinal = null
         n = new ListaDoble()
         let aux = this.ListaAdyacencia.cabeza
         while (aux != null){
@@ -426,10 +429,16 @@ class ListaAdyacencia{
 
     //Recorrido por Profundidad
     DFS(){
+        
+        this.anchura = null
+        this.busquedaRecorrido = null
+        this.costoUnfi  = null
+        this.caminoFinal = null
         n = new ListaDoble()
         let aux = this.ListaAdyacencia.cabeza
         let arregloEdge = []
         arregloEdge = this.subDFS(aux.dato,arregloEdge)
+        this.profundidad = arregloEdge
         return arregloEdge
     }
 
@@ -458,6 +467,7 @@ class ListaAdyacencia{
     busquedaEspecifica(fin){
         this.profundidad = null
         this.anchura = null
+        this.costoUnfi = null
         this.caminoFinal = []
         let arregloEdge = []
         this.final = fin
@@ -583,6 +593,10 @@ class ListaAdyacencia{
 
     //Metodo de Rebubrimiento Minimo
     recubrimientoMinimo(ini){
+        this.anchura = null
+        this.profundidad = null
+        this.busquedaRecorrido = null
+        this.costoUnfi = null
         let borrar = this.ListaAdyacencia.cabeza
         while(borrar!= null){
             borrar.dato.camino = new ListaDoble()
@@ -606,7 +620,7 @@ class ListaAdyacencia{
                     if(iniRec.dato.dato == enl.dato.inicio.dato){
                         if(enl.dato.distancia == minimodis){    
                             enl.dato.destino.camino.insertar(iniRec.dato)
-                            let egde = {from: enl.dato.inicio.id, to: enl.dato.destino.id, label: enl.dato.distancia }
+                            let egde = {from: enl.dato.inicio.id, to: enl.dato.destino.id, label: enl.dato.distancia, color:"orange" }
                             this.caminoFinal.push(egde)
                             this.seguirRecorriendo(enl.dato.destino)
                             costos.eliminar(enl.dato.distancia)
@@ -700,6 +714,9 @@ class ListaAdyacencia{
 
     //Metodo arranque para costo minimo
     costoMinimo(ini, fin){
+        this.profundidad = null
+        this.anchura = null
+        this.busquedaRecorrido = null
         let arregloEdge = []
         this.inicio = ini
         this.final = fin
@@ -739,6 +756,7 @@ class ListaAdyacencia{
         if(arregloEdge.length==0){
             alert("Error1. Valor no existente.")
         }
+        this.costoUnfi = arregloEdge
         return arregloEdge
     }
 
@@ -802,7 +820,7 @@ class ListaAdyacencia{
                             adymandar.dato.distTotal = nuevosenlaces.dato.distancia + nodo.distTotal
                             nodo.camino.insertar(nodo)
                             adymandar.dato.camino = nodo.camino
-                            formarcaminooptimo(adymandar.dato)
+                            this.formarcaminooptimo(adymandar.dato)
                             nodo.camino.eliminar(nodo)
                             adymandar.dato.camino.eliminar(nodo)
                         break
@@ -998,6 +1016,20 @@ class ListaAdyacencia{
                         }
                         
                     }
+                }else if(this.costoUnfi != null){
+                    for (let x = 0; x < this.costoUnfi.length; x++) {
+                        if(this.costoUnfi[x].from === tmp.dato.inicio.id && this.costoUnfi[x].to === tmp.dato.destino.id){
+                            egde = {from: tmp.dato.inicio.id, to: tmp.dato.destino.id , label: tmp.dato.distancia.toString(),  color: "orange"}   
+                        }
+                        
+                    }
+                }else if(this.caminoFinal != null){
+                    for (let x = 0; x < this.caminoFinal.length; x++) {
+                        if(this.caminoFinal[x].from === tmp.dato.inicio.id && this.caminoFinal[x].to === tmp.dato.destino.id){
+                            egde = {from: tmp.dato.inicio.id, to: tmp.dato.destino.id , label: tmp.dato.distancia.toString(),  color: "orange"}   
+                        }
+                        
+                    }
                 }
                 
                 arregloEdge.push(egde)
@@ -1013,6 +1045,10 @@ class ListaAdyacencia{
         if(this.profundidad != null){
             return arregloEdge.concat(this.profundidad)
         } */
+
+        if(this.caminoFinal != null){
+            return arregloEdge.concat(this.caminoFinal)
+        }
         return arregloEdge
     } 
 }
