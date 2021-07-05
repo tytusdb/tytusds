@@ -16,71 +16,36 @@
 
     <div class="row">
         <div class="col-3 columna1">
-
-            <div class="row formulario">
-                <form action="#" method="POST" class="form" id="form">
-                    <div class="row">
-                        <div class="col-1 col_label"><label for="dato" class="form_label">&plus;</label></div>
-                        <div class="col-8 col_input"><input type="text" name="" id="dato" placeholder="Dato"></div>
-                    </div>
-                </form>
-                <div id="oculto">
-                    <form action="#" method="POST" class="form" id="form">
-                        <div class="row">
-                            <div class="col-1 col_label"><label for="dato" class="form_label labe">&lrhar;</label></div>
-                            <div class="col-8 col_input"><input type="text" name="" id="dato2" placeholder="Nuevo dato"></div>
-                        </div>
-                    </form>
-                    <div class="row">
-                        <div class="row justify-content-end"><button class="boton" id="cambiar">Cambiar</button></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row tablero">
-                <div class="col-6"><button class="boton" id="agregar">Agregar</button></div>
-                <div class="col-6 align-self-end"><button class="boton" id="buscar" >Buscar</button></div>
-                
-            </div>
-            <div class="row">
-                <div class="col-6"><button class="boton" id="actualizar" >Actualizar</button></div>
-                <div class="col-6 align-self-end"><button class="boton" id="eliminar" >Eliminar</button></div>
-            </div>
-            
             <div class="row archivo">
                 <div class="row formulario">
                     <form action="#" method="POST" class="form" id="form">
                         <div class="row">
                             <div class="col-12"><label for="dato">Leer archivo JSON</label></div>
                             <div class="col-12 col_input">
-                                <input type="file" name="" id="file" accept=".json">
+                                <input type="file" name="" id="file" accept=".txt">
                             </div>
                             <div class="col-12"><label for="dato" id="mensaje"></label></div>
                         </div>
                     </form>
-                    <div class="col-6"><button class="boton" id="cargar">Cargar</button></div>
-                </div>
+                <div class="col-6"><button class="boton" id="cargar">Cargar</button></div>
                 <div class="col-6"><button class="boton" id="guardar" >Guardar</button></div>
+                </div>
             </div>
+            <div class="row">
+                <div class="col-1">
+                    <label for="velocidad" class="velocidad_lb">Velocidad</label>
+                </div>
+            </div>
+            <input type="range" id="velocidad" name="velocidad" min="1" max="10">
+            <label for="velocidad" id="numero" class="velocidad_lb"></label>
         </div>
-
         <div class="col-9 columna2">
             <div class="row">
-                <div class="panel"><canvas id='lienzo' width="1000" height="500"></canvas></div>
-            </div>
-            <div class="row">
-                <div class="controles">
-                    <div class="row">
-                        <div class="col-1">
-                            <label for="velocidad" class="velocidad_lb">Velocidad</label>
-                        </div>
-                    </div>
-                    <input type="range" id="velocidad" name="velocidad" min="1" max="5">
-                    <label for="velocidad" id="numero" class="velocidad_lb">3</label>
-                </div>
+                <div class="panel" id="panel">
             </div>
         </div>
     </div>
-    <script src="#"></script>
+    
+    <script src="scripts/lzw.js"></script>
 </body>
 </html>

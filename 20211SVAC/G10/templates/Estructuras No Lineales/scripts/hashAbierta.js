@@ -93,13 +93,11 @@ class Hash {
         let codigo = this.set_key(dato)
         let indice = this.funcionHash(codigo, this.funcion)
         let actual = this.lista[indice]
-
-        let contador = 0
+        
         while (actual != null) {
             if (actual.dato == dato) {
                 return actual.dato
             }
-            contador ++
             actual = actual.siguiente
         }
         return false
@@ -212,25 +210,7 @@ class Hash {
                 string += ' -1'
             }
         }
-        /* 
-        let string = ''
-        let cantidad
-        for(let i = 0; i < this.lista.length; i++) {
-            let actual = this.lista[i]
-            string += `[${i}] `
-            if(actual == null) {
-                string += `-1`
-                cantidad = 0
-            }
-            while (actual != null) {
-                string += `|${actual.codigo}: ${actual.dato}|`
-                string += '-> '
-                actual = actual.siguiente
-                cantidad = this.lista[i].elemento
-            }
-            string += ` (${cantidad} elementos)\n`
-        }
-        */
+        
         string += `] ${(this.n*100/this.m).toFixed(0)}%`
         console.log(string)
     }
