@@ -35,7 +35,7 @@ class TablaHashCerrada {
 
     funcion_Hash(dato, forma){
         let valorretorno;
-        if(dato.charCodeAt){
+        if(typeof dato === 'string'){
             dato = this.getCharCodes(dato)
         }
         switch(forma){
@@ -89,10 +89,12 @@ class TablaHashCerrada {
       }
 
     agregar(dato){
-        dato = parseInt(dato)== NaN ? dato: parseInt(dato)
+        if(typeof dato === 'number'){
+            dato = parseInt(dato)
+        }
         let posicion =this.funcion_Hash(dato, this.funcion)
         let i = 1;
-        while(this.tabla[posicion] !== -1 && posicion < this.tamaño){
+        while(this.tabla[posicion] !== -1){
             
             posicion = this.colisiones(dato, i, this.colision, this.funcion_Hash(dato, this.funcion))
             i++;
@@ -105,7 +107,7 @@ class TablaHashCerrada {
 
      colisiones(dato, i, colision, h1){
         let retorno;
-        if(dato.charCodeAt){
+        if(typeof dato === 'string'){
             dato = this.getCharCodes(dato)
         }
         console.log(dato)

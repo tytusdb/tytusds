@@ -1,3 +1,5 @@
+import { LocalConvenienceStoreOutlined } from "@material-ui/icons"
+
 //Contador para identificadores unicos de los nodos
 var idNodos = 0
 
@@ -95,7 +97,6 @@ class ListaDoble{
 
 //Lista de nodos para recorridos
 var n = null
-
 //Clase Nodo para Lista Doble
 class NodoListaDoble{
     //Constructor
@@ -142,6 +143,7 @@ class ListaAdyacencia{
         this.busquedaRecorrido = null
         this.anchura = null
         this.costoUnfi = null
+        this.recminimo = null
     }
 
     //Metodo de obtencion de vertices no dirigos
@@ -638,6 +640,7 @@ class ListaAdyacencia{
         if(this.caminoFinal.length == 0){
             alert("Error1. Valor no existente. ")
         }
+        this.recminimo = this.caminoFinal
         return this.caminoFinal
     }
 
@@ -659,7 +662,7 @@ class ListaAdyacencia{
             if(enl.dato.distancia == minimodis){
                 if(enl.dato.destino.camino.size == 0){
                     enl.dato.destino.camino.insertar(nodo)
-                    let egde = {from: enl.dato.inicio.id, to: enl.dato.destino.id, label: enl.dato.distancia }
+                    let egde = {from: enl.dato.inicio.id, to: enl.dato.destino.id, label: enl.dato.distancia, color:"orange" }
                     this.caminoFinal.push(egde)
                     this.seguirRecorriendo(enl.dato.destino)
                     costos.eliminar(minimodis)
@@ -687,7 +690,7 @@ class ListaAdyacencia{
                 if(enl.dato.distancia == minimodis){
                     if(enl.dato.destino.camino.size == 0){
                         enl.dato.destino.camino.insertar(enl.dato.inicio)
-                        let egde = {from: enl.dato.inicio.id, to: enl.dato.destino.id, label: enl.dato.distancia }
+                        let egde = {from: enl.dato.inicio.id, to: enl.dato.destino.id, label: enl.dato.distancia, color:"orange" }
                         this.caminoFinal.push(egde)
                         this.seguirRecorriendo(enl.dato.destino)
                         lisCostos.eliminar(minimodis)
@@ -988,7 +991,7 @@ class ListaAdyacencia{
 
     //Carga de array para graficacion de enlaces
     graficarEnlaces(){
-        let arregloEdge = []
+        let arregloedge = []
         let aux = this.ListaAdyacencia.cabeza
         while(aux!=null){
             let tmp = aux.dato.enlaces.cabeza
@@ -1023,33 +1026,23 @@ class ListaAdyacencia{
                         }
                         
                     }
-                }else if(this.caminoFinal != null){
-                    for (let x = 0; x < this.caminoFinal.length; x++) {
-                        if(this.caminoFinal[x].from === tmp.dato.inicio.id && this.caminoFinal[x].to === tmp.dato.destino.id){
-                            egde = {from: tmp.dato.inicio.id, to: tmp.dato.destino.id , label: tmp.dato.distancia.toString(),  color: "orange"}   
-                        }
-                        
-                    }
                 }
-                
-                arregloEdge.push(egde)
+                arregloedge.push(egde)
                 tmp = tmp.siguiente
             }
             aux = aux.siguiente
         }
-        /* if(this.anchura != null){
-            
-            return arregloEdge.concat(this.anchura)
-        }
         
-        if(this.profundidad != null){
-            return arregloEdge.concat(this.profundidad)
-        } */
-
-        if(this.caminoFinal != null){
-            return arregloEdge.concat(this.caminoFinal)
+       /*  console.log(this.caminoFinal)
+        console.log(arregloedge)
+        let arregloGen = []
+        if(this.recminimo != null){
+            for (let x = 0; x < this.recminimo.length; x++) {
+                arregloedge.push(this.recminimo[x])
+            }
         }
-        return arregloEdge
+        console.log(arregloedge) */
+        return arregloedge
     } 
 }
 
