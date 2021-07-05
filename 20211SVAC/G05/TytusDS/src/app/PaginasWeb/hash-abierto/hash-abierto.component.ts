@@ -12,6 +12,8 @@ let vis=require('../../../../vis-4.21.0/dist/vis');
 })
 export class HashAbiertoComponent implements OnInit {
 
+  grafo: any;
+  
   opciones = {
     sizeNoLineales: 10,
     funcionHash: "simple",
@@ -61,6 +63,9 @@ export class HashAbiertoComponent implements OnInit {
       if (contenido['prueba'] !== undefined) {
         this.opciones['pruebaHashCerrado'] = contenido['prueba'];
       }
+      if (contenido['animacion'] !== undefined) {
+        this.opciones['velocidadNoLineales'] = contenido['animacion'] * 100;
+      }
       
       contenido['valores'].forEach(valor => {
         this.valorAgregar = `${valor}`;
@@ -74,16 +79,14 @@ export class HashAbiertoComponent implements OnInit {
     if (this.valorAgregar.length === 0) return;
     
     if (this.primero) {
-      this.hash.llenarArreglo(this.opciones['sizeNoLineales'], this.opciones['rangoHashMinimo'], this.opciones['rangoHashMaximo']);
+      this.hash.llenarArreglo(this.opciones['sizeNoLineales'], this.opciones['rangoHashMinimo'], this.opciones['rangoHashMaximo'], this.opciones['funcionHash'], this.opciones['pruebaHashCerrado']);
       this.primero = false;
     }
 
-    this.hash.agregar(this.valorAgregar, this.valorAgregar, this.valorAgregar, this.opciones['funcionHash'], this.opciones['constante']);
-    console.log(this.hash.arreglo);
+    this.hash.agregar(this.valorAgregar);
     
     this.valorAgregar = '';
 
-    console.log(this.hash.getNodos());
     if (!esperar) {
       this.graficar();
     }
@@ -92,7 +95,7 @@ export class HashAbiertoComponent implements OnInit {
   eliminar(): void {
     if (this.valorEliminar.length === 0) return;
 
-    this.hash.eliminar(this.valorEliminar, this.opciones['funcionHash'], this.opciones['constante']);
+    this.hash.eliminar(this.valorEliminar);
 
     this.valorEliminar = '';
     this.graficar();
@@ -101,7 +104,7 @@ export class HashAbiertoComponent implements OnInit {
   actualizar(): void {
     if (this.valorAntiguo.length === 0 || this.valorActualizar.length === 0) return;
 
-    this.hash.actualizar(this.valorAntiguo, this.valorActualizar, this.opciones['funcionHash'], this.opciones['constante']);
+    this.hash.actualizar(this.valorAntiguo, this.valorActualizar);
 
     this.valorAntiguo = '';
     this.valorActualizar = '';
@@ -110,6 +113,24 @@ export class HashAbiertoComponent implements OnInit {
 
   buscar(): void {
     if (this.valorBuscar.length === 0) return;
+    let id = this.hash.buscar(this.valorBuscar);
+    if (id == "") {
+      alert(`No se ha encontrado el valor ${this.valorBuscar}`);
+      this.valorBuscar = '';
+      return;
+    }
+    let options={
+      scale: 10,
+      offset: {x:10, y:10},
+      locked: false,
+      animation: {
+        //duración en ms
+        duration: this.opciones['velocidadNoLineales'],
+        easingFunction: "easeInOutQuad"
+      }
+    }
+    this.valorBuscar = '';
+    this.grafo.focus(id,options);
   }
 
   graficar(): void {
@@ -126,15 +147,11 @@ export class HashAbiertoComponent implements OnInit {
           to:{
             enabled:true
           }
-        },
-        color:{
-          color:"#013ADF"
         }
       },
       nodes:{
         color:{
-          border:"white",
-          background: "#ED9106"
+          border:"white"
         },
         font:{
           color:"white"
@@ -153,7 +170,7 @@ export class HashAbiertoComponent implements OnInit {
       }
     };
     //------------------------------------------------------------------------
-    let grafo= new vis.Network(contenedor,datos,opciones);
+    this.grafo= new vis.Network(contenedor,datos,opciones);
   }
 
   guardar(): void {

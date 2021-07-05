@@ -69,7 +69,7 @@ class Pila extends Component {
 	}
 
 	handleAdd = () => {
-		pila.push(this.state.text);
+		pila.insertar(this.state.text);
 		getNodes = new DataSet(pila.setNodesDataSet());
 		getEdges = new DataSet(pila.setEdgesDataSet());
 		data = {
@@ -131,7 +131,7 @@ class Pila extends Component {
 			
 			for (var i=0; i < dataJson.valores.length; i++) {
 				console.log(dataJson.valores[i]);
-				pila.push(dataJson.valores[i].toString());
+				pila.insertar(dataJson.valores[i].toString());
 				
 			}
 			getNodes = new DataSet(pila.setNodesDataSet());

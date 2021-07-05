@@ -7,6 +7,7 @@ class ABinario{
     this.listaaux=new lista();
     this.l_edges=[];
     this.l_nodos=[];
+    this.datos=[];
     this.size=0;
   }
   //RELLENAR LISTA CON LOS CABECALES AUXILIAR Y LA QUE CUENTA LAS REPETICIONES DE ESTOS
@@ -257,13 +258,18 @@ class ABinario{
      return this.l_nodos;
   }
   pre_orden1(nodo,cabezal){
-    function NodoE(id,label,level=null){
+    function NodoE(id,label,level=null,color="red"){
       this.id= id;
       this.label= label.toString();
       this.level=level;
+      this.color=color
     }
     if (nodo!=null){
-      this.l_nodos.push(new NodoE(`C${cabezal}N${nodo.nivel}(${nodo.valor})`,nodo.valor,nodo.nivel))
+      if(nodo.padre==null){
+        this.l_nodos.push(new NodoE(`C${cabezal}N${nodo.nivel}(${nodo.valor})`,nodo.valor,nodo.nivel,'red'))
+      }else{
+        this.l_nodos.push(new NodoE(`C${cabezal}N${nodo.nivel}(${nodo.valor})`,nodo.valor,nodo.nivel,'purple'))
+      }
       this.pre_orden1(nodo.izquierda,cabezal);
       this.pre_orden1(nodo.derecha,cabezal);
     }
@@ -337,9 +343,29 @@ class ABinario{
       this._Cniveles(nodo.derecha);
     }
   }
-
-
-
+  Rdatos(){
+    this.datos=[];
+    let current= this.l_horizontal.head;
+    while (current!=null){
+      this._Rdatos(current,current);
+      current=current.next;
+    }
+    console.log(this.datos);
+    return this.datos;
+  }
+  _Rdatos(nodo,cabezal){
+    function nodo_json(principal,secundario){
+      this.principal=principal
+      this.secundario=secundario;
+    }
+    if (nodo!=null){
+      if(nodo.padre!=null){
+        this.datos.push(new nodo_json(cabezal.valor,nodo.valor))
+      }
+      this._Rdatos(nodo.izquierda,cabezal);
+      this._Rdatos(nodo.derecha,cabezal);
+    }
+  }
 }
 
 module.exports = ABinario;

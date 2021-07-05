@@ -56,6 +56,34 @@ export default class Eliminar extends Component {
              case "Arbol Merkle":
                 edd.Eliminar(dato)
                 break
+            case "Tabla Hash Cerrada":
+                edd.eliminar(dato)
+            break
+            case "Tabla Hash Abierta":
+                edd.eliminar(dato)
+            break;
+            case "Col Major":
+                let arreglosplit = dato.split(",")
+                let x = arreglosplit[0]
+                let y = arreglosplit[1]
+                edd.eliminar(x,y,nombre,dato)
+            break;
+            case "Row Major":    
+                let splitarr = dato.split(",")
+                let i = splitarr[0]
+                let j = splitarr[1]
+                edd.eliminar(i,j,nombre,dato)
+            break;
+
+            case "Matriz Dispersa":
+                edd.eliminar(dato)
+                break;
+            case "Grafo Dirigido":
+                edd.eliminar(dato)
+                break;
+            case "Grafo No Dirigido":
+                edd.eliminar(dato)
+                break;
             default:
                 break;
         }

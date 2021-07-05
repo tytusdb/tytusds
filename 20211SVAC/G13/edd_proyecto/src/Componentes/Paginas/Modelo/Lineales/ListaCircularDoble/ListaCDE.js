@@ -23,7 +23,7 @@ class ListaCircularDE{
         }
     }
 
-	Agregar = (valor) =>{
+	insertar = (valor) =>{
 		let nodo_nuevo = new Nodo(valor);
         if (this.vacia() == true){
 		    this.set_primero(nodo_nuevo);
@@ -38,7 +38,7 @@ class ListaCircularDE{
         }
         this.size ++;
 	}
-	AgregarFinal = (valor) => {
+	insertar_ultimo = (valor) => {
 		let nodo_nuevo = new Nodo(valor);
         if (this.vacia() == true){
 		    this.set_primero(nodo_nuevo);
@@ -53,7 +53,7 @@ class ListaCircularDE{
         }
         this.size ++;
 	}
-	AgregarInicio = (valor) => {
+	insertar_inicio = (valor) => {
 		let nodo_nuevo = new Nodo(valor);
         if (this.vacia() == true){
 		    this.set_primero(nodo_nuevo);
@@ -69,7 +69,7 @@ class ListaCircularDE{
         }
         this.size ++;
 	}
-	Eliminar = (dato) =>{
+	eliminar = (dato) =>{
 		if (this.vacia() == false){
             if (this.get_primero().get_dato() == dato){ //Eliminando al primero
                 if (this.get_primero().get_siguiente() != this.get_primero()){                   
@@ -138,7 +138,7 @@ class ListaCircularDE{
             i++;
         }
     }
-    Actualizar = (dato, cambio) => {
+    update = (dato, cambio) => {
         let nodo_actual = this.get_primero();
         if (this.vacia() == false){
             let i = 0;
@@ -151,7 +151,7 @@ class ListaCircularDE{
             }
         }
     }
-    Buscar=(dato)=>{
+    search=(dato)=>{
         let nodo_actual = this.get_primero()
         if (this.vacia() == false){
             let i = 0;
@@ -165,11 +165,11 @@ class ListaCircularDE{
                 i++;
             }
         }else{ 
-            return -1;
+            return false;
         }
-        return -1;
+        return false;
     }
-    GenerarNodosDOT = () => {
+    setNodesDataSet = () => {
         let nodo_actual = this.get_primero();
         var dot = [];
         if (this.vacia() == false){
@@ -190,7 +190,7 @@ class ListaCircularDE{
         }
         return dot;
     } 
-    GenerarEdgesDOT = () => {
+    setEdgesDataSet = () => {
         let nodo_actual = this.get_primero();
         var dot = [];
         let idinicio=this.size+1;

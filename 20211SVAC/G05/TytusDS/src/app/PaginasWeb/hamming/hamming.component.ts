@@ -42,13 +42,11 @@ export class HammingComponent implements OnInit {
   }
 
   getDocumento(documento: any): void {
-    this.documentoService.getDocumento(documento).then( contenido => {
-      console.log(contenido);
-      if (contenido['data'] === undefined) {
-        return;
-      }
-      this.entrada = contenido['data'];
+    this.documentoService.getDocumento2(documento).then(contenido => {
+      this.entrada = contenido;
     });
+
+
   }
 
   procesar(): void {
@@ -83,14 +81,8 @@ export class HammingComponent implements OnInit {
   }
 
   guardar(): void {
-    const contenido: any = {
-      categoria: "Algoritmo de codificación",
-      nombre: "Código de Hamming",
-      entrada: this.entrada,
-      salida: this.salida
-    };
-    let blob = new Blob([JSON.stringify(contenido)], {type: 'json;charset=utf-8'});
-    saveAs(blob, 'hamming.json');
+    let blob = new Blob([this.salida], {type: 'txt;charset=utf-8'});
+    saveAs(blob, 'hamming.txt');
   }
 
 }

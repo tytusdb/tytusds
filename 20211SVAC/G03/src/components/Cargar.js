@@ -17,6 +17,18 @@ import ListaDoble from '../estructuras/EstructurasLineales/ListaDoble'
 import ArbolB from '../estructuras/Estructuras_Arboreas/ArbolB'
 import ArbolBplus from '../estructuras/Estructuras_Arboreas/ArbolBplus'
 
+import TablaHashAbierta from '../estructuras/EstructurasNoLineales/TablaHashAbierta'
+import TablaHashCerrada from '../estructuras/EstructurasNoLineales/TablaHashCerrada'
+
+import CRMajor from '../estructuras/EstructurasCompuestas/Col_Major'
+import Matriz from '../estructuras/EstructurasCompuestas/MatrizDis'
+
+import ListaAdyacencia from '../estructuras/EstructurasNoLineales/ReccProfAnch'
+import CostoUniforme from '../estructuras/EstructurasNoLineales/CostoUniforme'
+import Hamming from '../estructuras/AlgoritmosDeCodificacion/Hamming'
+import AlgoritmoHuffman from '../estructuras/AlgoritmosDeCodificacion/Huffman'
+import LZW from '../estructuras/AlgoritmosDeCodificacion/LZW'
+import Feistel from '../estructuras/AlgoritmosDeCodificacion/Feistel'
 let propsG
 function onChange(e){
     let files = e.target.files[0];
@@ -25,12 +37,24 @@ function onChange(e){
     reader.onload = (e) => {
         const text = reader.result.toString().trim();
         console.log(text)
-        let data = JSON.parse(text); //parseo de archivo JSON
-        structW(propsG.nombre, data.valores, propsG.edd,data.grado,data.posicion) 
+        let data; //parseo de archivo JSON
+        if("Código de Hamming" === propsG.nombre ||
+           "Algoritmo de Huffman" === propsG.nombre ||
+           "Algoritmo LZW" === propsG.nombre ||
+           "Cifrado Feistel" === propsG.nombre ){
+            data = text
+        }else{
+            data = JSON.parse(text);
+        }
+        
+        structW(propsG.nombre, propsG.edd,data) 
     }
     reader.readAsText(files);
 }
-function structW(nombre,datos,edd,grado,posicion){ // FUNCION PARA SABER QUE TIPO DE ESTRUCTURA ES.
+function structW(nombre,edd,json){ // FUNCION PARA SABER QUE TIPO DE ESTRUCTURA ES.
+    let datos = json.valores
+    let grado = json.grado
+    let posicion = json.posicion
     switch(nombre){
         case "Pila" :
             if(edd == null){
@@ -129,6 +153,65 @@ function structW(nombre,datos,edd,grado,posicion){ // FUNCION PARA SABER QUE TIP
             edd.cargar(datos)
             console.log(edd.graficar())
             break
+        case "Tabla Hash Abierta":
+
+            edd = new TablaHashAbierta(json.m, json.minimo, json.maximo, json.funcion);
+            edd.cargar(datos)
+            edd.imprimir()
+            break
+        case "Tabla Hash Cerrada":
+
+            edd = new TablaHashCerrada(json.m, json.minimo, json.maximo, json.funcion, json.prueba);
+            edd.cargar(datos)
+            edd.imprimir()
+            break
+        case "Row Major":
+
+            edd = new CRMajor(json.m);
+            edd.cargar(datos,nombre)
+            edd.imprimirMatriz()
+            break
+        case "Col Major":
+
+            edd = new CRMajor(json.m,nombre);
+            edd.cargar(datos)
+            edd.imprimirMatriz()
+            break
+        case "Matriz Dispersa":
+
+            edd = new Matriz();
+            edd.cargar(datos)
+            break
+        case "Grafo Dirigido":
+
+            edd = new ListaAdyacencia();
+            edd.cargar(datos,nombre)
+            break
+        case "Grafo No Dirigido":
+
+            edd = new ListaAdyacencia();
+            edd.cargar(datos,nombre)
+            break
+        case "Código de Hamming":
+            edd = new Hamming();
+            edd.cargar(json)
+            break
+        case "Algoritmo de Huffman":
+            edd = new AlgoritmoHuffman();
+            edd.cargar(json)
+            break
+        case "Algoritmo LZW":
+            edd = new LZW();
+            edd.cargar(json)
+            break
+        case "Cifrado Feistel":
+            edd = new Feistel();
+            edd.cargar(json,key,num)
+            break
+        case "Algoritmo de costo uniforme":
+            edd = new CostoUniforme();
+            edd.cargar(datos,nombre)
+            break
         default:
             break;
     }
@@ -168,36 +251,74 @@ function arrString(arreglo){
     
     return charCodeArr;
   }
-
-
+let key ;
+let num ;
 export default function Cargar(props) {
     propsG = props
-    const [open, setOpen] = React.useState(false)
-    return (
-        <Modal
-            className="modalcargar"
-            basic
-            onClose={() => setOpen(false)}
-            onOpen={() => setOpen(true)}
-            open={open}
-            size='small'
-            trigger={<Menu.Item>Cargar</Menu.Item> }
-            >
-            <Header icon>
-                <Icon name='folder open outline' />
-                Cargar
-            </Header>
-            <Modal.Content>
-            </Modal.Content>
-                <Input className="inputcargar" fluid type="file" accept=".json" onChange={(e) =>  onChange(e)} />
-            <Modal.Actions>
-                <Button basic color='red' inverted onClick={() => setOpen(false)}>
-                <Icon name='remove' /> No
-                </Button>
-                <Button className="buttoncargar" color='green' inverted onClick={() =>  setOpen(false)}>
-                <Icon name='checkmark' /> Si
-                </Button>
-            </Modal.Actions>
-            </Modal>
-    )
+    const [open, setOpen] = React.useState(false)    
+    const [llave, setLlave] = React.useState("")
+    const [Numero, setNumero] = React.useState(0)
+    key = llave
+    num = Numero
+    if(propsG.nombre === "Cifrado Feistel"){
+        return (
+            <Modal
+                className="modalcargar"
+                basic
+                onClose={() => setOpen(false)}
+                onOpen={() => setOpen(true)}
+                open={open}
+                size='small'
+                trigger={<Menu.Item>Cargar</Menu.Item> }
+                >
+                <Header icon>
+                    <Icon name='folder open outline' />
+                    Cargar
+                </Header>
+                <Modal.Content>
+                </Modal.Content>
+                    <Input className="inputAgregar" type="text" name="llave" value={llave}  fluid placeholder="agregar dato" onChange={e => setLlave(e.target.value)}/>
+                    <br/>
+                    <Input className="inputAgregar" type="text" name="Numero" value={Numero}  fluid placeholder="agregar prioridad" onChange={e => setNumero(e.target.value)}/>
+                    <br/>
+                    <Input className="inputcargar" fluid type="file" accept=".json, .txt" onChange={(e) =>  onChange(e)} />
+                <Modal.Actions>
+                    <Button basic color='red' inverted onClick={() => setOpen(false)}>
+                    <Icon name='remove' /> No
+                    </Button>
+                    <Button className="buttoncargar" color='green' inverted onClick={() =>  setOpen(false)}>
+                    <Icon name='checkmark' /> Si
+                    </Button>
+                </Modal.Actions>
+                </Modal>
+        )
+    }else{
+        return (
+            <Modal
+                className="modalcargar"
+                basic
+                onClose={() => setOpen(false)}
+                onOpen={() => setOpen(true)}
+                open={open}
+                size='small'
+                trigger={<Menu.Item>Cargar</Menu.Item> }
+                >
+                <Header icon>
+                    <Icon name='folder open outline' />
+                    Cargar
+                </Header>
+                <Modal.Content>
+                </Modal.Content>
+                    <Input className="inputcargar" fluid type="file" accept=".json, .txt" onChange={(e) =>  onChange(e)} />
+                <Modal.Actions>
+                    <Button basic color='red' inverted onClick={() => setOpen(false)}>
+                    <Icon name='remove' /> No
+                    </Button>
+                    <Button className="buttoncargar" color='green' inverted onClick={() =>  setOpen(false)}>
+                    <Icon name='checkmark' /> Si
+                    </Button>
+                </Modal.Actions>
+                </Modal>
+        )
+    }
 }

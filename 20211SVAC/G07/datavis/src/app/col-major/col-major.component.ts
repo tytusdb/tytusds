@@ -40,7 +40,28 @@ export class ColMajorComponent implements OnInit {
   texto="";
   abrir(eve:any)
   {
+    let a =eve.target.files[0]
+    let text=""
 
+    if(a){
+      let reader=new FileReader()
+        reader.onload=ev=>{
+        const resultado=ev.target?.result
+        text=String(resultado)
+        var data = JSON.parse(text);  // se parse para obtener solo los datos
+        this.TamanoMatriz(data.m[0],data.m[1]);
+        data.valores.forEach(element => { // se pasa a un arreglo
+          console.log(element.indices[0])
+          console.log(element.indices[1])
+          console.log(element.valor)
+          this.AgregarNuevo(element.valor,element.indices[0],element.indices[1]);
+
+        });
+
+        this.code=text.toString();
+      }
+      reader.readAsText(a)
+    }
   }
   AgregarNuevo(valor: any, fila: number, columna: number){
     fr = fila

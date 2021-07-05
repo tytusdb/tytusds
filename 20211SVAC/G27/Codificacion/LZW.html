@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>DATA STRUCTURES</title>
+		<meta charset="utf-8" />
+		<script src="../jquery-1.7.2.min.js"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="../layout/css/main.css" />
+		<style type="text/css">
+			#miRed {
+        	  margin: auto;
+			  width: 900px;
+			  height: 550px;
+			  border: 1px solid lightgray;
+			}</style>
+    <script src ="../vis-network.min.js"></script>
+		<script src="LZW.js"></script>
+	</head>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Estructuras de Datos</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Estructuras Lineales
+			</a>
+			<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+				<a class="dropdown-item" href="../Lineal_Structures/simple_list.html" id="Lista_Simple">Lista Simple Enlazada<span class="sr-only">(current)</span></a>
+                <a class="dropdown-item" href="../Lineal_Structures/double_list.html" id="Lista_Doble">Lista Doble Enlazada<span class="sr-only">(current)</span></a>
+                <a class="dropdown-item" href="../Lineal_Structures/ListaCircularSimple.html" id="Lista_Circular_S">Lista Circular Simple<span class="sr-only">(current)</span></a>
+                <a class="dropdown-item" href="../Lineal_Structures/ListaCirDoble.html" id="Lista_Circular_S">Lista Circular Doble<span class="sr-only">(current)</span></a>
+                <a class="dropdown-item" href="../Lineal_Structures/ColaP.html" id="colaP">Cola de Prioridad<span class="sr-only">(current)</span></a>
+                <a class="dropdown-item" href="../Lineal_Structures/Pila.html" id="Pila">Pila<span class="sr-only">(current)</span></a>
+                <a class="dropdown-item" href="../Lineal_Structures/Cola.html" id="cola">Cola<span class="sr-only">(current)</span></a>
+			</div>
+		  </li>                                           
+		  <li class="nav-item dropdown">
+			  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				Estructuras No Lineales
+			  </a>
+			  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+				<a class="dropdown-item" href="../Arboles/BST.html" id="Lista_Simple">BST<span class="sr-only">(current)</span></a>
+                <a class="dropdown-item" href="../Arboles/AVL.html" id="Lista_Simple">AVL<span class="sr-only">(current)</span></a>
+				<a class="dropdown-item" href="../No_Lineales/hash_abierto.html" id="open_hash">Hash Abierto<span class="sr-only">(current)</span></a>
+                <a class="dropdown-item" href="../No_Lineales/Grafos.html" id="Grafos">Grafo<span class="sr-only">(current)</span></a>
+            </div>
+		  </li>
+		  <li class="nav-item dropdown">
+			  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				Ordenamientos
+			  </a>
+			  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+				<a class="dropdown-item" href="../ordenamientos/bubleSort.html" id="Lista_Simple">Ordenamiento Burbuja<span class="sr-only">(current)</span></a>
+                <a class="dropdown-item" href="../ordenamientos/insertionSort.html" id="Lista_Doble">Ordenamiento Insercion<span class="sr-only">(current)</span></a>
+                <a class="dropdown-item" href="../Ordenamientos/Rapido.html" id="Lista_Doble">Ordenamiento Rapido<span class="sr-only">(current)</span></a>
+                <a class="dropdown-item" href="../Ordenamientos/Seleccion.html" id="selection">Ordenamiento Rapido<span class="sr-only">(current)</span></a>
+			  </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Codificacion
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="../Codificacion/Hamming.html" id="Lista_Simple">Hamming<span class="sr-only">(current)</span></a>
+                  <a class="dropdown-item" href="../Codificacion/Huffman.html" id="Lista_Simple">Huffman<span class="sr-only">(current)</span></a>
+                  <a class="dropdown-item" href="../Codificacion/Feistel.html" id="Lista_Simple">Feistel<span class="sr-only">(current)</span></a>
+                  <a class="dropdown-item" href="../Codificacion/LZW.html" id="Lista_Simple">LZW<span class="sr-only">(current)</span></a>
+                </div>
+              </li>
+          </ul>
+        </div>
+      </nav>
+	<body class="is-preload">
+			<div class="contenedor">
+				<h1>LZW</h1>
+            <div id="ventanas">
+                <ul id=lista>
+                </ul>
+            </div>
+            <body>
+                <div id="contenidoventanas">
+					<button onclick="agregar();" title="insertar" id="btn4" class="btn btn-primary">Agregar</button>
+					<button onclick="eliminar();" title="eliminar" id="btn4" class="btn btn-primary">Eliminar</button>
+          			<button onclick="encontrar();" title="sacar" id="btn4" class="btn btn-primary">Buscar</button>
+					<button onclick="DescargarArchivo();" title="Ordenar" id="btn4" class="btn btn-primary">Descargar</button>
+					<input id="fileInput" title="Abrir" type="file" size="50" onchange="AbrirArchivo(this.files)" class="btnp">
+				</div>
+				<div>
+					<br><a class="a-label">Tipo de Hash</a><br>
+					<a class="a-label">Hash Simple</a><input type="radio" name="typeHash" value="0"></input>
+					<a class="a-label">Division</a><input type="radio" name="typeHash" value="1"  checked="checked"></input>
+					<a class="a-label">Multiplicacion</a><input type="radio" name="typeHash" value="2"></input>
+				</div>
+				<div>
+					<br><a class="a-label">Tipo de Valor</a><br>
+					<a class="a-label">String</a><input type="radio" name="typeValue" value="0" checked="checked"></input>
+					<a class="a-label">Numerico</a><input type="radio" name="typeValue" value="1"></input>
+				</div>
+				<div>
+					<br><a class="a-label">Llave</a><input type="text" id="newValue" name="newValue">
+					    <a class="a-label">Tamano</a><input type="text" id="size" name="size">
+					    <button onclick="setSize();" title="sacar" id="btn4" class="btn btn-primary">Establecer</button>br><br><br><br>
+				</div>
+				<div id="miRed"></div>				
+            </body>
+        </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+	</body>
+</html>

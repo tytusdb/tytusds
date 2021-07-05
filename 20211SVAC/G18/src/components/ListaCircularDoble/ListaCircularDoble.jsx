@@ -84,6 +84,7 @@ class ListaCircularDoble extends React.Component {
             const text = reader.result
 
             const json = JSON.parse(text)
+            console.log(json.categoria);
             const valores = json.valores
 
             valores.forEach((element, index) => {

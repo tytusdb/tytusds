@@ -1,0 +1,80 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grafo Dirigido</title>
+    <link rel="icon" href="../static/image/icon.png" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/templates.css">
+</head>
+<body style="overflow: hidden;">
+    <nav class="navbar navbar-light" style="background-color: rgb(48, 71, 94)">
+        <a class="navbar-toggler" href="https://diego1399.github.io/tytusds/20211SVAC/G10/index.html" style="border: 1px solid rgb(34, 40, 49);">
+            <span class="navbar-toggler-icon"></span>
+        </a>
+        <h1>Grafo Dirigido</h1>
+    </nav>
+
+    <div class="row">
+        <div class="col-3 columna1">
+
+            <div class="row configuracion">
+                <div class="col-3"><label for="size" >Nodo 1:</label></div>
+                <div class="col-3"><input type="text" placeholder="Label" id="nodo1"></div>
+                <div class="col-3"><label for="size" >Nodo 2:</label></div>
+                <div class="col-3"><input type="text" placeholder="Label" id="nodo2"></div>
+                <div class="col-3"><label for="dato" class="form_label">Arista:</label></div>
+                <div class="col-3"><input type="number" min="1" id="distancia" placeholder="Distancia"></div>
+            </div>
+
+            <div class="row tablero">
+                <div class="col-6"><button class="boton" id="agregar" style="font-size: small;">Agregar nodo</button></div>
+                <div class="col-6"><button class="boton" id="agregararista" style="font-size: small;">Agregar arista</button></div>
+                
+            </div>
+            <div class="row">
+                <div class="col-6"><button class="boton" id="actualizar" >Actualizar</button></div>
+                <div class="col-6 align-self-end"><button class="boton" id="buscar" >Buscar</button></div>
+                
+                <div class="col-6 align-self-end"><button class="boton" id="eliminar" >Eliminar</button></div>
+                <div class="col-6 align-self-end"><button class="boton" id="limpiar" style="background-color: rgb(70, 70, 180); color: white">Limpiar</button></div>
+                <div class="col-6 align-self-end"><button class="boton" id="recorridop" style="font-size: small;">Recorrido Profundidad</button></div>
+                <div class="col-6 align-self-end"><button class="boton" id="recorridoa" style="font-size: small;">Recorrido Anchura</button></div>
+                <div class="col-6 align-self-end"><button class="boton" id="busquedap" style="font-size: small;">Búsqueda Profundidad</button></div>
+                <div class="col-6 align-self-end"><button class="boton" id="busquedaa" style="font-size: small;">Búsqueda Anchura</button></div>
+            </div>
+            
+            <div class="row archivo">
+                <div class="row ">
+                    <form action="#" method="POST" class="form" id="form3">
+                        <div class="row formulario">
+                            <div class="col-12"><label for="dato">Leer archivo JSON</label></div>
+                            <div class="col-12 col_input">
+                                <input type="file" name="" id="file" accept=".json">
+                            </div>
+                            <div class="col-12"><label for="dato" id="mensaje"></label></div>
+                        </div>
+                    </form>
+                </div>
+                <div class="row">
+                    
+                </div>
+                <div class="row">
+                    <div class="col-6"><button class="boton" id="cargar">Cargar</button></div>
+                    <div class="col-6"><button class="boton" id="guardar" >Guardar</button></div>
+                </div>
+            </div>
+            <div class="row"><label id="reporte" style="font-size:large"></label></div>
+        </div>
+
+        <div class="col-9 columna2">
+            <div class="row">
+                <div class="panel" id = 'lienzo' style="height: 600px;"></div>
+                <div style="background-color: rgb(48, 71, 94); height: 200px"></div>
+            </div>
+        </div>
+        
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis-network.min.js"></script>
+    <script src="scripts/grafoDirigido.js"></script>
+</body>
+</html>
