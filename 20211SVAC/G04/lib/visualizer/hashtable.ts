@@ -7,13 +7,13 @@ const hashCoalitions: HashCoalition[] = ['lineal', 'quad', 'times']
 
 // INSTANCIAS
 let hashInstance: TablaHashAbierta | TablaHashCerrada | null = null
-let hashFunction: HashFunction = 'div'
 let hashCoalition: HashCoalition = 'lineal'
+let hashFunction: HashFunction = 'div'
+let elementsCounter: number = 0
+let hashTableSize: number = 10
+let isOpenHash: boolean = true
 let hashMin: number = 20
 let hashMax: number = 20
-let hashTableSize: number = 10
-let elementsCounter: number = 0
-let isOpenHash: boolean = true
 
 // ANIMACIÓN
 let hashScalePosition: number[] = [-1, -1]
@@ -58,29 +58,35 @@ fileUploadCallback = () => {
 	// INSTANCIA
 	hashInstance = isOpenHash
 		? new TablaHashAbierta(hashTableSize, hashFunctions.indexOf(hashFunction))
-		: null
-	console.log(hashInstance)
+		: new TablaHashCerrada(
+				hashTableSize,
+				hashMin,
+				hashMax,
+				hashCoalitions.indexOf(hashCoalition),
+		  )
+
 	globalJSONInput?.valores.forEach((valor: string | number) => {
 		if (hashInstance) {
 			newNodeValue = valor.toString()
 			addOnHashTable()
 		}
 	})
+
 	elementsCounter = globalJSONInput?.valores.length || 0
 	setElementsLength(elementsCounter)
 }
 
 // GUARDAR ARCHIVO
 const saveOpenHashTable = () => {
-	const parsedValues = isOpenHash
-		? hashInstance
+	if (hashInstance) {
+		const parsedValues = isOpenHash
 			? hashInstance.tabla.map(
 					// @ts-ignore
 					(node) => `[${node.valores.map((node) => node.valor).join(',')}]`,
 			  )
-			: []
-		: []
-	saveJSONFile(parsedValues)
+			: hashInstance.tabla.map((node) => node.valor)
+		saveJSONFile(parsedValues)
+	}
 }
 
 // INPUT DE FUNCIÓN

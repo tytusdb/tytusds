@@ -2,13 +2,13 @@
 var hashFunctions = ['simple', 'div', 'times'];
 var hashCoalitions = ['lineal', 'quad', 'times'];
 var hashInstance = null;
-var hashFunction = 'div';
 var hashCoalition = 'lineal';
+var hashFunction = 'div';
+var elementsCounter = 0;
+var hashTableSize = 10;
+var isOpenHash = true;
 var hashMin = 20;
 var hashMax = 20;
-var hashTableSize = 10;
-var elementsCounter = 0;
-var isOpenHash = true;
 var hashScalePosition = [-1, -1];
 var hashNodeScaleCounter = 0;
 var setHashTable = function (props) {
@@ -31,8 +31,7 @@ var setHashTable = function (props) {
 fileUploadCallback = function () {
     hashInstance = isOpenHash
         ? new TablaHashAbierta(hashTableSize, hashFunctions.indexOf(hashFunction))
-        : null;
-    console.log(hashInstance);
+        : new TablaHashCerrada(hashTableSize, hashMin, hashMax, hashCoalitions.indexOf(hashCoalition));
     globalJSONInput === null || globalJSONInput === void 0 ? void 0 : globalJSONInput.valores.forEach(function (valor) {
         if (hashInstance) {
             newNodeValue = valor.toString();
@@ -43,12 +42,12 @@ fileUploadCallback = function () {
     setElementsLength(elementsCounter);
 };
 var saveOpenHashTable = function () {
-    var parsedValues = isOpenHash
-        ? hashInstance
+    if (hashInstance) {
+        var parsedValues = isOpenHash
             ? hashInstance.tabla.map(function (node) { return "[" + node.valores.map(function (node) { return node.valor; }).join(',') + "]"; })
-            : []
-        : [];
-    saveJSONFile(parsedValues);
+            : hashInstance.tabla.map(function (node) { return node.valor; });
+        saveJSONFile(parsedValues);
+    }
 };
 var onChangeInput = function (ev, callback) {
     var target = ev.target;
