@@ -1,4 +1,5 @@
-function CostoUniforme(Grafo,NodoInicial,NodoFinal){
+class CostoUniforme{
+CostosUniformes(Grafo,NodoInicial,NodoFinal){
   //Grafo
   this.Grafo = Grafo;
   //Nodo Inicial
@@ -51,17 +52,22 @@ function CostoUniforme(Grafo,NodoInicial,NodoFinal){
   return MejorCamino 
 }
 
-function findCheapest(CaminoCorto,NodosVisitados){
-    let Nodos=Object.keys(CaminoCorto)
-    let NodoAuxiliar=Nodos.reduce((lowest,Nodo)=>{
-        if(lowest==null&&!NodosVisitados.includes(Nodo)) lowest=Nodo;
-        if(CaminoCorto[lowest]>CaminoCorto[Nodo]&&!NodosVisitados.includes(Nodo)) lowest=Nodo;
-        return lowest
-    },null)
-    return NodoAuxiliar
+
+
 }
 
-////Prueba de Costo Uniforme
+function findCheapest(CaminoCorto,NodosVisitados){
+  let Nodos=Object.keys(CaminoCorto)
+  let NodoAuxiliar=Nodos.reduce((lowest,Nodo)=>{
+      if(lowest==null&&!NodosVisitados.includes(Nodo)) lowest=Nodo;
+      if(CaminoCorto[lowest]>CaminoCorto[Nodo]&&!NodosVisitados.includes(Nodo)) lowest=Nodo;
+      return lowest
+  },null)
+  return NodoAuxiliar
+}
+
+function prueba() {
+  let grafo = new CostoUniforme();
   let Grafo={
     H: { M: 50, A: 30, O: 40},
     M: { A: 71, W: 33},
@@ -72,4 +78,8 @@ function findCheapest(CaminoCorto,NodosVisitados){
     F: { H: 60, K: 77 },
     K: { W: 28, F: 77}
   }
-  console.log(CostoUniforme(Grafo, 'H', 'K'));
+  console.log(grafo.CostosUniformes(Grafo, 'H', 'K'));
+  
+}prueba()
+////Prueba de Costo Uniforme
+ 
