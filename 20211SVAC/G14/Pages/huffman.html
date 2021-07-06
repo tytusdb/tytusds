@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algoritmo de Huffman</title>
+    <link rel="stylesheet" type="text/css" href="../CSS/header.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/ddNavBar.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/estructurasLineales.css"></head>
+<body>
+    <script type="text/javascript">
+        class Nodo{
+            constructor(peso, char){
+                this.l = null;
+                this.r = null;
+                this.peso = peso || 0;
+                this.char = char || '';
+            }
+
+        }
+        class heapMin{
+            constructor(){
+                this.set = [];
+            }
+
+            ajustar(index){
+                let len = this.set.length;
+                let l = index * 2 + 1;
+                let r = index * 2 + 2;
+                let min = index;
+                let nodo = null;
+                if (l <= len -1 && this.set[min].peso > this.set[l].peso) {
+                    min = l;
+                }
+                if (r <= len -1 && this.set[min].peso > this.set[r].peso) {
+                    min = r;
+                }
+            
+                if (min != index) {
+                    nodo = this.set[index];
+                    this.set[index] = this.set[min];
+                    this.set[min] = nodo;
+                    this.ajustar(min);
+                }
+            }
+            /////////////////////OPERACIONES//////////////////////
+            pop(){
+                let nodo;
+                nodo = this.set.shift();
+                this.ajustar(0);
+                return nodo;
+            }
+            push(nodo){
+                this.set.push(nodo)
+                for (let i = Math.floor(this.set.length / 2); i >= 0; i--) {
+                    this.ajustar(i)
+                }
+            }
+            
+            tam(){
+                return this.set.length;
+            }
+            vacio(){
+                if(this.set.length === 0){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+        }
+
+        class Huffman{
+            constructor(){////////////////
+                this.tabla = []
+                this.arbol = null
+            }
+
+            calcularHeap(str){
+                let heap = new heapMin()
+                let set = []
+            
+                for (let i = str.length - 1; i >= 0; i--) {
+
+                    if (set[str[i]]) {
+                        set[str[i]].num++;
+                    } else {
+                        set[str[i]] = {num:1,char:str[i]};
+                    }
+                }
+                //recorrer arreglo
+                Object.values(set).forEach((value) => {
+                    heap.push(new Nodo(value.num, value.char))
+                })
+            
+                return heap
+            }
+
+            crearArbol(str){
+                let heap = this.calcularHeap(str)
+        
+                while(heap.tam() > 1) {
+                let min1 = heap.pop()
+                let min2 = heap.pop()
+                let parent = new Nodo(min1.peso + min2.peso, '')
+            
+                if (min1.peso < min2.peso) {
+                    parent.l = min1;
+                    parent.r = min2;
+                } else {
+                    parent.l = min2;
+                    parent.r = min1;
+                }
+            
+                heap.push(parent)
+                }
+            
+                this.arbol = heap.pop()
+            }
+            recorrerArbol(nodo, arr, code){
+                if (nodo.l !== null && nodo.r != null) {
+
+                    this.recorrerArbol(nodo.l, arr, code+'1')
+
+                    this.recorrerArbol(nodo.r, arr, code+'0')
+                }
+                
+                arr[nodo.char] = code
+            }
+            codificar(str){
+                this.crearArbol(str)
+                let res = []
+            
+                this.recorrerArbol(this.arbol, this.tabla, '')
+            
+                for (let i = str.length - 1; i >=0; i--) {
+
+                res.push(this.tabla[str[i]])
+
+                }
+            
+                return res.join('')
+            }
+            decodificar(str){
+                if (this.arbol === null) {
+                    console.log('No se ha creado un arbol');
+                }
+                
+                let nodo = this.arbol;
+
+                let res = [];
+
+                for (let len = str.length, i=0; i < len; i++) {
+
+                    if (str[i] === '0') {
+                    nodo = nodo.l;
+                    } else {
+                    nodo = nodo.r;
+                    }
+                
+
+
+                    if (nodo.l === null && nodo.r === null) {
+                    res.push(nodo.char);
+                    nodo = this.arbol;
+                    }
+                }
+                
+                return res.join('');
+            }
+        }
+        //////////////////////PRUEBA///////////////////////////
+        var cod_huff = new Huffman();
+
+        function codificar(){
+            var cadena = '';
+            cadena = document.getElementById('contenido-archivo').value;
+
+            document.getElementById('texto').innerHTML = cod_huff.codificar(cadena);
+
+        }
+        function decodificar(){
+            var cadena = '';
+            cadena = document.getElementById('contenido-archivo').value;
+
+            document.getElementById('texto2').innerHTML = cod_huff.decodificar(cadena);
+
+        }
+        function download(filename, text) {
+            var pom = document.createElement('a');
+            pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+            pom.setAttribute('download', filename);
+
+            if (document.createEvent) {
+                var event = document.createEvent('MouseEvents');
+                event.initEvent('click', true, true);
+                pom.dispatchEvent(event);
+            }
+            else {
+                pom.click();
+            }
+        }
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+        function leerArchivo(e) {
+        var archivo = e.target.files[0];
+        if (!archivo) {
+            return;
+        }
+        var lector = new FileReader();
+        lector.onload = function(e) {
+            var contenido = e.target.result;
+            mostrarContenido(contenido);
+        };
+        lector.readAsText(archivo);
+        }
+
+        function mostrarContenido(contenido) {
+        var elemento = document.getElementById('contenido-archivo');
+        elemento.innerHTML = contenido;
+        }
+
+        document.getElementById('file-input').addEventListener('change', leerArchivo, false);
+
+    </script>
+
+    <h1>Codigo de Huffman</h1>
+
+    <ul>
+        <li><a class="active" href="../index.html">Home</a></li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Estructura lineales</a>
+            <div class="dropdown-content">
+                <a href="listaSimplementeEnlazada.html">Lista simplemente enlazada</a>
+                <a href="listaDoblementeEnlazada.html">Lista doblemente enlazada</a>
+                <a href="listaCircularSimplementeEnlazada.html">Lista circular simplemente enlazada</a>
+                <a href="listaCircularDoblementeEnlazada.html">Lista circular doblemente enlazada</a>
+                <a href="pila.html">Pila</a>
+                <a href="cola.html">Cola</a>
+                <a href="colaDePrioridad.html">Cola de prioridad</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Ordenamientos</a>
+            <div class="dropdown-content">
+                <a href="burbuja.html">Burbuja</a>
+                <a href="seleccion.html">Selección</a>
+                <a href="insercion.html">Inserción</a>
+                <a href="rapido.html">Rápido</a>
+            </div>
+        </li>
+        </li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Estructuras arbóreas</a>
+            <div class="dropdown-content">
+                <a href="arbolBinarioDeBusqueda.html">Árbol binario de búsqueda</a>
+                <a href="avl.html">AVL</a>
+                <a href="arbolB.html">Árbol B</a>
+                <a href="arbolB+.html">Árbol B+</a>
+                <a href="arboldeMerkle.html">Árbol de Merkle</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Estructuras no lineales</a>
+            <div class="dropdown-content">
+                <a href="hashAbierto.html">Tabla Hasta Abierta</a>
+                <a href="hashCerrado.html">Tabla Hasta Cerrada</a>
+                <a href="busqRecorridoAnchura.html">Anchura</a>
+                <a href="busqRecorridoProfundidad.html">Profundidad</a>
+                <a href="costoUniforme.html">Algoritmo de costo uniforme</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Algoritmo de codificación</a>
+            <div class="dropdown-content">
+                <a href="hamming.html">Código de Hamming</a>
+                <a href="huffman.html">Algoritmo de Huffman</a>
+                <a href="LZW.html">Algoritmo LZW</a>
+                <a href="feistel.html">Cifrado Feistel</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Estructuras compuestas</a>
+            <div class="dropdown-content">
+                <a href="matrizDispersa.html">Matrices dispersas</a>
+                <a href="rowMajor.html">Row-major (2D a 1D)</a>
+                <a href="colMajor.html">Col-major (2D a 1D)</a>
+                <a href="listaArboles.html">Construcción de estructuras compuestas</a>
+            </div>
+        </li>
+    </ul>
+
+    <form action="/action_page.php">
+        <label>Palabra: </label></br>
+        <input type="text" id="contenido-archivo"/></br></br>
+        <input type="file" id="file-input" /></br></br>
+        <input type="button" class="myButton" value="Codificar" onclick="codificar();"/>
+        <input type="button" class="myButton" value="Decodificar" onclick="decodificar();"/>
+        <input type="button" class="myButton" value="Guardar Código" onclick="download('huffmanCodigo.txt', document.getElementById('texto').innerHTML);"/>
+        <input type="button" class="myButton" value="Guardar Resultado" onclick="download('huffmanResultado.txt', document.getElementById('texto2').innerHTML);"/>
+
+        </br>
+        </br>
+        <h2>Código de Huffman</h2>
+        <div class="container">
+            <p id="texto">
+
+            </p>
+        </div>
+        <h2>Resultado</h2>
+        <div class="container">
+            <p id="texto2">
+
+            </p>
+        </div>
+
+    </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
+</body>
+</html>
