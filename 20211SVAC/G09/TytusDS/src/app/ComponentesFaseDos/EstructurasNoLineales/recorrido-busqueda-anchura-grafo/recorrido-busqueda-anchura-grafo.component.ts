@@ -23,7 +23,7 @@ export class RecorridoBusquedaAnchuraGrafoComponent implements OnInit {
   leerArchivo(event: any){
     let ca= new CargaArchivo()
     ca.leerGrafo(event,2)
-    setTimeout(() => {debugger
+    setTimeout(() => {//debugger
       let grafo=ca.returnGrafo()
       for (let i = 0; i < grafo.vertices.length; i++) {
         this.aG.AgregarNodo(grafo.vertices[i])

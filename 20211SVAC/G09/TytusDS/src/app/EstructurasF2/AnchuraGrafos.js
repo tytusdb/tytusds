@@ -187,9 +187,11 @@ class AnchuraGrafos{
 		debugger
 		for (let i = 0; i < array.length; i++) {
 			nodes.push({id: array[i].Vertices, label: array[i].Vertices.toString()})
-			for (let j = 0; j < array[i].edges.length; j++) {
-				edges.push({from: array[i].Vertices, to: array[i].edges[j], length: 50})
-			}
+			try {
+				for (let j = 0; j < array[i].Aristas.length; j++) {
+					edges.push({from: array[i].Vertices, to: array[i].Aristas[j], length: 50})
+				}
+			} catch (error) {console.log(error)}
 		}
 		return {nodes: nodes, edges:edges}
 	}
