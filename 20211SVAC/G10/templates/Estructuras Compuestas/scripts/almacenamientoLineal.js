@@ -6,6 +6,7 @@ class ArregloMD{
     }
 
     insertar(x, y, dato){
+        
         if(this.elementos[x] == null){
             this.elementos[x] = []
         }
@@ -71,6 +72,7 @@ class ArregloMD{
     }
 
     eliminar(dato, x = null, y = null){
+        
         if(x == null && y == null){
             for (let i = 0; i < this.elementos.length; i++) {
                 if(this.elementos[i] != null){
@@ -92,7 +94,6 @@ class ArregloMD{
                 }
             }
         }
-
         for (let i = 0; i < this.elementos.length; i++) {//para actualizar el largo de filas y columnas
             if(this.elementos[i] != null){
                 for (let j = 0; j < this.elementos[i].length; j++) {
@@ -103,6 +104,7 @@ class ArregloMD{
                 }
             }
         }
+        
     }
 
     getRowMajor(){
@@ -163,15 +165,17 @@ class ArregloMD{
         let i;
         let j = 0;
         let texto;
+
         while(j < this.largoY){
             texto = "";
             i = 0;
             while(i < this.largoX){
                 if(this.elementos[i] != null){
                     if(this.elementos[i][j] != null){
-                        texto += "| "+this.elementos[i][j].toString()+" |";
+                        texto += "| "+this.elementos[i][j].toString()+" |"
+                        
                     }else{
-                        texto += "| - |";    
+                        texto += "| - |";  
                     }
                 }else{
                     texto += "| - |";
@@ -183,6 +187,33 @@ class ArregloMD{
         }
         console.log('');
     }
+
+    mostrar(){
+        
+        let i;
+        let j = 0;
+        let texto;
+        borrar_canvas()
+        reiniciar_posixiones()
+        while(j < this.largoY){
+            texto = "";
+            i = 0;
+            while(i < this.largoX){
+                if(this.elementos[i] != null){
+                    if(this.elementos[i][j] != null){
+                        crearMatriz(i, j, this.elementos[i][j].toString())
+                        
+                    }else{
+                        crearMatriz(i, j, ' ')    
+                    }
+                }else{
+                }
+                i++;
+            }
+            j++;
+        }
+        this.imprimir()
+    }   
 }
 
 class RowMajor{
@@ -232,12 +263,12 @@ agregar.addEventListener("click", (e) =>{
     }else{
         reporte.innerHTML = 'Escribe un dato y ubicación para agregar.';
     }
-    //graficar
-    arreglo.imprimir();
+    arreglo.mostrar();
 })
 
 eliminar.addEventListener("click", (e) =>{
     e.preventDefault
+    
     if(dato.value != ''){
         if(arreglo.existe(dato.value)){
             arreglo.eliminar(dato.value);
@@ -256,11 +287,14 @@ eliminar.addEventListener("click", (e) =>{
         reporte.innerHTML = 'Escribe un dato o ubicación para eliminar.';
     }
     //graficar
-    arreglo.imprimir();
+    arreglo.mostrar();
 })
 
 actualizar.addEventListener("click", (e) =>{
     e.preventDefault
+    //let lienzo = new animacion()
+    //lienzo.reset()
+    borrar_canvas()
     if(dato.value != '' && datoB.value != ''){
         if(arreglo.existe(dato.value)){
             arreglo.actualizar(dato.value,datoB.value);
@@ -279,7 +313,7 @@ actualizar.addEventListener("click", (e) =>{
         reporte.innerHTML = 'Escribe un dato o ubicación para actualizar.';
     }
     //graficar
-    arreglo.imprimir();
+    arreglo.mostrar();
 })
 
 buscar.addEventListener("click", (e) =>{
@@ -300,8 +334,7 @@ buscar.addEventListener("click", (e) =>{
         reporte.innerHTML = 'Escribe un dato o ubicación para buscar.';
     }
     //graficar y tal vez resaltar dato buscado
-    
-    arreglo.imprimir();
+    arreglo.mostrar();
 })
 
 limpiar.addEventListener("click", (e) =>{
@@ -310,15 +343,26 @@ limpiar.addEventListener("click", (e) =>{
     arreglo.largoX = 0;
     arreglo.largoY = 0;
     reporte.innerHTML = 'Se limpió el arreglo.';
+    arreglo.mostrar();
 })
 
 btRowMajor.addEventListener("click", (e) =>{
     e.preventDefault
-    //graficar row major
+    borrar_canvas()
+    arreglo.mostrar()
+
+    rowMajor()
+    
 })
 
 btColMajor.addEventListener("click", (e) =>{
     e.preventDefault
+    borrar_canvas()
+    arreglo.mostrar()
+
+    columnMajor()
+    
+    
     //graficar col major
 })
 
@@ -339,13 +383,14 @@ cargar.addEventListener("click", (e) => {
     let dato;
     for (let i = 0; i < valores.length; i++) {
         dato = valores[i].valor;
-        console.log(dato);
+        //console.log(dato);
         x = valores[i].indices[0];
         y = valores[i].indices[1];
-        console.log(x+", "+y);
-        console.log('');
+        //console.log(x+", "+y);
+        //console.log('');
         arreglo.insertar(x,y,dato);
     }
+    arreglo.mostrar()
     reporte.innerHTML = 'Se leyó el json cargado.';
     archivo.setAttribute('enabled', '')
 })
