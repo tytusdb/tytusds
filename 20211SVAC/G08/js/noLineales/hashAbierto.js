@@ -297,9 +297,11 @@ function buscar(){
     let busqueda = tabla.buscar(elemento, posicion);
     if (busqueda == true){
         console.log("---------->" + elemento + " en el indice " + posicion);
+        alert(elemento + " en el indice " + posicion);
     }
     else{
         console.log("---------->" + elemento + " no encontrado");
+        alert(elemento + " no encontrado");
     }
     
 }
@@ -321,9 +323,11 @@ function eliminar(){
     let busqueda = tabla.eliminar(elemento, posicion);
     if (busqueda == true){
         console.log("---------->" + elemento + " eliminado");
+        alert(elemento + " eliminado");
     }
     else{
         console.log("---------->" + elemento + " no encontrado");
+        alert(elemento + " no encontrado");
     }
 
     tabla.print();
