@@ -15,6 +15,7 @@ let encodingProps: SetEncodingProps = {
 }
 
 // ELEMENTOS
+const bitsTable = document.getElementById('bits-table-list')
 const codeEditor = document.getElementById('code-editor')
 const banner = document.getElementById('banner')
 const encodeInput = document.getElementById('encode-input') as HTMLInputElement
@@ -99,13 +100,29 @@ const startEncoding = () => {
 			// @ts-ignore
 			encodingProps.instance.codificar(globalEncodingTextInput)
 			const encodedValue: string = encodingProps.instance.toString()
+
+			// @ts-ignore
+			const matrix: string[][] = encodingProps.instance.getMatrix()
 			encodeOutput.value = encodedValue
 
+			// AGREGAR CODIGO
 			if (banner) banner.style.display = 'none'
 			if (codeEditor)
 				codeEditor.innerHTML =
 					codeEditor.innerHTML +
 					`\ndata.<strong style="color: var(--monoFuncGreen)">codificar</strong>(<strong style="color: var(--lightPurple)">INPUT</strong>)`
+
+			// AREGAR TABLA
+			if (bitsTable) {
+				bitsTable.innerHTML = ''
+				matrix.forEach((row: string[]) => {
+					bitsTable.innerHTML =
+						bitsTable.innerHTML +
+						`<li>${row
+							.map((col: string) => '<span>' + col + '</span>')
+							.join('')}</li>`
+				})
+			}
 		}
 	}
 }

@@ -47,6 +47,14 @@ var Huffman = (function () {
         }
         this.raiz = this.pesos[0];
     };
+    Huffman.prototype.getMatrix = function () {
+        var headers = ['Valor', 'Peso', 'Binario'];
+        var matrix = [headers];
+        this.codificacion.forEach(function (cod) {
+            return matrix.push([cod.valor, cod.peso.toString(), cod.binario]);
+        });
+        return matrix;
+    };
     Huffman.prototype.codificar = function (cadena) {
         this.cadena = cadena;
         this.crearArbol(cadena);

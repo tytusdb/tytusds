@@ -63,6 +63,15 @@ class Huffman {
 		this.raiz = this.pesos[0]
 	}
 
+	getMatrix() {
+		const headers = ['Valor', 'Peso', 'Binario']
+		const matrix: string[][] = [headers]
+		this.codificacion.forEach((cod: ParejaHuffman) =>
+			matrix.push([cod.valor, cod.peso.toString(), cod.binario]),
+		)
+		return matrix
+	}
+
 	codificar(cadena: string) {
 		this.cadena = cadena
 		this.crearArbol(cadena)

@@ -6,6 +6,7 @@ var encodingProps = {
         key: '',
     },
 };
+var bitsTable = document.getElementById('bits-table-list');
 var codeEditor = document.getElementById('code-editor');
 var banner = document.getElementById('banner');
 var encodeInput = document.getElementById('encode-input');
@@ -64,6 +65,7 @@ var startEncoding = function () {
         if (encodeOutput) {
             encodingProps.instance.codificar(globalEncodingTextInput);
             var encodedValue = encodingProps.instance.toString();
+            var matrix = encodingProps.instance.getMatrix();
             encodeOutput.value = encodedValue;
             if (banner)
                 banner.style.display = 'none';
@@ -71,6 +73,16 @@ var startEncoding = function () {
                 codeEditor.innerHTML =
                     codeEditor.innerHTML +
                         "\ndata.<strong style=\"color: var(--monoFuncGreen)\">codificar</strong>(<strong style=\"color: var(--lightPurple)\">INPUT</strong>)";
+            if (bitsTable) {
+                bitsTable.innerHTML = '';
+                matrix.forEach(function (row) {
+                    bitsTable.innerHTML =
+                        bitsTable.innerHTML +
+                            ("<li>" + row
+                                .map(function (col) { return '<span>' + col + '</span>'; })
+                                .join('') + "</li>");
+                });
+            }
         }
     }
 };
