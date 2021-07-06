@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="MatrizDispersa.js"></script>
+    <link rel="stylesheet" href="matrizDispersa.css">
+    <script>
+        let m=new Matriz();
+       function init(){
+       }
+       function ins(){
+            let x=document.getElementById("x").value
+            let y=document.getElementById("y").value
+            let v=document.getElementById("v").value
+           m.insert(x,y,v)
+           m.Graficar()
+        }
+        function rmayor(){
+           m.RowMajor()
+        }
+        function cmayor(){
+            m.ColumnMajor()
+        }
+        function eliminar(){
+            let x=document.getElementById("xe").value
+            let y=document.getElementById("ye").value
+            m.eliminar(x,y)
+            m.Graficar()
+        }
+        function actu(){
+            let x=document.getElementById("x").value
+            let y=document.getElementById("y").value
+            let v=document.getElementById("v").value
+            m.eliminar(x,y)
+            m.insert(x,y,v)
+            m.Graficar()
+        }
+
+        function find(){
+            let v=document.getElementById("vs").value
+            m.buscarValor(v)
+        }
+
+        function insertA(){
+           let p=document.getElementById("IA1").value
+            let v=document.getElementById("IA2").value
+           m.insertarArreglo(p,v)
+            m.GraficarArreglo()
+        }
+
+
+        window.addEventListener('load',function (){
+            var upload=document.getElementById("loadedFile")
+            if (upload)
+            {
+                upload.addEventListener('change', function() {
+                    if (upload.files.length > 0)
+                    {
+                        m=new Matriz();
+                        var reader = new FileReader(); // File reader to read the file
+                        // This event listener will happen when the reader has read the file
+                        reader.addEventListener('load', function() {
+                            var result = JSON.parse(reader.result); // Parse the result into an object
+                            file=new File(result.categoria,result.nombre,result.animacion,result.valores)
+                            if (isNaN(result.valores[0])){
+                                for (const resultKey in result.valores) {
+                                    let temp=result.valores[resultKey]
+                                            m.insert(temp.indices[0],temp.indices[1],temp.valor)
+                                }
+                            }else {
+                                for (const resultKey in result.valores) {
+                                    let temp=result.valores[resultKey]
+                                    for (const tempKey in temp.indices) {
+                                        m.insert(temp.indices[0],temp.indices[1],temp.valor)
+                                    }
+                                }
+                            }
+                            m.Graficar()
+                        });
+
+                        reader.readAsText(upload.files[0]); // Read the uploaded file
+                    }
+                });
+            }
+            /*sp.addEventListener('change',function (){
+                document.getElementById('sp').innerHTML=sp.value
+                speedG=(11-sp.value)*25
+            })*/
+
+        })
+    </script>
+</head>
+<body onload="init()">
+<input type="text" placeholder="x" id="x">
+<input type="text" placeholder="y" id="y">
+<input type="text" placeholder="valor" id="v">
+<button onclick="ins()">Insertar</button>
+<button onclick="actu()">Actualizar</button>
+<input type="text" placeholder="x a eliminar" id="xe">
+<input type="text" placeholder="y a eliminar" id="ye">
+<button onclick="eliminar()">Eliminar</button>
+<input type="text" placeholder="valor a encontrar" id="vs">
+<button onclick="find()">Buscar</button>
+<input type="text" placeholder="posicion" id="IA1">
+<input type="text" placeholder="valor" id="IA2">
+<button onclick="insertA()">Insertar En Arreglo</button>
+<button onclick="rmayor()">Row Major</button>
+<button onclick="cmayor()">Column Major</button>
+<input type="file" id="loadedFile">
+<div id="result">
+
+</div>
+
+</body>
+</html>

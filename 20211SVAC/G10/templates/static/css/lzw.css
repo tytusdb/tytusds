@@ -1,0 +1,10 @@
+table {
+    margin: 5px;
+    width: 100%;
+}
+
+th, tr, td{
+    width: 10%;
+    text-align: center;
+    border: 1px solid rgb(34, 40, 49);
+}

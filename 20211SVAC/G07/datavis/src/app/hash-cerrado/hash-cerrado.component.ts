@@ -381,8 +381,6 @@ class hash{
       var ids = nodes.get({
         fields:['id', 'label', 'color']
       });
-      console.log("id de los nodos we")
-      console.log(ids)
       for (var val of ids){
         if(val.color === "#FFA807"){
           nodes.update(
@@ -680,7 +678,7 @@ export class HashCerradoComponent implements OnInit {
   @ViewChild('mynetwork', {static: false}) el: ElementRef;
   public network: any;
   constructor() { }
-  contenido = "";
+  contenido = "{ \"valores\": [\n";
 
   ngOnInit(): void {
   }
@@ -689,8 +687,6 @@ export class HashCerradoComponent implements OnInit {
     this.network = new vis.Network(container, listaData, options);
   }
   generador(){
-    this.contenido = "";
-    this.contenido = "{ \"valores\": [\n";
     for (let i = 0; i < h.tabla.length; i++) {
       this.contenido +='"'+h.tabla[i]+'"'+ ",\n";
     }
@@ -699,7 +695,6 @@ export class HashCerradoComponent implements OnInit {
   descargarContenido(){
     this.generador();
     let downloadfile = "data: text/json;charset=utf-8,"+encodeURIComponent(this.contenido);
-    console.log(downloadfile);
     var downloader = document.createElement('a');
     downloader.setAttribute('href', downloadfile);
     downloader.setAttribute('download', 'data.json');
@@ -729,14 +724,8 @@ export class HashCerradoComponent implements OnInit {
         this.max = data.maximo;
         this.funcion = data.funcion;
         this.prueba = data.prueba;
-        console.log("m"+this.m)
-        console.log("min"+this.min)
-        console.log("max"+this.max)
-        console.log("fun"+this.funcion)
-        console.log("test"+this.prueba)
         this.Tamano(this.m,this.max,this.min,this.funcion,this.prueba);
         data.valores.forEach(element => { // se agrego al metodo de agregar
-          console.log(element)
           this.AgregarNuevo(element)
         });
 
@@ -750,12 +739,9 @@ export class HashCerradoComponent implements OnInit {
   }
   Tamano(ta: number, max:number, min:number,dat:any,dato:any){
     h = new hash(ta, max,min,dat,dato);
-    console.log(h)
   }
 
   AgregarNuevo(datos: any){
-    console.log("Entro??")
-    console.log(h);
     h.insertar(datos);
   }
 

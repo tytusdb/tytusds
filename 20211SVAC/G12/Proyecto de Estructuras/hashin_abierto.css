@@ -1,0 +1,121 @@
+/* ----------------------------------------------------------------- */
+/* cuerpo de la pagina */
+/* ----------------------------------------------------------------- */
+
+body{
+    font-family: Georgia, times, serif;
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    --nodes-size: 80px;
+}
+
+.header{
+    background: #333;
+    color: white;
+    margin: 0;
+    padding: 0.5rem 0;
+    left: 0;
+    top: 0;
+    right: 0;
+}
+
+/* ----------------------------------------------------------------- */
+/* Nodo */
+/* ----------------------------------------------------------------- */
+
+div.node {
+    width: var(--nodes-size);
+    height: var(--nodes-size);
+    text-align: center;
+    /*border-radius: 50%;*/
+    background: #f12711;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #f5af19, #f12711);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #f5af19, #f12711); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+div.node p.number {
+    margin: auto auto;
+    /*line-height: var(--nodes-size);*/
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+div.node p.set {
+    display: none;
+}
+
+p{
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+/* ----------------------------------------------------------------- */
+/* Pointer */
+/* ----------------------------------------------------------------- */
+
+div.pointer {
+    position: relative;
+    width: var(--nodes-size);
+    height: var(--nodes-size);
+    z-index: -1;
+}
+
+div.pointer img {
+    width: 60px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+div.vector {
+    width: var(--nodes-size);
+    height: var(--nodes-size);
+    text-align: center;
+    /*border-radius: 50%;*/
+    background: green;
+    position: relative;
+    top:60px;
+}
+
+section.lista_hash {
+    width: 95%;
+    padding-left: 5%;
+    /*padding-top: 120px;*/
+    padding-bottom: 400px;
+    margin-bottom: 0;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+section.lista_hash > div {
+    flex: 0 0 auto;
+    display: inline-block;
+    vertical-align: top;
+}
+
+div.flecha {
+    position: relative;
+    width: var(--nodes-size);
+    height: var(--nodes-size);
+    z-index: -1;
+    top:60px;
+}
+
+div.flecha img {
+    width: 60px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

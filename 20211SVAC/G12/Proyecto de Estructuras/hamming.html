@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="hamming.css"/>
+    <title>Codigo de Hamming</title>
+</head>
+<body>
+    <header class="header">
+        <center><h1>Codigo de Hamming</h1></center>
+        <form><center>
+            <input type="file" id="Archivo">
+            <input type="button" onClick="descargar()" value="Descargar" />
+        </center></form>
+    </header>
+    <form><center>
+    <input type="text" id="codigo" placeholder="Llave" required/>
+    <input type="button" onClick="crear()" value="Crear" />
+    </center></form>
+    <center><div class="tabla" id="tabla">
+
+    </div></center>
+    <script type="text/javascript" src="hamming.js"></script>
+</body>
+</html>

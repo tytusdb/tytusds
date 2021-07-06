@@ -1,14 +1,6 @@
 
 // E  V  E  N  T  O  S
-/*
-// ----- OBTENER LLAVE -----
-var btn_Key = document.getElementById("addLlave");
-btn_Key.addEventListener("click", saveKey);
 
-// ----- OBTENER NUM DE RONDAS -----
-var btn_Rondas = document.getElementById("addRonda");
-btn_Rondas.addEventListener("click", rondaInfo);
-*/
 // ----- VELOCIDAD -----
 var btn_Velocidad = document.getElementById("velocidad");
 btn_Velocidad.addEventListener("click", getVelocidad)
@@ -39,6 +31,7 @@ var resultado = document.getElementById("respuesta");
 var contenido;
 var rondas;
 var velocidad;
+var resulFile;
 
 
 // F  U  N  C  I  O  N  E  S  -  E  V  E  N  T  O  S
@@ -191,6 +184,7 @@ async function feistel(L, R, key){
     var codeF = convertBS(allBin);
     console.log(convertBS(allBin));
     resultado.textContent = codeF;
+    resulFile = codeF;
 
 }
 
@@ -247,8 +241,14 @@ function getVelocidad(){
 
 // ***** GUARDAR ARCHIVO *****
 function guardar(){
-    console.log("Guardando JSON");
-
+    console.log("Guardando .txt"); 
+    let saveArchivo = new Blob([resulFile],{type:"application/txt"});
+    let a = document.createElement("a");
+    a.setAttribute('href', 'data:text/plain;charset=utf-8, ' + encodeURIComponent(resulFile));
+    a.href = URL.createObjectURL(saveArchivo);
+    a.download = "feistel.txt";
+    a.click();
+    
 }
 // ***** LEYENDO ARCHIVO *****
 function readFile(evento){ // lectura del archivo .json

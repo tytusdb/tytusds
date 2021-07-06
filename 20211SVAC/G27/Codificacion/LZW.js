@@ -76,3 +76,30 @@ class LZW  {
         return result;
     }
 }
+
+var lzw = new LZW;
+
+function nuevoValor(){
+	var x = document.getElementById("Codigo").value;
+	//document.getElementById("Codigo").value = "";
+//	var y = 
+	 lzw.compress(x);
+	 document.getElementById("Codificado").innerHTML=lzw.compress(x);
+	//document.getElementById("Codigo").focus();
+  
+};
+
+
+
+function AbrirArchivo(files){
+	var file = files[0];
+	var lector = new FileReader();
+	lector.onload = function(e) {
+	  var contenido = e.target.result;
+	  document.getElementById("Codigo").innerHTML=contenido;;
+	};
+	lector.onerror = function(e) {
+	  console.error("File could not be read! Code " + e.target.error.code);
+  };
+	lector.readAsText(file);
+  }

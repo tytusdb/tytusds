@@ -79,7 +79,7 @@ class Grafo{
             if(idA == this.aristas[i].idA){
                 if(idB == this.aristas[i].idB){
                     if(dista == this.aristas[i].distancia){
-                        return aristas[i];
+                        return this.aristas[i];
                     }
                 }
             }
@@ -259,7 +259,6 @@ class Grafo{
     nodoBP(actual, objetivo, hallados, datos, encontrado){
         let parametros = {hallados:hallados, datos:datos, encontrado:encontrado};
         let candidato;
-        console.log("Actual: "+actual.label)
 
         let i = 0;
         while(i < this.aristas.length && !parametros.encontrado){
@@ -268,12 +267,13 @@ class Grafo{
 
                 if(!hallados.includes(this.aristas[i].idB)){
                     if(candidato.label == objetivo){
-                        console.log(candidato.label);
+
                         datos.nodos.push({id:candidato.id,  label:candidato.label.toString(),   color:{border:'#800F17',background:'#FF5854'}});
                         datos.aristas.push({from:this.aristas[i].idA     ,to:this.aristas[i].idB,     label:this.aristas[i].distancia.toString()});
                         hallados.push(this.aristas[i].idB);
                         parametros.encontrado = true;
                         return parametros;
+
                     }else{
                         datos.nodos.push({id:candidato.id,  label:candidato.label.toString()});
                         datos.aristas.push({from:this.aristas[i].idA     ,to:this.aristas[i].idB,     label:this.aristas[i].distancia.toString()});
@@ -287,7 +287,6 @@ class Grafo{
 
                 if(!hallados.includes(this.aristas[i].idA)){
                     if(candidato.label == objetivo){
-                        console.log(candidato.label);
                                 
                         datos.nodos.push({id:candidato.id,  label:candidato.label.toString(),   color:{border:'#800F17',background:'#FF5854'}});
                         datos.aristas.push({from:this.aristas[i].idB     ,to:this.aristas[i].idA,     label:this.aristas[i].distancia.toString()});
@@ -388,13 +387,238 @@ class Grafo{
                 }
             }
         return datos;
+        }
     }
-}}
+
+    nodoPrim(nodo, hallados, datos, aristas){ 
+        let parametros = {hallados: hallados, datos:datos, aristasN:aristas};
+        let j;
+        let agregado;
+
+        for(let i = 0; i < this.aristas.length;i++){
+            if((this.aristas[i].idA == nodo.id || this.aristas[i].idB == nodo.id) && this.aristas[i].idA != this.aristas[i].idB){
+                if(parametros.aristasN.length > 0){
+
+                    j = 0;
+                    agregado = false;
+
+                    while(j < parametros.aristasN.length && !agregado){
+                        if(parseFloat(this.aristas[i].distancia) < parseFloat(parametros.aristasN[j].distancia)){
+                            parametros.aristasN.splice(j, 0, this.aristas[i]);
+                            agregado = true;
+                        }
+                        j++;
+                    }
+
+                    if(!agregado){
+                        parametros.aristasN.push(this.aristas[i]);
+                    }
+                }else{
+                    parametros.aristasN.push(this.aristas[i]);
+                }
+            }
+        }
+
+        while(parametros.aristasN.length > 0){
+            if(!parametros.hallados.includes(parametros.aristasN[0].idB)){
+                parametros.datos.aristas.push({from:parametros.aristasN[0].idA, to:parametros.aristasN[0].idB,  label:parametros.aristasN[0].distancia.toString()})
+                agregado = this.getNodoID(parametros.aristasN[0].idB);
+                parametros.hallados.push(parametros.aristasN[0].idB);
+                parametros.aristasN.splice(0,1);
+                parametros = this.nodoPrim(agregado,    parametros.hallados,    parametros.datos,   parametros.aristasN);
+                
+            }else if(!parametros.hallados.includes(parametros.aristasN[0].idA)){
+                parametros.datos.aristas.push({from:parametros.aristasN[0].idB, to:parametros.aristasN[0].idA,  label:parametros.aristasN[0].distancia.toString()})
+                agregado = this.getNodoID(parametros.aristasN[0].idA);
+                parametros.hallados.push(parametros.aristasN[0].idA);
+                parametros.aristasN.splice(0,1);
+                parametros = this.nodoPrim(agregado,    parametros.hallados,    parametros.datos,   parametros.aristasN);
+
+            }else{
+                parametros.aristasN.splice(0,1);
+            }
+        }
+
+        return parametros;
+    }
+
+    arbolMin(nombre = null){
+
+        let datos = new NodoArista();
+        if(nombre == null){
+            nombre = this.nodos[0].label;
+        }
+
+        let nodo;
+        for(let i = 0; i <= this.nodos.length; i++){
+            nodo = this.nodos[i];
+            if(nodo != null){
+                datos.nodos.push({id:nodo.id,label:nodo.label.toString()});
+            }
+        }
+
+        nodo = this.getNodo(nombre);
+        let hallados = [];
+        hallados.push(nodo.id);
+        let listaA = [];
+        let parametros;
+
+        parametros = this.nodoPrim(nodo,hallados,datos, listaA);
+        if(parametros.hallados.length == this.nodos.length){
+            return parametros.datos;
+        }else{
+            let k;
+            let agregado;
+            for(let j = 0; j <= this.nodos.length; j++){
+                if(listaA.length > 0){
+
+                    k = 0;
+                    agregado = false;
+
+                    while(k < listaA.length && !agregado){
+                        if(this.aristas[j].distancia < listaA[k].distancia){
+                            listaA.splice(k, 0, this.aristas[j]);
+                            agregado = true;
+                        }
+                        k++;
+                    }
+
+                    if(!agregado){
+                        listaA.push(this.aristas[j]);
+                    }
+
+                }else{
+                    listaA.push(this.aristas[j]);
+                }
+            }
+
+            let aux = listaA;
+            let m = 0;
+            while(m < 5 && parametros.hallados.length < this.nodos.length){
+                listaA = aux;
+                while(listaA.length > 0){
+                    if(hallados.includes(listaA[0].idA) && !hallados.includes(listaA[0].idB)){
+                        parametros.datos.aristas.push({from:listaA[0].idA,  to:listaA[0].idB,   label:listaA[0].distancia.toString()})
+                        parametros.hallados.push(listaA[0].idB);
+                        listaA.splice(0,1);
+
+                    }else if(hallados.includes(listaA[0].idA) && !hallados.includes(listaA[0].idB)){
+                        parametros.datos.aristas.push({from:listaA[0].idB,  to:listaA[0].idA,   label:listaA[0].distancia.toString()})
+                        parametros.hallados.push(listaA[0].idA);
+                        listaA.splice(0,1);
+                    }else{
+                        listaA.splice(0,1);
+                    }
+                }
+                m++;
+            }
+        }
+
+        return datos;
+    }
+
+    caminoDijkstra(objetivo, camino, nodo, listaAristas){
+        let listaHijos = [];
+        
+        if(nodo.label == objetivo){
+            camino.objetivo = true;
+            listaAristas.push(camino);
+            return listaAristas;
+        }
+
+        for(let i = 0; i < this.aristas.length; i++){
+            if(this.aristas[i].idA == nodo.id && !camino.ids.includes(this.aristas[i].idB)){
+                listaHijos.push(this.aristas[i]);
+            }else if(this.aristas[i].idB == nodo.id && !camino.ids.includes(this.aristas[i].idA)){
+                listaHijos.push(this.aristas[i]);
+            }
+        }
+
+        let hijo;
+        let caminoAux;
+
+        for(let j = 0; j < listaHijos.length; j++){
+
+            caminoAux = new NodoArista();
+            caminoAux.nodos = [...camino.nodos];
+            caminoAux.aristas = [...camino.aristas];
+            caminoAux.ids = [...camino.ids];
+
+            if(listaHijos[j].idA == nodo.id && !camino.ids.includes(listaHijos[j].idB)){
+
+                hijo = this.getNodoID(listaHijos[j].idB);
+
+                caminoAux.nodos.push({id:hijo.id,label:hijo.label});
+                caminoAux.aristas.push({from:listaHijos[j].idA, to:listaHijos[j].idB,   label:listaHijos[j].distancia.toString()})
+
+                caminoAux.ids.push(hijo.id);
+                
+                listaAristas = this.caminoDijkstra(objetivo, caminoAux, hijo, listaAristas);
+
+            }else if(listaHijos[j].idB == nodo.id && !camino.ids.includes(listaHijos[j].idA)){
+
+                hijo = this.getNodoID(listaHijos[j].idA);
+                caminoAux.nodos.push({id:hijo.id,label:hijo.label});
+                caminoAux.aristas.push({from:listaHijos[j].idB, to:listaHijos[j].idA,   label:listaHijos[j].distancia.toString()})
+                caminoAux.ids.push(hijo.id);
+
+                listaAristas = this.caminoDijkstra(objetivo, caminoAux, hijo, listaAristas);
+            }
+        }
+
+        listaAristas.push(camino);
+
+        return listaAristas;
+    }
+
+    costoUni(objetivo, nombre = null){
+        let listaCaminos = [];
+        let camino;
+        let nodo;
+
+        if(nombre == null){
+            nodo = this.nodos[0];
+        }else{
+            nodo = this.getNodo(nombre);
+        }
+
+        let datos = new NodoArista();
+        datos.nodos.push({id:nodo.id,label:nodo.label.toString(), color:{border:'#6B5127',background:'#EBB254'}});
+        datos.ids.push(nodo.id);
+
+        listaCaminos = this.caminoDijkstra(objetivo, datos, nodo, listaCaminos);
+        camino = listaCaminos[0];
+        console.log(listaCaminos);
+
+        for(let i = 0; i < listaCaminos.length; i++){
+            if(listaCaminos[i] != null){
+                if((listaCaminos[i].sumaAristas() < camino.sumaAristas() && listaCaminos[i].objetivo) || !camino.objetivo){
+                    camino = listaCaminos[i];
+                }
+            }
+        }
+
+        return camino;
+    }
+}
 
 class NodoArista{
     constructor(){
-        this.nodos = []
-        this.aristas = []
+        this.nodos = [];
+        this.aristas = [];
+        this.ids = [];
+        this.objetivo = false;
+    }
+
+    sumaAristas(){
+        let num = 0;
+        if(this.aristas.length > 0){
+            for(let i = 0; i < this.aristas.length; i++){
+                num += parseFloat(this.aristas[i].label);
+            }
+        }
+
+        return num;
     }
 }
 
@@ -638,11 +862,30 @@ costoUniforme.addEventListener("click", (e) =>{
     e.preventDefault
     if(grafo.nodos.length > 0){
         if(nodoUno.value != ''){
-            graficaGrafo(grafo, "recorridop", nodoUno.value);
+            if(nodoDos.value != ''){
+                if(grafo.getNodo(nodoDos.value) != null && grafo.getNodo(nodoUno.value) != null){
+                    graficaGrafo(grafo, "costouni", nodoDos.value, nodoUno.value);
+                    reporte.innerHTML = 'Mostrando costo uniforme de "'+nodoDos.value+'" desde "'+nodoUno.value+'".';
+                }else{
+                    reporte.innerHTML = 'Uno o dos nodos no están en el grafo.';
+                }
+            }else{
+                if(grafo.getNodo(nodoUno.value) != null){
+                    graficaGrafo(grafo, "costouni", nodoUno.value);
+                    reporte.innerHTML = 'Mostrando costo uniforme de "'+nodoUno.value+'" desde "'+grafo.nodos[0].label+'".';
+                }else{
+                    reporte.innerHTML = 'El nodo no está en el grafo.';
+                }
+            }
         }else if(nodoDos.value != ''){
-            graficaGrafo(grafo, "recorridop", nodoDos.value);
+            if(grafo.getNodo(nodoUno.value) != null){
+                graficaGrafo(grafo, "costouni", nodoDos.value);
+                reporte.innerHTML = 'Mostrando costo uniforme de "'+nodoDos.value+'" desde "'+grafo.nodos[0].label+'".';
+            }else{
+                reporte.innerHTML = 'El nodo no está en el grafo.';
+            }
         }else{
-            graficaGrafo(grafo, "recorridop");
+            reporte.innerHTML = 'Por favor escribe un nodo para buscar.';
         }
     }else{
         reporte.innerHTML = 'El grafo no tiene nodos.';
@@ -653,11 +896,14 @@ arbolMinimo.addEventListener("click", (e) =>{
     e.preventDefault
     if(grafo.nodos.length > 0){
         if(nodoUno.value != ''){
-            graficaGrafo(grafo, "recorridop", nodoUno.value);
+            graficaGrafo(grafo, "arbolmin", nodoUno.value);
+            reporte.innerHTML = 'Mostrando el árbol de recubrimiento mínimo desde "'+nodoUno.value+'".';
         }else if(nodoDos.value != ''){
-            graficaGrafo(grafo, "recorridop", nodoDos.value);
+            graficaGrafo(grafo, "arbolmin", nodoDos.value);
+            reporte.innerHTML = 'Mostrando el árbol de recubrimiento mínimo desde "'+nodoDos.value+'".';
         }else{
-            graficaGrafo(grafo, "recorridop");
+            graficaGrafo(grafo, "arbolmin");
+            reporte.innerHTML = 'Mostrando el árbol de recubrimiento mínimo desde "'+nodos[0].label+'".';
         }
     }else{
         reporte.innerHTML = 'El grafo no tiene nodos.';
@@ -745,10 +991,10 @@ function graficaGrafo(grafo,tipo = null,label = null, labelB = null){
         case "busquedaa":
             lista = grafo.busquedaANA(label, labelB);
             break;
-        case "arbolminimo":
+        case "arbolmin":
             lista = grafo.arbolMin(label);
             break;
-        case "costouniforme":
+        case "costouni":
             lista = grafo.costoUni(label,labelB);
             break;
         default:
