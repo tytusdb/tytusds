@@ -20,7 +20,6 @@ function EncriptarFeistel(original,permutacion,k){
 	
 }
 
-
 //para deencriptar
 
 
@@ -90,8 +89,6 @@ function SustituirCadena(cadena,alfabeto,k){
 	return aux;
 
 }
-
-
 
 function sustitucionInv(Vec,alfabeto,k){
 

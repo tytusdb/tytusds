@@ -14,7 +14,7 @@
 			  border: 1px solid lightgray;
 			}</style>
     <script src ="../vis-network.min.js"></script>
-		<script src="hash_cerrado.js"></script>
+		<script src="compuesta.js"></script>
 	</head>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">Estructuras de Datos</a>
@@ -67,36 +67,40 @@
         </div>
       </nav>
 	<body class="is-preload">
-			<div class="contenedor">
-				<h1>HASH CERRADO</h1>
+			<div class="contenedor">ssss
+				<h1>ESTRUCTURA COPUESTA</h1>
             <div id="ventanas">
                 <ul id=lista>
                 </ul>
             </div>
             <body>
                 <div id="contenidoventanas">
-					<button onclick="agregar();" title="insertar" id="btn4" class="btn btn-primary">Agregar</button>
+					<button onclick="graficar();" title="insertar" id="btn4" class="btn btn-primary">Agregar</button>
 					<button onclick="eliminar();" title="eliminar" id="btn4" class="btn btn-primary">Eliminar</button>
-          			<button onclick="encontrar();" title="sacar" id="btn4" class="btn btn-primary">Buscar</button>
+					<button onclick="update();" title="update" id="btn4" class="btn btn-primary">Actualizar</button>
+					<button onclick="encontrar();" title="sacar" id="btn4" class="btn btn-primary">Buscar</button>
 					<button onclick="DescargarArchivo();" title="Ordenar" id="btn4" class="btn btn-primary">Descargar</button>
 					<input id="fileInput" title="Abrir" type="file" size="50" onchange="AbrirArchivo(this.files)" class="btnp">
 				</div>
 				<div>
-					<br><a class="a-label">Tipo de Prueba</a><br>
-					<a class="a-label">Lineal</a><input type="radio" name="typeHash" value="0" checked="checked"></input>
-					<a class="a-label">Cuadratica</a><input type="radio" name="typeHash" value="1"></input>
-					<a class="a-label">Doble Hash</a><input type="radio" name="typeHash" value="2"></input>
+					<br><a class="a-label">Valor: </a><input type="text" id="newValue" name="newValue">
 				</div>
-				<div>
-					<br><a class="a-label">Tipo de Valor</a><br>
-					<a class="a-label">String</a><input type="radio" name="typeValue" value="0" checked="checked"></input>
-					<a class="a-label">Numerico</a><input type="radio" name="typeValue" value="1"></input>
-				</div>
-				<div>
-					<br><a class="a-label">Llave</a><input type="text" id="newValue" name="newValue">
-					    <a class="a-label">Tamano</a><input type="text" id="size" name="size">
-					    <button onclick="setSize();" title="sacar" id="btn4" class="btn btn-primary">Establecer</button>br><br><br><br>
-				</div>
+                <div>
+                    <br><a class="a-label">Estructura 1: </a><select id="ddlViewBy">
+                        <option value="1" >lista simple</option>
+                        <option value="2" selected="selected">lista doble</option>
+                        <option value="3" >cola</option>
+                        <option value="4">pila</option>
+                      </select>
+                </div>
+                <div>
+                    <br><a class="a-label">Estructura 2: </a><select id="ddlViewBy">
+                        <option value="1" >Arbol B</option>
+                        <option value="2" selected="selected">Arbol BS</option>
+                        <option value="3" >cola</option>
+                        <option value="4">pila</option>
+                      </select>
+                </div>
 				<div id="miRed"></div>				
             </body>
         </div>
