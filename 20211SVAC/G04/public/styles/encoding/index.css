@@ -13,7 +13,8 @@ main {
 	width: calc(100% - 60px);
 	max-width: 1306px;
 	max-height: 690px;
-	display: flex !important;
+	display: grid !important;
+	grid-template-columns: 400px 1fr 400px;
 	justify-content: space-between;
 	border-radius: var(--radius);
 	overflow: hidden;
@@ -228,4 +229,32 @@ textarea:first-of-type {
 	bottom: 0px;
 	right: -100px;
 	width: 300px;
+}
+
+#bits-table {
+	width: 100%;
+	padding: 30px;
+	overflow: auto;
+}
+
+#bits-table > ul {
+	width: 100%;
+}
+
+#bits-table > ul > li {
+	display: flex;
+	width: max-content;
+	color: var(--monoTextWhite);
+	font-weight: 500;
+	padding-right: 30px;
+}
+
+#bits-table > ul > li > span {
+	display: flex;
+	width: 100px;
+	height: 40px;
+	border: 2px solid var(--monoTextWhite);
+	text-align: center;
+	align-items: center;
+	justify-content: center;
 }
