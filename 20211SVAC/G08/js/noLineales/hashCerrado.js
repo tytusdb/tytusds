@@ -245,6 +245,10 @@ btn_Buscar.addEventListener('click', buscar);
 const btn_tamano= document.getElementById('tamano');
 btn_tamano.addEventListener('click', getTam);
 
+//-----------GUARDAR JSON-----------
+const btn_Guardar = document.getElementById('guardar');
+btn_Guardar.addEventListener('click', guardar);
+
 //-----------VARIABLES GLOBALES-----------
 var tamano;
 var values = [];
@@ -255,6 +259,7 @@ let maxi;
 let mini;
 let func;
 let val_fun;
+let prueb;
 let tabla = new Hash(tamano, mini, maxi);
 
 //-----------MOSTRAR TABLA HASH-----------
@@ -267,9 +272,9 @@ async function tam_tabla(valor){
         div.classList.add('cuadrito');
 
         if (tabla.vector[i] == null){
-            div.textContent =(i+"||");
+            div.textContent =(i+" || ");
         }else{
-            div.textContent =(i+"||"+tabla.vector[i].clave);
+            div.textContent =(i+" || "+tabla.vector[i].clave);
         }
         
         container.appendChild(div);
@@ -309,7 +314,7 @@ function buscar(){
 
     let busqueda = tabla.buscar(elemento);
     if (busqueda >= 0){
-        console.log("---------->" + elemento + " en el indice " + busqueda);
+        console.log("---------->" + elemento + " en el indice ");
         pathBloques(busqueda);
     }
     else{
@@ -396,6 +401,10 @@ async function eliminar(){
 
     
     console.log("Eliminando");
+
+    // Pintando el cuadro a eliminar 
+    
+    
     
 }
 
@@ -416,7 +425,7 @@ function readFile(evento){ // lectura del archivo .json
             mini = convert.minimo;
             values = convert.valores;
             func = convert.funcion;
-            //
+            prueb = convert.prueba;
             tabla.size = tamano;
             tabla.min = mini;
             tabla.max = maxi;
@@ -449,35 +458,37 @@ window.addEventListener('load', ()=>{ // cada vez que cambie
     document.getElementById('file').addEventListener('change',readFile)
 });
 
-function listaNums(numso){
-    let hola = [];
-    for (let i = 0; i < numso.length; i++){
-        hola.push(parseInt(numso[i]));
+function listaNums(){
+    let valores = [];
 
-    }
-    return hola;
+    tabla.vector.forEach(nodo => {
+        if(nodo != null){
+            
+            valores.push(nodo.clave);
+            
+            console.log("Indice: ",nodo.indice, "valores:",valores)
+        }else{
+            console.log("Indice:", null);
+        }
+    })
+
+    return valores;
 }
 //-----------GUARDAR JSON-----------
 function guardar(){
-    var repetic = btn_Repetir.checked;
     velocidad = 10;
-    var content = cola.imprimir().split(",");
-    if (tipoDato == 'number'){
-        content = listaNums(content);
-    } 
+
+    let listaValores = listaNums();  
     
     var fileJ = {
         "categoria": "Estructura No Lineal",
-        "nombre": "Tabla Hash",
-        "direccionamiento": "Abierto",
-        "metodo": "Multiplicacion",
-        "resolucion": "Lineal",
-        "size": tamano,
-        "constante":0.1625277911,
-        "minimo": 45,
-        "maximo":85,
-        "animacion":5,
-        "tipo": "String/Integer",
+        "nombre": "Tabla Hash Abierta",
+        "m": tamano,
+        "minimo": mini,
+        "maximo": maxi,
+        "funcion": func,
+        "prueba": prueb,
+        "animacion": 10,
         "valores":listaValores
     }
 
