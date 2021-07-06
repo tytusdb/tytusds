@@ -121,7 +121,7 @@ class CargaArchivo{
                     if (!this.vertices.includes(doc.valores[k].vertice)) {
                     this.vertices.push(doc.valores[k].vertice)
                     }
-                    this.aristas.push({vertice: doc.valores[k].vertice, arista:doc.valores[k].aristas[key].arista})
+                    this.aristas.push({vertice: doc.valores[k].vertice, arista:doc.valores[k].aristas[key].arista, distancia: doc.valores[k].aristas[key].distancia})
                 }
                 if(doc.valores[k].aristas.length==0){
                     this.vertices.push(doc.valores[k].vertice)

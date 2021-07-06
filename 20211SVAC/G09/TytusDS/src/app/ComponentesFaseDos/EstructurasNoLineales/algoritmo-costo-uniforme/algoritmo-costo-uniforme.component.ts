@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 declare var require:any;
 let CargaArchivo=require('../../../EstructurasF2/CargarArchivo')
 let guardarArchivo=require('../../../EstructurasF2/guardarArchivo')
-let anchuraGrafos= require('../../../EstructurasF2/AnchuraGrafos')
+//let anchuraGrafos= require('../../../EstructurasF2/AnchuraGrafos')
 let CostoUniforme= require('../../../EstructurasF2/CostoUniforme')
 @Component({
   selector: 'app-algoritmo-costo-uniforme',
@@ -16,14 +16,14 @@ export class AlgoritmoCostoUniformeComponent implements OnInit {
   ngOnInit(): void {
   }
   cU = new CostoUniforme()
-  aG= new anchuraGrafos()
+  //aG= new anchuraGrafos()
 
   costo(ini:string, fin:string){
-    this.cU.cambiarDatoNodo(this.aG.returnValores())
-    console.log(this.cU.CostoUniforme(ini,fin))
+    //this.cU.cambiarDatoNodo(this.aG.returnValores())
+    console.log(this.cU.recorrerCostoUniforme(ini,fin))
   }
   value(){
-    this.aG.graficarGrafo()
+    this.cU.graficarGrafo()
   }
   leerArchivo(event: any){
     let ca= new CargaArchivo()
@@ -31,36 +31,36 @@ export class AlgoritmoCostoUniformeComponent implements OnInit {
     setTimeout(() => {//debugger
       let grafo=ca.returnGrafo()
       for (let i = 0; i < grafo.vertices.length; i++) {
-        this.aG.AgregarNodo(grafo.vertices[i])
-      }
+        this.cU.AgregarNodo(grafo.vertices[i])
+      }//debugger
       for (let i = 0; i < grafo.aristas.length; i++) {
-        this.aG.AgregarVertice(grafo.aristas[i].vertice,grafo.aristas[i].arista)
+        this.cU.AgregarVertice(grafo.aristas[i].vertice,grafo.aristas[i].arista,grafo.aristas[i].distancia)
       }
-      this.aG.MostrarGrafo()
-      this.aG.graficarGrafo()
+      this.cU.MostrarGrafo()
+      this.cU.graficarGrafo()
     }, 600);
   }
   download(){
     let dow= new guardarArchivo()
-    dow.guardarGrafo(this.aG.returnValores(),"Grafo Dirigido/No Dirigido")
+    dow.guardarGrafo(this.cU.returnValores(),"Grafo Dirigido/No Dirigido")
   }
   insert(text:string){
-    this.aG.AgregarNodo(text)
-    this.aG.MostrarGrafo()
+    this.cU.AgregarNodo(text)
+    this.cU.MostrarGrafo()
   }
-  insertVertice(from:string, to:string){
-    this.aG.AgregarVertice(from,to)
-    this.aG.MostrarGrafo()
+  insertVertice(from:string, to:string, distancia:string){
+    this.cU.AgregarVertice(from,to, parseInt(distancia))
+    this.cU.MostrarGrafo()
   }
   delete(text:string){
-    this.aG.EliminarNodo(text)
-    this.aG.MostrarGrafo()
+    this.cU.EliminarNodo(text)
+    this.cU.MostrarGrafo()
   }
   search(text:string){
-    console.log(this.aG.VerificarExisteNodo(text))
+    console.log(this.cU.VerificarExisteNodo(text))
   }
   actualizar(textReplace:string, textNew:string){
-    this.aG.ActualizarNodo(textReplace,textNew)
-    this.aG.MostrarGrafo()
+    this.cU.ActualizarNodo(textReplace,textNew)
+    this.cU.MostrarGrafo()
   }
 }

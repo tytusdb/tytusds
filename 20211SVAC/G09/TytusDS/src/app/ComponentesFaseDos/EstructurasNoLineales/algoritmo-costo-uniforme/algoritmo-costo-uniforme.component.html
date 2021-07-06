@@ -44,7 +44,10 @@
         <input type="text" #boxto placeholder="to" /> 
       </td>
       <td>
-          <button class="boton" (click)="insertVertice(boxfrom.value,boxto.value)" type="submit" >Push</button>
+        <input type="text" #boxdistancia placeholder="distancia" /> 
+      </td>
+      <td>
+          <button class="boton" (click)="insertVertice(boxfrom.value,boxto.value, boxdistancia.value)" type="submit" >Push</button>
       </td>        
       </tr>
       <tr>

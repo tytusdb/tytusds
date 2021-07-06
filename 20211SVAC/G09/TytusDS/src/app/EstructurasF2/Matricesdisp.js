@@ -89,6 +89,7 @@ class Matriz {
         } else {//las dos caberas existen
             this.caso4(valor, x, y);
         }
+        this.graficar()
     }
 
     caso1(valor, x, y) {
@@ -358,7 +359,7 @@ class Matriz {
                 aux.arriba.abajo= aux.abajo
                 aux.abajo.arriba= aux.arriba                
             } else {aux.arriba.abajo=null}
-            
+            this.graficar()
         } else {
             console.log("No existe el elemento")
         }
@@ -380,11 +381,30 @@ class Matriz {
     }
     actualizar(textReplace, textNew){
         this.search(textReplace).nodo.valor=textNew
+        this.graficar()
     }
     graficar(){
         let ani = require('./Animaciones')
         let Animacion= new ani()
-        Animacion.graficarMatriz(this.imprimir_lista())
+        Animacion.graficarMatriz(this.convertArray())
+    }
+    convertArray(){
+        let array= new Array(this.lista_horizontal.ultimo.abajo.x+1)
+        for (let i = 0; i < array.length; i++) {
+            array[i]= new Array(this.lista_vertical.ultimo.derecha.y+1)
+        }
+        let cabecera = this.lista_vertical.primero;
+        let aux;
+        while(cabecera != null){
+            aux = cabecera.derecha;
+            while(aux!=null){//debugger
+                //console.log("Valor:",aux.valor, "X:", aux.x, "Y:", aux.y);
+                array[aux.x][aux.y]=aux.valor
+                aux = aux.derecha//iteraciones dentro de la matriz;
+            }
+            cabecera = cabecera.siguiente;//iteraciones de lista ordenada
+        }//debugger
+        return array        
     }
 }
 

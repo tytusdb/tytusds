@@ -18,12 +18,12 @@ class Animaciones{
 		}*/		
 		for (let i = 0; i < array.length; i++) {
 			if (array[i][0]) {
-				this.crearColocar("btn"+i.toString()+",0",array[i][0],75*i,0)
+				this.crearColocar("btn"+i.toString()+",0",array[i][0],100*i,0)
 			}
 		}//debugger
 		for (let j = 1; j < array[0].length; j++) {
 			for (let i = 0; i < array.length; i++) {
-				if (array[i][j]) {this.crearColocar("btn"+i.toString()+","+j.toString(),array[i][j],50*i,40*j)}
+				if (array[i][j]) {this.crearColocar("btn"+i.toString()+","+j.toString(),array[i][j],100*i,40*j)}
 			}			
 		}			
 		

@@ -1,3 +1,5 @@
+const { __esModule } = require("vis");
+
 class CostoUniforme{
   constructor(){
       this.DatoNodo = [];
@@ -260,4 +262,30 @@ class CostoUniforme{
   cambiarDatoNodo(datos){
     this.DatoNodo=datos
   }
+  returnValores(){
+      return this.DatoNodo
+  }
+  graficarGrafo(){
+    const Animaciones= require('./Animaciones')
+    let ani=new Animaciones()
+    ani.graficarGrafo(this.convertNodo(this.DatoNodo),{autoResize: true,
+        height: '100%',
+        width: '100%'})
 }
+    convertNodo(array){
+        //let Nodos=[]
+        let nodes = []
+        let edges = []
+        debugger
+        for (let i = 0; i < array.length; i++) {
+            nodes.push({id: array[i].Vertices, label: array[i].Vertices.toString()})
+            try {
+                for (let j = 0; j < array[i].Aristas.length; j++) {
+                    edges.push({from: array[i].Vertices, to: array[i].Aristas[j], length: 50})
+                }
+            } catch (error) {console.log(error)}
+        }
+        return {nodes: nodes, edges:edges}
+    }  
+}
+module.exports= CostoUniforme
