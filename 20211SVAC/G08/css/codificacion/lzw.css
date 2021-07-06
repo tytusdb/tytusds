@@ -4,6 +4,7 @@
     width: 325px;
     
     float: left;
+    border:none;
     
 
 }
@@ -15,7 +16,7 @@
     margin-left: 720px;
     padding-top: 24px;
    
-    border: 4px solid black;
+    /*border: 4px solid black;*/
 
 
 }
