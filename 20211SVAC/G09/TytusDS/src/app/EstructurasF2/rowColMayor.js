@@ -69,7 +69,7 @@ class RowColMayor{
     }        
     graficar(){
         //let vis=require('../../../vis-4.21.0/dist/vis')
-        let vis=require('../../../node_modules/vis/dist/vis')
+        //let vis=require('../../../node_modules/vis/dist/vis')
         /*var nodes = new vis.DataSet([
         ]);*/        
         let nodes = [];
