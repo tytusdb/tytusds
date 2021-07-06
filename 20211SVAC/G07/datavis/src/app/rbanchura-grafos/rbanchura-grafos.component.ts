@@ -2,6 +2,7 @@ import { ReadVarExpr } from '@angular/compiler';
 import { Component, ElementRef, OnInit, ViewChild, ɵsetCurrentInjector } from '@angular/core';
 import * as vis from 'vis';
 
+var tiempo;
 var options = {
   
   physics: {
@@ -157,7 +158,7 @@ export class RBAnchuraGrafosComponent implements OnInit {
         {id: aver.id, color: "red"}
       );
       list = list.concat(this.buscarPagina(current).succesors);
-      await this.delay(500);
+      await this.delay(1000);
     }
 
     console.log("Elemento no encontrado...");
@@ -183,7 +184,7 @@ export class RBAnchuraGrafosComponent implements OnInit {
       var temp = this.buscarPagina(current).succesors;
       temp.reverse();
       list = temp.concat(list);
-      await this.delay(500);
+      await this.delay(1000);
 
     }
 
@@ -223,7 +224,8 @@ export class RBAnchuraGrafosComponent implements OnInit {
         text = String(resultado);
 
         var data = JSON.parse(text);
-
+        tiempo = data.animacion;
+        console.log("Time: "+tiempo);
         data.valores.forEach(element=>{
           this.addVertice(String(element.vertice));
           
@@ -306,7 +308,7 @@ export class RBAnchuraGrafosComponent implements OnInit {
       nodes.update({
         id: this.buscarPagina(current).id, color: "red"
       });
-      await this.delay(500);
+      await this.delay(1000);
 
       var temp = this.buscarPagina(current).succesors;
       list = temp.concat(list);

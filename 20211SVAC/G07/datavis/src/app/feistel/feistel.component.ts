@@ -2,7 +2,7 @@ import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 
 var impr1 = new Array, impr2= new Array;
-
+var tiempo;
 class FeistelC{
   ronda: number;
   key: any[];
@@ -237,6 +237,11 @@ export class FeistelComponent implements OnInit {
   feistel:any;
   ngOnInit(): void {
   }
+
+  definirTiempo(time:any){
+    tiempo = 0;
+    tiempo = time*10;
+  } 
   resultadoCifrado:string;
   texto:string;
   abrir(eve:any)
@@ -256,6 +261,9 @@ export class FeistelComponent implements OnInit {
 
 
   }
+  delay(ms:number) {
+    return new Promise( resolve => setTimeout(resolve,ms));
+  }
   descargarContenido(){
     let downloadfile = "data: text/json;charset=utf-8,"+encodeURIComponent(this.resultadoCifrado);
     console.log(downloadfile);
@@ -264,7 +272,8 @@ export class FeistelComponent implements OnInit {
     downloader.setAttribute('download', 'data.txt');
     downloader.click();
   }
-  enviarResultadoCifrado(){
+  async enviarResultadoCifrado(){
+    await this.delay(tiempo)
     for(var i = 0; i<impr1.length; i++){
       this.ronda.push(i+1)
       this.valor.push(i)
@@ -286,7 +295,8 @@ export class FeistelComponent implements OnInit {
     });
   }
 
-  enviarResultadoDescifrado(){
+  async enviarResultadoDescifrado(){
+    await this.delay(tiempo)
     this.resultadoCifrado = "";
     this.resultadoCifrado = "Texto: "+this.feistel.resultadoFinal +"\n"+ "Llave: "+ this.feistel.llaveFinal;
   }
