@@ -1,46 +1,159 @@
-class NodoBinario{
-    constructor(dato){
+class ListaArboles{
+    constructor(){
+        this.lista = [];
+        this.idActual = 0;
+    }
+
+    agregar(principal, secundario){
+        if(this.lista[principal] == null){
+            this.lista[principal] = new SubArbolBinario();
+            this.lista[principal].id = this.idActual;
+            this.idActual++; 
+        }
+        this.lista[principal].agregar(secundario,this.idActual);
+        this.idActual++;
+    }
+
+    eliminar(principal, secundario){
+        if(this.lista[principal] != null){
+            this.lista[principal].eliminar(secundario);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    actualizar(principal, secundario, nuevo){
+        if(this.lista[principal] != null){
+            if(this.lista[principal].buscar(secundario)){
+                this.lista[principal].eliminar(secundario);
+                this.lista[principal].agregar(nuevo, this.idActual);
+                this.idActual++;
+                return true;
+            }
+            
+        }
+        return false;
+    }
+
+    buscar(principal,secundario){
+        if(this.lista[principal] != null){
+            return this.lista[principal].buscar(secundario);
+        }
+        return false;
+    }
+
+    devolverLNA(){
+        let datos = new NodoArista()
+        let j;
+        let enlazado;
+        for (let i = 0; i < this.lista.length; i++) {
+            if(this.lista[i] != null){
+                datos.nodos.push({id:this.lista[i].id, label:'Árbol '+i, color:{border:'#6B5127',background:'#EBB254'}, shape: 'box'})
+                j = i+1;
+                enlazado = false;
+                while(j < this.lista.length && !enlazado){
+                    if(this.lista[j] != null){
+                        datos.aristas.push({from:this.lista[i].id, to:this.lista[j].id, arrows:'from,to'})
+                        enlazado = true;
+                    }
+                    j++;
+                }
+            }
+        }
+
+        for (let k = 0; k < this.lista.length; k++) {
+            if(this.lista[k] != null){
+                datos = this.lista[k].devolverNA(datos)
+            }
+        }
+
+        return datos;
+    }
+
+    devolverLNABuscar(principal, objetivo){
+        let datos = new NodoArista()
+        let j;
+        let enlazado;
+        for (let i = 0; i < this.lista.length; i++) {
+            if(this.lista[i] != null){
+                datos.nodos.push({id:this.lista[i].id, label:'Árbol '+i, color:{border:'#6B5127',background:'#EBB254'}, shape: 'box'})
+                j = i+1;
+                enlazado = false;
+                while(j < this.lista.length && !enlazado){
+                    if(this.lista[j] != null){
+                        datos.aristas.push({from:this.lista[i].id, to:this.lista[j].id, arrows:'from,to'})
+                        enlazado = true;
+                    }
+                    j++;
+                }
+            }
+        }
+
+        for (let k = 0; k < this.lista.length; k++) {
+            if(this.lista[k] != null){
+                if(k == principal){
+                    console.log('buscando');
+                    datos = this.lista[k].devolverNABuscar(datos, objetivo);
+                }else{
+                    console.log('no buscando');
+                    console.log(k+'!='+principal);
+                    console.log(objetivo);
+                    console.log(principal);
+                    console.log('');
+                    datos = this.lista[k].devolverNA(datos)
+                }
+            }
+        }
+
+        return datos;
+    }
+}
+
+class SubNodoBinario{
+    constructor(dato, id){
         this.valor = dato;
         this.derecha = null;
         this.izquierda = null;
         this.padre = null;
+        this.id = id;
     }
 }
 
-class ArbolBinario{
+class SubArbolBinario{
     constructor(){
         this.root = null;
         this.size = 0;
+        this.id = null;
     }
 
-    agregar(dato, actual = this.root){
+    agregar(dato, id, actual = this.root){
         dato = parseFloat(dato);
         if (this.size > 0){
             if(dato > actual.valor){
                 if ( actual.derecha != null){ //si el nodo a la derecha no esta vacio, continua buscando.
-                    this.agregar(dato, actual.derecha);
+                    this.agregar(dato, id, actual.derecha);
                 }else{
-                    let nuevo = new NodoBinario(dato);
+                    let nuevo = new SubNodoBinario(dato, id);
                     actual.derecha = nuevo;
                     actual.derecha.padre = actual;
                     this.size++;
                 }
             }else{
                 if (actual.izquierda != null){  //si el nodo a la izquierda no esta vacio, continua buscando.
-                    this.agregar(dato, actual.izquierda);
+                    this.agregar(dato, id,actual.izquierda);
                 }else{
-                    let nuevo = new NodoBinario(dato);
+                    let nuevo = new SubNodoBinario(dato, id);
                     actual.izquierda = nuevo;
                     actual.izquierda.padre = actual;
                     this.size++;
                 }
             }
         }else{
-            let nuevo = new NodoBinario(dato);
+            let nuevo = new SubNodoBinario(dato, id);
             this.root = nuevo;
             this.size++;
         }
-        console.log('agregado: ',dato);
     }
 
     nodo(dato, actual = this.root){ //funcion que devuelve nodo, se usa en eliminar()
@@ -146,8 +259,10 @@ class ArbolBinario{
             }else{
                 return false;
             }
-        }else{
+        }else if(dato == actual.valor){
             return true;
+        }else{
+            return false;
         }
     }
 
@@ -191,18 +306,48 @@ class ArbolBinario{
         return lista;
     }
 
-    devolverNodosAristas(nodoarista, nodo = this.root, numnodo = 0){
+    devolverNA(nodoarista, nodo = this.root, numnodo = 0){
 
-        nodoarista.nodos.push({id:numnodo,label:nodo.valor.toString()})
+        nodoarista.nodos.push({id:nodo.id,  label:nodo.valor.toString()})
+
+        if(nodo == this.root){
+            nodoarista.aristas.push({from:this.id, to:nodo.id, arrows:'to'})
+        }
 
         if(nodo.izquierda != null){
-            nodoarista.aristas.push({from:numnodo, to:numnodo*100+1})
-            nodoarista =  this.devolverNodosAristas(nodoarista, nodo.izquierda, numnodo*100+1);
+            nodoarista.aristas.push({from:nodo.id, to:nodo.izquierda.id, arrows:'to'})
+            nodoarista =  this.devolverNA(nodoarista, nodo.izquierda, 0);
         }
 
         if(nodo.derecha != null){
-            nodoarista.aristas.push({from:numnodo, to:numnodo*100+2})
-            nodoarista = this.devolverNodosAristas(nodoarista, nodo.derecha, numnodo*100+2);
+            nodoarista.aristas.push({from:nodo.id, to:nodo.derecha.id, arrows:'to'})
+            nodoarista = this.devolverNA(nodoarista, nodo.derecha, 0);
+        }
+
+        return nodoarista;
+    }
+
+    devolverNABuscar(nodoarista, objetivo, nodo = this.root, numnodo = 0){
+
+        if(nodo.valor == objetivo){
+            nodoarista.nodos.push({id:nodo.id,  label:nodo.valor.toString(),color:{border:'#477031',background:'#9AF26B'}})
+        }else{
+            nodoarista.nodos.push({id:nodo.id,  label:nodo.valor.toString()})
+            console.log(nodo.valor+' != '+objetivo);
+        }
+
+        if(nodo == this.root){
+            nodoarista.aristas.push({from:this.id, to:nodo.id, arrows:'to'})
+        }
+
+        if(nodo.izquierda != null){
+            nodoarista.aristas.push({from:nodo.id, to:nodo.izquierda.id, arrows:'to'})
+            nodoarista =  this.devolverNABuscar(nodoarista, objetivo, nodo.izquierda);
+        }
+
+        if(nodo.derecha != null){
+            nodoarista.aristas.push({from:nodo.id, to:nodo.derecha.id, arrows:'to'})
+            nodoarista = this.devolverNABuscar(nodoarista, objetivo, nodo.derecha);
         }
 
         return nodoarista;
@@ -216,20 +361,86 @@ class NodoArista{
     }
 }
 
-const velocidad = document.getElementById("velocidad");
-let num_velocidad = 3;
+const listaArbol = new ListaArboles();
 
-velocidad.oninput = () => {
-    document.getElementById('numero').innerHTML = velocidad.value;
-    
-    num_velocidad = velocidad.value;
-    
-}
+const datoPrin = document.getElementById('dato_principal');
+const datoSec = document.getElementById('dato_secundario');
+const datoAc = document.getElementById('dato_actualizar');
 
-const arbol = new ArbolBinario();
+const agregar = document.getElementById('agregar');
+const buscar = document.getElementById('buscar');
+const actualizar = document.getElementById('actualizar');
+const eliminar = document.getElementById('eliminar');
+
+const lienzo = document.getElementById('lienzo');
+const reporte = document.getElementById('reporte');
+
+const guardar = document.getElementById('guardar');
+const cargar = document.getElementById('cargar');
 
 let archivo = document.getElementById('file')
 let entrada;
+
+agregar.addEventListener("click", (e) =>{
+    e.preventDefault
+    if(datoPrin.value != '' && datoSec.value != ''){
+        console.log(parseFloat(datoSec.value));
+        listaArbol.agregar(parseInt(datoPrin.value), parseFloat(datoSec.value));
+        reporte.innerHTML = 'Se agregó el dato.';
+    }else{
+        reporte.innerHTML = 'Por favor escribe datos para agregar.';
+    }
+    graficaListaArbol(listaArbol);
+})
+
+eliminar.addEventListener("click", (e) =>{
+    e.preventDefault
+    if(datoPrin.value != '' && datoSec.value != ''){
+        if(listaArbol.eliminar(parseInt(datoPrin.value), parseFloat(datoSec.value))){
+            reporte.innerHTML = 'Se eliminó el dato del árbol.';
+        }else{
+            reporte.innerHTML = 'El dato no existe en el árbol indicado.';
+        }
+    }else{
+        reporte.innerHTML = 'Por favor escribe un dato para eliminar.';
+    }
+    graficaListaArbol(listaArbol);
+})
+
+buscar.addEventListener("click", (e) =>{
+    e.preventDefault
+    if(datoPrin.value != '' && datoSec.value != ''){
+        if(listaArbol.buscar(parseInt(datoPrin.value), parseFloat(datoSec.value))){
+            reporte.innerHTML = 'Se encontró el dato en la lista de árboles.';
+            console.log(parseFloat(datoSec.value));
+            graficaLABuscar(listaArbol, parseInt(datoPrin.value), parseFloat(datoSec.value))
+        }else{
+            reporte.innerHTML = 'El dato no se encuentra en la lista de árboles.';
+            graficaListaArbol(listaArbol);
+        }
+        
+    }else{
+        reporte.innerHTML = 'Por favor escribe datos para buscar';
+        graficaListaArbol(listaArbol);
+    }
+})
+
+actualizar.addEventListener("click", (e) =>{
+    e.preventDefault
+    if(datoPrin.value != '' && datoSec.value != '' && datoAc.value != ''){
+        if(listaArbol.actualizar(parseInt(datoPrin.value), parseFloat(datoSec.value),parseFloat(datoAc.value))){
+            reporte.innerHTML = 'Se actualizó el dato exitosamente.';
+            graficaLABuscar(listaArbol, parseInt(datoPrin.value), parseFloat(datoAc.value))
+        }else{
+            reporte.innerHTML = 'No se actualizó el nodo.';
+            graficaListaArbol(listaArbol);
+        }
+        
+    }else{
+        reporte.innerHTML = 'Por favor escribe datos para actualizar.';
+        graficaListaArbol(listaArbol);
+    }
+})
 
 archivo.addEventListener('change', () => {
     let leer = new FileReader()
@@ -237,7 +448,7 @@ archivo.addEventListener('change', () => {
     leer.onload = function() {
     entrada = JSON.parse(leer.result)
     }
-    document.getElementById('mensaje').innerText = 'Se cargo el archivo con exito'
+    reporte.innerText = 'Se cargó el archivo con exito';
 })
 
 cargar.addEventListener("click", (e) => {
@@ -245,24 +456,47 @@ cargar.addEventListener("click", (e) => {
     
     let valores = entrada['valores']
 
-    let principal, secundario
+    let principal, secundario;
+
     for(let i = 0; i < valores.length; i++) {
         principal = valores[i]['principal']
         secundario = valores[i]['secundario']
 
-        arbol.agregar(secundario)
-        graficaArbol(arbol)
+        listaArbol.agregar(parseInt(principal), parseFloat(secundario));
     }
-    
-    //lista.mostrar()
 
-    document.getElementById('mensaje').innerText = ''
+    reporte.innerText = 'Se leyó el json cargado.'
     archivo.setAttribute('disabled', '')
+    graficaListaArbol(listaArbol);
 })
+
+const salida ={
+    categoria: 'Estructura Compuesta',
+    nombre:'Lista de árboles',
+    almacenamiento:'Compuesto',
+    animacion:'10',
+    valores: []
+}
 
 guardar.addEventListener("click", (e) => {
     e.preventDefault()
-    let texto = ''
+
+    let datos = [];
+    let arbol, dato;
+    for(let j = 0; j < listaArbol.lista.length; j++){
+        if(listaArbol.lista[j] != null){
+            arbol = listaArbol.lista[j]
+            arbol = arbol.elementos();
+            console.log(arbol);
+            for (let i = 0; i < arbol.length; i++) {
+                dato = {principal:j,secundario:arbol[i]}
+                datos.push(dato);
+            }
+        }
+    }
+
+    salida.valores = datos;
+    let texto = JSON.stringify(salida);
     download('EstructuraCompuesta.json', texto)
 })
 
@@ -279,10 +513,34 @@ function download(filename, text) {
     document.body.removeChild(element);
 }
 
-function graficaArbol(binario){
+function graficaListaArbol(listaA){
     let lista = new NodoArista();
 
-    lista = binario.devolverNodosAristas(lista);
+    lista = listaA.devolverLNA(lista);
+
+    let nodos = new vis.DataSet(lista.nodos);
+    let aristas = new vis.DataSet(lista.aristas);
+
+    let datos = {
+        nodes: nodos,
+        edges: aristas
+    }
+
+    let opciones = {layout:{
+        hierarchical:{
+            enabled:true,
+            sortMethod:'directed'
+        }
+    }};
+
+    let grafo = new vis.Network(lienzo,datos, opciones);
+}
+
+function graficaLABuscar(listaA, principal, objetivo){
+    console.log(principal);
+    let lista = new NodoArista();
+
+    lista = listaA.devolverLNABuscar(principal, objetivo);
 
     let nodos = new vis.DataSet(lista.nodos);
     let aristas = new vis.DataSet(lista.aristas);
