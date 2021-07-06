@@ -83,3 +83,4 @@ function prueba() {
 }prueba()
 ////Prueba de Costo Uniforme
  
+module.exports = CostoUniforme

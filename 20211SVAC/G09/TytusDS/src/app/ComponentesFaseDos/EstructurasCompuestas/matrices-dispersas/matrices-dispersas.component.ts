@@ -4,6 +4,7 @@ declare var require:any;
 let CargaArchivo=require('../../../EstructurasF2/CargarArchivo')
 let guardarArchivo=require('../../../EstructurasF2/guardarArchivo')
 let Matricesdisp= require('../../../EstructurasF2/Matricesdisp')
+let Animaciones= require('../../../EstructurasF2/Animaciones')
 @Component({
   selector: 'app-matrices-dispersas',
   templateUrl: './matrices-dispersas.component.html',
