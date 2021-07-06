@@ -10,6 +10,7 @@ var FilaHamming = (function () {
 }());
 var Hamming = (function () {
     function Hamming() {
+        this.cadena = '';
         this.numParidad = this.numBits = 0;
         this.tabla = [];
     }

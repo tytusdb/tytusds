@@ -30,12 +30,12 @@ var Feistel = (function () {
         this.key = key.split('');
         this.tabla = [];
     }
-    Feistel.prototype.codificacionFeistel = function (cadena) {
+    Feistel.prototype.codificar = function (cadena) {
         if (this.esBinario(cadena)) {
             this.mitad(cadena);
         }
     };
-    Feistel.prototype.codificar = function (L, R, iteracion) {
+    Feistel.prototype.codificarFeistel = function (L, R, iteracion) {
         var l = L.length + R.length;
         this.tabla.push(new FilaFeistel(L.concat(R), l));
         if (iteracion < this.iteraciones) {
@@ -51,7 +51,7 @@ var Feistel = (function () {
             this.tabla.push(new FilaFeistel(Fn, l));
             this.tabla.push(new FilaFeistel(L, l));
             this.moverAIzq();
-            this.codificar(R, Rn, iteracion + 1);
+            this.codificarFeistel(R, Rn, iteracion + 1);
         }
     };
     Feistel.prototype.mitad = function (cadena) {
@@ -72,7 +72,7 @@ var Feistel = (function () {
         while (this.key.length < R.length) {
             this.key.unshift('0');
         }
-        this.codificar(L, R, 0);
+        this.codificarFeistel(L, R, 0);
     };
     Feistel.prototype.moverAIzq = function () {
         this.key.push(this.key[0].toString());
@@ -90,6 +90,9 @@ var Feistel = (function () {
             }
         }
         return true;
+    };
+    Feistel.prototype.toString = function () {
+        return this.getResultado();
     };
     Feistel.prototype.getResultado = function () {
         var i = this.tabla.length - 1;

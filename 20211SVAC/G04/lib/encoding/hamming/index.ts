@@ -16,6 +16,7 @@ class Hamming {
 	cadena: string
 
 	constructor() {
+		this.cadena = ''
 		this.numParidad = this.numBits = 0
 		this.tabla = []
 	}
