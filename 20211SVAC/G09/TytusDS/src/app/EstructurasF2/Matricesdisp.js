@@ -285,8 +285,8 @@ class Matriz {
       
     }   
     imprimir_lista(){
-        let n = k.dame_valor_Horizontal()
-        var arr = k.Create2DArray(n);
+        let n = this.dame_valor_Horizontal()
+        var arr = this.Create2DArray(n);
         let cabecera = this.lista_horizontal.primero;
         let aux;
         while(cabecera != null){
