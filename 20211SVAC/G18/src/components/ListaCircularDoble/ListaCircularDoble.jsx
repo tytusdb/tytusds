@@ -22,6 +22,7 @@ class ListaCircularDoble extends React.Component {
         this.EliminarElemento = this.EliminarElemento.bind(this);
         this.ModificarElemento = this.ModificarElemento.bind(this);
         this.leerJson = this.leerJson.bind(this);
+        this.BuscarElemento = this.BuscarElemento.bind(this);
     }
 
     ContenidoElemento(e) {
@@ -66,6 +67,15 @@ class ListaCircularDoble extends React.Component {
         });
     }
 
+    BuscarElemento() {
+        if (this.state.lista.seek(this.state.elemento) != null){
+            alert("Elemento encontrado: " + this.state.elemento)
+        }else{
+            alert("Elemento "+ this.state.elemento +  ", inexistente")
+        }
+    }
+
+
 
     leerJson(event) {
         const input = event.target
@@ -74,6 +84,7 @@ class ListaCircularDoble extends React.Component {
             const text = reader.result
 
             const json = JSON.parse(text)
+            console.log(json.categoria);
             const valores = json.valores
 
             valores.forEach((element, index) => {
@@ -127,6 +138,10 @@ class ListaCircularDoble extends React.Component {
 
                     <div className="col-sm-2 d-grid gap-2">
                         <button className="btn btn-warning" onClick={this.ModificarElemento}>Modificar</button>
+                    </div>
+
+                    <div className="col-sm-2 d-grid gap-2">
+                        <button className="btn btn-success" onClick={this.BuscarElemento} >Buscar</button>
                     </div>
 
 

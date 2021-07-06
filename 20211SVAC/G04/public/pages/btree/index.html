@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<title>B Tree</title>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<link href="../../styles/pages.css" rel="stylesheet" />
+		<link href="../../styles/global.css" rel="stylesheet" />
+		<link href="../../styles/tree.css" rel="stylesheet" />
+		<link href="../../icons/style.css" rel="stylesheet" />
+		<link href="../../styles/normalize.css" rel="stylesheet" />
+	</head>
+	<body>
+		<main>
+			<nav>
+				<div>
+					<h1>
+						<a
+							title="Home"
+							href="../../../index.html"
+							class="btn"
+							type="button"
+							aria-label="Home"
+							><i class="icon-home"></i></a
+						>Árbol B
+					</h1>
+					<ul>
+						<li>
+							<input
+								type="checkbox"
+								style="display: none"
+								id="show-files-menu"
+							/>
+							<label class="btn nav-btn" for="show-files-menu" type="button">
+								<i class="icon-file"></i>Archivos
+								<i class="icon-chevron-down"></i>
+							</label>
+							<div class="files-menu-container">
+								<ul>
+									<li>
+										<label
+											onclick="hideNavMenu(0)"
+											for="array-json"
+											class="btn"
+										>
+											<i class="icon-upload-cloud"></i>Cargar</label
+										>
+										<input
+											type="file"
+											onchange="onChangeUploadInput(event)"
+											id="array-json"
+											style="display: none"
+										/>
+									</li>
+									<li>
+										<button onclick="saveJSONTreeFile()">
+											<i class="icon-save"></i>Guardar
+										</button>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<input
+								type="checkbox"
+								style="display: none"
+								id="show-nodes-menu"
+							/>
+							<label class="btn nav-btn" for="show-nodes-menu" type="button">
+								<i class="icon-circle"></i>Nodos
+								<i class="icon-chevron-down"></i>
+							</label>
+							<div class="nodes-menu-container">
+								<div class="input">
+									<label for="index-input"><i class="icon-hash"></i></label>
+									<input
+										type="text"
+										id="index-input"
+										oninput="saveOldNodeValue(event)"
+										placeholder="Valor"
+									/>
+								</div>
+								<div class="input">
+									<label for="add-input"><i class="icon-edit"></i></label>
+									<input
+										type="text"
+										id="add-input"
+										oninput="saveNewNodeValue(event)"
+										placeholder="Nuevo valor"
+									/>
+								</div>
+								<ul>
+									<li>
+										<button
+											type="button"
+											onclick="addNodeOnTree()"
+											aria-label="Agregar"
+										>
+											<i class="icon-plus"></i>Agregar
+										</button>
+									</li>
+									<li>
+										<button
+											type="button"
+											onclick="removeNodeOnTree()"
+											aria-label="Eliminar"
+										>
+											<i class="icon-trash-2"></i>Eliminar
+										</button>
+									</li>
+									<li>
+										<button
+											type="button"
+											onclick="updateNodeOnTree()"
+											aria-label="Actualizar"
+										>
+											<i class="icon-disc"></i>Actualizar
+										</button>
+									</li>
+									<li>
+										<button
+											type="button"
+											onclick="findNodeOnTree()"
+											aria-label="Buscar"
+										>
+											<i class="icon-search"></i>Buscar
+										</button>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<input
+								type="checkbox"
+								style="display: none"
+								id="show-settings-menu"
+							/>
+							<label class="btn nav-btn" for="show-settings-menu" type="button">
+								<i class="icon-settings"></i>Configuración
+								<i class="icon-chevron-down"></i>
+							</label>
+							<div class="settings-menu-container">
+								<div class="input">
+									<label for="grade-input"><i class="icon-arrow-up-circle"></i></label>
+									<input
+										type="text"
+										id="grade-input"
+										oninput="onChangeInputGrade(event)"
+										placeholder="Grado"
+									/>
+								</div>
+								<ul>
+									<li>
+										<label class="btn" type="button" aria-label="Agregar">
+											<i class="icon-repeat"></i>Repetición<input
+												checked="true"
+												onchange="changeRepeatValues(event)"
+												type="checkbox"
+												id="repeat-elements-switch"
+											/>
+										</label>
+									</li>
+
+									<li>
+										<button type="button">
+											<i class="icon-fast-forward"></i>Velocidad
+										</button>
+										<div class="range-container">
+											<input
+												type="range"
+												min="5"
+												step="5"
+												max="30"
+												value="5"
+												id="velocity"
+												onchange="onChangeSortVelocity(event)"
+											/>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="test-code-btn">
+							<input
+								type="checkbox"
+								style="display: none"
+								checked="true"
+								id="show-code-menu"
+							/>
+							<label class="btn" for="show-code-menu" type="button">
+								<i class="icon-code"></i>Muestra de código
+								<i class="icon-chevron-down"></i>
+							</label>
+							<div class="editor">
+								<pre><code><strong style="color:var(--monoConstIce)">const</strong> data <i style='color:var(--graySoda)'>=</i> <strong style='color:var(--keywordSoda)'>new</strong> <strong style="color:var(--monoClassIce)">ArbolB</strong><strong style="color:var(--gray)">&#x3c;</strong><strong style="color:var(--monoNumberIce)">number</strong><strong style="color:var(--gray)">&#x3e;</strong>(3)
+
+data.<strong style="color: var(--monoFuncGreen)">insertar</strong>(<strong style="color: var(--lightPurple)">1</strong>)
+data.<strong style="color: var(--monoFuncGreen)">insertar</strong>(<strong style="color: var(--lightPurple)">2</strong>)
+data.<strong style="color: var(--monoFuncGreen)">insertar</strong>(<strong style="color: var(--lightPurple)">3</strong>)
+data.<strong style="color: var(--monoFuncGreen)">insertar</strong>(<strong style="color: var(--lightPurple)">4</strong>)
+data.<strong style="color: var(--monoFuncGreen)">insertar</strong>(<strong style="color: var(--lightPurple)">5</strong>)
+data.<strong style="color: var(--monoFuncGreen)">insertar</strong>(<strong style="color: var(--lightPurple)">6</strong>)
+data.<strong style="color: var(--monoFuncGreen)">insertar</strong>(<strong style="color: var(--lightPurple)">7</strong>)</code></pre>
+								<ul>
+									<li>
+										<button class="reset" onclick="resetCanvas()" type="button">
+											<i class="icon-repeat"></i>
+										</button>
+									</li>
+									<li>
+										<label
+											class="btn"
+											for="show-code-menu"
+											id="start-btn"
+											type="button"
+											onclick="startSorting()"
+										>
+											<i class="icon-play"></i>Iniciar
+										</label>
+									</li>
+								</ul>
+							</div>
+							<div class="sort-banner">
+								<img
+									id="sort-banner"
+									src="../../images/pages/tree.png"
+									alt="Bot"
+								/>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</nav>
+
+			<div class="grid">
+				<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+					<defs>
+						<pattern
+							id="smallGrid"
+							width="40"
+							height="40"
+							patternUnits="userSpaceOnUse"
+						>
+							<path
+								d="M 40 0 L 0 0 0 40"
+								fill="none"
+								stroke="gray"
+								stroke-width="0.5"
+							/>
+						</pattern>
+						<pattern
+							id="grid"
+							width="400"
+							height="400"
+							patternUnits="userSpaceOnUse"
+						>
+							<rect width="400" height="400" fill="url(#smallGrid)" />
+							<path
+								d="M 400 0 L 0 0 0 400"
+								fill="none"
+								stroke="gray"
+								stroke-width="1"
+							/>
+						</pattern>
+					</defs>
+
+					<rect width="100%" height="100%" fill="url(#grid)" />
+				</svg>
+			</div>
+
+			<canvas id="canvas"></canvas>
+			<footer>
+				<span>Visualizador de Estructuras de Datos v1.0.0</span>
+				<span>
+					<i class="icon-clock"></i>Ejecución:
+					<strong id="sort-runtime">0ms</strong>
+				</span>
+				<span>
+					<i class="icon-grid"></i>Elementos:
+					<strong id="sort-length">7</strong>
+				</span>
+			</footer>
+		</main>
+		<script src="../../../scripts/utils/colors.js"></script>
+		<script src="../../../scripts/utils/canvas.js"></script>
+		<script src="../../../scripts/structures/btree/index.js"></script>
+		<script src="../../../scripts/visualizer/index.js"></script>
+		<script src="../../../scripts/visualizer/tree.js"></script>
+		<script src="../../../scripts/pages/btree/index.js"></script>
+	</body>
+</html>

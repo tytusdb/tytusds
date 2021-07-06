@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ListaDoble } from './ts/lista-doble';
 import { DocumentoService } from '../../services/documento.service';
 import { saveAs } from 'file-saver';
+import { OrdenamientoSeleccion } from '../seleccion/ts/seleccion';
 
 declare var require: any;
 let vis=require('../../../../vis-4.21.0/dist/vis');
@@ -15,11 +16,11 @@ export class ListaDobleComponent implements OnInit {
 
   lista: ListaDoble;
 
-  valorAgregar = '';
-  valorEliminar = '';
-  nodoActualizar = '';
-  valorActualizar = '';
-  valorBuscar = '';
+  valorAgregar: any= '';
+  valorEliminar: any = '';
+  nodoActualizar: any = '';
+  valorActualizar: any = '';
+  valorBuscar: any = '';
 
   opciones = {
     ingreso: 'final',
@@ -54,6 +55,7 @@ export class ListaDobleComponent implements OnInit {
         this.valorAgregar = '' + valor;
         this.agregar(true);
       });
+      console.log(this.lista);
       this.graficar();
     });
   }
@@ -66,11 +68,17 @@ export class ListaDobleComponent implements OnInit {
           return;
         }
       }
+      if (!isNaN(parseInt(this.valorAgregar, 10))) {
+        this.valorAgregar = +this.valorAgregar;
+      }
 
       if (this.opciones['ingreso'].toLowerCase() === 'final' || this.opciones['ingreso'].toLowerCase() === 'fin'){
         this.lista.agregarFinal(this.valorAgregar);
       }else if (this.opciones['ingreso'].toLowerCase() === 'inicio') {
         this.lista.agregarInicio(this.valorAgregar);
+      }else {
+        console.log('Es ordenado');
+        this.lista.agregarOrdenado(this.valorAgregar);
       }
       this.lista.recorrer();
       this.valorAgregar = '';

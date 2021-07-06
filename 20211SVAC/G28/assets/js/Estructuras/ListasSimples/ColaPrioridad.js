@@ -1,5 +1,16 @@
-const Nodo = require("./Nodo");
-const datos = require("./datos");
+class Nodo {
+    constructor(datos = null){
+        this.datos = datos;
+        this.siguiente = null;
+   }
+}
+
+class datos {
+    constructor(dato1, prioridad){
+        this.dato1 = dato1; //dato
+        this.prioridad = prioridad; //prioridad para cola de prioridad
+    }
+}
 
 class ColaPrioridad {
     constructor(){
@@ -109,4 +120,41 @@ class ColaPrioridad {
     }
 }
 
-module.exports = ColaPrioridad;
+
+var PCOLA = new ColaPrioridad();
+console.log("COLA PRIORIDAD VACIA CREADA");
+
+function PCOLAadd(){
+    var aux = document.getElementById("PCOLAagregar").value;
+    var priori = document.getElementById("PCOLAaprioridad").value;
+    var cond = document.getElementById("PCOLArepetidos").checked;
+    var temp = new datos(aux, priori);
+    PCOLA.agregar(temp, cond);
+    document.getElementById("PCOLAagregar").value="";
+    document.getElementById("PCOLAaprioridad").value="";
+    PCOLA.imprimir();
+    console.log("##########------###########");
+}
+
+function PCOLAdelete(){
+    console.log("elemento eliminado: "+PCOLA.eliminar());
+    PCOLA.imprimir();
+    console.log("##########------###########");
+}
+
+function PCOLAsearch(){
+    var aux = document.getElementById("PCOLAbuscar").value;
+    console.log("ENCONTRADO: "+PCOLA.buscar(aux));
+    document.getElementById("PCOLAbuscar").value="";
+}
+
+function PCOLAactualizar(){
+    var previo = document.getElementById("PCOLAantiguo").value;
+    var now = document.getElementById("PCOLAnuevo").value;
+    var cond = document.getElementById("PCOLArepetidos").checked
+    PCOLA.actualizar(previo, now, cond);
+    document.getElementById("PCOLAantiguo").value="";
+    document.getElementById("PCOLAnuevo").value="";
+    PCOLA.imprimir();
+    console.log("##########------###########");
+}

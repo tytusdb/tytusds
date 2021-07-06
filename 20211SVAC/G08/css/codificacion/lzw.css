@@ -1,0 +1,38 @@
+.cuadroAnim{
+   
+    margin-left: 30px;
+    width: 325px;
+    
+    float: left;
+    
+
+}
+.diagram{
+ 
+    width: 800px;
+    height: 480px;
+    margin-top: 27px;
+    margin-left: 720px;
+    padding-top: 24px;
+   
+    border: 4px solid black;
+
+
+}
+.areaTexto{
+    font-size: 15px;
+    font-family:Arial;
+    font-weight: bolder;
+    resize: none;
+    width: 300px;
+    height: 300px;
+    padding: 10px;
+    margin-right: 20px;
+    text-align: justify;
+}
+.areaTexto.mini{
+    height: 80px;
+}
+.resul{
+    text-align: center;
+}

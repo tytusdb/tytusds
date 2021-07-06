@@ -16,6 +16,7 @@ class NodoB{
     agregar(dato){  //metodo para agregar llave a un nodo
         let agregado = false;
         let actual = this.primero;
+        dato = parseFloat(dato);
 
         if(this.primero == null){
             this.primero = new Llave(dato, this);
@@ -33,14 +34,15 @@ class NodoB{
                 }else{  //dato nuevo es menor o igual
                     if(actual != this.primero){ //nodo actual no es el primero
                         let nuevo = new Llave(dato, this);
-                        actual.anterior = actual.anterior.siguiente = nuevo;
                         nuevo.anterior = actual.anterior;
+                        actual.anterior = actual.anterior.siguiente = nuevo;
                         nuevo.siguiente = actual;
                         agregado = true;
                     }else{  //nodo actual es el primero
                         let nuevo = new Llave(dato, this);
                         actual.anterior = nuevo;
                         nuevo.siguiente = actual;
+                        this.primero = nuevo;
                         agregado = true;
                     }
                 }
@@ -81,6 +83,7 @@ class NodoB{
                         let nuevo = new Llave(llave.valor, this);
                         actual.anterior = nuevo;
                         nuevo.siguiente = actual;
+                        this.primero = nuevo;
                         agregado = true;
                     }
                 }
@@ -156,6 +159,7 @@ class ArbolB{
     }
 
     agregar(dato){
+        dato = parseFloat(dato);
         this.root = this.insertar(dato, this.root);
     }
 
@@ -200,6 +204,7 @@ class ArbolB{
     }
 
     update(nodo, isDerecha = null){
+        console.log('update');
         if(nodo.size > this.maxLlaves()){
             let mid = nodo.llaveMid(this.minHijos());
             let llaveL = mid.anterior;
@@ -230,6 +235,7 @@ class ArbolB{
                 llaveP.derecha = nodoR;
 
                 while(llaveR != null){
+                    console.log('aca');
                     nodoR.agregarLlave(llaveR);
 
                     nueva = nodoR.llave(llaveR.valor);
@@ -253,6 +259,7 @@ class ArbolB{
                 
                 let nueva = null;
                 while(llaveL != null){  //agregando al nodo hijo L todas las llaves L
+                    console.log('otro');
                     nodoL.agregarLlave(llaveL); //agrega nuevo valor
 
                     nueva = nodoL.llave(llaveL.valor);  //recibe la llave y le asigna los hijos de la anterior
@@ -269,6 +276,7 @@ class ArbolB{
                 }
 
                 while(llaveR != null){  //lo mismo para llave derecha
+                    console.log('ultimo');
                     nodoR.agregarLlave(llaveR);
 
                     nueva = nodoR.llave(llaveR.valor);
@@ -426,12 +434,46 @@ class ArbolB{
         }
     }
 
-    cargar(ruta){
-        console.log('Leyendo json');
-    }
+    devolverNodosAristas(nodoarista, nodo = this.root, numnodo = 0){
+        
+        let llave = nodo.primero;
+        let etiqueta = llave.valor.toString();
+        llave = llave.siguiente;
+        while(llave != null){
+            etiqueta += " | "+llave.valor.toString();
+            llave = llave.siguiente;
+            console.log('a')
+        }
+        console.log(etiqueta)
+        nodoarista.nodos.push({id:numnodo,label:etiqueta})
 
-    guardar(ruta){
-        console.log('Guardando en json');
+        llave = nodo.primero;
+        let num = 1
+
+        if(llave.izquierda != null){
+            nodoarista.aristas.push({from:numnodo, to:numnodo*100+num})
+            nodoarista =  this.devolverNodosAristas(nodoarista, llave.izquierda, numnodo*100+num);
+        }
+        num++;
+
+        while(llave != null){
+            if(llave.derecha != null){
+                nodoarista.aristas.push({from:numnodo, to:numnodo*100+num})
+                nodoarista = this.devolverNodosAristas(nodoarista, llave.derecha, numnodo*100+num);
+                num++;
+            }
+            llave = llave.siguiente;
+            console.log(llave);
+        }
+
+        return nodoarista;
+    }
+}
+
+class NodoArista{
+    constructor(){
+        this.nodos = []
+        this.aristas = []
     }
 }
 
@@ -445,7 +487,7 @@ velocidad.oninput = () => {
     
 }
 
-const arbolBB = new ArbolB();
+const arbolBB = new ArbolB(4);
 
 const dato = document.getElementById('dato')
 
@@ -461,6 +503,7 @@ agregar.addEventListener("click", (e) =>{
     e.preventDefault
     if(dato.value != ''){
         arbolBB.agregar(dato.value);
+        graficaArbol(arbolBB);
         console.log();
     }
 })
@@ -469,6 +512,7 @@ eliminar.addEventListener("click", (e) =>{
     e.preventDefault
     if(dato.value != ''){
         arbolBB.eliminar(dato.value);
+        graficaArbol(arbolBB);
         console.log();
     }
 })
@@ -476,7 +520,9 @@ eliminar.addEventListener("click", (e) =>{
 actualizar.addEventListener("click", (e) =>{
     e.preventDefault
     if(dato.value != ''){
-        
+        let lista = dato.value.split(',')
+        arbolBB.actualizar(lista[0],lista[1]);
+        graficaArbol(arbolBB);
     }
 })
 
@@ -510,6 +556,55 @@ cargar.addEventListener("click", (e) => {
     for (let i = 0; i < valores.length; i++) {
         arbolBB.agregar(valores[i])
     }
+    graficaArbol(arbolBB);
     document.getElementById('mensaje').innerText = ''
     archivo.setAttribute('disabled', '')
 })
+
+const salida ={
+    operacion: 'Arbol B',
+    valores: []
+}
+
+guardar.addEventListener("click", (e) => {
+    e.preventDefault()
+    salida.valores = arbolBB.elementos();
+    let texto = JSON.stringify(salida);
+    download('ArbolB.json', texto);
+})
+
+function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+  
+    element.style.display = 'none';
+    document.body.appendChild(element);
+  
+    element.click();
+  
+    document.body.removeChild(element);
+}
+
+function graficaArbol(arbolB){
+    let lista = new NodoArista();
+
+    lista = arbolB.devolverNodosAristas(lista);
+
+    let nodos = new vis.DataSet(lista.nodos);
+    let aristas = new vis.DataSet(lista.aristas);
+
+    let datos = {
+        nodes: nodos,
+        edges: aristas
+    }
+
+    let opciones = {layout:{
+        hierarchical:{
+            enabled:true,
+            sortMethod:'directed'
+        }
+    }};
+
+    let grafo = new vis.Network(lienzo,datos, opciones);
+}

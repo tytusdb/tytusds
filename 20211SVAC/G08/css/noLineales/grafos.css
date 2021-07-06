@@ -1,0 +1,35 @@
+.cuadroAnim{
+    margin-left: 350px;
+}
+.datoGrafo{
+    padding: 5px;
+    height: 29px;
+    width: 86px;
+    border: 2px solid #aaa;
+    border-radius: 4px;
+    outline: none;
+   
+    transition: .3s;
+    margin-right: 5px;
+}
+.button.clear{
+    margin-left: 0px;
+}
+.datoGrafo:focus{
+    border-color: dodgerblue;
+    box-shadow: 0 0 8px 0 dodgerblue;
+}
+.almacen{
+    width: 133px;
+    margin-right: 11px;   
+}
+.cuadroBR{
+    padding: 5px;
+    margin-top:5px;
+    margin-left: 350px;
+    width: 1015px;
+    height: 30px;
+    text-align: center;
+    border: 3px solid black;
+    background-color:cornflowerblue;
+}

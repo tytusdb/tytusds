@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TytusDS</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<link rel="shortcut icon" href="assets/images/favico.ico">
+<link rel="stylesheet" href="assets/css/sidebar.css">
+<link rel="stylesheet" href="assets/css/cards.css">
+<!-- Icons Css -->
+<link href="assets/css/icons.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+
+</head>
+<body>
+
+  <div id="wrapper">
+   <div class="overlay"></div>
+    
+        <!-- Sidebar -->
+    <nav class="navbar navbar-inverse fixed-top" id="sidebar-wrapper" role="navigation">
+     <ul class="nav sidebar-nav">
+       <div class="sidebar-header">
+       <div class="sidebar-brand"><h2 class="text-light display-6">Estructuras</h2></div></div>
+       <li class="dropdown">
+        <a class="dropdown-toggle"  data-toggle="dropdown"><i class="uil-arrows-resize"></i> Estructuras Lineales<span class="caret"></span></a>
+        <ul class="dropdown-menu animated fadeInLeft" role="menu">
+          <div class="dropdown-header">／人◕ ‿‿ ◕人＼</div>
+          <li><a href="pages/ListaSimple/ListaSimple.html"> Lista Simplemente Enlazada</a></li>
+          <li><a href="pages/ListaDoble/ListaDoble.html"> Lista Doblemente Enlazada</a></li>
+          <li><a href="pages/ListaCircularSimple/ListaCircularSimple.html"> Lista Circular Simplemente Enlazada</a></li>
+          <li><a href="pages/ListaCircularDoble/ListaCircularDoble.html"> Lista Circular Doblemente Enlazada</a></li>
+          <li><a href="pages/Pila/Pila.html"> Pila</a></li>
+          <li><a href="pages/Cola/Cola.html"> Cola</a></li>
+          <li><a href="pages/ColaPrioridad/ColaPrioridad.html"> Cola de Prioridad</a></li>
+        </ul>
+      </li>
+       <li class="dropdown">
+        <a class="dropdown-toggle"  data-toggle="dropdown"><i class="uil-horizontal-align-left"></i> Ordenamientos<span class="caret"></span></a>
+        <ul class="dropdown-menu animated fadeInLeft" role="menu">
+          <div class="dropdown-header">⊂(◉‿◉)つ</div>
+          <li><a href="pages/Burbuja/Burbuja.html"> Burbuja</a></li>
+          <li><a href="pages/Seleccion/Seleccion.html"> Selección</a></li>
+          <li><a href="pages/Insercion/Insercion.html"> Inserción</a></li>
+          <li><a href="pages/Rapido/Rapido.html"> Rápido</a></li>
+        </ul>
+      </li>
+       <li class="dropdown">
+        <a class="dropdown-toggle"  data-toggle="dropdown"><i class="uil-game-structure"></i> Estructuras Arbóreas<span class="caret"></span></a>
+        <ul class="dropdown-menu animated fadeInLeft" role="menu">
+          <div class="dropdown-header">(๑>ᴗ<๑)</div>
+          <li><a href="pages/ABB/ABB.html"> Árbol Binario de Búsqueda</a></li>
+          <li><a href="pages/AVL/AVL.html"> AVL</a></li>
+          <li><a href="pages/ArbolB/ArbolB.html"> Árbol B</a></li>
+          <li><a href="pages/ArbolB_Mas/ArbolB_Mas.html"> Árbol B+</a></li>
+          <li><a href="pages/Merkle/Merkle.html"> Árbol de Merkle</a></li>
+        </ul>
+      </li>
+       <li class="dropdown">
+        <a class="dropdown-toggle"  data-toggle="dropdown"><i class="uil-share-alt"></i> Estructuras No Lineales<span class="caret"></span></a>
+        <ul class="dropdown-menu animated fadeInLeft" role="menu">
+          <div class="dropdown-header">୧〳 ＾ ౪ ＾ 〵୨</div>
+          <li><a href="pages/HashAbierta/HashAbierta.html"> Tabla Hask Abierta</a></li>
+          <li><a href="pages/HashCerrada/HashCerrada.html"> Tabla Hash Cerrada</a></li>
+          <li><a href="pages/Anchura/Anchura.html"> Recorrido y Búsqueda por Anchura</a></li>
+          <li><a href="pages/Profundidad/Profundidad.html"> Recorrido y Búsqueda por Profundidad</a></li>
+          <li><a href="pages/CostoUniforme/CostoUniforme.html"> Algoritmo de Costo Uniforme</a></li>
+          <li><a href="pages/ArbolRecubrimiento/ArbolRecubrimiento.html"> Árbol de Recubrimiento Mínimo</a></li>
+        </ul>
+      </li>
+       <li class="dropdown">
+        <a class="dropdown-toggle"  data-toggle="dropdown"><i class="uil-lock-access "></i> Algoritmno de Codificación <span class="caret"></span></a>
+        <ul class="dropdown-menu animated fadeInLeft" role="menu">
+          <div class="dropdown-header">ɾ⚈▿⚈ɹ</div>
+          <li><a href="#"> Código de Hamming</a></li>
+          <li><a href="#"> Algoritmo de Huffman</a></li>
+          <li><a href="#"> Algoritmo LZW</a></li>
+          <li><a href="#"> Cifrado Feistel</a></li>
+          <li><a href="#"> Cifrado RSA</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a class="dropdown-toggle"  data-toggle="dropdown"><i class="uil-layer-group "></i> Estructuras Compuestas <span class="caret"></span></a>
+        <ul class="dropdown-menu animated fadeInLeft" role="menu">
+          <div class="dropdown-header">ヽ（◕◡◕❀ฺ ）ノ</div>
+          <li><a href="#"> Matrices Dispersas</a></li>
+          <li><a href="#"> Row-Major</a></li>
+          <li><a href="#"> Col-Major</a></li>
+          <li><a href="#"> Construcción de Estructuras</a></li>
+        </ul>
+      </li>
+      <li><a href="https://github.com/tytusdb/tytusds"><i class="uil-github-alt "></i> Contact</a></li>
+      <li><a href="https://www.instagram.com/angelarteaga_/"><i class="uil-instagram"></i> Follow me</a></li>
+      </ul>
+  </nav>
+        <!-- /#sidebar-wrapper -->
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="height: 70px;">
+    <div class="container-fluid">
+      <a class="navbar-brand" style="padding-left: 60px;"><img src="assets/images/favico.ico" width="30" height="30" class="d-inline-block align-top">TytusDS</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="Index.html">Home</a>
+          </li>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div id="page-content-wrapper">
+    <button type="button" class="hamburger animated fadeInLeft is-closed" data-toggle="offcanvas">
+        <span class="hamb-top"></span>
+        <span class="hamb-middle"></span>
+        <span class="hamb-bottom"></span>
+    </button>
+
+    <!--AQUI VA EL CONTENIDO DE LAS ESTRUCTURAS-->
+    <div class="container">
+
+      <!--Card de las estructuras lineales-->
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+          <div class="card cont shadow">
+            <div class="flap primero"></div>
+            <div class="card-body text-center" style="height:400px">
+              <h2 class="card-title align-middle">Estructuras Lineales</h2>
+              <img src="assets/images/lineal3.png" class="card-img-top"
+              style="height:220px; width: 220px;">
+              <hr>
+              <div class="btn-group btn-group-sm dropup" role="group" aria-label="Basic example">
+                <div class="btn-group btn-group-sm dropup" role="group">
+                  <button id="lineal" type="button" class="btn pri text-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Lineal
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="lineal">
+                    <a class="dropdown-item" href="pages/ListaSimple/ListaSimple.html">Simple</a>
+                    <a class="dropdown-item" href="pages/ListaDoble/ListaDoble.html">Doble</a>
+                  </div>
+                </div>
+                <div class="btn-group btn-group-sm dropup" role="group">
+                  <button id="circular" type="button" class="btn pri text-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Circular
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="circular">
+                    <a class="dropdown-item" href="pages/ListaCircularSimple/ListaCircularSimple.html">Simple</a>
+                    <a class="dropdown-item" href="pages/ListaCircularDoble/ListaCircularDoble.html">Doble</a>
+                  </div>
+                </div>
+                <a type="button" class="btn pri text-light" href="pages/ColaPrioridad/ColaPrioridad.html">Cola Prioridad</a>
+                <a type="button" class="btn pri text-light" href="pages/Cola/Cola.html">Cola</a>
+                <a type="button" class="btn pri text-light" href="pages/Pila/Pila.html">Pila</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!--Card de estructuras arboreas-->
+        <div class="col">
+          <div class="card cont shadow">
+            <div class="flap segundo"></div>
+            <div class="card-body text-center" style="height:400px">
+              <h2 class="card-title">Ordenamientos</h2>
+              <img src="assets/images/ordenamiento.png" class="card-img-top"
+              style="height:220px; width: 220px;">
+              <hr>
+              <div class="btn-group btn-group-sm dropup" role="group" aria-label="Basic example">
+                <a type="button" class="btn seg text-light" href="pages/Burbuja/Burbuja.html">Burbuja</a>
+                <a type="button" class="btn seg text-light" href="pages/Seleccion/Seleccion.html">Selección</a>
+                <a type="button" class="btn seg text-light" href="pages/Insercion/Insercion.html">Insercción</a>
+                <a type="button" class="btn seg text-light" href="pages/Rapido/Rapido.html">Rápido</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!--Card de los ordenamientos-->
+        <div class="col">
+          <div class="card cont shadow">
+            <div class="flap tercero"></div>
+            <div class="card-body text-center" style="height:400px">
+              <h2 class="card-title">Estructuras Arbóreas</h2>
+              <img src="assets/images/arbolito.png" class="card-img-top"
+              style="height:220px; width: 220px;">
+              <hr>
+              <div class="btn-group btn-group-sm dropup" role="group" aria-label="Basic example">
+                <a type="button" class="btn ter text-light" href="pages/ABB/ABB.html">ABB</a>
+                <a type="button" class="btn ter text-light" href="pages/AVL/AVL.html">AVL</a>
+                <a type="button" class="btn ter text-light" href="pages/ArbolB/ArbolB.html">B</a>
+                <a type="button" class="btn ter text-light" href="pages/ArbolB_Mas/ArbolB_Mas.html">B+</a>
+                <a type="button" class="btn ter text-light" href="pages/Merkle/Merkle.html">Merkle</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!--Card de las estructuras no lineales-->
+        <div class="col">
+          <div class="card cont shadow">
+            <div class="flap cuarto"></div>
+            <div class="card-body text-center" style="height:400px">
+              <h2 class="card-title">Estructuras no Lineales</h2>
+              <img src="assets/images/nolineal.png" class="card-img-top"
+              style="height:220px; width: 220px;">
+              <hr>
+              <div class="btn-group btn-group-sm dropup" role="group" aria-label="Basic example">
+                <button id="btnGroupDrop1" type="button" class="btn cua text-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Tabla Hash
+                </button>
+                <div class="btn-group btn-group-sm dropup" role="group">
+                  <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                    <a class="dropdown-item" href="pages/HashAbierta/HashAbierta.html">Abierta</a>
+                    <a class="dropdown-item" href="pages/HashCerrada/HashCerrada.html">Cerrada</a>
+                  </div>
+                </div>
+                <div class="btn-group btn-group-sm dropup" role="group">
+                  <button id="btnGroupDrop1" type="button" class="btn cua text-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Grafos
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+                    <a class="dropdown-item" href="pages/Anchura/Anchura.html">Anchura</a>
+                    <a class="dropdown-item" href="pages/Profundidad/Profundidad.html">Profundidad</a>
+                  </div>
+                </div>
+                <a type="button" class="btn cua text-light" href="pages/CostoUniforme/CostoUniforme.html">Costo</a>
+                <a type="button" class="btn cua text-light" href="pages/ArbolRecubrimiento/ArbolRecubrimiento.html">Recubrimiento</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!--Card de los algoritmos de codificacion-->
+        <div class="col">
+          <div class="card cont shadow">
+            <div class="flap quinto"></div>
+            <div class="card-body text-center" style="height:400px">
+              <h2 class="card-title">Algoritmos de Codificación</h2>
+              <img src="assets/images/code.png" class="card-img-top"
+              style="height:200px; width: 200px;">
+              <hr>
+              <div class="btn-group btn-group-sm dropup" role="group" aria-label="Basic example">
+                <a type="button" class="btn qui text-light" href="pages/Hamming/Hamming.html">Hamming</a>
+                <a type="button" class="btn qui text-light" href="pages/Huffman/Huffman.html">Huffman</a>
+                <a type="button" class="btn qui text-light" href="pages/LZW/LZW.html">LZW</a>
+                <a type="button" class="btn qui text-light" href="pages/Feistel/Feistel.html">Feistel</a>
+                <a type="button" class="btn qui text-light" href="pages/RSA/RSA.html">RSA</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!--Card de las estructuras compuestas-->
+        <div class="col">
+          <div class="card cont shadow">
+            <div class="flap sexto"></div>
+            <div class="card-body text-center" style="height:400px">
+              <h2 class="card-title">Estructuras Compuestas</h2>
+              <img src="assets/images/compuesto.png" class="card-img-top"
+              style="height:205px; width: 205px;">
+              <hr>
+              <div class="btn-group btn-group-sm dropup" role="group" aria-label="Basic example">
+                <a type="button" class="btn sep text-light">Matriz</a>
+                <a type="button" class="btn sep text-light">Row</a>
+                <a type="button" class="btn sep text-light">Col</a>
+                <a type="button" class="btn sep text-light">Construcción</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <br>
+    <br>
+    <br>
+    <footer class="bg-dark text-center text-white">
+  <!-- Grid container -->
+  <div class="container p-4 pb-0">
+    <!-- Section: Social media -->
+    <section class="mb-4">
+      <!-- Facebook -->
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+        ><i class="fab fa-facebook-f"></i
+      ></a>
+
+      <!-- Twitter -->
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+        ><i class="fab fa-twitter"></i
+      ></a>
+
+      <!-- Google -->
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+        ><i class="fab fa-google"></i
+      ></a>
+
+      <!-- Instagram -->
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+        ><i class="fab fa-instagram"></i
+      ></a>
+
+      <!-- Linkedin -->
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+        ><i class="fab fa-linkedin-in"></i
+      ></a>
+
+      <!-- Github -->
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+        ><i class="fab fa-github"></i
+      ></a>
+    </section>
+    <!-- Section: Social media -->
+  </div>
+  <!-- Grid container -->
+
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    <p>
+      <script> document.write(new Date().toLocaleDateString()); </script>
+       - TytusDS - Copyright
+    </p>
+  </div>
+  <!-- Copyright -->
+</footer>
+    <!-- /#TERMINA CONTENIDO DE LAS ESTRUCTURAS-->
+
+</div>
+<!-- /#wrapper -->
+
+<!-- Scripts exportados -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.4/js/tether.min.js"></script>
+
+<!-- Scripts de las estructuras -->
+<script type="text/javascript" src="scripts/ListaSimple.js"></script>
+<script type="text/javascript" src="scripts/ListaCircularDoble.js"></script>
+<script type="text/javascript" src="scripts/Cola.js"></script>
+<script type="text/javascript" src="scripts/ColaPrioridad.js"></script>
+<script type="text/javascript" src="scripts/Insercion.js"></script>
+
+<!-- Scripts para los eventos -->
+<script type="text/javascript" src="index.js"></script>
+
+</body>
+</html>

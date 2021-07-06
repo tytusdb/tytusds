@@ -16,6 +16,8 @@ import ListaCircularSimple from './components/ListaCircularSimple/ListaCircularS
 import ListaCircularDoble from './components/ListaCircularDoble/ListaCircularDoble';
 import abb from './components/ArbolBB/ArbolBB';
 import avl from './components/ArbolAVL/ArbolAVL';
+import hamming from './components/Hamming/Hamming';
+import huffman from './components/Huffman/Huffman';
 
 function App() {
     return (
@@ -37,6 +39,8 @@ function App() {
             <Route path="/ListaCircularDoble" component={ListaCircularDoble} />
             <Route path="/abb" component={abb} />
             <Route path="/avl" component={avl} />
+            <Route path="/hamming" component={hamming} />
+            <Route path="/huffman" component={huffman} />
 
         </Switch>
 

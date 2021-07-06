@@ -199,13 +199,70 @@ class Cola {
     }
 
     //Metodo Actualizar
-    ActualizarCola(){
+    ReemplazarDato(datoAnterior, datoNuevo){
+      let datoActual = this.primero;
+      while(datoActual){
+        if(datoActual.dato === datoAnterior){
+          datoActual.dato = datoNuevo;
+          break;
 
-    }
-
-    ReemplazarDato(){
+        }
+        datoActual = datoActual.siguiente;
+      }
       
     }
+    
+    ActualizarCola(datoAnterior, datoNuevo){
+      let actual = this.primero;
+      let encontrado = false;
+
+      let aux = this.primero;
+      var f = setInterval(whiles,500)
+      function whiles(){
+          if (actual != null && encontrado != true) {
+              const selecBtn = document.getElementById("btn"+aux.animate.id)
+              //selecBtn.innerText="Espere"
+              if (aux.dato == datoAnterior) {
+                  aux.dato = datoNuevo;
+                  encontrado = true;
+                  selecBtn.innerText=datoNuevo
+                  selecBtn.classList="animate__animated animate__rotateIn"
+                  const sClone = selecBtn.cloneNode(true)
+                  selecBtn.parentNode.replaceChild(sClone, selecBtn)
+                  clearInterval(f)
+                  }
+              else{
+              selecBtn.classList="animate__animated animate__bounceIn"
+              const sClone = selecBtn.cloneNode(true)
+              selecBtn.parentNode.replaceChild(sClone, selecBtn)
+              aux=aux.siguiente
+              }
+          }
+          else{
+              clearInterval(f)
+          }
+      }      
+/*
+      if(this.primero != null){
+          while(actual != null && encontrado != true){
+              if(actual.dato == datoAnterior){
+                  actual.dato = datoNuevo;
+                  encontrado = true;
+
+              }
+              actual = actual.siguiente;
+          }
+          if(!encontrado){
+              console.log("Dato no encontrado")
+          }
+      }else{
+          console.log("La Cola se encuentra vacia");
+      }
+*/
+    }
+
+    
+    
   }
 
 const cola = new Cola();
@@ -227,14 +284,20 @@ function adDCola(data){
 
 function DeletCola(data){
   cola.dequeue(data)
-  console.log("-------------------------------")
-  console.log(cola.print())
+  console.log("-------------------------------");
+  console.log(cola.print());
 }
 
 function buscarCola(data){
-  console.log(cola.buscar(data))
-  console.log("-------------------------------")
+  console.log(cola.buscar(data));
+  console.log("-------------------------------");
  
+}
+function actualizarCOla(var1,var2){
+  console.log("-------------------------------");
+  cola.ActualizarCola(var1,var2);
+  console.log(cola.print());
+
 }
 //abrir un documento
 function AbrirArchivoCola(event) {

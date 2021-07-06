@@ -126,3 +126,9 @@ class ListaCircularSimple {
         return res
     }
 }
+
+function lol() {
+    console.log("lol")
+}
+
+lol();

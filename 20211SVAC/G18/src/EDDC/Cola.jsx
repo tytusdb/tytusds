@@ -9,6 +9,9 @@ export class Cola extends Component {
         this.state = {
             valorcola: "",
             cola: new Queue(),
+
+            valorPilaModificar: "",
+            valorbuscar: ""
            
 
 
@@ -59,6 +62,25 @@ export class Cola extends Component {
             })
         };
 
+        handleChangeModificar = (e) => {
+      
+
+            this.setState({
+                valorPilaModificar: e.target.value
+            })
+        };
+    
+    
+        handleChangeBuscar = (e) => {
+          
+    
+            this.setState({
+                valorbuscar: e.target.value
+            })
+        };
+    
+    
+
         handleClick = (e) => {
             console.log("banda hay fe")
         };
@@ -84,6 +106,34 @@ export class Cola extends Component {
             })
         }
         
+        modificar = () =>{
+            this.state.cola.modificar(this.state.valorcola,this.state.valorPilaModificar)
+    
+            this.setState({
+                cola: this.state.cola
+            })
+    
+    
+        };
+    
+    
+    
+        buscar = () =>{
+            let nodo =  this.state.cola.buscar(this.state.valorbuscar)
+            let indice = this.state.cola.obtenerIndice(this.state.valorbuscar)
+    
+            if (nodo != null && indice != null){
+                alert(`el indice del nodo es: ${indice} con valor : ${nodo.value}`)
+    
+            }else{
+                alert("Miu loco ese nodo no existe dele pa fuera")
+            }
+            
+        }
+    
+
+
+
 
         render() {
             console.log(this.state.cola.length)
@@ -107,6 +157,44 @@ export class Cola extends Component {
                             <div className="col-sm-2 d-grid gap-2">
                                 <button type="submit" className="btn btn-success" onClick={this.handleClick} >Agregar elemento</button>
                             </div>
+
+
+
+                            <div className="col-sm-2 d-grid gap-2">
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="Elemento"
+                                    placeholder="modificar"
+                                    onChange={this.handleChangeModificar}
+                                    value={this.state.valorPilaModificar}
+                                />
+                            </div>
+
+                                         
+                            <div className="col-sm-2 d-grid gap-2">
+                                <button type="button" className="btn btn-success" onClick={this.modificar} >Modificar</button>
+                            </div>
+
+
+
+
+
+
+                            <div className="col-sm-2 d-grid gap-2">
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="Elemento"
+                                    placeholder="buscar"
+                                    onChange={this.handleChangeBuscar}
+                                    value={this.state.valorbuscar}
+                                />
+                            </div>
+                            <div className="col-sm-2 d-grid gap-2">
+                                <button type="button" className="btn btn-success" onClick={this.buscar} >buscar</button>
+                            </div>
+
 
                             <div className="col-sm-2 d-grid gap-2">
                                 <button type="button" className="btn btn-danger" onClick={this.salirDecola} >Borrar</button>
@@ -147,3 +235,4 @@ export class Cola extends Component {
 
 
 export default Cola
+

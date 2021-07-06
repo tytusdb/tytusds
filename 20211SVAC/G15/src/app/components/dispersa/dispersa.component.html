@@ -1,0 +1,75 @@
+<body>
+    <div class="container">
+
+        <div class="row opciones p-2">
+            <div class="col-lg-5 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <input type="text" class="form-control" value="" id="posX" name="posX" [(ngModel)]="posX"
+                        placeholder="X">
+                    <input type="text" class="form-control" value="" id="posY" name="posY" [(ngModel)]="posY"
+                        placeholder="Y">
+                    <input type="text" class="form-control" value="" id="value" name="value" [(ngModel)]="value"
+                        placeholder="valor">
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary " type="button" (click)="add()">Guardar</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-lg-3 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <input type="text" class="form-control" value="" id="numero" name="numero"
+                        [(ngModel)]="numeroBuscar" placeholder="Ingresa un Numero">
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary " type="button" (click)="search()">Buscar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="numero" name="numero" [(ngModel)]="numeroViejo"
+                        placeholder="Antiguo">
+                    <input type="text" class="form-control" id="numero" name="numero" [(ngModel)]="numeroNuevo"
+                        placeholder="Nuevo">
+                    <div class="input-group-append">
+                        <button class="btn btn-warning" type="button" (click)="update()">Actualizar</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-12 col-sm-12 col-lg-3 text-left mt-2 text-white mt-1">
+                <div class="input-group">
+                    <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+                    <div class="file-upload">
+
+                        {{fileName || "No file uploaded yet."}}
+
+                        <button class="btn btn-primary" (click)="fileUpload.click()">
+                            <i class="fas fa-upload"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-12 col-lg-3 text-left mt-2 text-white mt-1">
+                <div class="input-group">
+                    <button class="btn btn-primary" (click)="generarJSON()">
+                        Generar JSON
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="container mt-5 " id="contenedorMatriz">
+        <div id="matriz" class="matriz" #matriz></div>
+    </div>
+
+
+
+</body>

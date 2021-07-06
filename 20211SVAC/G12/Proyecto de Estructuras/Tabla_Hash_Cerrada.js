@@ -4,6 +4,8 @@ let list = document.getElementById('lista_hash');
 let nuevosdivs = document.getElementsByClassName('vector');
 let nodes = document.getElementsByClassName('node');
 let flechas = document.getElementsByClassName('flecha');
+let division = false;
+let multiplicacion = false;
 let seleccion_lineal = false;
 let seleccion_cuadratica = false;
 let seleccion_hash = false;
@@ -80,46 +82,90 @@ class Hash{
     }
 
     funcionHash(id){
-        if(seleccion_lineal == true){
-            let posicion = id % (this.size);
-
-            while(this.vector[posicion] != null){
-                posicion++;
-                if(posicion > this.size){
-                    posicion = posicion - this.size;
+        if(division == true){
+            if(seleccion_lineal == true){
+                let posicion = id % (this.size);
+    
+                while(this.vector[posicion] != null){
+                    posicion++;
+                    if(posicion > this.size){
+                        posicion = posicion - this.size;
+                    }
                 }
+                return posicion;
+            }else if(seleccion_cuadratica == true){
+                let contador = 0;
+                let posicion = id % (this.size);
+                let posicion_nueva = id % (this.size);
+    
+                while(this.vector[posicion] != null){
+                    contador++;
+                    posicion = posicion_nueva + (contador*contador);
+                    if(posicion > this.size){
+                        posicion = posicion - this.size;
+                    }
+                }
+                return posicion;
+            }else if(seleccion_hash == true){
+                let contador = 0;
+                let posicion = id % (this.size);
+                let posicion_nueva = id % (this.size);
+                let otra_posicion = id % (this.size);
+            
+                while(this.vector[posicion] != null){
+                    contador++;
+                    if(posicion == 0){
+                        break;
+                    }
+                    posicion = posicion_nueva + (contador*otra_posicion);
+                    if(posicion > this.size){
+                        posicion = posicion - this.size;
+                    }
+                }
+                return posicion;
             }
-            return posicion;
-        }else if(seleccion_cuadratica == true){
-            let contador = 0;
-            let posicion = id % (this.size);
-            let posicion_nueva = id % (this.size);
-
-            while(this.vector[posicion] != null){
-                contador++;
-                posicion = posicion_nueva + (contador*contador);
-                if(posicion > this.size){
-                    posicion = posicion - this.size;
+        }else if(multiplicacion == true){
+            if(seleccion_lineal == true){
+                let posicion = parseInt((this.size)*(id * 0.1625277911 % 1));
+    
+                while(this.vector[posicion] != null){
+                    posicion++;
+                    if(posicion > this.size){
+                        posicion = posicion - this.size;
+                    }
                 }
+                return posicion;
+            }else if(seleccion_cuadratica == true){
+                let contador = 0;
+                let posicion = parseInt((this.size)*(id * 0.1625277911 % 1));
+                let posicion_nueva = parseInt((this.size)*(id * 0.1625277911 % 1));
+    
+                while(this.vector[posicion] != null){
+                    contador++;
+                    posicion = posicion_nueva + (contador*contador);
+                    if(posicion > this.size){
+                        posicion = posicion - this.size;
+                    }
+                }
+                return posicion;
+            }else if(seleccion_hash == true){
+                let contador = 0;
+                let posicion = parseInt((this.size)*(id * 0.1625277911 % 1));
+                let posicion_nueva = parseInt((this.size)*(id * 0.1625277911 % 1));
+                let otra_posicion = parseInt((this.size)*(id * 0.1625277911 % 1));
+            
+                while(this.vector[posicion] != null){
+                    contador++;
+                    if(posicion == 0){
+                        break;
+                    }
+                    posicion = posicion_nueva + (contador*otra_posicion);
+                    if(posicion > this.size){
+                        posicion = posicion - this.size;
+                    }
+                }
+                return posicion;
             }
-            return posicion;
-        }else if(seleccion_hash == true){
-            let contador = 0;
-            let posicion = id % (this.size);
-            let posicion_nueva = id % (this.size);
-            let otra_posicion = id % (this.size);
-        
-            while(this.vector[posicion] != null){
-                contador++;
-                if(posicion == 0){
-                    break;
-                }
-                posicion = posicion_nueva + (contador*otra_posicion);
-                if(posicion > this.size){
-                    posicion = posicion - this.size;
-                }
-            }
-            return posicion;
         }
     }
 
@@ -299,15 +345,22 @@ function insertar_nodo(){
     seleccion_lineal = document.getElementById('lineal').checked;
     seleccion_cuadratica = document.getElementById('cuadratica').checked;
     seleccion_hash = document.getElementById('doble').checked;
+    division = document.getElementById('division').checked;
+    multiplicacion = document.getElementById('multiplicacion').checked;
 
-    if(seleccion_lineal == false && seleccion_cuadratica == false && seleccion_hash == false){
-        alert("Por favor seleccione una opcion");
+    if(division == false && multiplicacion == false){
+        alert("Por favor seleccione una funcion hash");
         return false;
     }else{
-        document.getElementById("lista_hash").innerHTML="";
-        tabla.insertar(tabla.StringtoASCII(dato), dato, dato);
-        tabla.graficar();
-        tabla.print();
+        if(seleccion_lineal == false && seleccion_cuadratica == false && seleccion_hash == false){
+            alert("Por favor seleccione una opcion prueba");
+            return false;
+        }else{
+            document.getElementById("lista_hash").innerHTML="";
+            tabla.insertar(tabla.StringtoASCII(dato), dato, dato);
+            tabla.graficar();
+            tabla.print();
+        }
     }
 }
 
@@ -370,13 +423,30 @@ async function abrirArchivo(evento){
             animacion = mydata.animacion;
             tabla = new Hash(tamaño, minimo, maximo);
             console.log(mydata);
-            if(prueba == "Lineal"){
-                seleccion_lineal = true;
-            }else if(prueba == "Cuadratica"){
-                seleccion_cuadratica = true;
-            }else if(prueba == "Doble"){
-                seleccion_hash == true;
+            if(funcion == "Division"){
+                division = true;
+                if(prueba == "Lineal"){
+                    seleccion_lineal = true;
+                }else if(prueba == "Cuadratica"){
+                    seleccion_cuadratica = true;
+                }else if(prueba == "Doble"){
+                    seleccion_hash = true;
+                }
+            }else if(funcion == "Multiplicacion"){
+                multiplicacion = true;
+                if(prueba == "Lineal"){
+                    seleccion_lineal = true;
+                }else if(prueba == "Cuadratica"){
+                    seleccion_cuadratica = true;
+                }else if(prueba == "Doble"){
+                    seleccion_hash = true;
+                }
             }
+            console.log("Division: ", division);
+            console.log("Multiplicacion: ", multiplicacion);
+            console.log("Lineal: ", seleccion_lineal);
+            console.log("Cuadratica: ", seleccion_cuadratica);
+            console.log("Doble: ", seleccion_hash);
             for(var i = 0; i<(mydata.valores).length; i++){
                 valores = mydata.valores[i];
                 console.log(valores)

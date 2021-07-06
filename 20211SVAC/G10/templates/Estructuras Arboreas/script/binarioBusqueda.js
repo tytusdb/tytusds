@@ -182,6 +182,15 @@ class ArbolBinario{
         }
     }
 
+    elementos(nodo = this.root, lista = []){
+        if(nodo != null){
+            lista[lista.length] = nodo.valor;
+            lista = this.elementos(nodo.izquierda, lista);
+            lista = this.elementos(nodo.derecha, lista);
+        }
+        return lista;
+    }
+
     devolverNodosAristas(nodoarista, nodo = this.root, numnodo = 0){
 
         nodoarista.nodos.push({id:numnodo,label:nodo.valor.toString()})
@@ -259,7 +268,9 @@ eliminar.addEventListener("click", (e) =>{
 actualizar.addEventListener("click", (e) =>{
     e.preventDefault
     if(dato.value != ''){
-        
+        let lista = dato.value.split(',')
+        arbol.actualizar(lista[0],lista[1]);
+        graficaArbol(arbol);
     }
 })
 
@@ -299,16 +310,35 @@ cargar.addEventListener("click", (e) => {
     archivo.setAttribute('disabled', '')
 })
 
+const salida ={
+    operacion: 'Arbol Binario',
+    valores: []
+}
+
+guardar.addEventListener("click", (e) => {
+    e.preventDefault()
+    salida.valores = arbol.elementos();
+    let texto = JSON.stringify(salida);
+    download('BST.json', texto);
+})
+
+function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+  
+    element.style.display = 'none';
+    document.body.appendChild(element);
+  
+    element.click();
+  
+    document.body.removeChild(element);
+}
+
 function graficaArbol(binario){
     let lista = new NodoArista();
 
-    console.log(lista.nodos);
-    console.log(lista.aristas);
-
     lista = binario.devolverNodosAristas(lista);
-
-    console.log(lista.nodos);
-    console.log(lista.aristas);
 
     let nodos = new vis.DataSet(lista.nodos);
     let aristas = new vis.DataSet(lista.aristas);

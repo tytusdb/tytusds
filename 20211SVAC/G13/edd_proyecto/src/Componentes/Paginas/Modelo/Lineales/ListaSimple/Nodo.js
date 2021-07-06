@@ -26,5 +26,5 @@ class Nodo{
     }
 }
 
-
-module.exports = Nodo;
+export default Nodo;
+// module.exports = Nodo;

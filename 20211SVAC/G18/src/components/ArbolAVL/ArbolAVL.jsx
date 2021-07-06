@@ -41,7 +41,11 @@ class ArbolitoAVL extends React.Component {
     }
 
     BuscarElemento() {
-        this.state.Arbol.seek(this.state.elemento);
+        if (this.state.Arbol.seek(this.state.elemento) != null){
+            alert("Elemento encontrado: " + this.state.elemento)
+        }else{
+            alert("Elemento "+ this.state.elemento +  ", inexistente")
+        }
     }
 
 

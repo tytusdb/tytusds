@@ -65,6 +65,54 @@ class Stack {
     }
 
     
+        modificar(valor, nuevo) {
+		if (this.top != null) {
+			if (this.top.value == valor) {
+				this.top.value = nuevo
+			} else {
+				let aux = this.top
+				while (aux != null) {
+					if (aux.value == valor) {
+						aux.value = nuevo
+						break
+					}
+					aux = aux.next
+				}
+			}
+		}
+	}
+
+    buscar(valor) {
+		if (this.top != null) {
+			let aux = this.top
+			while (aux != null) {
+				if (aux.value == valor.toString() ) {
+					return aux
+				}
+				aux = aux.next
+			}
+		}
+		return null
+	}
+
+
+    obtenerIndice(valor) {
+		let nodo = this.top
+		let indice = 0
+
+		for (let i = 0; i < this.length; i++) {
+			if (nodo.value.toString() === valor.toString()) {
+				indice = i
+				break
+			}
+			nodo = nodo.next
+		}
+
+		return indice
+	}
+
+    
+    
 }
 
 export default Stack

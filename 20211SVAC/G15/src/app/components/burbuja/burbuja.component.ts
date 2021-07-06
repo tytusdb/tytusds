@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
-import * as pluginDataLabels from 'chartjs-plugin-datalabels';
+
 import { Label } from 'ng2-charts';
 import { Burbuja } from 'src/app/helpers/Burbuja/Burbuja';
 
@@ -13,9 +13,10 @@ import { Burbuja } from 'src/app/helpers/Burbuja/Burbuja';
 export class BurbujaComponent implements OnInit {
   fileName = '';
   burbuja:Burbuja
-  datos: []
+  datos:any []
   numero:boolean;
   letra:boolean;
+  ordenamientoburbuja:[]
 
   
   public barChartOptions: ChartOptions = {
@@ -43,7 +44,7 @@ export class BurbujaComponent implements OnInit {
       }
     }
   };
-  
+
   public barChartLabels: Label[] = [];
   public barChartType: ChartType = 'bar';
   public barChartLegend = false;
@@ -60,27 +61,20 @@ export class BurbujaComponent implements OnInit {
   }
 
   async mostrarBarras(){
-   // this.burbuja.bubbleSort();
-    console.log(this.datos)
-     if (this.numero===true) {
-        this.barChartLabels = this.datos;
-        this.barChartData[0].data=this.datos
-      }else{
-        this.barChartLabels = this.datos;
-        let datoletra = []
-        let y=1;
-        for (let index = 0; index < this.datos.length; index++) {
-          datoletra.push(y);
-          y++;
-          
-        }
-        this.barChartData[0].data=datoletra
-      }
+    this.ordenamiento_burbuja(this.datos);
+    let contador=0;
+    if(contador!==500){
+      setTimeout(() => {
+      this.mostrarBarras();
+      contador++;
+      }, 1000);
+    }
      
     
   }
 
   async onFileSelected(event) {
+    this.datos=[];
     const file = event.target.files[0];
     if (file) {
 
@@ -101,46 +95,8 @@ export class BurbujaComponent implements OnInit {
         }
        
       }
-
-      
-     // console.log(datos2)
-      this.burbuja.ordenamiento_burbuja(datos2);
-      this.datos=this.burbuja.ordenamiento_burbuja(datos2);
-      console.log(this.datos)
-      //this.mostrarBarras(this.datos)
-      if (this.numero===true) {
-        this.barChartLabels = data;
-        this.barChartData[0].data=data
-      }else{
-        this.barChartLabels = data;
-        let datoletra = []
-        let y=5;
-        for (let index = 0; index < data.length; index++) {
-          if (data[index]>data[index+1]) {
-             y=Math.round(Math.random() * 100),60;
-             datoletra.push(y);
-            
-          }
-          else if(data[index]<data[index+1])
-          {
-            
-            
-            y=Math.round(Math.random() * 100),50;
-            
-            datoletra.push(y);
-            
-          }
-         // y=Math.round(Math.random() * 100)
-          
-         
-          
-        }
-        this.barChartData[0].data = datoletra;
-      }
-      
-     // this.barChartData.labels =data
-      
-
+      this.graficar(data);
+      this.datos=datos2;
     }
   }
   
@@ -159,7 +115,7 @@ export class BurbujaComponent implements OnInit {
 
 
   generarJSON(){
-    let data = this.burbuja.generarJSON()
+    let data = this.generarJSON1()
     var link = document.createElement("a");
     link.download = "OrdenamientoBurbuja.json";
     var info = "text/json;charset=utf-8," + encodeURIComponent(data);
@@ -168,6 +124,65 @@ export class BurbujaComponent implements OnInit {
     link.remove()
   
   }
+
+  generarJSON1() {
+    
+    let data = {
+        categoria: "Estructura Lineal",
+        nombre: "ordenamiento",
+        valores: []
+    }
+    
+    for (let index = 0; index < this.ordenamientoburbuja.length; index++) {
+        data.valores.push(this.ordenamientoburbuja[index])
+        
+    }
+
+
+
+    return JSON.stringify(data)
+}
+   
+  graficar(data){
+    if (this.numero===true) {
+      this.barChartLabels = data;
+      this.barChartData[0].data=data
+    }else{
+      this.barChartLabels = data;
+      let datoletra = []
+      data.forEach(element => {
+        datoletra.push(element.charCodeAt(0));
+      });
+      this.barChartData[0].data = datoletra;
+    }
+  }
+  ordenamiento_burbuja(arregloBurbuja) {
+   let delay=false;
+    for (var i =0; i<(arregloBurbuja.length - 1); i++) {
+      if(delay){i=i-1;break;}
+        for (var j = 0; j < (arregloBurbuja.length - i); j++) {
+        
+            if(arregloBurbuja[j]> arregloBurbuja[j+1]){
+            
+              
+                var aux = arregloBurbuja[j];
+                arregloBurbuja[j] = arregloBurbuja[j+1]
+                arregloBurbuja[j+1] = aux;
+                delay=true;
+                setTimeout(() => {
+                  this.graficar(arregloBurbuja)
+                  delay=false;
+                }, 100);
+                 
+            }
+        }
+    }
+    this.ordenamientoburbuja=arregloBurbuja;
+
+}
+
+
+
 
 
 }
