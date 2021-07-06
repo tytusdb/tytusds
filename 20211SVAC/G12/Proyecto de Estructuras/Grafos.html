@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="Grafos.js"></script>
+    <script src="GrafosLista.js"></script>
+    <link rel="stylesheet" href="Grafos.css">
+    <script>
+        let m=new Matriz();
+        let l=new Lista();
+        let modo="Matriz";
+        let tipo="profundidad";
+        function changeModo(){
+            modo=document.getElementById("almacenamiento").value
+            m=new Matriz();
+            l=new Lista();
+            document.getElementById("result").innerHTML="";
+            document.getElementById("storage").innerHTML="";
+        }
+        function changeTipo(){
+            tipo=document.getElementById("tipo").value
+        }
+        function search(){
+            let e1=document.getElementById("R1").value
+            let e2=document.getElementById("R2").value
+            if (modo=="Matriz"){
+                m.busqueda(e1,e2,tipo)
+            }else{
+                l.busqueda(e1,e2,tipo)
+            }
+        }
+
+        function eliminar(){
+            let e=document.getElementById("E").value
+            if (modo=="Matriz"){
+                m.eliminar(e)
+                m.Graph()
+            }else{
+                l.eliminar(e)
+                l.Graph()
+            }
+        }
+
+        function actualizar(){
+            let e=document.getElementById("A1").value
+            let e2=document.getElementById("A2").value
+            if (modo=="Matriz"){
+              m.actualizar(e,e2)
+                m.Graph()
+            }else{
+               l.actualizar(e,e2)
+                l.Graph()
+            }
+        }
+
+        function recorrer(){
+            if (modo=="Matriz"){
+               m.recorrer(tipo)
+            }else{
+                l.recorrer(tipo)
+            }
+        }
+
+        function mostrarE(){
+            if (modo=="Matriz"){
+                m.show()
+            }else{
+                l.show()
+            }
+        }
+
+        function ins(){
+            let i=document.getElementById("i1");
+            let i2=document.getElementById("i2");
+            let i3=document.getElementById("i3");
+            if(modo=="Matriz"){
+                m.insert(i.value,i2.value,i3.value)
+                m.Graph()
+            }else{
+                l.insert(i.value,i2.value,i3.value)
+                l.Graph()
+            }
+        }
+
+        window.addEventListener('load',function (){
+            var upload=document.getElementById("loadedFile")
+            if (upload)
+            {
+                upload.addEventListener('change', function() {
+                    if (upload.files.length > 0)
+                    {
+                        m=new Matriz();
+                        l=new Lista();
+                        var reader = new FileReader(); // File reader to read the file
+                        // This event listener will happen when the reader has read the file
+                        reader.addEventListener('load', function() {
+                            var result = JSON.parse(reader.result); // Parse the result into an object
+                            file=new File(result.categoria,result.nombre,result.almacenamiento,result.animacion,result.valores)
+                            modo=result.almacenamiento
+                            document.getElementById("almacenamiento").value=modo
+                            if (isNaN(result.valores[0])){
+                                for (const resultKey in result.valores) {
+                                    let temp=result.valores[resultKey]
+                                    for (const tempKey in temp.aristas) {
+                                        if (modo=="Matriz"){
+                                            m.insert(temp.vertice,temp.aristas[tempKey].arista,temp.aristas[tempKey].distancia)
+                                        }else{
+                                            l.insert(temp.vertice,temp.aristas[tempKey].arista,temp.aristas[tempKey].distancia)
+                                        }
+                                    }
+                                }
+                            }else {
+                                for (const resultKey in result.valores) {
+                                    for (const resultKey in result.valores) {
+                                        let temp=result.valores[resultKey]
+                                        for (const tempKey in temp.aristas) {
+                                            if (modo=="Matriz"){
+                                                m.insert(temp.vertice,temp.aristas[tempKey].arista,temp.aristas[tempKey].distancia)
+                                            }else{
+                                                l.insert(temp.vertice,temp.aristas[tempKey].arista,temp.aristas[tempKey].distancia)
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            if (modo=="Matriz"){
+                                m.Graph();
+                            }else{
+                                l.Graph();
+                            }
+                        });
+
+                        reader.readAsText(upload.files[0]); // Read the uploaded file
+                    }
+                });
+            }
+            /*sp.addEventListener('change',function (){
+                document.getElementById('sp').innerHTML=sp.value
+                speedG=(11-sp.value)*25
+            })*/
+
+        })
+
+    </script>
+</head>
+<body>
+<input type="text" id="i1" placeholder="x">
+<input type="text" id="i2" placeholder="y">
+<input type="text" id="i3" placeholder="distancia">
+<button onclick="ins()">Insert</button>
+<select onchange="changeTipo()" id="tipo">
+    <option value="profundidad">Profundidad</option>
+    <option value="anchura">Anchura</option>
+    <option value="costo">Costo Uniforme</option>
+</select>
+<input type="text" id="R1" placeholder="nodoi">
+<input type="text" id="R2" placeholder="nodof">
+<button onclick="search()">Busqueda</button>
+<input type="text" id="A1" placeholder="original">
+<input type="text" id="A2" placeholder="nuevo">
+<button onclick="actualizar()">Actualizar</button>
+<button onclick="recorrer()">Recorrido</button>
+<button onclick="mostrarE()">Mostrar Estructura</button>
+<select onchange="changeModo()" id="almacenamiento">
+    <option value="Matriz">Matriz Dispersa</option>
+    <option value="Lista">Lista Adyacencia</option>
+</select>
+<input type="text" id="E" placeholder="nodo a eliminar">
+<button onclick="eliminar()">Eliminar</button>
+<input type="file" id="loadedFile">
+<div id="result" >
+</div>
+<table id="storage" style="width: 100%">
+
+</table>
+</body>
+</html>

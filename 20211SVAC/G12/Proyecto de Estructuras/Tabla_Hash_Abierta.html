@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="hashin_abierto.css"/>
+    <title>Tabla Hash Abierta</title>
+</head>
+<body>
+    <header class="header">
+        <center><h1>Tabla Hash Abierta</h1></center>
+        <form><center>
+        <input type="file" id="Archivo">
+        <input type="text" id="tamaño" placeholder="Tamaño" required/>
+        <input type="text" id="minimo" placeholder="Minimo" required/>
+        <input type="text" id="maximo" placeholder="Maximo" required/>
+        <input type="button" onClick="configuracion()" value="Configuracion" />
+        <input type="button" onClick="DescargarArchivo()" value="Descargar" />
+        </center></form>
+        <center><form>
+            <label><input type="radio" id="division" name="opcion" value="division">Division</label>
+            <label><input type="radio" id="multiplicacion" name="opcion" value="multiplicacion">Multiplicacion</label>
+        </form></center>
+    </header>
+    <form><center>
+        <input type="text" id="dato_pag" placeholder="Dato" required/>
+        <input type="button" onClick="insertar_nodo()" value="Insertar" />
+        <input type="button" onClick="buscar_nodo()" value="Buscar" />
+        <input type="button" onClick="eliminar_nodo()" value="Eliminar" />
+        <input type="text" id="Viejo" placeholder="Dato Viejo" required/>
+        <input type="text" id="Nuevo" placeholder="Dato Nuevo" required/>
+        <input type="button" onClick="Actualizar()" value="Actualizar" />
+    </center>
+    <br>
+    </form>
+    <div id="result" style="display: table"></div>
+    <section class = "lista_hash" id="lista_hash"></section>
+    <script type="text/javascript" src="Tabla_Hash_Abierta.js"></script>   
+</body>
+</html>
