@@ -326,6 +326,104 @@ CanvasRenderingContext2D.prototype.roundRect = function (
 	this.quadraticCurveTo(x, y, x + localRadius.tl, y)
 }
 
+CanvasRenderingContext2D.prototype.arrowTo = function (
+	x0: number,
+	y0: number,
+	posX1: number,
+	posY1: number,
+	radius: number = 0,
+) {
+	// GLOBALES
+	const dx = posX1 - x0
+	const dy = posY1 - y0
+	const angle = Math.atan2(dy, dx)
+	const dist = Math.sqrt(dx * dx + dy * dy)
+
+	// VECTOR NORMAL
+	const ux = dx / dist
+	const uy = dy / dist
+
+	// POSICIÓN FINAL
+	let x1: number = x0 + ux * (dist - radius)
+	let y1: number = y0 + uy * (dist - radius)
+
+	// VECTOR
+	this.beginPath()
+	this.moveTo(x0, y0)
+	this.lineTo(x1, y1)
+	this.stroke()
+	this.closePath()
+
+	// FLECHA
+	this.beginPath()
+	this.lineWidth = 3
+	this.moveTo(
+		x1 - 15 * Math.cos(angle - Math.PI / 6),
+		y1 - 15 * Math.sin(angle - Math.PI / 6),
+	)
+	this.lineTo(x1, y1)
+	this.lineTo(
+		x1 - 15 * Math.cos(angle + Math.PI / 6),
+		y1 - 15 * Math.sin(angle + Math.PI / 6),
+	)
+	this.fillStyle = this.strokeStyle
+	this.stroke()
+	this.fill()
+	this.closePath()
+}
+
+CanvasRenderingContext2D.prototype.quadraticArrowCurveTo = function (
+	x0: number,
+	y0: number,
+	posX1: number,
+	posY1: number,
+	cpx1: number,
+	cpy1: number,
+	radius: number = 0,
+) {
+	// GLOBALES
+	const dx = posX1 - x0
+	const dy = posY1 - y0
+
+	const dist = Math.sqrt(dx * dx + dy * dy) * 1.2
+
+	const cx = (cpx1 - x0) / dist
+	const cy = (cpy1 - y0) / dist
+	const cpx = x0 + cx * (dist - radius)
+	const cpy = y0 + cy * (dist - radius)
+
+	const ux = dx / dist
+	const uy = dy / dist
+	const x1 = x0 + ux * (dist - radius)
+	const y1 = y0 + uy * (dist - radius)
+
+	const arrowAngle = Math.atan2(cpx - x1, cpy - y1) + Math.PI
+
+	// CURVA
+	this.beginPath()
+	this.moveTo(x0, y0)
+	this.quadraticCurveTo(cpx, cpy, x1, y1)
+	this.stroke()
+	this.closePath()
+
+	// FLECHA
+	this.beginPath()
+	this.moveTo(
+		x1 - 15 * Math.sin(arrowAngle - Math.PI / 6),
+		y1 - 15 * Math.cos(arrowAngle - Math.PI / 6),
+	)
+	this.lineTo(x1, y1)
+	this.lineTo(
+		x1 - 15 * Math.sin(arrowAngle + Math.PI / 6),
+		y1 - 15 * Math.cos(arrowAngle + Math.PI / 6),
+	)
+	this.lineWidth = 3
+	this.fillStyle = this.strokeStyle
+	this.stroke()
+	this.fill()
+	this.closePath()
+}
+
 const translateCanvasTo = (x: number, y: number, callback?: () => unknown) => {
 	if (callback) canvasTranslateEndCallback = callback
 	enableTranslate = true

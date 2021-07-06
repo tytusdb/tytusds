@@ -105,6 +105,3 @@ var Feistel = (function () {
     };
     return Feistel;
 }());
-var f = new Feistel('00110001', 4);
-f.codificacionFeistel('0100001101000110');
-f.print();

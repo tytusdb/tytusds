@@ -3,6 +3,7 @@ var toCamelCase = function (text) {
     return text.replace(text.charAt(0), text.charAt(0).toUpperCase());
 };
 var primaryColors = [
+    { name: '--grape', value: '#A9A8F6' },
     { name: '--monoLight', value: '#fafafa' },
     { name: '--monoConst', value: '#299cbf' },
     { name: '--monoText', value: '#65645c' },

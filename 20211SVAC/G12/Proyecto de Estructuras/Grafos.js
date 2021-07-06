@@ -160,15 +160,21 @@ class Matriz{
             while (te.down!=null&&te.y<aux.y){
                 te=te.down
             }
-            if(te.down==null){
-                te.down=aux;
-                aux.up=te;
-            }else if(te.y<aux.y){
-                let temporal=te.down
-                te.down=aux;
-                aux.down=temporal;
-                temporal.up=aux;
-                aux.up=te;
+            if (te.down == null) {
+                if(te.y>aux.y){
+                    aux.up=te.up
+                    aux.down=te
+                    te.up.down=aux
+                    te.up=aux
+                }else{
+                    te.down = aux;
+                    aux.up = te;
+                }
+            } else if (te.y > aux.y) {
+                aux.up=te.up
+                aux.down=te
+                te.up.down=aux
+                te.up=aux
             }
         }
 
@@ -176,19 +182,25 @@ class Matriz{
             y.right=aux;
             aux.left=y;
         }else {
-            let te=y.right;
-            while (te.right!=null&&te.x<aux.x){
-                te=te.right;
+            let te = y.right;
+            while (te.right != null && te.x < aux.x) {
+                te = te.right;
             }
-            if(te.right==null){
-                te.right=aux;
-                aux.left=te;
-            }else if(te.x<aux.x){
-                let temporal=te.right
-                te.right=aux;
-                aux.right=temporal;
-                temporal.left=aux;
-                aux.left=te;
+            if (te.right == null) {
+                if(te.x>aux.x){
+                    aux.left=te.left
+                    aux.right=te
+                    te.left.right=aux
+                    te.left=aux
+                }else{
+                    te.right = aux;
+                    aux.left = te;
+                }
+            } else if (te.x > aux.x) {
+                aux.left=te.left
+                aux.right=te
+                te.left.right=aux
+                te.left=aux
             }
         }
 

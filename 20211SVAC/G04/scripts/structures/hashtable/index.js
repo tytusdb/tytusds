@@ -86,20 +86,32 @@ var TablaHashAbierta = (function () {
             this.tabla.push(new NodoHashAbierto(i));
         }
     };
+    TablaHashAbierta.prototype.getIndex = function (valor) {
+        var index = [-1, -1];
+        for (var i = 0; i < this.tamaño; i++)
+            for (var j = 0; j < this.tabla[i].valores.length; j++)
+                if (this.tabla[i].valores[j].valor.toString() === valor.toString()) {
+                    index = [i, j];
+                    break;
+                }
+        return index;
+    };
     TablaHashAbierta.prototype.insertar = function (valor) {
         var clave = this.funcion.funcionHash(valor, this.tamaño);
-        if (this.tabla[clave].clave == -1)
-            this.tabla[clave].clave = clave;
-        this.tabla[clave].valores.unshift(new Tupla(this.funcion.stringToAscii(valor), valor));
+        if (this.tabla[clave]) {
+            if (this.tabla[clave].clave == -1)
+                this.tabla[clave].clave = clave;
+            this.tabla[clave].valores.unshift(new Tupla(this.funcion.stringToAscii(valor), valor));
+        }
     };
     TablaHashAbierta.prototype.eliminar = function (valor) {
         var clave = this.funcion.funcionHash(valor, this.tamaño);
         this.tabla[clave].eliminarTupla(valor);
     };
-    TablaHashAbierta.prototype.actualizar = function (valor) {
+    TablaHashAbierta.prototype.actualizar = function (valor, nuevo) {
         var clave = this.funcion.funcionHash(valor, this.tamaño);
         if (this.tabla[clave].eliminarTupla(valor)) {
-            this.insertar(valor);
+            this.insertar(nuevo);
         }
     };
     TablaHashAbierta.prototype.print = function () {
@@ -133,7 +145,7 @@ var TablaHashCerrada = (function () {
     };
     TablaHashCerrada.prototype.insertar = function (valor) {
         var clave = this.funcion.funcionHash(valor, this.tamaño);
-        if (this.tabla[clave].clave == -1) {
+        if (!this.tabla[clave] || this.tabla[clave].clave == -1) {
             this.tabla[clave] = new Tupla(this.funcion.stringToAscii(valor), valor);
         }
         else {
@@ -167,6 +179,16 @@ var TablaHashCerrada = (function () {
                 this.insertar(n.valor);
             }
         }
+    };
+    TablaHashCerrada.prototype.getIndex = function (valor) {
+        var _a;
+        var index = [-1, -1];
+        for (var i = 0; i < this.tamaño; i++)
+            if (((_a = this.tabla[i].valor) === null || _a === void 0 ? void 0 : _a.toString()) === valor.toString()) {
+                index = [i, 0];
+                break;
+            }
+        return index;
     };
     TablaHashCerrada.prototype.eliminar = function (valor) {
         var clave = this.funcion.funcionHash(valor, this.tamaño);

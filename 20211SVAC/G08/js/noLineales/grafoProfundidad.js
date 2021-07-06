@@ -93,6 +93,8 @@ class Grafo{
         }
     }
     graficar(){
+        nodes = [];
+        edges = [];
         for (let k = 0; k < this.vertices.length; k++){
             nodes.push({
                 id: this.vertices[k].noVer,
@@ -137,6 +139,9 @@ class Grafo{
             }
         }
         return -1;
+    }
+    matrizAdyacencia(){
+        return this.matrizAdy;
     }
 
 
@@ -208,6 +213,10 @@ class Cola{
         return false; 
     
     }
+    mostrar(){
+        console.log(this.vertices)
+        console.log(this.matrizAdy)
+    }
 }
 
 class Nodo{
@@ -216,32 +225,6 @@ class Nodo{
         this.siguiente = null;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -471,6 +454,9 @@ let grafo = new Grafo(grafoDirigido, grafoPonderado);
 
 var nodes = [];
 var edges = [];
+// COPIA DE LISTAS
+var nodes2 = [];
+var edges2 = [];
 
 
 // F  U  N  C  I  O  N  E  S  -  E  V  E  N  T  O  S
@@ -525,10 +511,36 @@ function buscar(){
     console.log("Buscando");
     var Binicio = document.getElementById('inicio').value;
     var Bfinal = document.getElementById('final').value;
+    var result = document.getElementById('resBR');
+    result.textContent = "";
 
     var find = Bprofundidad(grafo, Binicio, Bfinal);
     console.log(find);
+    animResult(find);
 
+
+}
+// animacion de cuadrito
+async function animResult(cadena){
+    var result = document.getElementById('resBR');
+    cadena = cadena.split("-");
+    console.log(cadena)
+    velocidad = 10;
+
+    for (let i = 0; i < cadena.length; i++){
+        const div = document.createElement("div");
+        div.classList.add('cuadrito');
+        div.textContent = cadena[i];
+        
+        
+        result.appendChild(div);
+        await new Promise((resolve) =>
+        setTimeout(() =>{
+        resolve();
+        }, (velocidad*200)) //delay
+    );
+
+    }
 
 }
 function Bprofundidad(graph, start, end){
@@ -558,7 +570,7 @@ function Bprofundidad(graph, start, end){
         if (j == listOne.length - 1){
             return cadena += listOne[j].id;
         } else {
-            cadena += listOne[j].id + " -> ";
+            cadena += listOne[j].id + " - ";
         }
 
     }
@@ -578,8 +590,10 @@ function search(arr, code){
 function recorrer(){
     console.log("Recorriendo");
     var prime = document.getElementById('inicio').value;
+    var result = document.getElementById('resBR');
+    result.textContent = "";
     var path = Rprofundidad(grafo, prime);
-    console.log(path);
+    animResult(path);
 
 }
 
@@ -607,7 +621,7 @@ function Rprofundidad(graph, start){
         if (j == listOne.length - 1){
             cadena += listOne[j].id;
         } else {
-            cadena += listOne[j].id + " -> ";
+            cadena += listOne[j].id + " - ";
         }
     }
     return cadena;
@@ -638,35 +652,186 @@ function getVelocidad(){
 
 }
 
+
 // ***** GUARDAR ARCHIVO *****
 function guardar(){
-    console.log("Guardando JSON");
+    console.log("Guardando JSON"); 
+
+    console.log(nodes);
+    console.log(edges);
+
+    var listGrafo = []
+    var arist = []
+    var distance = distancia();
+    console.log(distance)
+    
+    for (let i = 0; i < nodes.length; i++) {
+        var vertex = nodes[i].label;
+        var arist = []
+        for (let j = 0; j < edges.length; j++) {
+            for (let k = 0; k < distance.length; k++){
+                if (nodes[i].id == edges[j].from){
+                    if (nodes[edges[j].from].label == distance[k].inicio && nodes[edges[j].to].label == distance[k].final){
+                        arist.push({arista : nodes[edges[j].to].label, distancia: distance[k].distancia}); 
+
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        listGrafo.push({vertice : nodes[i].label, aristas : arist});   
+    }
+    console.log("-------------")
+    console.log(listGrafo)
+   
+
+    var fileJ = {
+        "categoria": `Estructura No Lineal`,
+        "nombre": "Grafo Dirigido/No Dirigido",
+        "almacenamiento": "Matriz/Lista",
+        "animacion": velocidad,
+        "valores": listGrafo
+    }
+
+    let saveArchivo = new Blob([JSON.stringify(fileJ)],{type:"application/json"});
+    let a = document.createElement("a");
+    a.href = URL.createObjectURL(saveArchivo);
+    a.download = "grafoAnchura.json";
+    a.click();
+    
 
 }
 
 // ***** ALMACENAMIENTO *****
 function almacenar(){
-    //console.log("Almacenando");
-    
-    var nodesV = grafo.getVertices();
-    var edgesA = grafo.getAristas();
-    console.log("---------------");
-    console.log(nodesV);
-    console.log("--------------");
-    console.log(edgesA);
-    
-   
+    console.log("Almacenando");
+    // opcion escogida 
     var opc_Save = document.getElementById('opcs').value;
+    
     if(opc_Save == "matrizAd"){
         console.log("Mostrando matriz de adyacencia");
+        matrizAd();
     } else if (opc_Save == "listaAd"){
         console.log("Mostrando lista de adyacencia");
+        listaAd();
     } else {
         console.log("nada")
     }
     
 
 
+}
+
+// ****** CONSTRUCCION DE TABLA DE MATRIZ DE ADYACENCIA *****
+function matrizAd(){
+    // div donde se pondra la tabla
+    var spc_Ady = document.getElementById('almacenam');
+    var conTabla = grafo.matrizAdyacencia();
+
+    console.log(conTabla)
+    // obtniendo lista de vertices 
+    var listVer = [" "];
+    for (let i = 0; i < nodes.length; i++){
+        listVer.push(nodes[i].label)
+    }
+    // INGRESANDO vertices 
+    conTabla.unshift(listVer);
+    for (let k = 1; k < conTabla.length; k++){
+        conTabla[k].unshift(listVer[k])
+    }
+    console.log(conTabla)
+    
+    console.log(listVer)
+    // CONSTRUYENDO TABLA
+    spc_Ady.innerHTML = "";
+    var tab = "<table class=\"tablero\">";
+    for (let i = 0; i < conTabla.length; i++){
+        tab += "<tr>"
+        for (let j = 0; j < conTabla[i].length; j++){
+            if (i == 0 || j == 0){
+                tab += "<td class =\"encabezado\">"+conTabla[i][j]+"</td>";
+            } else if(conTabla[i][j] > 0){
+                console.log("entre")
+                tab += "<td>"+" 1 "+"</td>";
+                
+            } else {
+                tab += "<td>"+"0"+"</td>";
+            }    
+        }
+        tab += "</tr>"
+    }
+    tab += "</table>";
+    spc_Ady.innerHTML = tab;
+    
+
+
+}
+
+function listaAd(){
+    var conTabla2 = grafo.matrizAdyacencia();
+   
+    // obtniendo lista de vertices 
+    var listVer2 = [];
+    for (let i = 0; i < nodes.length; i++){
+        listVer2.push(nodes[i].label)
+    }
+    // recorriendo matriz de adyacencia para obtener informacion
+    var listAdy2 = [];
+    for (let i = 0; i < conTabla2.length; i++){
+        for (let j = 0; j < conTabla2[i].length; j++){
+            if (conTabla2[i][j] != 0){
+                listAdy2.push({inicio: listVer2[i], final : listVer2[j], distancia: conTabla2[i][j]})
+            }
+        }
+    }
+
+    console.log(listAdy2)
+    buildList(listAdy2, listVer2);
+}
+
+function buildList(adya, verti){
+    var spc_Ady = document.getElementById('almacenam');
+    spc_Ady.innerHTML = "";
+    var tab = "<table class=\"tablero\">";
+    for (let i = 0; i < verti.length; i++){
+        tab += "<tr>"
+        tab += "<td class =\"encabezado\">"+verti[i]+"</td>";
+        for (let j = 0; j < adya.length; j++){
+
+            if (verti[i] == adya[j].inicio){
+                tab += "<td class=\"flechita\">"+"<img src=\"../../svg/flechaAD.svg\">"+"</td>";
+                tab += "<td>"+adya[j].final+" | "+adya[j].distancia+"</td>";
+            }
+
+        }
+        
+        tab += "</tr>"
+    }
+    tab += "</table>";
+    spc_Ady.innerHTML = tab;
+    
+}
+
+function distancia(){
+    var conTabla2 = grafo.matrizAdyacencia();
+   
+    // obtniendo lista de vertices 
+    var listVer2 = [];
+    for (let i = 0; i < nodes.length; i++){
+        listVer2.push(nodes[i].label)
+    }
+    // recorriendo matriz de adyacencia para obtener informacion
+    var listAdy2 = [];
+    for (let i = 0; i < conTabla2.length; i++){
+        for (let j = 0; j < conTabla2[i].length; j++){
+            if (conTabla2[i][j] != 0){
+                listAdy2.push({inicio: listVer2[i], final : listVer2[j], distancia: conTabla2[i][j]})
+            }
+        }
+    }
+    return listAdy2
 }
 
 function matriz(){
@@ -682,6 +847,51 @@ function matriz(){
 
 }
 
+// ***** LEYENDO JSON *****
+function readFile(evento){ // lectura del archivo .json
+    let archivo = evento.target.files[0];
+    if (archivo){
+        let reader = new FileReader();
+        reader.onload = function(e){
+            contenido = e.target.result;
+            // console.log(contenido)
+            console.log("-----------")
+            convert = JSON.parse(contenido);
+        
+            var infGrafo = convert.valores;
+            console.log(infGrafo.length)
+            console.log(infGrafo)
+
+            for (let i = 0; i < infGrafo.length; i++){
+                var vertex = infGrafo[i].vertice;
+                var Laristas = infGrafo[i].aristas;
+                for (let j = 0; j < Laristas.length; j++){
+                    grafo.agregarA(vertex, Laristas[j].arista, Laristas[j].distancia);
+                }
+            }
+            drawGrafo();
+
+
+            /*
+            console.log("Valores sin ordenar")
+
+            listaValores = convert.valores;
+            listaWords = convert.valores;
+            tipoDato = typeof(listaValores[0]);                      
+            generateElements(listaValores, tipoDato);
+            */
+
+        };
+        reader.readAsText(archivo); 
+
+    } else {
+        alert("No se ha seleccionado ningun archivo");
+    }
+}
+
+window.addEventListener('load', ()=>{ // cada vez que cambie 
+    document.getElementById('file').addEventListener('change',readFile)
+});
 
 
 // ***** DIBUJAR GRAFO *****
@@ -727,8 +937,19 @@ function drawGrafo(){
     });
     */
     
+    nodes2 = nodes;
+    edges2 = edges;
+
+    copiaS(nodes, edges);
+    
+    
+}
+
+// copia de seguridad :g
+function copiaS(nodes, edges){
     nodes = [];
     edges = []; 
+
 }
 
 

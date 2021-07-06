@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title id="titulo"></title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../CSS/CSScod.css">
+</head>
+
+<body onload="primero()">
+
+    <div class="container">
+
+        <h1 id="titulo2"></h1>
+
+        <br>
+
+        <button id="btncodificar" class="btn-primary btn-lg" onclick="codificar()" type="button">Codificar</button>
+        <button id="btndecodificar" class="btn-primary btn-lg" onclick="decodificar()" type="button">Decodificar</button>
+        <button class="btn-danger btn-lg" onclick="generateKeys()" type="button" name="llaves">Gen Llaves</button>
+        <a id="link" download="resultado.txt"><button class="btn-lg btn-success" type="button" name="button" onclick="guardar()">Guardar</button></a>
+        <br><br>
+        <h6>Abrir un documento</h6>
+        <input id="archcargado" type="file">
+
+        <br><br>
+        <table class="table table-striped">
+            <tr>
+                <td>
+                    <h5>Llave Publica</h5>
+                </td>
+                <td>
+                    <h5>Llave Privada</h5>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <textarea id="publica" name="name" rows="8" cols="80"></textarea>
+                </td>
+                <td>
+                    <textarea id="privada" name="name" rows="8" cols="80"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h5>Valor a codificar/decodificar</h5>
+                </td>
+                <td>
+                    <h5>Valor Resultado</h5>
+                </td>
+            </tr>
+            <tr>
+                <td><textarea id="codificar" name="name" rows="8" cols="80"></textarea></td>
+                <td><textarea id="decodificar" name="name" rows="8" cols="80"></textarea></td>
+            </tr>
+        </table>
+
+
+
+    </div>
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jsencrypt/2.3.1/jsencrypt.min.js"></script>
+<!--
+<script type="text/javascript" src="../js/fase2/RSA.js"></script>-->
+<script type="text/javascript" src="../js/control/rsa.js">
+</script>
+
+</html>

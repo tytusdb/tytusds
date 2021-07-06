@@ -213,6 +213,60 @@ CanvasRenderingContext2D.prototype.roundRect = function (x, y, width, height, ra
     this.lineTo(x, y + localRadius.tl);
     this.quadraticCurveTo(x, y, x + localRadius.tl, y);
 };
+CanvasRenderingContext2D.prototype.arrowTo = function (x0, y0, posX1, posY1, radius) {
+    if (radius === void 0) { radius = 0; }
+    var dx = posX1 - x0;
+    var dy = posY1 - y0;
+    var angle = Math.atan2(dy, dx);
+    var dist = Math.sqrt(dx * dx + dy * dy);
+    var ux = dx / dist;
+    var uy = dy / dist;
+    var x1 = x0 + ux * (dist - radius);
+    var y1 = y0 + uy * (dist - radius);
+    this.beginPath();
+    this.moveTo(x0, y0);
+    this.lineTo(x1, y1);
+    this.stroke();
+    this.closePath();
+    this.beginPath();
+    this.lineWidth = 3;
+    this.moveTo(x1 - 15 * Math.cos(angle - Math.PI / 6), y1 - 15 * Math.sin(angle - Math.PI / 6));
+    this.lineTo(x1, y1);
+    this.lineTo(x1 - 15 * Math.cos(angle + Math.PI / 6), y1 - 15 * Math.sin(angle + Math.PI / 6));
+    this.fillStyle = this.strokeStyle;
+    this.stroke();
+    this.fill();
+    this.closePath();
+};
+CanvasRenderingContext2D.prototype.quadraticArrowCurveTo = function (x0, y0, posX1, posY1, cpx1, cpy1, radius) {
+    if (radius === void 0) { radius = 0; }
+    var dx = posX1 - x0;
+    var dy = posY1 - y0;
+    var dist = Math.sqrt(dx * dx + dy * dy) * 1.2;
+    var cx = (cpx1 - x0) / dist;
+    var cy = (cpy1 - y0) / dist;
+    var cpx = x0 + cx * (dist - radius);
+    var cpy = y0 + cy * (dist - radius);
+    var ux = dx / dist;
+    var uy = dy / dist;
+    var x1 = x0 + ux * (dist - radius);
+    var y1 = y0 + uy * (dist - radius);
+    var arrowAngle = Math.atan2(cpx - x1, cpy - y1) + Math.PI;
+    this.beginPath();
+    this.moveTo(x0, y0);
+    this.quadraticCurveTo(cpx, cpy, x1, y1);
+    this.stroke();
+    this.closePath();
+    this.beginPath();
+    this.moveTo(x1 - 15 * Math.sin(arrowAngle - Math.PI / 6), y1 - 15 * Math.cos(arrowAngle - Math.PI / 6));
+    this.lineTo(x1, y1);
+    this.lineTo(x1 - 15 * Math.sin(arrowAngle + Math.PI / 6), y1 - 15 * Math.cos(arrowAngle + Math.PI / 6));
+    this.lineWidth = 3;
+    this.fillStyle = this.strokeStyle;
+    this.stroke();
+    this.fill();
+    this.closePath();
+};
 var translateCanvasTo = function (x, y, callback) {
     if (callback)
         canvasTranslateEndCallback = callback;

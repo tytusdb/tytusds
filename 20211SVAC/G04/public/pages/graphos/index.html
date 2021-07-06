@@ -5,9 +5,9 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-		<link href="../../styles/pages.css" rel="stylesheet" />
+		<link href="../../styles/pages/index.css" rel="stylesheet" />
 		<link href="../../styles/global.css" rel="stylesheet" />
-		<link href="../../styles/tree.css" rel="stylesheet" />
+		<link href="../../styles/pages/tree.css" rel="stylesheet" />
 		<link href="../../icons/style.css" rel="stylesheet" />
 		<link href="../../styles/normalize.css" rel="stylesheet" />
 	</head>
@@ -54,7 +54,7 @@
 										/>
 									</li>
 									<li>
-										<button onclick="saveJSONTreeFile()">
+										<button onclick="saveGraphosJSON()">
 											<i class="icon-save"></i>Guardar
 										</button>
 									</li>
@@ -90,6 +90,17 @@
 										placeholder="Nuevo valor"
 									/>
 								</div>
+								<div class="input">
+									<label for="length-input"
+										><i class="icon-trending-up"></i
+									></label>
+									<input
+										type="text"
+										id="length-input"
+										oninput="onChangeEdgeLength(event)"
+										placeholder="Longitud"
+									/>
+								</div>
 								<ul>
 									<li>
 										<button
@@ -112,7 +123,7 @@
 									<li>
 										<button
 											type="button"
-											onclick="removeNodeOnTree()"
+											onclick="deleteNodeOnGraphos()"
 											aria-label="Eliminar"
 										>
 											<i class="icon-trash-2"></i>Eliminar
@@ -121,7 +132,7 @@
 									<li>
 										<button
 											type="button"
-											onclick="updateNodeOnTree()"
+											onclick="updateNodeOnGraphos()"
 											aria-label="Actualizar"
 										>
 											<i class="icon-disc"></i>Actualizar
@@ -130,7 +141,7 @@
 									<li>
 										<button
 											type="button"
-											onclick="findNodeOnTree()"
+											onclick="handleWaySearchOnGraphos()"
 											aria-label="Recorrer"
 										>
 											<i class="icon-compass"></i>Recorrer
@@ -139,7 +150,7 @@
 									<li>
 										<button
 											type="button"
-											onclick="findNodeOnTree()"
+											onclick="searchNodeOnGraphos()"
 											aria-label="Buscar"
 										>
 											<i class="icon-search"></i>Buscar
@@ -161,12 +172,68 @@
 							<div class="settings-menu-container">
 								<ul>
 									<li>
+										<button><i class="icon-arrow-right"></i>Tipo:</button>
+										<ul>
+											<li>
+												<label for="noDirGrapho">Dirigido</label>
+												<input
+													onchange="onChangeGraphosType(event)"
+													checked="true"
+													type="radio"
+													id="noDirGrapho"
+													name="graphosType"
+													value="dir"
+												/>
+											</li>
+
+											<li>
+												<label for="dirGrapho">No dir</label>
+												<input
+													type="radio"
+													id="dirGrapho"
+													onchange="onChangeGraphosType(event)"
+													name="graphosType"
+													value="noDir"
+												/>
+											</li>
+										</ul>
+									</li>
+
+									<li>
+										<button><i class="icon-search"></i> Búsqueda:</button>
+										<ul>
+											<li>
+												<label for="widthSearch">Anchura</label>
+												<input
+													onchange="onChangeGraphosSearch(event)"
+													checked="true"
+													type="radio"
+													id="widthSearch"
+													name="graphosSearch"
+													value="width"
+												/>
+											</li>
+
+											<li>
+												<label for="deepSearch">Profundidad</label>
+												<input
+													type="radio"
+													id="deepSearch"
+													onchange="onChangeGraphosSearch(event)"
+													name="graphosSearch"
+													value="deep"
+												/>
+											</li>
+										</ul>
+									</li>
+									
+									<li>
 										<button><i class="icon-grid"></i> Guardar como:</button>
 										<ul>
 											<li>
 												<label for="asAdjMatrix">Matriz</label>
 												<input
-													onchange="changeInsertMode(event)"
+													onchange="onChangeGraphosSave(event)"
 													checked="true"
 													type="radio"
 													id="asAdjMatrix"
@@ -180,7 +247,7 @@
 												<input
 													type="radio"
 													id="asAdjList"
-													onchange="changeInsertMode(event)"
+													onchange="onChangeGraphosSave(event)"
 													name="adjSave"
 													value="list"
 												/>
@@ -220,8 +287,7 @@
 							</label>
 							<div class="editor">
 								<pre><code><strong style="color:var(--monoConstIce)">const</strong> data <i style='color:var(--graySoda)'>=</i> <strong style='color:var(--keywordSoda)'>new</strong> <strong style="color:var(--monoClassIce)">Grapho</strong><strong style="color:var(--gray)">&#x3c;</strong><strong style="color:var(--monoNumberIce)">number</strong><strong style="color:var(--gray)">&#x3e;</strong>()
-
-data.<strong style="color: var(--monoFuncGreen)">iniciar</strong>()</code></pre>
+								</code></pre>
 								<ul>
 									<li>
 										<button class="reset" onclick="resetCanvas()" type="button">

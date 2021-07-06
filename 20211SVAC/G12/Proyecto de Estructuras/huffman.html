@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="huffman.css"/>
+    <title>Huffman</title>
+</head>
+<body>
+    <header class="header">
+        <center><h1>Algoritmo de Huffman</h1></center>
+        <form><center>
+            <input type="file" id="Archivo">
+        </center></form>
+    </header>
+    <div class="container">
+        <div class="contenedor">
+            <br>
+            <center>Texto a Analizar</center>
+            <center><textarea id="caja" class="caja" rows="12"></textarea></center>
+            <form><center>
+                <input type="button" onClick="crear()" value="Generar Algoritmo" />
+                <input type="button" onClick="descargar_v()" value="Descargar" />
+            </center></form>
+            <br>
+        </div>
+        <div class="contenedor2">
+            <br>
+            <center>Resultado del Algoritmo</center>
+            <center><textarea id="caja2" class="caja2" rows="12"></textarea></center>
+            <form><center>
+                <input type="button" onClick="descargar_n()" value="Descargar" />
+            </center></form>
+            <br>
+        </div>
+    </div>
+    <center><div class="tabla" id="tabla">
+
+    </div></center>
+    <script type="text/javascript" src="huffman.js"></script> 
+</body>
+</html>

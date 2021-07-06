@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matriz Dispersa</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+</head>
+<body>
+    <script type="text/javascript">
+        class Nodo {
+            constructor(data, next) {
+                this.data = data; //Guardando el dato del nodo
+                this.next = next; //Guardando el dato del siguiente nodo
+                this.fill = false;
+            }
+
+        }
+
+        //Clase de la lista
+        class ListaEnlazada {
+            constructor(x) {
+                this.head = null; //Cabeza de la lista enlazada simple
+                this.size = 0; //Tamaño de la lista enalazada simple
+                for(var i = 0; i<x; i++){
+                    this.llenar(null);
+                }
+            }
+
+            //Metodo para agregar un nuevo nodo a la lista
+            llenar(data){
+                const newNodo = new Nodo(data, null);
+
+                if (!this.head){
+                    this.head = newNodo;
+                } else {
+                    let current = this.head;
+                    while(current.next){
+                        current = current.next;
+                    }
+                    current.next = newNodo;
+                }
+
+                this.size++
+
+            }
+
+            //Metodo para agregar un nodo en cierta posicion de la lista
+            insertAt(data, index){
+                if(index <0 || index > this.size){
+                    return null;
+                }
+
+                const newNodo = new Nodo(data);
+                let current = this.head;
+                let previous;
+
+                if(index === 0){
+                    newNodo.next = current;
+                    this.head    = newNodo;
+                } else {
+                    for(let i = 0; i <index; i++){
+                        previous = current;
+                        current = current.next;
+                    }
+
+                    newNodo.next = current;
+                    previous.next = newNodo;
+                }
+                this.size++
+
+            }
+
+            add(data, index){
+                if(index <0 || index > this.size){
+                    return null;
+                }
+
+                const newNodo = new Nodo(data);
+                let current = this.head;
+                let previous;
+
+                if(index === 0){
+                    newNodo.next = current.next;
+                    this.head    = newNodo;
+                } else {
+                    for(let i = 0; i <index; i++){
+                        previous = current;
+                        current = current.next;
+                    }
+                    if(current.data !== null){
+                        console.log("Nodo ocupado");
+                    }else{
+                        newNodo.next = current.next;
+                        previous.next = newNodo;
+                    }
+
+                }
+            }
+            update(data, index){
+                if(index <0 || index > this.size){
+                    return null;
+                }
+
+                const newNodo = new Nodo(data);
+                let current = this.head;
+                let previous;
+
+                if(index === 0){
+                    newNodo.next = current.next;
+                    this.head    = newNodo;
+                } else {
+                    for(let i = 0; i <index; i++){
+                        previous = current;
+                        current = current.next;
+                        
+                    }
+                        newNodo.next = current.next;
+                        previous.next = newNodo;
+                    
+
+                }
+            }
+
+            //Eliminar un nodo con cierto dato de la lista
+            removeData(data){
+                let current = this.head;
+                let previous = null;
+
+                while(current != null){
+                    if (current.data === data){
+                        if (!previous){
+                            this.head = current.next;
+                        } else {
+                            previous.next = current.next;
+                        }
+                        this.size--;
+                        return current.data;
+                    }
+                    previous = current;
+                    current = current.next;
+                }
+                return null;
+
+            }
+
+            //Encontrar un nodo con cierto dato en la lista
+            findData(data){
+                let current = this.head;
+                let previous = null;
+                //console.log(this.getSize());
+                for(var i=1;i<=this.getSize();i++){
+                    if (current.data === data){
+                        return current;
+                    }
+                    previous = current;
+                    current = current.next;
+                }
+                return null;
+
+            }
+            findDeleteData(data){
+                let current = this.head;
+                let previous = null;
+                //console.log(this.getSize());
+                for(var i=1;i<=this.getSize();i++){
+                    if (current.data === data){
+                        current.data = null;
+                        return;
+                    }
+                    previous = current;
+                    current = current.next;
+                }
+                return null;
+
+            }
+
+            // Revisar el tamaño de la lista
+            getSize(){
+                return this.size
+            }
+
+            //Revisar si la lista esta vacia
+            isEmpty(){
+                return this.getSize() === 0;
+            }
+
+            //Imprimir la lista
+            print(){
+                if(this.isEmpty()){
+                    return null;
+                }
+
+                let current = this.head;
+                let result = '';
+                while(current){
+                    result += current.data + ' ⇨ ';
+                    current = current.next;
+                }
+                result += 'X'
+                return result;
+
+            }
+
+            //Guardar la lista en un archivo JSON
+            saveFile(){
+                let fs = require('fs');
+                const jsonContent = JSON.stringify(this);
+
+                fs.writeFile("./LinkedList", jsonContent, 'utf8', function (err){
+                    if (err){
+                        return console.log(err);
+                    }
+
+                    console.log("The file was saved!");
+                })
+            }
+
+        }
+
+        class matrizDispersa{
+            constructor(x,y){
+                this.array = [];
+                this.array[x-1] = null;
+                for(var i=0;i<this.array.length;i++){
+                    this.array[i]=new ListaEnlazada(y);
+                }
+                
+            }
+            agregar(dimY,dimX,data){
+                if(dimY > this.array.length || dimX > this.array[0].size){
+                    if(dimY <= 0 || dimX <= 0){
+                        console.log("Error de dimensiones")
+                        return null;
+                    }
+                }
+                if(!this.buscar(data)){
+                    this.array[dimY-1].add(data,dimX-1);
+                }
+                
+            }
+            mostrar(){
+                var result = '';
+                for(var i=0;i<this.array.length;i++){
+                    result += this.array[i].print();
+                    result += '<br>';
+                }
+                return result;
+            }
+            buscar(data){
+                var nodo = new Nodo()
+                for(var i=0;i<this.array.length;i++){
+                    nodo=this.array[i].findData(data)
+                    if(nodo){
+                        return nodo.data;
+                    }
+
+                }
+            }
+            eliminar(data){
+                var nodo = new Nodo()
+                for(var i=0;i<this.array.length;i++){
+                    nodo=this.array[i].findDeleteData(data);
+
+
+                }
+            }
+            actualizar(dimY,dimX,newData){
+                if(dimY > this.array.length || dimX > this.array[0].size){
+                    if(dimY <= 0 || dimX <= 0){
+                        console.log("Error de dimensiones");
+                        return null;
+                    }
+                }
+                if(this.buscar(newData)){
+                    console.log("Valor repetido");
+                    return;
+                }else{
+                    this.array[dimY-1].update(newData,dimX-1);
+                }
+                
+            }
+        }
+
+        var matriz;
+
+        function crearMatriz(x,y){
+            matriz = new matrizDispersa(x,y);
+            mostrar(matriz);
+            alert("Matriz dispersa creada");
+        }
+        function insertar(){
+            var posX = Number(document.getElementById('txtPosX').value);
+            var posY = Number(document.getElementById('txtPosY').value);
+            var valor = Number(document.getElementById('txtValue').value);
+            matriz.agregar(posY, posX, valor);
+            mostrar(matriz);
+
+        }
+        function mostrar(matriz){
+            document.getElementById('texto').innerHTML = matriz.mostrar();
+            return;
+        }
+        function buscar(){
+            var valor = Number(document.getElementById('txtValue').value);
+            document.getElementById('ResultadoBusqueda').innerHTML = matriz.buscar(valor);
+        }
+
+        function eliminar(){
+            var valor = Number(document.getElementById('txtValue').value);
+            matriz.eliminar(valor);
+            mostrar(matriz);
+        }
+        function actualizar(){
+            var posX = Number(document.getElementById('txtPosX').value);
+            var posY = Number(document.getElementById('txtPosY').value);
+            var Newvalor = Number(document.getElementById('txtValue').value);
+            matriz.actualizar(posY,posX,Newvalor);
+            mostrar(matriz);
+        }
+
+
+
+    </script>
+    <div class="text-center">
+        <h1>Matriz Dispersa</h1>
+        <div class="container ">
+            <label>Dimensiones</label></br></br>
+            <input type="text" id="txtX" placeholder="X"/> x <input type="text" id="txtY" placeholder="Y"/></br></br>
+            <input type="button" value="Crear matriz" onclick="crearMatriz(Number(document.getElementById('txtX').value),Number(document.getElementById('txtY').value));"/></br></br>
+            <label>Posición: </label></br>
+            <input type="text" id="txtPosX" placeholder="X"/> x <input type="text" id="txtPosY" placeholder="Y"/></br></br>
+            <label>Valor: </label></br>
+            <input type="text" id="txtValue"/></br></br>
+            <input type="button" value="Insertar" onclick="insertar();"/>
+            <input type="button" value="Actualizar" onclick="actualizar();"/>
+            <input type="button" value="Buscar" onclick="buscar();"/>
+            <input type="button" value="Eliminar" onclick="eliminar();"/>
+            <!--<input type="button" value="Guardar" onclick=""/>-->
+        </div>
+        </br>
+        <h5 id="ResultadoBusqueda">...</h5>
+        </br>
+        <h2>Tabla</h2>
+        <div class="container">
+            <p id="texto">
+                
+            </p>
+        </div>       
+    
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
+</body>
+</html>

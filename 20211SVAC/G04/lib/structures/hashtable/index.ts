@@ -112,14 +112,28 @@ class TablaHashAbierta{
         }
     }
 
+    getIndex(valor:any){
+        let index = [-1, -1]
+        for(let i:number =0;i < this.tamaño; i++)
+            for(let j:number =0;j < this.tabla[i].valores.length; j++)
+                if(this.tabla[i].valores[j].valor.toString() === valor.toString()) {
+                    index = [i, j]
+                    break
+                }
+        return index
+    }
+
     insertar(valor:any){
         //Obtiene la posicion del arreglo
-        let clave = this.funcion.funcionHash(valor, this.tamaño)
+        let clave:number = this.funcion.funcionHash(valor, this.tamaño)
+       
         //Le da al arreglo un valor
-        if(this.tabla[clave].clave == -1)
+        if(this.tabla[clave]){
+            if(this.tabla[clave].clave == -1)
             this.tabla[clave].clave = clave
-        //Ingresa el valor al arreglo
-        this.tabla[clave].valores.unshift(new Tupla(this.funcion.stringToAscii(valor), valor))
+            //Ingresa el valor al arreglo
+            this.tabla[clave].valores.unshift(new Tupla(this.funcion.stringToAscii(valor), valor))
+        }
     }
 
     eliminar(valor:any){
@@ -127,10 +141,10 @@ class TablaHashAbierta{
         this.tabla[clave].eliminarTupla(valor)
     }
 
-    actualizar(valor:any){
+    actualizar(valor:any, nuevo:any){
         let clave = this.funcion.funcionHash(valor, this.tamaño)
         if(this.tabla[clave].eliminarTupla(valor)){
-            this.insertar(valor)
+            this.insertar(nuevo)
         }
     }
 
@@ -189,7 +203,7 @@ class TablaHashCerrada{
         //Obtiene la posicion del arreglo
         let clave = this.funcion.funcionHash(valor, this.tamaño)
         //Insertar el valor en el arreglo
-        if(this.tabla[clave].clave == -1){
+        if(!this.tabla[clave] || this.tabla[clave].clave == -1){
             //Si la posición no tiene ningun valor solo se agrega
             this.tabla[clave] = new Tupla(this.funcion.stringToAscii(valor),valor)
         }else{
@@ -230,6 +244,16 @@ class TablaHashCerrada{
                 this.insertar(n.valor)
             }
         }
+    }
+
+    getIndex(valor:any){
+        let index:number[] = [-1, -1]
+        for(let i:number =0;i < this.tamaño; i++)
+                if(this.tabla[i].valor?.toString() === valor.toString()) {
+                    index = [i, 0]
+                    break
+                }
+        return index
     }
 
     //ELIMINAR ------------------------------------------------------------------------------------>

@@ -13,15 +13,24 @@ type LinearNode = NodoSimple | NodoSimpleQ
 type TreeStructure = ArbolBinario | ArbolAvl
 type TreeNode = NodoBinario | NodoAvl
 
-interface NodePosition {
-	x: number
-	y: number
+interface NodePosition extends PointPosition {
 	value: string
 }
 
-interface EdgePosition {
+interface GraphoInputValues {
+	vertice: number
+	aristas: {
+		arista: number
+		distancia: number
+	}[]
+}
+
+interface PointPosition {
 	x: number
 	y: number
+}
+
+interface EdgePosition extends NodePosition {
 	color: string
 	isDouble: boolean
 	randPhase: number
@@ -30,6 +39,7 @@ interface EdgePosition {
 interface EdgeJoin {
 	origin: EdgePosition
 	dest: EdgePosition | null
+	distance: number
 }
 
 interface BTreeData {
@@ -43,7 +53,7 @@ interface IndexSearchItem {
 }
 
 interface CanvasRenderingContext2D {
-	arrow: (
+	arrow(
 		x: number,
 		y: number,
 		distance: number,
@@ -51,14 +61,29 @@ interface CanvasRenderingContext2D {
 		down?: boolean,
 		left?: boolean,
 		double?: boolean,
-	) => void
-	roundRect: (
+	): void
+	roundRect(
 		x: number,
 		y: number,
 		width: number,
 		height: number,
 		radius: number,
-	) => void
+	): void
+	arrowTo(x0: number, y0: number, x1: number, y1: number, radius?: number): void
+	quadraticArrowCurveTo(
+		x0: number,
+		y0: number,
+		x1: number,
+		y1: number,
+		cpx: number,
+		cpy: number,
+		radius?: number,
+	): void
+}
+
+interface PointPosition {
+	x: number
+	y: number
 }
 
 interface Lista {
