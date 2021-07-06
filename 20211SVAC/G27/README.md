@@ -19,6 +19,8 @@
 ### [Grafos](https://tytusdb.github.io/tytusds/20211SVAC/G27/No_Lineales/Grafos.html)
 ### [Compuesta](https://tytusdb.github.io/tytusds/20211SVAC/G27/No_Lineales/compuesta.html)
 
+
+
 ## ALGORITMOS DE CODIFICACION
 ### [Feistel](https://tytusdb.github.io/tytusds/20211SVAC/G27/Codificacion/Feistel.html)
 ### [Hamming](https://tytusdb.github.io/tytusds/20211SVAC/G27/Codificacion/Hamming.html)
