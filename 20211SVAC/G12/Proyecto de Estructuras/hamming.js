@@ -5,6 +5,7 @@ let listaoficial = [];
 let contador = 0;
 var tabla = "";
 var tabla_valor = "";
+var descarga = "";
 const verificacion = n => n == 1 || Math.log2(n) % 1 == 0;
 const paridad = input => {
 
@@ -51,12 +52,15 @@ const paridad = input => {
         lista_valores.push("p"+posicion)
     }
 
+    descarga = hamming;
     console.log("Input: ", input);
     console.log("Hamming: ", hamming);
 
+    tabla += "<thead>";
     for(var i = 0; i<lista_valores.length; i++){
-        tabla += "<td>" + lista_valores[i] + "</td>";
+        tabla += "<th>" + lista_valores[i] + "</th>";
     }
+    tabla += "</thead>";
     tabla += "<tr>";
     tabla += tabla_valor;
     tabla += "</tr></tbody></table>"
@@ -71,4 +75,59 @@ function crear(){
     lista_valores = [];
     lista_valores_nuevos = [];
     paridad(dato);
+}
+
+function abrirArchivo(evento){
+    let archivo = evento.target.files[0];
+
+    if(archivo){
+        let reader = new FileReader();
+        reader.onload = function(e){
+            let contenido = e.target.result;
+            var mydata = contenido;
+            document.getElementById("tabla").innerHTML="";
+            tabla = "";
+            tabla_valor = "";
+            lista_valores = [];
+            lista_valores_nuevos = [];
+            paridad(mydata);
+        };
+        reader.readAsText(archivo);
+    }else{
+        alert("No se selecciono ningun archivo");
+    }
+}
+
+window.addEventListener('load', ()=>{
+    document.getElementById('Archivo').addEventListener('change', abrirArchivo);
+});
+
+function descargar(){
+	var contenido = descarga;
+
+    //formato para guardar el archivo
+    var hoy=new Date();
+    var dd=hoy.getDate();
+    var mm=hoy.getMonth()+1;
+    var yyyy=hoy.getFullYear();
+    var HH=hoy.getHours();
+    var MM=hoy.getMinutes();
+    var formato = "hamming"+"_"+dd+"_"+mm+"_"+yyyy+"_"+HH+"_"+MM;
+
+    var nombre= formato+".txt";//nombre del archivo
+    var file=new Blob([contenido], {type: 'text/plain'});
+
+    if(window.navigator.msSaveOrOpenBlob){
+        window.navigator.msSaveOrOpenBlob(file, nombre);
+    }else{
+        var a=document.createElement("a"),url=URL.createObjectURL(file);
+        a.href=url;
+        a.download=nombre;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function(){
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);  
+        },0); 
+    }
 }
