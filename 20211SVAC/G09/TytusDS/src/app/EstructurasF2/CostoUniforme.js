@@ -106,7 +106,6 @@ class CostoUniforme{
   }
 
   AgregarAristas(from, to, distanciaVertice){
-      //Obtenemos el nodo from
       let arista = {
           Vertices: to,
           distanciaVertice: distanciaVertice
@@ -141,14 +140,13 @@ class CostoUniforme{
           distanciaVertice: 0,
           VerticeDestino: null
       }
-      let list = [realInicio]
-      while (list.length > 0){
-          var current = list.shift();
+      let listaNodo = [realInicio]
+      while (listaNodo.length > 0){
+          var current = listaNodo.shift();
           console.log("VerticeDestino: " + current.Vertices + ", Distancia Acumulada: " + current.distanciaVertice)
           if (current.Vertices == Final) {
               console.log("Vertice Encontrado:")
               console.log(current)
-              //Intentamos ingresar el recorrido
               let temporal = current
               while(temporal != null){
                   recorrido.push(this.ObtenerId(temporal.Vertices))
@@ -168,8 +166,8 @@ class CostoUniforme{
               }
               auxiliar.push(hijo)
           })
-          list = auxiliar.concat(list);
-          this.InsertarDistancia(list)
+          listaNodo = auxiliar.concat(listaNodo);
+          this.InsertarDistancia(listaNodo)
       }
       let temporal = current
       while(temporal != null){
@@ -188,9 +186,9 @@ class CostoUniforme{
           distanciaVertice: 0,
           VerticeDestino: null
       }
-      let list = [realInicio]
-      while (list.length > 0){
-          var current = list.shift();
+      let listaNodo = [realInicio]
+      while (listaNodo.length > 0){
+          var current = listaNodo.shift();
           if(recorrido.includes(current.Vertices)) continue
           recorrido.push(current.Vertices)
           recorridoIds.push(this.ObtenerId(current.Vertices))
@@ -206,8 +204,8 @@ class CostoUniforme{
               }
               auxiliar.push(hijo)
           })
-          list = auxiliar.concat(list);
-          this.InsertarDistancia(list)
+          listaNodo = auxiliar.concat(listaNodo);
+          this.InsertarDistancia(listaNodo)
       }
       return {recorrido: recorridoIds, distancia: current.distanciaVertice, encontrado: false}
   }
@@ -220,16 +218,16 @@ class CostoUniforme{
           Vertices: Inicio,
           distanciaVertice: 0
       }
-      var list = [realInicio];
-      while (list.length > 0){
-          var current = list.shift();
+      var listaNodo = [realInicio];
+      while (listaNodo.length > 0){
+          var current = listaNodo.shift();
           if(recorrido.includes(current.Vertices)) continue
           recorrido.push(current.Vertices)
           recorridoIds.push(this.ObtenerId(current.Vertices))
           console.log("Nodo: " + current.Vertices + ", Distancia: " + current.distanciaVertice)
           var auxiliar = this.getDatoNodo(current.Vertices);
-          list = list.concat(auxiliar);
-          this.InsertarDistancia(list)
+          listaNodo = listaNodo.concat(auxiliar);
+          this.InsertarDistancia(listaNodo)
       }
       return {recorrido: recorridoIds, encontrado: false}
   }
