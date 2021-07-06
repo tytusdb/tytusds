@@ -34,7 +34,7 @@
 						<li>
 							<label for="feistelEncode">Feistel</label>
 							<input
-								onchange="changeInsertMode(event)"
+								onchange="onChangeEncodingType(event)"
 								type="radio"
 								id="feistelEncode"
 								name="encodeAlgo"
@@ -45,7 +45,7 @@
 						<li>
 							<label for="hammingEncode">Hamming</label>
 							<input
-								onchange="changeInsertMode(event)"
+								onchange="onChangeEncodingType(event)"
 								type="radio"
 								id="hammingEncode"
 								name="encodeAlgo"
@@ -56,7 +56,7 @@
 						<li>
 							<label for="huffmanEncode">Huffman</label>
 							<input
-								onchange="changeInsertMode(event)"
+								onchange="onChangeEncodingType(event)"
 								type="radio"
 								id="huffmanEncode"
 								name="encodeAlgo"
@@ -68,7 +68,7 @@
 						<li>
 							<label for="lzwEncode">LZW</label>
 							<input
-								onchange="changeInsertMode(event)"
+								onchange="onChangeEncodingType(event)"
 								type="radio"
 								id="lzwEncode"
 								name="encodeAlgo"
@@ -85,7 +85,7 @@
 							<input
 								type="text"
 								id="key-input"
-								oninput="onChangeInputGrade(event)"
+								oninput="onChangeFeistelKey(event)"
 								placeholder="Llave"
 							/>
 						</div>
@@ -94,7 +94,7 @@
 							<input
 								type="text"
 								id="iter-input"
-								oninput="onChangeInputGrade(event)"
+								oninput="onChangeFeistelIterations(event)"
 								placeholder="Iteración"
 							/>
 						</div>
@@ -104,6 +104,7 @@
 					<h1><i class="icon-message-square"></i>Cadena de entrada:</h1>
 					<textarea
 						id="encode-input"
+						oninput="onChangeEncodingInput(event)"
 						placeholder="Mensaje de entrada (UTF-8)"
 					></textarea>
 					<button id="encoding-start" onclick="startEncoding()">
@@ -112,12 +113,16 @@
 				</div>
 			</div>
 			<div id="encoding-panel">
-				<pre><code><strong style="color:var(--monoConstIce)">const</strong> data <i style='color:var(--graySoda)'>=</i> <strong style='color:var(--keywordSoda)'>new</strong> <strong style="color:var(--monoClassIce)">Hamming</strong>()</code></pre>
+				<pre><code id="code-editor"><strong style="color:var(--monoConstIce)">const</strong> data <i style='color:var(--graySoda)'>=</i> <strong style='color:var(--keywordSoda)'>new</strong> <strong  id="instance-name" style="color:var(--monoClassIce)">Huffman</strong>()</code></pre>
 				<textarea
 					id="encode-output"
 					placeholder="Mensaje de salida codificado"
 				></textarea>
-				<img src="../../images/pages/encodingBanner.png" alt="Banner" />
+				<img
+					src="../../images/pages/encodingBanner.png"
+					alt="Banner"
+					id="banner"
+				/>
 			</div>
 		</main>
 		<script src="../../../scripts/utils/colors.js"></script>

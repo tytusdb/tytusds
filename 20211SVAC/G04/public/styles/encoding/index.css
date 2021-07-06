@@ -214,6 +214,10 @@ textarea:first-of-type {
 	border-radius: var(--radius);
 }
 
+#encoding-panel > pre > code > #instance-name {
+	text-transform: capitalize;
+}
+
 #encoding-panel > textarea {
 	margin-top: 20px;
 	height: calc(100% - 20px);
