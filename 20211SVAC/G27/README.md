@@ -18,6 +18,7 @@
 ### [Col And Row Major](https://tytusdb.github.io/tytusds/20211SVAC/G27/No_Lineales/row_col_major.html)
 ### [Grafos](https://tytusdb.github.io/tytusds/20211SVAC/G27/No_Lineales/Grafos.html)
 ### [Compuesta](https://tytusdb.github.io/tytusds/20211SVAC/G27/No_Lineales/compuesta.html)
+### [Grafo Dirigido](https://tytusdb.github.io/tytusds/20211SVAC/G27/No_Lineales/GrafoDirigido.html)
 
 
 
