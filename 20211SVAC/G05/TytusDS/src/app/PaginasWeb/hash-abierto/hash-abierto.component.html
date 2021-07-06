@@ -43,4 +43,41 @@
     </div>
     <div class="bg-light animacion mt-5" id="contenedor">
     </div>
+    <ng-container *ngIf="!primero">
+        <div class="row mt-3">
+            <div class="col-md-3">
+                <div class="card text-dark bg-light">
+                    <div class="card-body">
+                        <h5 class="card-title">Tamaño:</h5>
+                        <p class="card-text">{{hash.size}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-dark bg-light">
+                    <div class="card-body">
+                        <h5 class="card-title">Nodos Utilizados:</h5>
+                        <p class="card-text">{{hash.nodosUtilizados}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-dark bg-light">
+                    <div class="card-body">
+                        <h5 class="card-title">Factor de Carga:</h5>
+                        <p class="card-text">{{hash.factorDeCarga}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-dark bg-light">
+                    <div class="card-body">
+                        <h5 class="card-title">Elementos Cargados:</h5>
+                        <p class="card-text">{{hash.elementosCargados}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br><br>
+    </ng-container>
 </div>
