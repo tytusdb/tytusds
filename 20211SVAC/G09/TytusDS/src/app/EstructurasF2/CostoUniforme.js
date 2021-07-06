@@ -55,7 +55,7 @@ class CostoUniforme{
       }
   }
 
-  AgregarVertice(DatoActual){
+  AgregarNodo(DatoActual){
       let nodo = {
           Vertices: DatoActual,
           id: this.id++,
@@ -105,7 +105,7 @@ class CostoUniforme{
       return actualizado
   }
 
-  AgregarAristas(from, to, distanciaVertice){
+  AgregarVertice(from, to, distanciaVertice){
       let arista = {
           Vertices: to,
           distanciaVertice: distanciaVertice
