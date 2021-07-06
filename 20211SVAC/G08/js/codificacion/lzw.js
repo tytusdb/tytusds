@@ -101,6 +101,12 @@ class LZW{
         }
         return false;
     }
+    // NUEVO
+    aniMatriz(){
+
+        return this.matriz;
+
+    }
 
 
 
@@ -128,21 +134,83 @@ var spc_Text = document.getElementById("espacioTxt");
 
 // V  A  R  I  A  B  L  E  S  -  G  L  O  B  A  L  E  S
 var contenido;
+var resulFile;
 
 // I  N  S  T  A  N  C  I  A
 var lzw = new LZW();
 
 // F  U  N  C  I  O  N  E  S  -  E  V  E  N  T  O  S
 // ***** CODIFICAR *****
-function codificar(){
+async function codificar(){
     console.log("Codificando")
     var entrada = document.getElementById("espacioTxt").value;
     var salida = document.getElementById("respuesta");
+    var cuadroTabla = document.getElementById("tablaCod");
+    salida.textContent = "";
+    cuadroTabla.textContent = "";
+
     var respu = lzw.cifrar(entrada);
+    resulFile = respu;
+    efectoMatrix();
+    await new Promise((resolve) =>
+        setTimeout(() =>{
+            resolve();
+        }, (5000)) //delay
+    );  
+    
+
+    cuadroTabla.textContent = "";
+    await new Promise((resolve) =>
+        setTimeout(() =>{
+            resolve();
+        }, (100)) //delay
+    ); 
+    animTabla();
     salida.textContent = respu;
 
 }
 
+// ***** CONSTRUYENDO TABLA *****
+function animTabla(){
+    // espacio donde se colocara la tabla
+    var cuadroTabla = document.getElementById("tablaCod");
+    // contenido de la matriz 
+    var conTabla = lzw.aniMatriz();
+    console.log(conTabla.length)
+    cuadroTabla.innerHTML = "";
+    var tab = "<table class=\"tablero\">";
+    // cambie la implementacion y orden para que la tabla fuera vertical
+    for (let i = 0; i < conTabla[0].length; i++){
+        tab += "<tr>"
+        for (let j = 0; j < conTabla.length; j++){
+
+            if (conTabla[j][i] != undefined){
+                if (i == 0 && (j == 0 || j == 1 || j == 2 || j == 3 || j == 4)){
+                    tab += "<td class =\"encabezado\">"+conTabla[j][i]+"</td>";
+
+                } else {
+                    tab += "<td>"+conTabla[j][i]+"</td>";
+
+                }
+                
+            } else {
+                tab += "<td>"+"  "+"</td>";
+            }
+     
+        }
+        tab += "</tr>"
+    }
+    tab += "</table>";
+    cuadroTabla.innerHTML = tab;
+}
+function efectoMatrix(){
+    var cuadroTabla = document.getElementById("tablaCod");
+    
+    //var img = "<img class=\"efectoM\" src=\"../../img/matrix1.gif\">"
+    var img = "<img class=\"efectoM\" src=\"https://media.giphy.com/media/AOSwwqVjNZlDO/giphy.gif\">"
+    
+    cuadroTabla.innerHTML = img;
+}
 // ***** LIMPIAR PANTALLA *****
 function limpiar(){
     console.log("Limpiando");
@@ -159,8 +227,14 @@ function getVelocidad(){
 
 // ***** GUARDAR ARCHIVO *****
 function guardar(){
-    console.log("Guardando JSON");
-
+    console.log("Guardando .txt"); 
+    let saveArchivo = new Blob([resulFile],{type:"application/txt"});
+    let a = document.createElement("a");
+    a.setAttribute('href', 'data:text/plain;charset=utf-8, ' + encodeURIComponent(resulFile));
+    a.href = URL.createObjectURL(saveArchivo);
+    a.download = "lzw.txt";
+    a.click();
+    
 }
 // ***** LEYENDO ARCHIVO *****
 function readFile(evento){ // lectura del archivo .json
