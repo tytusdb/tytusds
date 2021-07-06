@@ -29,12 +29,82 @@
 				</span>
 				<input style='margin-right: 1%;margin-left: 3%;' type='submit' id='dBtn' value='Eliminar'/>
 				<input style='margin-left: 3%;' id='speed' type='range' min='0' max='9' step='1' value='4'/>
+				<input type='submit' id='downBtn' value='Guardar'/>
+
 				<script>
 					document.getElementById('file').onchange = function(){
 						var fil = document.getElementById('file').files[0];
 						const read= new FileReader();
+
 						read.onload=function(){
-							console.log(JSON.parse(read.result))
+							list=JSON.parse(read.result).valores;
+							rep=JSON.parse(read.result).repeticion;
+							document.getElementById('speed').value=JSON.parse(read.result).animacion;
+							if(!rep){
+								list=list.filter((item,index)=>list.indexOf(item)===index);
+							}
+
+							cy.remove('node');
+							ls=new doublyLinkedList();
+
+							pos=JSON.parse(read.result).posicion;
+							for(var i=0;i<list.length;i++){
+								if (pos.toUpperCase()=='INICIO'){
+									if(!rep){
+										if (isNumeric(list[i])){
+											ls.addPos(parseInt(list[i]),0)
+										}else{
+											ls.addPos(list[i],0);
+										}
+									}else{
+										if(ls.search[i]==null){
+											if (isNumeric(list[i])){
+												ls.addPos(parseInt(list[i]),0)
+											}else{
+												ls.addPos(list[i],0);
+											}
+										}
+									}
+								}else if(pos.toUpperCase()=='FIN'){
+									if(!rep){
+										if (isNumeric(list[i])){
+											ls.add(parseInt(list[i]))
+										}else{
+											ls.add(list[i]);
+										}
+									}else{
+										if(ls.search[i]==null){
+											if (isNumeric(list[i])){
+												ls.add(parseInt(list[i]))
+											}else{
+												ls.add(list[i]);
+											}
+										}
+									}
+								
+								}else if(pos.toUpperCase()=='ORDENADO'){
+									if(!rep){
+										if (isNumeric(list[i])){
+											ls.addOrder(parseInt(list[i]))
+										}else{
+											ls.addOrder(list[i]);
+										}
+									}else{
+										if(ls.search[i]==null){
+											if (isNumeric(list[i])){
+												ls.addOrder(parseInt(list[i]))
+											}else{
+												ls.addOrder(list[i]);
+											}
+										}
+									}
+								}
+								
+							}
+							lstNode=ls.getNodes()
+							addNodes(lstNode);
+							//var options={name:'grid'};
+							//cy.layout(options).run();
 						}
 						read.readAsText(fil)
 
@@ -45,6 +115,9 @@
 		
 		<div id='cy'></div>
     	<script>
+			list=[];
+			var rep=true;
+			var pos='FINAL'
 			var ls=new doublyLinkedList();
       		var cy = cytoscape({
 				container: document.getElementById('cy'),
@@ -69,13 +142,37 @@
 						}
 					]
 				});
-
+			
+			list=[];
+			var rep=true;
+			var pos='FINAL'
+			
+			
 			const canvas = document.createElement('canvas');
 			const ctx = canvas.getContext('2d');
 			ctx.font= '20px serif';
+
+			async function addNodes(n){
+				var spd = document.getElementById('speed').value;
+				for(var i =0; i<list.length;i++){
+					if (i==0){
+					cy.add([{data:{id:i,name:n[i]}}]).style({width:ctx.measureText(n[i]).width});
+					}else{
+						cy.add({data:{id:i,name:n[i]}}).style({width:ctx.measureText(n[i]).width});;
+						cy.add({data:{source:i-1,target:i}});
+						cy.add({data:{source:i,target:i-1}});
+
+					}
+					var options={name:'grid'}		
+					cy.layout(options).run();
+				}
+			}
 			
 			document.getElementById('nBtn').onclick = function(){
 				var input = document.getElementById('nText').value;
+				if (isNumeric(input)){
+					input=parseInt(input);
+				}
 				var spd = document.getElementById('speed').value;
 				if (ls.head==null){
 					cy.add([{data:{id:ls.size,name:input}}]).style({width:ctx.measureText(input).width});
@@ -102,6 +199,9 @@
 			
 			document.getElementById('sBtn').onclick=function(){
 				var input = document.getElementById('nText').value;
+				if (isNumeric(input)){
+					input=parseInt(input);
+				}
 				var ns = ls.search(input);
 				var r;
 				var estilo=cy.style().json();
@@ -136,9 +236,39 @@
 			document.getElementById('uBtn').onclick=function(){
 				var input = document.getElementById('nText').value;
 				var pos=cy.$(':selected').data('id');
+				if (isNumeric(input)){
+					input=parseInt(input);
+				}
 				ls.update(pos,input);
 				cy.$(':selected').data('name',input).style({width:ctx.measureText(input).width});
 			}
+			function isNumeric(n) {
+  				return !isNaN(parseFloat(n)) && isFinite(n);
+			}
+
+			document.getElementById('downBtn').onclick=function(){
+				var nodos=ls.getNodes();
+				var obj = new Object();
+				obj.categoria="Estructura Lineal";
+				obj.nombre="Lista Enlazada Doble";
+				obj.repeticion=rep;
+				obj.animacion= document.getElementById('speed').value;
+				obj.posicion=pos;
+				obj.valores=nodos;
+				var jsonString=JSON.stringify(obj,undefined,2);
+				console.log(jsonString);
+				download(jsonString, "listaEnlazadaDoble.json", "text/plain");
+			
+			}
+
+			function download(content, fileName, contentType) {
+				const a = document.createElement("a");
+				const file = new Blob([content], { type: contentType });
+				a.href = URL.createObjectURL(file);
+				a.download = fileName;
+				a.click();
+			}
+
 
 		</script>
 	</body>

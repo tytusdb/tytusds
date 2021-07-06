@@ -339,9 +339,10 @@ function readFile(callback) {
             case true:
                 for (var i = 0; i<val.length; i++)
                 {
-                    carga.push(val[i].toString());
+                    cargaVal.push(val[i].valor);
+                    cargaPriori.push(val[i].prioridad);
                 }
-                insertarNodos(carga);
+                insertarNodos(cargaVal, cargaPriori);
                 break;
             default:
                 console.log('Falta indicador de repitencia')

@@ -23,6 +23,21 @@ import { ListasimpleComponent } from './listasimple/listasimple.component';
 import { PilaComponent } from './pila/pila.component';
 import { PrincipalComponent } from './principal/principal.component';
 import { SeleccionComponent } from './seleccion/seleccion.component';
+import { HashAbiertaComponent } from './hash-abierta/hash-abierta.component';
+import { HashCerradoComponent } from './hash-cerrado/hash-cerrado.component';
+import { RBAnchuraGrafosComponent } from './rbanchura-grafos/rbanchura-grafos.component';
+import { RBProfundidadGrafosComponent } from './rbprofundidad-grafos/rbprofundidad-grafos.component';
+import { CostoUniformeComponent } from './costo-uniforme/costo-uniforme.component';
+import { ArbolMinimoComponent } from './arbol-minimo/arbol-minimo.component';
+import { HammingComponent } from './hamming/hamming.component';
+import { HuffmanComponent } from './huffman/huffman.component';
+import { LZWComponent } from './lzw/lzw.component';
+import { FeistelComponent } from './feistel/feistel.component';
+import { RSAComponent } from './rsa/rsa.component';
+import { EstructurasCompuestasComponent } from './estructuras-compuestas/estructuras-compuestas.component';
+import { MatricesDispersasComponent } from './matrices-dispersas/matrices-dispersas.component';
+import { RowMajorComponent } from './row-major/row-major.component';
+import { ColMajorComponent } from './col-major/col-major.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +58,22 @@ import { SeleccionComponent } from './seleccion/seleccion.component';
     ListasimpleComponent,
     PilaComponent,
     PrincipalComponent,
-    SeleccionComponent
+    SeleccionComponent,
+    HashAbiertaComponent,
+    HashCerradoComponent,
+    RBAnchuraGrafosComponent,
+    RBProfundidadGrafosComponent,
+    CostoUniformeComponent,
+    ArbolMinimoComponent,
+    HammingComponent,
+    HuffmanComponent,
+    LZWComponent,
+    FeistelComponent,
+    RSAComponent,
+    EstructurasCompuestasComponent,
+    MatricesDispersasComponent,
+    RowMajorComponent,
+    ColMajorComponent
   ],
   imports: [
     BrowserModule,

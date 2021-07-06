@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import AnimacionArbolBPlus from './Animaciones/AnimacionArbolBPlus';
 
 export default function ArbolBPlus(){
 	const [valor,setValor] = useState("");
@@ -54,7 +53,6 @@ export default function ArbolBPlus(){
 			<div className="row">
 
 			</div>
-				<AnimacionArbolBPlus />
 		</>
 	);
 }

@@ -1,0 +1,131 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat); 
+
+body {
+   min-height: 100vh;
+    min-width: 100%;
+    background: #063f6d; 
+  text-align: center; 
+}
+  
+.container {
+  position: relative;
+  z-index: 9999;
+  
+}
+.file-input{
+  display: none;
+}
+
+
+.arrow {
+  stroke: rgb(0, 0, 0);
+  stroke-width: 2;
+  marker-end: url(#markerArrow);
+}
+
+.svg {
+  position: "absolute";
+  top: "0";
+  left: "0";
+  width: "100%";
+  height: "100vh";
+  z-index: "0";
+}
+
+p {
+  /*text-transform: uppercase;*/ /* para colocar todo el texto en mayuscula  */
+  color: rgba(255,255,255,.25); 
+  font: 400 1em/1.5 "Neuton";
+  letter-spacing: .5em;
+  display: inline-block;
+  border: 4px double rgba(255,255,255,.25);
+  border-width: 4px 0;
+  padding: 1.5em 0em;
+  position: absolute;
+  top: 3%;
+  left: 50%;
+  width: 40em;
+  margin: 0 0 0 -20em;
+}
+
+  span {
+
+    font: 700 4em/1 "Oswald", sans-serif;
+    letter-spacing: 0;
+    padding: .25em 0 .325em;
+    display: block;
+    margin: 0 auto;
+    text-shadow: 0 0 80px rgba(255,255,255,.5);
+
+/* Clip Background Image */
+
+    background: url(https://i.ibb.co/RDTnNrT/animated-text-fill.png) repeat-y;
+    -webkit-background-clip: text;
+    background-clip: text;
+
+/* Animate Background Image */
+
+    -webkit-text-fill-color: transparent;
+    -webkit-animation: aitf 80s linear infinite;
+
+/* Activate hardware acceleration for smoother animations */
+
+    -webkit-transform: translate3d(0,0,0);
+    -webkit-backface-visibility: hidden;
+
+  }
+
+/* Animate Background Image */
+
+@-webkit-keyframes aitf {
+  0% { background-position: 50% 50%; }
+  100% { background-position: 100% 100%; }
+}
+
+
+#visNetwork {
+ 
+  width: 500px;
+  height: 500px;
+  border: 1px solid lightgray;
+}
+
+/*----------- CAJA ----------- */
+.caja { 
+  font-family: Century Gothic,CenturyGothic,AppleGothic,sans-serif; 
+  color: #ffffff; 
+  width:500px;
+  font-size: 18px; 
+  font-weight: 400; 
+  text-align: left; 
+  background: #889ccf; 
+  margin: 0 0 25px; 
+  overflow: hidden; 
+  padding: 20px; 
+  border-radius: 35px 0px 35px 0px; 
+  -moz-border-radius: 35px 0px 35px 0px; 
+  -webkit-border-radius: 35px 0px 35px 0px; 
+  border: 2px solid #5878ca;
+}
+
+table {
+  width:500px;
+  font:normal 13px Arial;
+  text-align:center;
+  border-collapse:collapse;
+
+}
+table th {
+  font:bold 15px Arial;
+  background-color:lightblue;
+}
+.fila_impar {
+  background-color:lightgray;
+}
+.fila_par {
+  background-color:lightgreen;
+}
+.fila_resaltada {
+  color:yellow;
+  background-color:red;
+}

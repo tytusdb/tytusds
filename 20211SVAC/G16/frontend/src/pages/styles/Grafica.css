@@ -13,3 +13,20 @@
   .Boton{
     background-image: linear-gradient(to right, #C7CEEA, #B5EAD7 );
   }
+
+  textarea {
+    resize: none;
+  }
+
+  .Result{
+    display: flex;
+    width: 100%;
+  }
+
+  .der{
+    width: 85%;
+  }
+
+  .izq{
+    width: 15;
+  }

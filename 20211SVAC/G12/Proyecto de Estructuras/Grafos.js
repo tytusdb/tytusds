@@ -15,10 +15,12 @@ class Nodo {
         this.val=val
         this.x=x;
         this.y=y;
+        this.pre=-1;
         this.down=null;
         this.right=null;
         this.left=null;
-        this.right=null;
+        this.up=null;
+        this.visita=0;
     }
 }
 
@@ -35,21 +37,21 @@ class Matriz{
             this.head.right=nw;
             nw.left=this.head
         }else {
-            while (temp.right!=null&&temp.val<val){
+            while (temp.right!=null&&temp.x<val){
                 temp=temp.right;
             }
-            if (temp.right==null&&temp.val<val){
+            if (temp.right==null&&temp.x<val){
                 let nw=new Nodo(val,val,0);
                 temp.right=nw;
                 nw.left=temp;
-            }else if(temp.right==null&&temp.val>val){
+            }else if(temp.right==null&&temp.x>val){
                 let nw=new Nodo(val,val,0);
-                this.head.right=nw;
-                nw.left=this.head;
+                temp.left.right=nw;
                 nw.right=temp;
+                nw.left=temp.left;
                 temp.left=nw;
             }
-            else if(temp.right!=null&&temp.val!=val){
+            else if(temp.right!=null&&temp.x!=val){
                 let aux=temp.right;
                 let nw=new Nodo(val,val,0);
                 temp.right=nw;
@@ -68,22 +70,22 @@ class Matriz{
             this.head.down=nw;
             nw.up=this.head;
         }else {
-            while (temp.down!=null&&temp.val<val){
+            while (temp.down!=null&&temp.y<val){
                 temp=temp.down;
             }
-            if (temp.down==null&&temp.val<val){
+            if (temp.down==null&&temp.y<val){
                 let nw=new Nodo(val,0,val);
                 temp.down=nw;
                 nw.up=temp;
             }
-            else if(temp.down==null&&temp.val>val){
+            else if(temp.down==null&&temp.y>val){
                 let nw=new Nodo(val,0,val);
-                this.head.down=nw;
-                nw.up=this.head;
+                temp.up.down=nw;
                 nw.down=temp;
+                nw.up=temp.up;
                 temp.up=nw;
             }
-            else if(temp.down!=null&&temp.val!=val){
+            else if(temp.down!=null&&temp.y!=val){
                 let aux=temp.down;
                 let nw=new Nodo(val,0,val);
                 temp.down=nw;
@@ -100,10 +102,10 @@ class Matriz{
         if (temp==null){
             return null
         }else{
-            while(temp.right!=null&&temp.val!=val){
+            while(temp.right!=null&&temp.x!=val){
                 temp=temp.right
             }
-            if (temp.val==val){
+            if (temp.x==val){
                 return temp
             }
             return null
@@ -116,10 +118,10 @@ class Matriz{
         if (temp==null){
             return null
         }else{
-            while(temp.down!=null&&temp.val!=val){
+            while(temp.down!=null&&temp.y!=val){
                 temp=temp.down
             }
-            if (temp.val==val){
+            if (temp.y==val){
                 return temp
             }
             return null
@@ -137,11 +139,9 @@ class Matriz{
         t2=this.getx(nodoi);
         if (x==null){
             this.addColumn(nodof);
-
         }
         if (y==null){
             this.addRow(nodoi);
-
         }
         if (t==null){
             this.addRow(nodof)
@@ -229,7 +229,68 @@ class Matriz{
             res+="</tr>";
             tempy=tempy.down
         }
+        document.getElementById("result").innerHTML=""
         display.innerHTML=res
+    }
+
+    eliminar(nodo){
+        let temp=this.head
+        while(temp.down!=null&&temp.y!=nodo){
+            temp=temp.down
+        }
+        if(temp.down==null&&temp.y==nodo){
+            temp.up.down=null
+        }else if(temp.down!=null&&temp.y==nodo){
+           temp.down.up=temp.up
+            temp.up.down=temp.down
+        }
+        temp=this.head
+        while(temp.right!=null&&temp.x!=nodo){
+            temp=temp.right
+        }
+        if(temp.right==null&&temp.x==nodo){
+            temp.left.right=null
+        }else if(temp.right!=null&&temp.x==nodo){
+            temp.right.left=temp.left
+            temp.left.right=temp.right
+        }
+    }
+
+    actualizar(nodoi,nodof){
+       let x=this.getx(nodoi);
+       let y=this.gety(nodoi);
+       if(x!=null){
+           x.val=nodof
+           while (x!=null){
+               x.x=nodof
+               x=x.down
+           }
+       }
+       if(y!=null){
+           y.val=nodof
+            while (y!=null){
+                y.y=nodof
+                y=y.right
+            }
+        }
+    }
+
+    busqueda(nodoi,nodof,tipo){
+        if (tipo=="profundidad"){
+            this.busquedaProfundidad(nodoi,nodof)
+        }else if(tipo=="anchura"){
+            this.busquedaAnchura(nodoi,nodof)
+        }else{
+            this.CostoUniforme(nodoi,nodof)
+        }
+    }
+
+    recorrer(tipo){
+        if (tipo=="profundidad"){
+            this.recorridoProfundidad()
+        }else if(tipo=="anchura"){
+           this.recorridoAnchura()
+        }
     }
 
     Graph(){
@@ -250,7 +311,7 @@ class Matriz{
                 n=0;
             }
         }
-        document.getElementById("result").innerHTML+=res
+        document.getElementById("result").innerHTML=res
         tempy=this.head.down;
         while (tempy!=null){
             tempx=this.head.right
@@ -263,7 +324,7 @@ class Matriz{
                     let a=document.getElementById("a"+te.y);
                     let b=document.getElementById("a"+te.x);
                     if (a!=null&&b!=null){
-                        connect(a,b,"red","10")
+                        connect(a,b,"red","10",te.val)
                     }
                     te=te.right
                 }
@@ -275,50 +336,104 @@ class Matriz{
     }
 
     async busquedaAnchura(nodoi,nodof){
-       let l=[]
-       l.push(nodoi)
+       let l=[];
+       let ini=this.gety(nodoi)
+       var ant=null;
+       l.push(ini);
        while (l.length!=0){
            let temp=l.pop();
-           if (temp==nodof){
+
+           if (temp.y==nodof){
                let el=document.getElementById("a"+nodof.toString())
                await changeColorNode(el,"Yellow",500,"BY")
+               await this.backtrace(nodoi,temp.y)
                return temp;
            }
-           let s;
-           await this.generarSucesores(temp).then(
-               x =>{
+           await this.generarSucesores(temp.y).then(
+               async x =>{
                    for (const tempKey in x) {
+                       let id="a"+temp.y+"a"+x[tempKey].y;
+                       await changeColorLine(id,"Yellow",500);
                        l.unshift(x[tempKey])
                    }
                }
            )
-
+           ant=temp;
        }
        return null
     }
 
     async busquedaProfundidad(nodoi,nodof){
+        let ini=this.gety(nodoi)
         let l=[]
-        l.push(nodoi)
+        var ant=null;
+        l.push(ini)
         while (l.length!=0){
             let temp=l.shift();
-            if (temp==nodof){
+            if(temp.pre!=-1){
+                let id=("a"+temp.pre+"a"+temp.y)
+                await changeColorLine(id,"Yellow",500)
+            }
+            if (temp.y==nodof){
                 let el=document.getElementById("a"+nodof.toString())
                 await changeColorNode(el,"Yellow",500,"BY")
+                await this.backtrace(nodoi,temp.y)
                 return temp;
             }
-            let s;
-            await this.generarSucesores(temp).then(
-                x =>{
-                    for (const tempKey in x) {
-                        l.unshift(x[tempKey])
+            if(temp.visita==0){
+                await this.generarSucesores(temp.y).then(
+                    x =>{
+                        for (const tempKey in x) {
+                            l.unshift(x[tempKey])
+                        }
                     }
-                }
-            )
-
+                )
+                temp.visita++
+            }
+            ant=temp;
         }
         return null
     }
+
+    async recorridoProfundidad(){
+        let ini=this.head.down;
+        let pila=[];
+        var ant=null;
+        pila.unshift(ini);
+        while (pila.length!=0){
+            let temp=pila.shift();
+            let el=document.getElementById("a"+temp.y)
+            if(temp.pre!=-1){
+                let id=("a"+temp.pre+"a"+temp.y)
+                await changeColorLine(id,"Yellow",500)
+            }
+            await changeColorNode(el,"Yellow",500,"BY")
+                await this.generarSucesores(temp.y).then(
+                    x =>{
+                        for (const tempKey in x) {
+                            if(x[tempKey].visita==0){
+                                pila.unshift(x[tempKey])
+                            }
+                        }
+                    }
+                )
+            temp.visita++
+            ant=temp;
+            if(pila.length==0){
+                let t=this.head;
+                let marc=true
+                while(t.down!=null&&marc){
+                    t=t.down
+                    if(t.visita==0){
+                        ant=null
+                        pila.unshift(t)
+                        marc=false
+                    }
+                }
+            }
+        }
+    }
+
 
     async generarSucesores(nodo){
         let t=this.gety(nodo);
@@ -327,15 +442,128 @@ class Matriz{
         if (t!=null){
             t=t.right
             while(t!=null){
-                res.push(t.x)
-                id="a"+nodo.toString()+"a"+t.x.toString();
-                await changeColorLine(id,"Yellow",500)
+                let temp=this.gety(t.x);
+                if (temp!=null){
+                    temp.pre=nodo;
+                    res.push(temp)
+                }
                 t=t.right;
             }
         }
+        //res.sort(compareNumbers)
+
       return res
     }
+
+    async CostoUniforme(nodoi,nodof){
+        let l=[]
+        let res=0
+        var ant=null;
+        var init=this.gety(nodoi)
+        if (init!=null){
+            l.push(init.right)
+        }
+        while (l.length!=0){
+            let temp=l.pop();
+            if (temp.y==nodof){
+                let el=document.getElementById("a"+nodof.toString())
+                await changeColorNode(el,"Yellow",500,"BY")
+                await this.backtrace(nodoi,temp.y)
+                return temp;
+            }
+           if(temp.visita==0){
+               await this.generarSucesoresCosto(temp.y).then(
+                   async x =>{
+                       for (const tempKey in x) {
+                           let id="a"+temp.y+"a"+x[tempKey].y;
+                           await changeColorLine(id,"Yellow",500);
+                           l.unshift(x[tempKey])
+                       }
+                   }
+               )
+               temp.visita++
+           }
+            l.sort(compareCosts)
+            l.reverse()
+            ant=temp;
+        }
+        return null
+    }
+
+    async backtrace(nodoi,nodoR){
+        let a=this.gety(nodoR)
+        let aux=null;
+        while (a.y!==nodoi){
+            aux=this.gety(a.pre)
+            if (aux.y!=a.y){
+                let id="a"+aux.y+"a"+a.y
+                await changeColorLine(id,"Blue",500)
+
+            }
+            a=aux
+        }
+    }
+
+    async generarSucesoresCosto(nodo){
+        let t=this.gety(nodo);
+        let res=[];
+        if (t!=null){
+            t=t.right
+            while(t!=null){
+                let tem=this.gety(t.x);
+                   tem.val=t.val
+                   tem.pre=nodo;
+                res.push(tem)
+                t=t.right;
+            }
+        }
+        res.sort(compareCosts)
+        return res
+    }
+
+
+
+    async recorridoAnchura(){
+        let ini=this.head.down;
+        let pila=[];
+        var ant=null;
+        pila.unshift(ini);
+        while (pila.length!=0){
+            let temp=pila.pop();
+            let el=document.getElementById("a"+temp.y)
+            if(temp.pre!=-1){
+                let id=("a"+temp.pre+"a"+temp.y)
+                await changeColorLine(id,"Yellow",500)
+            }
+            await changeColorNode(el,"Yellow",500,"BY")
+            if (temp.visita==0){
+                await this.generarSucesores(temp.y).then(
+                    x =>{
+                        for (const tempKey in x) {
+                            pila.unshift(x[tempKey])
+                        }
+                    }
+                )
+                temp.visita++
+            }
+            ant=temp;
+            if(pila.length==0){
+                let t=this.head;
+                let marc=true
+                while(t.down!=null&&marc){
+                    t=t.down
+                    if(t.visita==0){
+                        ant=null
+                        pila.unshift(t)
+                        marc=false
+                    }
+                }
+            }
+        }
+    }
+
 }
+
 
 function getOffset( el ) {
     var rect = el.getBoundingClientRect();
@@ -347,7 +575,7 @@ function getOffset( el ) {
     };
 }
 
-function connect(div2, div1,color,thickness) { // draw a line connecting elements
+function connect(div2, div1,color,thickness,val) { // draw a line connecting elements
     var off1 = getOffset(div1);
     var off2 = getOffset(div2);
     var x1 = off1.left + off1.width/2;
@@ -364,7 +592,9 @@ function connect(div2, div1,color,thickness) { // draw a line connecting element
     let id=div2.id+div1.id
     var htmllinecontainer = "<div id=\""+id+"\" style='padding:0px; margin:0px; height:" + 60 + "px; background-color:" + "transparent" + "; line-height:1px; position:absolute; left:" + cx + "px; top:" + cy + "px; width:" + length + "px; -moz-transform:rotate(" + angle + "deg); -webkit-transform:rotate(" + angle + "deg); -o-transform:rotate(" + angle + "deg); -ms-transform:rotate(" + angle + "deg); transform:rotate(" + angle + "deg);' />";
     htmllinecontainer+="\n"
-    htmllinecontainer+= "<div id='h"+id+"' style='width: 0; height: 0; border-top: 20px solid transparent; border-bottom: 20px solid transparent; border-left: 20px solid "+color+"; padding:0px; margin:0px; position:absolute; left:" + (length) + "px; ' />";
+    htmllinecontainer+="<label style='color: black position: absolute;left: "+(length/2)+"px; top: 14px'>"+val+"</label>"
+    htmllinecontainer+= "<div id='h"+id+"' style='width: 0; height: 0; border-top: 20px solid transparent; border-bottom: 20px solid transparent; border-left: 20px solid "+color+"; padding:0px; margin:0px; position:absolute; left:" + length + "px; ' >";
+    htmllinecontainer+= "</div>";
     var htmlLine = "<div id='l"+id+"' style='padding:0px; margin:0px; height:" + thickness + "px; background-color:" + color + "; line-height:1px; position:absolute; left: 0px; top: 14px;   width:" + length + "px; ' />";
     document.getElementById("result").innerHTML += htmllinecontainer;
     document.getElementById(id).innerHTML += htmlLine;
@@ -397,4 +627,29 @@ function changeColorLine(id, color, speed) {
             resolve()
         }, speed);
     });
+}
+
+function compareNumbers(a, b) {
+    return a - b;
+}
+
+function compareY(a,b){
+    if (a.y < b.y) {
+        return -1;
+    } else if (a.y > b.y) {
+        return 1;
+    } else
+        return 0;
+}
+function compareCosts(a,b){
+    return a.val-b.val;
+}
+
+function valComparison(a, b) {
+    if (a < b) {
+        return -1;
+    } else if (a > b) {
+        return 1;
+    } else
+        return 0;
 }

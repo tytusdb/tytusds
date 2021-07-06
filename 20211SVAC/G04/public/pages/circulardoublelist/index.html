@@ -54,7 +54,7 @@
 										/>
 									</li>
 									<li>
-										<button onclick="hideNavMenu(0)">
+										<button onclick="saveJSONLinearFile()">
 											<i class="icon-save"></i>Guardar
 										</button>
 									</li>
@@ -170,16 +170,6 @@
 												/>
 											</li>
 
-											<li>
-												<label for="addAtOrder">Orden</label>
-												<input
-													type="radio"
-													id="addAtOrder"
-													onchange="changeInsertMode(event)"
-													name="addAt"
-													value="order"
-												/>
-											</li>
 										</ul>
 									</li>
 
@@ -201,8 +191,10 @@
 										<div class="range-container">
 											<input
 												type="range"
-												min="50"
-												max="800"
+												min="5"
+												step="5"
+												max="30"
+												value="5"
 												id="velocity"
 												onchange="onChangeSortVelocity(event)"
 											/>

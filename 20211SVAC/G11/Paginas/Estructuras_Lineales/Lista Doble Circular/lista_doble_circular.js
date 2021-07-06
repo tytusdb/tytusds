@@ -26,7 +26,7 @@ class Lista {
         this.primero = nuevo;
         this.primero.siguiente = nuevo;
         this.primero.anterior = nuevo;
-           x|
+           
         }else if(this.primero.siguiente == this.primero){
             this.primero.siguiente = nuevo;
             nuevo.anterior = this.primero;
@@ -106,20 +106,79 @@ class Lista {
         
         var valores = []
         let aux = this.primero;
+        let capa = document.getElementById("capa");        
+        let capa2 = document.getElementById("capa1");
+        capa2.remove();
+        var c1 = document.createElement("div");
+        c1.setAttribute("id","capa1");
+        capa.appendChild(c1);
         valores.push(aux.dato);
             console.log("Dato:", aux.dato);
+        if (aux != null) {
+            var capa5 = document.getElementById("capa1");
+            var h1 = document.createElement("button");
+            h1.className = "sad";
+            h1.setAttribute("name","mails[]");
+            //h1.style.width = '100px';
+            //h1.setAttribute("height","100px");
+            h1.innerHTML = aux.dato;
+            capa5.appendChild(h1);
+        }
             aux = aux.siguiente;
         while (aux != this.primero) {
             valores.push(aux.dato);
             console.log("Dato:", aux.dato);
+            var capa5 = document.getElementById("capa1");
+            var h1 = document.createElement("button");
+            h1.className = "sad";
+            h1.setAttribute("name","mails[]");
+            //h1.style.width = '100px';
+            //h1.setAttribute("height","100px");
+            h1.innerHTML = aux.dato;
+            capa5.appendChild(h1);
             aux = aux.siguiente;
         }
 
         return valores;
     }
     }
-    update(){
-        
+    search(dato){
+        if (this.primero != null) {
+            let aux = this.primero;
+            if (this.primero.dato = dato) {
+                return this.primero.dato
+            }
+            aux = aux.siguiente;
+            while (aux != this.primero) {
+                if (aux.dato == dato) {
+                    return aux.dato
+                }
+                aux = aux.siguiente;
+            }
+    
+            return "";
+        }
+    }
+    update(dato,datoactualizado){
+        if (this.primero != null) {
+            
+       
+            let aux = this.primero
+            if (aux.dato === dato) {
+                this.primero.dato = datoactualizado;
+                return;
+            }
+            aux = aux.siguiente;
+            while(aux != this.primero){
+                if(aux.dato == dato){
+                   aux.dato = datoactualizado;
+                   return
+                }
+                aux = aux.siguiente;
+            }
+            return
+        }
+        return
     }
 
 }
@@ -132,7 +191,7 @@ function main () {
 	
         nuevo.add(porId)
         nuevo.print()
-        alert(nuevo.print())
+       
 	});
     $('.btn-Elimina').click(function(){
         var porId=document.getElementById("valor").value;
@@ -140,15 +199,34 @@ function main () {
 	
         nuevo.remove(porId)
         nuevo.print()
-        alert(nuevo.print())
 	});
     
     $('.btn-Actualizar').click(function(){
-        alert("Actualizar")
+        var porId = document.getElementById("valor").value;
+        var existe = nuevo.search(porId)
+        if (porId == "") {
+            alert("Por favor ingrese un dato")
+        }else if (existe == "") {
+            alert("El Dato que desea actualizar no existe")
+        }else{
+            let datoactualizado= prompt('Por cual numero desea cambiar',0);
+                nuevo.update(porId,datoactualizado)
+                alert("Se a actualizado");
+            
+            
+        }
+        nuevo.print();
 	});
    
     $('.btn-Buscar').click(function(){
-        alert("Buscar")
+        var porId = document.getElementById("valor").value;                                                                                                                                                                                                                                                                             
+        var existe = nuevo.search(porId)
+        if (existe == "") {
+            alert("El dato no Existe")
+        }else{
+            alert("El dato "+existe + " si existe")
+        }
+        
 	});
 
     $('.btn-Guardar').click(function(){

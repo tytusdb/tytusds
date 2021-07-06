@@ -49,13 +49,13 @@ export class CpComponent implements OnInit {
           this.lista.guardar(valor['prioridad'],valor['valor']);
           //this.lista.insertar2(valor);
           }
-          ); 
+          ); alert("Datos guardados"); 
           this.lista.buscarespecial(this.opciones['velocidadLineales'])});  
     }else{
       this.documentoService.getDocumento(documento).then( contenido => {
         contenido['valores'].forEach(valor => { 
           this.lista.guardar2(valor['prioridad'],valor['valor']);
-          });this.lista.buscarespecial(this.opciones['velocidadLineales']) });
+          }); alert("Datos guardados");  this.lista.buscarespecial(this.opciones['velocidadLineales']) });
     }
     //this.lista.buscarespecial();
     
@@ -114,14 +114,12 @@ export class CpComponent implements OnInit {
       //this.lista.repeat=true;
       //this.lista.modificar(valor,valor1);
       this.lista.modificar(valor,valor1);
-      this.lista.pintar();
       this.ag1 = '';
       this.ag2 = '';
       return;
     }else{
       //this.lista.repeat=false;
       this.lista.modificar2(valor,valor1);
-      this.lista.pintar();
       this.ag1 = '';
       this.ag2 = '';
       return;
@@ -130,6 +128,6 @@ export class CpComponent implements OnInit {
   }
 
   actualizar(){
-    this.lista.pintar();
+    this.lista.pintar(this.opciones['velocidadLineales']);
   }
 }

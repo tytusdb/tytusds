@@ -3,8 +3,7 @@ import { ListaSimple } from './ts/lista-simple';
 import { saveAs } from 'file-saver';
 import { DocumentoService } from '../../services/documento.service';
 
-declare var require: any;
-let vis=require('../../../../vis-4.21.0/dist/vis');
+import * as vis from '../../../../vis-4.21.0/dist/vis';
 
 @Component({
   selector: 'app-lista-simple',
@@ -16,11 +15,11 @@ export class ListaSimpleComponent implements OnInit {
   lista: ListaSimple;  //  Variable para manejar la lista simple
 
   //  Las variables para manejar las operaciones de la lista
-  valorAgregar = '';
-  valorEliminar = '';
-  nodoActualizar = '';
-  valorActualizar = '';
-  valorBuscar = '';
+  valorAgregar: any = '';
+  valorEliminar: any = '';
+  nodoActualizar: any = '';
+  valorActualizar: any = '';
+  valorBuscar: any = '';
 
   //  Las opciones de la confuguracion para las operaciones
   opciones = {
@@ -74,10 +73,16 @@ export class ListaSimpleComponent implements OnInit {
           return;
         }
       }
+      if (!isNaN(parseInt(this.valorAgregar, 10))) {
+        this.valorAgregar = +this.valorAgregar;
+      }
+
       if (this.opciones['ingreso'].toLowerCase() === 'final' || this.opciones['ingreso'].toLowerCase() === 'fin') {
         this.lista.insertarFinal(this.valorAgregar);
       } else if (this.opciones['ingreso'].toLowerCase() === 'inicio') {
         this.lista.insertarInicio(this.valorAgregar);
+      } else {
+        this.lista.agregarOrdenado(this.valorAgregar);
       }
       //console.log(this.lista.primero.valor);
       this.valorAgregar = '';

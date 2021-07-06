@@ -300,7 +300,7 @@ function read(){
                 for(let i=0; i<val.length; i++){
                     contadorr = contadorr + 0.5
                     setTimeout(function (params) {
-                        arbolbb.agregar(parseInt(val[i],16))
+                        arbolbb.agregar(val[i],16)
                         arbolbb.estructurar()
                         actualizarTablero()
                     },(1000)*Math.round(parseInt(slider.value)/2)*contadorr) 
@@ -310,12 +310,12 @@ function read(){
                 switchToggle.checked = false
                 for(let i=0; i<val.length; i++){
                     contadorr = contadorr + 0.5
-                    if (arbolbb.buscar(parseInt(val[i],16), arbolbb.raiz)){
+                    if (arbolbb.buscar(val[i], arbolbb.raiz)){
                         console.log("no se aceptan valores repetidos")
                     }else{
                         contadorr = contadorr + 0.5
                         setTimeout(function (params) {
-                            arbolbb.agregar(parseInt(val[i],16))
+                            arbolbb.agregar(+val[i])
                             arbolbb.estructurar()
                             actualizarTablero()
                         },(1000)*Math.round(parseInt(slider.value)/2)*contadorr)                        

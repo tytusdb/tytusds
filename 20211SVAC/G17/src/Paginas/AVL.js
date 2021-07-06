@@ -8,11 +8,11 @@ class TreeNode {
     }
 }
 
-const abb = require('ABB')
 const {
     defaultCompare,
     Compare
-} = require('function')
+} = require('./function')
+
 
 const factorBalance = {
     BALANCEADO_DERECHA: 1,

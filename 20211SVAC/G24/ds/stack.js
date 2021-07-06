@@ -66,4 +66,15 @@ class stack{
 			curr=curr.prev;
 		}
 	}
+	getNodes(){
+		var curr=this.top;
+		var list=[];
+		list.push(curr.data);
+		curr=curr.prev;
+		while (curr!=null){
+			list.push(curr.data);
+			curr=curr.prev;
+		}
+		return list.reverse();
+	}
 }

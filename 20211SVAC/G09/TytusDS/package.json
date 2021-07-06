@@ -22,6 +22,7 @@
     "animate.css": "^4.1.1",
     "animejs": "^3.2.1",
     "rxjs": "~6.6.0",
+    "terser": "3.14.1",
     "tslib": "^2.0.0",
     "velocity-animate": "^1.5.2",
     "zone.js": "~0.11.3"

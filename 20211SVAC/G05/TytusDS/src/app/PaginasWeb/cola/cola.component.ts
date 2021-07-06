@@ -46,14 +46,14 @@ export class ColaComponent implements OnInit {
         console.log(contenido);
         contenido['valores'].forEach(valor => { 
           this.lista.insertar2(valor);
-          }); });
+          });  alert("Datos guardados");  });
     }
     else{
       this.documentoService.getDocumento(documento).then( contenido => {
         console.log(contenido);
         contenido['valores'].forEach(valor => { 
-          this.lista.guardarg(valor);
-          }); });
+          this.lista.guardar22(valor);
+          });  alert("Datos guardados"); });
     }
     
   }
@@ -75,13 +75,13 @@ export class ColaComponent implements OnInit {
   Add(valor){
     if(this.opciones['repeticionLineales']===true){
       //this.lista.repeat=true;
-      this.lista.insertar(valor);
+      this.lista.insertar(valor,this.opciones['velocidadLineales']);
       this.ag = '';
       return;
     }
     else{
       //this.lista.repeat=false;
-      this.lista.insertar(valor);
+      this.lista.guardarg(valor,this.opciones['velocidadLineales']);
       this.ag = '';
       return;
       console.log("gg");
@@ -100,7 +100,7 @@ export class ColaComponent implements OnInit {
   //
 
   bus(valor){
-     this.lista.buscar(valor);
+     this.lista.buscar(valor,this.opciones['velocidadLineales']);
     this.ag3 = '';
       return;
 

@@ -28,6 +28,15 @@
     }
 }
 
+@keyframes colorChangeRed {
+    from {
+        background-color: yellow;
+    }
+    to {
+        background-color: red;
+    }
+}
+
 @keyframes colorChangeBY {
     from {
         background-color: Black;
@@ -37,4 +46,18 @@
         background-color: yellow;
         color:black;
     }
+}
+
+.myDiv {
+    border: 5px outset black;
+    background-color: lightblue;
+    height: 75px;
+    width: 75px;
+    display: table-cell;
+    position: absolute;
+    animation-fill-mode: forwards;
+}
+
+table, th, td {
+    border: 1px solid black;
 }

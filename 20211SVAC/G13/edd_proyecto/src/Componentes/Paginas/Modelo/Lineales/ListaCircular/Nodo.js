@@ -11,5 +11,5 @@ class Nodo{
     get_siguiente(){ return this.siguiente; }
     set_siguiente(siguiente){ this.siguiente = siguiente; }
 }
-
-module.exports = Nodo;
+export default Nodo;
+// module.exports = Nodo;

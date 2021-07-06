@@ -88,13 +88,18 @@ class Lista {
             valores.push(aux.dato);
             var capa5 = document.getElementById("capa1");
             var h1 = document.createElement("button");
+            var h2 = document.createElement('button');
             h1.className = "sad";
+            h2.className = "ord";
             h1.setAttribute("name","mails[]");
             //h1.style.width = '100px';
             //h1.setAttribute("height","100px");
             h1.innerHTML = aux.dato;
+            h2.innerHTML = "->";
             capa5.appendChild(h1);
+            capa5.appendChild(h2);
             aux = aux.siguiente;
+            //_------------------------------------
         }
 
         return valores;
