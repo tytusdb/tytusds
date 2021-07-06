@@ -267,23 +267,49 @@ debugger
             cabecera = cabecera.siguiente;
         }
     }
-    imprimir_horizontal_Lista_Dos_Dimensiones(){
-        var nuevoArray = new Array(2);
-        nuevoArray[0] = new Array();
-        nuevoArray[1] = new Array();
+    dame_valor_Horizontal(){
+        let cabecera = this.lista_horizontal.primero;
+        let aux;
+        let contador = 0;
+        while(cabecera != null){
+            aux = cabecera.abajo;
+            while(aux!= null){
+                console.log("Valor:",aux.valor, "X:", aux.x, "Y:", aux.y);
+                contador++;
+                aux = aux.abajo;
+            }
+            cabecera = cabecera.siguiente;
+        }console.log(contador);
+        return contador
+            
+      
+    }   
+    imprimir_lista(){
+        let n = k.dame_valor_Horizontal()
+        var arr = k.Create2DArray(n);
         let cabecera = this.lista_horizontal.primero;
         let aux;
         while(cabecera != null){
             aux = cabecera.abajo;
             while(aux!= null){
                 console.log("Valor:",aux.valor, "X:", aux.x, "Y:", aux.y);
-                nuevoArray[aux.x][aux.y] = aux.valor;
+                arr[aux.y-1][aux.x-1] = aux.valor;
                 aux = aux.abajo;
             }
             cabecera = cabecera.siguiente;
         }
-        return nuevoArray
+        console.log(arr)
+        return arr
     }
+     Create2DArray(rows) {
+        var arr = [];
+      
+        for (var i=0;i<rows;i++) {
+           arr[i] = [];
+        }
+      
+        return arr;
+      }
     returnValores(){
         let cabecera = this.lista_horizontal.primero, cont=0;
         let aux, val="";
