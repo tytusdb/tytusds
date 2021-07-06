@@ -46,6 +46,20 @@ var LZW = (function () {
         var finalString = this.Salida.join('');
         return finalString;
     };
+    LZW.prototype.getMatrix = function () {
+        var _a;
+        var headers = ['w', 'K', 'wK', 'Agregar', 'Salida'];
+        var matrix = [headers];
+        for (var i = 0; i < this.W.length; i++)
+            matrix.push([
+                (_a = this.W[i]) === null || _a === void 0 ? void 0 : _a.toString(),
+                this.K[i],
+                this.WK[i],
+                this.Agregar[i],
+                this.Salida[i],
+            ]);
+        return matrix;
+    };
     LZW.prototype.ingresarCaracteres = function (cadena) {
         for (var i = 0; i < cadena.length; i++) {
             if (this.enDiccionario(cadena.charAt(i)) == -1)

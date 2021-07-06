@@ -1,5 +1,5 @@
 class FilaFeistel {
-	private bits: string[]
+	bits: string[]
 	private longitud: number
 
 	constructor(bits: any[], longitud: number) {
@@ -43,6 +43,19 @@ class Feistel {
 		if (this.esBinario(cadena)) {
 			this.mitad(cadena)
 		}
+	}
+
+	getMatrix() {
+		const matrix: string[][] = []
+		for (let i = 0; i < this.tabla.length; i++) {
+			matrix.push([
+				// @ts-ignore
+				...Array(this.tabla[i].longitud).fill(''),
+				...this.tabla[i].bits,
+			])
+		}
+
+		return matrix
 	}
 
 	private codificarFeistel(L: any[], R: any[], iteracion: number) {

@@ -1,4 +1,9 @@
 "use strict";
+var __spreadArray = (this && this.__spreadArray) || function (to, from) {
+    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
+        to[j] = from[i];
+    return to;
+};
 var FilaHamming = (function () {
     function FilaHamming(longitud) {
         this.valores = [];
@@ -21,6 +26,12 @@ var Hamming = (function () {
             return this.tabla;
         }
         return null;
+    };
+    Hamming.prototype.getMatrix = function () {
+        var matrix = [];
+        for (var i = 0; i < this.tabla.length; i++)
+            matrix.push(__spreadArray([], this.tabla[i].valores));
+        return matrix;
     };
     Hamming.prototype.toString = function () {
         return (this.tabla

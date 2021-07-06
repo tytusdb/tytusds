@@ -30,6 +30,14 @@ class Hamming {
 		return null
 	}
 
+	getMatrix() {
+		const matrix: string[][] = []
+		for (let i = 0; i < this.tabla.length; i++)
+			matrix.push([...this.tabla[i].valores])
+
+		return matrix
+	}
+
 	toString() {
 		return (
 			this.tabla

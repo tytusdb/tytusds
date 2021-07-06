@@ -56,6 +56,21 @@ class LZW {
 		return finalString
 	}
 
+	getMatrix() {
+		const headers = ['w', 'K', 'wK', 'Agregar', 'Salida']
+		const matrix: string[][] = [headers]
+		for (let i = 0; i < this.W.length; i++)
+			matrix.push([
+				this.W[i]?.toString(),
+				this.K[i],
+				this.WK[i],
+				this.Agregar[i],
+				this.Salida[i],
+			])
+
+		return matrix
+	}
+
 	ingresarCaracteres(cadena: string) {
 		for (let i = 0; i < cadena.length; i++) {
 			if (this.enDiccionario(cadena.charAt(i)) == -1)

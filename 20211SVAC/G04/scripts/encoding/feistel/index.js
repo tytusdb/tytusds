@@ -1,4 +1,9 @@
 "use strict";
+var __spreadArray = (this && this.__spreadArray) || function (to, from) {
+    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
+        to[j] = from[i];
+    return to;
+};
 var FilaFeistel = (function () {
     function FilaFeistel(bits, longitud) {
         this.bits = [];
@@ -34,6 +39,13 @@ var Feistel = (function () {
         if (this.esBinario(cadena)) {
             this.mitad(cadena);
         }
+    };
+    Feistel.prototype.getMatrix = function () {
+        var matrix = [];
+        for (var i = 0; i < this.tabla.length; i++) {
+            matrix.push(__spreadArray(__spreadArray([], Array(this.tabla[i].longitud).fill('')), this.tabla[i].bits));
+        }
+        return matrix;
     };
     Feistel.prototype.codificarFeistel = function (L, R, iteracion) {
         var l = L.length + R.length;
