@@ -17,6 +17,7 @@
 ### [Matriz Dispersa](https://tytusdb.github.io/tytusds/20211SVAC/G27/No_Lineales/matriz_dispersa.html)
 ### [Col And Row Major](https://tytusdb.github.io/tytusds/20211SVAC/G27/No_Lineales/row_col_major.html)
 ### [Grafos](https://tytusdb.github.io/tytusds/20211SVAC/G27/No_Lineales/Grafos.html)
+### [Compuesta](https://tytusdb.github.io/tytusds/20211SVAC/G27/No_Lineales/compuesta.html)
 
 ## ALGORITMOS DE CODIFICACION
 ### [Feistel](https://tytusdb.github.io/tytusds/20211SVAC/G27/Codificacion/Feistel.html)

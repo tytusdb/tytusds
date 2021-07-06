@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="../CSS/header.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/ddNavBar.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/estructurasLineales.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codigo de Hamming</title>
+</head>
+<body>
+    <script type="text/javascript">
+
+        function crearParidad(palabra){
+            let hamming = '';
+            let preHamming = '';
+            let bUsado = 0;
+
+            const lon_palabra = palabra.length + Math.log2(palabra.length) + 1;
+
+            for (let i = 0; i < lon_palabra; i++) {
+                preHamming += verificarBit(i + 1) ? 0 : palabra[bUsado++];
+            }
+
+
+            for (let i = 0; i < preHamming.length; i++) {
+                const pos = i + 1;
+                if (!verificarBit(pos)) {
+                    hamming += preHamming[i];
+                    continue;
+                }
+
+                let count = 0;
+                for (let j = i; j < preHamming.length; j += 2 * pos) {
+                    const slice = preHamming.slice(j, j + pos);
+                    for (let k = 0; k < slice.length; k++)
+                        count += Number(slice[k]);
+                }
+                hamming += `${count % 2}`
+            }
+
+            console.log('palabra:  ', palabra);
+            console.log('Cod. Hamming generado:', hamming);
+            texto = hamming
+            return hamming;
+        };
+        const verificarBit = n => n == 1 || Math.log2(n) % 1 == 0;
+
+        function revParidad(bin){
+            const errors = [];
+
+            for (let i = 0; i < bin.length; i++) {
+                const pos = i + 1;
+                if (!verificarBit(pos)) continue;
+                let count = 0;
+                for (let j = i; j < bin.length; j += 2 * pos) {
+                    const slice = bin.slice(j, j + pos);
+                    for (let k = 0; k < slice.length; k++)
+                        count += Number(slice[k]);
+                }
+                if (count % 2) {
+                    errors.push(pos);
+                }
+            }
+
+            const flip = i => bin.slice(0, i) + (bin[i] == '0' ? '1' : '0') + bin.slice(i + 1, bin.length);
+
+            console.log('Bits de paridad con error:', errors);
+            console.log('Palabra:                     ', bin);
+            if (errors.length)
+                console.log('Binario correcto:', flip(errors.reduce((ac, it) => ac + it) - 1));
+        }
+
+        function generarCodigo(){
+            var cadena = '';
+            cadena = document.getElementById('contenido-archivo').value;
+
+            document.getElementById('texto').innerHTML = crearParidad(cadena);
+
+        }
+        function download(filename, text) {
+            var pom = document.createElement('a');
+            pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+            pom.setAttribute('download', filename);
+
+            if (document.createEvent) {
+                var event = document.createEvent('MouseEvents');
+                event.initEvent('click', true, true);
+                pom.dispatchEvent(event);
+            }
+            else {
+                pom.click();
+            }
+        }
+
+        function leerArchivo(e) {
+        var archivo = e.target.files[0];
+        if (!archivo) {
+            return;
+        }
+        var lector = new FileReader();
+        lector.onload = function(e) {
+            var contenido = e.target.result;
+            mostrarContenido(contenido);
+        };
+        lector.readAsText(archivo);
+        }
+
+        function mostrarContenido(contenido) {
+        var elemento = document.getElementById('contenido-archivo');
+        elemento.innerHTML = contenido;
+        }
+
+        document.getElementById('file-input').addEventListener('change', leerArchivo, false);
+        var texto = '';
+
+    </script>
+
+    <h1>Codigo de Hamming</h1>
+
+    <ul>
+        <li><a class="active" href="../index.html">Home</a></li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Estructura lineales</a>
+            <div class="dropdown-content">
+                <a href="listaSimplementeEnlazada.html">Lista simplemente enlazada</a>
+                <a href="listaDoblementeEnlazada.html">Lista doblemente enlazada</a>
+                <a href="listaCircularSimplementeEnlazada.html">Lista circular simplemente enlazada</a>
+                <a href="listaCircularDoblementeEnlazada.html">Lista circular doblemente enlazada</a>
+                <a href="pila.html">Pila</a>
+                <a href="cola.html">Cola</a>
+                <a href="colaDePrioridad.html">Cola de prioridad</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Ordenamientos</a>
+            <div class="dropdown-content">
+                <a href="burbuja.html">Burbuja</a>
+                <a href="seleccion.html">Selección</a>
+                <a href="insercion.html">Inserción</a>
+                <a href="rapido.html">Rápido</a>
+            </div>
+        </li>
+        </li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Estructuras arbóreas</a>
+            <div class="dropdown-content">
+                <a href="arbolBinarioDeBusqueda.html">Árbol binario de búsqueda</a>
+                <a href="avl.html">AVL</a>
+                <a href="arbolB.html">Árbol B</a>
+                <a href="arbolB+.html">Árbol B+</a>
+                <a href="arboldeMerkle.html">Árbol de Merkle</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Estructuras no lineales</a>
+            <div class="dropdown-content">
+                <a href="hashAbierto.html">Tabla Hasta Abierta</a>
+                <a href="hashCerrado.html">Tabla Hasta Cerrada</a>
+                <a href="busqRecorridoAnchura.html">Anchura</a>
+                <a href="costoUniforme.html">Algoritmo de costo uniforme</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Algoritmo de codificación</a>
+            <div class="dropdown-content">
+                <a href="hamming.html">Código de Hamming</a>
+                <a href="huffman.html">Algoritmo de Huffman</a>
+                <a href=".html">Algoritmo LZW</a>
+                <a href=".html">Cifrado Feistel</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Estructuras compuestas</a>
+            <div class="dropdown-content">
+                <a href=".html">Matrices dispersas</a>
+                <a href=".html">Row-major (2D a 1D)</a>
+                <a href=".html">Col-major (2D a 1D)</a>
+                <a href=".html">Construcción de estructuras compuestas</a>
+            </div>
+        </li>
+    </ul>
+
+    <form action="/action_page.php">
+        <label>Palabra: </label></br>
+        <input type="text" id="contenido-archivo"/></br></br>
+        <input type="file" id="file-input" /></br></br>
+        <input type="button" class="myButton" value="Generar Código" onclick="generarCodigo();"/>
+        <input type="button" class="myButton" value="Guardar" onclick="download('hamming.txt', document.getElementById('texto').innerHTML);"/>
+
+        </br>
+        <h2>Código de Hamming</h2>
+        <div class="container">
+            <h2 id="texto">
+
+            </h2>
+        </div>
+
+    </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
+</body>
+</html>

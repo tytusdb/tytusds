@@ -1,0 +1,9 @@
+body {
+    background-image: url(../Img/bckLine.jpg);
+    background-size: 100%;
+}
+
+h1,
+h5 {
+    color: white;
+}
