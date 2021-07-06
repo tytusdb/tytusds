@@ -12,7 +12,7 @@
       </h1>
       <ol class="breadcrumb" >
         <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Lista doblemente enlazada</li>
+        <li class="breadcrumb-item active" aria-current="page">Grafos</li>
       </ol>
     </div>
 
@@ -60,7 +60,10 @@
         <input style="display:none;" type="file" (change)="abrir($event)" #archivo>
         <button (click)="archivo.click()" type="button" class="btn btn-outline-light mr-sm-2">Cargar</button>
         <button (click)="descargarContenido()" class="btn btn-outline-light mr-sm-2" type="submit">Guardar</button>
+        
 
+        <input  class="form-control mr-sm-2" type="text" #animacion placeholder="Animacion" aria-label="Animacion">
+        <button class="btn btn-outline-light mr-sm-2" type="button">Animacion</button>
 
       </form>
     </nav>
