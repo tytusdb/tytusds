@@ -350,7 +350,7 @@ btRowMajor.addEventListener("click", (e) =>{
     e.preventDefault
     borrar_canvas()
     arreglo.mostrar()
-
+    resetmajor()
     rowMajor()
     
 })
@@ -359,7 +359,7 @@ btColMajor.addEventListener("click", (e) =>{
     e.preventDefault
     borrar_canvas()
     arreglo.mostrar()
-
+    resetmajor()
     columnMajor()
     
     

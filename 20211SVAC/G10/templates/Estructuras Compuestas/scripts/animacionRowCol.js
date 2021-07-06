@@ -63,8 +63,12 @@ function limitey(numero){
 let inicioX  = 105
 let inicioY = 105
 
+function resetmajor(){
+    inicioX  = 105
+    inicioY = 105
+}
+
 async function rowMajor() {
-    //console.log(`Row ${columna_final} ${fila_final}`)
     
     let limite_x = columna_final + 25
     let limite_y = fila_final - 25
@@ -89,8 +93,24 @@ async function rowMajor() {
 }
 
 async function columnMajor() {
-    console.log(`Col ${columna_final} ${fila_final}`)
+    let limite_x = columna_final + 25
+    let limite_y = fila_final + 25
+
+    await new Promise(resolve => setTimeout(resolve, 1000))
     ctx.beginPath()
-    ctx.fillStyle = "rgb(240, 84, 84, 0.6)"
-    ctx.fillRect(105, 105, 10, 10)
+    ctx.lineWidth = 10
+    ctx.moveTo(inicioX, inicioY)
+
+    do {
+        ctx.lineTo(inicioX, limite_y)
+        inicioX = inicioX + 80
+        ctx.lineTo(inicioX, 105)
+        ctx.lineTo(inicioX, inicioX)
+
+    } while(inicioX < limite_x); 
+
+    
+    
+    ctx.strokeStyle ="rgb(240, 84, 84, 0.6)";
+    ctx.stroke()
 }
