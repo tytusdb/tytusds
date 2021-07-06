@@ -51,7 +51,7 @@ class AVL {
 
     cargar(vec){
         for(var i in vec){
-            this.agregar(vec[i])
+            this.agregar(vec[i].toString())
         }
     }
 

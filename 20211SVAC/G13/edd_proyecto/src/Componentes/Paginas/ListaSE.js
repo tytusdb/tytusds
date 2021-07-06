@@ -183,9 +183,15 @@ class ListaSE extends Component {
 	}
 
 	handleSaveFile = () => {
-
-		listaSimple.generateJSON(listaSimple)
-	}
+		const element = document.createElement("a");
+		let contenido = listaSimple.generateJSON()
+		const blob = new Blob([contenido]);                   
+		element.href = URL.createObjectURL(blob);
+	    element.download = "listaSimple.json";
+	    document.body.appendChild(element);
+	    element.click();
+	    alert("Documento Crado")
+		}
 
 
 	render() {

@@ -28,6 +28,7 @@ export class ColMajorComponent implements OnInit {
   public network: any;
 
   constructor() { }
+  contenido = "";
   x1 = 0;
   y1 = 0;
   ngOnInit(): void {
@@ -36,6 +37,26 @@ export class ColMajorComponent implements OnInit {
     var container = this.el.nativeElement;
     this.network = new vis.Network(container, listaData, options);
   }
+
+  generador(){
+    this.contenido = "";
+    this.contenido = "{ \"valores\": [\n";
+    for (let i = 0; i < linealizado.length; i++) {
+      this.contenido += '"'+linealizado[i]+'"'+",\n";
+    }
+    this.contenido += "\n ]\n}"
+  }
+
+  descargarContenido(){
+    this.generador();
+    let downloadfile = "data: text/json;charset=utf-8,"+encodeURIComponent(this.contenido);
+    console.log(downloadfile);
+    var downloader = document.createElement('a');
+    downloader.setAttribute('href', downloadfile);
+    downloader.setAttribute('download', 'data.json');
+    downloader.click();
+  }
+
   code = '';
   texto="";
   abrir(eve:any)
@@ -126,5 +147,101 @@ export class ColMajorComponent implements OnInit {
 		  }
 	  }
     console.log(linealizado);
+  }
+  SearchData(chale: any){
+    let temp1 = linealizado.indexOf(chale)
+    var id = nodes.get({
+      fields:['id', 'label', 'color']
+    });
+    console.log("id de los nodos we")
+    console.log(id)
+    for (var val of id){
+      if(val.color === '#5A1E5C'){
+        nodes.update(
+          {id: val.id, color: "#7BE141"}
+        );
+      }
+    }
+    for (var val of id){
+      if(val.id === String(temp1)){
+        nodes.update(
+          {id: val.id, color: "#5A1E5C"}
+        );
+      }
+    }
+    for(var i=0; i<m; i++) {
+      for(var j=0; j<n; j++) {
+          if(matriz[i][j] == chale){
+            for (var val of id){
+              if(val.label === String(matriz[i][j])){
+                nodes.update(
+                  {id: val.id, color: "#5A1E5C"}
+                );
+              }
+            }
+          }
+      }
+    }
+
+  }
+  UpdateData(valor: any, valor1: any){
+    let temp1 = linealizado.indexOf(valor)
+
+    var id = nodes.get({
+      fields:['id', 'label', 'color']
+    });
+    console.log("id de los nodos we")
+    console.log(id)
+    for (var val of id){
+      if(val.color === '#5A1E5C'){
+        nodes.update(
+          {id: val.id, label: String(valor1), color: "#7BE141"}
+        );
+      }
+    }
+    nodes.update(
+      {id: temp1, label: String(valor1), color: "#5A1E5C"}
+    );
+    linealizado[temp1] = valor1;
+    for(var i=0; i<m; i++) {
+      for(var j=0; j<n; j++) {
+          if(matriz[i][j] == valor){
+                nodes.update(
+                  {id: i+','+j, label: String(valor1), color: "#5A1E5C"}
+                );
+                matriz[i][j] = valor1
+          }
+      }
+    }
+    console.log(valor, valor1)
+  }
+  DeleteData(valor: any){
+    let temp1 = linealizado.indexOf(valor)
+    linealizado[temp1] = 0;
+    var id = nodes.get({
+      fields:['id', 'label', 'color']
+    });
+    console.log("id de los nodos we")
+    console.log(id)
+    for (var val of id){
+      if(val.color === '#5A1E5C'){
+        nodes.update(
+          {id: val.id ,color: "#7BE141"}
+        );
+      }
+    }
+    nodes.update(
+      {id: temp1, label: '0', color: "#5A1E5C"}
+    );
+    for(var i=0; i<m; i++) {
+      for(var j=0; j<n; j++) {
+          if(matriz[i][j] == valor){
+            nodes.update(
+              {id: i+','+j, label: '0', color: "#5A1E5C"}
+            );
+            matriz[i][j] = 0
+          }
+      }
+    }
   }
 }

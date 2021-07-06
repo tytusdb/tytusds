@@ -109,44 +109,40 @@ class ColaPrioridad{
     //Cargar JSON
     cargar(vec){
         for(var i in vec){
-            this.agregar(vec[i].valor, vec[i].prioridad)
+            this.agregar(vec[i].valor.toString(), vec[i].prioridad)
         }
     }
     // Cola Prioridad
-    dotG(){
-        var nodos = [
-            {id:0, label: "PRIMERO"},
-            {id:1, label: "ULTIMO"}
-        ]
-        var indice = nodos.length
-        nodos = this.llenarN(nodos,indice)
-        var relaciones = [ ]
-        var rel = relaciones.length+2
-        relaciones = this.llenarR(relaciones,rel)
-        if(this.primero!==null){
-            relaciones.push({from: 0, to: 2})
-            relaciones.push({from: 1, to: nodos.length-1})
-        }
+    dotG(indice){
+        console.log("PASA")
+        var nodos = [{id:0+"l"+indice, label: "PRIMERO", level: indice}]
+        var relaciones = []
+        nodos = this.llenarN(nodos, indice, 1)
+        relaciones = this.llenarR(relaciones, indice, 0)
         return { nodes: nodos, edges: relaciones }
     }
-    llenarN(nodos,indice){
+
+    llenarN(nodos, indice, contador){
         var nodo = this.primero
         while(nodo !== null){
-            nodos.push({id: indice, label:(nodo.valor+" [ "+nodo.prioridad+" ]").toString()})
+            nodos.push({id: contador+"l"+indice, label:(nodo.valor+" [ "+nodo.prioridad+" ]"), level: indice})
             nodo = nodo.siguiente
-            indice++
+            contador++
         }
+        nodos.push({id: contador+"l"+indice, label: "ULTIMO", level: indice})
         return nodos
+
     }
-    llenarR(relaciones,rel){
+    llenarR(relaciones, indice, contador){
         var nodo = this.primero
         if(nodo !== null){
             do{
-                relaciones.push({from: rel, to: rel+1})
+                relaciones.push({from: contador+"l"+indice, to: (contador+1)+"l"+indice, arrows: "to"})
+                contador++
                 nodo = nodo.siguiente
-                rel ++
             }while(nodo !== null)
         }
+        relaciones.push({from: (contador+1)+"l"+indice, to: (contador)+"l"+indice, arrows: "to"})
         return relaciones
     }
 }

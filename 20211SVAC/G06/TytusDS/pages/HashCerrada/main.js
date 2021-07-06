@@ -25,11 +25,6 @@ var options = {
   edges:{
     color:"#17202A",
     arrows:'to'
-  },
-  physics:{
-    wind: {
-      x: 0.5
-    }
   }
 };
 

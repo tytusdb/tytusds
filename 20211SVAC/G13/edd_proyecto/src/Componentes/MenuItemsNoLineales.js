@@ -11,12 +11,12 @@ export const MenuItemsNoLineales = [
 	},
 	{
 		title:'Recorrido y busqueda por anchura de grafos',
-		path:'/',
+		path:'/GrafoAnchura',
 		cName:'dropdown-item'
 	},
 	{
 		title:'Recorrido y busqueda por profundidad de grafos',
-		path:'/',
+		path:'/GrafoProfundidad',
 		cName:'dropdown-item'
 	},
 	{

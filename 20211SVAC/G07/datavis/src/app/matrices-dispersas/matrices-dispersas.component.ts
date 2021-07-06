@@ -40,6 +40,30 @@ export class MatricesDispersasComponent implements OnInit {
     var container = this.el.nativeElement;
     this.network = new vis.Network(container, listaData, options);
   }
+  contenido = "";
+
+  descargarContenido(){
+    this.generador();
+    let downloadfile = "data: text/json;charset=utf-8,"+encodeURIComponent(this.contenido);
+    console.log(downloadfile);
+    var downloader = document.createElement('a');
+    downloader.setAttribute('href', downloadfile);
+    downloader.setAttribute('download', 'data.json');
+    downloader.click();
+  }
+
+  generador(){
+    this.contenido = "";
+    this.contenido = "{ \"valores\": [\n ";
+    for (let i = 0; i < this.rows.length; i++) {
+      this.contenido +=' { \n  "indices": [ \n   ';
+      this.contenido += this.rows[i]+",\n";
+      this.contenido +="   "+this.columns[i]+"\n    ],\n";
+      this.contenido += '   "valor": '+'"'+this.values[i]+'"';
+      this.contenido += "\n   },\n"
+    }
+    this.contenido += "\n ]\n}"
+  }
   code = '';
   texto="";
   abrir(eve:any)
@@ -54,12 +78,7 @@ export class MatricesDispersasComponent implements OnInit {
         text=String(resultado)
         var data = JSON.parse(text);  // se parse para obtener solo los datos
         data.valores.forEach(element => { // se pasa a un arreglo
-          console.log(element.indices[0])
-          console.log(element.indices[1])
-          console.log(element.valor)
-          let fila = Number(element.indices[0]);
-          let columna = Number(element.indices[1]);
-          this.AgregarNuevo(element.valor,fila,columna);
+          this.AgregarNuevo(element.valor,element.indices[0],element.indices[1]);
         });
 
         this.code=text.toString();
@@ -119,11 +138,6 @@ export class MatricesDispersasComponent implements OnInit {
         );
       }
     }
-
-/*
-    nodes.update(
-      {id: fr+','+cr, label:String(valor), color: "rgba(97,195,238,0.5)"}
-    )*/
   }
   TamanoMatriz(dato1: number, dato2: number){
     m = dato1 //filas
@@ -139,7 +153,7 @@ export class MatricesDispersasComponent implements OnInit {
           nodes.add(
             {id: i+','+j, label:'0',x: this.x1 , y: this.y1, color: "rgba(97,195,238,0.5)", shape: "box"}
           );
-          this.x1 = this.x1 + 40
+          this.x1 = this.x1 + 85
       }
       this.x1 = 0
       this.y1 = this.y1 + 35
@@ -150,5 +164,73 @@ export class MatricesDispersasComponent implements OnInit {
       fields:['id', 'label']
     });
     console.log(id)
+  }
+  SearchData(valor: any){
+
+    var id = nodes.get({
+      fields:['id', 'label', 'color']
+    });
+    console.log("id de los nodos we")
+    console.log(id)
+    for (var val of id){
+      if(val.color === '#5A1E5C'){
+        nodes.update(
+          {id: val.id, color: "#7BE141"}
+        );
+      }
+    }
+    for (var val of id){
+      if(val.label === String(valor)){
+        nodes.update(
+          {id: val.id, label:String(valor), color: "#5A1E5C"}
+        );
+      }
+    }
+  }
+  UpdateData(valor: any, actualizable: any){
+    let temps = this.values.indexOf(valor)
+    this.values[temps] = actualizable;
+    var id = nodes.get({
+      fields:['id', 'label', 'color']
+    });
+    console.log("id de los nodos we")
+    console.log(id)
+    for (var val of id){
+      if(val.color === '#5A1E5C'){
+        nodes.update(
+          {id: val.id, color: "#7BE141"}
+        );
+      }
+    }
+    for (var val of id){
+      if(val.label === String(valor)){
+        nodes.update(
+          {id: val.id, label:String(actualizable), color: "#5A1E5C"}
+        );
+      }
+    }
+  }
+  DeleteData(valor: any){
+    let temps = this.values.indexOf(valor)
+    delete this.values[temps]
+    var id = nodes.get({
+      fields:['id', 'label', 'color']
+    });
+    for (var val of id){
+      if(val.color === '#5A1E5C'){
+        nodes.update(
+          {id: val.id, color: "#7BE141"}
+        );
+      }
+    }
+    console.log("id de los nodos we")
+    console.log(id)
+    for (var val of id){
+      if(val.label === String(valor)){
+        nodes.update(
+          {id: val.id, label:'0', color: "#5A1E5C"}
+        );
+      }
+    }
   }
 }

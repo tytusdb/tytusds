@@ -3,8 +3,9 @@ import * as vis from 'vis';
 var edges = new vis.DataSet([]);
 var nodes = new vis.DataSet([]);
 var x1 = 0, y1 = 0;
+var sigs: any[];
 var h;
-var pos: any, value:any;
+var pos: any, value:any, nuevo: number, prueba: any;
 var options = {
   physics: {
     enabled: false,
@@ -54,9 +55,11 @@ class ListaDoble {
           console.log("id de los nodos we")
           console.log(id)
           dos = dos+50;
+          prueba = sigs[pos]
           nodes.add(
-            {id: pos+','+data, label:String(data), x: uno , y: dos, color: "rgba(97,195,238,0.5)",shape: "box"}
+            {id: pos+','+prueba, label:String(data), x: uno , y: dos, color: "rgba(97,195,238,0.5)",shape: "box"}
           );
+
           let men: number;
           var ids = nodes.get({
             fields:['id', 'label']
@@ -67,11 +70,13 @@ class ListaDoble {
             }
           }
           edges.update(
-            {from: pos+','+data, to: men, length: 20, arrows: 'to'}
+            {from: pos+','+prueba, to: men, length: 20, arrows: 'to'}
           );
           edges.update(
-            {from: men, to: pos+','+data, length: 20, arrows: 'to'}
+            {from: men, to: pos+','+prueba, length: 20, arrows: 'to'}
           );
+          console.log(prueba)
+          sigs[pos] = prueba + 1;
       }
       else {
           this.head = newNode;
@@ -114,7 +119,7 @@ class ListaDoble {
                       );
                     }else{
                       nodes.update(
-                        {id: pos+','+dato, label:valor,color: "#FFA807"}
+                        {id: val.id, label:valor,color: "#FFA807"}
                       );
                     }
                   }
@@ -149,7 +154,7 @@ class ListaDoble {
                       );
                     }else{
                       nodes.update(
-                        {id: pos+','+dato, color: "#FFA807"}
+                        {id: val.id, color: "#FFA807"}
                       );
                     }
                   }
@@ -316,8 +321,10 @@ class HashAbierta{
   NuevaTabla(tamano: number){
     tama = tamano;
     this.Arreglo = new Array(tama);//arreglo del tamaño especifico
+    sigs = new Array(tama)
     for (let j = 0; j < tama; j++) {
       this.Arreglo[j] = "-1";
+      sigs[j] = 0;
       nodes.update(
         {id: j, label:'-1',x: x1 , y: y1, color: "rgba(97,195,238,0.5)",shape: "box"}
       );
@@ -508,6 +515,7 @@ class HashAbierta{
         console.log("datos de pos y otros 1")
         console.log(res)
         console.log(posicion)
+        nuevo = res;
         this.Arreglo[res].addhead(dato);
       }else{
         //no hay dato en esa posición, se agrega
@@ -516,6 +524,7 @@ class HashAbierta{
         console.log("datos de pos y otros 11")
         console.log(res)
         console.log(posicion)
+        nuevo = res;
         this.Arreglo[res] = new ListaDoble;
         this.Arreglo[res].addhead(dato);
       }
@@ -528,6 +537,7 @@ class HashAbierta{
         console.log("datos de pos y otros 2 ")
         console.log(res)
         console.log(posicion)
+        nuevo = res;
         this.Arreglo[res].addhead(dato);
       }else {
         //no hay dato en esa posición, se agrega
@@ -536,6 +546,7 @@ class HashAbierta{
         console.log("datos de pos y otros 22")
         console.log(res)
         console.log(posicion)
+        nuevo = res;
         this.Arreglo[res] = new ListaDoble;
         this.Arreglo[res].addhead(dato);
       }
@@ -548,6 +559,7 @@ class HashAbierta{
         console.log("datos de pos y otros 3 ")
         console.log(res)
         console.log(posicion)
+        nuevo = res;
         this.Arreglo[res].addhead(dato);
       }else {
         //no hay dato en esa posición, se agrega
@@ -556,6 +568,7 @@ class HashAbierta{
         console.log("datos de pos y otros 33")
         console.log(res)
         console.log(posicion)
+        nuevo = res;
         this.Arreglo[res] = new ListaDoble;
         this.Arreglo[res].addhead(dato);
       }
@@ -573,12 +586,63 @@ export class HashAbiertaComponent implements OnInit {
   @ViewChild('mynetwork', {static: false}) el: ElementRef;
   public network: any;
   constructor() { }
+  contenido = "";
 
   ngOnInit(): void {
   }
   ngAfterViewInit(): void {
     var container = this.el.nativeElement;
     this.network = new vis.Network(container, listaData, options);
+  }
+
+
+
+  descargarContenido(){
+    this.generador();
+    let downloadfile = "data: text/json;charset=utf-8,"+encodeURIComponent(this.contenido);
+    console.log(downloadfile);
+    var downloader = document.createElement('a');
+    downloader.setAttribute('href', downloadfile);
+    downloader.setAttribute('download', 'data.json');
+    downloader.click();
+  }
+  code = '';
+  array = [];
+  funcion ="";
+  prueba="";
+  m = 0;
+  min = 0;
+  max = 0;
+  texto = "";
+  abrir(eve:any)
+  {
+    let a =eve.target.files[0]
+    let text=""
+
+    if(a){
+      let reader=new FileReader()
+        reader.onload=ev=>{
+        const resultado=ev.target?.result
+        text=String(resultado)
+        var data = JSON.parse(text);  // se parse para obtener solo los datos
+        this.m = data.m;
+        this.min = data.minimo;
+        this.max = data.maximo;
+        this.funcion = data.funcion;
+        this.prueba = data.prueba;
+        this.Tamano(this.m,this.funcion)
+        data.valores.forEach(element => { // se agrego al metodo de agregar
+          console.log(element)
+          this.AgregarNuevo(element)
+        });
+
+
+        this.code=text.toString();
+      }
+      reader.readAsText(a)
+    }
+
+
   }
 
   Tamano(ta: number, dat:any){
@@ -606,6 +670,26 @@ export class HashAbiertaComponent implements OnInit {
     console.log("Entro??")
     console.log(h);
     h.eliminar(valor);
+  }
+  generador(){
+    this.contenido = "";
+    this.contenido = "{ \"valores\": [\n";
+    for (let i = 0; i < h.Arreglo.length; i++) {
+      if(typeof h.Arreglo[i] == "object"){
+        let aux = h.Arreglo[i].head;
+        console.log(aux)
+       while(aux!=null){
+        console.log(aux.data)
+        this.contenido += '"'+aux.data+'"'+",\n";
+        aux = aux.next;
+       }
+
+      }else{
+        console.log(h.Arreglo[i])
+        this.contenido += '"'+h.Arreglo[i]+'"'+",\n";
+      }
+    }
+    this.contenido += "]}";
   }
 
 }

@@ -177,13 +177,13 @@ class MatrizOrtogonal {
         if(nodo_cabecera != null){
             do{
                 if(this.estado == true){
-                    dot.push({id:parseInt(contador), label:"Fila: "+String(nodo_cabecera.getX()), x:0, y:nodo_cabecera.getX()});
+                    dot.push({id:parseInt(contador), label:"Fila: "+String(nodo_cabecera.getX()), level:parseInt(nodo_cabecera.getX()+1)});
                 }
                 contador++;
                 let nodo_actual = nodo_cabecera.getColumna().getPrimero();
                 if(nodo_actual != null){
                     do{
-                        dot.push({id:parseInt(contador), label:"("+String(nodo_actual.getX())+","+String(nodo_actual.getY())+")"+String(nodo_actual.getDato()), x: parseInt(nodo_actual.getX()), y:parseInt(nodo_actual.getY())}); 
+                        dot.push({id:parseInt(contador), label:"("+String(nodo_actual.getX())+","+String(nodo_actual.getY())+")"+String(nodo_actual.getDato()), level:parseInt(nodo_actual.getX()+1)}); 
                         contador++;
                         nodo_actual = nodo_actual.getAbajo();
                     }while(nodo_actual != null);   
@@ -198,7 +198,7 @@ class MatrizOrtogonal {
             
             do{
                 if(this.estado==true){
-                dot.push({id:parseInt(contador), label: "Columna: "+String(nodo_cabecera.getY()), x:nodo_cabecera.getY(), y:0});
+                dot.push({id:parseInt(contador), label: "Columna: "+String(nodo_cabecera.getY()), level:0});
                 } 
                 contador++;
                 nodo_actual = nodo_cabecera.getFila().getPrimero();    
@@ -323,6 +323,48 @@ class MatrizOrtogonal {
         }else if(state=="False"){
             this.estado = false;
         }
+    }
+
+
+    generateJSON = () => {
+
+        var json = "{\n  \"categoria\" : \"Estructura Compuesta\",\n  \"nombre\" : \"Matriz Dispersa\",\n  \"animacion\" : 10,\n  \"valores\": [\n"
+        
+        var nodo_cabecera = this.getFila().getPrimero();
+        var nodo_actual = null;
+        if(nodo_cabecera != null){
+            do{
+                console.log(nodo_cabecera.getY());
+                nodo_actual = nodo_cabecera.getFila().getPrimero();
+                if(nodo_actual != null){
+                    do{
+                        if(nodo_cabecera.getSiguiente()!=null){
+                            if(typeof(parseInt(nodo_actual.getDato())) == "number"  && 0 <= parseInt(nodo_actual.getDato())){
+                                json = json + "\n\t{\n\t\"indices\": [\n\t\t" + String(nodo_actual.getX()) + ",\n\t\t" + String(nodo_actual.getY()) + "\n\t  ],\n\t  \"valor\": " + parseInt(nodo_actual.getDato())+"\n\t},"
+
+                            }else if (typeof(nodo_actual.getDato()) == "string" ){
+                                json = json + "\n\t{\n\t\"indices\": [\n\t\t" + String(nodo_actual.getX()) + ",\n\t\t" + String(nodo_actual.getY()) + "\n\t  ],\n\t  \"valor\": " + "\"" + nodo_actual.getDato()+ "\"" + "\n\t},"
+
+                            }
+                        }else{
+                            if(typeof(parseInt(nodo_actual.getDato())) == "number"  && 0 <= parseInt(nodo_actual.getDato())){
+                                json = json + "\n\t{\n\t\"indices\": [\n\t\t" + String(nodo_actual.getX()) + ",\n\t\t" + String(nodo_actual.getY()) + "\n\t  ],\n\t  \"valor\": " + parseInt(nodo_actual.getDato())+"\n\t}"
+
+                            }else if (typeof(nodo_actual.getDato()) == "string" ){
+                                json = json + "\n\t{\n\t\"indices\": [\n\t\t" + String(nodo_actual.getX()) + ",\n\t\t" + String(nodo_actual.getY()) + "\n\t  ],\n\t  \"valor\": " + "\"" + nodo_actual.getDato()+ "\"" + "\n\t}"
+
+                            }
+                        }
+                        nodo_actual = nodo_actual.getDerecha();
+                    }while(nodo_actual != null);   
+                }   
+                nodo_cabecera = nodo_cabecera.getSiguiente();
+            }while(nodo_cabecera != null);
+        }
+        json = json + "\n  ]\n}"
+        
+        return json
+            
     }
 
     getColumna = () =>{ return this.columnas; }

@@ -28,7 +28,12 @@ var options = {
                 background: '#FF1F00'
             }
         }
-    }
+    },
+    layout:{
+		hierarchical: {
+		  direction: "UD",
+		},
+  	},
   };
 
 
@@ -190,8 +195,15 @@ class MatrizDispersa extends Component {
 	}
 
 	handleSaveFile = () => {
-		// matrizDispersa.generateJSON(matrizDispersa)
-		console.log("Guardar :c")
+		const element = document.createElement("a");
+		var contenido = matrizDispersa.generateJSON()
+		const blob = new Blob([contenido]);                   
+		element.href = URL.createObjectURL(blob);
+	    element.download = "matrizdispersa.json";
+	    document.body.appendChild(element);
+	    element.click();
+	    alert("Documento Creado!")
+		
 	}
 
 	handleCabecera = () => {

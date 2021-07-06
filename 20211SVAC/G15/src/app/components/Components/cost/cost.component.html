@@ -1,0 +1,33 @@
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col text-center mt-4">
+                <!--<h1 class="text-white">TytusDS</h1>-->
+                <p>
+                    UNIVERSIDAD DE SAN CARLOS DE GUATEMALA
+                    <span>
+                        ALGORITMO DE COSTO UNIFORME
+                    </span>
+                    &mdash; ESTRUCTURA DE DATOS &mdash;
+                </p>
+            </div>
+
+        </div>
+        <br> <br> <br> <br> <br> <br> <br> <br> <br><br> <br> <br><br><br>
+
+<input type="text" [(ngModel)]="nodo.label" placeholder="NOMBRE NODO">
+<input type="text" [(ngModel)]="edge.from" placeholder="FROM">
+<input type="text" [(ngModel)]="edge.to" placeholder="FOR">
+<input type="text" [(ngModel)]="edge.label" placeholder="VALUE">
+<input type="text" [(ngModel)]="inicio" placeholder="INICIO">
+<input type="text" [(ngModel)]="final" placeholder="FIN">
+<button (click)="addNode()">AGREGAR NODO</button>
+<button (click)="addEdge()">AGREGAR EDGE</button>
+<button (click)="costo()">INICIAR COSTO</button>
+<div id="visNetwork" style="height: 50vh;" class="mynetwork" #visNetwork></div>
+<hr>
+<div id="visNetwork2" style="height: 50vh;" class="mynetwork" #visNetwork2></div>
+
+</div>
+
+</body>

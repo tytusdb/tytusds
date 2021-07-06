@@ -1,0 +1,71 @@
+<body>
+    <div >
+        <p>
+            <!-- UNIVERSIDAD DE SAN CARLOS DE GUATEMALA -->
+            <span>
+                Cifrado Feistel
+            </span>
+            &mdash; ESTRUCTURA DE DATOS &mdash;
+        </p>
+    </div >   
+    <br><br><br><br><br><br><br><br><br><br><br>
+    <div class="container mt-2" ID="form-modal">
+        <div class="row opciones p-2">
+
+            <div class="col-lg-3 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <input class="form-control" id="dato" name="dato" [(ngModel)]="nombre" type="text" placeholder="Rondas" >
+                    <input class="form-control" id="dato" name="dato" [(ngModel)]="llave" type="text" placeholder="Llave" >
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary " type="button" (click)="cifrado()" >Cifrado</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-12 col-sm-12 col-lg-3 text-left mt-2 text-white mt-1">
+                <div class="input-group">
+                    <input type="file" class="file-input" id="input-file" (change)="getFile($event)" #fileUpload>
+                    <div class="file-upload">
+                        {{ fileName || "No ha seleccionado archivo."}}
+                        <button class="btn btn-primary" (click)="fileUpload.click()" #fileUpload>
+                            <i class="fas fa-upload"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-12 col-sm-12 col-lg-3 text-left mt-2 text-white mt-1">
+                <div class="input-group">
+                    <button class="btn btn-primary " (click)="generarJSON1()">
+                        Generar Archivo
+                    </button>
+                </div>
+            </div>
+
+
+        </div>
+         <br>
+         <div class="row mt-5">
+            <div class="col-12 col-sm-12 col-lg-3 text-left mt-2 text-white mt-2">
+               
+                <div class="dropdown">
+                <textarea id="textarea" [(ngModel)]="entrada" name="comentarios" rows="10" cols="140">Texto A Leer</textarea>
+                <textarea id="textareaResultado"name="comentarios" rows="10" cols="140">Resultado</textarea>
+                </div>
+
+             </div>
+            
+            
+
+         </div>
+         
+            
+        
+
+       
+    </div>
+    
+</body>
+

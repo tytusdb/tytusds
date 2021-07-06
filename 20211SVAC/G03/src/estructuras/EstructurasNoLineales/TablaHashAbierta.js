@@ -17,6 +17,7 @@ class TablaHashAbierta {
         this.maximo = maximo
         this.funcion = forma
         this.datosAgregados = 0
+        this.iscargar = false
         this.iniciar()
     
     }
@@ -91,17 +92,23 @@ class TablaHashAbierta {
 
 
     agregar(dato){
-        dato = parseInt(dato)== NaN ? dato: parseInt(dato)
+        if(this.iscargar){
+
+        }else{
+            if(typeof  parseInt(dato) === 'number'){
+                dato = parseInt(dato)
+            }
+        }
         let posicionTabla = this.tabla[this.funcion_Hash(dato, this.funcion)]
         let posicion = this.funcion_Hash(dato, this.funcion)
         console.log(posicion)
         if(posicionTabla === -1){
-            this.tabla[this.funcion_Hash(dato, this.funcion)] =  new Cola()
-            this.tabla[this.funcion_Hash(dato, this.funcion)].Agregar(dato)
+            this.tabla[posicion] =  new Cola()
+            this.tabla[posicion].Agregar(dato)
             
             this.datosAgregados++;
         }else{
-            this.tabla[this.funcion_Hash(dato, this.funcion)].Agregar(dato)
+            this.tabla[posicion].Agregar(dato)
         }
 
 
@@ -165,9 +172,11 @@ class TablaHashAbierta {
     }
 
     cargar(arr){
+        this.iscargar = true
         arr.map(e => {
             this.agregar(e)
         })
+        this.iscargar = false
     }
 
     guardar(){

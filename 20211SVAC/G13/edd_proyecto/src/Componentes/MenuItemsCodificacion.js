@@ -1,7 +1,7 @@
 export const MenuItemsCodificacion = [
 	{
 		title:'Codigo Hamming',
-		path:'/',
+		path:'/Hamming',
 		cName:'dropdown-item'
 	},
 	{
@@ -11,12 +11,12 @@ export const MenuItemsCodificacion = [
 	},
 	{
 		title:'Algoritmo LZW',
-		path:'/',
+		path:'/LZW',
 		cName:'dropdown-item'
 	},
 	{
 		title:'Cifrado Feistel',
-		path:'/',
+		path:'/Feistel',
 		cName:'dropdown-item'
 	},	
 ]
