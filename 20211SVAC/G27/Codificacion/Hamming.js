@@ -148,7 +148,38 @@ function chunk(arr, size) {
 	return chunks;
 }
 
+function nuevoValor(){
+	var x = document.getElementById("Codigo").value;
+	//document.getElementById("Codigo").value = "";
+//	var y = 
+	 hammingEncode(x);
+	 document.getElementById("Codificado").innerHTML=hammingEncode(x);
+	//document.getElementById("Codigo").focus();
+  
+};
 
+
+  
+  
+ 
+  function AbrirArchivo(files){
+	var file = files[0];
+	var lector = new FileReader();
+	lector.onload = function(e) {
+	  var contenido = e.target.result;
+	  document.getElementById("Codigo").innerHTML=contenido;;
+	};
+	lector.onerror = function(e) {
+	  console.error("File could not be read! Code " + e.target.error.code);
+  };
+	lector.readAsText(file);
+  }
+  
+  
+
+
+
+//
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
         // AMD.
@@ -167,6 +198,12 @@ function chunk(arr, size) {
     	encode: hammingEncode,
     	pureDecode: hammingPureDecode,
     	decode: hammingDecode,
-    	check: hammingCheck
+    	check: hammingCheck,
+		agregarValor: nuevoValor,
+		abrir: AbrirArchivo,
     };
 }));
+
+
+//console.log(hammingEncode('1010'))
+

@@ -49,8 +49,8 @@ class Heap {
 }
   
   
-  var Huffman = {
-    encode: function(data) {
+  class Huffman {
+    encoden(data) {
       var prob = {};
       var tree = new Heap(function(e) {
         return e[0];
@@ -91,8 +91,8 @@ class Heap {
         return e.charCodeAt(0) + '|' + dict[e];
       }).join('-') + '/';
       return header + result;
-    },
-    decode: function(string) {
+    }
+    decode(string) {
       string = string.split('/');
       var data = string[1].split(''),
           header = {};
@@ -116,3 +116,27 @@ class Heap {
     }
   };
   
+  function AbrirArchivo(files){
+    var file = files[0];
+    var lector = new FileReader();
+    lector.onload = function(e) {
+      var contenido = e.target.result;
+      document.getElementById("Codigo").innerHTML=contenido;;
+    };
+    lector.onerror = function(e) {
+      console.error("File could not be read! Code " + e.target.error.code);
+    };
+    lector.readAsText(file);
+    }
+  var Hf = new Huffman;
+    
+    function nuevoValor(){
+      var x = document.getElementById("Codigo").value;
+      //document.getElementById("Codigo").value = "";
+    //	var y = 
+    
+       Hf.encoden(x);
+       document.getElementById("Codificado").innerHTML=Hf.encode(x);
+      //document.getElementById("Codigo").focus();
+      
+    };

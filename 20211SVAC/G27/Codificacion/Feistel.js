@@ -21,7 +21,28 @@ function EncriptarFeistel(original,permutacion,k){
 	
 }
 
+function nuevoValor(){
+	var x = document.getElementById("Codigo").value;
+	//document.getElementById("Codigo").value = "";
+//	var y = 
+	 EncriptarFeistel(x);
+	 document.getElementById("Codificado").innerHTML=EncriptarFeistel(x);
+	//document.getElementById("Codigo").focus();
+  
+};
 
+function AbrirArchivo(files){
+	var file = files[0];
+	var lector = new FileReader();
+	lector.onload = function(e) {
+	  var contenido = e.target.result;
+	  document.getElementById("Codigo").innerHTML=contenido;;
+	};
+	lector.onerror = function(e) {
+	  console.error("File could not be read! Code " + e.target.error.code);
+  };
+	lector.readAsText(file);
+  }
 //para deencriptar
 
 
