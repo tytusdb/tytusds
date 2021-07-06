@@ -89,8 +89,8 @@ function checkCerradaMultiplicacion(){
         console.log("cambioando chek! "+ checkBoxMultiplicacion);
     }  
 }
-
 class hash {
+    //Animacion = new animate()
     hash(m, min,max) {
       this.m = m;
       this.min = min;
@@ -126,6 +126,7 @@ class hash {
     }
     //console.log(i)
     this.areglo[i] = k
+    //Animacion.animateADD(this.n,k)
     //console.log(this.areglo[i])
     console.log(this.areglo)
     this.n++; //numero de valores de la tabla hash hasta el momento
@@ -157,8 +158,8 @@ class hash {
         }
         }
  
-     } 
-     insertarString(y){
+    } 
+    insertarString(y){
         let i = this.funcionHashString(y); 
         console.log(i)
         //let i = this.divisionString(y);
@@ -176,6 +177,7 @@ class hash {
             console.log(i)
         }
         this.areglo[i] = y
+        //Animacion.animateADD(this.n,y)
         console.log(this.areglo)
         this.n++
         this.rehashingString()
@@ -307,6 +309,8 @@ class hash {
 
 let p = new hash();
 p.hash(20,20,80);
+/*const ani= require('./Animaciones')
+var Ani= new ani()*/
 //p.insertar(5);
 //p.insertar(5);
 //p.insertar(5);
@@ -317,7 +321,7 @@ p.hash(20,20,80);
 function insertarHashCerrada(data){
     if(checkBoxHashCerradaInt==true){
         p.insertar(data)
-        
+        //Ani.animateAdd(0,data)
     }
     if(checkBoxHashCerradaString==true){
        p.insertarString(data)

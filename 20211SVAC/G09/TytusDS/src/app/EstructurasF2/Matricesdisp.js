@@ -185,7 +185,7 @@ class Matriz {
     }
 
     caso4(valor, x, y) {
-debugger
+//debugger
         let nodo_x = this.lista_horizontal.busqueda(x);
         let nodo_y = this.lista_vertical.busqueda(y);
 
@@ -321,7 +321,7 @@ debugger
                 cont++
             }
             cabecera = cabecera.siguiente;
-        }debugger
+        }//debugger
         val+="]"
         //valores={vals: {valores}}
         return val        
@@ -341,7 +341,7 @@ debugger
                 cont++
             }
             cabecera = cabecera.siguiente;
-        }debugger
+        }//debugger
         val+="]"
         //valores={vals: {valores}}
         return nuevoArray        
@@ -380,6 +380,11 @@ debugger
     }
     actualizar(textReplace, textNew){
         this.search(textReplace).nodo.valor=textNew
+    }
+    graficar(){
+        let ani = require('./Animaciones')
+        let Animacion= new ani()
+        Animacion.graficarMatriz(this.imprimir_lista())
     }
 }
 

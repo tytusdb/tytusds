@@ -5,10 +5,19 @@ class Animaciones{
 	graficarMatriz(array){
 		//debugger
 		document.getElementById('DivInsert').innerHTML = '';
+		/*this.crearBoton(id,valor)
+		if (this.btns.length!=1) {
+			let btn=this.btns[this.btns.length-2]
+			this.cambiarPosicion(id,btn.x+btn.btnAncho+10,btn.y)
+			this.btns[this.btns.length-1].x=btn.x+btn.btnAncho+10
+			this.btns[this.btns.length-1].y=btn.y
+		}else{
+			this.btns[0].x=10
+			this.btns[0].y=20
+			this.cambiarPosicion(id, 10,20)
+		}*/		
 		for (let i = 0; i < array.length; i++) {
 			if (array[i][0]) {
-				//this.crearBoton("btn"+i.toString()+",0",array[i][0])
-
 				this.crearColocar("btn"+i.toString()+",0",array[i][0],75*i,0)
 			}
 		}//debugger
@@ -125,6 +134,45 @@ class Animaciones{
 		} catch (error) {
 			console.log(error)
 		}
+	}
+	animateBuscar(id, retardo){
+		setTimeout(() => {
+			const selecBtn = document.getElementById(id)
+			selecBtn.classList="animate__animated animate__bounceIn"
+            const sClone = selecBtn.cloneNode(true)
+            selecBtn.parentNode.replaceChild(sClone, selecBtn)
+		}, 500*retardo);
+	}
+	animateDelete(id){debugger
+		const selecBtn = document.getElementById(id.toString())
+        selecBtn.classList="animate__animated animate__rollOut"
+        const sClone = selecBtn.cloneNode(true)
+        selecBtn.parentNode.replaceChild(sClone, selecBtn)
+		setTimeout(() => {debugger/*
+			const padre = sClone.parentNode
+            padre.removeChild(sClone)*/			
+			sClone.removeChild(sClone)
+		}, 2000);		
+	}
+	animateActualizar(id, newText){
+		const selecBtn = document.getElementById(id)
+		selecBtn.innerText=newText
+		selecBtn.classList="animate__animated animate__rotateIn"
+		const sClone = selecBtn.cloneNode(true)
+		selecBtn.parentNode.replaceChild(sClone, selecBtn)		
+	}
+	animateAdd(id, valor){//debugger
+		this.crearBoton(id,valor)
+		if (this.btns.length!=1) {
+			let btn=this.btns[this.btns.length-2]
+			this.cambiarPosicion(id,btn.x+btn.btnAncho+10,btn.y)
+			this.btns[this.btns.length-1].x=btn.x+btn.btnAncho+10
+			this.btns[this.btns.length-1].y=btn.y
+		}else{
+			this.btns[0].x=10
+			this.btns[0].y=20
+			this.cambiarPosicion(id, 10,20)
+		}
 	}	
 }
 class BtnAnimate{
@@ -139,16 +187,3 @@ class BtnAnimate{
 }
 
 module.exports = Animaciones
-
-/*function printNumbers() {
-    //let i
-	for (let i = 0; i < 10; i++) {
-		setTimeout(
-      function printer() {
-	      console.log(i);
-	    },
-			100 * i
-		);
-	}
-}
-printNumbers()*/

@@ -1,7 +1,9 @@
-//import ('https://unpkg.com/vis-network/standalone/umd/vis-network.min.js')
+const ani= require('./Animaciones')
 class RowColMayor{
     constructor(){
         this.matriz=[]
+        this.Animacion= new ani()
+        this.id=0
     }
     convertRowmayor(array){
         this.matriz=[]
@@ -40,16 +42,20 @@ class RowColMayor{
     }
     insertar(text){
         this.matriz.push(text)
-        this.graficar()
+        this.Animacion.animateAdd(this.id,text)
+        this.id++
+        //this.graficar()
     }
     delete(text){
         let dat= this.search(text)
         if (dat.existe) {
             this.matriz.splice(dat.indice,1)
+            this.Animacion.animateDelete(this.Animacion.buscar(text).id)
         }else{console.log("No existe el dato")}
     }
     search(text){
         for (let i = 0; i < this.matriz.length; i++) {
+            this.Animacion.animateBuscar(this.Animacion.buscar(text).id,i)
             if (text==this.matriz[i]) {
                 return {existe: true, indice: i}
             }

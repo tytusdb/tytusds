@@ -22,12 +22,12 @@ export class AlgoritmoCostoUniformeComponent implements OnInit {
     console.log(this.cU.CostoUniforme(this.aG.returnValores(),ini,fin))
   }
   value(){
-    this.aG.graficarGrafo()
+    this.cU.graficarGrafo()
   }
   leerArchivo(event: any){
     let ca= new CargaArchivo()
     ca.leerGrafo(event,2)
-    setTimeout(() => {debugger
+    setTimeout(() => {//debugger
       let grafo=ca.returnGrafo()
       for (let i = 0; i < grafo.vertices.length; i++) {
         this.aG.AgregarNodo(grafo.vertices[i])

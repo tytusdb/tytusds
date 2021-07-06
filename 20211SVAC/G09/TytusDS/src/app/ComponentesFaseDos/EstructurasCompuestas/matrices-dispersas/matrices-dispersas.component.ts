@@ -26,6 +26,7 @@ export class MatricesDispersasComponent implements OnInit {
       this.md.insertar(Matriz[i].valor,Matriz[i].x,Matriz[i].y)
     }
     this.md.imprimir_horizontal()
+    this.md.graficar()
     }, 600);
   }
   download(){
