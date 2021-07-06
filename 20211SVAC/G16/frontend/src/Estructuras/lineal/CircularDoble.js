@@ -90,7 +90,7 @@ class CircularDoble {
 
     cargar(vec){
         for(var i in vec){
-            this.agregar(vec[i])
+            this.agregar(vec[i].toString())
         }
     }
 
@@ -152,43 +152,38 @@ class CircularDoble {
         }while(aux !== this.raiz)
     }
     // Circular
-    dotG(){
-        var nodos = [
-            {id:0, label: "RAIZ"},
-        ]
-        var indice = nodos.length
-        nodos = this.llenarN(nodos,indice)
-        var relaciones = [ ]
-        var rel = relaciones.length+1
-        relaciones = this.llenarR(relaciones,rel)
+    dotG(indice){
+        var nodos = [ {id:0+"l"+indice, label: "RAIZ"} ]
+        var relaciones = []
+        nodos = this.llenarN(nodos, 1, indice)
+        relaciones = this.llenarR(relaciones, 0, indice)
         return { nodes: nodos, edges: relaciones} 
     }
-    llenarN(nodos,indice){
+
+    llenarN(nodos, contador, indice){
         var nodo = this.raiz
         if(nodo!==null){
             do{
-                nodos.push({id: indice, label: (nodo.valor).toString()})
+                nodos.push({id: contador+"l"+indice, label: (nodo.valor).toString()})
+                contador++
                 nodo = nodo.siguiente
-                indice++
             }
             while(nodo !== this.raiz)
         }
         return nodos
     }
-    llenarR(relaciones,rel){
+
+    llenarR(relaciones, contador, indice){
         var nodo = this.raiz
-        if(this.raiz !==  null){
-            relaciones.push({from: 0, to: rel})
-        }
         if(nodo !== null){
             do{
-                relaciones.push({from: rel, to: rel+1})
+                relaciones.push({from: contador+"l"+indice, to: (contador+1)+"l"+indice, arrows: "to, from"})
+                contador++
                 nodo = nodo.siguiente
-                rel ++
             }while(nodo.siguiente !== this.raiz)
-            relaciones.push({from: rel, to: rel+1})
+            relaciones.push({from: contador+"l"+indice, to: (contador+1)+"l"+indice, arrows: "to, from"})
+            relaciones.push({from: (contador+1)+"l"+indice, to: 1+"l"+indice, arrows: "to, from"})
         }
-        relaciones.push({from: rel, to: 1})
         return relaciones
     }
 }

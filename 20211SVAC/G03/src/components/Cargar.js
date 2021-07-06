@@ -184,12 +184,12 @@ function structW(nombre,edd,json){ // FUNCION PARA SABER QUE TIPO DE ESTRUCTURA 
             break
         case "Grafo Dirigido":
 
-            edd = new ListaAdyacencia();
+            edd = new ListaAdyacencia(json.almacenamiento);
             edd.cargar(datos,nombre)
             break
         case "Grafo No Dirigido":
 
-            edd = new ListaAdyacencia();
+            edd = new ListaAdyacencia(json.almacenamiento);
             edd.cargar(datos,nombre)
             break
         case "Código de Hamming":

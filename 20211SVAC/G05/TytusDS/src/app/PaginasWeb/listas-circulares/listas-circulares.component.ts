@@ -230,6 +230,8 @@ export class ListasCircularesComponent implements OnInit {
   }
   //graficar ingreso
   graficarI(){
+    console.log(this.lista.Lnodos())
+    console.log(this.lista.Ledges())
     //Retorno de la lista con los objetos de nodos y edges
     let Nodos=this.lista.Lnodos();
     let Edges=this.lista.Ledges();

@@ -35,12 +35,8 @@ export class HuffmanComponent implements OnInit {
   }
 
   getDocumento(documento: any): void {
-    this.documentoService.getDocumento(documento).then( contenido => {
-      console.log(contenido);
-      if (contenido['texto'] === undefined) {
-        return;
-      }
-      this.entrada = contenido['texto'];
+    this.documentoService.getDocumento2(documento).then( contenido => {
+      this.entrada = contenido;
     });
   }
 
@@ -50,6 +46,8 @@ export class HuffmanComponent implements OnInit {
     }
     this.caracteres = this.huff.identificarCaracteres(this.entrada);
     console.log(this.caracteres);
+    this.huff.algoritmo(this.caracteres);
+    
   }
 
   guardar(): void {

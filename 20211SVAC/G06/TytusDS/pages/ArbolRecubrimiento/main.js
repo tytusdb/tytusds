@@ -184,23 +184,8 @@ function guardarJson(){
     valor.vertice = data[i].value
     for(let j = 0; j < data[i].edges.length; j++){
       let valorArista = {
-        arista: null,
-        distancia: 0
-      }
-      valorArista.arista = data[i].edges[j]
-      //Wa intentar obtener la distancia de adorno :v
-      let aristitas = network.getConnectedEdges(grafito.getId(data[i].value))
-      for(let k = 0; k < aristitas.length; k++){
-        let link = edges.get(aristitas[k])
-        if(link.to == grafito.getId(data[i].edges[j])){
-          if(link.label != null && link.label != ""){
-            let distancia = link.label
-              if(!isNaN(parseInt(distancia))){
-                distancia = parseInt(distancia)
-              }
-              valorArista.distancia = distancia
-          }
-        }
+        arista: data[i].edges[j].value,
+        distancia: data[i].edges[j].distance
       }
       valor.aristas.push(valorArista)
     }

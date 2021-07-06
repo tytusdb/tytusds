@@ -1,4 +1,7 @@
+import { NodoHuffman } from './nodo-huffman';
 export class AlgoritmoHuffman{
+    arbol: NodoHuffman = new NodoHuffman();
+    constructor() {}
     identificarCaracteres(cadena: string): any {
         let arr = cadena.split("");
         let caracteres: any = [];
@@ -31,21 +34,46 @@ export class AlgoritmoHuffman{
     }
 
     algoritmo(caracteres: any[]): any {
-        let filas = [];
-        let char = caracteres;
-        for (let x = 0; x < caracteres.length; x++) {
-            if (x % 2 === 0) {
-                caracteres[x]['binario'] = "0";
-            } else {
-                caracteres[x]['binario'] = "1";
-            }
-        }
-        for (let x = 0; x < caracteres.length; x++) {
-            if (x % 2 === 0) {
-                if (caracteres[x + 1] !== undefined) {
-                    
+        let i = 1;
+        let aux: any = {};
+        let afuera: any = [];
+        while (i < caracteres.length) {
+            let cabeza = new NodoHuffman();
+            if (i === 1) {
+                let izq = new NodoHuffman(caracteres[i-1]);
+                izq.caracter = caracteres[i-1].caracter;
+                izq.codigo = '0';
+                izq.suma = caracteres[i-1].repeticiones;
+                
+                let der = new NodoHuffman(caracteres[i]);
+                der.caracter = caracteres[i].caracter;
+                der.codigo = '1';
+                der.suma = caracteres[i].repeticiones;
+                
+                cabeza.izquierda = izq;
+                cabeza.derecha = der;
+                cabeza.suma = izq.suma + der.suma;
+                aux = cabeza;
+                i++;
+            }else {
+                if (aux.suma <= caracteres[i].repeticiones) {
+                    let izq = new NodoHuffman();
+                    izq.caracter = caracteres[i].caracter;
+                    izq.codigo = '0';
+                    izq.suma = caracteres[i].repeticiones;
+
+                    cabeza.izquierda = izq;
+                    cabeza.derecha = aux;
+                    cabeza.suma = cabeza.izquierda.suma + cabeza.derecha.suma;
+
+                    aux = cabeza;
+                }else {
+                    afuera.push(caracteres[i]);
                 }
+                i++;
             }
         }
+        console.log(aux);
+        console.log(afuera);
     }
 }

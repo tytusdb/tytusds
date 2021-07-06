@@ -12,7 +12,7 @@
       </h1>
       <ol class="breadcrumb" >
         <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Lista doblemente enlazada</li>
+        <li class="breadcrumb-item active" aria-current="page">Grafos</li>
       </ol>
     </div>
 
@@ -45,10 +45,25 @@
         <input  #verticev class="form-control mr-sm-2 " type="text" #nodosearch placeholder="Vertice a Buscar" aria-label="Valor Vertice">
         <button (click)="buscarVertice(nodosearch.value)" class="btn btn-outline-light mr-sm-2" type="button">Buscar Vertice</button>
 
+        <input  #verticev class="form-control mr-sm-2 " type="text" #nodoi placeholder="Vertice de Inicio" aria-label="Valor Vertice">
+        <input  #verticev class="form-control mr-sm-2 " type="text" #nodob placeholder="Valor Buscado" aria-label="Valor Vertice">
+        <button (click)="searchAnchura(nodoi.value,nodob.value)" class="btn btn-outline-light mr-sm-2" type="button">Busqueda por Anchura</button>
+
+        <input  #verticev class="form-control mr-sm-2 " type="text" #nodoip placeholder="Vertice de Inicio" aria-label="Valor Vertice">
+        <input  #verticev class="form-control mr-sm-2 " type="text" #nodobp placeholder="Valor Buscado" aria-label="Valor Vertice">
+        <button (click)="searchProfundidad(nodoip.value,nodobp.value)" class="btn btn-outline-light mr-sm-2" type="button">Busqueda por Profundidad</button>
+
+        <input  #verticev class="form-control mr-sm-2 " type="text" #uni placeholder="Vertice de Inicio" aria-label="Valor Vertice">
+        <input  #verticev class="form-control mr-sm-2 " type="text" #unf placeholder="Valor Buscado" aria-label="Valor Vertice">
+        <button (click)="costo(uni.value,unf.value)" class="btn btn-outline-light mr-sm-2" type="button">Costo Uniforme</button>
+
         <input style="display:none;" type="file" (change)="abrir($event)" #archivo>
         <button (click)="archivo.click()" type="button" class="btn btn-outline-light mr-sm-2">Cargar</button>
-        <button (click)="descargar()" class="btn btn-outline-light mr-sm-2" type="submit">Guardar</button>
+        <button (click)="descargarContenido()" class="btn btn-outline-light mr-sm-2" type="submit">Guardar</button>
+        
 
+        <input  class="form-control mr-sm-2" type="text" #animacion placeholder="Animacion" aria-label="Animacion">
+        <button class="btn btn-outline-light mr-sm-2" type="button">Animacion</button>
 
       </form>
     </nav>

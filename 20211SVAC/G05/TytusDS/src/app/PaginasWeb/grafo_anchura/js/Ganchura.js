@@ -484,9 +484,10 @@ return bandera;
 }
 
 bus(valor){
+    arr=[];
 nodos1.push({id: valor, label: valor})
 //punteros.push({from: aux.dato1, to: aux.dato2  ,label:aux.dato3});
-texto+=valor+"->";
+texto+=valor+" ";
 var aux1=p.uno;
 var aux2=p1.inicio;
 var aux3=c.cuno;
@@ -504,6 +505,8 @@ do{
 if (c.cuno!=null){
     this.bus1();}
 else{
+    let str = texto;
+    arr = str.split(' '); 
 console.log(texto);
 texto="";
 }
@@ -520,7 +523,7 @@ bus1(){
         if (c.ctamaño>0){
         actual=c.eliminar();
         matriz.push(actual)
-        texto+=actual+"->";
+        texto+=actual+" ";
         nodos1.push({id: actual, label: actual});
     }
     
@@ -546,6 +549,8 @@ bus1(){
         }
    
     }while(c.ctamaño>0);
+    let str = texto;
+    arr = str.split(' '); 
     console.log(texto);
     texto="";
     }
@@ -555,12 +560,116 @@ asbus(){
     let ldata=[];
     ldata.push(nodos1);
     ldata.push(punteros1);
+    console.log(nodos1)
+    console.log(punteros1)
     nodos1=[];
     punteros1=[];
     return ldata;
     
 }
 
+bb(){
+    return arr;
+}
+
+busx(valor,final){
+    arr=[];
+    nodos1.push({id: valor, label: valor})
+    //punteros.push({from: aux.dato1, to: aux.dato2  ,label:aux.dato3});
+    texto+=valor+" ";
+    var aux1=p.uno;
+    var aux2=p1.inicio;
+    var aux3=c.cuno;
+    var actual=valor;
+    matriz=[];
+    matriz.push(actual);
+    do{
+        if (actual==aux2.dato1){
+            matriz.push(aux2.dato2);
+            c.insertar(aux2.dato2)
+            punteros1.push({from: aux2.dato1, to: aux2.dato2  ,label:aux2.dato3});
+    }aux2=aux2.sigui;
+    }while(aux2!=null)
+    
+    if (c.cuno!=null){
+        if (actual==final){
+            alert("la posicion es la misma");  
+        }else{this.bus1x(final);}}
+    else{
+    console.log(texto);
+    let str = texto;
+    arr = str.split(' '); 
+    texto="";
+    }
+    }
+    
+    
+    bus1x(final){
+        var aux1=p.uno;
+        var aux3=c.cuno;
+        var actual;
+        var aux2=p1.inicio;
+        var bandera=true;
+        do{
+            if (c.ctamaño>0){
+            actual=c.eliminar();
+            matriz.push(actual)
+            texto+=actual+" ";
+            nodos1.push({id: actual, label: actual});
+        }
+        
+                do{
+                if (actual==aux2.dato1){
+                    for (var i=0; i<matriz.length; i++) { 
+                        if(matriz[i]==aux2.dato2){
+                            bandera=false;
+                        }}
+                    if (bandera==true){
+                    c.insertar(aux2.dato2)
+                    matriz.push(aux2.dato2);
+                    bandera=true;
+                    punteros1.push({from: aux2.dato1, to: aux2.dato2  ,label:aux2.dato3});
+                    } bandera=true;
+                    }
+                if(actual==final){break;}
+                aux2=aux2.sigui;
+                }while(aux2!=null)
+                aux2=p1.inicio;
+            
+            if(c.ctamaño==0){
+                break;
+            }
+            if(actual==final){break;}
+        }while(c.ctamaño>0);
+        console.log(texto);
+        let str = texto;
+    arr = str.split(' '); 
+        texto="";
+        }
+
+limpiarcola(){
+    if(c.cuno!=null){ 
+        do{
+            c.eliminar();
+        }
+        while(c.cuno!=null);
+
+    }
+   
+    
+}
+
+asbus2(){
+    let ldata=[];
+    ldata.push(nodos1);
+    ldata.push(punteros1);
+    console.log(nodos1)
+    console.log(punteros1)
+    nodos1=[];
+    punteros1=[];
+    return ldata;
+    
+}
 
 as1(){
     nodos=[];
@@ -592,6 +701,7 @@ as(){
     
 }
 
+
 leer(){
 var aux1=p.uno;
 let ldatos=[];
@@ -618,7 +728,16 @@ let ldatos=[];
     return ldatos;
   }
 
+  mapa(){
+    let array=[];
+    let aux=p.uno;
+    do{
+        array.push(aux.dato)
 
+    aux=aux.post;
+    }while(aux!=null)
+    return array;
+}
 
 
 

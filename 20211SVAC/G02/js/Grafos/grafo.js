@@ -98,18 +98,30 @@ class GrafoMatriz{
                     aux.push(this.vertices[i])
                 }
             }
-
+            console.log(numerover)
             for(var i = 0; i < this.vertices.length; i++){
                 if( i != numerover){
                     if(auxMatAd[i] == undefined){
-                        auxMatAd[i] = []
+                        if(i<numerover){
+                            auxMatAd[i] = []
+                        }else{
+                            auxMatAd[i-1] = []
+                        }
                     }
                     for(var j = 0; j < this.vertices.length; j++){
                         if(j != numerover){
                             if(j< numerover){
-                                auxMatAd[i][j] = this.matAd[i][j]
+                                if(i < numerover){
+                                    auxMatAd[i][j] = this.matAd[i][j]
+                                }else{
+                                    auxMatAd[i-1][j] = this.matAd[i][j]
+                                }
                             }else{
-                                auxMatAd[i][j-1] = this.matAd[i][j]
+                                if(i < numerover){
+                                    auxMatAd[i][j-1] = this.matAd[i][j]
+                                }else{
+                                    auxMatAd[i-1][j-1] = this.matAd[i][j]
+                                }
                             }
                         }
                     }
@@ -125,7 +137,8 @@ class GrafoMatriz{
             arrayNodes.push({id: this.vertices[i].numeroVertice, label: this.vertices[i].nombre.toString(), shape: "circle"})
         }
         for(var i = 0; i < this.vertices.length; i++){
-            for(var j = 0; j < this.vertices.length; j++){
+            console.log(this.matAd)
+            for(var j = 0; j < this.matAd[i].length; j++){
                 if(this.matAd[i][j] > 0){
                     if(switchToggle2.checked){
                         if(switchToggle.checked){

@@ -21,20 +21,44 @@ class Lista{
     ordenar(nodo){
         let aux = this.primero
         while(aux != null){
-            if(aux.valor < nodo.valor){
-                aux = aux.siguiente
-            } else {
-                if(aux === this.primero){
-                    nodo.siguiente = aux
-                    aux.anterior = nodo
-                    this.primero = nodo
-                    return;
-                } else{
-                    nodo.anterior = aux.anterior
-                    aux.anterior.siguiente = nodo
-                    nodo.siguiente = aux
-                    aux.anterior = nodo
-                    return;
+            let tmp = parseInt(aux.valor)
+            let tmp2 = Number.isInteger(tmp)
+            
+            if(tmp2 !== false){
+                console.log("number:",tmp)
+                if(tmp < parseInt(nodo.valor)){
+                    aux = aux.siguiente
+                } else {
+                    if(aux === this.primero){
+                        nodo.siguiente = aux
+                        aux.anterior = nodo
+                        this.primero = nodo
+                        return;
+                    } else{
+                        nodo.anterior = aux.anterior
+                        aux.anterior.siguiente = nodo
+                        nodo.siguiente = aux
+                        aux.anterior = nodo
+                        return;
+                    }
+                }
+            }
+            else{
+                if(aux.valor < nodo.valor){
+                    aux = aux.siguiente
+                } else {
+                    if(aux === this.primero){
+                        nodo.siguiente = aux
+                        aux.anterior = nodo
+                        this.primero = nodo
+                        return;
+                    } else{
+                        nodo.anterior = aux.anterior
+                        aux.anterior.siguiente = nodo
+                        nodo.siguiente = aux
+                        aux.anterior = nodo
+                        return;
+                    }
                 }
             }
         }
@@ -264,19 +288,22 @@ class MatrizD{
     //Eliminar
     eliminar(valor){
         let nodo_y = this.lista_vertical.primero
-        let nodo_x = this.lista_horizontal.primero
         let aux = null
         while(nodo_y !== null){
             aux = nodo_y.derecha
             let temp
-            let temp2 = null
             while(aux !== null){
                 temp = aux
                 if(aux.valor === valor){
-                    if(aux.derecha !== null){
-                        temp.derecha = aux.derecha
-                        aux.derecha.izquierda = temp
-                    }else if(aux.derecha === null){
+                    if(aux.izquierda === nodo_y){ //Elimina primer ij
+                        nodo_y.derecha = aux.derecha
+                        aux.derecha.izquierda = nodo_y
+                        
+                    }
+                    else if(aux.derecha !== null){//Intermedios
+                        aux.izquierda.derecha = aux.derecha
+                        aux.derecha.izquierda = aux.izquierda
+                    }else if(aux.derecha === null){ //Elimina el último
                         aux.izquierda.derecha = null
                     }
                     break
@@ -296,8 +323,8 @@ class MatrizD{
         //Vertical
         let cont = 0
         while(cabeceraV !== null){
-            nodos.push({id:"v"+cabeceraV.valor, label:cabeceraV.valor.toString(),x:-150, y: cont*100})
-            piv.push({id:"v"+cabeceraV.valor, label:cabeceraV.valor.toString(),tipo:"v",y: cont*100})
+            nodos.push({id:"v"+cabeceraV.valor, label:cabeceraV.valor.toString(),x:-150, y: cont*150})
+            piv.push({id:"v"+cabeceraV.valor, label:cabeceraV.valor.toString(),tipo:"vertical",y: cont*150})
             if(cabeceraV.siguiente !== null){
                 direccion.push({to:"v"+cabeceraV.valor,from:"v"+(cabeceraV.siguiente.valor)})
             }
@@ -307,11 +334,11 @@ class MatrizD{
         //Horizontal
         let conteo = 0
         while(cabeceraH !== null){
-            nodos.push({id:"h"+cabeceraH.valor,label:cabeceraH.valor.toString(),x:conteo*150,y:-100})
+            nodos.push({id:"h"+cabeceraH.valor,label:cabeceraH.valor.toString(),x:conteo*150,y:-150})
+            piv.push({id:"h"+cabeceraH.valor,label:cabeceraH.valor.toString(),tipo:"horizontal",x:conteo*150})
             if(cabeceraH.siguiente !== null){
                 direccion.push({to:"h"+cabeceraH.valor, from:"h"+cabeceraH.siguiente.valor})
             }
-            piv.push({id:"h"+cabeceraH.valor,label:cabeceraH.valor.toString(),tipo:"h",x:conteo*150})
             cabeceraH = cabeceraH.siguiente
             conteo++
         }
@@ -323,14 +350,27 @@ class MatrizD{
         //Horizontales
         while(cabecera !== null){
             aux = cabecera.derecha
+            let pivX = 0
+            let pivY = 0
             while(aux !== null){
-                nodos.push({id:"I"+aux.valor+aux.x+aux.y,label:aux.valor,x:aux.x*150,y:aux.y*100})
+                //nodos.push({id:"I"+aux.valor+aux.x+aux.y,label:aux.valor,x:aux.x*150,y:aux.y*100})
                 if(aux.izquierda === cabecera){
                     direccion.push({to:"v"+aux.izquierda.valor,from:"I"+aux.valor+aux.x+aux.y})
                 }
                 else if(aux === aux.izquierda.derecha){
                     direccion.push({to:"I"+aux.izquierda.valor+aux.izquierda.x+aux.izquierda.y,from:"I"+aux.valor+aux.x+aux.y})
                 }
+                //Busca posiciones
+                for(let i in piv){
+                    if(piv[i].id === ("v"+aux.y) && piv[i].tipo === "vertical"){
+                        pivY = piv[i].y
+                    }
+                    if(piv[i].id === ("h"+aux.x) && piv[i].tipo === "horizontal"){
+                        pivX = piv[i].x
+                        //break
+                    }
+                }
+                nodos.push({id:"I"+aux.valor+aux.x+aux.y,label:aux.valor,x:pivX,y:pivY})
                 aux = aux.derecha
             }
             cabecera = cabecera.siguiente
@@ -356,12 +396,18 @@ class MatrizD{
     dotGS(){
         let nodos = []
         let direccion = []
+        let piv = []
         let cabeceraH = this.lista_horizontal.primero
         let cabeceraV = this.lista_vertical.primero
         let aux
         let aux2
+        let cont = 0
+        let conteo = 0
         //Ingresa los nodos verticales
         while(cabeceraV !== null){
+            //nodos.push({id:"v"+cabeceraV.valor, label:cabeceraV.valor.toString(),x:-150, y: cont*150})
+            piv.push({id:"v"+cabeceraV.valor, label:cabeceraV.valor.toString(),tipo:"vertical",y: cont*150})
+            cont ++
             aux2 = cabeceraV.derecha
             while(aux2 !== null){
                 if(aux2.derecha !== null){
@@ -373,9 +419,26 @@ class MatrizD{
         }
         //Ingresa los nodos horizontales
         while(cabeceraH !== null){
+            //nodos.push({id:"h"+cabeceraH.valor,label:cabeceraH.valor.toString(),x:conteo*150,y:-150})
+            piv.push({id:"h"+cabeceraH.valor,label:cabeceraH.valor.toString(),tipo:"horizontal",x:conteo*150})
+            conteo ++
+            let pivX = 0
+            let pivY = 0
             aux = cabeceraH.abajo
             while(aux !== null){
-                nodos.push({id:"h"+aux.valor+aux.x+aux.y,label:aux.valor,x:aux.x*150,y:aux.y*100})
+                // Busca posiciones
+                for(let i in piv){
+                    if(piv[i].id === ("v"+aux.y) && piv[i].tipo === "vertical"){
+                        pivY = piv[i].y
+                    }
+                    if(piv[i].id === ("h"+aux.x) && piv[i].tipo === "horizontal"){
+                        pivX = piv[i].x
+                        //break
+                    }
+                }
+                //nodos.push({id:"h"+aux.valor+aux.x+aux.y,label:aux.valor,x:aux.x*150,y:aux.y*100})
+                nodos.push({id:"h"+aux.valor+aux.x+aux.y,label:aux.valor,x:pivX,y:pivY})
+                //piv.push({id:"h"+cabeceraV.valor, label:cabeceraV.valor.toString(),tipo:"vertical",y: cont*150})
                 if(aux.abajo !== null){
                     direccion.push({to:"h"+aux.valor+aux.x+aux.y,from:"h"+aux.abajo.valor+aux.abajo.x+aux.abajo.y})
                 }
@@ -400,7 +463,7 @@ class MatrizD{
             this.insertar(aux.valor.toString(),x.toString(),y.toString())
         }
     }
-    guardar(){
+    guardar(tipo){
         let aux = []
         let cabecera = this.lista_vertical.primero
         let aux2
@@ -419,6 +482,7 @@ class MatrizD{
             categoria: "Estructura Compuesta",
             nombre: "Matriz Dispersa",
             animacion: 10,
+            tipo: tipo,
             valores: aux
         }
         const txt = JSON.stringify(json, null, '   ')

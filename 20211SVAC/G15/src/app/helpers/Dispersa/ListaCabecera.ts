@@ -201,17 +201,16 @@ export class ListaCabecera {
     }
 
 
-    public async addValor(nuevo: Nodo, x: number, y: number, apuntador: Apuntador, tipo: Tipo) {
-        let index = 0
+    public async addValor(nuevo: Nodo, x: number|string, y: number|string, apuntador: Apuntador, tipo: Tipo) {
         let temp = this.primero
         while (temp !== null) {
             if (apuntador === Apuntador.FILA) {
-                if (index === y) break
+                if (this.convertir(temp.getValue()) === this.convertir(y)) break
             }
             else if (apuntador === Apuntador.COLUMNA) {
-                if (index === x) break
+                if (this.convertir(temp.getValue()) === this.convertir(x)) break
             }
-            index++
+            
 
             temp = temp.getSiguiente()
         }

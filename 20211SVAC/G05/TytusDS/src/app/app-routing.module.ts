@@ -24,7 +24,11 @@ import { HammingComponent } from './PaginasWeb/hamming/hamming.component';
 import { HuffmanComponent } from './PaginasWeb/huffman/huffman.component';
 import { HashAbiertoComponent } from './PaginasWeb/hash-abierto/hash-abierto.component';
 import { HashCerradoComponent } from './PaginasWeb/hash-cerrado/hash-cerrado.component';
+import { ProfundidaComponent } from './PaginasWeb/grafo_profundida/profundida.component';
 import { CuComponent } from './PaginasWeb/costo_uniforme/cu.component';
+import { CowComponent } from './PaginasWeb/cow_major/cow.component';
+import { RowComponent } from './PaginasWeb/row_major/row.component';
+
 
 
 const routes: Routes = [
@@ -53,6 +57,9 @@ const routes: Routes = [
   {path:'lzw', component: LZWComponent},
   {path:'feistel', component:FeistelComponent},
   {path:'Cu', component: CuComponent},
+  {path:'Profundida', component: ProfundidaComponent},
+  {path:'Cow', component: CowComponent},
+  {path:'Row', component: RowComponent},
   {path:'**', redirectTo: 'menu'},
 
 ];

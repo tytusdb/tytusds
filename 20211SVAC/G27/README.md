@@ -15,6 +15,15 @@
 ### [Hash Abierto](https://tytusdb.github.io/tytusds/20211SVAC/G27/No_Lineales/hash_abierto.html)
 ### [Hash Cerrado](https://tytusdb.github.io/tytusds/20211SVAC/G27/No_Lineales/hash_cerrado.html)
 ### [Matriz Dispersa](https://tytusdb.github.io/tytusds/20211SVAC/G27/No_Lineales/matriz_dispersa.html)
+### [Col And Row Major](https://tytusdb.github.io/tytusds/20211SVAC/G27/No_Lineales/row_col_major.html)
+### [Grafos](https://tytusdb.github.io/tytusds/20211SVAC/G27/No_Lineales/Grafos.html)
+### [Compuesta](https://tytusdb.github.io/tytusds/20211SVAC/G27/No_Lineales/compuesta.html)
+
+## ALGORITMOS DE CODIFICACION
+### [Feistel](https://tytusdb.github.io/tytusds/20211SVAC/G27/Codificacion/Feistel.html)
+### [Hamming](https://tytusdb.github.io/tytusds/20211SVAC/G27/Codificacion/Hamming.html)
+### [Huffman](https://tytusdb.github.io/tytusds/20211SVAC/G27/Codificacion/Huffman.html)
+### [LZW](https://tytusdb.github.io/tytusds/20211SVAC/G27/Codificacion/LZW.html)
 
 ## ORDENAMIENTOS
 ### [Ordenamiento Burbuja](https://tytusdb.github.io/tytusds/20211SVAC/G27/ordenamientos/bubleSort.html)

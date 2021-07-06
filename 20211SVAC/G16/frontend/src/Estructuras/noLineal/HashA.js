@@ -40,7 +40,7 @@ class HashAbierto{
 
     carga(lista){
         for(var i in lista){
-            this.agregar(lista[i])
+            this.agregar(lista[i].toString())
         }
     }
 

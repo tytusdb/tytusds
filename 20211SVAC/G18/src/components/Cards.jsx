@@ -132,6 +132,41 @@ const arboles = [
 
 ]
 
+const codificacion = [
+    {
+        id: 15,
+        title: 'Codigo de Hamming',
+        image: abb,
+        url: '/hamming'
+    },
+
+    {
+        id: 16,
+        title: 'Algoritmo de Huffman',
+        image: avl,
+        url: "/huffman",
+    },
+    {
+        id: 17,
+        title: 'Algoritmo LZW',
+        image: bmas,
+        url: "/",
+    },
+    {
+        id: 18,
+        title: 'Cifrado Feistel',
+        image: merkle,
+        url: "/",
+    },
+    {
+        id: 19,
+        title: 'Cifrado RSA',
+        image: merkle,
+        url: "/",
+    },
+
+]
+
 
 
 
@@ -144,7 +179,7 @@ function Cards() {
         <div className="container d-flex justify-content-center align-items-center h-100 ">
             <div className="row">
 
-            <h2 className="text-white" >Estructuras Lineales</h2>
+                <h2 className="text-white" >Estructuras Lineales</h2>
 
                 {
                     EstructurasLineales.map(card => (
@@ -171,6 +206,15 @@ function Cards() {
                 {
                     arboles.map(card => (
                         <div className="col-md-3 " key={card.id} id="arboreas">
+                            <Card title={card.title} imageSource={card.image} url={card.url} text={card.text} />
+                        </div>
+                    ))
+                }
+
+                <h2 className="text-white">Algoritmos de codificación</h2>
+                {
+                    codificacion.map(card => (
+                        <div className="col-md-3 " key={card.id} id="codificacion">
                             <Card title={card.title} imageSource={card.image} url={card.url} text={card.text} />
                         </div>
                     ))

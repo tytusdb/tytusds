@@ -6,6 +6,37 @@ class RowMayor{
         this.col = col
     }
 
+    agregar(valor, i, j){
+        if(this.vector[(i*this.col)+j] === undefined){
+            this.vector[(i*this.col)+j] = valor
+        }
+        this.generarSalida()
+        return this.salida
+    }
+
+    eliminar(i, j){
+        this.vector[(i*this.col)+j] = undefined
+        this.generarSalida()
+        return this.salida
+    }
+
+    actualizar(nuevo, i, j){
+        if(this.vector[(i*this.col)+j] !== undefined){
+            this.vector[(i*this.col)+j] = nuevo
+        }
+        this.generarSalida()
+        return this.salida
+    }
+
+    buscar(valor){
+        for(var i in this.vector){
+            if(this.vector[i] === valor){
+                return true
+            }
+        }
+        return false
+    }
+
     cargar(vector){
         this.vector = new Array(this.row * this.col)
         for(var k in vector){
