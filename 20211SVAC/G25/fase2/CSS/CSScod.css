@@ -1,0 +1,12 @@
+body {
+    background-image: url(../Img/bckCod.jpg);
+    background-size: 100%;
+}
+
+#codificar {
+    background-color: aqua;
+}
+
+#decodificar {
+    background-color: rgb(247, 80, 2);
+}

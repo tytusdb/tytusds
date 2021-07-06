@@ -1,0 +1,17 @@
+body {
+    background-image: url(../Img/bck.jpg);
+}
+
+.list-group-item {
+    background-color: rgba(240, 46, 127, 0.678);
+}
+
+a {
+    text-decoration: none;
+    color: antiquewhite;
+}
+
+a:hover {
+    color: rgb(247, 68, 68);
+    font-size: x-large;
+}

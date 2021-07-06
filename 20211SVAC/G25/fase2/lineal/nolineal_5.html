@@ -1,0 +1,99 @@
+<?php
+
+ ?>
+    <!DOCTYPE html>
+    <html lang="es" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <title id="titulo"></title>
+        <!-- CSS only -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="../CSS/CSSLine.css">
+    </head>
+
+    <body onload="primero()">
+
+        <div class="container">
+
+            <h1 id="titulo2"></h1>
+            <br>
+
+            <table>
+                <thead>
+                    <tr>
+                        <td>
+                            <h5>Vertice</h5>
+                        </td>
+                        <td colspan="2">
+                            <h5>Valor Arista/Buscar</h5>
+                        </td>
+                        <td>
+                            <h5>Arista</h5>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <button class="btn btn-success  btn-lg" type="button" name="button" onclick="acVertice()">Agregar</button>
+                        </td>
+                        <td colspan="2">
+                            <input type="number" id="valorArista" value="0" placeholder="Valor arista">
+                        </td>
+                        <td>
+                            <button class="btn btn-success btn-lg" type="button" name="button" onclick="acArista()">Agregar</button>
+                        </td>
+                    </tr>
+                    <tr>
+                      <td><h5>Vertice Inicio</h5></td>
+                      <td colspan="2">
+<input id="vertInicio" type="text">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><h5>Vertice Fin</h5></td>
+                      <td colspan="2">
+<input id="vertFin" type="text">
+                      </td>
+                    </tr>
+
+                    <tr>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="btn btn-primary btn-lg" type="button" name="button" onclick="buscar()">Buscar</button>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary btn-lg" type="button" name="button" onclick="resolver()">Resolver</button>
+                        </td>
+                        <!--<td>
+                          <a id="link_vertices" download="vertices_uniforme.json"><button class="btn-lg btn-success" type="button" name="button" onclick="guardarVertices()">Guardar Vertices</button></a>
+                        </td>
+                        <td>
+                          <a id="link_aristas" download="aristas_uniforme.json"><button class="btn-lg btn-success" type="button" name="button" onclick="guardarAristas()">Guardar Aristas</button></a>
+
+                        </td>
+                    </tr>
+                    <tr>
+                      <td><h5>Archivo JSON Vertices</h5></td>
+                      <td>
+
+                      </td>-->
+                    </tr>
+                </tbody>
+            </table>
+
+
+
+            <br><br>
+            <canvas style="border: 1px solid black" id="visor" width="1000" height="500"></canvas>
+        </div>
+    </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/fase2/uniforme.js"></script>
+
+    <script type="text/javascript" src="../js/control/uniforme.js"></script>
+
+    </html>
