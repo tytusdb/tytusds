@@ -15,7 +15,7 @@ var LZW = (function () {
         this.Salida = [];
         this.Agregar = [];
     }
-    LZW.prototype.comprimir = function (cadena) {
+    LZW.prototype.codificar = function (cadena) {
         var w = '';
         var k = '';
         for (var i = 0; i < cadena.length; i++) {
@@ -42,6 +42,10 @@ var LZW = (function () {
         this.Agregar.push('');
         this.Salida.push(this.enDiccionario(w).toString());
     };
+    LZW.prototype.toString = function () {
+        var finalString = this.Salida.join('');
+        return finalString;
+    };
     LZW.prototype.ingresarCaracteres = function (cadena) {
         for (var i = 0; i < cadena.length; i++) {
             if (this.enDiccionario(cadena.charAt(i)) == -1)
@@ -62,7 +66,15 @@ var LZW = (function () {
         console.log('W\tK\tWK\tAgregar\t\tSalida');
         console.log('------------------------------------------------');
         for (var i = 0; i < this.W.length; i++) {
-            console.log(this.W[i] + '\t' + this.K[i] + '\t' + this.WK[i] + '\t' + this.Agregar[i] + '\t\t' + this.Salida[i]);
+            console.log(this.W[i] +
+                '\t' +
+                this.K[i] +
+                '\t' +
+                this.WK[i] +
+                '\t' +
+                this.Agregar[i] +
+                '\t\t' +
+                this.Salida[i]);
         }
     };
     return LZW;

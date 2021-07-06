@@ -14,11 +14,19 @@ var Hamming = (function () {
         this.tabla = [];
     }
     Hamming.prototype.codificar = function (cadena) {
+        this.cadena = cadena;
         if (this.esBinario(cadena)) {
             this.construirTabla(cadena);
             return this.tabla;
         }
         return null;
+    };
+    Hamming.prototype.toString = function () {
+        return (this.tabla
+            .map(function (row) { return row.valores; })
+            .flat()
+            .filter(Boolean)
+            .join(''));
     };
     Hamming.prototype.construirTabla = function (cadena) {
         this.numBits = this.cantidadBits(cadena);
@@ -53,7 +61,8 @@ var Hamming = (function () {
                 if (this.tabla[0].valores[i + j - 1] == '1') {
                     contador++;
                 }
-                this.tabla[numParidad + 1].valores[i + j - 1] = this.tabla[0].valores[i + j - 1];
+                this.tabla[numParidad + 1].valores[i + j - 1] =
+                    this.tabla[0].valores[i + j - 1];
             }
         }
         this.tabla[numParidad + 1].valores[n - 1] = (contador % 2).toString();
