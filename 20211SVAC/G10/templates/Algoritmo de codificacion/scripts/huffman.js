@@ -2,112 +2,170 @@ class Node {
     constructor(caracter, frecuencia){
         this.caracter = caracter
         this.frecuencia = frecuencia
-        this.siguiente = null  
+        this.izquierda = null
+        this.derecha = null
+        this.camino = null
     }
 }
 
-class lista {
+class lista{
     constructor() {
-        this.inicio = null
-        this.size = 0
+        this.lista = []
+        this.raiz = null
+        this.binario = []
+        this.caracteres = []
     }
-    
-    agregar(dato, frecuencia) {
-        let nuevo = new Node(dato, frecuencia)
-        if (this.inicio == null) {
-            this.inicio = nuevo;
-        }else {
-            let actual = this.inicio;
-            while (actual.siguiente != null) {
-                actual = actual.siguiente;
+
+    agregar(caracter, frecuencia) {
+        let nuevo = new Node(caracter, frecuencia)
+        this.lista.push(nuevo)
+    }
+
+    buscar(caracter) {
+        for(let i = 0; i < this.lista.length; i++) {
+            if (caracter == this.lista[i].caracter) {
+                return i
             }
-            actual.siguiente = nuevo;
         }
-        this.size ++
+        return false
     }
 
-    buscar(dato) {
-        let actual = this.inicio
-
-        while (actual != null) {
-            if (actual.caracter == dato) {
-                return actual.caracter
-            } 
-            actual = actual.siguiente;
+    repetido(indice, frecuencia) {
+        for(let i = 0; i < this.lista.length; i++) {
+            if (indice == i) {
+                this.lista[indice].frecuencia = this.lista[indice].frecuencia + frecuencia
+            }
         }
-        return false;
     }
 
     ordenar() {
-        let actual = this.inicio
-        let lista = []
+        let temporal = this.lista
         let aux
-        for(let i = 0; i < this.size; i++) {
-            lista.push(actual)
-            actual = actual.siguiente
-        }
-        for (let i = 0; i < lista.length; i++) {
-            for(let j = i + 1; j < lista.length; j++) {
-                if(lista[i].frecuencia > lista[j].frecuencia) {
-                    aux = lista[i]
-                    lista[i] = lista[j]
-                    lista[j] = aux
+        for (let i = 0; i < temporal.length; i++) {
+            for(let j = i + 1; j < temporal.length; j++) {
+                if(temporal[i].frecuencia > temporal[j].frecuencia) {
+                    aux = temporal[i]
+                    temporal[i] = temporal[j]
+                    temporal[j] = aux
                 }
             }
         }
-        return lista
-    }
-
-    repetido(dato, frecuencia) {
-        let actual = this.inicio
-        while (actual != null) {
-            if (actual.caracter == dato) {
-                actual.frecuencia = actual.frecuencia + frecuencia
-            } 
-            actual = actual.siguiente;
-        }
-    }
-
-    mostrar() {
-        let actual = this.inicio;
-        let string = ''
-        for (let i = 0; i < this.size; i++) {
-            string += actual.caracter + '|' + actual.frecuencia
-            string += ' -> '
-            actual = actual.siguiente;
-        }
-        console.log(string)
+        return temporal
     }
 }
 
-class NodeArbol {
-    constructor(dato, frecuencia) {
-        this.dato = dato
-        this.frecuencia = frecuencia
-        this.left = null
-        this.right = null
-    }
-}
-
-class huffman{
+class huffman {
     constructor() {
-        this.root = null
+        this.raiz = null
+        this.size = 0
     }
 
-    agregar(caracter, frecuencia, izq, der) {
-        let nuevo = new NodeArbol(caracter, frecuencia)
-        this.root = nuevo
-        this.root.left = izq
-        this.root.right = der
-        console.log(this.root)
+    vacio() {
+        return this.root === null
+    }
+
+    insert(lista) {
+
+        while(lista.length > 1) {
+            let izquierda = lista.shift()
+            let derecha = lista.shift()
+
+            let raiz_frecuencia = izquierda.frecuencia + derecha.frecuencia
+            let nuevo = new Node('null', raiz_frecuencia)
+
+            nuevo.izquierda = izquierda
+            nuevo.izquierda.camino = '0'
+            nuevo.derecha = derecha
+            nuevo.derecha.camino = '1'
+
+            lista.push(nuevo)
+            this.raiz = nuevo
+        }
+    }
+
+    buscarDerecha(dato, actual, camino) {
+        /*
+        while (actual != null) {
+            //console.log(`${actual.caracter} ${actual.frecuencia}`)
+            camino += '1'
+            if(actual.caracter == dato) {
+                return true
+            } else {
+                //console.log(this.buscarDerecha(dato, actual.izquierda))
+                let left = this.buscarIzquierda(dato, actual.izquierda, camino)
+                let right = this.buscarDerecha(dato, actual.derecha, camino)
+                if(left == false && right == false) {
+                    return false
+                } else {
+                    console.log(camino)
+                    return true
+                }
+            }
+        }   
+        */    
+    }
+
+    buscarIzquierda(dato, actual, camino) {
+
+        /*
+        while (actual != null) {
+            camino += '0'
+            if(actual.caracter == dato) {
+                return true
+            } else {
+                //console.log(this.buscarDerecha(dato, actual.izquierda))
+                let left = this.buscarIzquierda(dato, actual.izquierda, camino)
+                let right = this.buscarDerecha(dato, actual.derecha, camino)
+                if(left == false && right == false) {
+                    return false
+                } else {
+                    console.log(camino)
+                    return true
+                }
+            }
+        }   
+        */
+    }
+
+    buscar(dato, actual) {
+        console.log(actual)
+        if (dato == actual.caracter) {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    binario(lista, actual = this.raiz) {
+        
+        while(actual != null) {
+            if(!this.buscar('a', actual)){
+                console.log(this.buscar('a', actual))
+                actual = actual.derecha
+            } else {
+                console.log('nel prro') 
+            }
+        }
+        /* 
+        console.log('binario()')
+        let actual = this.raiz
+        let ruta = ''
+        /*for (let i = 0; i < lista.length; i++) {
+            console.log(lista[i])
+        }
+
+        //this.buscarDerecha('L', actual, ruta)
+        while(actual != null) {
+            console.log(this.buscarDerecha('L', actual, ruta))
+            actual = actual.derecha
+        }
+        //this.buscarIzquierda('L', actual)
+        */
     }
 }
 
 let entrada
 let archivo = document.getElementById('file')
-
-let list = new lista()
-let arbol = new huffman()
 
 archivo.addEventListener('change', () => {
     let leer = new FileReader()
@@ -118,39 +176,35 @@ archivo.addEventListener('change', () => {
     document.getElementById('mensaje').innerText = 'Se cargo el archivo con exito'
 })
 
-cargar.addEventListener("click", (e) => {
-    e.preventDefault()
-    console.log(entrada)
+let codificar = new lista()
+let metodo = new huffman()
+
+cargar.addEventListener("click", () => {
+
+    let caracteres = []
 
     for(let i = 0; i < entrada.length; i++) {
-        let frecuencia = 0
-        frecuencia ++
-        if(!list.buscar(entrada[i])) {
-            list.agregar(entrada[i], frecuencia)
+        let frecuencia = 1
+        if(!codificar.buscar(entrada[i])) {
+            codificar.agregar(entrada[i], frecuencia)
+            
+            caracteres.push(entrada[i])
         } else {
-            list.repetido(entrada[i], frecuencia)
-        }     
-    }
-    let lista = list.ordenar()
-
-    for (let i = 0; i < lista.length; i++){
-        console.log(lista.slice(0, 2))
-        for(let j = 0; j < lista.slice(0, 2).length; j++) {
-            lista.shift()
+            let indice = codificar.buscar(entrada[i])
+            
+            codificar.repetido(indice, frecuencia)
         }
     }
+    
 
-    let nueva_lista = lista.slice(0, 2)
-    let frecuencia_raiz = 0
+    let listaOrdenada = codificar.ordenar()
 
-    for (let i = 0; i < nueva_lista.length; i++){
-        frecuencia_raiz = frecuencia_raiz + nueva_lista[i].frecuencia
-        lista.shift()
-    }
-
-    arbol.agregar(null, frecuencia_raiz, nueva_lista[0], nueva_lista[1])
-
-    console.log(lista)
+    metodo.insert(listaOrdenada)
+    metodo.binario(caracteres)
+    
+    //let arbol = codificar.arbol(lista[0], lista[1])
+    //codificar.lista_cadacter(arbol, caracteres)
 
     document.getElementById('mensaje').innerText = ''
+    
 })
