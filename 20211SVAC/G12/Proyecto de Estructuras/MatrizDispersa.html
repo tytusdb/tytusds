@@ -8,11 +8,6 @@
     <script>
         let m=new Matriz();
        function init(){
-           m.insert(1,2,2)
-           m.insert(1,1,3)
-           m.insert(2,2,5)
-           m.insert(3,3,6)
-           m.Graficar()
        }
        function ins(){
             let x=document.getElementById("x").value
@@ -51,6 +46,7 @@
            let p=document.getElementById("IA1").value
             let v=document.getElementById("IA2").value
            m.insertarArreglo(p,v)
+            m.GraficarArreglo()
         }
 
 
