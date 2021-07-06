@@ -136,6 +136,7 @@ async function codificar(){
     console.log("Codificando");
     var entrada = document.getElementById("espacioTxt").value;
     var salida = document.getElementById("respuesta");
+    var cuadroTabla = document.getElementById("spcTabla");
     var respu = hamon.cifrar(entrada);
     resulFile = respu;
 
@@ -184,7 +185,7 @@ function efectoMatrix(){
     
     //var img = "<img class=\"efectoM\" src=\"../../img/matrix1.gif\">"
     var img = "<img class=\"efectoM\" src=\"https://media.giphy.com/media/AOSwwqVjNZlDO/giphy.gif\">"
-    var cuadroTabla = document.getElementById("cuadroTabla");
+    var cuadroTabla = document.getElementById("spcTabla");
     cuadroTabla.innerHTML = img;
 }
 

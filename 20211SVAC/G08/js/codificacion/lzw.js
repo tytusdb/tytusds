@@ -204,10 +204,11 @@ function animTabla(){
     cuadroTabla.innerHTML = tab;
 }
 function efectoMatrix(){
+    var cuadroTabla = document.getElementById("tablaCod");
     
     //var img = "<img class=\"efectoM\" src=\"../../img/matrix1.gif\">"
     var img = "<img class=\"efectoM\" src=\"https://media.giphy.com/media/AOSwwqVjNZlDO/giphy.gif\">"
-    var cuadroTabla = document.getElementById("cuadroTabla");
+    
     cuadroTabla.innerHTML = img;
 }
 // ***** LIMPIAR PANTALLA *****
