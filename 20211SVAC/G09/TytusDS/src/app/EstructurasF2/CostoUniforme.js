@@ -257,4 +257,7 @@ class CostoUniforme{
   MostrarGrafo(){
       console.log(this.DatoNodo)
   }
+  cambiarDatoNodo(datos){
+    this.DatoNodo=datos
+  }
 }

@@ -19,10 +19,11 @@ export class AlgoritmoCostoUniformeComponent implements OnInit {
   aG= new anchuraGrafos()
 
   costo(ini:string, fin:string){
-    console.log(this.cU.CostoUniforme(this.aG.returnValores(),ini,fin))
+    this.cU.cambiarDatoNodo(this.aG.returnValores())
+    console.log(this.cU.CostoUniforme(ini,fin))
   }
   value(){
-    this.cU.graficarGrafo()
+    this.aG.graficarGrafo()
   }
   leerArchivo(event: any){
     let ca= new CargaArchivo()
