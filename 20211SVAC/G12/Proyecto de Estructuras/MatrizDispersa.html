@@ -27,6 +27,32 @@
         function cmayor(){
             m.ColumnMajor()
         }
+        function eliminar(){
+            let x=document.getElementById("xe").value
+            let y=document.getElementById("ye").value
+            m.eliminar(x,y)
+            m.Graficar()
+        }
+        function actu(){
+            let x=document.getElementById("x").value
+            let y=document.getElementById("y").value
+            let v=document.getElementById("v").value
+            m.eliminar(x,y)
+            m.insert(x,y,v)
+            m.Graficar()
+        }
+
+        function find(){
+            let v=document.getElementById("vs").value
+            m.buscarValor(v)
+        }
+
+        function insertA(){
+           let p=document.getElementById("IA1").value
+            let v=document.getElementById("IA2").value
+           m.insertarArreglo(p,v)
+        }
+
 
         window.addEventListener('load',function (){
             var upload=document.getElementById("loadedFile")
@@ -72,8 +98,17 @@
 <body onload="init()">
 <input type="text" placeholder="x" id="x">
 <input type="text" placeholder="y" id="y">
-<input type="text" placeholder="v" id="v">
+<input type="text" placeholder="valor" id="v">
 <button onclick="ins()">Insertar</button>
+<button onclick="actu()">Actualizar</button>
+<input type="text" placeholder="x a eliminar" id="xe">
+<input type="text" placeholder="y a eliminar" id="ye">
+<button onclick="eliminar()">Eliminar</button>
+<input type="text" placeholder="valor a encontrar" id="vs">
+<button onclick="find()">Buscar</button>
+<input type="text" placeholder="posicion" id="IA1">
+<input type="text" placeholder="valor" id="IA2">
+<button onclick="insertA()">Insertar En Arreglo</button>
 <button onclick="rmayor()">Row Major</button>
 <button onclick="cmayor()">Column Major</button>
 <input type="file" id="loadedFile">

@@ -140,6 +140,25 @@ class Matriz {
         return null
     }
 
+    async buscarValor(val){
+        let x=this.head.right
+        let y=this.head.down
+        while (y!=null){
+            x=y.right
+            while(x!=null){
+                if(x.val==val){
+                    let id=x.x+"-"+x.y
+                    let elem=document.getElementById(id)
+                    await changeColorNode(elem,"yellow",500,"BY")
+                   return x
+                }
+                x=x.right
+            }
+            y=y.down
+        }
+        return null
+    }
+
     insert(xe, ye, distancia) {
         this.vals++
         let s=this.search(xe,ye)
@@ -213,69 +232,30 @@ class Matriz {
                 te.left=aux
             }
         }
-
     }
 
-    show() {
-        let res = ""
-        let display = document.getElementById("storage")
-        let tempx = this.head.right;
-        let tempy = this.head.down;
-        res += "<tr>"
-        res += "<td></td>"
-        while (tempx != null) {
-            res += "<th>" + tempx.val + "</th>"
-            tempx = tempx.right
-        }
-        res += "</tr>"
-        tempx = this.head.right
-        while (tempy != null) {
-            res += "<tr>";
-            res += "<td>" + tempy.val + "</td>";
-            tempx = this.head.right;
-            let te = tempy.right
-            while (tempx != null) {
-                if (te == null) {
-                    res += "<td>" + "x" + "</td>"
-                } else if (te.x == tempx.x) {
-                    res += "<td>" + te.val + "</td>"
-                    if (te.right != null) {
-                        te = te.right
-                    }
-                } else {
-                    res += "<td>" + "x" + "</td>"
-                }
-                tempx = tempx.right
+    eliminar(xe,ye) {
+        let x=this.getx(parseInt(xe))
+        let y=this.gety(parseInt(ye))
+        if(x!=null&&y!=null){
+            while (x.down!=null&&x.y!=ye){
+                x=x.down
             }
-            res += "</tr>";
-            tempy = tempy.down
+            if(x.y==ye){
+                x.left.right=x.right
+                if(x.right!=null){
+                    x.right.left=x.left
+                }
+                x.up.down=x.down
+                if(x.down!=null){
+                    x.down.up=x.up
+                }
+            }
+            return null
         }
-        document.getElementById("result").innerHTML = ""
-        display.innerHTML = res
+        return null
     }
 
-    eliminar(nodo) {
-        let temp = this.head
-        while (temp.down != null && temp.y != nodo) {
-            temp = temp.down
-        }
-        if (temp.down == null && temp.y == nodo) {
-            temp.up.down = null
-        } else if (temp.down != null && temp.y == nodo) {
-            temp.down.up = temp.up
-            temp.up.down = temp.down
-        }
-        temp = this.head
-        while (temp.right != null && temp.x != nodo) {
-            temp = temp.right
-        }
-        if (temp.right == null && temp.x == nodo) {
-            temp.left.right = null
-        } else if (temp.right != null && temp.x == nodo) {
-            temp.right.left = temp.left
-            temp.left.right = temp.right
-        }
-    }
 
     actualizar(nodoi, nodof) {
         let x = this.getx(nodoi);
@@ -292,6 +272,23 @@ class Matriz {
             while (y != null) {
                 y.y = nodof
                 y = y.right
+            }
+        }
+    }
+
+    async insertarArreglo(pos,val){
+        pos=parseInt(pos)
+        this.arreglo.splice(pos,0,new Nodo(val,-1,-1))
+        document.getElementById("result").innerHTML+=`<div id="${"a"+pos}" class="nodo" style="left: ${0}px; top: 90px">${val}</div>`
+        let elem=document.getElementById("a"+pos)
+        await movexy((pos*150),90,elem,500)
+    }
+
+    GraficarArreglo(){
+        let res=""
+        for (const i in this.arreglo) {
+            if(this.arreglo[i]!=null){
+                res+=`<div class="nodo" style="top:90px;left:${i*150}px  ">${this.arreglo[i].val}</div>`
             }
         }
     }
@@ -364,7 +361,7 @@ class Matriz {
         while (y!=null){
             x=y.right
             while (x!=null){
-                let pos=1*(this.columns*(x.x)+(x.y))
+                let pos=((this.columns*(parseInt(x.y)))+(x.x))
                 console.log(pos)
                 this.arreglo[pos]=x
                 let element=document.getElementById(x.x+"-"+x.y)
@@ -382,7 +379,7 @@ class Matriz {
         while (x!=null){
             y=x.down
             while (y!=null){
-                let pos=1*(this.rows*(y.x)+(y.y))
+                let pos=1*((this.rows*(y.x))+(y.y))
                 console.log(pos)
                 this.arreglo[pos]=y
                 let element=document.getElementById(y.x+"-"+y.y)
@@ -456,6 +453,18 @@ function movexy(x, y, i, speed) {
             element.style.top = y + "px";
             element.style.left = x + "px";
 
+            resolve()
+        }, speed);
+    });
+}
+function changeColorNode(element, color, speed,code) {
+    return new Promise(resolve => {
+        element.style.animation = "colorChange" + code
+            + speed / 1000 + "s" + "ease";
+        setTimeout(() => {
+            element.style.animation = null;
+            element.style.backgroundColor = color;
+            element.style.color="black"
             resolve()
         }, speed);
     });
