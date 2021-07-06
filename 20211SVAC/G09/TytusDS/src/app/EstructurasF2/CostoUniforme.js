@@ -1,86 +1,262 @@
 class CostoUniforme{
-CostosUniformes(Grafo,NodoInicial,NodoFinal){
-  //Grafo
-  this.Grafo = Grafo;
-  //Nodo Inicial
-  this.NodoInicial = NodoInicial;
-  //Nodo Final
-  this.NodoFinal = NodoFinal;
- //Camino Corto
-  let CaminoCorto;
-  //Camino Padres (Corto)
-  let CaminoCortoNodosPadres;
-  //dato del grafo
-  let dato;
-  //Nodos Visitados
-   let NodosVisitados=[]
-  //Nodos
-   let Nodo;
+  constructor(){
+      this.DatoNodo = [];
+      this.id = 1;
+  }
 
-  CaminoCorto=Object.assign({[NodoFinal]:Infinity},Grafo[NodoInicial])
-  CaminoCortoNodosPadres={[NodoFinal]:null}
-  for(dato in Grafo[NodoInicial]){
-    CaminoCortoNodosPadres[dato]=NodoInicial;
+  ObtenerDato(){
+      return this.DatoNodo
   }
- 
-  Nodo = findCheapest(CaminoCorto,NodosVisitados)
-    while(Nodo){
-        let Camino = CaminoCorto[Nodo];
-        let NodosHijos = Grafo[Nodo]
-        for(let NodoHijo in NodosHijos){
-            let CaminoNuevo; 
-            CaminoNuevo = Camino + NodosHijos[NodoHijo]
-            if(!CaminoCorto[NodoHijo]||CaminoCorto[NodoHijo]>CaminoNuevo){
-                CaminoCorto[NodoHijo]= CaminoNuevo
-                CaminoCortoNodosPadres[NodoHijo]= Nodo;
-            }
-        }
-        NodosVisitados.push(Nodo)
-        Nodo = findCheapest(CaminoCorto,NodosVisitados)
-    }
-  let FinalGrafo = [NodoFinal];
-  let NodoPadre = CaminoCortoNodosPadres[NodoFinal]
-  while(NodoPadre!=NodoInicial){
-      FinalGrafo.unshift(NodoPadre)
-      NodoPadre=CaminoCortoNodosPadres[NodoPadre]
+
+  ObtenerId(DatoActual){
+      for(let i = 0; i < this.DatoNodo.length; i++){
+          if(this.DatoNodo[i].value == DatoActual){
+              return this.DatoNodo[i].id
+          }
+      }
+      return null
   }
-  FinalGrafo.unshift(NodoInicial)
-  let MejorCamino ={
-      Camino: FinalGrafo,
-      Costo: CaminoCorto[NodoFinal]
+
+  getKey(DatoActual){
+      let hash = 0
+      if(typeof DatoActual === 'string'){
+          for(let i = 0; i < DatoActual.length; i++){
+              hash += DatoActual.charCodeAt(i)
+          }
+      } else {
+          hash = DatoActual
+      }
+      return hash
   }
-  return MejorCamino 
+
+  Insertar(array){
+      for(let i = 1; i < array.length; i++){
+          let keyCompare = array[i].Vertices
+          let key = array[i]
+          let j = i-1
+          while(j>=0 && this.getKey(array[j].Vertices) > this.getKey(keyCompare)){
+              array[j+1] = array[j]
+              j = j-1
+          }
+          array[j+1] = key
+      }
+  }
+
+  InsertarDistancia(array){
+      for(let i = 1; i < array.length; i++){
+          let keyCompare = array[i].distanciaVertice
+          let key = array[i]
+          let j = i-1
+          while(j>=0 && this.getKey(array[j].distanciaVertice) > this.getKey(keyCompare)){
+              array[j+1] = array[j]
+              j = j-1
+          }
+          array[j+1] = key
+      }
+  }
+
+  AgregarVertice(DatoActual){
+      let nodo = {
+          Vertices: DatoActual,
+          id: this.id++,
+          Aristas: []
+      }
+      this.DatoNodo.push(nodo)
+  }
+
+  EliminarNodo(DatoActual){
+      var eliminado
+      for(let i = 0; i < this.DatoNodo.length; i++){
+          if(this.DatoNodo[i].Vertices == DatoActual){
+              eliminado = this.DatoNodo[i].id
+              this.DatoNodo.splice(i, 1);
+              break
+          }
+      }
+      for(let i = 0; i < this.DatoNodo.length; i++){
+          for(let j = 0; j < this.DatoNodo[i].Aristas.length; j++){
+              if(this.DatoNodo[i].Aristas[j].Vertices == DatoActual){
+                  this.DatoNodo[i].Aristas.splice(j, 1);
+                  break
+              }
+          }
+      }
+      return eliminado
+  }
+
+  ActualizarNodo(DatoActual, NuevoDato){
+      var actualizado
+      for(let i = 0; i < this.DatoNodo.length; i++){
+          if(this.DatoNodo[i].Vertices == DatoActual){
+              actualizado = this.DatoNodo[i].id
+              this.DatoNodo[i].Vertices = NuevoDato;
+              break
+          }
+      }
+      for(let i = 0; i < this.DatoNodo.length; i++){
+          for(let j = 0; j < this.DatoNodo[i].Aristas.length; j++){
+              if(this.DatoNodo[i].Aristas[j].Vertices == DatoActual){
+                  this.DatoNodo[i].Aristas[j].Vertices = NuevoDato;
+                  this.Insertar(this.DatoNodo[i].Aristas)
+                  break
+              }
+          }
+      }
+      return actualizado
+  }
+
+  AgregarAristas(from, to, distanciaVertice){
+      //Obtenemos el nodo from
+      let arista = {
+          Vertices: to,
+          distanciaVertice: distanciaVertice
+      }
+      for(let i = 0; i < this.DatoNodo.length; i++){
+          if(this.DatoNodo[i].Vertices == from){
+              this.DatoNodo[i].Aristas.push(arista)
+              this.Insertar(this.DatoNodo[i].Aristas)
+          }
+      }
+  }
+
+  getDatoNodo(DatoActual, distanciaVertice){
+      for(let i = 0; i < this.DatoNodo.length; i++){
+          if(DatoActual == this.DatoNodo[i].Vertices){
+              let temporal = []
+              for(let j = 0; j < this.DatoNodo[i].Aristas.length; j++){
+                  let arista = Object.assign({}, this.DatoNodo[i].Aristas[j]);
+                  arista.distanciaVertice = arista.distanciaVertice + distanciaVertice
+                  temporal.push(arista)
+              }
+              return temporal
+          }
+      }
+      return []
+  }
+
+  CostoUniformeBuscar(Inicio, Final){
+      let recorrido = []
+      let realInicio = {
+          Vertices: Inicio,
+          distanciaVertice: 0,
+          VerticeDestino: null
+      }
+      let list = [realInicio]
+      while (list.length > 0){
+          var current = list.shift();
+          console.log("VerticeDestino: " + current.Vertices + ", Distancia Acumulada: " + current.distanciaVertice)
+          if (current.Vertices == Final) {
+              console.log("Vertice Encontrado:")
+              console.log(current)
+              //Intentamos ingresar el recorrido
+              let temporal = current
+              while(temporal != null){
+                  recorrido.push(this.ObtenerId(temporal.Vertices))
+                  temporal = temporal.VerticeDestino
+              }
+              recorrido.reverse()
+              return {recorrido: recorrido, distancia: current.distanciaVertice, encontrado: true}
+          }
+          var hijos = this.getDatoNodo(current.Vertices, current.distanciaVertice);
+          var auxiliar = []
+          hijos.forEach(val =>{
+              console.log(current.Vertices + "->" + val.Vertices)
+              let hijo = {
+                  Vertices: val.Vertices,
+                  distanciaVertice: val.distanciaVertice,
+                  VerticeDestino: current
+              }
+              auxiliar.push(hijo)
+          })
+          list = auxiliar.concat(list);
+          this.InsertarDistancia(list)
+      }
+      let temporal = current
+      while(temporal != null){
+          recorrido.push(this.ObtenerId(temporal.Vertices))
+          temporal = temporal.VerticeDestino
+      }
+      recorrido.reverse()
+      return {recorrido: recorrido, distancia: current.distanciaVertice, encontrado: false}
+  }
+
+  recorrerCostoUniforme(Inicio, Final){
+      let recorrido = []
+      let recorridoIds = []
+      let realInicio = {
+          Vertices: Inicio,
+          distanciaVertice: 0,
+          VerticeDestino: null
+      }
+      let list = [realInicio]
+      while (list.length > 0){
+          var current = list.shift();
+          if(recorrido.includes(current.Vertices)) continue
+          recorrido.push(current.Vertices)
+          recorridoIds.push(this.ObtenerId(current.Vertices))
+          console.log("Vertice Destino: " + current.Vertices + ", Distancia Acumulada: " + current.distanciaVertice)
+          var hijos = this.getDatoNodo(current.Vertices, current.distanciaVertice);
+          var auxiliar = []
+          hijos.forEach(val =>{
+              console.log(current.Vertices + "->" + val.Vertices)
+              let hijo = {
+                  Vertices: val.Vertices,
+                  distanciaVertice: val.distanciaVertice,
+                  VerticeDestino: current
+              }
+              auxiliar.push(hijo)
+          })
+          list = auxiliar.concat(list);
+          this.InsertarDistancia(list)
+      }
+      return {recorrido: recorridoIds, distancia: current.distanciaVertice, encontrado: false}
+  }
+
+  recorrerPrim(Inicio){
+      let recorrido = []
+      let recorridoIds = []
+      console.log("PROFUNDIDAD:")
+      let realInicio = {
+          Vertices: Inicio,
+          distanciaVertice: 0
+      }
+      var list = [realInicio];
+      while (list.length > 0){
+          var current = list.shift();
+          if(recorrido.includes(current.Vertices)) continue
+          recorrido.push(current.Vertices)
+          recorridoIds.push(this.ObtenerId(current.Vertices))
+          console.log("Nodo: " + current.Vertices + ", Distancia: " + current.distanciaVertice)
+          var auxiliar = this.getDatoNodo(current.Vertices);
+          list = list.concat(auxiliar);
+          this.InsertarDistancia(list)
+      }
+      return {recorrido: recorridoIds, encontrado: false}
+  }
+
+  VerificarExisteNodo(DatoActual){
+      for(let i = 0; i < this.DatoNodo.length; i++){
+          if(this.DatoNodo[i].Vertices == DatoActual){
+              return true
+          }
+      }
+      return false
+  }
+
+  VerificarExisteArista(from, to){
+      for(let i = 0; i < this.DatoNodo.length; i++){
+          if(this.DatoNodo[i].Vertices == from){
+              for(let j = 0; j < this.DatoNodo[i].Aristas.length; j++){
+                  if(this.DatoNodo[i].Aristas[j].Vertices == to){
+                      return true
+                  }
+              }
+          }
+      }
+      return false
+  }
+
+  MostrarGrafo(){
+      console.log(this.DatoNodo)
+  }
 }
-
-
-
-}
-
-function findCheapest(CaminoCorto,NodosVisitados){
-  let Nodos=Object.keys(CaminoCorto)
-  let NodoAuxiliar=Nodos.reduce((lowest,Nodo)=>{
-      if(lowest==null&&!NodosVisitados.includes(Nodo)) lowest=Nodo;
-      if(CaminoCorto[lowest]>CaminoCorto[Nodo]&&!NodosVisitados.includes(Nodo)) lowest=Nodo;
-      return lowest
-  },null)
-  return NodoAuxiliar
-}
-
-function prueba() {
-  let grafo = new CostoUniforme();
-  let Grafo={
-    H: { M: 50, A: 30, O: 40},
-    M: { A: 71, W: 33},
-    A: { H: 30, O: 22},
-    W: { A: 45,O: 65},
-    C: {W: 65},
-    O: {A: 22, F: 32},
-    F: { H: 60, K: 77 },
-    K: { W: 28, F: 77}
-  }
-  console.log(grafo.CostosUniformes(Grafo, 'H', 'K'));
-  
-}prueba()
-////Prueba de Costo Uniforme
- 
-module.exports = CostoUniforme
