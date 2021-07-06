@@ -106,6 +106,7 @@ textarea:-webkit-autofill:hover,
 textarea:-webkit-autofill:focus {
 	-webkit-text-fill-color: var(--moonOceanOpal);
 	-webkit-box-shadow: 0 0 0 30px var(--whiteDark) inset;
+	box-shadow: 0 0 0 30px var(--whiteDark) inset;
 	background-color: transparent;
 }
 

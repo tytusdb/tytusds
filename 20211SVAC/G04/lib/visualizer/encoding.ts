@@ -27,6 +27,7 @@ const encodeOutput = document.getElementById(
 type EncodingType = 'feistel' | 'hamming' | 'huffman' | 'lzw'
 let currentEncodingType: EncodingType = 'huffman'
 let globalEncodingTextInput: string = ''
+let globalEncodingTextOutput: string = ''
 let feistelKey: string = ''
 let feistelIterations: number = 0
 
@@ -58,6 +59,21 @@ const onChangeUploadEncodingInput = (ev: Event): void => {
 		reader.readAsText(file)
 		input.value = ''
 	}
+}
+
+// GUARDAR
+const saveEncodingJSONFile = () => {
+	const uriData = `data:text/json;charset=utf-8,${encodeURIComponent(
+		globalEncodingTextOutput,
+	)}`
+
+	const a = document.createElement('a')
+	a.href = uriData
+	a.download = 'data.json'
+	a.innerHTML = 'download JSON'
+	a.click()
+
+	hideNavMenu(0)
 }
 
 // CAMBIAR OPCIONES DE FEISTEL
@@ -100,19 +116,20 @@ const startEncoding = () => {
 			// @ts-ignore
 			encodingProps.instance.codificar(globalEncodingTextInput)
 			const encodedValue: string = encodingProps.instance.toString()
+			globalEncodingTextOutput = encodedValue
 
 			// @ts-ignore
 			const matrix: string[][] = encodingProps.instance.getMatrix()
 			encodeOutput.value = encodedValue
 
-			// AGREGAR CODIGO
+			// AGREGAR CÓDIGO
 			if (banner) banner.style.display = 'none'
 			if (codeEditor)
 				codeEditor.innerHTML =
 					codeEditor.innerHTML +
 					`\ndata.<strong style="color: var(--monoFuncGreen)">codificar</strong>(<strong style="color: var(--lightPurple)">INPUT</strong>)`
 
-			// AREGAR TABLA
+			// AGREGAR TABLA
 			if (bitsTable) {
 				bitsTable.innerHTML = ''
 				matrix.forEach((row: string[]) => {

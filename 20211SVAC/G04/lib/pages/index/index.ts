@@ -27,6 +27,7 @@ const indexLinksList: IndexSearchItem[] = [
 	{ name: 'Tabla hash abierta', url: 'public/pages/openhashtable' },
 	{ name: 'Tabla hash cerrada', url: 'public/pages/closedhashtable' },
 	{ name: 'Grafos', url: 'public/pages/graphos' },
+	{ name: 'Codificación', url: 'public/pages/encoding' },
 ]
 
 // CAMBIAR DARKMODE

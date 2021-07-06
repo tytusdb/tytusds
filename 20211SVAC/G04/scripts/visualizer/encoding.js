@@ -13,6 +13,7 @@ var encodeInput = document.getElementById('encode-input');
 var encodeOutput = document.getElementById('encode-output');
 var currentEncodingType = 'huffman';
 var globalEncodingTextInput = '';
+var globalEncodingTextOutput = '';
 var feistelKey = '';
 var feistelIterations = 0;
 var setEncodingData = function (props) { return (encodingProps = props); };
@@ -33,6 +34,15 @@ var onChangeUploadEncodingInput = function (ev) {
         reader.readAsText(file);
         input.value = '';
     }
+};
+var saveEncodingJSONFile = function () {
+    var uriData = "data:text/json;charset=utf-8," + encodeURIComponent(globalEncodingTextOutput);
+    var a = document.createElement('a');
+    a.href = uriData;
+    a.download = 'data.json';
+    a.innerHTML = 'download JSON';
+    a.click();
+    hideNavMenu(0);
 };
 var onChangeFeistelKey = function (ev) {
     var target = ev.target;
@@ -65,6 +75,7 @@ var startEncoding = function () {
         if (encodeOutput) {
             encodingProps.instance.codificar(globalEncodingTextInput);
             var encodedValue = encodingProps.instance.toString();
+            globalEncodingTextOutput = encodedValue;
             var matrix = encodingProps.instance.getMatrix();
             encodeOutput.value = encodedValue;
             if (banner)

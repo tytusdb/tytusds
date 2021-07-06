@@ -386,7 +386,7 @@ main > #topbar-tabs > ul > li > button:hover {
 main > #cards {
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
-	grid-template-rows: repeat(7, 100px);
+	grid-template-rows: repeat(4, 100px);
 	grid-gap: 30px;
 }
 
@@ -419,7 +419,7 @@ main > #cards > .flip-card:nth-child(2) > .flip-card-inner > .card-list {
 }
 
 main > #cards > .flip-card:nth-child(3) {
-	grid-column: 1/3;
+	grid-column: 2/4;
 	grid-row: 3/5;
 }
 
@@ -435,8 +435,9 @@ main > #cards > .flip-card:nth-child(3) .card-content > img {
 }
 
 main > #cards > .flip-card:nth-child(4) {
-	grid-column: 3/6;
-	grid-row: 4/6;
+	grid-column: 1/1;
+	grid-row: 3/5;
+	pointer-events: none;
 }
 
 main > #cards > .flip-card:nth-child(4) > .flip-card-inner > .card-content,
@@ -451,8 +452,9 @@ main > #cards > .flip-card:nth-child(4) .card-content > img {
 }
 
 main > #cards > .flip-card:nth-child(5) {
-	grid-column: 1/3;
-	grid-row: 5/7;
+	grid-column: 4/6;
+	grid-row: 4/5;
+	pointer-events: none;
 }
 
 main > #cards > .flip-card:nth-child(5) > .flip-card-inner > .card-content,
@@ -466,6 +468,34 @@ main > #cards > .flip-card:nth-child(5) .card-content > img {
 	left: 45px;
 	height: 150%;
 	object-fit: contain;
+}
+
+main > #cards > .flip-card:nth-child(6) {
+	grid-column: 3/6;
+	grid-row: 5/6;
+}
+
+main > #cards > .flip-card:nth-child(6) > .flip-card-inner > .card-content,
+main > #cards > .flip-card:nth-child(6) > .flip-card-inner > .card-list {
+	background-color: var(--lightRose);
+}
+
+main > #cards > .flip-card:nth-child(6) .card-content > img {
+	position: relative;
+	top: -50px;
+	left: 45px;
+	height: 150%;
+	object-fit: contain;
+}
+
+main > #cards > .flip-card:nth-child(7) {
+	grid-column: 1/3;
+	grid-row: 5/6;
+}
+
+main > #cards > .flip-card:nth-child(7) > .flip-card-inner > .card-content,
+main > #cards > .flip-card:nth-child(7) > .flip-card-inner > .card-list {
+	background-color: var(--grape);
 }
 
 main > #cards > .flip-card {
@@ -763,4 +793,30 @@ aside > ul > li:nth-child(3) > progress::-webkit-progress-bar {
 
 aside > ul > li:nth-child(3) > progress::-webkit-progress-value {
 	background-color: var(--soda);
+}
+
+aside > ul > li:nth-child(4) > i {
+	color: var(--lightRose);
+	background: hsl(9, 100%, 93%);
+}
+
+aside > ul > li:nth-child(4) > progress::-webkit-progress-bar {
+	background-color: var(--brightSoda);
+}
+
+aside > ul > li:nth-child(4) > progress::-webkit-progress-value {
+	background-color: var(--lightRose);
+}
+
+aside > ul > li:nth-child(5) > i {
+	color: var(--grape);
+	background: hsl(241, 81%, 95%);
+}
+
+aside > ul > li:nth-child(5) > progress::-webkit-progress-bar {
+	background-color: hsl(241, 81%, 95%);
+}
+
+aside > ul > li:nth-child(5) > progress::-webkit-progress-value {
+	background-color: var(--grape);
 }

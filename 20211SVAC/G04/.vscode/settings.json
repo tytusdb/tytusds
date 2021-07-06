@@ -1,6 +1,25 @@
 {
     "typescript.tsdk": "node_modules/typescript/lib",
     "cSpell.ignoreWords": [
-        "jsxdev"
+        "animacion",
+        "arbol",
+        "avltree",
+        "bubblesort",
+        "circulardoublelist",
+        "circularsimplelist",
+        "closedhashtable",
+        "doublelist",
+        "insertionsort",
+        "jsxdev",
+        "listcirculardobenl",
+        "listcircularsimpenl",
+        "merk",
+        "merkletree",
+        "mult",
+        "openhashtable",
+        "priorityqueue",
+        "repeticion",
+        "selectionsort",
+        "simplelist"
     ]
 }
