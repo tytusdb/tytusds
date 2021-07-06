@@ -187,6 +187,11 @@ class Arbol_Binario{
          }
          return nodo
      }
+
+     actualizar(dato_viejo, dato_nuevo, checkbox){
+         this.eliminarNodo(dato_viejo);
+         this.insertar(dato_nuevo, checkbox);
+     }
  
 }
 
@@ -300,4 +305,31 @@ function eliminar_nodo(){
 
     abb.eliminarNodo(dato);
     abb.graficar();
+}
+
+function Actualizar(){
+    var dato_viejo = document.getElementById('Viejo').value;
+    var dato_nuevo = document.getElementById('Nuevo').value;
+    var checkbox = document.getElementById('checkbox').checked;
+
+    document.getElementById("result").innerHTML="";
+
+    abb.eliminarNodo(dato_viejo);
+
+    if(dato_viejo === '' && dato_nuevo === ''){
+        alert("Por favor ingrese un dato");
+        return false;
+    }else{
+        if(checkbox == true){
+            console.log("esta en true");
+            console.log(checkbox);
+            abb.insertar(dato_nuevo, checkbox);
+            abb.graficar();
+        }else{
+            console.log("esta en falso");
+            console.log(checkbox);
+            abb.insertar(dato_nuevo, checkbox);
+            abb.graficar();
+        }
+    }
 }

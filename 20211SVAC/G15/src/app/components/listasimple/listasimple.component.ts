@@ -40,7 +40,7 @@ export class ListasimpleComponent implements OnInit {
   }
 
   async eliminar() {
-    let result = await this.lista.Delete(this.datoEliminar, `${this.velocidad}s`, this.svg1)
+    let result = await this.lista.Delete(this.datoEliminar, `${this.velocidad}s`, this.svg1,true)
     if (result === -1) {
       Swal.fire({
         target: document.getElementById('form-modal'),
@@ -69,12 +69,12 @@ export class ListasimpleComponent implements OnInit {
     }
     if (this.alfinal) {
       let dibujo = document.getElementById("cuerpoDraw")
-      await this.lista.InsertarFinal(dato, this.svg1, dibujo, `${this.velocidad}s`)
+      await this.lista.InsertarFinal(dato, this.svg1, dibujo, `${this.velocidad}s`,true)
       this.nombre = ""
     }
     if (this.alinicio) {
       let dibujo = document.getElementById("cuerpoDraw")
-      await this.lista.InsertarInicio(dato, this.svg1, dibujo, `${this.velocidad}s`)
+      await this.lista.InsertarInicio(dato, this.svg1, dibujo, `${this.velocidad}s`,true)
       this.nombre = ""
     }
     if (this.ordenado) {

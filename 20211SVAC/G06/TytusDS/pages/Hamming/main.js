@@ -42,9 +42,11 @@ let fila3 = []
 let fila4 = []
 let fila5 = []
 let fila6 = []
+let fila7 = []
 let respuesta = []
 
 function genera_tabla() {
+    cont3 = 0
     var body = document.getElementsByTagName("h3")[0];
     var inputValue = document.getElementById("valor").value
     var tabla = document.createElement("table");
@@ -60,10 +62,14 @@ function genera_tabla() {
     } else if (columnas > 11 && columnas < 27) {
         columnas += 6
         filas = 7
-    } else if (columnas > 26) {
+    } else if (columnas > 26 && columnas < 58) {
         columnas += 7
         filas = 8
+    } else if (columnas > 57) {
+        columnas += 8
+        filas = 9
     }
+    var suce = 1
     codigo.push(null)
     for (var i = 0; i < filas; i++) {
         // Crea las hileras de la tabla
@@ -80,9 +86,10 @@ function genera_tabla() {
                 if (i == 5) { var textoCelda = document.createTextNode("p8"); }
                 if (i == 6) { var textoCelda = document.createTextNode("p16"); }
                 if (i == 7) { var textoCelda = document.createTextNode("p32"); }
+                if (i == 8) { var textoCelda = document.createTextNode("p64"); }
                 celda.setAttribute("style", "background:skyblue; border: black 1px solid;padding:5px");
             } else if (i == 0) {
-                if (j == 1 || j == 2 || j == 4 || j == 8 || j == 16 || j == 32) {
+                if (j == 1 || j == 2 || j == 4 || j == 8 || j == 16 || j == 32 || j == 64) {
                     var textoCelda = document.createTextNode(" ");
                     celda.setAttribute("style", "background:skyblue; border: black 1px solid;padding:5px");
                     codigo.push(null)
@@ -93,7 +100,7 @@ function genera_tabla() {
                     pos++
                 }
             } else if (i == 1) {
-                if (j == 1 || j == 2 || j == 4 || j == 8 || j == 16 || j == 32) {
+                if (j == 1 || j == 2 || j == 4 || j == 8 || j == 16 || j == 32 || j == 64) {
                     var textoCelda = document.createTextNode("p" + j);
                     celda.setAttribute("style", "background:pink; border: black 1px solid;padding:5px");
                 } else {
@@ -102,7 +109,7 @@ function genera_tabla() {
                     cont++
                 }
             } else if (i > 1) {
-                if (j == 1 || j == 2 || j == 4 || j == 8 || j == 16 || j == 32) {
+                if (j == 1 || j == 2 || j == 4 || j == 8 || j == 16 || j == 32 || j == 64) {
                     var textoCelda = document.createTextNode(" ");
                     celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
                 } else {
@@ -118,86 +125,126 @@ function genera_tabla() {
                         }
                     }
                     if (i == 3) {
-                        if (j == 2 || j == 3 || j == 6 || j == 7 ||
-                            j == 10 || j == 11 || j == 14 || j == 15 ||
-                            j == 18 || j == 19 || j == 22 || j == 23 ||
-                            j == 26 || j == 27 || j == 30 || j == 31 ||
-                            j == 34 || j == 35 || j == 38 || j == 39 ||
-                            j == 42 || j == 43 || j == 46 || j == 47) {
-                            var textoCelda = document.createTextNode(codigo[j]);
-                            fila2.push(codigo[j])
-                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
-                        } else {
-                            var textoCelda = document.createTextNode(" ");
-                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
+                        var textoCelda
+                        for (let k = 0; k < columnas; k++) {
+                            suce = (4 * k) - 2
+                            if (j - 1 == suce) {
+                                textoCelda = document.createTextNode(codigo[j]);
+                                fila2.push(codigo[j])
+                                celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
+                            } else {
+                                textoCelda = document.createTextNode(" ");
+                                celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
 
+                            }
+                            celda.appendChild(textoCelda);
+                            hilera.appendChild(celda);
+                        }
+                        for (let k = 0; k < columnas; k++) {
+                            suce = (4 * k) - 1
+                            if (j + 1 == suce) {
+                                textoCelda = document.createTextNode(codigo[j]);
+                                fila2.push(codigo[j])
+                                celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
+                            } else {
+                                textoCelda = document.createTextNode(" ");
+                                celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
+
+                            }
+                            celda.appendChild(textoCelda);
+                            hilera.appendChild(celda);
                         }
                     }
                     if (i == 4) {
-                        if (j == 4 || j == 5 || j == 6 || j == 7 ||
-                            j == 12 || j == 13 || j == 14 || j == 15 ||
-                            j == 20 || j == 21 || j == 22 || j == 23 ||
-                            j == 28 || j == 29 || j == 30 || j == 31 ||
-                            j == 36 || j == 37 || j == 38 || j == 39 ||
-                            j == 44 || j == 45 || j == 46 || j == 47) {
-                            var textoCelda = document.createTextNode(codigo[j]);
-                            fila3.push(codigo[j])
-                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
-                        } else {
-                            var textoCelda = document.createTextNode(" ");
-                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
+                        var textoCelda
+                        for (let k = 0; k < columnas; k++) {
+                            suce = (8 * k)
+                            if (j == suce - 4 || j == suce - 3 || j == suce - 2 || j == suce - 1) {
+                                textoCelda = document.createTextNode(codigo[j]);
+                                fila3.push(codigo[j])
+                                celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
+                            } else {
+                                textoCelda = document.createTextNode(" ");
+                                celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
 
+                            }
+                            celda.appendChild(textoCelda);
+                            hilera.appendChild(celda);
                         }
                     }
                     if (i == 5) {
-                        if (j == 8 || j == 9 || j == 10 || j == 11 ||
-                            j == 12 || j == 13 || j == 14 || j == 15 ||
-                            j == 24 || j == 25 || j == 26 || j == 27 ||
-                            j == 28 || j == 29 || j == 30 || j == 31 ||
-                            j == 40 || j == 41 || j == 42 || j == 43 ||
-                            j == 44 || j == 45 || j == 46 || j == 47) {
-                            var textoCelda = document.createTextNode(codigo[j]);
-                            fila4.push(codigo[j])
-                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
-                        } else {
-                            var textoCelda = document.createTextNode(" ");
-                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
+                        var textoCelda
+                        for (let k = 0; k < columnas; k++) {
+                            suce = (16 * k)
+                            if (j == suce - 8 || j == suce - 7 || j == suce - 6 || j == suce - 5 ||
+                                j == suce - 4 || j == suce - 3 || j == suce - 2 || j == suce - 1) {
+                                textoCelda = document.createTextNode(codigo[j]);
+                                fila4.push(codigo[j])
+                                celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
+                            } else {
+                                textoCelda = document.createTextNode(" ");
+                                celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
 
+                            }
+                            celda.appendChild(textoCelda);
+                            hilera.appendChild(celda);
                         }
                     }
                     if (i == 6) {
-                        if (j == 16 || j == 17 || j == 18 || j == 19 ||
-                            j == 20 || j == 21 || j == 22 || j == 23 ||
-                            j == 24 || j == 25 || j == 26 || j == 27 ||
-                            j == 28 || j == 29 || j == 30 || j == 31 ||
-                            j == 48 || j == 49 || j == 50 || j == 51 ||
-                            j == 52 || j == 53 || j == 54 || j == 55 ||
-                            j == 56 || j == 57 || j == 58 || j == 59) {
-                            var textoCelda = document.createTextNode(codigo[j]);
-                            fila5.push(codigo[j])
-                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
-                        } else {
-                            var textoCelda = document.createTextNode(" ");
-                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
+                        var textoCelda
+                        for (let k = 0; k < columnas; k++) {
+                            suce = (32 * k)
+                            for (let p = 16; p > 0; p--) {
+                                if (j == suce - p) {
+                                    textoCelda = document.createTextNode(codigo[j]);
+                                    fila5.push(codigo[j])
+                                    celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
+                                } else {
+                                    textoCelda = document.createTextNode(" ");
+                                    celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
 
+                                }
+                                celda.appendChild(textoCelda);
+                                hilera.appendChild(celda);
+                            }
                         }
                     }
                     if (i == 7) {
-                        if (j == 32 || j == 33 || j == 34 || j == 35 ||
-                            j == 36 || j == 37 || j == 38 || j == 39 ||
-                            j == 40 || j == 41 || j == 42 || j == 43 ||
-                            j == 44 || j == 45 || j == 46 || j == 47 ||
-                            j == 48 || j == 49 || j == 50 || j == 51 ||
-                            j == 52 || j == 53 || j == 54 || j == 55 ||
-                            j == 56 || j == 57 || j == 58 || j == 59 ||
-                            j == 60 || j == 61 || j == 62 || j == 63) {
-                            var textoCelda = document.createTextNode(codigo[j]);
-                            fila6.push(codigo[j])
-                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
-                        } else {
-                            var textoCelda = document.createTextNode(" ");
-                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
+                        var textoCelda
+                        for (let k = 0; k < columnas; k++) {
+                            suce = (64 * k)
+                            for (let p = 32; p > 0; p--) {
+                                if (j == suce - p) {
+                                    textoCelda = document.createTextNode(codigo[j]);
+                                    fila6.push(codigo[j])
+                                    celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
+                                } else {
+                                    textoCelda = document.createTextNode(" ");
+                                    celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
 
+                                }
+                                celda.appendChild(textoCelda);
+                                hilera.appendChild(celda);
+                            }
+                        }
+                    }
+                    if (i == 8) {
+                        var textoCelda
+                        for (let k = 0; k < columnas; k++) {
+                            suce = (128 * k)
+                            for (let p = 64; p > 0; p--) {
+                                if (j == suce - p) {
+                                    textoCelda = document.createTextNode(codigo[j]);
+                                    fila7.push(codigo[j])
+                                    celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
+                                } else {
+                                    textoCelda = document.createTextNode(" ");
+                                    celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
+
+                                }
+                                celda.appendChild(textoCelda);
+                                hilera.appendChild(celda);
+                            }
                         }
                     }
                 }
@@ -231,9 +278,12 @@ function codigo() {
     } else if (columnas > 11 && columnas < 27) {
         columnas += 6
         filas = 7
-    } else if (columnas > 26) {
+    } else if (columnas > 26 && columnas < 58) {
         columnas += 7
         filas = 8
+    } else if (columnas > 57) {
+        columnas += 8
+        filas = 9
     }
     const reducer = (accumulator, currentValue) => accumulator ^ currentValue;
     var body = document.getElementsByTagName("h3")[0];
@@ -259,9 +309,10 @@ function codigo() {
                 if (i == 5) { var textoCelda = document.createTextNode("p8"); }
                 if (i == 6) { var textoCelda = document.createTextNode("p16"); }
                 if (i == 7) { var textoCelda = document.createTextNode("p32"); }
+                if (i == 8) { var textoCelda = document.createTextNode("p64"); }
                 celda.setAttribute("style", "background:skyblue; border: black 1px solid;padding:5px");
             } else if (i == 0) {
-                if (j == 1 || j == 2 || j == 4 || j == 8 || j == 16 || j == 32) {
+                if (j == 1 || j == 2 || j == 4 || j == 8 || j == 16 || j == 32 || j == 64) {
                     var textoCelda = document.createTextNode(" ");
                     celda.setAttribute("style", "background:skyblue; border: black 1px solid;padding:5px");
                     if (j == 1) {
@@ -306,6 +357,16 @@ function codigo() {
                             respuesta.push("0")
                             console.log(error)
                         }
+                    } else if (j == 64) {
+                        try {
+                            let value = fila7.reduce(reducer)
+                            var textoCelda = document.createTextNode(value);
+                            respuesta.push(value)
+                        } catch (error) {
+                            var textoCelda = document.createTextNode("0");
+                            respuesta.push("0")
+                            console.log(error)
+                        }
                     }
                     codigo.push(null)
                 } else {
@@ -316,7 +377,7 @@ function codigo() {
                     pos++
                 }
             } else if (i == 1) {
-                if (j == 1 || j == 2 || j == 4 || j == 8 || j == 16 || j == 32) {
+                if (j == 1 || j == 2 || j == 4 || j == 8 || j == 16 || j == 32 || j == 64) {
                     var textoCelda = document.createTextNode("p" + j);
                     celda.setAttribute("style", "background:pink; border: black 1px solid;padding:5px");
                 } else {
@@ -325,7 +386,7 @@ function codigo() {
                     cont++
                 }
             } else if (i > 1) {
-                if (j == 1 || j == 2 || j == 4 || j == 8 || j == 16 || j == 32) {
+                if (j == 1 || j == 2 || j == 4 || j == 8 || j == 16 || j == 32 || j == 64) {
                     var textoCelda = document.createTextNode(" ");
                     celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
                     if (j == 1 && i == 2) {
@@ -361,6 +422,14 @@ function codigo() {
                             var textoCelda = document.createTextNode("0");
                             console.log(error)
                         }
+                    } else if (j == 64 && i == 8) {
+                        try {
+                            let value = fila7.reduce(reducer)
+                            var textoCelda = document.createTextNode(value);
+                        } catch (error) {
+                            var textoCelda = document.createTextNode("0");
+                            console.log(error)
+                        }
                     } else {
                         var textoCelda = document.createTextNode(" ");
                     }
@@ -376,82 +445,119 @@ function codigo() {
                         }
                     }
                     if (i == 3) {
-                        if (j == 2 || j == 3 || j == 6 || j == 7 ||
-                            j == 10 || j == 11 || j == 14 || j == 15 ||
-                            j == 18 || j == 19 || j == 22 || j == 23 ||
-                            j == 26 || j == 27 || j == 30 || j == 31 ||
-                            j == 34 || j == 35 || j == 38 || j == 39 ||
-                            j == 42 || j == 43 || j == 46 || j == 47) {
-                            var textoCelda = document.createTextNode(codigo[j]);
-                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
-                        } else {
-                            var textoCelda = document.createTextNode(" ");
-                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
+                        var textoCelda
+                        for (let k = 0; k < columnas; k++) {
+                            suce = (4 * k) - 2
+                            if (j - 1 == suce) {
+                                textoCelda = document.createTextNode(codigo[j]);
+                                celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
+                            } else {
+                                textoCelda = document.createTextNode(" ");
+                                celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
 
+                            }
+                            celda.appendChild(textoCelda);
+                            hilera.appendChild(celda);
+                        }
+                        for (let k = 0; k < columnas; k++) {
+                            suce = (4 * k) - 1
+                            if (j + 1 == suce) {
+                                textoCelda = document.createTextNode(codigo[j]);
+                                celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
+                            } else {
+                                textoCelda = document.createTextNode(" ");
+                                celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
+
+                            }
+                            celda.appendChild(textoCelda);
+                            hilera.appendChild(celda);
                         }
                     }
                     if (i == 4) {
-                        if (j == 4 || j == 5 || j == 6 || j == 7 ||
-                            j == 12 || j == 13 || j == 14 || j == 15 ||
-                            j == 20 || j == 21 || j == 22 || j == 23 ||
-                            j == 28 || j == 29 || j == 30 || j == 31 ||
-                            j == 36 || j == 37 || j == 38 || j == 39 ||
-                            j == 44 || j == 45 || j == 46 || j == 47) {
-                            var textoCelda = document.createTextNode(codigo[j]);
-                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
-                        } else {
-                            var textoCelda = document.createTextNode(" ");
-                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
+                        var textoCelda
+                        for (let k = 0; k < columnas; k++) {
+                            suce = (8 * k)
+                            if (j == suce - 4 || j == suce - 3 || j == suce - 2 || j == suce - 1) {
+                                textoCelda = document.createTextNode(codigo[j]);
+                                celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
+                            } else {
+                                textoCelda = document.createTextNode(" ");
+                                celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
 
+                            }
+                            celda.appendChild(textoCelda);
+                            hilera.appendChild(celda);
                         }
                     }
                     if (i == 5) {
-                        if (j == 8 || j == 9 || j == 10 || j == 11 ||
-                            j == 12 || j == 13 || j == 14 || j == 15 ||
-                            j == 24 || j == 25 || j == 26 || j == 27 ||
-                            j == 28 || j == 29 || j == 30 || j == 31 ||
-                            j == 40 || j == 41 || j == 42 || j == 43 ||
-                            j == 44 || j == 45 || j == 46 || j == 47) {
-                            var textoCelda = document.createTextNode(codigo[j]);
-                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
-                        } else {
-                            var textoCelda = document.createTextNode(" ");
-                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
+                        var textoCelda
+                        for (let k = 0; k < columnas; k++) {
+                            suce = (16 * k)
+                            if (j == suce - 8 || j == suce - 7 || j == suce - 6 || j == suce - 5 ||
+                                j == suce - 4 || j == suce - 3 || j == suce - 2 || j == suce - 1) {
+                                textoCelda = document.createTextNode(codigo[j]);
+                                celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
+                            } else {
+                                textoCelda = document.createTextNode(" ");
+                                celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
 
+                            }
+                            celda.appendChild(textoCelda);
+                            hilera.appendChild(celda);
                         }
                     }
                     if (i == 6) {
-                        if (j == 16 || j == 17 || j == 18 || j == 19 ||
-                            j == 20 || j == 21 || j == 22 || j == 23 ||
-                            j == 24 || j == 25 || j == 26 || j == 27 ||
-                            j == 28 || j == 29 || j == 30 || j == 31 ||
-                            j == 48 || j == 49 || j == 50 || j == 51 ||
-                            j == 52 || j == 53 || j == 54 || j == 55 ||
-                            j == 56 || j == 57 || j == 58 || j == 59) {
-                            var textoCelda = document.createTextNode(codigo[j]);
-                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
-                        } else {
-                            var textoCelda = document.createTextNode(" ");
-                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
+                        var textoCelda
+                        for (let k = 0; k < columnas; k++) {
+                            suce = (32 * k)
+                            for (let p = 16; p > 0; p--) {
+                                if (j == suce - p) {
+                                    textoCelda = document.createTextNode(codigo[j]);
+                                    celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
+                                } else {
+                                    textoCelda = document.createTextNode(" ");
+                                    celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
 
+                                }
+                                celda.appendChild(textoCelda);
+                                hilera.appendChild(celda);
+                            }
                         }
                     }
                     if (i == 7) {
-                        if (j == 32 || j == 33 || j == 34 || j == 35 ||
-                            j == 36 || j == 37 || j == 38 || j == 39 ||
-                            j == 40 || j == 41 || j == 42 || j == 43 ||
-                            j == 44 || j == 45 || j == 46 || j == 47 ||
-                            j == 48 || j == 49 || j == 50 || j == 51 ||
-                            j == 52 || j == 53 || j == 54 || j == 55 ||
-                            j == 56 || j == 57 || j == 58 || j == 59 ||
-                            j == 60 || j == 61 || j == 62 || j == 63) {
-                            var textoCelda = document.createTextNode(codigo[j]);
-                            fila6.push(codigo[j])
-                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
-                        } else {
-                            var textoCelda = document.createTextNode(" ");
-                            celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
+                        var textoCelda
+                        for (let k = 0; k < columnas; k++) {
+                            suce = (64 * k)
+                            for (let p = 32; p > 0; p--) {
+                                if (j == suce - p) {
+                                    textoCelda = document.createTextNode(codigo[j]);
+                                    celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
+                                } else {
+                                    textoCelda = document.createTextNode(" ");
+                                    celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
 
+                                }
+                                celda.appendChild(textoCelda);
+                                hilera.appendChild(celda);
+                            }
+                        }
+                    }
+                    if (i == 8) {
+                        var textoCelda
+                        for (let k = 0; k < columnas; k++) {
+                            suce = (128 * k)
+                            for (let p = 64; p > 0; p--) {
+                                if (j == suce - p) {
+                                    textoCelda = document.createTextNode(codigo[j]);
+                                    celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
+                                } else {
+                                    textoCelda = document.createTextNode(" ");
+                                    celda.setAttribute("style", "background:white; border: black 1px solid;padding:5px");
+
+                                }
+                                celda.appendChild(textoCelda);
+                                hilera.appendChild(celda);
+                            }
                         }
                     }
                 }
@@ -493,44 +599,10 @@ function cargarJson() {
     reader.readAsText(file);
     reader.onload = function() {
         const obj = JSON.parse(reader.result)
-        var updatedIds
-        for (let i = 0; i < obj.valores.length; i++) {
-            var valor = {
-                id: i,
-                label: obj.valores[i].vertice.toString(),
-            }
-            array.push(obj.valores[i].vertice.toString())
-            grafo.addNode(obj.valores[i].vertice.toString(), i)
-            updatedIds = nodes.add([{
-                shape: 'dot',
-                color: "#ffff3b",
-                id: i,
-                label: obj.valores[i].vertice.toString(),
-            }]);
-            //if (obj.valores[i].aristas != null) {
-            var a, b, long
-
-            //}
-            cont++
-        }
-        for (let i = 0; i < obj.valores.length; i++) {
-            for (let j = 0; j < obj.valores[i].aristas.length; j++) {
-                grafo.addEdge(obj.valores[i].vertice, obj.valores[i].aristas[j].arista)
-                arista.push({ "vertice": obj.valores[i].vertice, "arista": obj.valores[i].aristas[j].arista, "distancia": obj.valores[i].aristas[j].distancia })
-                a = grafo.getId(obj.valores[i].vertice)
-                b = grafo.getId(obj.valores[i].aristas[j].arista)
-                long = obj.valores[i].aristas[j].distancia
-                updatedIds = edges.add([{
-                    label: long.toString(),
-                    from: a,
-                    to: b,
-                    arrows: 'to'
-                }]);
-            }
-        }
-        network.selectNodes([updatedIds[0]]);
-        network.editNode();
+        document.getElementById("valor").value = obj
+        console.log(obj)
     };
+
 }
 
 var archivo = 1;
@@ -540,7 +612,7 @@ function guardarJson() {
     for (let i = 0; i < respuesta.length; i++) {
         res += respuesta[i].toString()
     }
-    var texto = JSON.stringify("Codificacion: " + res);
+    var texto = JSON.stringify(res);
     download("Hamming.txt", texto);
 }
 

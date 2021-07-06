@@ -6,7 +6,7 @@ import Cola from '../../Estructuras/lineal/Cola'
 
 import Funciones from '../../Estructuras/Funciones'
 
-import lineal from '../../animaciones/lineal/gLineal'
+import lineal from '../../animaciones/lineal/gEnlazada'
 
 import '../styles/Grafica.css'
 
@@ -141,7 +141,7 @@ class pPilaCola extends React.Component {
                     </table>
                 </nav>
                 <div>
-                    {lineal(this.lista.dotG())}
+                    {lineal(this.lista.dotG(0))}
                 </div>
                 <nav className="Sub_bar">
                     <table>

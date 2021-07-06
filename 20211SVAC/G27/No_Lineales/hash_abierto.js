@@ -122,10 +122,12 @@ class hash{
 
     simpleHash(llave){
         var hash = 0;
+        var K = 0.618033
         for (let index = 0; index < llave.length; index++) {
             hash += llave.charCodeAt(index);
         }
-        console.log(hash);
+        //console.logMath.round((m*(hash * A % 1)));
+        return Math.round(m*K);
         
     }
 

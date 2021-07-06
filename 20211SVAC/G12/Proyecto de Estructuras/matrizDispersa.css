@@ -1,0 +1,21 @@
+.nodoH {
+    border: 5px outset black;
+    background-color: lightblue;
+    height: 75px;
+    width: 75px;
+    display: table-cell;
+    position: absolute;
+    text-align: center;
+    animation-fill-mode: forwards;
+}
+.nodo {
+    border: 5px outset black;
+    background-color: white;
+    height: 75px;
+    width: 75px;
+    display: table-cell;
+    position: absolute;
+    text-align: center;
+    animation-fill-mode: forwards;
+}
+

@@ -57,14 +57,14 @@ export class BinaryTreeComponent implements OnInit {
   }
 
   async update() {
-    let result = await this.binaryTree.update(this.convertir(this.numeroViejo), this.convertir(this.numeroNuevo), this.duracion + 's')
+    let result = await this.binaryTree.update(this.convertir(this.numeroViejo), this.convertir(this.numeroNuevo), this.duracion + 's',true)
     console.log(result)
     this.numeroViejo = 0
     this.numeroNuevo = 0
   }
 
   async delete() {
-    let result = await this.binaryTree.delete(this.numeroEliminar, this.duracion + 's')
+    let result = await this.binaryTree.delete(this.numeroEliminar, this.duracion + 's',true)
     console.log(result)
     this.numeroEliminar = 0
   }
@@ -82,7 +82,7 @@ export class BinaryTreeComponent implements OnInit {
         return;
       }
     }
-    await this.binaryTree.addNode(this.convertir(numero), contenedor, this.duracion + 's')
+    await this.binaryTree.addNode(this.convertir(numero), contenedor, this.duracion + 's',true)
     return 1
   }
 

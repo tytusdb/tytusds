@@ -1,8 +1,8 @@
 <div class="container">
-  <app-opciones (opcionesEvento)="getOpciones($event)"></app-opciones>
-  <h1 class="text-white">Algoritmo LZW</h1>
+  <h1 class="text-white text-light animate__animated animate__bounce ">Algoritmo LZW</h1>
 
-  <div class="row p-2">
+  <div class="row p-2">  <app-opciones (opcionesEvento)="getOpciones($event)"></app-opciones>
+
 
   </div>
   <div class="row p-1">
@@ -15,7 +15,7 @@
     <div class="col-md-1"><button class="btn btn-success button1" (click)="guardar()">Guardar</button></div>
   </div>
   <!--TH: CELDAS TR:FILAS THEAD: HEAD THBODY:BODY-->
-  <table class="table table-dark pt-4" *ngIf="eIteraciones">
+  <table class="table table-dark pt-4 animate__animated animate__zoomInDown" *ngIf="eIteraciones">
     <thead>
     <tr>
       <th *ngFor="let x of cabecera" class="text-center">{{x}}</th>

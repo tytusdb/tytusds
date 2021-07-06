@@ -139,6 +139,49 @@ section.lista_circular>* > div {
     vertical-align: top;
 }
 
+div.vector {
+    width: var(--nodes-size);
+    height: var(--nodes-size);
+    text-align: center;
+    /*border-radius: 50%;*/
+    background: green;
+    position: relative;
+    top:60px;
+}
+
+section.lista_hash {
+    width: 95%;
+    padding-left: 5%;
+    /*padding-top: 120px;*/
+    padding-bottom: 400px;
+    margin-bottom: 0;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+section.lista_hash > div {
+    flex: 0 0 auto;
+    display: inline-block;
+    vertical-align: top;
+}
+
+div.flecha {
+    position: relative;
+    width: var(--nodes-size);
+    height: var(--nodes-size);
+    z-index: -1;
+    top:60px;
+}
+
+div.flecha img {
+    width: 60px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 
 
 

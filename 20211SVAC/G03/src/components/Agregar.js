@@ -23,6 +23,9 @@ import ArbolBplus from '../estructuras/Estructuras_Arboreas/ArbolBplus'
 
 import TablaHashAbierta from '../estructuras/EstructurasNoLineales/TablaHashAbierta'
 import TablaHashCerrada from '../estructuras/EstructurasNoLineales/TablaHashCerrada'
+import Matriz from '../estructuras/EstructurasCompuestas/MatrizDis'
+import ListaAdyacencia from '../estructuras/EstructurasNoLineales/ReccProfAnch'
+import CostoUniforme from '../estructuras/EstructurasNoLineales/CostoUniforme'
 
 const countryOptions = [
     { key: 'ini', value: 'Inicio', text: 'Inicio' },
@@ -47,6 +50,13 @@ export default class Agregar extends Component {
         let dato = this.state.textoDato
         let prioridad = this.state.prioridad
         let opciones = this.state.opciones
+        let splitarr;
+        let i;
+        let j;
+        let tamaño;
+        let funcion;
+        let colision;
+                
         switch(nombre){
             case "Pila" :
                 if(edd == null){
@@ -134,15 +144,26 @@ export default class Agregar extends Component {
             edd.insertar(dato)
             break
         case "Tabla Hash Abierta":
+
             if(edd == null){
-                edd = new TablaHashAbierta();
+                splitarr = opciones.split(",")
+                tamaño = i = parseInt(splitarr[0])== NaN ? splitarr[0]: parseInt(splitarr[0])
+                i = parseInt(splitarr[1])== NaN ? splitarr[1]: parseInt(splitarr[1])
+                j = parseInt(splitarr[2])== NaN ? splitarr[2]: parseInt(splitarr[2])
+                funcion = splitarr[3]
+                edd = new TablaHashAbierta(tamaño,i,j,funcion);
             }
             edd.agregar(dato)
             break
         case "Tabla Hash Cerrada":
-
+            splitarr = opciones.split(",")
+            tamaño = i = parseInt(splitarr[0])== NaN ? splitarr[0]: parseInt(splitarr[0])
+            i = parseInt(splitarr[1])== NaN ? splitarr[1]: parseInt(splitarr[1])
+            j = parseInt(splitarr[2])== NaN ? splitarr[2]: parseInt(splitarr[2])
+            funcion = splitarr[3]
+            colision = splitarr[4]
             if(edd == null){
-                edd = new TablaHashCerrada();
+                edd = new TablaHashCerrada(tamaño,i,j,funcion,colision);
             }
             edd.agregar(dato)
             break;
@@ -153,10 +174,46 @@ export default class Agregar extends Component {
                 edd.actualizar(x,y,nombre,dato)
             break;
         case "Row Major":    
-                let splitarr = opciones.split(",")
-                let i = splitarr[0]
-                let j = splitarr[1]
+                 splitarr = opciones.split(",")
+                 i = splitarr[0]
+                 j = splitarr[1]
                 edd.actualizar(i,j,nombre,dato)
+            break;
+         case "Matriz Dispersa":
+                if(edd === null){
+                    edd = new Matriz();
+                }
+                 splitarr = opciones.split(",")
+                 i = parseInt(splitarr[0])== NaN ? splitarr[0]: parseInt(splitarr[0])
+                 j = parseInt(splitarr[1])== NaN ? splitarr[1]: parseInt(splitarr[1])
+                edd.insertar(dato,i,j)
+            break
+        case "Grafo Dirigido":
+                if(edd === null){
+                    edd = new ListaAdyacencia();
+                }
+                 splitarr = dato.split(",")
+                 i = parseInt(splitarr[0])== NaN ? splitarr[0]: parseInt(splitarr[0])
+                 j = parseInt(splitarr[1])== NaN ? splitarr[1]: parseInt(splitarr[1])
+                edd.insertar(opciones,opciones,i,j)
+            break
+        case "Grafo No Dirigido":
+                if(edd === null){
+                    edd = new ListaAdyacencia();
+                }
+                splitarr = dato.split(",")
+                 i = parseInt(splitarr[0])== NaN ? splitarr[0]: parseInt(splitarr[0])
+                 j = parseInt(splitarr[1])== NaN ? splitarr[1]: parseInt(splitarr[1])
+                edd.insertarNoDirigido(opciones,opciones,i,j)
+            break;
+        case "Algoritmo de costo uniforme":
+                if(edd === null){
+                    edd = new CostoUniforme();
+                }
+                splitarr = dato.split(",")
+                 i = parseInt(splitarr[0])== NaN ? splitarr[0]: parseInt(splitarr[0])
+                 j = parseInt(splitarr[1])== NaN ? splitarr[1]: parseInt(splitarr[1])
+                edd.insertarNoDirigido(opciones,opciones,i,j)
             break;
             default:
                 break;
@@ -207,7 +264,13 @@ export default class Agregar extends Component {
                 this.props.nombre=== "Lista circular doblemente enlazada" ||
                 this.props.nombre === "Arbol B" ||
                 this.props.nombre === "Col Major" ||
-                this.props.nombre === "Row Major"){
+                this.props.nombre === "Row Major" ||
+                this.props.nombre === "Row Major" ||
+                this.props.nombre === "Matriz Dispersa" ||
+                this.props.nombre === "Grafo Dirigido" ||
+                this.props.nombre === "Grafo No Dirigido" ||
+                this.props.nombre === "Tabla Hash Cerrada" ||
+                this.props.nombre === "Tabla Hash Abierta"){
         return (
             <Modal
                 className="modalAgregar"
@@ -223,7 +286,7 @@ export default class Agregar extends Component {
                     Agregar Dato
                 </Header>
                 <Modal.Content>
-                <Input placeholder='Seleccionar' name="opciones" options={countryOptions} value={this.state.opciones} onChange={this.obtenerText} fluid/> 
+                <Input placeholder='Opciones' name="opciones" options={countryOptions} value={this.state.opciones} onChange={this.obtenerText} fluid/> 
                 <br/>
                 <Input className="inputAgregar" type="text" name="textoDato" value={this.state.textoDato}  fluid placeholder="agregar dato" onChange={this.obtenerText}/>
                 </Modal.Content>

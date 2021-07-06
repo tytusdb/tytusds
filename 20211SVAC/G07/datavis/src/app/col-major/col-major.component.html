@@ -34,11 +34,22 @@
         <input class="form-control mr-sm-2" type="text" #Col placeholder="Columna" aria-label="Columna">
         <input  class="form-control mr-sm-2 " type="text" #nombre placeholder="Agregar" aria-label="Agregar datp">
         <button (click)="AgregarNuevo(nombre.value, Fila.value, Col.value)" class="btn btn-outline-light mr-sm-2" type="button">Agregar dato</button>
+        <input  class="form-control mr-sm-2 " type="text" #search placeholder="Buscar Dato" aria-label="Buscar Dato">
+        <button (click)="SearchData(search.value)" class="btn btn-outline-light mr-sm-2" type="button">Buscar Dato</button>
+        <input  class="form-control mr-sm-2 " type="text" #datU placeholder="Dato a Actualizar" aria-label="Buscar Dato">
+        <input  class="form-control mr-sm-2 " type="text" #datD placeholder="Reemplazo" aria-label="Buscar Dato">
+        <button (click)="UpdateData(datU.value, datD.value)" class="btn btn-outline-light mr-sm-2" type="button">Actualizar valor</button>
+        <input  class="form-control mr-sm-2 " type="text" #Elim placeholder="Dato a Eliminar" aria-label="Buscar Dato">
+        <button (click)="DeleteData(Elim.value)" class="btn btn-outline-light mr-sm-2" type="button">Eliminar dato</button>
 
         <button (click)="Linealizar()" class="btn btn-outline-light mr-sm-2" type="button">Linealizar</button>
         <input style="display:none;" type="file" (change)="abrir($event)" #archivo>
         <button (click)="archivo.click()" class="btn btn-outline-light mr-sm-2" type="button" >Cargar</button>
+        <button (click)="descargarContenido()" class="btn btn-outline-light mr-sm-2" type="button" >Guardar</button>
 
+        
+        <input  class="form-control mr-sm-2" type="text" #animacion placeholder="Animacion" aria-label="Animacion">
+        <button (click)="definirTiempo(animacion.value)" class="btn btn-outline-light mr-sm-2" type="button">Animacion</button>
       </form>
     </nav>
 
