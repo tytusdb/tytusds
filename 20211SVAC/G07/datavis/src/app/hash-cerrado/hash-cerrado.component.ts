@@ -4,7 +4,6 @@ var h;
 var edges = new vis.DataSet([]);
 var nodes = new vis.DataSet([]);
 var x1 = 0, y1 = 0;
-var tiempo;
 var options = {
   physics: {
     enabled: false,
@@ -33,6 +32,7 @@ class hash{
       this.letra = "";
       this.inicializar();
   }
+
   inicializar(){
     console.log(this.tabla.length);
     this.tabla.length = this.m
@@ -147,7 +147,7 @@ class hash{
           this.tabla[r] = "-1"
           nodes.update(
             {id: r, label:"-1"}
-          );
+          );;
           this.size--;
 
       }else if(this.fun == "Simple" && this.test =="Doble"){
@@ -680,7 +680,7 @@ export class HashCerradoComponent implements OnInit {
   @ViewChild('mynetwork', {static: false}) el: ElementRef;
   public network: any;
   constructor() { }
-  contenido = "";
+  contenido = "{ \"valores\": [\n";
 
   ngOnInit(): void {
   }
@@ -689,8 +689,6 @@ export class HashCerradoComponent implements OnInit {
     this.network = new vis.Network(container, listaData, options);
   }
   generador(){
-    this.contenido = "";
-    this.contenido = "{ \"valores\": [\n";
     for (let i = 0; i < h.tabla.length; i++) {
       this.contenido +='"'+h.tabla[i]+'"'+ ",\n";
     }
@@ -724,8 +722,6 @@ export class HashCerradoComponent implements OnInit {
         const resultado=ev.target?.result
         text=String(resultado)
         var data = JSON.parse(text);  // se parse para obtener solo los datos
-        tiempo = data.animacion;
-        console.log("Time: "+tiempo);
         this.m = data.m;
         this.min = data.minimo;
         this.max = data.maximo;
