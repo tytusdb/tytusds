@@ -1,3 +1,4 @@
+
 class AnimationPila{
   constructor(id, x, y,disBtn,heightBtn){
     this.id = id
@@ -164,13 +165,71 @@ class Pila{
           }
       }
     } 
+
+    //Actualizar
+  
     
-} 
+    ActualizarPila(datoAnterior, datoNuevo){
+      let actual = this.primero;
+      let encontrado = false;
+      if(this.primero != null){
+
+        //actual = this.primero;
+        var f = setInterval(whiles,500)
+        function whiles(){
+            if (actual != null && encontrado != true) {
+                const selecBtn = document.getElementById("btn"+actual.animate.id)
+                //selecBtn.innerText="Espere"
+                if (actual.dato == datoAnterior) {
+                    actual.dato = datoNuevo
+                    encontrado = true;
+                    selecBtn.innerText=datoNuevo
+                    selecBtn.classList="animate__animated animate__rotateIn"
+                    const sClone = selecBtn.cloneNode(true)
+                    selecBtn.parentNode.replaceChild(sClone, selecBtn)
+                    clearInterval(f)
+                    }
+                else{
+                selecBtn.classList="animate__animated animate__bounceIn"
+                const sClone = selecBtn.cloneNode(true)
+                selecBtn.parentNode.replaceChild(sClone, selecBtn)
+                actual=actual.siguiente
+                }
+            }
+            else{
+              if(!encontrado){
+                console.log("Dato no encontrado");
+            }
+                clearInterval(f)
+            }
+        }
+/*
+          while(actual != null && encontrado != true){
+              if(actual.dato == datoAnterior){
+                  actual.dato = datoNuevo;
+                  encontrado = true;
+              }
+              actual = actual.siguiente;
+          }
+          if(!encontrado){
+              console.log("Dato no encontrado");
+          }*/
+      }else{
+          console.log("La pila se encuentra vacia");
+      }  
+
+    }
+
+    
+
+  } 
 const stack = new Pila();
 var categoriaPila = "Estructura Lineal";
 var nombrePila = "pila";
 var repeticionPila = "false";
 var animacionPila = "0";
+
+
 
 function addValuePila(data){
   stack.push(data);
@@ -187,7 +246,12 @@ function getValueBuscar(data){
   console.log("se ejecuto buscar:" + stack.buscar(data))
     
 }
+function getActualizar(dat1,dat2){
+  stack.ActualizarPila(dat1,dat2);
+  console.log("-------------Nueva Pila----------------");
+  console.log(stack.print());
 
+}
 //console.log("Ingresando valores");
 //stack.push(1);
 //stack.push(2);

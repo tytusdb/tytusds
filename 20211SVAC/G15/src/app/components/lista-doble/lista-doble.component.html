@@ -17,7 +17,7 @@
                     <input class="form-control" id="numero" name="numero" [(ngModel)]="dato"
                         placeholder="Ingresar Dato">
                     <div class="input-group-append">
-                        <button class="btn btn-secondary " type="button" (click)="addLast()">Guardar</button>
+                        <button class="btn btn-secondary " type="button" (click)="insertanButton()">Guardar</button>
                     </div>
                 </div>
             </div>
@@ -114,7 +114,7 @@
 
 
             <div class="col-12 col-sm-12 col-lg-3 text-left mt-2 text-white mt-1">
-                <div class="input-group">
+                <div class="input-group" (click)="generarJSON()">
                     <button class="btn btn-primary" >
                         Generar JSON
                     </button>

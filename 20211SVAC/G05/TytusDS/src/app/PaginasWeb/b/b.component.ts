@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { DocumentoService } from '../../services/documento.service';
+import { saveAs } from 'file-saver';
 declare var require: any;
 let Lista=require('./js/arbol_b');
 let vis=require('../../../../vis-4.21.0/dist/vis');
@@ -88,14 +89,16 @@ export class BComponent implements OnInit {
       this.documentoService.getDocumento(documento).then( contenido => {
         console.log(contenido);
         contenido['valores'].forEach(valor => { 
-          this.lista.insertar2(valor);
+          this.lista.insertarNodo(valor,this.opciones['grado']);
+  
           }); });
     }
     else{
       this.documentoService.getDocumento(documento).then( contenido => {
         console.log(contenido);
         contenido['valores'].forEach(valor => { 
-          this.lista.guardarg(valor);
+          this.lista.insertarNodo(valor,this.opciones['grado']);
+      
           }); });
     }
     
@@ -107,16 +110,14 @@ export class BComponent implements OnInit {
   Add(valor){
     if(this.opciones['repeticionLineales']===true){
       //this.lista.repeat=true;
-      this.lista.crearArbol(this.opciones['grado']);
-      this.lista.insertarNodo(valor);
+      this.lista.insertarNodo(valor,this.opciones['grado']);
       this.graficar();
       this.ag = '';
       return;
     }
     else{
       //this.lista.repeat=false;
-      this.lista.crearArbol(this.opciones['grado']);
-      this.lista.insertarNodo(valor);
+      this.lista.insertarNodo(valor,this.opciones['grado']);
       this.graficar();
       this.ag = '';
       return;
@@ -162,6 +163,21 @@ export class BComponent implements OnInit {
     }
 
   }
+
+  guardar(): void {
+    const contenido: any = {
+      categoria: "Estructura Lineal",
+      nombre: "Cola De Prioridad",
+      repeticion:true,
+      animacion:10,
+      valores: []
+    };
+    contenido.valores=contenido.valores.concat(this.lista.leer());
+    let blob = new Blob([JSON.stringify(contenido)], {type: 'json;charset=utf-8'});
+    saveAs(blob, 'arbolb.json');
+  }
+
+
 
   actualizar(){
     this.lista.pintar();

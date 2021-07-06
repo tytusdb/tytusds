@@ -158,11 +158,12 @@ const guardar = document.getElementById('guardar')
 const cargar = document.getElementById('cargar')
 
 const velocidad = document.getElementById("velocidad")
-let num_velocidad;
+let time = 5
 
 velocidad.oninput = () => {
     document.getElementById('numero').innerHTML = velocidad.value
-    num_velocidad = velocidad.value
+    if (velocidad.value == 3 ) time = 2.5
+    else time = parseInt(velocidad.value)
 }
 
 const salida ={
@@ -255,7 +256,22 @@ cargar.addEventListener("click", (e) => {
 
 guardar.addEventListener("click", (e) => {
     e.preventDefault()
+    let texto = JSON.stringify(salida)
+    download('CircularDoble.json', texto)
 })
+
+function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+  
+    element.style.display = 'none';
+    document.body.appendChild(element);
+  
+    element.click();
+  
+    document.body.removeChild(element);
+}
 
 // ---------Animaciones------------------------------------------------------------------------------------
 var canvas = document.getElementById('lienzo')
@@ -414,7 +430,6 @@ function crear_cuadrado() {
 
 function animar() {
 
-    let time = 5
     window.requestAnimationFrame(function loop() {
 
         if (x_start != x_figura) {

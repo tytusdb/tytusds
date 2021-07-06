@@ -83,5 +83,54 @@
                 </div>
             </div>
         </div>
+        <h3 class="fw-light mt-5">Estructuras No Lineales</h3>
+        <div class="row my-3">
+            <div class="col-md-3">Tamaño</div>
+            <div class="col-md-3">
+                <input type="number" class="form-control" [(ngModel)]="sizeNoLineales">
+            </div>
+        </div>
+        <div class="row my-3">
+            <div class="col-md-3">Función Hash</div>
+            <div class="col-md-3">
+                <select class="form-select" [(ngModel)]="funcionHash">
+                    <option value="simple">Simple</option>
+                    <option value="division">División</option>
+                    <option value="multiplicacion">Multiplicación</option>
+                </select>
+            </div>
+        </div>
+        <div class="row my-3">
+            <div class="col-md-3">Rango Minimo Hash Cerrado</div>
+            <div class="col-md-3">
+                <input type="number" class="form-control" [(ngModel)]="rangoHashMinimo">
+            </div>
+        </div>
+        <div class="row my-3">
+            <div class="col-md-3">Rango Maximo Hash Cerrado</div>
+            <div class="col-md-3">
+                <input type="number" class="form-control" [(ngModel)]="rangoHashMaximo">
+            </div>
+        </div>
+        <div class="row my-3">
+            <div class="col-md-3">Prueba Hash Cerrado</div>
+            <div class="col-md-3">
+                <select class="form-select" [(ngModel)]="pruebaHashCerrado">
+                    <option value="lineal">Lineal</option>
+                    <option value="cuadratica">Cuadratica</option>
+                    <option value="doble">Doble Hash</option>
+                </select>
+            </div>
+        </div>
+        <div class="row my-3">
+            <div class="col-md-3">Prueba Hash Cerrado</div>
+            <div class="col-md-3">
+                <select class="form-select" [(ngModel)]="velocidadNoLineales">
+                    <option value="1000">1000</option>
+                    <option value="2000">2000</option>
+                    <option value="3000">3000</option>
+                </select>
+            </div>
+        </div>
     </div>
 </div>

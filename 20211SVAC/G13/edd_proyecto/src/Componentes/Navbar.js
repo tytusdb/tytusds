@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { MenuItemsLineales } from './MenuItemsLineales';
 import { MenuItemsOrdenamientos } from './MenuItemsOrdenamientos';
 import { MenuItemsArboreas } from './MenuItemsArboreas';
+import { MenuItemsCompuesta } from './MenuItemsCompuesta';
+import { MenuItemsNoLineales } from './MenuItemsNoLineales';
+import { MenuItemsCodificacion } from './MenuItemsCodificacion';
 import { Link } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';
@@ -47,6 +50,51 @@ function Navbar(){
             			  <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Estructura Arboreas</a>
             			  <div className="dropdown-menu">
             			    {MenuItemsArboreas.map((item, index) =>{
+                					return(
+                						<li key={index}>
+                							<Link className={item.cName} to={item.path} onClick={() => setClick(false)}>
+                								{item.title}
+                							</Link>
+                						</li>
+                					)
+                				})}
+            			  </div>
+            			</li>
+
+            			<li className="nav-item dropdown">
+            			  <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">No Lineales</a>
+            			  <div className="dropdown-menu">
+            			    {MenuItemsNoLineales.map((item, index) =>{
+                					return(
+                						<li key={index}>
+                							<Link className={item.cName} to={item.path} onClick={() => setClick(false)}>
+                								{item.title}
+                							</Link>
+                						</li>
+                					)
+                				})}
+            			  </div>
+            			</li>
+
+            			<li className="nav-item dropdown">
+            			  <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Codificacion</a>
+            			  <div className="dropdown-menu">
+            			    {MenuItemsCodificacion.map((item, index) =>{
+                					return(
+                						<li key={index}>
+                							<Link className={item.cName} to={item.path} onClick={() => setClick(false)}>
+                								{item.title}
+                							</Link>
+                						</li>
+                					)
+                				})}
+            			  </div>
+            			</li>
+
+            			<li className="nav-item dropdown">
+            			  <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Compuesta</a>
+            			  <div className="dropdown-menu">
+            			    {MenuItemsCompuesta.map((item, index) =>{
                 					return(
                 						<li key={index}>
                 							<Link className={item.cName} to={item.path} onClick={() => setClick(false)}>

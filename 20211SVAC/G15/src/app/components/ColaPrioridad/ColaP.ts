@@ -92,7 +92,7 @@ export class ColaP {
             let index =0 
             let aux= this.raiz
             while (aux.sigueinte!=null) {
-                if (Number(prioridad) < Number(aux.prioridad) && Number(aux.sigueinte.prioridad) < Number(prioridad)) {
+                if (Number(prioridad) <= Number(aux.prioridad) && Number(aux.sigueinte.prioridad) <= Number(prioridad)) {
                     let id1 = aux.identificador;
                     let id2 = aux.sigueinte.identificador;
                     NewNodo.sigueinte=aux.sigueinte;
@@ -277,18 +277,23 @@ export class ColaP {
         let data = {
             categoria: "Estructura Lineal",
             nombre: "Cola Prioridad",
-            valores: []
+            valores:[]
         }
-        
 
         let temp = this.raiz
 
         do {
+        
             data.valores.push({"valor":temp.dato,"prioridad":temp.prioridad})
-            temp=temp.sigueinte
-            if(temp===null)break;
-        }while(temp!=this.raiz)
+            
+            temp = temp.sigueinte
+            if (temp === null) break;
+        } while (temp != this.raiz)
+
         return JSON.stringify(data)
     }
+
+    
+
     
 }

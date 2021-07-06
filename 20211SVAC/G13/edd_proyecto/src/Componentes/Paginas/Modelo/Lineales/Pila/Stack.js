@@ -1,11 +1,12 @@
-const Nodo = require('./Nodo.js')
+import Nodo from './Nodo.js'
+// const Nodo = require('./Nodo.js')
 class Stack{
 
     constructor(){
         this.primero = null
     }
 
-    push = (dato) =>{ //Agrega un valor al final de la lista.
+    insertar = (dato) =>{ //Agrega un valor al final de la lista.
         let  nodo_nuevo = new Nodo(dato)
         if (this.empty() == false){
             nodo_nuevo.set_siguiente(this.get_primero())
@@ -161,4 +162,5 @@ class Stack{
 
 }
 
-module.exports = Stack;
+export default Stack;
+//module.exports = Stack;

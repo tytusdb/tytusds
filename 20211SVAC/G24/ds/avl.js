@@ -20,7 +20,7 @@ class avl{
 	insert(node,elem){
 		if(node==null){
 			return new Node(elem);
-		}else if(elem < node.data){
+		}else if(this.string2ascii(elem) < this.string2ascii(node.data)){
 			node.left = this.insert(node.left,elem);
 		}else{
 			node.right = this.insert(node.right,elem);
@@ -29,20 +29,20 @@ class avl{
 		node.h = 1 + this.max(this.getH(node.left),this.getH(node.right));
 		var balance = this.getBalance(node);
 		
-		if(balance > 1 && elem < node.left.data){
+		if(balance > 1 && this.string2ascii(elem) < this.string2ascii(node.left.data)){
 			return this.Rrot(node);
 		}
 
-		if(balance < -1 && elem > node.right.data){
+		if(balance < -1 && this.string2ascii(elem) > this.string2ascii(node.right.data)){
 			return this.Lrot(node);
 		}
 
-		if(balance > 1 && elem > node.left.data){
+		if(balance > 1 && this.string2ascii(elem) > this.string2ascii(node.left.data)){
 			node.left = this.Lrot(node.left);
 			return this.Rrot(node);
 		}
 
-		if(balance < -1 && elem < node.right.data){
+		if(balance < -1 && this.string2ascii(elem) < this.string2ascii(node.right.data)){
 			node.right = this.Rrot(node.right);
 			return this.Lrot(node);
 		}
@@ -53,9 +53,9 @@ class avl{
 	del(node,elem){
 		if(node==null){
 			return node;
-		}else if(elem < node.data){
+		}else if(this.string2ascii(elem) < this.string2ascii(node.data)){
 			node.left = this.del(node.left,elem);
-		}else if(elem > node.data){
+		}else if(this.string2ascii(elem) > this.string2ascii(node.data)){
 			node.right = this.del(node.right,elem);
 		}else{
 			if (node.left==null){
@@ -98,7 +98,7 @@ class avl{
 	search(elem,node=this.root,rec='0'){
 		if (node==null){
 			return null;
-		}else if(elem < node.data){
+		}else if(this.string2ascii(elem) < this.string2ascii(node.data)){
 			rec=rec+'l'
 			return this.search(elem,node.left,rec);
 		}else if(elem > node.data){
@@ -182,7 +182,39 @@ class avl{
 			console.log(node.data);
 		}
 		
-	}	
+	}
 
+	string2ascii(string){
+		if(this.isNumber(string)){
+			return parseInt(string);
+		}else{
+			var val=0
+			for(var i=0; i<string.length;i++){
+				val=val+string.charCodeAt(i);
+			}
+			return val;
+		}
+	}
+
+	isNumber(n){
+  		return !isNaN(parseFloat(n)) && isFinite(n);
+	}
+
+	getNodes(node=this.root,ls=[]){
+		if (node==null){
+			return
+		}
+		ls.push(node.data);
+		if(node.left!=null){
+			this.getNodes(node.left,ls);
+		}
+		if(node.right!=null){
+			this.getNodes(node.right,ls);
+		}
+		return ls;
+
+		}
 }
+
+
 

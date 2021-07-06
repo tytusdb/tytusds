@@ -53,5 +53,5 @@ class OrBurbuja{
 
 }   
 
-
-module.exports = OrBurbuja;
+export default OrBurbuja;
+//module.exports = OrBurbuja;

@@ -40,3 +40,4 @@ class Rapido{
 		return arreglo;
 	}
 }
+export default Rapido;

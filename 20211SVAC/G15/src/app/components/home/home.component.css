@@ -31,7 +31,7 @@ p {
 
 /* Clip Background Image */
 
-	  background: url(https://i.ibb.co/RDTnNrT/animated-text-fill.png) repeat-y;
+	  background: url(https://i.pinimg.com/originals/64/a8/1a/64a81a5d5ed7010e56a095f7ddf0e843.jpg) repeat-y;
 	  -webkit-background-clip: text;
 	  background-clip: text;
 
@@ -54,6 +54,24 @@ p {
 	100% { background-position: 100% 100%; }
 }
 
+text {
+	font: 50px sans-serif;
+}
+  
 
-#cabecera { height: 265px; }
 
+
+
+#cabecera { height: 265px; 
+	background-size: cover;
+	position: relative;
+	width: 100%;
+	min-height: 100%;
+
+ }
+
+#prueba{
+	font: oblique bold 120% cursive;
+  	letter-spacing: .2em;
+  	text-shadow: 0 0 100px rgba(180, 55, 55, 0.5);
+}

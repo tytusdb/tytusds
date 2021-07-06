@@ -1,0 +1,75 @@
+body {
+  min-height: 100vh;
+  background-color: #b0bec5;
+}
+
+.consola {
+  height: 50vh;
+  background-color: black;
+  color: white;
+  overflow-y: auto;
+}
+#tree {
+  min-height: 100vh;
+  margin-top: 20px;
+  overflow: auto auto;
+  margin-right: auto;
+  margin-left: auto;
+  z-index: 0;
+  direction: rtl;
+}
+
+.opciones {
+  background-color: #b43e60;
+}
+
+.file-input {
+  display: none;
+}
+
+.paragraph {
+  /*text-transform: uppercase;*/ /* para colocar todo el texto en mayuscula  */
+  font: 400 1em/1.5 "Neuton";
+  letter-spacing: 0.5em;
+  display: inline-block;
+  border: 4px double rgba(255, 255, 255, 0.25);
+  border-width: 4px 0;
+  padding: 1.5em 0em;
+  width: 40em;
+  color: white;
+  margin: 0 0 0 -20em;
+}
+
+span {
+  font: 700 4em/1 "Oswald", sans-serif;
+  letter-spacing: 0;
+  padding: 0.25em 0 0.325em;
+  display: block;
+  margin: 0 auto;
+  text-shadow: 0 0 80px rgba(255, 255, 255, 0.5);
+  color: white;
+  /* Clip Background Image */
+
+  background: url(https://i.ibb.co/RDTnNrT/animated-text-fill.png) repeat-y;
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  /* Animate Background Image */
+
+  -webkit-text-fill-color: transparent;
+  -webkit-animation: aitf 80s linear infinite;
+
+  /* Activate hardware acceleration for smoother animations */
+
+  -webkit-transform: translate3d(0, 0, 0);
+  -webkit-backface-visibility: hidden;
+}
+
+@-webkit-keyframes aitf {
+  0% {
+    background-position: 50% 50%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}

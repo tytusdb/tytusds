@@ -42,6 +42,7 @@ export class ListaDobleComponent implements OnInit {
     await this.addLast(this.dato)
     this.dato = ""
   }
+  
   addLast(dato) {
     if (!this.repetidos) {
       let temp = this.ListaDobleEnlazada.buscarDato(dato)

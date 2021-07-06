@@ -5,7 +5,7 @@ class quicksort{
         if(arreglo.length >1){
             index = this.particion(arreglo,i,j);
             if(i<index - 1){
-                quicksort(items,i, index - 1);
+                quicksort(arreglo,i, index - 1);
             }
             if(index<j){
                 quicksort(arreglo,index, j);

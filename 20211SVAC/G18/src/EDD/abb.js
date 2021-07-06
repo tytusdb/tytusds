@@ -59,8 +59,10 @@ class ABB {
         raiz = this.existe(raiz, valor);
         if (raiz == true) {
             console.log("Valor encontrado: " + valor);
+            return valor
         } else {
             console.log("Valor no existe: " + valor);
+            return null
         }
     }
 

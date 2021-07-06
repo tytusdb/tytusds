@@ -40,7 +40,13 @@
 						read.onload=function(){
 							list=JSON.parse(read.result).valores;
 							rep=JSON.parse(read.result).repeticion;
+							cy.remove('node');
+							ls=new linkedList();
 							document.getElementById('speed').value=JSON.parse(read.result).animacion;
+							if(!rep){
+								list=list.filter((item,index)=>list.indexOf(item)===index);
+							}
+
 							cy.remove('node');
 							pos=JSON.parse(read.result).posicion;
 							for(var i=0;i<list.length;i++){
@@ -98,8 +104,8 @@
 							}
 							lstNode=ls.getNodes()
 							addNodes(lstNode);
-							var options={name:'grid'};
-							cy.layout(options).run();
+							//var options={name:'grid'};
+							//cy.layout(options).run();
 						}
 						read.readAsText(fil)
 
@@ -110,9 +116,9 @@
 		
 		<div id='cy'></div>
     	<script>
-									list=[];
-						var rep=true;
-						var pos='FINAL'
+			list=[];
+			var rep=true;
+			var pos='FINAL'
 			var ls=new linkedList();
       		var cy = cytoscape({
 				container: document.getElementById('cy'),
@@ -141,8 +147,10 @@
 			const canvas = document.createElement('canvas');
 			const ctx = canvas.getContext('2d');
 			ctx.font= '20px serif';
+			const timer = ms => new Promise(res => setTimeout(res, ms));
 
-			function addNodes(n){
+			async function addNodes(n){
+				var spd = document.getElementById('speed').value;
 				for(var i =0; i<list.length;i++){
 					if (i==0){
 					cy.add([{data:{id:i,name:n[i]}}]).style({width:ctx.measureText(n[i]).width});
@@ -150,13 +158,9 @@
 						cy.add({data:{id:i,name:n[i]}}).style({width:ctx.measureText(n[i]).width});;
 						cy.add({data:{source:i-1,target:i}});
 					}
-					var options={name:'grid'}
+					var options={name:'grid'}		
 					cy.layout(options).run();
-
-
 				}
-
-
 			}
 			
 			document.getElementById('nBtn').onclick = function(){
@@ -190,7 +194,6 @@
 				var r;
 				var estilo=cy.style().json();
 				var spd = document.getElementById('speed').value;
-				const timer = ms => new Promise(res => setTimeout(res, ms));
 				async function ani(){
 					for (var i=0 ; i<ns ; i++){	
 						r = cy.filter('#'+ String(i));

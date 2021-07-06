@@ -2,8 +2,8 @@ import React, {Component, createRef} from 'react';
 import { DataSet, Network } from 'vis';
 import ListaCircularDE from './Modelo/Lineales/ListaCircularDoble/ListaCDE'; // Importar la Estructura Lista Circular Doble.
 var listacde = new ListaCircularDE(); // Instancia de la ListaCDE.
-var getNodes = new DataSet(listacde.GenerarNodosDOT());  // Se Crean los Nodos.
-var getEdges = new DataSet(listacde.GenerarEdgesDOT());	// Se Crean las flechas.
+var getNodes = new DataSet(listacde.setNodesDataSet());  // Se Crean los Nodos.
+var getEdges = new DataSet(listacde.setEdgesDataSet());	// Se Crean las flechas.
 var filePath;
 
 var data = {
@@ -62,9 +62,9 @@ class ListaCDE extends Component{
 		}
 	}
     handleAdd = () => {
-    	listacde.Agregar(this.state.text);
-		getNodes = new DataSet(listacde.GenerarNodosDOT());
-		getEdges = new DataSet(listacde.GenerarEdgesDOT());
+    	listacde.insertar(this.state.text);
+		getNodes = new DataSet(listacde.setNodesDataSet());
+		getEdges = new DataSet(listacde.setEdgesDataSet());
 		data = {
 			nodes: getNodes,
 			edges: getEdges
@@ -72,9 +72,9 @@ class ListaCDE extends Component{
 		this.network = new Network(this.appRef.current, data, options);
 	}
 	handleDelete = () => {
-		listacde.Eliminar(this.state.text);
-		getNodes = new DataSet(listacde.GenerarNodosDOT());
-		getEdges = new DataSet(listacde.GenerarEdgesDOT());
+		listacde.eliminar(this.state.text);
+		getNodes = new DataSet(listacde.setNodesDataSet());
+		getEdges = new DataSet(listacde.setEdgesDataSet());
 		data = {
 			nodes: getNodes,
 			edges: getEdges
@@ -83,9 +83,9 @@ class ListaCDE extends Component{
 		this.network = new Network(this.appRef.current, data, options);
 	}
 	handleAddTop = () => {
-		listacde.AgregarInicio(this.state.text);
-		getNodes = new DataSet(listacde.GenerarNodosDOT());
-		getEdges = new DataSet(listacde.GenerarEdgesDOT());
+		listacde.insertar_inicio(this.state.text);
+		getNodes = new DataSet(listacde.setNodesDataSet());
+		getEdges = new DataSet(listacde.setEdgesDataSet());
 		data = {
 			nodes: getNodes,
 			edges: getEdges
@@ -94,9 +94,9 @@ class ListaCDE extends Component{
 		this.network = new Network(this.appRef.current, data, options);
 	}
 	handleAddLower = () => {
-		listacde.AgregarFinal(this.state.text);
-		getNodes = new DataSet(listacde.GenerarNodosDOT());
-		getEdges = new DataSet(listacde.GenerarEdgesDOT());
+		listacde.insertar_ultimo(this.state.text);
+		getNodes = new DataSet(listacde.setNodesDataSet());
+		getEdges = new DataSet(listacde.setEdgesDataSet());
 		data = {
 			nodes: getNodes,
 			edges: getEdges
@@ -105,10 +105,10 @@ class ListaCDE extends Component{
 		this.network = new Network(this.appRef.current, data, options);
 	}
 	handleSearch = () => {
-		let dato = listacde.Buscar(this.state.text);
+		let dato = listacde.search(this.state.text);
 		if (0 <= parseInt(dato)){
-			getNodes = new DataSet(listacde.GenerarNodosDOT());
-			getEdges = new DataSet(listacde.GenerarEdgesDOT());
+			getNodes = new DataSet(listacde.setNodesDataSet());
+			getEdges = new DataSet(listacde.setEdgesDataSet());
 			data = {
 				nodes: getNodes,
 				edges: getEdges
@@ -120,9 +120,9 @@ class ListaCDE extends Component{
 		this.network = new Network(this.appRef.current, data, options);
 	}
 	handleUpdate = () => {
-		listacde.Actualizar(this.state.text, this.state.dato_actualizado);
-		getNodes = new DataSet(listacde.GenerarNodosDOT());
-		getEdges = new DataSet(listacde.GenerarEdgesDOT());
+		listacde.update(this.state.text, this.state.dato_actualizado);
+		getNodes = new DataSet(listacde.setNodesDataSet());
+		getEdges = new DataSet(listacde.setEdgesDataSet());
 		data = {
 			nodes: getNodes,
 			edges: getEdges
@@ -138,11 +138,11 @@ class ListaCDE extends Component{
 
 			for (var i=0; i < dataJson.valores.length; i++) {
 				console.log(dataJson.valores[i]);
-				listacde.Agregar(dataJson.valores[i])
+				listacde.insertar(dataJson.valores[i])
 			
 			}
-			getNodes = new DataSet(listacde.GenerarNodosDOT());
-			getEdges = new DataSet(listacde.GenerarEdgesDOT());
+			getNodes = new DataSet(listacde.setNodesDataSet());
+			getEdges = new DataSet(listacde.setEdgesDataSet());
 			data = {
 				nodes: getNodes,
 				edges: getEdges
