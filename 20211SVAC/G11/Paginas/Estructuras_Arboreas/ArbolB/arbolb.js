@@ -1,186 +1,253 @@
 $(document).ready(main);
-class Nodo {
-    constructor(valor) {
-        this.valor = valor;
-        this.anterior = null;
-        this.siguiente = null;
-        this.derecho = null;
-        this.izquierdo = null;
+class Node {
+    constructor (value) {
+      this.value = value
+      this.right = null
+      this.left = null
     }
-}
-
-class Rama {
-    constructor() {
-        this.contador = 0;//contador de elementos insertados
-        this.hoja = true;//Si es hoja el nodo que vamos a insertar
-        this.raiz = null;//El inicio de la lista
+  }
+  
+  class Tree {
+    constructor () {
+      this.root = null
     }
-
-    insertar(nodo) {
-        if (this.raiz == null) {
-            this.raiz = nodo;
-            this.contador++;
-        } else {
-            let temp = this.raiz;
-            do {
-                if (nodo.valor <= temp.valor) {
-                    this.contador++;
-                    if (temp == this.raiz) {
-                        this.raiz.anterior = nodo;
-                        this.raiz.izquierdo = nodo.derecho;
-                        this.raiz = nodo;
-                        break;
-                    } else {
-                        nodo.anterior = temp.anterior;
-                        nodo.siguiente = temp;
-                        temp.anterior.siguiente = nodo;
-                        temp.anterior.derecho = nodo.izquierdo;
-                        temp.anterior = nodo;
-                        temp.izquierdo = nodo.derecho;
-                        break;
-                    }
-                } else if (temp.siguiente == null) {
-                    this.contador++;
-                    temp.siguiente = nodo;
-                    temp.derecho = nodo.izquierdo;
-                    nodo.anterior = temp;
-                    nodo.siguiente = null;
-                    break;
-                }
-                temp = temp.siguiente;
-            }
-            while (temp != null);
+  
+    isEmpty () {
+      return this.root === null
+    }
+  
+    add (value) {
+      // arbol no tiene elementos
+      if (this.isEmpty()) {
+        this.root = new Node(value)
+        return
+      }
+  
+      var aux = this.root
+  
+      while (aux) {
+        // vamos hacia la izquierda
+        if (value < aux.value) {
+          if (aux.left) {
+            aux = aux.left
+          } else {
+            aux.left = new Node(value)
+            return
+          }
+        } else { // vamos hacia la derecha
+          if (aux.right) {
+            aux = aux.right
+          } else {
+            aux.right = new Node(value)
+            return
+          }
         }
+      }
     }
-
-    print() {
-        let result = "";
-        let temp = this.raiz;
-        let contador = 0;
-        while (temp != null) {
-            if (contador == 0) {
-                result = temp.valor;
-            } else {
-                result += "|" + temp.valor;
-            }
-            temp = temp.siguiente;
+  
+     addRecursive (value, node = this.root) {
+      if (!node) {
+        this.root = new Node(value)
+        return
+      }
+  
+      if (value < node.value) {
+        if (node.left) {
+          return this.addRecursive(value, node.left)
         }
-        return result;
-    }
-}
-
-class ARBOLB {
-    constructor(orden) {
-
-        this.raiz = null;
-        this.orden = orden;
-    }
-
-    insertar(valor) {
-        let nodo = new Nodo(valor);
-        if (this.raiz == null) {
-            this.raiz = new Rama();
-            this.raiz.insertar(nodo);
-            return;
-        } else {
-            let temp = this.add(nodo, this.raiz);
-           
-            if (temp instanceof Nodo) {
-                this.raiz = new Rama();
-                this.raiz.insertar(temp);
-                this.raiz.hoja = false;
-            }
-
+        node.left = new Node(value)
+        return
+      } else { // vamos hacia la derecha
+        if (node.right) {
+          return this.addRecursive(value, node.right)
         }
+        node.right = new Node(value)
+        return
+      }
     }
-
-    add(nodo, rama) {
-        
-        if (rama.hoja) {
-            rama.insertar(nodo);
-            if (rama.contador == this.orden) {
-                return this.dividirRama(rama);
-            } else {
-                return rama;
-            }
-        } else {
-            let temp = rama.raiz;
-            do {
-                if (nodo.valor == temp.valor) {
-                    return rama;
-                } else if (nodo.valor < temp.valor) {
-                    let aux = this.add(nodo, temp.izquierdo);
-                    if (aux instanceof Nodo) {
-                        rama.insertar(aux);
-                        if (rama.contador == this.orden) {
-                            return this.dividirRama(rama);
-                        }
-                    }
-                    return rama
-
-                } else if (temp.siguiente == null) {
-                    let aux = this.add(nodo, temp.derecho);
-                    if (aux instanceof Nodo) {
-                        rama.insertar(aux);
-                        if (rama.contador == this.orden) return this.dividirRama(rama);
-
-                    }
-                    return rama
-                }
-                temp = temp.siguiente;
-            } while (temp != null);
+  
+    find (value) {
+      if (this.isEmpty()) {
+        return null
+      }
+  
+      var aux = this.root
+      if (aux.value === value) {
+        return aux
+      }
+  
+      while(aux) {
+        // si encontramos el nodo con el valor
+        // paramos de iterar.
+        if (aux.value === value) {
+          break
         }
-        return rama;
-    }
-
-    dividirRama(rama) {
-        let derecha = new Rama();
-        let izquierda = new Rama();
-        let medio = null;
-        let temp = rama.raiz;
-
-        let inicio = 1;
-        let valorMedio = parseInt(this.orden / 2) + 1;
-        let final = this.orden;
-        for (let i = 1; i < this.orden + 1; i++, temp = temp.siguiente) {
-            let nodo = new Nodo(temp.valor);
-            nodo.izquierdo = temp.izquierdo;
-            nodo.derecho = temp.derecho;
-
-            if (nodo.derecho != null && nodo.izquierdo != null) {
-                izquierda.hoja = false;
-                derecha.hoja = false;
-            }
-
-            if (i >= inicio && i < valorMedio) {
-                izquierda.insertar(nodo);
-            } else if (i == valorMedio) {
-                medio = nodo;
-            } else if (i <= final && i > valorMedio) {
-                derecha.insertar(nodo);
-            }
+        // seguimos buscando a la derecha
+        if (aux.value < value) {
+          aux = aux.right
+        } else if (aux.value > value) {
+          // seguimos buscando a la izquierda
+          aux = aux.left
         }
-
-        medio.izquierdo = izquierda;
-        medio.derecho = derecha;
-        return medio;
+      }
+      // retornamos el nodo encontrado.
+      // si no encontramos el nodo con el valor
+      // aux, toma el valor null.
+      return aux
     }
-}
+  
+    findRecursive(value, node = this.root) {
+      if (node.value === value) {
+        return node
+      }
+  
+      if (node.value < value) {
+        return this.findRecursive(value, node.right)
+      } else if (node.value > value) {
+        return this.findRecursive(value, node.left)
+      }
+    }
+  
+    findMin(node = this.root) {
+      if (!this.isEmpty()) {
+        /**
+          * siempre a la izquierda de cualquier nodo
+          * estará el menor valor.
+          * iteramos hasta el último menor.
+          */
+        while (node.left) {
+          node = node.left
+        }
+        return node
+      }
+    }
+  
+    delete (value, node = this.root) {
+      if (!node) {
+        return null
+      }
+      if (node.value === value) {
+        // no tiene hijos
+        if (!node.left && !node.right) {
+          return null
+        }
+        // no tiene hijo izquierdo
+        if (!node.left) {
+          return node.right
+        }
+        // no tiene hijo derecho
+        if (!node.right) {
+          return node.left
+        }
+  
+        // tiene dos hijos
+        // buscamos el menor de los hijos
+        var temp = this.findMin(node.right)
+        // con ese valor reemplazamos el valor del nodo que queremos eliminar.
+        node.value = temp.value;
+        // seguimos iterando para reemplazar la rama que cambio,
+        // eliminando el nodo que está repetido
+        node.right = this.delete(temp.value, node.right)
+        return node;
+      }
+      // buscamos a la derecha
+      if (node.value < value) {
+        node.right = this.delete(value, node.right)
+        return node
+      }
+      // buscamos a la izquierda
+      if (node.value > value) {
+        node.left = this.delete(value, node.left)
+        return node
+      }
+    }
+    print (node = this.root) {
+      if (!node) {
+        return
+      }
+      this.print(node.left)
+      console.log(node.value)
+      this.print(node.right)
+    }
+    /**
+      * recorre primero toda la rama izquierda
+      * de izquierda al centro.
+      * Luego imprime la raíz, y finalmente
+      * recorre la rama derecha, del centro hacia
+      * la derecha.
+      */
+    inOrder (node = this.root) {
+      if (!node) {
+        return
+      }
+      this.inOrder(node.left)
+      console.log(node.value)
+      var capa5 = document.getElementById("capa1");
+            var h1 = document.createElement("button");
+            h1.className = "sad";
+            h1.setAttribute("name","mails[]");
+            //h1.style.width = '100px';
+            //h1.setAttribute("height","100px");
+            h1.innerHTML = node.value;
+            capa5.appendChild(h1);
+      this.inOrder(node.right)
+      
+    }
+    /**
+      * Imprime primero la raíz, luego
+      * toda la rama izquierda de izquierda al centro.
+      * y finalmente recorre la rama derecha,
+      * del centro hacia la derecha.
+      */
+    preOrder (node = this.root) {
+      if (!node) {
+        return
+      }
+      console.log(node.value)
+      this.preOrder(node.left)
+      this.preOrder(node.right)
+    }
+    /**
+      * Recorre el árbol de izquierda hacia el centro.
+      * Luego del centro hacia la derecha, y finalmente
+      * imprime la raíz.
+      */
+    postOrder (node = this.root) {
+      if (!node) {
+        return
+      }
+      this.postOrder(node.left)
+      this.postOrder(node.right)
+      console.log(node.value)
+    }
+  }
+  
+  var t = new Tree()
+  
+  
 
 function main () {
-    const arbolB = ARBOLB;  
-    let b = new arbolB(5);
-     
-
-    
-    
-    
+    var t = new Tree()
 	$('.btn-Ingrese').click(function(){
-        b.insertar(10);
-        b.insertar(11);
-        b.insertar(12);
-        b.insertar(13);
-        b.insertar(14); 
+        var porId = document.getElementById("valor");
+        var arr = [porId]
+
+        for (var i = 0; i < arr.length; i++) {
+          t.addRecursive(arr[i])
+        }
+        
+        t.inOrder()
+        console.log()
+        t.preOrder()
+        console.log()
+        t.postOrder()
+        console.log()
+        console.log(t.find(12))
+        console.log(t.findRecursive(12))
+        console.log(t.find(4))
+        t.delete(12)
+        console.log()
+        t.print()
          
         
         

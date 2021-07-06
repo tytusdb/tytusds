@@ -54,7 +54,7 @@
 										/>
 									</li>
 									<li>
-										<button onclick="hideNavMenu(0)">
+										<button onclick="saveJSONTreeFile()">
 											<i class="icon-save"></i>Guardar
 										</button>
 									</li>
@@ -121,7 +121,7 @@
 									<li>
 										<button
 											type="button"
-											onclick="findNode()"
+											onclick="findNodeOnTree()"
 											aria-label="Buscar"
 										>
 											<i class="icon-search"></i>Buscar
@@ -141,15 +141,7 @@
 								<i class="icon-chevron-down"></i>
 							</label>
 							<div class="settings-menu-container">
-								<div class="input">
-									<label for="index-input"><i class="icon-arrow-up-circle"></i></label>
-									<input
-										type="text"
-										id="index-input"
-										oninput="saveOldNodeValue(event)"
-										placeholder="Grado"
-									/>
-								</div>
+								
 								<ul>
 									<li>
 										<label class="btn" type="button" aria-label="Agregar">
@@ -169,8 +161,10 @@
 										<div class="range-container">
 											<input
 												type="range"
-												min="50"
-												max="800"
+												min="5"
+												step="5"
+												max="30"
+												value="5"
 												id="velocity"
 												onchange="onChangeSortVelocity(event)"
 											/>
@@ -285,6 +279,6 @@ data.<strong style="color: var(--monoFuncGreen)">insertar</strong>(<strong style
 		<script src="../../../scripts/structures/avltree/index.js"></script>
 		<script src="../../../scripts/visualizer/index.js"></script>
 		<script src="../../../scripts/visualizer/tree.js"></script>
-		<script src="../../../scripts/pages/binarytree/index.js"></script>
+		<script src="../../../scripts/pages/avltree/index.js"></script>
 	</body>
 </html>

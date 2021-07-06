@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista_Simplemente_enlazada</title>
+    <title>Metodo De Seleccion</title>
     <link rel="stylesheet" href= "../../../CSS/Header.css">
     <link rel="stylesheet" href= "../../../CSS/estilos.css">
     <script src="http://code.jquery.com/jquery-latest.js"></script>
@@ -47,14 +47,15 @@
                         <button class = "btn btn-outline-secondary mx-2" type="button" id="btnLimpiar">Limpiar</button>
                     </div>
 
-                    <!--button Cargar-->
+                    <!--button Guardar-->
                     <div class = "input-group-append">
-                        <button class = "btn btn-outline-secondary mx-2" type="button" id="btnLimpiar">Cargar</button>
+                        <button class = "btn btn-outline-secondary mx-2" type="button" id="btn-Guardar">Guardar</button>
                     </div>
-
-                    <!--button Cargar-->
-                    <div class = "input-group-append">
-                        <button class = "btn btn-outline-secondary mx-2" type="button" id="btnLimpiar">Guardar</button>
+                </div>
+                <div class= "input-group mb-3">
+                    <div id = "div_file">
+                        <p id="texto">Cargar</p>
+                        <input id="btn_Cargar" type="file" accept="txt/json" onchange= "return validarExt()"/><br/>
                     </div>
                 </div>
             </div>
@@ -65,7 +66,8 @@
                 </ul>
             </div>
             
-            <div class="col-12 d-flex flex-column align-items-center bd-highlight mb-3 mt-3" id="listaOrdenar">
+            <div  id="listaOrdenar">
+                <h1>Iteraciones</h1>
                 <!--<ul class="list-group list-group-horizontal" ></ul>-->
             </div>                
             

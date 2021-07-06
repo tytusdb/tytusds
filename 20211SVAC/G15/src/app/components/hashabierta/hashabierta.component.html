@@ -1,0 +1,126 @@
+<body>
+    <div >
+        <p>
+            <span>
+                Hash Abierta
+            </span>
+            &mdash; ESTRUCTURA DE DATOS &mdash;
+        </p>
+    </div >   
+    <br><br><br><br><br><br><br><br>
+    <div class="container mt-2" ID="form-modal"> 
+        <div class="row opciones p-2">
+
+            <div class="col-lg-3 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <input class="form-control" id="dato" name="dato" [(ngModel)]="nombre" type="text" placeholder="Ingresar Dato" >
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary " type="button" (click)="InsertarButton()" >Guardar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <input class="form-control" id="dato" name="dato" [(ngModel)]="datoBuscar" type="text" placeholder="Ingresar Dato" >
+                    <div class="input-group-append">
+                        <button class="btn btn-success" type="button" (click)="buscarDato()" >Buscar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <input class="form-control" id="dato" name="dato" [(ngModel)]="datoAntiguo" type="text" placeholder="Antiguo" >
+                    <input class="form-control" id="dato" name="dato" [(ngModel)]="datoNuevo" type="text" placeholder="Nuevo" >
+                    <div class="input-group-append">
+                        <button class="btn btn-warning" type="button" (click)="modificar()">Actualizar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-12 col-12 mt-1">
+                <div class="input-group">
+                    <input class="form-control" id="dato" name="dato" [(ngModel)]="datoEliminar" type="text" placeholder="Ingresar Dato" >
+                    <div class="input-group-append">
+                        <button class="btn btn-danger" type="button"  (click)="eliminar()" >Eliminar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-12 col-lg-2 text-left mt-2 text-white mt-1">
+                <div class="dropdown">
+                    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Opciones
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+                        <div class="input-group">
+                            <input class="form-check-input ml-1" type="checkbox" value="" id="multiplicacion" name="multiplicacion"
+                                [(ngModel)]="multiplicacion" (change)="changemultiplicacion()">
+                            <label class="form-check-label ml-4" for="multiplicacion">
+                               Funcion multiplicacion</label>
+                        </div>
+
+                        <div class="input-group">
+                            <input class="form-check-input ml-1" type="checkbox" value="" id="simple" name="simple"
+                                [(ngModel)]="simple" (change)="changesimple()">
+                            <label class="form-check-label ml-4" for="simple">
+                                Funcion simple</label>
+                        </div>
+
+
+                        <div class="input-group">
+                            <input class="form-check-input ml-1" type="checkbox" value="" id="division" name="division"
+                                [(ngModel)]="division" (change)="changedivision()">
+                            <label class="form-check-label ml-4" for="division">
+                                Funcion division</label>
+                        </div>
+
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="numero" name="numero" [(ngModel)]="velocidad"
+                                placeholder="Velocidad">
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-12 col-lg-3 text-left mt-2 text-white mt-1">
+                <div class="input-group">
+                    <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+                    <div class="file-upload">
+
+                        {{fileName || "No ha seleccionado archivo."}}
+
+                        <button class="btn btn-primary" (click)="fileUpload.click()">
+                            <i class="fas fa-upload"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-12 col-sm-12 col-lg-3 text-left mt-2 text-white mt-1">
+                <div class="input-group">
+                    <button class="btn btn-primary" (click)="generarJSON1()">
+                        Generar JSON
+                    </button>
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <div class="row  mt-5" >
+            <canvas #cuerpoDraw id="cuerpoDraw" width="10000" height="10000"></canvas>
+
+        </div>
+
+
+    </div>
+
+</body>

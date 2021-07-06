@@ -1,10 +1,10 @@
 /* Binary Search Tree */
 
 class Node {
-    constructor(data, left = null, right = null) {
-      this.data = data;
-      this.left = left;
-      this.right = right;
+    constructor(valor, izq = null, der = null) {
+      this.valor = valor;
+      this.izq = izq;
+      this.der = der;
     }
   }
   
@@ -12,26 +12,26 @@ class Node {
     constructor() {
       this.root = null;
     }
-    add(data) {
+    add(valor) {
       const node = this.root;
       if (node === null) {
-        this.root = new Node(data);
+        this.root = new Node(valor);
         return;
       } else {
         const searchTree = function(node) {
-          if (data < node.data) {
-            if (node.left === null) {
-              node.left = new Node(data);
+          if (valor < node.valor) {
+            if (node.izq === null) {
+              node.izq = new Node(valor);
               return;
-            } else if (node.left !== null) {
-              return searchTree(node.left);
+            } else if (node.izq !== null) {
+              return searchTree(node.izq);
             }
-          } else if (data > node.data) {
-            if (node.right === null) {
-              node.right = new Node(data);
+          } else if (valor > node.valor) {
+            if (node.der === null) {
+              node.der = new Node(valor);
               return;
-            } else if (node.right !== null) {
-              return searchTree(node.right);
+            } else if (node.der !== null) {
+              return searchTree(node.der);
             }
           } else {
             return null;
@@ -42,25 +42,25 @@ class Node {
     }
     findMin() {
       let current = this.root;
-      while (current.left !== null) {
-        current = current.left;
+      while (current.izq !== null) {
+        current = current.izq;
       }
-      return current.data;
+      return current.valor;
     }
     findMax() {
       let current = this.root;
-      while (current.right !== null) {
-        current = current.right;
+      while (current.der !== null) {
+        current = current.der;
       }
-      return current.data;
+      return current.valor;
     }
-    find(data) {
+    find(valor) {
       let current = this.root;
-      while (current.data !== data) {
-        if (data < current.data) {
-          current = current.left;
+      while (current.valor !== valor) {
+        if (valor < current.valor) {
+          current = current.izq;
         } else {
-          current = current.right;
+          current = current.der;
         }
         if (current === null) {
           return null;
@@ -68,55 +68,55 @@ class Node {
       }
       return current;
     }
-    isPresent(data) {
+    isPresent(valor) {
       let current = this.root;
       while (current) {
-        if (data === current.data) {
+        if (valor === current.valor) {
           return true;
         }
-        if (data < current.data) {
-          current = current.left;
+        if (valor < current.valor) {
+          current = current.izq;
         } else {
-          current = current.right;
+          current = current.der;
         }
       }
       return false;
     }
-    remove(data) {
-      const removeNode = function(node, data) {
+    remove(valor) {
+      const removeNode = function(node, valor) {
         if (node == null) {
           return null;
         }
-        if (data == node.data) {
+        if (valor == node.valor) {
           // node has no children 
-          if (node.left == null && node.right == null) {
+          if (node.izq == null && node.der == null) {
             return null;
           }
-          // node has no left child 
-          if (node.left == null) {
-            return node.right;
+          // node has no izq child 
+          if (node.izq == null) {
+            return node.der;
           }
-          // node has no right child 
-          if (node.right == null) {
-            return node.left;
+          // node has no der child 
+          if (node.der == null) {
+            return node.izq;
           }
           // node has two children 
-          var tempNode = node.right;
-          while (tempNode.left !== null) {
-            tempNode = tempNode.left;
+          var tempNode = node.der;
+          while (tempNode.izq !== null) {
+            tempNode = tempNode.izq;
           }
-          node.data = tempNode.data;
-          node.right = removeNode(node.right, tempNode.data);
+          node.valor = tempNode.valor;
+          node.der = removeNode(node.der, tempNode.valor);
           return node;
-        } else if (data < node.data) {
-          node.left = removeNode(node.left, data);
+        } else if (valor < node.valor) {
+          node.izq = removeNode(node.izq, valor);
           return node;
         } else {
-          node.right = removeNode(node.right, data);
+          node.der = removeNode(node.der, valor);
           return node;
         }
       }
-      this.root = removeNode(this.root, data);
+      this.root = removeNode(this.root, valor);
     }
     isBalanced() {
       return (this.findMinHeight() >= this.findMaxHeight() - 1)
@@ -125,24 +125,24 @@ class Node {
         if (node == null) {
             return -1;
         };
-        let left = this.findMinHeight(node.left);
-        let right = this.findMinHeight(node.right);
-        if (left < right) {
-            return left + 1;
+        let izq = this.findMinHeight(node.izq);
+        let der = this.findMinHeight(node.der);
+        if (izq < der) {
+            return izq + 1;
         } else {
-            return right + 1;
+            return der + 1;
         };
     }
     findMaxHeight(node = this.root) {
         if (node == null) {
             return -1;
         };
-        let left = this.findMaxHeight(node.left);
-        let right = this.findMaxHeight(node.right);
-        if (left > right) {
-            return left + 1;
+        let izq = this.findMaxHeight(node.izq);
+        let der = this.findMaxHeight(node.der);
+        if (izq > der) {
+            return izq + 1;
         } else {
-            return right + 1;
+            return der + 1;
         };
     }
 
@@ -152,9 +152,9 @@ class Node {
       } else {
         var result = new Array();
         function traverseInOrder(node) {       
-          node.left && traverseInOrder(node.left);
-          result.push(node.data);
-          node.right && traverseInOrder(node.right);
+          node.izq && traverseInOrder(node.izq);
+          result.push(node.valor);
+          node.der && traverseInOrder(node.der);
         }
         traverseInOrder(this.root);
         return result;
@@ -166,9 +166,9 @@ class Node {
       } else {
         var result = new Array();
         function traversePreOrder(node) {
-          result.push(node.data);
-          node.left && traversePreOrder(node.left);
-          node.right && traversePreOrder(node.right);
+          result.push(node.valor);
+          node.izq && traversePreOrder(node.izq);
+          node.der && traversePreOrder(node.der);
         };
         traversePreOrder(this.root);
         return result;
@@ -180,9 +180,9 @@ class Node {
       } else {
         var result = new Array();
         function traversePostOrder(node) {
-          node.left && traversePostOrder(node.left);
-          node.right && traversePostOrder(node.right);
-          result.push(node.data);
+          node.izq && traversePostOrder(node.izq);
+          node.der && traversePostOrder(node.der);
+          result.push(node.valor);
         };
         traversePostOrder(this.root);
         return result;
@@ -196,12 +196,12 @@ class Node {
             Q.push(this.root);
             while(Q.length > 0) {
                 let node = Q.shift();
-                result.push(node.data);
-                if (node.left != null) {
-                    Q.push(node.left);
+                result.push(node.valor);
+                if (node.izq != null) {
+                    Q.push(node.izq);
                 };
-                if (node.right != null) {
-                    Q.push(node.right);
+                if (node.der != null) {
+                    Q.push(node.der);
                 };
             };
             return result;
@@ -212,29 +212,29 @@ class Node {
 
     createData(raiz){ 
       if (raiz != null) {
-        nodes.push({id: raiz.data, label: "Valor: " + raiz.data});
-          if (raiz.left != null){
+        nodes.push({id: raiz.valor, label: "Valor: " + raiz.valor});
+          if (raiz.izq != null){
             edges.push({
-              from: raiz.data,
-              to: raiz.left.data,
+              from: raiz.valor,
+              to: raiz.izq.valor,
               arrows: "to",
               physics: false,
               smooth: {type: "cubicBezier"},
             });
             //contador++;
           }
-          if (raiz.right != null) {
+          if (raiz.der != null) {
             contador++;
             edges.push({
-              from: raiz.data,
-              to: raiz.right.data,
+              from: raiz.valor,
+              to: raiz.der.valor,
               arrows: "to",
               physics: false,
               smooth: {type: "cubicBezier"},
             });
           }
-          this.createData(raiz.left)
-          this.createData(raiz.right)
+          this.createData(raiz.izq)
+          this.createData(raiz.der)
       }
   }
   }
@@ -244,16 +244,19 @@ class Node {
   var edges = [];
   var contador = 0;
   function graficar(){
+
     var x_pos = -150;
     var y_pos = 0;
     var contador = 0;       
+    nodes = [];
+    edges = [];
     // creating an array with nodes
     var root = bst.root;
     bst.createData(root)
     // creating an array with edges 
     // create a network
     var container = document.getElementById("miRed");
-    var data = {
+    var valor = {
       nodes: nodes,
       edges: edges,
     };
@@ -280,7 +283,7 @@ class Node {
         },
       }, 
     };
-    var network = new vis.Network(container, data, options);
+    var network = new vis.Network(container, valor, options);
   
   }
   

@@ -33,7 +33,6 @@ class listaDoble {
         while (actual != null) {
             if (actual.valor == dato) {
                 if (actual.anterior == null) {
-
                     this.primero = actual.siguiente;
                     actual.siguiente.anterior = null;
                 } else {

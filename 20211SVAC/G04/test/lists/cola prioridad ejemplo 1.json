@@ -1,0 +1,208 @@
+{
+  "categoria": "Estructura Lineal",
+  "nombre": "Cola Prioridad",
+  "repeticion": false,
+  "animacion":5,
+  "valores": [
+    {
+      "valor": "Sheryl Lively",
+      "prioridad": 5
+    },
+    {
+      "valor": "Nancy Patterson",
+      "prioridad": 2
+    },
+    {
+      "valor": "Frederic Copeland",
+      "prioridad": 3
+    },
+    {
+      "valor": "Sarah Kramer",
+      "prioridad": 3
+    },
+    {
+      "valor": "Crystal Berenbaum",
+      "prioridad": 1
+    },
+    {
+      "valor": "Helena Lawrence",
+      "prioridad": 1
+    },
+    {
+      "valor": "Vernon Britton",
+      "prioridad": 1
+    },
+    {
+      "valor": "Donald Foresta",
+      "prioridad": 2
+    },
+    {
+      "valor": "Brian Davis",
+      "prioridad": 1
+    },
+    {
+      "valor": "Raymond Jernigan",
+      "prioridad": 1
+    },
+    {
+      "valor": "Zachary Seegmiller",
+      "prioridad": 1
+    },
+    {
+      "valor": "Mildred Hancock",
+      "prioridad": 4
+    },
+    {
+      "valor": "Jill Little",
+      "prioridad": 3
+    },
+    {
+      "valor": "Ronald Abernathy",
+      "prioridad": 1
+    },
+    {
+      "valor": "Donna Earl",
+      "prioridad": 1
+    },
+    {
+      "valor": "Ramona Colucci",
+      "prioridad": 2
+    },
+    {
+      "valor": "Cyrus Strief",
+      "prioridad": 5
+    },
+    {
+      "valor": "Ben Brown",
+      "prioridad": 2
+    },
+    {
+      "valor": "Lorraine Kearby",
+      "prioridad": 5
+    },
+    {
+      "valor": "Jeannette Pineda",
+      "prioridad": 4
+    },
+    {
+      "valor": "Will Adams",
+      "prioridad": 1
+    },
+    {
+      "valor": "Barbara Madden",
+      "prioridad": 2
+    },
+    {
+      "valor": "Brigid Ray",
+      "prioridad": 1
+    },
+    {
+      "valor": "Elizabeth Rangnow",
+      "prioridad": 5
+    },
+    {
+      "valor": "Ronald Stegman",
+      "prioridad": 4
+    },
+    {
+      "valor": "Mary Mcqueen",
+      "prioridad": 1
+    },
+    {
+      "valor": "Emilio Jobst",
+      "prioridad": 2
+    },
+    {
+      "valor": "Molly Kim",
+      "prioridad": 4
+    },
+    {
+      "valor": "Clement Mullins",
+      "prioridad": 3
+    },
+    {
+      "valor": "Christopher Dorsey",
+      "prioridad": 4
+    },
+    {
+      "valor": "Ronald Champion",
+      "prioridad": 2
+    },
+    {
+      "valor": "Richard Ellis",
+      "prioridad": 2
+    },
+    {
+      "valor": "Nicholas Mcnally",
+      "prioridad": 3
+    },
+    {
+      "valor": "Patricia Parrish",
+      "prioridad": 1
+    },
+    {
+      "valor": "Jessie Freeze",
+      "prioridad": 5
+    },
+    {
+      "valor": "Donald Kovacs",
+      "prioridad": 1
+    },
+    {
+      "valor": "Richard Bransford",
+      "prioridad": 5
+    },
+    {
+      "valor": "Lenny Dent",
+      "prioridad": 3
+    },
+    {
+      "valor": "Clara Krueger",
+      "prioridad": 5
+    },
+    {
+      "valor": "Joshua Davis",
+      "prioridad": 5
+    },
+    {
+      "valor": "Herman Kimura",
+      "prioridad": 1
+    },
+    {
+      "valor": "Carl Ham",
+      "prioridad": 2
+    },
+    {
+      "valor": "Dorothy Dowd",
+      "prioridad": 1
+    },
+    {
+      "valor": "Patricia Pearson",
+      "prioridad": 1
+    },
+    {
+      "valor": "Roxanne Michaelson",
+      "prioridad": 2
+    },
+    {
+      "valor": "Jose Williams",
+      "prioridad": 3
+    },
+    {
+      "valor": "Walter Le",
+      "prioridad": 1
+    },
+    {
+      "valor": "Margaret Ingram",
+      "prioridad": 5
+    },
+    {
+      "valor": "Edgar Jones",
+      "prioridad": 5
+    },
+    {
+      "valor": "Gary Sommer",
+      "prioridad": 1
+    }
+  ]
+}

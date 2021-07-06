@@ -3,8 +3,7 @@ import { ListaSimple } from './ts/lista-simple';
 import { saveAs } from 'file-saver';
 import { DocumentoService } from '../../services/documento.service';
 
-declare var require: any;
-let vis=require('../../../../vis-4.21.0/dist/vis');
+import * as vis from '../../../../vis-4.21.0/dist/vis';
 
 @Component({
   selector: 'app-lista-simple',

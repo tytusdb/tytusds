@@ -12,9 +12,12 @@ let m={
 console.log(JSON.stringify(l)===JSON.stringify(m));
 
 bst.append(10);
-bst.append(10);
+bst.append(5);
+bst.append(12);
+bst.eliminar(12);
 console.log("xD");
 bst.preorden();
+console.log("jijo");
 
 
 

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla de Hash Abierta</title>
+    <link rel="stylesheet" type="text/css" href="../CSS/header.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/ddNavBar.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/estructurasLineales.css">
+</head>
+<body>
+    <script type="text/javascript">
+        class HashDirAb {
+            constructor(cantMaxima = 50) {
+                this.cantMaxima = cantMaxima; 
+                this.tam = 0
+                this.array = new Array(cantMaxima);
+            }
+
+            hashFunction(key){
+                let varHash = 0;
+                let texto = key.toString();//Se pasa a string la llave
+                if (texto.length === 0) throw "Error en llave";
+                for (let i = 0; i < texto.length; i++) {
+                    varHash = (varHash << 5) - varHash;
+                    varHash += texto.charCodeAt(i);
+                    varHash = varHash & varHash;
+                }
+                return Math.abs(varHash % this.cantMaxima);//convertir positivo al final (listo)
+            };
+
+            getIndex(key){
+                return this.hashFunction(key);
+            };
+
+            //Posicion de llave
+            getInArray(key){
+                return this.array[this.getIndex(key)];
+            };
+            ///////////////////INSERT////////////////////
+            agregar(key, value){
+                const index = this.getIndex(key);
+                
+                if (!this.getInArray(key)){
+                    this.array[index] = [];
+                }
+
+                let bucket = this.getInArray(key);
+                let repetida = false;
+                for (let i = 0; i < bucket.length; i++) {
+                    let node = bucket[i];
+                    if (node[0] === key) {
+                        node[1] = value;
+                        repetida = true;
+                    }
+                }
+                
+                if (!repetida) {//Si se repite, hace push en la lista
+                    bucket.push([key, value]);
+                    this.tam++;
+                }
+                //Vericar tam actual para modificar tam
+                if (this.tam / this.cantMaxima >= 0.75) {
+                    this.resize(this.cantMaxima * 2);
+                }
+
+                return value;
+            };
+            resize(nuevoMaximo){
+                const tmp = this.array;
+                this.cantMaxima = nuevoMaximo;
+                this.tam = 0;
+                this.array = new Array(nuevoMaximo);//Nuevo arreglo con tam nuevo
+                ////////////////////////REHASHING/////////////////////////
+                tmp.forEach((bucket) => {
+                    if (!!bucket) {
+                        bucket.forEach(node => {
+                            this.agregar(node[0], node[1]); //Re insertar todas las keys
+                        })
+                    }
+                });
+            };
+
+            buscar(key){
+                const bucket = this.getInArray(key);
+                //SI NO EXISTE RETURNA
+                if (!bucket){
+                    return;
+                }
+                //busqueda en arreglo
+                for (let i = 0; i < bucket.length; i++) {
+                    if (bucket[i][0] === key){
+                        return bucket[i][1];
+                    } 
+                }
+            };
+
+            eliminar(key){
+                if (!this.getInArray(key)){
+                    return;
+                } 
+                let bucket = this.getInArray(key);
+                //busqueda
+                for (let i = 0; i < bucket.length; i++) {
+                    let node = bucket[i];
+                    if (node[0] === key) {
+                        bucket.splice(i, 1);
+                        if (bucket.length < 1) bucket = undefined;
+                        this.tam--;
+
+                        //verifica el tam del arreglo
+                        if (this.tam / this.cantMaxima <= .25){
+                            this.resize(Math.ceil(this.cantMaxima / 2));
+                        } 
+                        return node[1];
+                    }
+
+                }
+            }
+            guardar(){
+                const myJsonString = JSON.stringify(this.array);
+                const fs = require('fs'); 
+                let objectToSave = myJsonString;
+                fs.writeFile('archivo.json', JSON.stringify(objectToSave),'utf8', (err) => { 
+                if (err) throw err; 
+                console.log('Archivo creado con exito'); 
+                }); 
+
+            }
+            actualizar(key, value){
+                let nodo = this.buscar(key);
+                if (!nodo){
+                    console.log("No existe la llave");
+                    return null;
+                }
+                this.agregar(key,value);
+
+            }
+
+
+        }
+        function mostrar(tabla){
+            document.getElementById('texto').innerHTML = tabla.array;
+            return;
+        }
+        function buscar(tabla, llave){
+            document.getElementById('ResultadoBusqueda').innerHTML = tabla.buscar(llave);
+            return;
+        }
+
+        function eliminar(tabla, llave){
+            tabla.eliminar(llave);
+            document.getElementById('ResultadoBusqueda').innerHTML = "Llave eliminada"
+            mostrar(tabla);
+        }
+        function actualizar(tabla, llave, valor){
+            tabla.actualizar(llave,valor);
+            mostrar(tabla);
+        }
+
+        var tabla = new HashDirAb();
+
+    </script>
+
+    <h1>Tabla Hash Abierta</h1>
+
+    <ul>
+        <li><a class="active" href="../index.html">Home</a></li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Estructura lineales</a>
+            <div class="dropdown-content">
+                <a href="listaSimplementeEnlazada.html">Lista simplemente enlazada</a>
+                <a href="listaDoblementeEnlazada.html">Lista doblemente enlazada</a>
+                <a href="listaCircularSimplementeEnlazada.html">Lista circular simplemente enlazada</a>
+                <a href="listaCircularDoblementeEnlazada.html">Lista circular doblemente enlazada</a>
+                <a href="pila.html">Pila</a>
+                <a href="cola.html">Cola</a>
+                <a href="colaDePrioridad.html">Cola de prioridad</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Ordenamientos</a>
+            <div class="dropdown-content">
+                <a href="burbuja.html">Burbuja</a>
+                <a href="seleccion.html">Selección</a>
+                <a href="insercion.html">Inserción</a>
+                <a href="rapido.html">Rápido</a>
+            </div>
+        </li>
+        </li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Estructuras arbóreas</a>
+            <div class="dropdown-content">
+                <a href="arbolBinarioDeBusqueda.html">Árbol binario de búsqueda</a>
+                <a href="avl.html">AVL</a>
+                <a href="arbolB.html">Árbol B</a>
+                <a href="arbolB+.html">Árbol B+</a>
+                <a href="arboldeMerkle.html">Árbol de Merkle</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Estructuras no lineales</a>
+            <div class="dropdown-content">
+                <a href="hashAbierto.html">Tabla Hasta Abierta</a>
+                <a href="hashCerrado.html">Tabla Hasta Cerrada</a>
+                <a href="busqRecorridoAnchura.html">Anchura</a>
+                <a href="busqRecorridoProfundidad.html">Profundidad</a>
+                <a href="costoUniforme.html">Algoritmo de costo uniforme</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Algoritmo de codificación</a>
+            <div class="dropdown-content">
+                <a href="hamming.html">Código de Hamming</a>
+                <a href="huffman.html">Algoritmo de Huffman</a>
+                <a href="LZW.html">Algoritmo LZW</a>
+                <a href="feistel.html">Cifrado Feistel</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Estructuras compuestas</a>
+            <div class="dropdown-content">
+                <a href="matrizDispersa.html">Matrices dispersas</a>
+                <a href="rowMajor.html">Row-major (2D a 1D)</a>
+                <a href="colMajor.html">Col-major (2D a 1D)</a>
+                <a href="listaArboles.html">Construcción de estructuras compuestas</a>
+            </div>
+        </li>
+    </ul>
+
+    <form action="/action_page.php">
+        <label>Llave: </label></br>
+        <input type="text" class="css-input" id="txtKey"/></br></br>
+        <label>Valor: </label></br>
+        <input type="text" class="css-input" id="txtValue"/></br></br>
+        <input type="button" class="myButton" value="Insertar" onclick="tabla.agregar(document.getElementById('txtKey').value,document.getElementById('txtValue').value);mostrar(tabla);"/>
+        <input type="button" class="myButton" value="Actualizar" onclick="actualizar(tabla,document.getElementById('txtKey').value,document.getElementById('txtValue').value);"/>
+        <input type="button" class="myButton" value="Buscar" onclick="buscar(tabla,document.getElementById('txtKey').value);"/>
+        <input type="button" class="myButton" value="Eliminar" onclick="eliminar(tabla, document.getElementById('txtKey').value);"/>
+        <input type="button" class="myButton" value="Guardar" onclick="tabla.guardar();"/>
+
+        </br>
+        <h2 id="ResultadoBusqueda">...</h2>
+        </br>
+        <h2>Tabla</h2>
+        <div class="container">
+            <h2 id="texto">
+
+            </h2>
+        </div>
+
+    </form>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
+</body>
+</html>
