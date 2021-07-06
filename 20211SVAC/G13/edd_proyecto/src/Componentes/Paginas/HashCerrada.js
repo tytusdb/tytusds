@@ -326,8 +326,14 @@ class TablaHashCerrada extends Component {
 	}
 
 	handleSaveFile = () => {
-
-		//listaSimple.generateJSON(listaSimple)
+		const element = document.createElement("a");
+		var contenido = tablahash.generateJSON(this.state.opcion,this.state.modo);
+		const blob = new Blob([contenido]);                   
+		element.href = URL.createObjectURL(blob);
+	    element.download = "TablaHashAbierta.json";
+	    document.body.appendChild(element);
+	    element.click();
+	    alert("Documento Creado!")
 	}
 
 

@@ -197,11 +197,11 @@ function cargarJson(){
 function guardarJson() {
     var obj = {
         categoria: "Estructura Compuesta",
-        nombre: "Row Major",
+        nombre: "Column Major",
         valores: a
     }
     texto = JSON.stringify(obj);
-    download("rowMajor.json", texto);
+    download("colMajor.json", texto);
 }
 
 function download(filename, textInput) {

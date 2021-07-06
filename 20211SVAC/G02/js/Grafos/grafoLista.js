@@ -3,7 +3,7 @@ var edges = [];
 var cargaV1 = [];
 var cargaV2 = [];
 var cargaDistancia = [];
-let diccIds = {};
+var diccIds = {};
 var network = null;
 var clickedNode;
 var clickedNodoValue;
@@ -120,7 +120,7 @@ class GrafoLista {
             for (let i = 0; i < this.listaAdyacente[vertis].length; i++)
             {
                 let dataTemp = this.listaAdyacente[vertis][i];
-                edges.push({from:diccIds[vertis], to: diccIds[dataTemp[0]], label: dataTemp[1]})
+                edges.push({from:diccIds[vertis], to: diccIds[dataTemp[0]], label: dataTemp[1].toString()})
                 conexiones.push({'arista':dataTemp[0], 'distancia': dataTemp[1]})
             }
             dataDowloand.push({'Vertice':vertis, 'Aristas':conexiones})
@@ -128,7 +128,13 @@ class GrafoLista {
     }
 
     recorrerACostoUniforme () {
-        let valTemp = []
+        let encontrado = false;
+        let global = [];
+        let ultimaKey = this.ultimaLlave();
+        let reversa = false;
+        let dataReversa = [];
+        let dataPeso = []
+
         this.numVertice()
         for (let key in this.listaAdyacente) {
             arrayNodes.push({id:diccIds[key], label: key, shape: 'circle'})
@@ -138,25 +144,114 @@ class GrafoLista {
             let pesos = [];
             for (let i = 0; i < this.listaAdyacente[key].length; i++) {
                 let dataTemp = this.listaAdyacente[key][i][1];
-                if (!valTemp.includes(dataTemp))
-                {
-                    pesos.push(dataTemp);
-                    valTemp.push(dataTemp);
+                pesos.push(dataTemp);
+            }
+
+            let indiceRuta = 0;
+            if (dataReversa.length > 0){
+                pesos = this.removeItemFromArr(pesos, dataPeso[0])
+                indiceRuta = this.menorPeso(pesos);
+
+                dataPeso = [];
+            }else {
+                indiceRuta = this.menorPeso(pesos);
+            }
+
+
+
+            if (encontrado === false)
+            {
+                for (let i = 0; i < this.listaAdyacente[key].length; i++) {
+                    let dataTemp = this.listaAdyacente[key][i];
+                    if (i == indiceRuta)
+                    {
+                        global.push(dataTemp[0])   //almaceno la key del que ingreso
+                    }
                 }
             }
 
+            if (encontrado === true){
+                for (let i = 0; i < this.listaAdyacente[key].length; i++) {
+                    let dataTemp = this.listaAdyacente[key][i];
+                    if (dataReversa.length > 0)
+                    {
+                        let val1 = this.valorxPosicion(diccIds[key]);
+                        let val2 = this.valorxPosicion(diccIds[dataTemp[0]])
+                        if (val1 == dataReversa[1] && val2 == dataReversa[0])
+                        {
+                            edges.push({from:diccIds[key], to: diccIds[dataTemp[0]], label: dataTemp[1].toString(), color:{color:'#ffa031'}})
+                            dataReversa.splice(0,2);
+                        }else{
+                            edges.push({from:diccIds[key], to: diccIds[dataTemp[0]], label: dataTemp[1].toString(), color:{color:'#00aae4'}})
+                        }
+                    }else{
+                        edges.push({from:diccIds[key], to: diccIds[dataTemp[0]], label: dataTemp[1].toString(), color:{color:'#00aae4'}})
+                    }
+                }
+            }else{
+                for (let i = 0; i < this.listaAdyacente[key].length; i++) {
+                    let dataTemp = this.listaAdyacente[key][i];
+                    if (i != indiceRuta)
+                    {
+                        edges.push({from:diccIds[key], to: diccIds[dataTemp[0]], label: dataTemp[1].toString(), color:{color:'#00aae4'}})
+                    }else
+                    {
+                        edges.push({from:diccIds[key], to: diccIds[dataTemp[0]], label: dataTemp[1].toString(), color:{color:'#ffa031'}})
+                        let dato1 = this.valorxPosicion(diccIds[key])
+                        let dato2 = this.valorxPosicion(diccIds[dataTemp[0]])
+                        reversa = this.comprobarReversa(dato1, dato2)
+                        if (reversa === true) {
+                            dataReversa.push(dato1, dato2);
+                            dataPeso.push(dataTemp[1])
+                        }
+                    }
+                }
+            }
+
+            if (global[global.length - 1].toString() == ultimaKey.toString()){
+                encontrado = true;
+            }
+        }
+    }
+
+    recorrerARecubrimiento () {
+        let ultimaLlave = this.ultimaLlave();
+
+        this.numVertice()
+        for (let key in this.listaAdyacente) {
+            arrayNodes.push({id:diccIds[key], label: key, shape: 'circle'})
+        }
+
+        //obtener los pesos mas bajas
+        let array = [];
+        let temp = [];
+        let vertice = 0;
+        let contador = 0;
+        let generales = [];
+        let pesos = []
+
+        for (let key in this.listaAdyacente) {
+            temp = [];
+            generales = [];
+            array = [];
+            pesos = [];
+            vertice = 0;
+            for (let i = 0; i < this.listaAdyacente[key].length; i++) {
+                let dataTemp = this.listaAdyacente[key][i]
+                vertice = dataTemp[0]
+                generales.push(key, dataTemp[0], dataTemp[1], i)
+                pesos.push(dataTemp[1])
+            }
+
             let indiceRuta = this.menorPeso(pesos);
-            console.log(pesos, 'pesoso')
-            console.log(indiceRuta, 'indice recober')
 
             for (let i = 0; i < this.listaAdyacente[key].length; i++) {
                 let dataTemp = this.listaAdyacente[key][i];
-                if (i != indiceRuta)
-                {
-                    edges.push({from:diccIds[key], to: diccIds[dataTemp[0]], label: dataTemp[1], color:{color:'#00aae4'}})
-                }else
-                {
-                    edges.push({from:diccIds[key], to: diccIds[dataTemp[0]], label: dataTemp[1], color:{color:'#ffa031'}})
+
+                if (indiceRuta === i){
+                    edges.push({from:diccIds[key], to: diccIds[dataTemp[0]], label: dataTemp[1].toString(), color:{color:'#00b347'}})
+                }else {
+                    edges.push({from:diccIds[key], to: diccIds[dataTemp[0]], label: dataTemp[1].toString(), color:{color:'#00aae4'}})
                 }
             }
         }
@@ -189,7 +284,7 @@ class GrafoLista {
     }
 
     valorxPosicion (index) {
-        let clave = '';
+        let clave = 0;
         if (index <= this.sizeListaAdy())
         {
             let contador = 0;
@@ -206,6 +301,42 @@ class GrafoLista {
         {
             console.log('Posicion no existe en lista adyacente')
         }
+    }
+
+    ultimaLlave () {
+        let llaves = [];
+        let ultima = 0;
+
+        for (let key in this.listaAdyacente) {
+            llaves.push(key)
+        }
+        ultima = llaves[llaves.length-1]
+        return ultima;
+    }
+
+    removeItemFromArr ( arr, item ) {
+        var i = arr.indexOf( item );
+        arr.splice( i, 1 );
+
+        return arr;
+    }
+
+    comprobarReversa (dato1, dato2) {
+        let reversa = false;
+
+        for (let key in this.listaAdyacente) {
+            if (key == dato2)
+            {
+                for (let i = 0; i < this.listaAdyacente[dato2].length; i++) {
+                    let dataTemp = this.listaAdyacente[dato2][i];
+                    if (dataTemp[0] == dato1)
+                    {
+                        reversa = true;
+                    }
+                }
+            }
+        }
+        return reversa;
     }
 
     sizeListaAdy () {
@@ -275,7 +406,12 @@ function actualizarT() {
     var options = {
         physics: false,
         edges: {
-            width:2,
+            smooth: {
+                //scaleFactor: 0.5,
+                type: 'curvedCW',
+                forceDirection: 'none',
+                roundness: 0.25
+            },
             arrows:{
                 to:{
                     enabled: true,
@@ -326,7 +462,68 @@ function actualizarTCU() {
     var options = {
         physics: false,
         edges: {
-            width:2,
+            smooth: {
+                //scaleFactor: 0.5,
+                type: 'curvedCW',
+                forceDirection: 'none',
+                roundness: 0.25
+            },
+            arrows:{
+                to:{
+                    enabled: true,
+                    scaleFactor: 0.5,
+                    type: 'arrow'
+                }
+            }
+        },
+        interaction: {
+            zoomView: true,
+            zoomSpeed: 0.001,
+            navigationButtons: true,
+            keyboard: {
+                enabled: true,
+                speed: {
+                    x: 15,
+                    y: 15,
+                    zoom: 0.1
+                },
+            }
+        }
+    };
+    network = new vis.Network(container, data, options);
+    network.on('click', function (properties) {
+        var nodeID = properties.nodes[0];
+        if (nodeID) {
+            clickedNode = this.body.nodes[nodeID];
+            clickedNode = clickedNode.options.id
+            console.log('clicked node:', clickedNode);
+            clickedNodoValue =  this.body.nodes[nodeID]
+            clickedNodoValue = clickedNodoValue.options.label
+            document.getElementById("valueNodo").value = clickedNodoValue;
+        }
+    });
+    arrayNodes = []
+    edges = []
+}
+
+function actualizarARM() {
+    Costo.recorrerARecubrimiento();
+
+    var nodes = new vis.DataSet(arrayNodes);
+    var container = document.getElementById("mynetwork");
+    var data = {
+        nodes: arrayNodes,
+        edges: edges,
+    };
+    var options = {
+        physics: false,
+        edges: {
+            smooth: {
+                //scaleFactor: 0.5,
+                type: 'curvedCW',
+                forceDirection: 'none',
+                roundness: 0.25
+            },
             arrows:{
                 to:{
                     enabled: true,
@@ -393,11 +590,11 @@ function insertarNodos (array) {
             if (j === 0){
                 vertice = array[i][0];
             }
-            contador = 0;
+            contador1 = 0;
             for (let k = 0; k < array[i][j].length; k++) {
                 if (contador1 === 1)
                 {
-                    arraytemp.push(vertice.toString(), array[i][j][k - 1].toString(), array[i][j][k].toString())
+                    arraytemp.push(vertice, array[i][j][k - 1], array[i][j][k])
                     contador1 = 0;
                 }else {
                     contador1 ++;
@@ -410,7 +607,6 @@ function insertarNodos (array) {
     for (let i = 0; i < arraytemp.length; i++) {
         if (i % 3  === 0)
         {
-            console.log(i)
             contador = contador + 0.5;
             setTimeout(function () {
                 Costo.addArista(arraytemp[i], arraytemp[i + 1], arraytemp[i + 2]);
@@ -422,6 +618,10 @@ function insertarNodos (array) {
 
 function recorridoCostoU() {
     actualizarTCU()
+}
+
+function recorridoRecubrimiento() {
+    actualizarARM();
 }
 
 function readFile(callback) {
@@ -452,7 +652,6 @@ function readFile(callback) {
             }
             cargaV1.push([val[i].vertice, cargaV2])
         }
-        console.log('final', cargaV1)
         insertarNodos(cargaV1)
     }
 

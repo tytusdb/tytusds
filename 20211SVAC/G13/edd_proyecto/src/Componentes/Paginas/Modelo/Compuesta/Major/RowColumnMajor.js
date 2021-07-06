@@ -101,5 +101,51 @@ class Major{
 		
 		return [dotNode,dotEdges];
 	}
+	generateJSONRowMajor=()=>{
+    	var json = "{\n  \"categoria\": \"Estructura Compuesta\",\n  \"nombre\": \"Row Major\",\n  \"animacion\": 10,\n  \"m\": [\n\t"+this.i+",\n\t"+this.j+"\n  ],\n  \"valores\": [\n";
+    	for(let i=0; i<this.matriz.length; i++){
+    		for(let j=0; j<this.matriz[i].length; j++){
+    			let esentero = true;
+				let entero = parseInt(this.matriz[i][j]); 
+				if(isNaN(entero)){
+					esentero=false;
+				}
+				if(esentero==true){
+					json = json + "   {\n\t\"indices\": [\n\t "+i+",\n\t "+j+"\n\t],";
+					json = json + "\n\t\"valor\": "+this.matriz[i][j]+"\n   },\n";
+				}else{
+					if(this.matriz[i][j]!=" "){
+						json = json + "   {\n\t\"indices\": [\n\t "+i+",\n\t "+j+"\n\t],";
+						json = json + "\n\t\"valor\": "+ this.matriz[i][j] +"\"\n   },\n";
+					}	
+				}
+    		}
+    	}
+    	json = json +"  ]\n}" 
+    	return json;
+    }
+    generateJSONColumnMajor=()=>{
+    	var json = "{\n  \"categoria\": \"Estructura Compuesta\",\n  \"nombre\": \"Column Major\",\n  \"animacion\": 10,\n  \"m\": [\n\t"+this.i+",\n\t"+this.j+"\n  ],\n  \"valores\": [\n";
+    	for(let i=0; i<this.matriz.length; i++){
+    		for(let j=0; j<this.matriz[i].length; j++){
+    			let esentero = true;
+				let entero = parseInt(this.matriz[i][j]); 
+				if(isNaN(entero)){
+					esentero=false;
+				}
+				if(esentero==true){
+					json = json + "   {\n\t\"indices\": [\n\t "+i+",\n\t "+j+"\n\t],";
+					json = json + "\n\t\"valor\": "+this.matriz[i][j]+"\n   },\n";
+				}else{
+					if(this.matriz[i][j]!=" "){
+						json = json + "   {\n\t\"indices\": [\n\t "+i+",\n\t "+j+"\n\t],";
+						json = json + "\n\t\"valor\": "+ this.matriz[i][j] +"\"\n   },\n";
+					}	
+				}
+    		}
+    	}
+    	json = json +"  ]\n}" 
+    	return json;
+    }
 }
 export default Major;

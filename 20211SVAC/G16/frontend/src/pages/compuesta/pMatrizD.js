@@ -101,7 +101,7 @@ class mDispersa extends React.Component {
             }
 
             else if(id === "Guardar"){
-                var output = this.matriz.guardar()
+                var output = this.matriz.guardar(this.state.tipo)
                 Funciones(output.nombre, output.text)
             }
 

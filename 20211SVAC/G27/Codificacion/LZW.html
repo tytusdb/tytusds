@@ -84,28 +84,14 @@
                 </ul>
             </div>
             <body>
-                <div id="contenidoventanas">
-					<button onclick="agregar();" title="insertar" id="btn4" class="btn btn-primary">Agregar</button>
-					<button onclick="eliminar();" title="eliminar" id="btn4" class="btn btn-primary">Eliminar</button>
-          			<button onclick="encontrar();" title="sacar" id="btn4" class="btn btn-primary">Buscar</button>
-					<button onclick="DescargarArchivo();" title="Ordenar" id="btn4" class="btn btn-primary">Descargar</button>
-					<input id="fileInput" title="Abrir" type="file" size="50" onchange="AbrirArchivo(this.files)" class="btnp">
+				<div>
+					<br><a class="a-label">Ingresar Numero binario a codificar</a>
+					    <button onclick="Compress();" title="sacar" id="btn4" class="btn btn-primary">Codificar</button><br><br><br>
+						<textarea name="Codigo" rows="10" cols="100"></textarea>
 				</div>
 				<div>
-					<br><a class="a-label">Tipo de Hash</a><br>
-					<a class="a-label">Hash Simple</a><input type="radio" name="typeHash" value="0"></input>
-					<a class="a-label">Division</a><input type="radio" name="typeHash" value="1"  checked="checked"></input>
-					<a class="a-label">Multiplicacion</a><input type="radio" name="typeHash" value="2"></input>
-				</div>
-				<div>
-					<br><a class="a-label">Tipo de Valor</a><br>
-					<a class="a-label">String</a><input type="radio" name="typeValue" value="0" checked="checked"></input>
-					<a class="a-label">Numerico</a><input type="radio" name="typeValue" value="1"></input>
-				</div>
-				<div>
-					<br><a class="a-label">Llave</a><input type="text" id="newValue" name="newValue">
-					    <a class="a-label">Tamano</a><input type="text" id="size" name="size">
-					    <button onclick="setSize();" title="sacar" id="btn4" class="btn btn-primary">Establecer</button>br><br><br><br>
+					<br><a class="a-label">Codificacion terminada</a><br><br>
+						<textarea name="Cidificado" rows="10" cols="100"></textarea>
 				</div>
 				<div id="miRed"></div>				
             </body>

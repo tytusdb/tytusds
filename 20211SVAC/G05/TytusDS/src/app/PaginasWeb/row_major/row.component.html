@@ -1,0 +1,78 @@
+<app-opciones (opcionesEvento)="getOpciones($event)"></app-opciones>
+<div class="container mt-3 text-white">
+    <h1 class="fw-light animate__animated animate__bounce">Row-Major</h1>
+    <hr>
+    <div class="row my-3">
+        <div class="col-md-1">
+            <input #a1 type="text" class="form-control" placeholder="fila" [(ngModel)]="m">
+        </div>
+        <div class="col-md-1">
+            <input #a2 type="text" class="form-control" placeholder="columna" [(ngModel)]="n">
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-primary button1"  (click)="agregar1(a1.value,a2.value)">Crear Matriz</button>
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-primary button1"  (click)="buscar(a1.value,a2.value)">Buscar</button>
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-danger button1"  (click)="eliminar(a1.value,a2.value)">Eliminar</button>
+        </div>
+
+        <div class="col-md-1">
+            <input #a11 type="text" class="form-control" placeholder="x" [(ngModel)]="nx">
+        </div>
+        <div class="col-md-1">
+            <input #a12 type="text" class="form-control" placeholder="y" [(ngModel)]="ny">
+        </div>
+        <div class="col-md-1">
+            <input #a13 type="text" class="form-control" placeholder="valor" [(ngModel)]="nvalor">
+        </div>
+
+
+        <div class="col-md-1">
+            <button class="btn btn-primary button1" (click)="agregar(a11.value,a12.value,a13.value)">Agregar</button>
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-primary button1"  (click)="actualizar(a11.value,a12.value,a13.value)">Actualizar</button>
+        </div>
+
+        <div class="col-md-2">
+            <div class="d-grid gap-2">
+                <button class="btn btn-success button1"  (click)="guardar()">Guardar json</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row my-3">
+
+
+        </div>
+
+
+
+    <div class="row my-3">
+        <div class="col-md-6">
+            <input class="form-control" type="file" id="formFile" (change)="getDocumento($event.target)">
+        </div>
+        <div class="col-md-2">
+            <div class="d-grid gap-2">
+                <button class="btn btn-success button1"  (click)="actual()">Row Major</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div style="width: 40%; float:left;  overflow: scroll;" class="bg-dark animacion mt-5" >
+        <table id="tabla" >
+        </table>
+     </div>
+
+     <div style="width: 60%; float:right"  class="bg-light animacion mt-5" id="myDiv1" >
+
+     </div>
+    <div>
+
+      </div>
+</div>

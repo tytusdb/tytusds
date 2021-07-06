@@ -5,7 +5,7 @@ import ColaP from '../../Estructuras/lineal/ColaPrioridad'
 
 import Funciones from '../../Estructuras/Funciones'
 
-import lineal from '../../animaciones/lineal/gLineal'
+import lineal from '../../animaciones/lineal/gEnlazada'
 
 import '../styles/Grafica.css'
 
@@ -87,7 +87,7 @@ class pColaPrioridad extends React.Component {
             this.setState({
                 entrada: "",
                 nuevo: "",
-                prioridad: 0
+                prioridad: 1
             })
         }
     }
@@ -151,7 +151,7 @@ class pColaPrioridad extends React.Component {
                     </table>
                 </nav>
                 <div>
-                    {lineal(this.cola.dotG())}
+                    {lineal(this.cola.dotG(0))}
                    
                 </div>
                 <nav className="Sub_bar">

@@ -11,12 +11,12 @@ export const MenuItemsCodificacion = [
 	},
 	{
 		title:'Algoritmo LZW',
-		path:'/',
+		path:'/LZW',
 		cName:'dropdown-item'
 	},
 	{
 		title:'Cifrado Feistel',
-		path:'/',
+		path:'/Feistel',
 		cName:'dropdown-item'
 	},	
 ]

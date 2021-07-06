@@ -48,47 +48,47 @@ class Compuesta{
 
 		let nodo_nuevo = new Nodo(); // Se crea un nuevo Nodo.
 
-		if(nodo_principal != false){ // Si es diferente de null es por que existe un dato
-			nodo_nuevo.setPrincipal(dato1);
-			this.getLista().forEach(element => { //Busca en la lista si existe el dato.
-				if(dato1 == element.getPrincipal()){
-					if(nodo_secundario != false){
-					nodo_nuevo.setSecundaria(dato2);
-					this.getEstructuraSecundaria().insertar(dato2);
-					this.lista.push(nodo_nuevo)
-					console.log("Dato 1: "+dato1+" - Ya Existe.\nDato 2: "+dato2+" - No Existe")
-					}else{
-						console.log('Datos ya agregados')
-					}
-				}
-			}) 
-		}else{
+		// if(nodo_principal != null){ // Si es diferente de null es por que existe un dato
+		// 	nodo_nuevo.setPrincipal(dato1);
+		// 	this.getLista().forEach(element => { //Busca en la lista si existe el dato.
+		// 		if(dato1 == element.getPrincipal()){
+		// 			if(nodo_secundario != null){
+		// 			nodo_nuevo.setSecundaria(dato2);
+		// 			this.getEstructuraSecundaria().insertar(dato2);
+		// 			this.lista.push(nodo_nuevo)
+		// 			console.log("Dato 1: "+dato1+" - Ya Existe.\nDato 2: "+dato2+" - No Existe")
+		// 			}else{
+		// 				console.log('Datos ya agregados')
+		// 			}
+		// 		}
+		// 	}) 
+		// }else{
 
-			if(nodo_secundario != false){
-				this.getLista().forEach(element => {
-				nodo_nuevo.setSecundaria(dato2);
-				if(dato2 == element.getSecundaria()){
-					if(nodo_secundario != false){
-					nodo_nuevo.setPrincipal(dato1);
-					this.getEstructuraPrimaria().insertar(dato1);
-					this.lista.push(nodo_nuevo)
-					console.log("Dato 1: "+dato1+" - No Existe.\nDato 2: "+dato2+" - Ya Existe")
-					}else{
-						console.log("Datos ya agregados")
-					}
-				}
-			}); 
-			}else{
+		// 	if(nodo_secundario != null){
+		// 		this.getLista().forEach(element => {
+		// 		nodo_nuevo.setSecundaria(dato2);
+		// 		if(dato2 == element.getSecundaria()){
+		// 			if(nodo_secundario != null){
+		// 			nodo_nuevo.setPrincipal(dato1);
+		// 			this.getEstructuraPrimaria().insertar(dato1);
+		// 			this.lista.push(nodo_nuevo)
+		// 			console.log("Dato 1: "+dato1+" - No Existe.\nDato 2: "+dato2+" - Ya Existe")
+		// 			}else{
+		// 				console.log("Datos ya agregados")
+		// 			}
+		// 		}
+		// 	}); 
+		// 	}else{
 
-			this.getEstructuraPrimaria().insertar(dato1);
-			this.getEstructuraSecundaria().insertar(dato2);
+		this.getEstructuraPrimaria().insertar(dato1);
+		this.getEstructuraSecundaria().insertar(dato2);
 
-			nodo_nuevo.setPrincipal(dato1);
-			nodo_nuevo.setSecundaria(dato2);
-			this.lista.push(nodo_nuevo);
+		nodo_nuevo.setPrincipal(dato1);
+		nodo_nuevo.setSecundaria(dato2);
+		this.lista.push(nodo_nuevo);
 
-			}
-		}
+		// 	}
+		// }
 	}
 
 	eliminar = (primaria, secundaria, dato1, dato2) => {
@@ -230,6 +230,42 @@ class Compuesta{
 			this.estructuraSecundaria = new Cola(); 
 		}
 
+	}
+
+	generateJSON = () => {
+
+		var json = "{\n  \"categoria\": \"Estructura Compuesta\",\n  \"nombre\": \"Construccion\",\n  \"animacion\": 10,\n  \"valores\": [\n"
+		var i = 0;
+
+		while(i<this.lista.length){
+
+			json = json + "\t{\n"
+			if(typeof(parseInt(this.lista[i].principal)) == "number"  && 0 <= parseInt(this.lista[i].principal)){
+                json = json + "\t  \"principal\": " + parseInt(this.lista[i].principal) +",\n"
+            }else if ((typeof(this.lista[i].principal)) == "string" ){
+                json = json + "\t  \"principal\": " + "\"" + this.lista[i].principal + "\",\n" 
+            }
+            if(this.lista[i+1]!=null){
+            	if(typeof(parseInt(this.lista[i].secundaria)) == "number"  && 0 <= parseInt(this.lista[i].secundaria)){ 
+	                json = json + "\t  \"secundario\": " + parseInt(this.lista[i].secundaria) +"\n\t},\n"
+	            }else if (typeof(this.lista[i].secundaria) == "string" ){
+	                json = json + "\t  \"secundario\": " + "\"" + this.lista[i].secundaria + "\"\nt},\n" 
+	            }
+            }else{
+            	if(typeof(parseInt(this.lista[i].secundaria)) == "number"  && 0 <= parseInt(this.lista[i].secundaria)){ 
+	                json = json + "\t  \"secundario\": " + parseInt(this.lista[i].secundaria) +"\n\t}\n"
+	            }else if (typeof(this.lista[i].secundaria) == "string" ){
+	                json = json + "\t  \"secundario\": " + "\"" + this.lista[i].secundaria + "\"\nt}\n" 
+	            }
+            }
+
+	            
+
+			i++;
+		}
+		json = json +"  ]\n}" 
+		// console.log(json)
+		return json
 	}
 	
 
