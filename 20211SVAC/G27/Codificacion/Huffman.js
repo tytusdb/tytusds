@@ -136,7 +136,7 @@ class Heap {
     //	var y = 
     
        Hf.encoden(x);
-       document.getElementById("Codificado").innerHTML=Hf.encode(x);
+       document.getElementById("Codificado").innerHTML=Hf.encoden(x);
       //document.getElementById("Codigo").focus();
       
     };

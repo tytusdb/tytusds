@@ -1,7 +1,8 @@
-alfabeto ='0123456789 ';
-vueltas=2;
+
 
 function EncriptarFeistel(original,permutacion,k){
+	alfabeto ='0123456789 ';
+	vueltas=2;
 	//creamos el modelo de columnas
 	tamano_bloque = permutacion.length;
 	tamano_total =original.length
