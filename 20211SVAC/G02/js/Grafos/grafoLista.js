@@ -406,7 +406,12 @@ function actualizarT() {
     var options = {
         physics: false,
         edges: {
-            width:2,
+            smooth: {
+                //scaleFactor: 0.5,
+                type: 'curvedCW',
+                forceDirection: 'none',
+                roundness: 0.25
+            },
             arrows:{
                 to:{
                     enabled: true,
@@ -457,7 +462,12 @@ function actualizarTCU() {
     var options = {
         physics: false,
         edges: {
-            width:2,
+            smooth: {
+                //scaleFactor: 0.5,
+                type: 'curvedCW',
+                forceDirection: 'none',
+                roundness: 0.25
+            },
             arrows:{
                 to:{
                     enabled: true,
@@ -508,7 +518,12 @@ function actualizarARM() {
     var options = {
         physics: false,
         edges: {
-            width:2,
+            smooth: {
+                //scaleFactor: 0.5,
+                type: 'curvedCW',
+                forceDirection: 'none',
+                roundness: 0.25
+            },
             arrows:{
                 to:{
                     enabled: true,
