@@ -185,7 +185,7 @@ class Matriz {
     }
 
     caso4(valor, x, y) {
-//debugger
+debugger
         let nodo_x = this.lista_horizontal.busqueda(x);
         let nodo_y = this.lista_vertical.busqueda(y);
 
@@ -267,6 +267,23 @@ class Matriz {
             cabecera = cabecera.siguiente;
         }
     }
+    imprimir_horizontal_Lista_Dos_Dimensiones(){
+        var nuevoArray = new Array(2);
+        nuevoArray[0] = new Array();
+        nuevoArray[1] = new Array();
+        let cabecera = this.lista_horizontal.primero;
+        let aux;
+        while(cabecera != null){
+            aux = cabecera.abajo;
+            while(aux!= null){
+                console.log("Valor:",aux.valor, "X:", aux.x, "Y:", aux.y);
+                nuevoArray[aux.x][aux.y] = aux.valor;
+                aux = aux.abajo;
+            }
+            cabecera = cabecera.siguiente;
+        }
+        return nuevoArray
+    }
     returnValores(){
         let cabecera = this.lista_horizontal.primero, cont=0;
         let aux, val="";
@@ -278,10 +295,30 @@ class Matriz {
                 cont++
             }
             cabecera = cabecera.siguiente;
-        }//debugger
+        }debugger
         val+="]"
         //valores={vals: {valores}}
         return val        
+    }
+    returnListaDosDimensiones(){
+        var nuevoArray = new Array(2);
+        nuevoArray[0] = new Array();
+        nuevoArray[1] = new Array();
+        let cabecera = this.lista_horizontal.primero, cont=0;
+        let aux, val="";
+        while(cabecera != null){
+            aux = cabecera.abajo;
+            while(aux!= null){
+                val+="{'indices':["+aux.x+","+aux.y+"]"+",'valor':"+ aux.valor+"},"
+                nuevoArray[aux.x][aux.y] = aux.valor;
+                aux = aux.abajo;
+                cont++
+            }
+            cabecera = cabecera.siguiente;
+        }debugger
+        val+="]"
+        //valores={vals: {valores}}
+        return nuevoArray        
     }
     delete(valor){
         let val=this.search(valor)
