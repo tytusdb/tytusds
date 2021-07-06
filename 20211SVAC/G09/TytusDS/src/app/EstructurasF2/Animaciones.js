@@ -20,7 +20,7 @@ class Animaciones{
 		
 	}
 	graficarMatrizUnaDimension(array){
-		debugger
+		//debugger
 		document.getElementById('DivInsert').innerHTML = '';
 		let cont=0
 		for (let i = 0; i < array.length; i++) {
