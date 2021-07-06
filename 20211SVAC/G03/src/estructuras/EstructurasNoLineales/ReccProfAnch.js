@@ -1001,6 +1001,9 @@ class ListaAdyacencia{
                 arista.push({arista:tmp.dato.destino.dato , distancia: tmp.dato.distancia.toString()})
                 tmp = tmp.siguiente
             }
+            if(aux.dato.enlaces.cabeza == null){
+                dato = {vertice: aux.dato.dato, aristas:arista}
+            }
             arreglo.push(dato)
             aux = aux.siguiente
         }
@@ -1070,7 +1073,7 @@ class ListaAdyacencia{
                 let egde = {from: tmp.dato.inicio.id, to: tmp.dato.destino.id , label: tmp.dato.distancia.toString()}
                 if(this.anchura != null){
                     for (let x = 0; x < this.anchura.length; x++) {
-                        if(this.anchura[x].from === tmp.dato.inicio.id && this.anchura[x].to === tmp.dato.destino.id){
+                        if(this.anchura[x].from === tmp.dato.inicio.id && this.anchura[x].to === tmp.dato.destino.id || this.anchura[x].from === tmp.dato.destino.id && this.anchura[x].to === tmp.dato.inicio.id) {
                             egde = {from: tmp.dato.inicio.id, to: tmp.dato.destino.id , label: tmp.dato.distancia.toString(),  color: "rgb(20,24,200)"}   
                         }
                         
@@ -1078,21 +1081,21 @@ class ListaAdyacencia{
                      
                 }else if(this.profundidad != null){
                     for (let x = 0; x < this.profundidad.length; x++) {
-                        if(this.profundidad[x].from === tmp.dato.inicio.id && this.profundidad[x].to === tmp.dato.destino.id){
+                        if(this.profundidad[x].from === tmp.dato.inicio.id && this.profundidad[x].to === tmp.dato.destino.id || this.profundidad[x].from === tmp.dato.destino.id && this.profundidad[x].to === tmp.dato.inicio.id){
                             egde = {from: tmp.dato.inicio.id, to: tmp.dato.destino.id , label: tmp.dato.distancia.toString(),  color: "rgb(20,24,200)"}   
                         }
                         
                     }
                 }else if(this.busquedaRecorrido != null){
                     for (let x = 0; x < this.busquedaRecorrido.length; x++) {
-                        if(this.busquedaRecorrido[x].from === tmp.dato.inicio.id && this.busquedaRecorrido[x].to === tmp.dato.destino.id){
+                        if(this.busquedaRecorrido[x].from === tmp.dato.inicio.id && this.busquedaRecorrido[x].to === tmp.dato.destino.id || this.busquedaRecorrido[x].from === tmp.dato.destino.id && this.busquedaRecorrido[x].to === tmp.dato.inicio.id){
                             egde = {from: tmp.dato.inicio.id, to: tmp.dato.destino.id , label: tmp.dato.distancia.toString(),  color: "lime"}   
                         }
                         
                     }
                 }else if(this.costoUnfi != null){
                     for (let x = 0; x < this.costoUnfi.length; x++) {
-                        if(this.costoUnfi[x].from === tmp.dato.inicio.id && this.costoUnfi[x].to === tmp.dato.destino.id){
+                        if(this.costoUnfi[x].from === tmp.dato.inicio.id && this.costoUnfi[x].to === tmp.dato.destino.id || this.costoUnfi[x].from === tmp.dato.destino.id && this.costoUnfi[x].to === tmp.dato.inicio.id){
                             egde = {from: tmp.dato.inicio.id, to: tmp.dato.destino.id , label: tmp.dato.distancia.toString(),  color: "orange"}   
                         }
                         
@@ -1100,7 +1103,7 @@ class ListaAdyacencia{
                 }
                 else if(this.caminoFinal != null){
                     for (let x = 0; x < this.caminoFinal.length; x++) {
-                        if(this.caminoFinal[x].from === tmp.dato.inicio.id && this.caminoFinal[x].to === tmp.dato.destino.id){
+                        if(this.caminoFinal[x].from === tmp.dato.inicio.id && this.caminoFinal[x].to === tmp.dato.destino.id || this.caminoFinal[x].from === tmp.dato.destino.id && this.caminoFinal[x].to === tmp.dato.inicio.id){
                             egde = {from: tmp.dato.inicio.id, to: tmp.dato.destino.id , label: tmp.dato.distancia.toString(),  color: "orange"}   
                         }
                         
