@@ -67,30 +67,24 @@ async function rowMajor() {
     //console.log(`Row ${columna_final} ${fila_final}`)
     
     let limite_x = columna_final + 25
-    window.requestAnimationFrame(function loop(){
-        ctx.beginPath()
-        ctx.fillStyle = "rgb(240, 84, 84, 0.6)"
-        ctx.fillRect(inicioX, inicioY, 10, 10)
-        
-        if(inicioX == limite_x) {
-            let nivel = inicioY + 70
-            console.log(nivel)
-            ctx.beginPath()
-            ctx.fillStyle = "rgb(240, 84, 84, 0.6)"
-            ctx.fillRect(inicioX, inicioY, 10, 10)
+    let limite_y = fila_final - 25
 
-            if(inicioX == 80) {
-                window.webkitCancelAnimationFrame()
-            }
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    ctx.beginPath()
+    ctx.lineWidth = 10
+    ctx.moveTo(inicioX, inicioY)
+    
 
-            inicioX -= 1
-            window.requestAnimationFrame(loop)
-            
-           
-        }
-        inicioX += 1
-        window.requestAnimationFrame(loop)
-    })
+    do {
+        ctx.lineTo(limite_x, inicioY)
+        inicioY = inicioY + 70
+        ctx.lineTo(105, inicioY)
+        ctx.lineTo(inicioY, inicioY)
+        await new Promise(resolve => setTimeout(resolve, 1000))
+    } while (inicioY < limite_y);
+    
+    ctx.strokeStyle ="rgb(240, 84, 84, 0.6)";
+    ctx.stroke()
     
 }
 
