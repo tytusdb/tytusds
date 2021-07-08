@@ -1,0 +1,92 @@
+<head>
+    <style type="text/css">
+     .boton {
+      color: #318aac !important;
+      font-size: 15px;
+      font-weight: 500;
+      padding-top:6px;
+      padding-bottom:6px;
+      padding-left:20px;
+      padding-right:20px;
+      background: rgba(0,0,0,0);
+      border: 3px solid;
+      border-color: #318aac;
+      transition: all 1s ease;
+      position: relative;
+    }
+    .boton:hover {
+      background: #318aac;
+      color: #fff !important;
+    }
+    
+    </style>
+</head>
+
+
+
+<button id="b1" class="btn btn-primary btn-block text-white" type="submit">
+    <em class="fas fa-list"></em>
+    MATRICES DISPERSAS
+</button>
+<table>
+    <tr style="border: hidden;">
+        <td style="border: hidden; width: 150px;" >
+            <input type="text" #box placeholder="Ingrese el Dato" /> 
+        </td>
+        <td style="border: hidden">
+            <input type="number" #boxX placeholder="x" style="width: 50px;"/> 
+        </td>
+        <td style="border: hidden">
+            <input type="number" #boxY placeholder="y" style="width: 50px;"/> 
+        </td>
+        <td>
+            <button class="boton" (click)="insert(box.value, boxX.value, boxY.value)" type="submit" >Push</button>
+        </td>
+    </tr>    
+</table>
+<br>
+<table style="border: hidden">
+    <tr>
+        <td style="width: 150px;">
+            <input type="text" #box1 placeholder="Eliminar Datos" name="username"/> 
+        </td>
+        <td>
+            <button class="boton" (click)="delete(box1.value)" >Eliminar</button>&nbsp; &nbsp;&nbsp;
+        </td>
+    </tr>
+    <tr>
+        <br>
+    </tr>
+    <tr>
+        <td style="border: hidden; width: 50px;">
+            <input type="text" #box3 placeholder="Buscar Datos" name="username"/> 
+        </td>
+        <td>
+            <button class="boton" (click)="search(box3.value)" >Buscar</button>&nbsp; &nbsp;
+        </td>
+    </tr>
+    <tr><br></tr>
+    <tr>
+        <td>
+            <input type="text" #box2 placeholder="Nuevo Dato" name="username"/>
+        </td>
+        <td>
+            <input type="text" #box21 placeholder="Dato a Reemplazar" name="username"/> 
+        </td>
+        <td>
+            <button class="boton" (click)="actualizar(box21.value,box2.value)" >Actualizar</button>
+        </td>
+    </tr>
+</table>
+<br>
+<table >
+    <tr>
+        <td>
+            <input type="file" (change)="leerArchivo($event)">
+        </td>
+        <td>
+            <button class="" type="submit" (click)="download()">Guardar Conversión</button>
+        </td>
+    </tr>
+</table>
+<div id="DivInsert" style="position: absolute;"></div>

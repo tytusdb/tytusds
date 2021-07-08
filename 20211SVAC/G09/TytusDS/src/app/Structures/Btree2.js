@@ -6,7 +6,7 @@ class Node {
     }
   }
   
-  class Tree {
+  class TreeB {
     constructor () {
       this.root = null
     }
@@ -212,14 +212,38 @@ class Node {
     }
   }
   
-  var t = new Tree()
+  var t = new TreeB()
   var arr = [5,2,3,-4,12,9,21,19,25]
   
-  for (var i = 0; i < arr.length; i++) {
-    t.addRecursive(arr[i])
+  //for (var i = 0; i < arr.length; i++) {
+   // t.addRecursive(arr[i])
+  //}
+  function addB(data){
+    console.log("*****************")
+      t.add(data);
+      t.print();
+      console.log("postorden")
+      t.postOrder();
+  }
+  function borrarB(data){
+    console.log("*****************")
+    t.delete(data);
+    t.print();
+  }
+  function buscarB(data){
+    console.log("*****************")
+    console.log(t.find(data))
+  }
+  function actualizarB(data,data2){
+    console.log("*****************")
+    t.delete(data);
+    t.add(data2);
+    t.print();
+   
   }
   
-  //t.inOrder()
+  
+ // t.inOrder()
   //console.log()
   //t.preOrder()
   //console.log()
@@ -227,7 +251,7 @@ class Node {
   //console.log()
   //console.log(t.find(12))
  // console.log(t.findRecursive(12))
- // console.log(t.find(4))
+// console.log(t.find(-4))
   //t.delete(12)
  // console.log()
-  t.print()
+  //t.print()

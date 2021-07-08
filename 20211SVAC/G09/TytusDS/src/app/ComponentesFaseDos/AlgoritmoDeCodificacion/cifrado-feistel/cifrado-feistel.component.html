@@ -1,0 +1,57 @@
+<head>
+    <style type="text/css">
+     .boton {
+      color: #318aac !important;
+      font-size: 15px;
+      font-weight: 500;
+      padding-top:6px;
+      padding-bottom:6px;
+      padding-left:20px;
+      padding-right:20px;
+      background: rgba(0,0,0,0);
+      border: 3px solid;
+      border-color: #318aac;
+      transition: all 1s ease;
+      position: relative;
+    }
+    .boton:hover {
+      background: #318aac;
+      color: #fff !important;
+    }
+    
+    </style>
+</head>
+
+<button id="b1" class="btn btn-primary btn-block text-white" type="submit">
+    <em class="fas fa-list"></em>
+    CIFRADO FEISTEL
+</button>
+<table>
+  <tr>
+    <td>
+      <input type="file" (change)="leerArchivo($event)">
+    </td>
+    <td>
+      <button class="boton" (click)="codificar()" type="submit" >Codificar</button>
+    </td>
+    <td>
+      <button class="boton" type="submit" (click)="download()">Guardar Conversión</button>
+    </td>
+  </tr>
+  <br>
+  <tr>
+    <td>
+      <label><font color="#000000"><input type="checkbox" id="check" (click)="checkString()">Codificar Cadenas</font></label>
+    </td>
+    <td>
+      <label><font color="#000000"><input type="number" id="v-search" style="width: 50px;" title="Enter an Integer" autocomplete="off" min="3" [(ngModel)]="rondas">Elija el número de rondas</font></label>
+    </td>
+    <td>
+      <label><font color="#000000"><input type="text" id="v-search" style="width: 100px;" title="Enter an Binario" autocomplete="off" [(ngModel)]="llave">Escriba la llave del para cifrar</font></label>
+    </td>
+  </tr>
+</table>
+<textarea [(ngModel)]="cadena" rows="10" cols="50" placeholder="Escriba su cadena" >{{cadena}}</textarea>
+
+<!--Esto debe quedar abajo de todo ya que es la tabla del algoritmo-->
+<table id="tAnimation" style="left: 500px;"></table>

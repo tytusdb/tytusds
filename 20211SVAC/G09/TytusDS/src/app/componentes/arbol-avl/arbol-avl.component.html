@@ -29,26 +29,26 @@
     </button>
     <br>
     <input type="text" #box placeholder="Ingrese Datos" name="Ingrese Datos"/> 
-    <button class="boton" (click)="getValue()" type="submit" >Push</button> &nbsp; &nbsp;
+    <button class="boton" (click)="insertarAVL(box.value)" type="submit" >Push</button> &nbsp; &nbsp;
     
     <input type="text" #box1 placeholder="Eliminar Datos" name="username"/> 
-    <button class="boton" (click)="getValue()" >Eliminar</button>&nbsp; &nbsp;&nbsp;
+    <button class="boton" (click)="eliminarAVL(box1.value)" >Eliminar</button>&nbsp; &nbsp;&nbsp;
     <input type="text" #box3 placeholder="Buscar Datos" name="username"/> 
-    <button class="boton" (click)="getValue()" >Buscar</button>&nbsp; &nbsp;
+    <button class="boton" (click)="buscarAVL(box3.value)" >Buscar</button>&nbsp; &nbsp;
     <br>
     <br>
     &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <input type="text" #box2 placeholder="Nuevo Dato" name="username"/> &nbsp;
-    <input type="text" #box21 placeholder="Dato a Reemplazar" name="username"/> 
-    <button class="boton" (click)="getValue()" >Actualizar</button>&nbsp;&nbsp;&nbsp;
+    <input type="text" #box2 placeholder="Dato a Reemplazar" name="username"/> &nbsp;
+    <input type="text" #box3 placeholder="Dato nuevo" name="username"/> 
+    <button class="boton" (click)="actualizarDato(box2.value)" >Actualizar</button>&nbsp;&nbsp;&nbsp;
     <!--<p>La lista es: {{displayVal}}</p>!-->
     
     <br>
     <br>
-    <button class="btn btn-primary btn-block text-white" type="submit" onclick="download('ListaSimple.js','hola')">Guardar Arreglo</button>
-    <input type="file" onchange="onChange(event)">
+    <button class="btn btn-primary btn-block text-white" type="submit" onclick="downloadAVL('ArbolAVL.js','hola')">Guardar Arreglo</button>
+    <input type="file" onchange="abrirAVL(event)">
       <div id="divInsert" style="position: absolute;">
         <div id="divInsert1" style="position: absolute; top: 0px; left: 0px; width: 50%;"></div>
       <div id="divInsert">

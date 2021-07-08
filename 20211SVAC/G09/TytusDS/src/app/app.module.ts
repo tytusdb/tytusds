@@ -27,6 +27,24 @@ import { ArbolBinarioComponent } from './componentes/arbol-binario/arbol-binario
 import { ArbolBComponent } from './componentes/arbol-b/arbol-b.component';
 import { ArbolBMasComponent } from './componentes/arbol-bmas/arbol-bmas.component';
 import { ArbolMerkleComponent } from './componentes/arbol-merkle/arbol-merkle.component';
+import { CodigoHammingComponent } from './ComponentesFaseDos/AlgoritmoDeCodificacion/codigo-hamming/codigo-hamming.component';
+import { AlgoritmoHuffmanComponent } from './ComponentesFaseDos/AlgoritmoDeCodificacion/algoritmo-huffman/algoritmo-huffman.component';
+import { AlgoritmoLZWComponent } from './ComponentesFaseDos/AlgoritmoDeCodificacion/algoritmo-lzw/algoritmo-lzw.component';
+import { CifradoFeistelComponent } from './ComponentesFaseDos/AlgoritmoDeCodificacion/cifrado-feistel/cifrado-feistel.component';
+import { CifradoRSAComponent } from './ComponentesFaseDos/AlgoritmoDeCodificacion/cifrado-rsa/cifrado-rsa.component';
+import { MatricesDispersasComponent } from './ComponentesFaseDos/EstructurasCompuestas/matrices-dispersas/matrices-dispersas.component';
+import { RowMajorComponent } from './ComponentesFaseDos/EstructurasCompuestas/row-major/row-major.component';
+import { ColMajorComponent } from './ComponentesFaseDos/EstructurasCompuestas/col-major/col-major.component';
+import { ConstruccionEstructurasCompuestasComponent } from './ComponentesFaseDos/EstructurasCompuestas/construccion-estructuras-compuestas/construccion-estructuras-compuestas.component';
+import { RecorridoBusquedaAnchuraGrafoComponent } from './ComponentesFaseDos/EstructurasNoLineales/recorrido-busqueda-anchura-grafo/recorrido-busqueda-anchura-grafo.component';
+import { RecorridoBusquedaProfundidadGrafoComponent } from './ComponentesFaseDos/EstructurasNoLineales/recorrido-busqueda-profundidad-grafo/recorrido-busqueda-profundidad-grafo.component';
+import { AlgoritmoCostoUniformeComponent } from './ComponentesFaseDos/EstructurasNoLineales/algoritmo-costo-uniforme/algoritmo-costo-uniforme.component';
+import { ArbolRecubrimientoMinimoComponent } from './ComponentesFaseDos/EstructurasNoLineales/arbol-recubrimiento-minimo/arbol-recubrimiento-minimo.component';
+import { TablaHashAbiertaComponent} from './ComponentesFaseDos/EstructurasNoLineales/tabla-hash-abierta/tabla-hash-abierta.component';
+import { TablaHashCerradaComponent } from './ComponentesFaseDos/EstructurasNoLineales/tabla-hash-cerrada/tabla-hash-cerrada.component';
+import { EstructuraNoLinealComponent } from './ComponentesFaseDos/estructura-no-lineal/estructura-no-lineal.component';
+import { EstructuraCompuestaComponent } from './ComponentesFaseDos/estructura-compuesta/estructura-compuesta.component';
+import { AlgoritmoCodificacionComponent } from './ComponentesFaseDos/algoritmo-codificacion/algoritmo-codificacion.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,7 +69,25 @@ import { ArbolMerkleComponent } from './componentes/arbol-merkle/arbol-merkle.co
     ArbolBinarioComponent,
     ArbolBComponent,
     ArbolBMasComponent,
-    ArbolMerkleComponent
+    ArbolMerkleComponent,
+    CodigoHammingComponent,
+    AlgoritmoHuffmanComponent,
+    AlgoritmoLZWComponent,
+    CifradoFeistelComponent,
+    CifradoRSAComponent,
+    MatricesDispersasComponent,
+    RowMajorComponent,
+    ColMajorComponent,
+    ConstruccionEstructurasCompuestasComponent,
+    RecorridoBusquedaAnchuraGrafoComponent,
+    RecorridoBusquedaProfundidadGrafoComponent,
+    AlgoritmoCostoUniformeComponent,
+    ArbolRecubrimientoMinimoComponent,
+    TablaHashAbiertaComponent,
+    TablaHashCerradaComponent,
+    EstructuraNoLinealComponent,
+    AlgoritmoCodificacionComponent,
+    EstructuraCompuestaComponent
   ],
   imports: [
     BrowserModule,

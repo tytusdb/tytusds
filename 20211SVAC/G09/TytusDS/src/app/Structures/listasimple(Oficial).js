@@ -328,7 +328,9 @@ function convertToText(obj) {
 }
 //abrir un documento
 function onChange(event) {
+    //console.log(event)
     var file = event.target.files[0];
+    //console.log(file)
     var reader = new FileReader();
     reader.onload = function(event) {
       // El texto del archivo se mostrará por consola aquí
@@ -360,6 +362,7 @@ function onChange(event) {
                 listSimple.add(doc[key][k])
             }
         }
+        //console.log(key)
      }
      
 

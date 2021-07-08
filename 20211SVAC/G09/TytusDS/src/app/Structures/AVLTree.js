@@ -1,3 +1,4 @@
+let listaGuardar =[]
 class BST {
     #root = null;
     #compare;
@@ -407,12 +408,45 @@ class BST {
         `${' -'.repeat(spaceCount)}${label}` +
         `[${this.#getNodeHeight(node)}/${this.#getNodeBalanceFactor(node)}] ${node.key}`
       );
+      listaGuardar.push(node.key)
   
       this.#printNode(node.right, spaceCount + 2, 'R: ');
       this.#printNode(node.left, spaceCount + 2, 'L: ');
     };
   }
-  function onChange(event) {
+  
+  const tree = new AVLTree();
+  var categoriaAVL = "Estructura Arboles";
+  var nombreAVL = 'Arbol AVL';
+  var repeticionAVL = "True";
+  var animacionAVL = "0";
+
+
+  function insertarAvl(data){
+    console.log("**************************")
+    tree.insert(data);
+    tree.print();
+  }
+  function removerAvl(data){
+    console.log("**************************")
+    tree.remove(data);
+    tree.print();
+  }
+
+  function buscarAvl(data){
+    console.log("**************************")
+    console.log(tree.search(data));
+    
+  }
+  function actualizarAvl(data){
+    console.log("**************************")
+    tree.remove(data);
+    tree.print();
+    //tree.insert(data2);
+    //tree.print();
+
+  }
+  function abrirAVL(event) {
     var file = event.target.files[0];
     var reader = new FileReader();
     reader.onload = function(event) {
@@ -442,8 +476,8 @@ class BST {
         if(key=='valores'){
             //console.log(doc[key].length)
             for (var k in doc[key]){
-                listSimple.add(doc[key][k])
-            }
+                tree.insert(doc[key][k])
+            }tree.print();
         }
      }
      
@@ -453,12 +487,11 @@ class BST {
     reader.readAsText(file);
 }//guardar archivo
 
-function download(filename, text) {
-    
-  lista = listSimple.print()
+function downloadAVL(filename, text) {
+  
 
   var element = document.createElement('a');
-  let doc = JSON.stringify({ "categoria": categoria, 'nombre': nombre, 'repeticion':repeticion, 'animacion':animacion, 'valores': lista });
+  let doc = JSON.stringify({ "categoria": categoriaAVL, 'nombre': nombreAVL, 'repeticion':repeticionAVL, 'animacion':animacionAVL, 'valores': listaGuardar });
   
   //console.log(listSimple.print())
   element.setAttribute('href', 'data:json,' + doc);
@@ -473,7 +506,6 @@ function download(filename, text) {
 }
 
 
-  const tree = new AVLTree();
   //tree.insert(70)
  // tree.insert(50)
  // tree.insert(80)

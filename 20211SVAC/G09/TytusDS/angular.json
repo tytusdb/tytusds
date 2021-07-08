@@ -44,7 +44,11 @@
               "src/app/Structures/colaPrioridad.js",
               "src/app/Ordenamientos/Ordenamientos.js",
               "src/app/Structures/BinaryTree.js",
-              "src/app/Structures/AVLTree.js"
+              "src/app/Structures/AVLTree.js",
+              "src/app/Structures/Btree2.js",
+              "src/app/EstructurasF2/HasshCerrada.js",
+              "src/app/EstructurasF2/HassAbierta.js",
+              "src/app/EstructurasF2/Compuesta.js"
             ]
           },
           "configurations": {
@@ -65,8 +69,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "4mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -119,7 +123,11 @@
               "src/app/Structures/colaPrioridad.js",
               "src/app/Ordenamientos/Ordenamientos.js",
               "src/app/Structures/BinaryTree.js",
-              "src/app/Structures/AVLTree.js"
+              "src/app/Structures/AVLTree.js",
+              "src/app/Structures/Btree2.js",
+              "src/app/EstructurasF2/HasshCerrada.js",
+              "src/app/EstructurasF2/HassAbierta.js",
+              "src/app/EstructurasF2/Compuesta.js"
             ]
           }
         },

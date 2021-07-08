@@ -1,0 +1,48 @@
+<head>
+    <style type="text/css">
+     .boton {
+      color: #318aac !important;
+      font-size: 15px;
+      font-weight: 500;
+      padding-top:6px;
+      padding-bottom:6px;
+      padding-left:20px;
+      padding-right:20px;
+      background: rgba(0,0,0,0);
+      border: 3px solid;
+      border-color: #318aac;
+      transition: all 1s ease;
+      position: relative;
+    }
+    .boton:hover {
+      background: #318aac;
+      color: #fff !important;
+    }
+    
+    </style>
+</head>
+<button id="b1" class="btn btn-primary btn-block text-white" type="submit">
+    <em class="fas fa-list"></em>
+    CÓDIGO DE HAMMING
+</button>
+<table>
+  <tr>
+    <td>
+      <label><font color="#000000"><input type="checkbox" id="check" (click)="checkString()">Codificar Cadenas</font></label>
+    </td>
+    <td>
+      <input type="file" (change)="leerArchivo($event)">
+    </td>
+    <td>
+      <button class="boton" (click)="codificar()" type="submit" >Codificar</button>
+    </td>
+    <td>
+      <button class="boton" type="submit" (click)="download()">Guardar Conversión</button>
+    </td>
+  </tr>
+</table>
+
+<textarea [(ngModel)]="cadena" rows="10" cols="50" placeholder="Escriba su cadena" >{{cadena}}</textarea>
+<!--Esto debe quedar abajo de todo ya que es la tabla del algoritmo-->
+<div id="DivInsert" style="position: absolute;"></div>
+<table id="tAnimation"></table>
